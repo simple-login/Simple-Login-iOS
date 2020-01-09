@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  StartupViewController.swift
 //  Simple Login
 //
 //  Created by Thanh-Nhon Nguyen on 09/01/2020.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+final class StartupViewController: UIViewController {
+    
+    deinit {
+        print("StartupViewController is deallocated")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
-
-
 }
-

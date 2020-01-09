@@ -3,16 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097A9E623C7987F00EC1EFE /* AppDelegate.swift */; };
-		C097A9E923C7987F00EC1EFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097A9E823C7987F00EC1EFE /* SceneDelegate.swift */; };
-		C097A9EB23C7987F00EC1EFE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097A9EA23C7987F00EC1EFE /* ViewController.swift */; };
 		C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* Main.storyboard */; };
 		C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
 		C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9F123C7988300EC1EFE /* LaunchScreen.storyboard */; };
+		C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B6108A23C7A46700D34B8C /* StartupViewController.swift */; };
 		DBF4943808190F444DC19D7B /* Pods_Simple_Login.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */; };
 /* End PBXBuildFile section */
 
@@ -20,14 +19,13 @@
 		0254E80DF195D59879C361F4 /* Pods-Simple Login.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Simple Login.debug.xcconfig"; path = "Target Support Files/Pods-Simple Login/Pods-Simple Login.debug.xcconfig"; sourceTree = "<group>"; };
 		66938BAB79E16DEEA4E367CF /* Pods-Simple Login.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Simple Login.release.xcconfig"; path = "Target Support Files/Pods-Simple Login/Pods-Simple Login.release.xcconfig"; sourceTree = "<group>"; };
 		92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Simple_Login.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C097A9E323C7987F00EC1EFE /* Simple Login.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Simple Login.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C097A9E323C7987F00EC1EFE /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C097A9E623C7987F00EC1EFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C097A9E823C7987F00EC1EFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C097A9EA23C7987F00EC1EFE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C097A9ED23C7987F00EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C097A9EF23C7988300EC1EFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C097A9F223C7988300EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C097A9F423C7988400EC1EFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0B6108A23C7A46700D34B8C /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +46,6 @@
 				0254E80DF195D59879C361F4 /* Pods-Simple Login.debug.xcconfig */,
 				66938BAB79E16DEEA4E367CF /* Pods-Simple Login.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -73,7 +70,7 @@
 		C097A9E423C7987F00EC1EFE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C097A9E323C7987F00EC1EFE /* Simple Login.app */,
+				C097A9E323C7987F00EC1EFE /* SimpleLogin.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,15 +78,38 @@
 		C097A9E523C7987F00EC1EFE /* Simple Login */ = {
 			isa = PBXGroup;
 			children = (
+				C0B6108823C7A43D00D34B8C /* Models */,
+				C0B6108923C7A44300D34B8C /* Views */,
+				C0B6108723C7A43600D34B8C /* Controllers */,
 				C097A9E623C7987F00EC1EFE /* AppDelegate.swift */,
-				C097A9E823C7987F00EC1EFE /* SceneDelegate.swift */,
-				C097A9EA23C7987F00EC1EFE /* ViewController.swift */,
 				C097A9EC23C7987F00EC1EFE /* Main.storyboard */,
 				C097A9EF23C7988300EC1EFE /* Assets.xcassets */,
 				C097A9F123C7988300EC1EFE /* LaunchScreen.storyboard */,
 				C097A9F423C7988400EC1EFE /* Info.plist */,
 			);
 			path = "Simple Login";
+			sourceTree = "<group>";
+		};
+		C0B6108723C7A43600D34B8C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C0B6108A23C7A46700D34B8C /* StartupViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C0B6108823C7A43D00D34B8C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C0B6108923C7A44300D34B8C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -111,7 +131,7 @@
 			);
 			name = "Simple Login";
 			productName = "Simple Login";
-			productReference = C097A9E323C7987F00EC1EFE /* Simple Login.app */;
+			productReference = C097A9E323C7987F00EC1EFE /* SimpleLogin.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -207,9 +227,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C097A9EB23C7987F00EC1EFE /* ViewController.swift in Sources */,
+				C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */,
 				C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */,
-				C097A9E923C7987F00EC1EFE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,12 +376,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Simple Login/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.Simple-Login";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
+				PRODUCT_NAME = SimpleLogin;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -376,12 +396,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Simple Login/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.Simple-Login";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
+				PRODUCT_NAME = SimpleLogin;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
