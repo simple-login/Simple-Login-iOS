@@ -1,20 +1,24 @@
 PODS:
   - Alamofire (5.0.0-rc.3)
   - KeychainAccess (4.1.0)
+  - SideMenu (6.4.7)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
   - KeychainAccess
+  - SideMenu (~> 6.0)
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - KeychainAccess
+    - SideMenu
 
 SPEC CHECKSUMS:
   Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
   KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
+  SideMenu: 928a015669c3afc201e1fe3a87f1b0bc8993a664
 
-PODFILE CHECKSUM: a073df75894dd2932aaaf2813fa5a299bd15b7a2
+PODFILE CHECKSUM: d2ce75b7b594223771c5fa950d19f7f41b365493
 
 COCOAPODS: 1.8.3
