@@ -20,7 +20,13 @@
 		C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3823C8AD22003EED3B /* UserOptions.swift */; };
 		C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */; };
 		C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */; };
+		C0B1DE4223C90D2C003EED3B /* RegisterableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE4123C90D2C003EED3B /* RegisterableCell.swift */; };
+		C0B1DE4623C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE4523C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift */; };
+		C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B1DE4723C90DED003EED3B /* LeftMenuOptionTableViewCell.xib */; };
+		C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */; };
 		C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B6108A23C7A46700D34B8C /* StartupViewController.swift */; };
+		C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */; };
+		C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */; };
 		DBF4943808190F444DC19D7B /* Pods_Simple_Login.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +50,13 @@
 		C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		C0B1DE3D23C8B2A5003EED3B /* SimpleLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleLogin.entitlements; sourceTree = "<group>"; };
 		C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
+		C0B1DE4123C90D2C003EED3B /* RegisterableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterableCell.swift; sourceTree = "<group>"; };
+		C0B1DE4523C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuOptionTableViewCell.swift; sourceTree = "<group>"; };
+		C0B1DE4723C90DED003EED3B /* LeftMenuOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeftMenuOptionTableViewCell.xib; sourceTree = "<group>"; };
+		C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuOption.swift; sourceTree = "<group>"; };
 		C0B6108A23C7A46700D34B8C /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
+		C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorTableViewCell.swift; sourceTree = "<group>"; };
+		C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +91,7 @@
 		C052F0D023C7DC8F00EB5D98 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C0B1DE4023C90CFD003EED3B /* Protocols */,
 				C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */,
 				C052F0D323C7DDDC00EB5D98 /* Statics.swift */,
 				C0B1DE3223C8AC72003EED3B /* SLApiService.swift */,
@@ -145,6 +158,32 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		C0B1DE4023C90CFD003EED3B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C0B1DE4123C90D2C003EED3B /* RegisterableCell.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C0B1DE4323C90D53003EED3B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C0E50DA523C92EEF0058B88E /* SeparatorTableViewCell */,
+				C0B1DE4423C90D5F003EED3B /* LeftMenuOptionTableViewCell */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		C0B1DE4423C90D5F003EED3B /* LeftMenuOptionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0B1DE4523C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift */,
+				C0B1DE4723C90DED003EED3B /* LeftMenuOptionTableViewCell.xib */,
+			);
+			path = LeftMenuOptionTableViewCell;
+			sourceTree = "<group>";
+		};
 		C0B6108723C7A43600D34B8C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +200,7 @@
 				C0B1DE3423C8AC8A003EED3B /* SLError.swift */,
 				C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */,
 				C0B1DE3823C8AD22003EED3B /* UserOptions.swift */,
+				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -168,9 +208,19 @@
 		C0B6108923C7A44300D34B8C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C0B1DE4323C90D53003EED3B /* Cells */,
 				C0B1DE3A23C8AD6D003EED3B /* Storyboards */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C0E50DA523C92EEF0058B88E /* SeparatorTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */,
+				C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */,
+			);
+			path = SeparatorTableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,8 +283,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */,
 				C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */,
 				C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */,
+				C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */,
 				C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */,
 				C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */,
 			);
@@ -289,14 +341,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0B1DE4623C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift in Sources */,
 				C052F0D823C7DF5100EB5D98 /* HomeViewController.swift in Sources */,
+				C0B1DE4223C90D2C003EED3B /* RegisterableCell.swift in Sources */,
 				C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */,
 				C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */,
+				C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */,
 				C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */,
 				C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */,
 				C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */,
 				C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */,
 				C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */,
+				C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */,
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
 			);
