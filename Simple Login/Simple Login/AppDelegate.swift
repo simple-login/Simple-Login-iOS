@@ -14,7 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        #if DEBUG
+        do {
+            try SLKeychainService.setApiKey("fwtdafjhcclxkoreayetkmhulscpqsceysgojqcklsimbacaqtouqyzmjikm")
+        } catch {
+            print("Error setting api key to keychain")
+        }
+        #endif
+        
         return true
     }
 }

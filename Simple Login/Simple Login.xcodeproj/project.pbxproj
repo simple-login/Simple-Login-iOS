@@ -7,10 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */; };
+		C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D323C7DDDC00EB5D98 /* Statics.swift */; };
+		C052F0D823C7DF5100EB5D98 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D723C7DF5100EB5D98 /* HomeViewController.swift */; };
 		C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097A9E623C7987F00EC1EFE /* AppDelegate.swift */; };
 		C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* Main.storyboard */; };
 		C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
 		C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9F123C7988300EC1EFE /* LaunchScreen.storyboard */; };
+		C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3223C8AC72003EED3B /* SLApiService.swift */; };
+		C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3423C8AC8A003EED3B /* SLError.swift */; };
+		C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */; };
+		C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3823C8AD22003EED3B /* UserOptions.swift */; };
+		C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */; };
 		C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B6108A23C7A46700D34B8C /* StartupViewController.swift */; };
 		DBF4943808190F444DC19D7B /* Pods_Simple_Login.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */; };
 /* End PBXBuildFile section */
@@ -19,12 +27,21 @@
 		0254E80DF195D59879C361F4 /* Pods-Simple Login.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Simple Login.debug.xcconfig"; path = "Target Support Files/Pods-Simple Login/Pods-Simple Login.debug.xcconfig"; sourceTree = "<group>"; };
 		66938BAB79E16DEEA4E367CF /* Pods-Simple Login.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Simple Login.release.xcconfig"; path = "Target Support Files/Pods-Simple Login/Pods-Simple Login.release.xcconfig"; sourceTree = "<group>"; };
 		92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Simple_Login.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLKeychainService.swift; sourceTree = "<group>"; };
+		C052F0D323C7DDDC00EB5D98 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
+		C052F0D723C7DF5100EB5D98 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C097A9E323C7987F00EC1EFE /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C097A9E623C7987F00EC1EFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C097A9ED23C7987F00EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C097A9EF23C7988300EC1EFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C097A9F223C7988300EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C097A9F423C7988400EC1EFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0B1DE3223C8AC72003EED3B /* SLApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLApiService.swift; sourceTree = "<group>"; };
+		C0B1DE3423C8AC8A003EED3B /* SLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLError.swift; sourceTree = "<group>"; };
+		C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseInfo.swift; sourceTree = "<group>"; };
+		C0B1DE3823C8AD22003EED3B /* UserOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOptions.swift; sourceTree = "<group>"; };
+		C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		C0B1DE3D23C8B2A5003EED3B /* SimpleLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleLogin.entitlements; sourceTree = "<group>"; };
 		C0B6108A23C7A46700D34B8C /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,6 +74,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C052F0D023C7DC8F00EB5D98 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */,
+				C052F0D323C7DDDC00EB5D98 /* Statics.swift */,
+				C0B1DE3223C8AC72003EED3B /* SLApiService.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C052F0D523C7DF3000EB5D98 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				C052F0D723C7DF5100EB5D98 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		C052F0D623C7DF3D00EB5D98 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		C097A9DA23C7987F00EC1EFE = {
 			isa = PBXGroup;
 			children = (
@@ -78,11 +120,12 @@
 		C097A9E523C7987F00EC1EFE /* Simple Login */ = {
 			isa = PBXGroup;
 			children = (
+				C0B1DE3D23C8B2A5003EED3B /* SimpleLogin.entitlements */,
+				C052F0D023C7DC8F00EB5D98 /* Utilities */,
 				C0B6108823C7A43D00D34B8C /* Models */,
 				C0B6108923C7A44300D34B8C /* Views */,
 				C0B6108723C7A43600D34B8C /* Controllers */,
 				C097A9E623C7987F00EC1EFE /* AppDelegate.swift */,
-				C097A9EC23C7987F00EC1EFE /* Main.storyboard */,
 				C097A9EF23C7988300EC1EFE /* Assets.xcassets */,
 				C097A9F123C7988300EC1EFE /* LaunchScreen.storyboard */,
 				C097A9F423C7988400EC1EFE /* Info.plist */,
@@ -90,9 +133,20 @@
 			path = "Simple Login";
 			sourceTree = "<group>";
 		};
+		C0B1DE3A23C8AD6D003EED3B /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				C097A9EC23C7987F00EC1EFE /* Main.storyboard */,
+				C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		C0B6108723C7A43600D34B8C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C052F0D623C7DF3D00EB5D98 /* Login */,
+				C052F0D523C7DF3000EB5D98 /* Home */,
 				C0B6108A23C7A46700D34B8C /* StartupViewController.swift */,
 			);
 			path = Controllers;
@@ -101,6 +155,9 @@
 		C0B6108823C7A43D00D34B8C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C0B1DE3423C8AC8A003EED3B /* SLError.swift */,
+				C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */,
+				C0B1DE3823C8AD22003EED3B /* UserOptions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -108,6 +165,7 @@
 		C0B6108923C7A44300D34B8C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C0B1DE3A23C8AD6D003EED3B /* Storyboards */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -175,6 +233,7 @@
 				C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */,
 				C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */,
 				C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */,
+				C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,8 +286,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C052F0D823C7DF5100EB5D98 /* HomeViewController.swift in Sources */,
+				C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */,
+				C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */,
+				C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */,
 				C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */,
+				C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */,
 				C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */,
+				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
+				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +439,7 @@
 			baseConfigurationReference = 0254E80DF195D59879C361F4 /* Pods-Simple Login.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Simple Login/SimpleLogin.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Simple Login/Info.plist";
@@ -393,6 +460,7 @@
 			baseConfigurationReference = 66938BAB79E16DEEA4E367CF /* Pods-Simple Login.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Simple Login/SimpleLogin.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 975H7B86B7;
 				INFOPLIST_FILE = "Simple Login/Info.plist";
