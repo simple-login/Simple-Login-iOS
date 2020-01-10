@@ -19,6 +19,7 @@
 		C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */; };
 		C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3823C8AD22003EED3B /* UserOptions.swift */; };
 		C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */; };
+		C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */; };
 		C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B6108A23C7A46700D34B8C /* StartupViewController.swift */; };
 		DBF4943808190F444DC19D7B /* Pods_Simple_Login.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		C0B1DE3823C8AD22003EED3B /* UserOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOptions.swift; sourceTree = "<group>"; };
 		C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		C0B1DE3D23C8B2A5003EED3B /* SimpleLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleLogin.entitlements; sourceTree = "<group>"; };
+		C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		C0B6108A23C7A46700D34B8C /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				C052F0D723C7DF5100EB5D98 /* HomeViewController.swift */,
+				C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */,
 				C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */,
 				C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */,
+				C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */,
 				C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */,
 				C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */,
 				C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */,

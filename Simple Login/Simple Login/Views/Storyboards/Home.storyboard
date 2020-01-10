@@ -16,6 +16,9 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="k2o-CK-HuA" kind="relationship" relationship="rootViewController" id="EOY-Zf-fjP"/>
                     </connections>
@@ -43,11 +46,60 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="uL6-3V-Z6x"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Bkv-TN-Uzz"/>
+                    <navigationItem key="navigationItem" id="Bkv-TN-Uzz">
+                        <barButtonItem key="leftBarButtonItem" image="MenuIcon" id="ECv-El-XQ9">
+                            <connections>
+                                <action selector="openLeftMenu" destination="k2o-CK-HuA" id="8Si-u4-CUP"/>
+                                <segue destination="eIg-62-Afk" kind="presentation" id="Bgn-nl-yoR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dMR-uO-5ea" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="206" y="129"/>
         </scene>
+        <!--Side Menu Navigation Controller-->
+        <scene sceneID="K83-TJ-wII">
+            <objects>
+                <navigationController storyboardIdentifier="SideMenuNavigationController" navigationBarHidden="YES" id="eIg-62-Afk" customClass="SideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fFs-CP-o4e">
+                        <rect key="frame" x="0.0" y="-54" width="0.0" height="0.0"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="statusBarEndAlpha">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="presentingViewControllerUserInteractionEnabled" value="NO"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="tkA-4s-fpz" kind="relationship" relationship="rootViewController" id="DJV-hi-hlL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CE4-Jd-a6I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1203" y="129"/>
+        </scene>
+        <!--Left Menu View Controller-->
+        <scene sceneID="f4c-60-4yO">
+            <objects>
+                <viewController id="tkA-4s-fpz" customClass="LeftMenuViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ggl-5G-EDE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="Ztx-3g-MeF"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mY8-X8-tAv"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8B3-bD-pjq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2092.753623188406" y="128.57142857142856"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="MenuIcon" width="48" height="48"/>
+    </resources>
 </document>

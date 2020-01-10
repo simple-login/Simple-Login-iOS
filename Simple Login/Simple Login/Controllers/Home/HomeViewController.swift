@@ -7,9 +7,9 @@
 //
 
 import UIKit
+import SideMenu
 
 final class HomeViewController: UIViewController {
-    
     var userInfo: UserInfo!
     
     deinit {
@@ -18,5 +18,28 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpSideMenu()
+    }
+}
+
+// MARK: - Side Menu
+extension HomeViewController {
+    private func setUpSideMenu() {
+        SideMenuManager.default.leftMenuNavigationController = storyboard?.instantiateViewController(withIdentifier: "SideMenuNavigationController") as? SideMenuNavigationController
+        SideMenuManager.default.addPanGestureToPresent(toView: navigationController!.navigationBar)
+        SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: view)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.destination {
+        case let sideMenuNavigationController as SideMenuNavigationController:
+            sideMenuNavigationController.presentationStyle = .menuSlideIn
+            
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                sideMenuNavigationController.menuWidth = UIScreen.main.bounds.size.width * 2 / 3
+            }
+            
+        default: return
+        }
     }
 }
