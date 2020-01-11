@@ -9,7 +9,14 @@
 /* Begin PBXBuildFile section */
 		C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */; };
 		C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D323C7DDDC00EB5D98 /* Statics.swift */; };
-		C052F0D823C7DF5100EB5D98 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D723C7DF5100EB5D98 /* HomeViewController.swift */; };
+		C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30323CA0343007F1C9E /* HomeNavigationController.swift */; };
+		C05CD30623CA0419007F1C9E /* AliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30523CA0419007F1C9E /* AliasViewController.swift */; };
+		C05CD30823CA044E007F1C9E /* DirectoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30723CA044E007F1C9E /* DirectoryViewController.swift */; };
+		C05CD30A23CA0473007F1C9E /* CustomDomainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30923CA0473007F1C9E /* CustomDomainViewController.swift */; };
+		C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */; };
+		C05CD30E23CA054B007F1C9E /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30D23CA054B007F1C9E /* AboutViewController.swift */; };
+		C05CD31023CA0ACB007F1C9E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30F23CA0ACB007F1C9E /* BaseViewController.swift */; };
+		C05CD31323CA2A23007F1C9E /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31223CA2A23007F1C9E /* UIView+Layout.swift */; };
 		C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097A9E623C7987F00EC1EFE /* AppDelegate.swift */; };
 		C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* Main.storyboard */; };
 		C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
@@ -36,7 +43,14 @@
 		92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Simple_Login.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLKeychainService.swift; sourceTree = "<group>"; };
 		C052F0D323C7DDDC00EB5D98 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
-		C052F0D723C7DF5100EB5D98 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		C05CD30323CA0343007F1C9E /* HomeNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationController.swift; sourceTree = "<group>"; };
+		C05CD30523CA0419007F1C9E /* AliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasViewController.swift; sourceTree = "<group>"; };
+		C05CD30723CA044E007F1C9E /* DirectoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
+		C05CD30923CA0473007F1C9E /* CustomDomainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainViewController.swift; sourceTree = "<group>"; };
+		C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		C05CD30D23CA054B007F1C9E /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		C05CD30F23CA0ACB007F1C9E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		C05CD31223CA2A23007F1C9E /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		C097A9E323C7987F00EC1EFE /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C097A9E623C7987F00EC1EFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C097A9ED23C7987F00EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -91,6 +105,7 @@
 		C052F0D023C7DC8F00EB5D98 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C05CD31123CA2A14007F1C9E /* Extensions */,
 				C0B1DE4023C90CFD003EED3B /* Protocols */,
 				C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */,
 				C052F0D323C7DDDC00EB5D98 /* Statics.swift */,
@@ -102,8 +117,13 @@
 		C052F0D523C7DF3000EB5D98 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				C052F0D723C7DF5100EB5D98 /* HomeViewController.swift */,
+				C05CD30323CA0343007F1C9E /* HomeNavigationController.swift */,
 				C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */,
+				C05CD30523CA0419007F1C9E /* AliasViewController.swift */,
+				C05CD30723CA044E007F1C9E /* DirectoryViewController.swift */,
+				C05CD30923CA0473007F1C9E /* CustomDomainViewController.swift */,
+				C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */,
+				C05CD30D23CA054B007F1C9E /* AboutViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -113,6 +133,14 @@
 			children = (
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		C05CD31123CA2A14007F1C9E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C05CD31223CA2A23007F1C9E /* UIView+Layout.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C097A9DA23C7987F00EC1EFE = {
@@ -187,6 +215,7 @@
 		C0B6108723C7A43600D34B8C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C05CD30F23CA0ACB007F1C9E /* BaseViewController.swift */,
 				C052F0D623C7DF3D00EB5D98 /* Login */,
 				C052F0D523C7DF3000EB5D98 /* Home */,
 				C0B6108A23C7A46700D34B8C /* StartupViewController.swift */,
@@ -342,19 +371,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0B1DE4623C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift in Sources */,
-				C052F0D823C7DF5100EB5D98 /* HomeViewController.swift in Sources */,
 				C0B1DE4223C90D2C003EED3B /* RegisterableCell.swift in Sources */,
 				C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */,
 				C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */,
+				C05CD30623CA0419007F1C9E /* AliasViewController.swift in Sources */,
+				C05CD31323CA2A23007F1C9E /* UIView+Layout.swift in Sources */,
+				C05CD31023CA0ACB007F1C9E /* BaseViewController.swift in Sources */,
 				C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */,
 				C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */,
+				C05CD30A23CA0473007F1C9E /* CustomDomainViewController.swift in Sources */,
 				C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */,
+				C05CD30E23CA054B007F1C9E /* AboutViewController.swift in Sources */,
 				C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */,
 				C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */,
+				C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */,
 				C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */,
+				C05CD30823CA044E007F1C9E /* DirectoryViewController.swift in Sources */,
 				C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */,
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
+				C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

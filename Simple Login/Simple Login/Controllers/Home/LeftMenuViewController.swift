@@ -8,6 +8,14 @@
 
 import UIKit
 
+protocol LeftMenuViewControllerDelegate {
+    func didSelectAlias()
+    func didSelectDirectory()
+    func didSelectCustomDomain()
+    func didSelectSettings()
+    func didSelectAbout()
+}
+
 final class LeftMenuViewController: UIViewController {
     @IBOutlet private weak var topView: UIView!
     @IBOutlet private weak var shadowView: UIView!
@@ -19,6 +27,7 @@ final class LeftMenuViewController: UIViewController {
     private let options: [[LeftMenuOption]] = [[.alias, .aliasDirectory, .customDomains], [.separator],  [.settings, .about]]
     
     var userInfo: UserInfo?
+    var delegate: LeftMenuViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +58,19 @@ final class LeftMenuViewController: UIViewController {
         
         // tableView
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = .clear
+        
+        let footerView = UIView(frame: .init(origin: .zero, size: .init(width: tableView.bounds.width, height: 44)))
+        let simpleLoginLabel = UILabel(frame: .zero)
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        simpleLoginLabel.text = version != nil ? "SimpleLogin v\(version!)" : "SimpleLogin"
+        simpleLoginLabel.textColor = .lightGray
+        simpleLoginLabel.font = UIFont.systemFont(ofSize: 11, weight: .medium)
+        footerView.addSubview(simpleLoginLabel)
+        simpleLoginLabel.fillSuperview(padding: UIEdgeInsets(top: 0, left: 20, bottom: 10, right: 20))
+        
+        tableView.tableFooterView = footerView
+        
         LeftMenuOptionTableViewCell.register(with: tableView)
         SeparatorTableViewCell.register(with: tableView)
     }
@@ -101,6 +121,16 @@ extension LeftMenuViewController: UITableViewDataSource {
 extension LeftMenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let option = options[indexPath.section][indexPath.row]
+        
+        switch option {
+        case .alias: delegate?.didSelectAlias()
+        case .aliasDirectory: delegate?.didSelectDirectory()
+        case .customDomains: delegate?.didSelectCustomDomain()
+        case .settings: delegate?.didSelectSettings()
+        case .about: delegate?.didSelectAbout()
+        case .separator: return
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

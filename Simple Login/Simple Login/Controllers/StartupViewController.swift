@@ -71,15 +71,11 @@ final class StartupViewController: UIViewController {
     private func presentHomeNavigationController(_ userInfo: UserInfo) {
         let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
         
-        guard let homeNavigationController = homeStoryboard.instantiateViewController(withIdentifier: "HomeNavigationViewController") as? UINavigationController else {
-            fatalError("Can not instantiate HomeNavigationViewController")
+        guard let homeNavigationController = homeStoryboard.instantiateViewController(withIdentifier: "HomeNavigationController") as? HomeNavigationController else {
+            fatalError("Can not instantiate HomeNavigationController")
         }
-        
-        guard let homeViewController = homeNavigationController.topViewController as? HomeViewController  else {
-            fatalError("Can not instantiate HomeViewController")
-        }
-        
-        homeViewController.userInfo = userInfo
+
+        homeNavigationController.userInfo = userInfo
         homeNavigationController.modalPresentationStyle = .fullScreen
         present(homeNavigationController, animated: true, completion: nil)
     }
