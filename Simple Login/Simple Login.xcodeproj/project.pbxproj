@@ -36,6 +36,7 @@
 		C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B1DE4723C90DED003EED3B /* LeftMenuOptionTableViewCell.xib */; };
 		C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */; };
 		C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B6108A23C7A46700D34B8C /* StartupViewController.swift */; };
+		C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */; };
 		C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */; };
 		C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */; };
 		DBF4943808190F444DC19D7B /* Pods_Simple_Login.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */; };
@@ -77,6 +78,7 @@
 		C0B1DE4723C90DED003EED3B /* LeftMenuOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeftMenuOptionTableViewCell.xib; sourceTree = "<group>"; };
 		C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuOption.swift; sourceTree = "<group>"; };
 		C0B6108A23C7A46700D34B8C /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
+		C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toaster+Convenience.swift"; sourceTree = "<group>"; };
 		C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,6 +150,7 @@
 			children = (
 				C05CD31223CA2A23007F1C9E /* UIView+Layout.swift */,
 				C05CD31923CA4040007F1C9E /* Date+Distance.swift */,
+				C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 				C05CD30823CA044E007F1C9E /* DirectoryViewController.swift in Sources */,
 				C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */,
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
+				C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
 				C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */,
 			);

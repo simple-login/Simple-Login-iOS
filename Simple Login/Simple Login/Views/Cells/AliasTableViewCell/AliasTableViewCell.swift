@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var rootView: UIView!
@@ -14,10 +15,12 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var creationLabel: UILabel!
     @IBOutlet private weak var countLabel: UILabel!
     @IBOutlet private weak var enabledSwitch: UISwitch!
+    @IBOutlet private weak var copyButton: UIButton!
     @IBOutlet private weak var sendButton: UIButton!
     
     weak var alias: Alias?
     
+    var didToggleStatus: ((_ enabled: Bool) -> Void)?
     var didTapSendButton: (() -> Void)?
     var didTapDeleteButton: (() -> Void)?
     var didTapRightArrowButton: (() -> Void)?
@@ -33,6 +36,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         nameLabel.text = alias.name
         enabledSwitch.isOn = alias.isEnabled
         sendButton.isEnabled = alias.isEnabled
+        copyButton.isEnabled = alias.isEnabled
         
         if alias.isEnabled {
             rootView.backgroundColor = .white
@@ -46,6 +50,12 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         if let alias = alias {
             bind(with: alias)
         }
+    }
+    
+    @IBAction private func copyButtonTapped() {
+        guard let alias = alias else { return }
+        UIPasteboard.general.string = alias.name
+        Toast.displayShortly(message: "Copied \(alias.name) to clipboard")
     }
     
     @IBAction private func sendButtonTapped() {
