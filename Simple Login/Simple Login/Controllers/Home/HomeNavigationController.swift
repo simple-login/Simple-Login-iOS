@@ -52,6 +52,7 @@ final class HomeNavigationController: UINavigationController {
         case let sideMenuNavigationController as SideMenuNavigationController:
             sideMenuNavigationController.presentationStyle = .menuSlideIn
             sideMenuNavigationController.presentationStyle.presentingEndAlpha = 0.7
+            sideMenuNavigationController.statusBarEndAlpha = 0.0
             sideMenuNavigationController.leftSide = true
             
             let leftMenuViewController = sideMenuNavigationController.viewControllers[0] as? LeftMenuViewController
