@@ -17,6 +17,10 @@
 		C05CD30E23CA054B007F1C9E /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30D23CA054B007F1C9E /* AboutViewController.swift */; };
 		C05CD31023CA0ACB007F1C9E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30F23CA0ACB007F1C9E /* BaseViewController.swift */; };
 		C05CD31323CA2A23007F1C9E /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31223CA2A23007F1C9E /* UIView+Layout.swift */; };
+		C05CD31523CA33C2007F1C9E /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31423CA33C2007F1C9E /* Alias.swift */; };
+		C05CD31823CA3F0A007F1C9E /* AliasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31723CA3F0A007F1C9E /* AliasTableViewCell.swift */; };
+		C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31923CA4040007F1C9E /* Date+Distance.swift */; };
+		C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */; };
 		C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097A9E623C7987F00EC1EFE /* AppDelegate.swift */; };
 		C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* Main.storyboard */; };
 		C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
@@ -51,6 +55,10 @@
 		C05CD30D23CA054B007F1C9E /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		C05CD30F23CA0ACB007F1C9E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C05CD31223CA2A23007F1C9E /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		C05CD31423CA33C2007F1C9E /* Alias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alias.swift; sourceTree = "<group>"; };
+		C05CD31723CA3F0A007F1C9E /* AliasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTableViewCell.swift; sourceTree = "<group>"; };
+		C05CD31923CA4040007F1C9E /* Date+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Distance.swift"; sourceTree = "<group>"; };
+		C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasTableViewCell.xib; sourceTree = "<group>"; };
 		C097A9E323C7987F00EC1EFE /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C097A9E623C7987F00EC1EFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C097A9ED23C7987F00EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,8 +147,18 @@
 			isa = PBXGroup;
 			children = (
 				C05CD31223CA2A23007F1C9E /* UIView+Layout.swift */,
+				C05CD31923CA4040007F1C9E /* Date+Distance.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C05CD31623CA3EFA007F1C9E /* AliasTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C05CD31723CA3F0A007F1C9E /* AliasTableViewCell.swift */,
+				C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */,
+			);
+			path = AliasTableViewCell;
 			sourceTree = "<group>";
 		};
 		C097A9DA23C7987F00EC1EFE = {
@@ -197,6 +215,7 @@
 		C0B1DE4323C90D53003EED3B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				C05CD31623CA3EFA007F1C9E /* AliasTableViewCell */,
 				C0E50DA523C92EEF0058B88E /* SeparatorTableViewCell */,
 				C0B1DE4423C90D5F003EED3B /* LeftMenuOptionTableViewCell */,
 			);
@@ -230,6 +249,7 @@
 				C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */,
 				C0B1DE3823C8AD22003EED3B /* UserOptions.swift */,
 				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
+				C05CD31423CA33C2007F1C9E /* Alias.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -318,6 +338,7 @@
 				C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */,
 				C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */,
 				C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */,
+				C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,11 +401,14 @@
 				C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */,
 				C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */,
 				C05CD30A23CA0473007F1C9E /* CustomDomainViewController.swift in Sources */,
+				C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */,
+				C05CD31523CA33C2007F1C9E /* Alias.swift in Sources */,
 				C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */,
 				C05CD30E23CA054B007F1C9E /* AboutViewController.swift in Sources */,
 				C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */,
 				C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */,
 				C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */,
+				C05CD31823CA3F0A007F1C9E /* AliasTableViewCell.swift in Sources */,
 				C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */,
 				C05CD30823CA044E007F1C9E /* DirectoryViewController.swift in Sources */,
 				C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */,

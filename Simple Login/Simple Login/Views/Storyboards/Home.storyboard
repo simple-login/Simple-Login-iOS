@@ -16,9 +16,6 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="YES"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="k2o-CK-HuA" kind="relationship" relationship="rootViewController" id="EOY-Zf-fjP"/>
                         <segue destination="eIg-62-Afk" kind="presentation" identifier="showLeftMenu" id="IJf-t8-s0j"/>
@@ -35,10 +32,29 @@
                     <view key="view" contentMode="scaleToFill" id="GGZ-Nv-kdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="e3s-cy-q8e">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="k2o-CK-HuA" id="ixd-VZ-s15"/>
+                                    <outlet property="delegate" destination="k2o-CK-HuA" id="TBx-da-XgB"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="e3s-cy-q8e" firstAttribute="leading" secondItem="uL6-3V-Z6x" secondAttribute="leading" id="CQS-B0-Qz3"/>
+                            <constraint firstAttribute="bottom" secondItem="e3s-cy-q8e" secondAttribute="bottom" id="Ghf-vF-cq5"/>
+                            <constraint firstItem="uL6-3V-Z6x" firstAttribute="trailing" secondItem="e3s-cy-q8e" secondAttribute="trailing" id="R2y-7m-Bim"/>
+                            <constraint firstItem="e3s-cy-q8e" firstAttribute="top" secondItem="uL6-3V-Z6x" secondAttribute="top" id="bfz-MG-WIA"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="uL6-3V-Z6x"/>
                     </view>
                     <navigationItem key="navigationItem" title="Alias" id="Bkv-TN-Uzz"/>
+                    <connections>
+                        <outlet property="tableView" destination="e3s-cy-q8e" id="uAX-r5-eHD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dMR-uO-5ea" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -100,13 +116,6 @@
                         <rect key="frame" x="0.0" y="-54" width="0.0" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="YES"/>
-                        <userDefinedRuntimeAttribute type="number" keyPath="statusBarEndAlpha">
-                            <real key="value" value="0.0"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="presentingViewControllerUserInteractionEnabled" value="NO"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="tkA-4s-fpz" kind="relationship" relationship="rootViewController" id="DJV-hi-hlL"/>
                     </connections>
