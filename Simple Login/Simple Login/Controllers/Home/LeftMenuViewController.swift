@@ -10,6 +10,7 @@ import UIKit
 
 final class LeftMenuViewController: UIViewController {
     @IBOutlet private weak var topView: UIView!
+    @IBOutlet private weak var shadowView: UIView!
     @IBOutlet private weak var avatarImageView: UIImageView!
     @IBOutlet private weak var usernameLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
@@ -36,6 +37,16 @@ final class LeftMenuViewController: UIViewController {
         avatarImageView.layer.borderColor = avatarImageView.tintColor.cgColor
         avatarImageView.layer.backgroundColor = avatarImageView.tintColor.withAlphaComponent(0.5).cgColor
         
+        // shadowView
+        let gradient = CAGradientLayer()
+        gradient.colors = [UIColor.lightGray.cgColor, UIColor.clear.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradient.startPoint = .init(x: 0.0, y: 0.0)
+        gradient.endPoint = .init(x: 0.0, y: 1.0)
+        gradient.frame = .init(origin: .zero, size: .init(width: shadowView.bounds.width, height: shadowView.bounds.height))
+        shadowView.layer.insertSublayer(gradient, at: 0)
+        shadowView.alpha = 0
+        
         // tableView
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
@@ -56,9 +67,11 @@ final class LeftMenuViewController: UIViewController {
         if userInfo.isPremium {
             statusLabel.text = "Premium"
             statusLabel.textColor = .systemGreen
+            statusLabel.shadowColor = UIColor.systemGreen.withAlphaComponent(0.5)
         } else {
             statusLabel.text = "Upgrade"
             statusLabel.textColor = .darkGray
+            statusLabel.shadowColor = UIColor.darkGray.withAlphaComponent(0.5)
         }
     }
 }
@@ -101,5 +114,14 @@ extension LeftMenuViewController: UITableViewDelegate {
         }
         
         return SeparatorTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension LeftMenuViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Animate shadowView's alpha base on tableView's contentOffset.y
+        guard scrollView.contentOffset.y > 0 else { return }
+        shadowView.alpha = scrollView.contentOffset.y / 44
     }
 }
