@@ -25,7 +25,7 @@
             </objects>
             <point key="canvasLocation" x="-859" y="129"/>
         </scene>
-        <!--Alias-->
+        <!--Alias View Controller-->
         <scene sceneID="Wx5-4R-TU2">
             <objects>
                 <viewController storyboardIdentifier="AliasViewController" id="k2o-CK-HuA" customClass="AliasViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
@@ -51,7 +51,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uL6-3V-Z6x"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Alias" id="Bkv-TN-Uzz">
+                    <navigationItem key="navigationItem" id="Bkv-TN-Uzz">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="nt8-vm-ZTf">
+                            <rect key="frame" x="93.5" y="5.5" width="203" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="All"/>
+                                <segment title="Active"/>
+                                <segment title="Inactive"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentedControlValueChanged" destination="k2o-CK-HuA" eventType="valueChanged" id="Kvt-XZ-lES"/>
+                            </connections>
+                        </segmentedControl>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="veA-Kg-fpm">
                                 <connections>
@@ -66,6 +79,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="segmentedControl" destination="nt8-vm-ZTf" id="eTp-nH-fbd"/>
                         <outlet property="tableView" destination="e3s-cy-q8e" id="uAX-r5-eHD"/>
                     </connections>
                 </viewController>

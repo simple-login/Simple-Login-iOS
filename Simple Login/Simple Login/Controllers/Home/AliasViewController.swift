@@ -11,6 +11,11 @@ import Toaster
 
 final class AliasViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var segmentedControl: UISegmentedControl!
+    
+    private enum AliasType {
+        case all, active, inactive
+    }
     
     private lazy var aliases: [Alias] = {
         var aliases: [Alias] = []
@@ -21,6 +26,15 @@ final class AliasViewController: BaseViewController {
         return aliases
     }()
     
+    private var activeAliases: [Alias] = []
+    private var inactiveAliases: [Alias] = []
+    
+    private var currentAliasType: AliasType = .all {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     deinit {
         print("AliasViewController is deallocated")
     }
@@ -28,6 +42,7 @@ final class AliasViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        refilterAliasArrays()
     }
     
     private func setUpUI() {
@@ -37,6 +52,26 @@ final class AliasViewController: BaseViewController {
         tableView.separatorColor = .clear
         tableView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         AliasTableViewCell.register(with: tableView)
+    }
+}
+
+// MARK: - SegmentedControl actions
+extension AliasViewController {
+    @IBAction private func segmentedControlValueChanged() {
+        switch segmentedControl.selectedSegmentIndex {
+        case 0: currentAliasType = .all
+        case 1: currentAliasType = .active
+        case 2: currentAliasType = .inactive
+        default: return
+        }
+    }
+    
+    private func refilterAliasArrays() {
+        activeAliases.removeAll()
+        activeAliases.append(contentsOf: aliases.filter({$0.isEnabled == true}))
+        
+        inactiveAliases.removeAll()
+        inactiveAliases.append(contentsOf: aliases.filter({$0.isEnabled == false}))
     }
 }
 
@@ -90,12 +125,24 @@ extension AliasViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return aliases.count
+        switch currentAliasType {
+        case .all: return aliases.count
+        case .active: return activeAliases.count
+        case .inactive: return inactiveAliases.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = AliasTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        cell.bind(with: aliases[indexPath.row])
+        
+        let alias: Alias
+        switch currentAliasType {
+        case .all: alias = aliases[indexPath.row]
+        case .active: alias = activeAliases[indexPath.row]
+        case .inactive: alias = inactiveAliases[indexPath.row]
+        }
+        
+        cell.bind(with: alias)
         return cell
     }
 }
