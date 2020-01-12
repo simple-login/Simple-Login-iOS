@@ -37,6 +37,9 @@
 		C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */; };
 		C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B6108A23C7A46700D34B8C /* StartupViewController.swift */; };
 		C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */; };
+		C0D9B66123CBC0AA009A6699 /* CreateAliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */; };
+		C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */; };
+		C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66423CBC838009A6699 /* String+Utilities.swift */; };
 		C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */; };
 		C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */; };
 		DBF4943808190F444DC19D7B /* Pods_Simple_Login.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */; };
@@ -79,6 +82,9 @@
 		C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuOption.swift; sourceTree = "<group>"; };
 		C0B6108A23C7A46700D34B8C /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toaster+Convenience.swift"; sourceTree = "<group>"; };
+		C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasViewController.swift; sourceTree = "<group>"; };
+		C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelpers.swift; sourceTree = "<group>"; };
+		C0D9B66423CBC838009A6699 /* String+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
 		C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +126,7 @@
 				C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */,
 				C052F0D323C7DDDC00EB5D98 /* Statics.swift */,
 				C0B1DE3223C8AC72003EED3B /* SLApiService.swift */,
+				C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -129,7 +136,7 @@
 			children = (
 				C05CD30323CA0343007F1C9E /* HomeNavigationController.swift */,
 				C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */,
-				C05CD30523CA0419007F1C9E /* AliasViewController.swift */,
+				C0D9B65F23CBC083009A6699 /* Alias */,
 				C05CD30723CA044E007F1C9E /* DirectoryViewController.swift */,
 				C05CD30923CA0473007F1C9E /* CustomDomainViewController.swift */,
 				C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */,
@@ -151,6 +158,7 @@
 				C05CD31223CA2A23007F1C9E /* UIView+Layout.swift */,
 				C05CD31923CA4040007F1C9E /* Date+Distance.swift */,
 				C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */,
+				C0D9B66423CBC838009A6699 /* String+Utilities.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -264,6 +272,15 @@
 				C0B1DE3A23C8AD6D003EED3B /* Storyboards */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C0D9B65F23CBC083009A6699 /* Alias */ = {
+			isa = PBXGroup;
+			children = (
+				C05CD30523CA0419007F1C9E /* AliasViewController.swift */,
+				C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */,
+			);
+			path = Alias;
 			sourceTree = "<group>";
 		};
 		C0E50DA523C92EEF0058B88E /* SeparatorTableViewCell */ = {
@@ -397,6 +414,7 @@
 				C0B1DE4623C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift in Sources */,
 				C0B1DE4223C90D2C003EED3B /* RegisterableCell.swift in Sources */,
 				C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */,
+				C0D9B66123CBC0AA009A6699 /* CreateAliasViewController.swift in Sources */,
 				C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */,
 				C05CD30623CA0419007F1C9E /* AliasViewController.swift in Sources */,
 				C05CD31323CA2A23007F1C9E /* UIView+Layout.swift in Sources */,
@@ -415,6 +433,8 @@
 				C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */,
 				C05CD30823CA044E007F1C9E /* DirectoryViewController.swift in Sources */,
 				C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */,
+				C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */,
+				C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */,
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
 				C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,

@@ -68,7 +68,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="veA-Kg-fpm">
                                 <connections>
-                                    <action selector="addButtonTapped" destination="k2o-CK-HuA" id="kPa-0x-PVL"/>
+                                    <segue destination="2Fg-pV-p2H" kind="presentation" identifier="" id="IHl-4e-YY7"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="shuffle" catalog="system" id="kR6-uB-jBh" userLabel="Shuffle">
@@ -86,6 +86,95 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dMR-uO-5ea" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="206" y="129"/>
+        </scene>
+        <!--Create Alias View Controller-->
+        <scene sceneID="aaT-2b-NFK">
+            <objects>
+                <viewController id="2Fg-pV-p2H" customClass="CreateAliasViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IgZ-eO-zk7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZCw-BY-78C">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem title="Create Alias" id="hWM-m9-k3p">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Xzn-e9-iFA">
+                                            <connections>
+                                                <action selector="cancelButtonTapped" destination="2Fg-pV-p2H" id="BuR-ar-hQA"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="IBO-J0-78q">
+                                <rect key="frame" x="20" y="220" width="374" height="202.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Dg-qx-suq">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="34"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ex: groupon, newsletter" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GOg-ha-Q5h">
+                                                <rect key="frame" x="0.0" y="0.0" width="180.5" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartQuotesType="no" textContentType="email"/>
+                                                <connections>
+                                                    <action selector="prefixTextFieldEditingChanged" destination="2Fg-pV-p2H" eventType="editingChanged" id="jRV-Qy-PmP"/>
+                                                </connections>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text=".example@simplelogin.co" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHo-7x-cNL">
+                                                <rect key="frame" x="180.5" y="0.0" width="193.5" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHM-Lr-YH4">
+                                        <rect key="frame" x="0.0" y="54" width="374" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="CREATE"/>
+                                        <connections>
+                                            <action selector="createButtonTapped" destination="2Fg-pV-p2H" eventType="touchUpInside" id="7rL-XK-3R9"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vi-Kq-3lb">
+                                        <rect key="frame" x="0.0" y="104" width="374" height="47"/>
+                                        <string key="text">💡Hint: To make it easy to remember for later use, it is a good practice to use the name of the website that you plan to register with alias.</string>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⚠️ Only letters, numbers, dash (-) &amp; underscore (_) are allowed" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gr2-qq-e0j">
+                                        <rect key="frame" x="0.0" y="171" width="374" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
+                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ZCw-BY-78C" firstAttribute="leading" secondItem="KLn-M2-BjT" secondAttribute="leading" id="0pU-rF-tPs"/>
+                            <constraint firstItem="KLn-M2-BjT" firstAttribute="trailing" secondItem="IBO-J0-78q" secondAttribute="trailing" constant="20" id="5Gv-TX-2GX"/>
+                            <constraint firstItem="ZCw-BY-78C" firstAttribute="top" secondItem="KLn-M2-BjT" secondAttribute="top" id="THv-yg-WgU"/>
+                            <constraint firstItem="IBO-J0-78q" firstAttribute="leading" secondItem="KLn-M2-BjT" secondAttribute="leading" constant="20" id="avO-N0-Mip"/>
+                            <constraint firstAttribute="trailing" secondItem="ZCw-BY-78C" secondAttribute="trailing" symbolic="YES" id="cp6-0A-ybD"/>
+                            <constraint firstItem="IBO-J0-78q" firstAttribute="centerY" secondItem="IgZ-eO-zk7" secondAttribute="centerY" constant="-100" id="jQD-DF-bjD"/>
+                            <constraint firstItem="IBO-J0-78q" firstAttribute="centerX" secondItem="IgZ-eO-zk7" secondAttribute="centerX" id="uta-ye-ucL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KLn-M2-BjT"/>
+                    </view>
+                    <connections>
+                        <outlet property="createButton" destination="zHM-Lr-YH4" id="0Sg-ll-W6l"/>
+                        <outlet property="prefixTextField" destination="GOg-ha-Q5h" id="pm3-Qu-omE"/>
+                        <outlet property="rootStackView" destination="IBO-J0-78q" id="qpx-Zp-Wa6"/>
+                        <outlet property="suffixLabel" destination="QHo-7x-cNL" id="dvj-pW-aPd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7QS-wN-vfW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1181" y="129"/>
         </scene>
         <!--Alias Directory-->
         <scene sceneID="yjK-E1-ctM">

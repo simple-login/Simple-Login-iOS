@@ -77,14 +77,6 @@ extension AliasViewController {
 
 // MARK: - Button actions
 extension AliasViewController {
-    @IBAction private func addButtonTapped() {
-//        let alert = UIAlertController(title: "New email alias", message: "To make it easy to remember for later use, it is a good practice to use the name of the website that you plan to register with alias.", preferredStyle: .alert)
-    }
-    
-    private func displayCreateAliasAlert(suggestion: String) {
-        
-    }
-    
     @IBAction private func shuffleButtonTapped() {
         let alert = UIAlertController(title: "New email alias", message: "Randomly create an alias", preferredStyle: .actionSheet)
         
