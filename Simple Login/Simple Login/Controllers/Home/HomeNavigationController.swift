@@ -24,19 +24,12 @@ final class HomeNavigationController: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpSideMenu()
         
         // Default rootViewController is AliasViewController
         aliasViewController = viewControllers[0] as? AliasViewController
         aliasViewController?.didTapLeftBarButtonItem = { [unowned self] in
             self.toggleLeftMenu()
         }
-    }
-    
-    private func setUpSideMenu() {
-        SideMenuManager.default.leftMenuNavigationController = storyboard?.instantiateViewController(withIdentifier: "SideMenuNavigationController") as? SideMenuNavigationController
-        SideMenuManager.default.addPanGestureToPresent(toView: navigationBar)
-        SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: view, forMenu: .left)
     }
     
     private func toggleLeftMenu() {
@@ -50,6 +43,10 @@ final class HomeNavigationController: UINavigationController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.destination {
         case let sideMenuNavigationController as SideMenuNavigationController:
+            SideMenuManager.default.leftMenuNavigationController = sideMenuNavigationController
+            SideMenuManager.default.addPanGestureToPresent(toView: navigationBar)
+            SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: view, forMenu: .left)
+            
             sideMenuNavigationController.presentationStyle = .menuSlideIn
             sideMenuNavigationController.presentationStyle.presentingEndAlpha = 0.7
             sideMenuNavigationController.statusBarEndAlpha = 0.0
