@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 final class CreateReverseAliasViewController: UIViewController {
     @IBOutlet private weak var messageLabel: UILabel!
@@ -30,6 +31,7 @@ final class CreateReverseAliasViewController: UIViewController {
         super.viewDidLoad()
         setUpUI()
         createButton.isEnabled = false
+        destinationEmailTextField.becomeFirstResponder()
     }
     
     private func setUpUI() {
@@ -54,7 +56,8 @@ final class CreateReverseAliasViewController: UIViewController {
     }
     
     private func create() {
-        
+        Toast.displayShortly(message: "Created")
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction private func cancelButtonTapped() {

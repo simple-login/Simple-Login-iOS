@@ -79,6 +79,20 @@ final class SendEmailViewController: UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    
+    private func presentAlertConfirmDelete(reverseAlias: ReverseAlias) {
+        let alert = UIAlertController(title: "Delete \(reverseAlias.name)", message: "🛑 This operation is irreversible", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+            Toast.displayShortly(message: "Deleted")
+        }
+        alert.addAction(deleteAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -109,6 +123,10 @@ extension SendEmailViewController: UITableViewDataSource {
         
         cell.didTapWriteEmailButton = { [unowned self] in
             self.presentAlertWriteEmail(reverseAlias)
+        }
+        
+        cell.didTapDeleteButton = { [unowned self] in
+            self.presentAlertConfirmDelete(reverseAlias: reverseAlias)
         }
         
         return cell
