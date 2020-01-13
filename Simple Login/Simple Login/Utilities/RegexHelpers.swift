@@ -65,6 +65,19 @@ final class RegexHelpers {
         return groupMatches
     }
     
+    static func matchRanges(of pattern: String, inString string: String) -> [NSRange] {
+        var listMatches: [NSRange] = []
+        let regex = try? NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
+        
+        if let matches = regex?.matches(in: string, options: [], range: NSRange(string.startIndex..., in: string)) {
+            matches.forEach { (eachMatch) in
+                listMatches.append(eachMatch.range)
+            }
+        }
+        
+        return listMatches
+    }
+    
     static func containsMatch(of pattern: String, inString string: String) -> Bool {
         guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
             return false

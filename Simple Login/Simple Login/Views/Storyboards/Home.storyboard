@@ -119,6 +119,7 @@
                             <barButtonItem title="💡How to" id="liI-MB-jqC">
                                 <connections>
                                     <action selector="hintButtonTapped" destination="TtY-Vi-9th" id="0As-nU-dTN"/>
+                                    <segue destination="15X-6U-bj1" kind="presentation" id="TAi-1p-8Dq"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="add" id="Xzx-nu-PEN">
@@ -135,6 +136,53 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qt2-jH-4ad" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1345" y="495"/>
+        </scene>
+        <!--How To Send Email View Controller-->
+        <scene sceneID="cB2-ZX-5p6">
+            <objects>
+                <viewController id="15X-6U-bj1" customClass="HowToSendEmailViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WAS-RQ-S69">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WhP-9H-8To">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem title="How To Send Email From Alias" id="Jx7-WU-M5l">
+                                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="done" id="Owz-PP-x1o">
+                                            <connections>
+                                                <action selector="closeButtonTapped" destination="15X-6U-bj1" id="fcC-PS-7E3"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explication Label" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcC-28-iKt">
+                                <rect key="frame" x="20" y="411" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="z3o-iG-xzH" firstAttribute="trailing" secondItem="CcC-28-iKt" secondAttribute="trailing" constant="20" id="3CL-Pl-pwW"/>
+                            <constraint firstItem="WhP-9H-8To" firstAttribute="top" secondItem="z3o-iG-xzH" secondAttribute="top" id="AOT-Qt-ipt"/>
+                            <constraint firstItem="WhP-9H-8To" firstAttribute="trailing" secondItem="z3o-iG-xzH" secondAttribute="trailing" id="NZA-YK-XDT"/>
+                            <constraint firstItem="WhP-9H-8To" firstAttribute="leading" secondItem="z3o-iG-xzH" secondAttribute="leading" id="syY-fD-hlW"/>
+                            <constraint firstItem="CcC-28-iKt" firstAttribute="centerX" secondItem="WAS-RQ-S69" secondAttribute="centerX" id="tG8-e0-bGM"/>
+                            <constraint firstItem="CcC-28-iKt" firstAttribute="leading" secondItem="z3o-iG-xzH" secondAttribute="leading" constant="20" id="tR4-ml-dsP"/>
+                            <constraint firstItem="CcC-28-iKt" firstAttribute="centerY" secondItem="WAS-RQ-S69" secondAttribute="centerY" id="w8l-JV-gF5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="z3o-iG-xzH"/>
+                    </view>
+                    <connections>
+                        <outlet property="explicationLabel" destination="CcC-28-iKt" id="Qmz-zM-Pus"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="coZ-W9-sSl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2586" y="241"/>
         </scene>
         <!--Create Alias View Controller-->
         <scene sceneID="aaT-2b-NFK">
