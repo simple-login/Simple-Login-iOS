@@ -82,11 +82,47 @@
                         <outlet property="segmentedControl" destination="nt8-vm-ZTf" id="eTp-nH-fbd"/>
                         <outlet property="tableView" destination="e3s-cy-q8e" id="uAX-r5-eHD"/>
                         <segue destination="TtY-Vi-9th" kind="show" identifier="showSendEmail" id="0ce-pd-BHK"/>
+                        <segue destination="bMY-yI-3hV" kind="show" identifier="showAliasActivity" id="CtI-Wl-JNa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dMR-uO-5ea" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="206" y="129"/>
+        </scene>
+        <!--Alias Activity View Controller-->
+        <scene sceneID="OUy-kI-t6x">
+            <objects>
+                <viewController id="bMY-yI-3hV" customClass="AliasActivityViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dQ9-fl-rAF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="7Qb-A9-obe">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="bMY-yI-3hV" id="H62-P8-Kcu"/>
+                                    <outlet property="delegate" destination="bMY-yI-3hV" id="13F-LN-tgy"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="7Qb-A9-obe" firstAttribute="top" secondItem="0Gr-b5-iA9" secondAttribute="top" id="Fso-Zz-mVg"/>
+                            <constraint firstItem="7Qb-A9-obe" firstAttribute="leading" secondItem="0Gr-b5-iA9" secondAttribute="leading" id="NaV-Wr-62B"/>
+                            <constraint firstAttribute="bottom" secondItem="7Qb-A9-obe" secondAttribute="bottom" id="f9Y-sP-uIB"/>
+                            <constraint firstItem="0Gr-b5-iA9" firstAttribute="trailing" secondItem="7Qb-A9-obe" secondAttribute="trailing" id="hM6-Oo-Iax"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0Gr-b5-iA9"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ff8-an-BEv"/>
+                    <connections>
+                        <outlet property="tableView" destination="7Qb-A9-obe" id="3Pi-Sc-ucZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9LG-om-1Ay" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1387" y="129"/>
         </scene>
         <!--Send Email-->
         <scene sceneID="z0l-2v-Gem">
@@ -134,7 +170,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qt2-jH-4ad" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1344.9275362318842" y="494.86607142857139"/>
+            <point key="canvasLocation" x="1387" y="860"/>
         </scene>
         <!--How To Send Email View Controller-->
         <scene sceneID="cB2-ZX-5p6">
@@ -181,7 +217,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="coZ-W9-sSl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2590" y="141"/>
+            <point key="canvasLocation" x="2590" y="307"/>
         </scene>
         <!--Create Reverse Alias View Controller-->
         <scene sceneID="Zvb-u5-EhH">
@@ -251,7 +287,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pKg-cF-JCT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2590" y="836"/>
+            <point key="canvasLocation" x="2633" y="1016"/>
         </scene>
         <!--Create Alias View Controller-->
         <scene sceneID="aaT-2b-NFK">
@@ -340,7 +376,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7QS-wN-vfW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1346" y="-183"/>
+            <point key="canvasLocation" x="1342" y="-563"/>
         </scene>
         <!--Alias Directory-->
         <scene sceneID="yjK-E1-ctM">
@@ -356,7 +392,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qm6-9a-8Vl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="206" y="818"/>
+            <point key="canvasLocation" x="206" y="1381"/>
         </scene>
         <!--Custom Domain-->
         <scene sceneID="cKp-sU-O0p">
@@ -372,7 +408,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MVA-uI-Udl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="206" y="1501"/>
+            <point key="canvasLocation" x="206" y="2064"/>
         </scene>
         <!--Settings-->
         <scene sceneID="R3K-vU-dsE">
@@ -388,7 +424,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ebP-j3-bnq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="206" y="2209"/>
+            <point key="canvasLocation" x="206" y="2772"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="K83-TJ-wII">
@@ -524,7 +560,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vyo-zj-bns" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-859" y="818"/>
+            <point key="canvasLocation" x="-859" y="1381"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RJx-7T-s8x">
@@ -542,7 +578,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h7J-Om-ZU9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-859" y="1501"/>
+            <point key="canvasLocation" x="-859" y="2064"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Wpn-6k-SaJ">
@@ -560,7 +596,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9bU-9M-WOH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-859" y="2209"/>
+            <point key="canvasLocation" x="-859" y="2772"/>
         </scene>
         <!--About-->
         <scene sceneID="fCH-JE-H0s">
@@ -576,7 +612,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rzx-V1-eIr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="206" y="2889"/>
+            <point key="canvasLocation" x="206" y="3452"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Rvb-So-AFu">
@@ -594,7 +630,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ma-9v-5hC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-859" y="2889"/>
+            <point key="canvasLocation" x="-859" y="3452"/>
         </scene>
     </scenes>
     <resources>

@@ -57,9 +57,14 @@ final class AliasViewController: BaseViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.destination {
+            
         case let sendEmailViewController as SendEmailViewController:
             guard let alias = sender as? Alias else { return }
             sendEmailViewController.alias = alias
+            
+        case let aliasActivityViewController as AliasActivityViewController:
+            guard let alias = sender as? Alias else { return }
+            aliasActivityViewController.alias = alias
             
         default: return
         }
@@ -132,7 +137,18 @@ extension AliasViewController {
 
 // MARK: - UITableViewDelegate
 extension AliasViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let alias: Alias
+        switch currentAliasType {
+        case .all: alias = aliases[indexPath.row]
+        case .active: alias = activeAliases[indexPath.row]
+        case .inactive: alias = inactiveAliases[indexPath.row]
+        }
+        
+        performSegue(withIdentifier: "showAliasActivity", sender: alias)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -171,6 +187,10 @@ extension AliasViewController: UITableViewDataSource {
         
         cell.didTapDeleteButton = { [unowned self] in
             self.presentAlertConfirmDelete(alias: alias)
+        }
+        
+        cell.didTapRightArrowButton = { [unowned self] in
+            self.performSegue(withIdentifier: "showAliasActivity", sender: alias)
         }
         
         return cell
