@@ -14,8 +14,7 @@ final class ReverseAliasTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var destinationEmailLabel: UILabel!
     @IBOutlet private weak var creationDateLabel: UILabel!
     
-    var reverseAlias: ReverseAlias?
-    
+    var didTapWriteEmailButton: (() -> Void)?
     var didTapDeleteButton: (() -> Void)?
     
     override func awakeFromNib() {
@@ -26,15 +25,11 @@ final class ReverseAliasTableViewCell: UITableViewCell, RegisterableCell {
     }
     
     func bind(with reverseAlias: ReverseAlias) {
-        self.reverseAlias = reverseAlias
-        
         destinationEmailLabel.text = reverseAlias.destinationEmail
     }
     
-    @IBAction private func copyButtonTapped() {
-        guard let reverseAlias = reverseAlias else { return }
-        UIPasteboard.general.string = reverseAlias.name
-        Toast.displayShortly(message: "Copied \(reverseAlias.name) to clipboard")
+    @IBAction private func writeEmailButtonTapped() {
+        didTapWriteEmailButton?()
     }
     
     @IBAction private func deleteButtonTapped() {

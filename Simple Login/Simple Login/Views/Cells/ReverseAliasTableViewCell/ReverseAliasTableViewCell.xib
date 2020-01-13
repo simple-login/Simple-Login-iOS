@@ -51,19 +51,19 @@
                                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Created 3 day agos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WV1-Oh-Fbn">
-                                                <rect key="frame" x="22" y="0.0" width="205" height="50"/>
+                                                <rect key="frame" x="22" y="0.0" width="174" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="chh-ki-5Db">
-                                                <rect key="frame" x="231" y="0.0" width="57" height="50"/>
+                                                <rect key="frame" x="200" y="0.0" width="88" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
-                                                <state key="normal" title="Copy" image="CopyIcon">
+                                                <state key="normal" title="Write email" image="ComposeIcon">
                                                     <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="copyButtonTapped" destination="tBs-l7-VvT" eventType="touchUpInside" id="SPg-X7-shE"/>
+                                                    <action selector="writeEmailButtonTapped" destination="tBs-l7-VvT" eventType="touchUpInside" id="SPg-X7-shE"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="9zf-Ox-pco">
@@ -116,7 +116,7 @@
     </objects>
     <resources>
         <image name="ClockIcon" width="18" height="18"/>
-        <image name="CopyIcon" width="24" height="24"/>
+        <image name="ComposeIcon" width="18" height="18"/>
         <image name="DeleteIcon" width="24" height="24"/>
         <image name="MailIcon" width="32" height="32"/>
     </resources>

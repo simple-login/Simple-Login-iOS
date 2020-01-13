@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MessageUI
+import Toaster
 
 final class SendEmailViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -48,6 +50,35 @@ final class SendEmailViewController: UIViewController {
         default: return
         }
     }
+    
+    private func presentAlertWriteEmail(_ reverseAlias: ReverseAlias) {
+        let alert = UIAlertController(title: "Compose and send email", message: "From \(alias.name) to \(reverseAlias.destinationEmail)", preferredStyle: .actionSheet)
+        
+        let copyAction = UIAlertAction(title: "Copy reverse-alias", style: .default) { (_) in
+            UIPasteboard.general.string = reverseAlias.name
+            Toast.displayShortly(message: "Copied \(reverseAlias.name)")
+        }
+        alert.addAction(copyAction)
+        
+        let openEmaiAction = UIAlertAction(title: "Begin composing with default email", style: .default) { (_) in
+            let mailComposerVC = MFMailComposeViewController()
+            
+            guard let _ = mailComposerVC.view else {
+                return
+            }
+            
+            mailComposerVC.mailComposeDelegate = self
+            mailComposerVC.setToRecipients([reverseAlias.name])
+            
+            self.present(mailComposerVC, animated: true, completion: nil)
+        }
+        alert.addAction(openEmaiAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -75,6 +106,18 @@ extension SendEmailViewController: UITableViewDataSource {
         let cell = ReverseAliasTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         let reverseAlias = reverseAliases[indexPath.row]
         cell.bind(with: reverseAlias)
+        
+        cell.didTapWriteEmailButton = { [unowned self] in
+            self.presentAlertWriteEmail(reverseAlias)
+        }
+        
         return cell
+    }
+}
+
+// MARK: - MFMailComposeViewControllerDelegate
+extension SendEmailViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
