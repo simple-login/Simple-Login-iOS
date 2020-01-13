@@ -39,6 +39,15 @@ final class SendEmailViewController: UIViewController {
         tableView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         ReverseAliasTableViewCell.register(with: tableView)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.destination {
+        case let createReverseAliasViewController as CreateReverseAliasViewController:
+            createReverseAliasViewController.alias = alias
+            
+        default: return
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate

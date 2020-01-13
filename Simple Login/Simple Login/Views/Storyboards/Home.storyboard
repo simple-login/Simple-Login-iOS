@@ -203,15 +203,51 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="uag-hs-CeE">
+                                <rect key="frame" x="20" y="260" width="374" height="122"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create reverse-alias" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSA-89-5h3">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UIC-av-j7H">
+                                        <rect key="frame" x="0.0" y="38" width="374" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" textContentType="email"/>
+                                        <connections>
+                                            <action selector="destinationEmailTextFieldEditingChanged" destination="lfy-0M-dP6" eventType="editingChanged" id="J1h-Hs-Ppn"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLd-sF-cZ4">
+                                        <rect key="frame" x="0.0" y="92" width="374" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="CREATE"/>
+                                        <connections>
+                                            <action selector="createButtonTapped" destination="lfy-0M-dP6" eventType="touchUpInside" id="TJL-LZ-aan"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="uag-hs-CeE" firstAttribute="centerY" secondItem="cdR-JJ-RZ6" secondAttribute="centerY" constant="-100" id="4uV-5K-3FN"/>
                             <constraint firstItem="Djf-aX-rf1" firstAttribute="trailing" secondItem="1cV-gS-GP7" secondAttribute="trailing" id="8Bo-6N-7DW"/>
+                            <constraint firstItem="uag-hs-CeE" firstAttribute="leading" secondItem="Djf-aX-rf1" secondAttribute="leading" constant="20" id="Ify-1N-Iv4"/>
                             <constraint firstItem="1cV-gS-GP7" firstAttribute="top" secondItem="Djf-aX-rf1" secondAttribute="top" id="eJN-fD-mMi"/>
+                            <constraint firstItem="Djf-aX-rf1" firstAttribute="trailing" secondItem="uag-hs-CeE" secondAttribute="trailing" constant="20" id="eaJ-yg-J8h"/>
                             <constraint firstItem="1cV-gS-GP7" firstAttribute="leading" secondItem="cdR-JJ-RZ6" secondAttribute="leading" symbolic="YES" id="uvZ-9y-kg4"/>
+                            <constraint firstItem="uag-hs-CeE" firstAttribute="centerX" secondItem="cdR-JJ-RZ6" secondAttribute="centerX" id="xcY-fB-NdV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Djf-aX-rf1"/>
                     </view>
+                    <connections>
+                        <outlet property="createButton" destination="GLd-sF-cZ4" id="ygQ-GX-47s"/>
+                        <outlet property="destinationEmailTextField" destination="UIC-av-j7H" id="oXt-Xm-2Xu"/>
+                        <outlet property="messageLabel" destination="OSA-89-5h3" id="jDv-br-n97"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pKg-cF-JCT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
