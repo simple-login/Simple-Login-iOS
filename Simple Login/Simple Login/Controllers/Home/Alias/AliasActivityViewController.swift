@@ -27,8 +27,10 @@ final class AliasActivityViewController: UIViewController {
         // tableView
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.separatorColor = .clear
         tableView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         tableView.register(UINib(nibName: "AliasActivityTableHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "AliasActivityTableHeaderView")
+        AliasActivityTableViewCell.register(with: tableView)
     }
 }
 
@@ -59,6 +61,7 @@ extension AliasActivityViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = AliasActivityTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        return cell
     }
 }
