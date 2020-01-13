@@ -53,6 +53,16 @@ final class AliasViewController: BaseViewController {
         tableView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         AliasTableViewCell.register(with: tableView)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.destination {
+        case let sendEmailViewController as SendEmailViewController:
+            guard let alias = sender as? Alias else { return }
+            sendEmailViewController.alias = alias
+            
+        default: return
+        }
+    }
 }
 
 // MARK: - SegmentedControl actions
@@ -135,6 +145,11 @@ extension AliasViewController: UITableViewDataSource {
         }
         
         cell.bind(with: alias)
+        
+        cell.didTapSendButton = { [unowned self] in
+            self.performSegue(withIdentifier: "showSendEmail", sender: alias)
+        }
+        
         return cell
     }
 }

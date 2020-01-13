@@ -53,7 +53,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Bkv-TN-Uzz">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="nt8-vm-ZTf">
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="nt8-vm-ZTf">
                             <rect key="frame" x="93.5" y="5.5" width="203" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
@@ -81,11 +81,60 @@
                     <connections>
                         <outlet property="segmentedControl" destination="nt8-vm-ZTf" id="eTp-nH-fbd"/>
                         <outlet property="tableView" destination="e3s-cy-q8e" id="uAX-r5-eHD"/>
+                        <segue destination="TtY-Vi-9th" kind="show" identifier="showSendEmail" id="0ce-pd-BHK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dMR-uO-5ea" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="206" y="129"/>
+        </scene>
+        <!--Send Email-->
+        <scene sceneID="z0l-2v-Gem">
+            <objects>
+                <viewController id="TtY-Vi-9th" customClass="SendEmailViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZxW-iK-GXT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="26e-Bo-FzM">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="TtY-Vi-9th" id="jFW-gH-Xdd"/>
+                                    <outlet property="delegate" destination="TtY-Vi-9th" id="GDY-Qz-I8q"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="26e-Bo-FzM" firstAttribute="leading" secondItem="UW7-Ja-QvH" secondAttribute="leading" id="NKM-iQ-xpE"/>
+                            <constraint firstItem="26e-Bo-FzM" firstAttribute="top" secondItem="UW7-Ja-QvH" secondAttribute="top" id="aor-Xh-ri6"/>
+                            <constraint firstItem="UW7-Ja-QvH" firstAttribute="trailing" secondItem="26e-Bo-FzM" secondAttribute="trailing" id="i5x-yA-0u5"/>
+                            <constraint firstAttribute="bottom" secondItem="26e-Bo-FzM" secondAttribute="bottom" id="yUG-j1-yvX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="UW7-Ja-QvH"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Send Email" id="NtE-BU-cHo">
+                        <rightBarButtonItems>
+                            <barButtonItem title="💡How to" id="liI-MB-jqC">
+                                <connections>
+                                    <action selector="hintButtonTapped" destination="TtY-Vi-9th" id="0As-nU-dTN"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="Xzx-nu-PEN">
+                                <connections>
+                                    <action selector="addButtonTapped" destination="TtY-Vi-9th" id="Y8l-4K-YLn"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="26e-Bo-FzM" id="bHL-cr-JtA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qt2-jH-4ad" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1345" y="495"/>
         </scene>
         <!--Create Alias View Controller-->
         <scene sceneID="aaT-2b-NFK">
@@ -174,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7QS-wN-vfW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1181" y="129"/>
+            <point key="canvasLocation" x="1346" y="-183"/>
         </scene>
         <!--Alias Directory-->
         <scene sceneID="yjK-E1-ctM">

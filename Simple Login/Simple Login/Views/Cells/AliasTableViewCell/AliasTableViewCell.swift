@@ -50,6 +50,8 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         if let alias = alias {
             bind(with: alias)
         }
+        
+        didToggleStatus?(enabledSwitch.isOn)
     }
     
     @IBAction private func copyButtonTapped() {
@@ -59,14 +61,14 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     }
     
     @IBAction private func sendButtonTapped() {
-    
+        didTapSendButton?()
     }
     
     @IBAction private func deleteButtonTapped() {
-        
+        didTapDeleteButton?()
     }
     
     @IBAction private func rightArrowButtonTapped() {
-        
+        didTapRightArrowButton?()
     }
 }
