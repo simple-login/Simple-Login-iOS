@@ -37,6 +37,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         enabledSwitch.isOn = alias.isEnabled
         sendButton.isEnabled = alias.isEnabled
         copyButton.isEnabled = alias.isEnabled
+        countLabel.attributedText = alias.countAttributedString
         
         if alias.isEnabled {
             rootView.backgroundColor = .white
