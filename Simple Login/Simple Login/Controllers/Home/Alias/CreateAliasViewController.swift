@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 final class CreateAliasViewController: UIViewController {
     @IBOutlet private weak var rootStackView: UIStackView!
@@ -14,7 +15,7 @@ final class CreateAliasViewController: UIViewController {
     @IBOutlet private weak var suffixLabel: UILabel!
     @IBOutlet private weak var createButton: UIButton!
     
-    private var isValidEmailPrefix: Bool = true {
+    private var isValidEmailPrefix: Bool = false {
         didSet {
             createButton.isEnabled = isValidEmailPrefix
             prefixTextField.textColor = isValidEmailPrefix ? UIColor.black : UIColor.systemRed
@@ -28,6 +29,7 @@ final class CreateAliasViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prefixTextField.becomeFirstResponder()
+        createButton.isEnabled = false
     }
     
     @IBAction private func cancelButtonTapped() {
@@ -35,7 +37,8 @@ final class CreateAliasViewController: UIViewController {
     }
     
     @IBAction private func createButtonTapped() {
-        print(#function)
+        Toast.displayShortly(message: "Created")
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction private func prefixTextFieldEditingChanged() {

@@ -32,6 +32,7 @@ final class AliasViewController: BaseViewController {
     private var currentAliasType: AliasType = .all {
         didSet {
             tableView.reloadData()
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
     }
     
@@ -62,6 +63,20 @@ final class AliasViewController: BaseViewController {
             
         default: return
         }
+    }
+    
+    private func presentAlertConfirmDelete(alias: Alias) {
+        let alert = UIAlertController(title: "Delete \(alias.name)", message: "🛑 People/apps who used to contact you via this alias cannot reach you any more. This operation is irreversible", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+            Toast.displayShortly(message: "Deleted")
+        }
+        alert.addAction(deleteAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -146,8 +161,16 @@ extension AliasViewController: UITableViewDataSource {
         
         cell.bind(with: alias)
         
+        cell.didToggleStatus = { [unowned self] isEnabled in
+            Toast.displayShortly(message: "is_enabled: \(isEnabled)")
+        }
+        
         cell.didTapSendButton = { [unowned self] in
             self.performSegue(withIdentifier: "showSendEmail", sender: alias)
+        }
+        
+        cell.didTapDeleteButton = { [unowned self] in
+            self.presentAlertConfirmDelete(alias: alias)
         }
         
         return cell
