@@ -23,6 +23,9 @@
 		C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */; };
 		C08A202423CC6CA300CB8D2F /* SendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202323CC6CA300CB8D2F /* SendEmailViewController.swift */; };
 		C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */; };
+		C08A202A23CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202923CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift */; };
+		C08A202C23CC968800CB8D2F /* ReverseAliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C08A202B23CC968800CB8D2F /* ReverseAliasTableViewCell.xib */; };
+		C08A202E23CC9AD800CB8D2F /* ReverseAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202D23CC9AD800CB8D2F /* ReverseAlias.swift */; };
 		C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097A9E623C7987F00EC1EFE /* AppDelegate.swift */; };
 		C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* Main.storyboard */; };
 		C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
@@ -67,6 +70,9 @@
 		C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasTableViewCell.xib; sourceTree = "<group>"; };
 		C08A202323CC6CA300CB8D2F /* SendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailViewController.swift; sourceTree = "<group>"; };
 		C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToSendEmailViewController.swift; sourceTree = "<group>"; };
+		C08A202923CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseAliasTableViewCell.swift; sourceTree = "<group>"; };
+		C08A202B23CC968800CB8D2F /* ReverseAliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReverseAliasTableViewCell.xib; sourceTree = "<group>"; };
+		C08A202D23CC9AD800CB8D2F /* ReverseAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseAlias.swift; sourceTree = "<group>"; };
 		C097A9E323C7987F00EC1EFE /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C097A9E623C7987F00EC1EFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C097A9ED23C7987F00EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -185,6 +191,15 @@
 			path = SendEmail;
 			sourceTree = "<group>";
 		};
+		C08A202823CC95C400CB8D2F /* ReverseAliasTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C08A202923CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift */,
+				C08A202B23CC968800CB8D2F /* ReverseAliasTableViewCell.xib */,
+			);
+			path = ReverseAliasTableViewCell;
+			sourceTree = "<group>";
+		};
 		C097A9DA23C7987F00EC1EFE = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +254,7 @@
 		C0B1DE4323C90D53003EED3B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				C08A202823CC95C400CB8D2F /* ReverseAliasTableViewCell */,
 				C05CD31623CA3EFA007F1C9E /* AliasTableViewCell */,
 				C0E50DA523C92EEF0058B88E /* SeparatorTableViewCell */,
 				C0B1DE4423C90D5F003EED3B /* LeftMenuOptionTableViewCell */,
@@ -274,6 +290,7 @@
 				C0B1DE3823C8AD22003EED3B /* UserOptions.swift */,
 				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
 				C05CD31423CA33C2007F1C9E /* Alias.swift */,
+				C08A202D23CC9AD800CB8D2F /* ReverseAlias.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -373,6 +390,7 @@
 				C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */,
 				C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */,
 				C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */,
+				C08A202C23CC968800CB8D2F /* ReverseAliasTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,9 +462,11 @@
 				C05CD30E23CA054B007F1C9E /* AboutViewController.swift in Sources */,
 				C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */,
 				C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */,
+				C08A202E23CC9AD800CB8D2F /* ReverseAlias.swift in Sources */,
 				C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */,
 				C05CD31823CA3F0A007F1C9E /* AliasTableViewCell.swift in Sources */,
 				C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */,
+				C08A202A23CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift in Sources */,
 				C05CD30823CA044E007F1C9E /* DirectoryViewController.swift in Sources */,
 				C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */,
 				C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */,

@@ -98,7 +98,6 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="26e-Bo-FzM">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="TtY-Vi-9th" id="jFW-gH-Xdd"/>
                                     <outlet property="delegate" destination="TtY-Vi-9th" id="GDY-Qz-I8q"/>
@@ -108,7 +107,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="26e-Bo-FzM" firstAttribute="leading" secondItem="UW7-Ja-QvH" secondAttribute="leading" id="NKM-iQ-xpE"/>
-                            <constraint firstItem="26e-Bo-FzM" firstAttribute="top" secondItem="UW7-Ja-QvH" secondAttribute="top" id="aor-Xh-ri6"/>
+                            <constraint firstItem="26e-Bo-FzM" firstAttribute="top" secondItem="UW7-Ja-QvH" secondAttribute="top" id="hAl-iy-6Mo"/>
                             <constraint firstItem="UW7-Ja-QvH" firstAttribute="trailing" secondItem="26e-Bo-FzM" secondAttribute="trailing" id="i5x-yA-0u5"/>
                             <constraint firstAttribute="bottom" secondItem="26e-Bo-FzM" secondAttribute="bottom" id="yUG-j1-yvX"/>
                         </constraints>
@@ -135,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qt2-jH-4ad" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1345" y="495"/>
+            <point key="canvasLocation" x="1344.9275362318842" y="494.86607142857139"/>
         </scene>
         <!--How To Send Email View Controller-->
         <scene sceneID="cB2-ZX-5p6">

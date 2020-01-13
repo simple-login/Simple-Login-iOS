@@ -12,7 +12,7 @@ final class HowToSendEmailViewController: UIViewController {
     @IBOutlet private weak var explicationLabel: UILabel!
     
     deinit {
-        print("HowToSendEmailViewController")
+        print("HowToSendEmailViewController is deallocated")
     }
     
     override func viewDidLoad() {

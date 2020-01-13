@@ -13,6 +13,15 @@ final class SendEmailViewController: UIViewController {
     
     var alias: Alias!
     
+    private lazy var reverseAliases: [ReverseAlias] = {
+        var reverseAliases: [ReverseAlias] = []
+        for _ in 0...30 {
+            reverseAliases.append(ReverseAlias())
+        }
+        
+        return reverseAliases
+    }()
+    
     deinit {
         print("SendEmailViewController is deallocated")
     }
@@ -27,10 +36,8 @@ final class SendEmailViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorColor = .clear
         tableView.tableFooterView = UIView(frame: .zero)
-    }
-    
-    @IBAction private func hintButtonTapped() {
-        
+        tableView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        ReverseAliasTableViewCell.register(with: tableView)
     }
     
     @IBAction private func addButtonTapped() {
@@ -43,6 +50,10 @@ extension SendEmailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return alias.name
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -52,10 +63,13 @@ extension SendEmailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return reverseAliases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = ReverseAliasTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let reverseAlias = reverseAliases[indexPath.row]
+        cell.bind(with: reverseAlias)
+        return cell
     }
 }
