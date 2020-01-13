@@ -123,7 +123,7 @@
                             </barButtonItem>
                             <barButtonItem systemItem="add" id="Xzx-nu-PEN">
                                 <connections>
-                                    <action selector="addButtonTapped" destination="TtY-Vi-9th" id="Y8l-4K-YLn"/>
+                                    <segue destination="lfy-0M-dP6" kind="presentation" id="k3O-1h-VRv"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -181,7 +181,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="coZ-W9-sSl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2586" y="241"/>
+            <point key="canvasLocation" x="2590" y="141"/>
+        </scene>
+        <!--Create Reverse Alias View Controller-->
+        <scene sceneID="Zvb-u5-EhH">
+            <objects>
+                <viewController id="lfy-0M-dP6" customClass="CreateReverseAliasViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cdR-JJ-RZ6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1cV-gS-GP7">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem title="Create Reverse-Alias" id="yNL-Z9-efC">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="k9P-hX-5bf">
+                                            <connections>
+                                                <action selector="cancelButtonTapped" destination="lfy-0M-dP6" id="NzX-tV-rdt"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Djf-aX-rf1" firstAttribute="trailing" secondItem="1cV-gS-GP7" secondAttribute="trailing" id="8Bo-6N-7DW"/>
+                            <constraint firstItem="1cV-gS-GP7" firstAttribute="top" secondItem="Djf-aX-rf1" secondAttribute="top" id="eJN-fD-mMi"/>
+                            <constraint firstItem="1cV-gS-GP7" firstAttribute="leading" secondItem="cdR-JJ-RZ6" secondAttribute="leading" symbolic="YES" id="uvZ-9y-kg4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Djf-aX-rf1"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pKg-cF-JCT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2590" y="836"/>
         </scene>
         <!--Create Alias View Controller-->
         <scene sceneID="aaT-2b-NFK">

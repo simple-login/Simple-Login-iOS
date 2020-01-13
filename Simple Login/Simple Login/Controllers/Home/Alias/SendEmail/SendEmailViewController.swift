@@ -39,10 +39,6 @@ final class SendEmailViewController: UIViewController {
         tableView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         ReverseAliasTableViewCell.register(with: tableView)
     }
-    
-    @IBAction private func addButtonTapped() {
-        
-    }
 }
 
 // MARK: - UITableViewDelegate

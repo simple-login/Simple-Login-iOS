@@ -21,6 +21,7 @@
 		C05CD31823CA3F0A007F1C9E /* AliasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31723CA3F0A007F1C9E /* AliasTableViewCell.swift */; };
 		C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31923CA4040007F1C9E /* Date+Distance.swift */; };
 		C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */; };
+		C0747EDF23CCA6F5008035E9 /* CreateReverseAliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EDE23CCA6F5008035E9 /* CreateReverseAliasViewController.swift */; };
 		C08A202423CC6CA300CB8D2F /* SendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202323CC6CA300CB8D2F /* SendEmailViewController.swift */; };
 		C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */; };
 		C08A202A23CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202923CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift */; };
@@ -68,6 +69,7 @@
 		C05CD31723CA3F0A007F1C9E /* AliasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTableViewCell.swift; sourceTree = "<group>"; };
 		C05CD31923CA4040007F1C9E /* Date+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Distance.swift"; sourceTree = "<group>"; };
 		C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasTableViewCell.xib; sourceTree = "<group>"; };
+		C0747EDE23CCA6F5008035E9 /* CreateReverseAliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReverseAliasViewController.swift; sourceTree = "<group>"; };
 		C08A202323CC6CA300CB8D2F /* SendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailViewController.swift; sourceTree = "<group>"; };
 		C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToSendEmailViewController.swift; sourceTree = "<group>"; };
 		C08A202923CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseAliasTableViewCell.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			children = (
 				C08A202323CC6CA300CB8D2F /* SendEmailViewController.swift */,
 				C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */,
+				C0747EDE23CCA6F5008035E9 /* CreateReverseAliasViewController.swift */,
 			);
 			path = SendEmail;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0B1DE4623C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift in Sources */,
+				C0747EDF23CCA6F5008035E9 /* CreateReverseAliasViewController.swift in Sources */,
 				C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */,
 				C0B1DE4223C90D2C003EED3B /* RegisterableCell.swift in Sources */,
 				C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */,
