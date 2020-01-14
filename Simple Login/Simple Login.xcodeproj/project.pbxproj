@@ -142,6 +142,42 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C05049BD23CE356900AEF20B /* LeftMenu */ = {
+			isa = PBXGroup;
+			children = (
+				C0B1DE4423C90D5F003EED3B /* LeftMenuOptionTableViewCell */,
+				C0E50DA523C92EEF0058B88E /* SeparatorTableViewCell */,
+			);
+			path = LeftMenu;
+			sourceTree = "<group>";
+		};
+		C05049BE23CE357A00AEF20B /* Alias */ = {
+			isa = PBXGroup;
+			children = (
+				C05CD31623CA3EFA007F1C9E /* AliasTableViewCell */,
+				C05049C023CE35A800AEF20B /* ReverseAlias */,
+				C05049BF23CE359E00AEF20B /* AliasActivity */,
+			);
+			path = Alias;
+			sourceTree = "<group>";
+		};
+		C05049BF23CE359E00AEF20B /* AliasActivity */ = {
+			isa = PBXGroup;
+			children = (
+				C0747EE723CCFAE9008035E9 /* AliasActivityTableViewCell */,
+				C0747EE023CCDE46008035E9 /* AliasActivityTableHeaderView */,
+			);
+			path = AliasActivity;
+			sourceTree = "<group>";
+		};
+		C05049C023CE35A800AEF20B /* ReverseAlias */ = {
+			isa = PBXGroup;
+			children = (
+				C08A202823CC95C400CB8D2F /* ReverseAliasTableViewCell */,
+			);
+			path = ReverseAlias;
+			sourceTree = "<group>";
+		};
 		C052F0D023C7DC8F00EB5D98 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,17 +320,13 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		C0B1DE4323C90D53003EED3B /* Cells */ = {
+		C0B1DE4323C90D53003EED3B /* Cells, Headers & Footers */ = {
 			isa = PBXGroup;
 			children = (
-				C0747EE723CCFAE9008035E9 /* AliasActivityTableViewCell */,
-				C0747EE023CCDE46008035E9 /* AliasActivityTableHeaderView */,
-				C08A202823CC95C400CB8D2F /* ReverseAliasTableViewCell */,
-				C05CD31623CA3EFA007F1C9E /* AliasTableViewCell */,
-				C0E50DA523C92EEF0058B88E /* SeparatorTableViewCell */,
-				C0B1DE4423C90D5F003EED3B /* LeftMenuOptionTableViewCell */,
+				C05049BD23CE356900AEF20B /* LeftMenu */,
+				C05049BE23CE357A00AEF20B /* Alias */,
 			);
-			path = Cells;
+			path = "Cells, Headers & Footers";
 			sourceTree = "<group>";
 		};
 		C0B1DE4423C90D5F003EED3B /* LeftMenuOptionTableViewCell */ = {
@@ -334,7 +366,7 @@
 		C0B6108923C7A44300D34B8C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C0B1DE4323C90D53003EED3B /* Cells */,
+				C0B1DE4323C90D53003EED3B /* Cells, Headers & Footers */,
 				C0B1DE3A23C8AD6D003EED3B /* Storyboards */,
 			);
 			path = Views;
