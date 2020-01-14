@@ -18,6 +18,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var enabledSwitch: UISwitch!
     @IBOutlet private weak var copyButton: UIButton!
     @IBOutlet private weak var sendButton: UIButton!
+    @IBOutlet private weak var deleteButton: UIButton!
     @IBOutlet private weak var rightArrowButton: UIButton!
     
     weak var alias: Alias?
@@ -45,6 +46,9 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         
         clockImageView.tintColor = SLColor.titleColor
         creationLabel.textColor = SLColor.titleColor
+        
+        deleteButton.tintColor = SLColor.negativeColor
+        deleteButton.setTitleColor(SLColor.negativeColor, for: .normal)
         
         rightArrowButton.tintColor = SLColor.titleColor
     }

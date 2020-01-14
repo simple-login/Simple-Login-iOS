@@ -369,9 +369,11 @@
                     </view>
                     <connections>
                         <outlet property="createButton" destination="zHM-Lr-YH4" id="0Sg-ll-W6l"/>
+                        <outlet property="hintLabel" destination="6vi-Kq-3lb" id="jYy-Xv-fC0"/>
                         <outlet property="prefixTextField" destination="GOg-ha-Q5h" id="pm3-Qu-omE"/>
                         <outlet property="rootStackView" destination="IBO-J0-78q" id="qpx-Zp-Wa6"/>
                         <outlet property="suffixLabel" destination="QHo-7x-cNL" id="dvj-pW-aPd"/>
+                        <outlet property="warningLabel" destination="Gr2-qq-e0j" id="Yno-sK-GWx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7QS-wN-vfW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

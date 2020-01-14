@@ -13,12 +13,14 @@ final class CreateAliasViewController: UIViewController {
     @IBOutlet private weak var rootStackView: UIStackView!
     @IBOutlet private weak var prefixTextField: UITextField!
     @IBOutlet private weak var suffixLabel: UILabel!
+    @IBOutlet private weak var hintLabel: UILabel!
+    @IBOutlet private weak var warningLabel: UILabel!
     @IBOutlet private weak var createButton: UIButton!
     
     private var isValidEmailPrefix: Bool = false {
         didSet {
             createButton.isEnabled = isValidEmailPrefix
-            prefixTextField.textColor = isValidEmailPrefix ? UIColor.black : UIColor.systemRed
+            prefixTextField.textColor = isValidEmailPrefix ? SLColor.textColor : SLColor.negativeColor
         }
     }
     
@@ -30,6 +32,17 @@ final class CreateAliasViewController: UIViewController {
         super.viewDidLoad()
         prefixTextField.becomeFirstResponder()
         createButton.isEnabled = false
+        setUpUI()
+    }
+    
+    private func setUpUI() {
+        prefixTextField.textColor = SLColor.textColor
+        suffixLabel.textColor = SLColor.textColor
+        
+        createButton.setTitleColor(SLColor.tintColor, for: .normal)
+        
+        hintLabel.textColor = SLColor.secondaryTitleColor
+        warningLabel.textColor = SLColor.negativeColor
     }
     
     @IBAction private func cancelButtonTapped() {

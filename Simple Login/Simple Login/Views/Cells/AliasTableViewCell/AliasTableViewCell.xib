@@ -132,6 +132,7 @@
                 <outlet property="copyButton" destination="C0V-3Q-Kd6" id="AmH-tE-Icr"/>
                 <outlet property="countLabel" destination="OFg-DM-sOu" id="NTm-wE-1TW"/>
                 <outlet property="creationLabel" destination="Cw0-O2-f8h" id="EcF-Om-fCl"/>
+                <outlet property="deleteButton" destination="tOF-BR-rC6" id="o9u-Nh-jA1"/>
                 <outlet property="enabledSwitch" destination="TWP-8A-4QJ" id="7Kp-7m-UJQ"/>
                 <outlet property="nameLabel" destination="y6r-rn-8iu" id="8aK-zp-Tg7"/>
                 <outlet property="rightArrowButton" destination="cmq-KU-0f9" id="jSL-kg-3ZG"/>
