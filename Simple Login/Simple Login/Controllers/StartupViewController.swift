@@ -22,12 +22,19 @@ final class StartupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let apiKey = SLKeychainService.getApiKey() {
-            self.apiKey = apiKey
-            checkApiKeyAndProceed()
-        } else {
-            presentLoginViewController()
-        }
+        
+        
+//        if let apiKey = SLKeychainService.getApiKey() {
+//            self.apiKey = apiKey
+//            checkApiKeyAndProceed()
+//        } else {
+//            presentLoginViewController()
+//        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presentHomeNavigationController(UserInfo())
     }
     
     @IBAction private func retry() {
