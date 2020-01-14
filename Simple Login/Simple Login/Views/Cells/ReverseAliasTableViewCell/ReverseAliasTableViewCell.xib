@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -68,7 +68,7 @@
                                             </button>
                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="9zf-Ox-pco">
                                                 <rect key="frame" x="292" y="0.0" width="40" height="50"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="gzN-r5-hCX"/>
                                                 </constraints>
@@ -98,6 +98,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="FzK-MR-Krw" firstAttribute="leading" secondItem="f9a-iX-FiI" secondAttribute="leading" constant="10" id="JP6-yQ-JMB"/>
                     <constraint firstAttribute="bottom" secondItem="FzK-MR-Krw" secondAttribute="bottom" constant="10" id="nJ9-sB-RtH"/>
@@ -107,8 +108,13 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="arrowLabel" destination="ksw-ec-O1d" id="RHo-fT-5jX"/>
+                <outlet property="clockImageView" destination="yv2-pF-a9o" id="LFI-dk-Ghm"/>
+                <outlet property="createButton" destination="chh-ki-5Db" id="dHz-hq-dL4"/>
                 <outlet property="creationDateLabel" destination="WV1-Oh-Fbn" id="YeB-1Y-I7T"/>
+                <outlet property="deleteButton" destination="U1m-Ft-dS2" id="kKy-lu-R8c"/>
                 <outlet property="destinationEmailLabel" destination="dHo-hn-FCp" id="iZr-PQ-E9b"/>
+                <outlet property="mailImageView" destination="Zsw-lk-eme" id="BOB-pX-o56"/>
                 <outlet property="rootView" destination="FzK-MR-Krw" id="WoL-vV-qXQ"/>
             </connections>
             <point key="canvasLocation" x="21.014492753623191" y="102.79017857142857"/>

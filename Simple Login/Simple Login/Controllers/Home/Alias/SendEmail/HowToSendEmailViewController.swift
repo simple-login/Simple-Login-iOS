@@ -52,7 +52,9 @@ final class HowToSendEmailViewController: UIViewController {
         // Highlight
         ["reverse-alias", "reverse-aliases"].forEach { (string) in
             RegexHelpers.matchRanges(of: string, inString: plainString).forEach { (range) in
-                attributedString.addAttribute(.backgroundColor, value: UIColor.systemYellow, range: range)
+                attributedString.addAttributes([
+                    .backgroundColor: UIColor.systemYellow,
+                    .foregroundColor: SLColor.menuBackgroundColor], range: range)
             }
         }
         
@@ -60,7 +62,7 @@ final class HowToSendEmailViewController: UIViewController {
             RegexHelpers.matchRanges(of: string, inString: plainString).forEach { (range) in
                 attributedString.addAttributes([
                     .backgroundColor: SLColor.negativeColor,
-                    .foregroundColor: UIColor.white,
+                    .foregroundColor: SLColor.menuBackgroundColor,
                     .font: UIFont.systemFont(ofSize: 15, weight: .medium)], range: range)
             }
         }

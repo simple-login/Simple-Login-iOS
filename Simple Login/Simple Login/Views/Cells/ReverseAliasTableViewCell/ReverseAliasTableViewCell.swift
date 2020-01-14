@@ -11,17 +11,37 @@ import Toaster
 
 final class ReverseAliasTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var rootView: UIView!
+    @IBOutlet private weak var mailImageView: UIImageView!
+    @IBOutlet private weak var arrowLabel: UILabel!
     @IBOutlet private weak var destinationEmailLabel: UILabel!
+    @IBOutlet private weak var clockImageView: UIImageView!
     @IBOutlet private weak var creationDateLabel: UILabel!
+    @IBOutlet private weak var createButton: UIButton!
+    @IBOutlet private weak var deleteButton: UIButton!
     
     var didTapWriteEmailButton: (() -> Void)?
     var didTapDeleteButton: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        contentView.backgroundColor = .clear
+
         selectionStyle = UITableViewCell.SelectionStyle.none
+        
+        rootView.backgroundColor = SLColor.frontBackgroundColor
         rootView.layer.cornerRadius = 8
+        
+        mailImageView.tintColor = SLColor.textColor
+        arrowLabel.textColor = SLColor.textColor
+        destinationEmailLabel.textColor = SLColor.textColor
+        
+        createButton.tintColor = SLColor.tintColor
+        createButton.setTitleColor(SLColor.tintColor, for: .normal)
+        
+        deleteButton.tintColor = SLColor.negativeColor
+        deleteButton.setTitleColor(SLColor.negativeColor, for: .normal)
+        
+        clockImageView.tintColor = SLColor.titleColor
+        creationDateLabel.textColor = SLColor.titleColor
     }
     
     func bind(with reverseAlias: ReverseAlias) {
