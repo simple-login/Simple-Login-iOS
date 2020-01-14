@@ -9,11 +9,21 @@
 import UIKit
 
 final class AliasActivityTableViewCell: UITableViewCell, RegisterableCell {
+    @IBOutlet private weak var rootView: UIView!
     @IBOutlet private weak var activityLabel: UILabel!
+    @IBOutlet private weak var clockImageView: UIImageView!
     @IBOutlet private weak var timeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        
+        rootView.layer.cornerRadius = 8
+        rootView.backgroundColor = SLColor.frontBackgroundColor
+        
+        activityLabel.textColor = SLColor.textColor
+        
+        clockImageView.tintColor = SLColor.titleColor
+        timeLabel.textColor = SLColor.titleColor
     }
 }

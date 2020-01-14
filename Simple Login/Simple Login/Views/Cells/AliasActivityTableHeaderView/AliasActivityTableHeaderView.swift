@@ -22,7 +22,7 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        contentView.backgroundColor = SLColor.backBackgroundColor
         
         rootViews.forEach({
             $0.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.7)

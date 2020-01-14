@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -55,6 +55,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="BNq-5u-xhf" secondAttribute="bottom" constant="10" id="EfJ-gn-j7n"/>
                     <constraint firstItem="BNq-5u-xhf" firstAttribute="top" secondItem="DWK-a0-IOl" secondAttribute="top" constant="10" id="S8X-Nr-dXM"/>
@@ -65,6 +66,8 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="activityLabel" destination="BY1-GB-CV2" id="fl4-Md-mhQ"/>
+                <outlet property="clockImageView" destination="HF9-F0-WrU" id="Idr-n9-NTR"/>
+                <outlet property="rootView" destination="BNq-5u-xhf" id="5Ay-rz-FAV"/>
                 <outlet property="timeLabel" destination="Dac-f3-J43" id="QZq-pA-MaQ"/>
             </connections>
             <point key="canvasLocation" x="22.463768115942031" y="80.022321428571431"/>
