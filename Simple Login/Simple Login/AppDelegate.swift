@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        window?.tintColor = SLColor.tintColor
+        setUpUI()
         #if DEBUG
         do {
             try SLKeychainService.setApiKey("fwtdafjhcclxkoreayetkmhulscpqsceysgojqcklsimbacaqtouqyzmjikm")
@@ -23,6 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         #endif
         return true
+    }
+    
+    private func setUpUI () {
+        window?.tintColor = SLColor.tintColor
+        
+        // Toaster's appearance
+        ToastView.appearance().backgroundColor = SLColor.textColor
+        ToastView.appearance().textColor = SLColor.menuBackgroundColor
     }
 }
 

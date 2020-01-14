@@ -18,7 +18,7 @@ final class CreateReverseAliasViewController: UIViewController {
     
     private var isValidEmailAddress: Bool = false {
         didSet {
-            destinationEmailTextField.textColor = isValidEmailAddress ? UIColor.black : UIColor.systemRed
+            destinationEmailTextField.textColor = isValidEmailAddress ? SLColor.textColor : SLColor.negativeColor
             createButton.isEnabled = isValidEmailAddress
         }
     }
@@ -44,12 +44,12 @@ final class CreateReverseAliasViewController: UIViewController {
         
         attributedString.addAttributes([
             .font: UIFont.systemFont(ofSize: 15),
-            .foregroundColor: UIColor.darkText], range: NSRange(plainString.startIndex..., in: plainString))
+            .foregroundColor: SLColor.titleColor], range: NSRange(plainString.startIndex..., in: plainString))
         
         if let aliasNameRange = plainString.range(of: alias.name) {
             attributedString.addAttributes([
             .font: UIFont.systemFont(ofSize: 15, weight: .bold),
-            .foregroundColor: UIColor.black], range: NSRange(aliasNameRange, in: plainString))
+            .foregroundColor: SLColor.textColor], range: NSRange(aliasNameRange, in: plainString))
         }
     
         messageLabel.attributedText = attributedString

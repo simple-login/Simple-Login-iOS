@@ -47,7 +47,7 @@ final class HowToSendEmailViewController: UIViewController {
         attributedString.addAttributes([
             .paragraphStyle: paragraphStyle,
             .font: UIFont.systemFont(ofSize: 15),
-            .foregroundColor: UIColor.darkGray], range: NSRange(plainString.startIndex..., in: plainString))
+            .foregroundColor: SLColor.titleColor], range: NSRange(plainString.startIndex..., in: plainString))
         
         // Highlight
         ["reverse-alias", "reverse-aliases"].forEach { (string) in
@@ -59,7 +59,7 @@ final class HowToSendEmailViewController: UIViewController {
         ["from your personal email address", "only"].forEach { (string) in
             RegexHelpers.matchRanges(of: string, inString: plainString).forEach { (range) in
                 attributedString.addAttributes([
-                    .backgroundColor: UIColor.systemRed,
+                    .backgroundColor: SLColor.negativeColor,
                     .foregroundColor: UIColor.white,
                     .font: UIFont.systemFont(ofSize: 15, weight: .medium)], range: range)
             }
