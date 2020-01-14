@@ -40,25 +40,32 @@ final class LeftMenuViewController: UIViewController {
     }
 
     private func setUpUI() {
+        view.backgroundColor = SLColor.menuBackgroundColor
+        
         // avatarImageView
         avatarImageView.layer.cornerRadius = avatarImageView.bounds.width / 2
         avatarImageView.layer.borderWidth = 2
-        avatarImageView.layer.borderColor = avatarImageView.tintColor.cgColor
-        avatarImageView.layer.backgroundColor = avatarImageView.tintColor.withAlphaComponent(0.5).cgColor
+        avatarImageView.layer.borderColor = SLColor.tintColor.cgColor
+        avatarImageView.layer.backgroundColor = SLColor.tintColor.withAlphaComponent(0.5).cgColor
+        
+        // usernameLabel
+        usernameLabel.textColor = SLColor.textColor
         
         // shadowView
         let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.lightGray.cgColor, UIColor.clear.cgColor]
+        gradient.colors = [SLColor.shadowColor.cgColor, UIColor.clear.cgColor]
         gradient.locations = [0.0, 1.0]
         gradient.startPoint = .init(x: 0.0, y: 0.0)
         gradient.endPoint = .init(x: 0.0, y: 1.0)
-        gradient.frame = .init(origin: .zero, size: .init(width: shadowView.bounds.width, height: shadowView.bounds.height))
+        gradient.frame = .init(origin: .zero, size: .init(width: shadowView.bounds.width, height: 5))
         shadowView.layer.insertSublayer(gradient, at: 0)
         shadowView.alpha = 0
+        shadowView.backgroundColor = SLColor.shadowColor
         
         // tableView
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorColor = .clear
+        tableView.backgroundColor = .clear
         
         let footerView = UIView(frame: .init(origin: .zero, size: .init(width: tableView.bounds.width, height: 44)))
         let simpleLoginLabel = UILabel(frame: .zero)
@@ -86,12 +93,12 @@ final class LeftMenuViewController: UIViewController {
         
         if userInfo.isPremium {
             statusLabel.text = "Premium"
-            statusLabel.textColor = .systemGreen
-            statusLabel.shadowColor = UIColor.systemGreen.withAlphaComponent(0.5)
+            statusLabel.textColor = SLColor.premiumColor
+            statusLabel.shadowColor = SLColor.premiumColor.withAlphaComponent(0.5)
         } else {
             statusLabel.text = "Upgrade"
-            statusLabel.textColor = .darkGray
-            statusLabel.shadowColor = UIColor.darkGray.withAlphaComponent(0.5)
+            statusLabel.textColor = SLColor.titleColor
+            statusLabel.shadowColor = SLColor.titleColor.withAlphaComponent(0.5)
         }
     }
 }

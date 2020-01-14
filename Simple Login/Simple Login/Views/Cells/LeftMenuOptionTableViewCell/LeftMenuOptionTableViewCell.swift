@@ -14,7 +14,8 @@ final class LeftMenuOptionTableViewCell: UITableViewCell, RegisterableCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        optionTitleLabel.textColor = .darkGray
+        iconImageView.tintColor = SLColor.tintColor
+        optionTitleLabel.textColor = SLColor.titleColor
     }
     
     func bind(with leftMenuOption: LeftMenuOption) {
