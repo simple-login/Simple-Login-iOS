@@ -15,7 +15,7 @@ struct SLColor {
     static let frontBackgroundColor = UIColor(named: "FrontBackgroundColor")!
     static let backBackgroundColor = UIColor(named: "BackBackgroundColor")!
     static let menuBackgroundColor = UIColor(named: "MenuBackgroundColor")!
-    static let tintColor = UIColor(named: "TintColor")!
+    static let tintColor = UIColor.systemTeal
     static let premiumColor = UIColor(named: "PremiumColor")!
     static let shadowColor = UIColor(named: "ShadowColor")!
     static let separatorColor = UIColor(named: "SeparatorColor")!

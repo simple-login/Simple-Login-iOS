@@ -29,13 +29,13 @@ final class Alias {
         
         let attributedString = NSMutableAttributedString(string: plainString)
         attributedString.addAttributes([
-            .foregroundColor: UIColor.darkGray,
+            .foregroundColor: SLColor.titleColor,
             .font: UIFont.systemFont(ofSize: 12, weight: .medium)], range: NSRange(plainString.startIndex..., in: plainString))
         
         let matchRanges = RegexHelpers.matchRanges(of: "[0-9]{1,}", inString: plainString)
         matchRanges.forEach { (range) in
             attributedString.addAttributes([
-            .foregroundColor: UIColor.black,
+            .foregroundColor: SLColor.textColor,
             .font: UIFont.systemFont(ofSize: 13, weight: .medium)], range: range)
         }
         

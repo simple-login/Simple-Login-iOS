@@ -47,6 +47,7 @@ final class AliasViewController: BaseViewController {
     }
     
     private func setUpUI() {
+        view.backgroundColor = SLColor.backBackgroundColor
         // tableView
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
