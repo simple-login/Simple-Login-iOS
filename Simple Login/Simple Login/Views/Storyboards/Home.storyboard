@@ -538,6 +538,7 @@
                         <outlet property="statusLabel" destination="7lg-kJ-fNK" id="8Ay-bs-0PQ"/>
                         <outlet property="tableView" destination="nTn-5J-mnX" id="pcj-3C-IKO"/>
                         <outlet property="topView" destination="AzI-9J-zY1" id="1ux-qx-eMW"/>
+                        <outlet property="topViewHeightConstraint" destination="e8S-jz-ml9" id="NVr-Gl-G9k"/>
                         <outlet property="usernameLabel" destination="BVQ-cN-hlu" id="hPW-UZ-tEI"/>
                     </connections>
                 </viewController>

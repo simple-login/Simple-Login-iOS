@@ -18,6 +18,16 @@ final class HomeNavigationController: UINavigationController {
 
     var userInfo: UserInfo?
     
+    private var leftMenuIsShown: Bool = false
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if leftMenuIsShown {
+            return .lightContent
+        }
+        
+        return .default
+    }
+    
     deinit {
         print("HomeNavigationController is deallocated")
     }
@@ -51,6 +61,7 @@ final class HomeNavigationController: UINavigationController {
             sideMenuNavigationController.presentationStyle.presentingEndAlpha = 0.7
             sideMenuNavigationController.statusBarEndAlpha = 0.0
             sideMenuNavigationController.leftSide = true
+            sideMenuNavigationController.sideMenuDelegate = self
             
             let leftMenuViewController = sideMenuNavigationController.viewControllers[0] as? LeftMenuViewController
             leftMenuViewController?.userInfo = userInfo
@@ -141,5 +152,18 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
         viewControllers = [aboutViewController]
         dismissLeftMenu()
+    }
+}
+
+// MARK: - SideMenuNavigationControllerDelegate
+extension HomeNavigationController: SideMenuNavigationControllerDelegate {
+    func sideMenuWillAppear(menu: SideMenuNavigationController, animated: Bool) {
+        leftMenuIsShown = true
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    func sideMenuWillDisappear(menu: SideMenuNavigationController, animated: Bool) {
+        leftMenuIsShown = false
+        setNeedsStatusBarAppearanceUpdate()
     }
 }

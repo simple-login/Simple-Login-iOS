@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 #if DEBUG
 let BASE_URL = "https://app.sl.meo.ovh"
@@ -15,3 +16,11 @@ let BASE_URL = "https://app.simplelogin.io"
 #endif
 
 let ALIAS_PREFIX_MAX_LENGTH = 100
+
+var hasTopNotch: Bool {
+    if #available(iOS 13.0,  *) {
+        return UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0 > 20
+    } else{
+        return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
+    }
+}

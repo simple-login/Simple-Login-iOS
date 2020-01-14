@@ -18,6 +18,7 @@ protocol LeftMenuViewControllerDelegate {
 
 final class LeftMenuViewController: UIViewController {
     @IBOutlet private weak var topView: UIView!
+    @IBOutlet private weak var topViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var shadowView: UIView!
     @IBOutlet private weak var avatarImageView: UIImageView!
     @IBOutlet private weak var usernameLabel: UILabel!
@@ -41,6 +42,9 @@ final class LeftMenuViewController: UIViewController {
 
     private func setUpUI() {
         view.backgroundColor = SLColor.menuBackgroundColor
+        
+        // topView
+        topViewHeightConstraint.constant = hasTopNotch ? 150 : 120
         
         // avatarImageView
         avatarImageView.layer.cornerRadius = avatarImageView.bounds.width / 2
