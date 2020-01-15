@@ -33,9 +33,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ZeQ-BI-uJq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="BackBackgroundColor"/>
-                        <color key="separatorColor" name="SeparatorColor"/>
-                        <color key="sectionIndexBackgroundColor" name="BackBackgroundColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection headerTitle="SimpleLogin" id="bNz-TC-ok2">
                                 <cells>
@@ -59,7 +57,6 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                     <rect key="frame" x="10" y="110" width="394" height="219"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" name="FrontBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstItem="PHo-du-gmI" firstAttribute="top" secondItem="jRb-0E-d4w" secondAttribute="top" constant="10" id="25s-WY-LIf"/>
                                                 <constraint firstAttribute="trailing" secondItem="PHo-du-gmI" secondAttribute="trailing" constant="20" id="3as-zc-Emk"/>
@@ -82,16 +79,18 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="How it works" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tw9-Gp-0dP">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="How SimpleLogin works" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tw9-Gp-0dP">
                                                     <rect key="frame" x="20" y="0.0" width="355" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="TextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="FrontBackgroundColor"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="cXx-Mb-yJn" kind="show" id="juY-bQ-sBx"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="fb9-BK-3ld" style="IBUITableViewCellStyleDefault" id="gnB-iK-MIE">
                                         <rect key="frame" x="0.0" y="474.5" width="414" height="44"/>
@@ -104,11 +103,10 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                     <rect key="frame" x="20" y="0.0" width="355" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="TextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="FrontBackgroundColor"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -126,11 +124,10 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                     <rect key="frame" x="20" y="0.0" width="355" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="TextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="FrontBackgroundColor"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="Ocp-lK-30Z" style="IBUITableViewCellStyleDefault" id="ojt-T4-Jdn">
@@ -144,11 +141,10 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                     <rect key="frame" x="20" y="0.0" width="374" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="TextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="FrontBackgroundColor"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -166,11 +162,10 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                     <rect key="frame" x="20" y="0.0" width="355" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="TextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="FrontBackgroundColor"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="SLb-i4-6fP" style="IBUITableViewCellStyleDefault" id="BBW-B5-2mS">
@@ -184,11 +179,10 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                     <rect key="frame" x="20" y="0.0" width="355" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="TextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="FrontBackgroundColor"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -206,11 +200,10 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                     <rect key="frame" x="20" y="0.0" width="355" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="TextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="FrontBackgroundColor"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Nek-qG-hWg" style="IBUITableViewCellStyleDefault" id="02d-T3-oxI">
@@ -224,11 +217,10 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                     <rect key="frame" x="20" y="0.0" width="355" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="TextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="FrontBackgroundColor"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -245,20 +237,167 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
             </objects>
             <point key="canvasLocation" x="-49.275362318840585" y="3450.6696428571427"/>
         </scene>
+        <!--How SimpleLogin works-->
+        <scene sceneID="hpE-4T-jYh">
+            <objects>
+                <tableViewController id="cXx-Mb-yJn" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="kaC-aH-CC5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="sDe-7c-wD4">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="0Nw-yC-dt7">
+                                        <rect key="frame" x="0.0" y="18" width="414" height="350"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Nw-yC-dt7" id="QuD-MY-9QW">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A. Hide your personal email address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCG-9r-BSG">
+                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <color key="textColor" name="TextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="StepA" translatesAutoresizingMaskIntoConstraints="NO" id="vth-b2-FCH">
+                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipF-S7-7fC">
+                                                    <rect key="frame" x="20" y="18" width="374" height="16"/>
+                                                    <string key="text">Create quickly a random, secure email alias on any website.
+
+All emails going to an alias will be forwarded to your personal inbox.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" name="TitleColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="vth-b2-FCH" secondAttribute="trailing" constant="20" id="ANm-yY-fig"/>
+                                                <constraint firstItem="ipF-S7-7fC" firstAttribute="top" secondItem="vth-b2-FCH" secondAttribute="bottom" constant="8" symbolic="YES" id="Efu-7l-4WJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="dCG-9r-BSG" secondAttribute="trailing" constant="20" id="I9O-kw-zR6"/>
+                                                <constraint firstItem="vth-b2-FCH" firstAttribute="leading" secondItem="QuD-MY-9QW" secondAttribute="leading" constant="20" id="VNK-Vm-nRT"/>
+                                                <constraint firstAttribute="trailing" secondItem="ipF-S7-7fC" secondAttribute="trailing" constant="20" id="h91-C8-g44"/>
+                                                <constraint firstItem="ipF-S7-7fC" firstAttribute="leading" secondItem="QuD-MY-9QW" secondAttribute="leading" constant="20" id="hBa-he-gW8"/>
+                                                <constraint firstItem="vth-b2-FCH" firstAttribute="top" secondItem="dCG-9r-BSG" secondAttribute="bottom" id="n62-WR-0TV"/>
+                                                <constraint firstAttribute="bottom" secondItem="ipF-S7-7fC" secondAttribute="bottom" constant="10" id="pmM-W1-uK2"/>
+                                                <constraint firstItem="dCG-9r-BSG" firstAttribute="top" secondItem="QuD-MY-9QW" secondAttribute="top" constant="10" id="vz7-TS-gkw"/>
+                                                <constraint firstItem="dCG-9r-BSG" firstAttribute="leading" secondItem="QuD-MY-9QW" secondAttribute="leading" constant="20" id="wAc-hi-tc2"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="39B-bI-7DU">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="o3X-hb-cGZ">
+                                        <rect key="frame" x="0.0" y="404" width="414" height="350"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o3X-hb-cGZ" id="Y7B-ul-6R4">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B. Control who can send you emails" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Vc-N3-rVx">
+                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <color key="textColor" name="TextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="StepA" translatesAutoresizingMaskIntoConstraints="NO" id="LHw-1L-srF">
+                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Simply block an alias if it's too spammy." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J1a-Ng-Ktz">
+                                                    <rect key="frame" x="20" y="18" width="374" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" name="TitleColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="J1a-Ng-Ktz" firstAttribute="leading" secondItem="Y7B-ul-6R4" secondAttribute="leading" constant="20" id="9NY-AE-e1f"/>
+                                                <constraint firstItem="LHw-1L-srF" firstAttribute="top" secondItem="8Vc-N3-rVx" secondAttribute="bottom" id="HEy-gT-pKG"/>
+                                                <constraint firstItem="8Vc-N3-rVx" firstAttribute="leading" secondItem="Y7B-ul-6R4" secondAttribute="leading" constant="20" id="W1d-1h-ZZh"/>
+                                                <constraint firstAttribute="trailing" secondItem="LHw-1L-srF" secondAttribute="trailing" constant="20" id="X0G-Xc-B26"/>
+                                                <constraint firstAttribute="trailing" secondItem="J1a-Ng-Ktz" secondAttribute="trailing" constant="20" id="bP6-3e-jQX"/>
+                                                <constraint firstItem="J1a-Ng-Ktz" firstAttribute="top" secondItem="LHw-1L-srF" secondAttribute="bottom" constant="8" symbolic="YES" id="dUQ-xF-8tN"/>
+                                                <constraint firstItem="LHw-1L-srF" firstAttribute="leading" secondItem="Y7B-ul-6R4" secondAttribute="leading" constant="20" id="dkd-cA-zj5"/>
+                                                <constraint firstItem="8Vc-N3-rVx" firstAttribute="top" secondItem="Y7B-ul-6R4" secondAttribute="top" constant="10" id="qwD-9R-9Jt"/>
+                                                <constraint firstAttribute="trailing" secondItem="8Vc-N3-rVx" secondAttribute="trailing" constant="20" id="s0c-dj-IUp"/>
+                                                <constraint firstAttribute="bottom" secondItem="J1a-Ng-Ktz" secondAttribute="bottom" constant="10" id="s4Y-kh-x69"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="QvO-lX-RDM">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="3jJ-8F-rAb">
+                                        <rect key="frame" x="0.0" y="790" width="414" height="350"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3jJ-8F-rAb" id="ynb-fB-S6g">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C. Reply with an alias" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGM-F3-evF">
+                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <color key="textColor" name="TextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="StepA" translatesAutoresizingMaskIntoConstraints="NO" id="FmM-3N-LOe">
+                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7U2-Rk-6eD">
+                                                    <rect key="frame" x="20" y="18" width="374" height="16"/>
+                                                    <string key="text">Not only an alias can receive emails, it can send emails too.
+
+Simply hit "Reply" in your favorite email client and the reply will come from the alias.
+
+Your personal email address is never revealed.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" name="TitleColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7U2-Rk-6eD" firstAttribute="top" secondItem="FmM-3N-LOe" secondAttribute="bottom" constant="8" symbolic="YES" id="DHf-oJ-iML"/>
+                                                <constraint firstItem="jGM-F3-evF" firstAttribute="leading" secondItem="ynb-fB-S6g" secondAttribute="leading" constant="20" id="FND-VQ-VC2"/>
+                                                <constraint firstItem="FmM-3N-LOe" firstAttribute="top" secondItem="jGM-F3-evF" secondAttribute="bottom" id="GjT-f9-gUn"/>
+                                                <constraint firstItem="jGM-F3-evF" firstAttribute="top" secondItem="ynb-fB-S6g" secondAttribute="top" constant="10" id="OnS-LC-XgQ"/>
+                                                <constraint firstItem="7U2-Rk-6eD" firstAttribute="leading" secondItem="ynb-fB-S6g" secondAttribute="leading" constant="20" id="Vek-XS-GbL"/>
+                                                <constraint firstItem="FmM-3N-LOe" firstAttribute="leading" secondItem="ynb-fB-S6g" secondAttribute="leading" constant="20" id="Zzn-Ky-aWj"/>
+                                                <constraint firstAttribute="trailing" secondItem="jGM-F3-evF" secondAttribute="trailing" constant="20" id="ccD-tb-SRG"/>
+                                                <constraint firstAttribute="bottom" secondItem="7U2-Rk-6eD" secondAttribute="bottom" constant="10" id="e4l-ia-ZbH"/>
+                                                <constraint firstAttribute="trailing" secondItem="FmM-3N-LOe" secondAttribute="trailing" constant="20" id="jSe-7l-KIc"/>
+                                                <constraint firstAttribute="trailing" secondItem="7U2-Rk-6eD" secondAttribute="trailing" constant="20" id="o7U-19-faa"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="cXx-Mb-yJn" id="oo4-oB-zXt"/>
+                            <outlet property="delegate" destination="cXx-Mb-yJn" id="a9L-CF-gZd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="How SimpleLogin works" id="hXY-Bh-u1o"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pkd-7G-6o0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="876.81159420289862" y="3091.7410714285711"/>
+        </scene>
     </scenes>
     <resources>
         <image name="SLSchema" width="677.5" height="784.5"/>
-        <namedColor name="BackBackgroundColor">
-            <color white="0.89999997615814209" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </namedColor>
-        <namedColor name="FrontBackgroundColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="SeparatorColor">
-            <color white="0.80000001192092896" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </namedColor>
+        <image name="StepA" width="558" height="153"/>
         <namedColor name="TextColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TitleColor">
+            <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
     </resources>
 </document>
