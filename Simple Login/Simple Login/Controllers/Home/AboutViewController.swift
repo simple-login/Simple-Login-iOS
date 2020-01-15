@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class AboutViewController: BaseViewController {
+final class AboutViewController: BaseTableViewController {
     
     deinit {
         print("AboutViewController is deallocated")
