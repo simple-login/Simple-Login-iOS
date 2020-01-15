@@ -141,7 +141,8 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
     func didSelectAbout() {
         if aboutViewController == nil {
-            aboutViewController = storyboard?.instantiateViewController(withIdentifier: "AboutViewController") as? AboutViewController
+            let aboutStoryboard = UIStoryboard(name: "About", bundle: nil)
+            aboutViewController = aboutStoryboard.instantiateViewController(withIdentifier: "AboutViewController") as? AboutViewController
             
             aboutViewController?.didTapLeftBarButtonItem = { [unowned self] in
                 self.toggleLeftMenu()

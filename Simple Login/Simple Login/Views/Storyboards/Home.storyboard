@@ -600,40 +600,6 @@
             </objects>
             <point key="canvasLocation" x="-859" y="2772"/>
         </scene>
-        <!--About-->
-        <scene sceneID="fCH-JE-H0s">
-            <objects>
-                <viewController storyboardIdentifier="AboutViewController" id="eIz-Zy-K8U" customClass="AboutViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="3pG-E7-S6E">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="Ugv-8C-Abd"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="About" id="6YA-NY-QDE"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rzx-V1-eIr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="206" y="3452"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Rvb-So-AFu">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xmI-ft-YtU" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WMJ-yH-JQd">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="eIz-Zy-K8U" kind="relationship" relationship="rootViewController" id="I7t-Nq-g50"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3Ma-9v-5hC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-859" y="3452"/>
-        </scene>
     </scenes>
     <resources>
         <image name="BlueBackground" width="300" height="168.5"/>
