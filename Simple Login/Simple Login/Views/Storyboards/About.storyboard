@@ -72,7 +72,7 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                             </tableViewSection>
                             <tableViewSection id="Ovg-lj-66a">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Tw9-Gp-0dP" style="IBUITableViewCellStyleDefault" id="aKy-pi-3QC">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Tw9-Gp-0dP" style="IBUITableViewCellStyleDefault" id="aKy-pi-3QC">
                                         <rect key="frame" x="0.0" y="430.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aKy-pi-3QC" id="K3B-IZ-j31">
@@ -92,7 +92,7 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                             <segue destination="cXx-Mb-yJn" kind="show" id="juY-bQ-sBx"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="fb9-BK-3ld" style="IBUITableViewCellStyleDefault" id="gnB-iK-MIE">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="fb9-BK-3ld" style="IBUITableViewCellStyleDefault" id="gnB-iK-MIE">
                                         <rect key="frame" x="0.0" y="474.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gnB-iK-MIE" id="R44-jU-p0A">
@@ -108,12 +108,15 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="bEz-bc-vCH" kind="show" id="tEj-zw-S1U"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="Q17-If-zqF">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="lV1-hX-SuP" style="IBUITableViewCellStyleDefault" id="tD6-3e-a5t">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="lV1-hX-SuP" style="IBUITableViewCellStyleDefault" id="tD6-3e-a5t">
                                         <rect key="frame" x="0.0" y="554.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tD6-3e-a5t" id="zjh-3Y-0sk">
@@ -130,7 +133,7 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="Ocp-lK-30Z" style="IBUITableViewCellStyleDefault" id="ojt-T4-Jdn">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="Ocp-lK-30Z" style="IBUITableViewCellStyleDefault" id="ojt-T4-Jdn">
                                         <rect key="frame" x="0.0" y="598.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ojt-T4-Jdn" id="7M1-hA-e7j">
@@ -151,7 +154,7 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                             </tableViewSection>
                             <tableViewSection id="Rh9-8j-eke">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Tuo-a9-PfP" style="IBUITableViewCellStyleDefault" id="HXR-14-u4L">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Tuo-a9-PfP" style="IBUITableViewCellStyleDefault" id="HXR-14-u4L">
                                         <rect key="frame" x="0.0" y="678.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HXR-14-u4L" id="OhZ-4v-9cv">
@@ -168,7 +171,7 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="SLb-i4-6fP" style="IBUITableViewCellStyleDefault" id="BBW-B5-2mS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="SLb-i4-6fP" style="IBUITableViewCellStyleDefault" id="BBW-B5-2mS">
                                         <rect key="frame" x="0.0" y="722.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BBW-B5-2mS" id="j0E-l2-Rx0">
@@ -189,7 +192,7 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                             </tableViewSection>
                             <tableViewSection id="ySq-rb-x3z">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="BGR-yg-ecc" style="IBUITableViewCellStyleDefault" id="mWP-BI-G2g">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="BGR-yg-ecc" style="IBUITableViewCellStyleDefault" id="mWP-BI-G2g">
                                         <rect key="frame" x="0.0" y="802.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mWP-BI-G2g" id="ZdL-al-EmM">
@@ -206,7 +209,7 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Nek-qG-hWg" style="IBUITableViewCellStyleDefault" id="02d-T3-oxI">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Nek-qG-hWg" style="IBUITableViewCellStyleDefault" id="02d-T3-oxI">
                                         <rect key="frame" x="0.0" y="846.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="02d-T3-oxI" id="Acu-UK-c0H">
@@ -237,6 +240,180 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
             </objects>
             <point key="canvasLocation" x="-49.275362318840585" y="3450.6696428571427"/>
         </scene>
+        <!--Frequently asked questions-->
+        <scene sceneID="pn2-1D-zMt">
+            <objects>
+                <tableViewController id="bEz-bc-vCH" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="zrQ-xs-eEI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="oZZ-7a-kyv">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="Fid-rl-Ce7">
+                                        <rect key="frame" x="0.0" y="18" width="414" height="132"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fid-rl-Ce7" id="mYy-el-Qdb">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is an email alias?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zrt-RO-iyG">
+                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <color key="textColor" name="TextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1m9-Hq-Ydd">
+                                                    <rect key="frame" x="20" y="20" width="374" height="14"/>
+                                                    <string key="text">Email alias is similar to forward email address: all emails sent to an alias will be forwarded to your inbox.
+
+Thanks to SimpleLogin technology, an alias can also send emails.
+
+For your contact, the alias is therefore your email address.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" name="TitleColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1m9-Hq-Ydd" firstAttribute="top" secondItem="Zrt-RO-iyG" secondAttribute="bottom" constant="10" id="2my-Ea-hfc"/>
+                                                <constraint firstAttribute="trailing" secondItem="1m9-Hq-Ydd" secondAttribute="trailing" constant="20" id="Ljb-ZR-ddY"/>
+                                                <constraint firstItem="Zrt-RO-iyG" firstAttribute="leading" secondItem="mYy-el-Qdb" secondAttribute="leading" constant="20" id="PLd-MT-DzB"/>
+                                                <constraint firstItem="1m9-Hq-Ydd" firstAttribute="leading" secondItem="mYy-el-Qdb" secondAttribute="leading" constant="20" id="TIr-Lo-tZf"/>
+                                                <constraint firstAttribute="bottom" secondItem="1m9-Hq-Ydd" secondAttribute="bottom" constant="10" id="cfV-9A-lr3"/>
+                                                <constraint firstAttribute="trailing" secondItem="Zrt-RO-iyG" secondAttribute="trailing" constant="20" id="gNT-Uh-2kn"/>
+                                                <constraint firstItem="Zrt-RO-iyG" firstAttribute="top" secondItem="mYy-el-Qdb" secondAttribute="top" constant="10" id="xIm-7J-vQN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="O0b-oO-0r9">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="kTg-Zn-xlP">
+                                        <rect key="frame" x="0.0" y="186" width="414" height="132"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kTg-Zn-xlP" id="fRE-zi-jKc">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is email alias permanent?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCA-6I-iLg">
+                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <color key="textColor" name="TextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" text="Yes! An email alias is actually a normal email address that exists forever unless you remove it on your SimpleLogin dashboard." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITe-43-Uga">
+                                                    <rect key="frame" x="20" y="20" width="374" height="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" name="TitleColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ITe-43-Uga" firstAttribute="top" secondItem="WCA-6I-iLg" secondAttribute="bottom" constant="10" id="40P-zM-vlF"/>
+                                                <constraint firstItem="ITe-43-Uga" firstAttribute="leading" secondItem="fRE-zi-jKc" secondAttribute="leading" constant="20" id="8c7-Ks-Wzk"/>
+                                                <constraint firstAttribute="bottom" secondItem="ITe-43-Uga" secondAttribute="bottom" constant="10" id="HtN-2R-hwm"/>
+                                                <constraint firstItem="WCA-6I-iLg" firstAttribute="leading" secondItem="fRE-zi-jKc" secondAttribute="leading" constant="20" id="g2d-Ra-5z0"/>
+                                                <constraint firstAttribute="trailing" secondItem="WCA-6I-iLg" secondAttribute="trailing" constant="20" id="ips-61-JWh"/>
+                                                <constraint firstItem="WCA-6I-iLg" firstAttribute="top" secondItem="fRE-zi-jKc" secondAttribute="top" constant="10" id="mKz-nL-TpS"/>
+                                                <constraint firstAttribute="trailing" secondItem="ITe-43-Uga" secondAttribute="trailing" constant="20" id="o0I-RP-t9V"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="71J-8L-PJH">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="SEc-VW-zAn">
+                                        <rect key="frame" x="0.0" y="354" width="414" height="132"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SEc-VW-zAn" id="ivg-Kl-oxE">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How SimpleLogin is different than temporary email services?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTF-nr-grf">
+                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <color key="textColor" name="TextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fn-iY-6eW">
+                                                    <rect key="frame" x="20" y="20" width="374" height="14"/>
+                                                    <string key="text">SimpleLogin alias are permanent as opposed to the temporary emails created on services like temp-mail.org, 10minutemail.net, etc.
+
+SimpleLogin also doesn't store the emails.
+
+We are simply different products for different usecases.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" name="TitleColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="TTF-nr-grf" firstAttribute="top" secondItem="ivg-Kl-oxE" secondAttribute="top" constant="10" id="08C-ou-ivR"/>
+                                                <constraint firstAttribute="trailing" secondItem="TTF-nr-grf" secondAttribute="trailing" constant="20" id="0j5-f8-aZF"/>
+                                                <constraint firstAttribute="bottom" secondItem="9fn-iY-6eW" secondAttribute="bottom" constant="10" id="4cp-ff-utj"/>
+                                                <constraint firstItem="9fn-iY-6eW" firstAttribute="top" secondItem="TTF-nr-grf" secondAttribute="bottom" constant="10" id="Csm-y8-CgW"/>
+                                                <constraint firstItem="9fn-iY-6eW" firstAttribute="leading" secondItem="ivg-Kl-oxE" secondAttribute="leading" constant="20" id="Spn-mp-xAJ"/>
+                                                <constraint firstItem="TTF-nr-grf" firstAttribute="leading" secondItem="ivg-Kl-oxE" secondAttribute="leading" constant="20" id="bGP-mq-VZA"/>
+                                                <constraint firstAttribute="trailing" secondItem="9fn-iY-6eW" secondAttribute="trailing" constant="20" id="nBZ-V8-qtM"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="8ar-gb-hk8">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="oEK-UF-q4E">
+                                        <rect key="frame" x="0.0" y="522" width="414" height="132"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oEK-UF-q4E" id="xbR-g6-LeL">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you read forwarded emails?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b16-IH-k0V">
+                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <color key="textColor" name="TextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qdr-Uk-H8C">
+                                                    <rect key="frame" x="20" y="20" width="374" height="14"/>
+                                                    <string key="text">SimpleLogin doesn't store the emails (we don't want to become another Gmail 💰).
+
+Technically the emails DO arrive at SimpleLogin server and we modify email headers to implement the "magic" but the email content is never read.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" name="TitleColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="qdr-Uk-H8C" secondAttribute="bottom" constant="10" id="61F-Xs-zKP"/>
+                                                <constraint firstItem="b16-IH-k0V" firstAttribute="top" secondItem="xbR-g6-LeL" secondAttribute="top" constant="10" id="KVu-Hd-VSA"/>
+                                                <constraint firstItem="qdr-Uk-H8C" firstAttribute="top" secondItem="b16-IH-k0V" secondAttribute="bottom" constant="10" id="L1N-yD-NcT"/>
+                                                <constraint firstItem="b16-IH-k0V" firstAttribute="leading" secondItem="xbR-g6-LeL" secondAttribute="leading" constant="20" id="Wo1-1h-o6L"/>
+                                                <constraint firstAttribute="trailing" secondItem="b16-IH-k0V" secondAttribute="trailing" constant="20" id="YV1-0T-Z9R"/>
+                                                <constraint firstItem="qdr-Uk-H8C" firstAttribute="leading" secondItem="xbR-g6-LeL" secondAttribute="leading" constant="20" id="qCA-8Z-22C"/>
+                                                <constraint firstAttribute="trailing" secondItem="qdr-Uk-H8C" secondAttribute="trailing" constant="20" id="zVf-Xy-3cf"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="bEz-bc-vCH" id="RIJ-Ws-qBK"/>
+                            <outlet property="delegate" destination="bEz-bc-vCH" id="lqO-cL-1NY"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Frequently asked questions" id="GYT-mx-U3M"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wWg-6m-9dQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="876.81159420289862" y="3789.5089285714284"/>
+        </scene>
         <!--How SimpleLogin works-->
         <scene sceneID="hpE-4T-jYh">
             <objects>
@@ -248,7 +425,7 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                         <sections>
                             <tableViewSection id="sDe-7c-wD4">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="0Nw-yC-dt7">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="0Nw-yC-dt7">
                                         <rect key="frame" x="0.0" y="18" width="414" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Nw-yC-dt7" id="QuD-MY-9QW">
@@ -292,7 +469,7 @@ All emails going to an alias will be forwarded to your personal inbox.</string>
                             </tableViewSection>
                             <tableViewSection id="39B-bI-7DU">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="o3X-hb-cGZ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="o3X-hb-cGZ">
                                         <rect key="frame" x="0.0" y="404" width="414" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o3X-hb-cGZ" id="Y7B-ul-6R4">
@@ -333,7 +510,7 @@ All emails going to an alias will be forwarded to your personal inbox.</string>
                             </tableViewSection>
                             <tableViewSection id="QvO-lX-RDM">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="3jJ-8F-rAb">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="3jJ-8F-rAb">
                                         <rect key="frame" x="0.0" y="790" width="414" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3jJ-8F-rAb" id="ynb-fB-S6g">
