@@ -15,6 +15,8 @@ let BASE_URL = "https://app.sl.meo.ovh"
 let BASE_URL = "https://app.simplelogin.io"
 #endif
 
+let BASE_WEBSITE_URL = "https://simplelogin.io"
+
 let ALIAS_PREFIX_MAX_LENGTH = 100
 
 var hasTopNotch: Bool {

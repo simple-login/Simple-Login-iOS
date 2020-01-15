@@ -35,6 +35,7 @@
 		C08A202E23CC9AD800CB8D2F /* ReverseAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202D23CC9AD800CB8D2F /* ReverseAlias.swift */; };
 		C09147FB23CF848100D56CDC /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09147FA23CF848100D56CDC /* About.storyboard */; };
 		C09147FD23CF860B00D56CDC /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09147FC23CF860B00D56CDC /* BaseTableViewController.swift */; };
+		C091480023CFB46300D56CDC /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09147FF23CFB46300D56CDC /* WebViewController.swift */; };
 		C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097A9E623C7987F00EC1EFE /* AppDelegate.swift */; };
 		C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* Main.storyboard */; };
 		C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
@@ -91,6 +92,7 @@
 		C08A202D23CC9AD800CB8D2F /* ReverseAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseAlias.swift; sourceTree = "<group>"; };
 		C09147FA23CF848100D56CDC /* About.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
 		C09147FC23CF860B00D56CDC /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		C09147FF23CFB46300D56CDC /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C097A9E323C7987F00EC1EFE /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C097A9E623C7987F00EC1EFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C097A9ED23C7987F00EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -201,10 +203,10 @@
 				C05CD30323CA0343007F1C9E /* HomeNavigationController.swift */,
 				C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */,
 				C0D9B65F23CBC083009A6699 /* Alias */,
+				C09147FE23CFB43300D56CDC /* About */,
 				C05CD30723CA044E007F1C9E /* DirectoryViewController.swift */,
 				C05CD30923CA0473007F1C9E /* CustomDomainViewController.swift */,
 				C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */,
-				C05CD30D23CA054B007F1C9E /* AboutViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -271,6 +273,15 @@
 				C08A202B23CC968800CB8D2F /* ReverseAliasTableViewCell.xib */,
 			);
 			path = ReverseAliasTableViewCell;
+			sourceTree = "<group>";
+		};
+		C09147FE23CFB43300D56CDC /* About */ = {
+			isa = PBXGroup;
+			children = (
+				C05CD30D23CA054B007F1C9E /* AboutViewController.swift */,
+				C09147FF23CFB46300D56CDC /* WebViewController.swift */,
+			);
+			path = About;
 			sourceTree = "<group>";
 		};
 		C097A9DA23C7987F00EC1EFE = {
@@ -558,6 +569,7 @@
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
 				C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
+				C091480023CFB46300D56CDC /* WebViewController.swift in Sources */,
 				C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

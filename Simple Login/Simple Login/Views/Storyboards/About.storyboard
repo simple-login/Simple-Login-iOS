@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -132,6 +133,9 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="kFL-c1-mRp" kind="show" identifier="showTeam" id="1Pr-tN-r2K"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="Ocp-lK-30Z" style="IBUITableViewCellStyleDefault" id="ojt-T4-Jdn">
                                         <rect key="frame" x="0.0" y="598.5" width="414" height="44"/>
@@ -170,6 +174,9 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="kFL-c1-mRp" kind="show" identifier="showPricing" id="LUy-ro-plj"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="SLb-i4-6fP" style="IBUITableViewCellStyleDefault" id="BBW-B5-2mS">
                                         <rect key="frame" x="0.0" y="722.5" width="414" height="44"/>
@@ -187,6 +194,9 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="kFL-c1-mRp" kind="show" identifier="showBlog" id="aUD-JV-LIc"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -208,6 +218,9 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="kFL-c1-mRp" kind="show" identifier="showTerms" id="DNI-JC-rd4"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Nek-qG-hWg" style="IBUITableViewCellStyleDefault" id="02d-T3-oxI">
                                         <rect key="frame" x="0.0" y="846.5" width="414" height="44"/>
@@ -225,6 +238,9 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="kFL-c1-mRp" kind="show" identifier="showPrivacy" id="yEt-eN-1QT"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -239,6 +255,41 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zoz-A4-oeW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-49.275362318840585" y="3450.6696428571427"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="9oV-QH-gWX">
+            <objects>
+                <viewController id="kFL-c1-mRp" customClass="WebViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jFZ-RY-EJp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I6u-eO-9Us">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" name="BackBackgroundColor"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="8ut-Vq-hdg" firstAttribute="trailing" secondItem="I6u-eO-9Us" secondAttribute="trailing" id="2qE-Mi-cnI"/>
+                            <constraint firstItem="I6u-eO-9Us" firstAttribute="top" secondItem="8ut-Vq-hdg" secondAttribute="top" id="BOl-3O-apx"/>
+                            <constraint firstAttribute="bottom" secondItem="I6u-eO-9Us" secondAttribute="bottom" id="cGk-wo-Y5w"/>
+                            <constraint firstItem="I6u-eO-9Us" firstAttribute="leading" secondItem="8ut-Vq-hdg" secondAttribute="leading" id="vf5-Xr-t72"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8ut-Vq-hdg"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="pEa-sX-2ez"/>
+                    <connections>
+                        <outlet property="webView" destination="I6u-eO-9Us" id="Qt1-bQ-o0M"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m3B-ZZ-6Nm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-49" y="4158"/>
         </scene>
         <!--Frequently asked questions-->
         <scene sceneID="pn2-1D-zMt">
@@ -570,6 +621,9 @@ Your personal email address is never revealed.</string>
     <resources>
         <image name="SLSchema" width="677.5" height="784.5"/>
         <image name="StepA" width="558" height="153"/>
+        <namedColor name="BackBackgroundColor">
+            <color white="0.89999997615814209" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
         <namedColor name="TextColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -577,4 +631,7 @@ Your personal email address is never revealed.</string>
             <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="yEt-eN-1QT"/>
+    </inferredMetricsTieBreakers>
 </document>
