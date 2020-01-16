@@ -20,7 +20,7 @@ final class LeftMenuViewController: UIViewController {
     @IBOutlet private weak var topView: UIView!
     @IBOutlet private weak var topViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var shadowView: UIView!
-    @IBOutlet private weak var avatarImageView: UIImageView!
+    @IBOutlet private weak var avatarImageView: AvatarImageView!
     @IBOutlet private weak var usernameLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
@@ -45,12 +45,6 @@ final class LeftMenuViewController: UIViewController {
         
         // topView
         topViewHeightConstraint.constant = hasTopNotch ? 150 : 120
-        
-        // avatarImageView
-        avatarImageView.layer.cornerRadius = avatarImageView.bounds.width / 2
-        avatarImageView.layer.borderWidth = 2
-        avatarImageView.layer.borderColor = SLColor.tintColor.cgColor
-        avatarImageView.layer.backgroundColor = SLColor.tintColor.withAlphaComponent(0.5).cgColor
         
         // usernameLabel
         usernameLabel.textColor = SLColor.textColor

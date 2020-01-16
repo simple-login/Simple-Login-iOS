@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02646FE23D0F4F600E9932B /* AvatarImageView.swift */; };
 		C05049BC23CE016600AEF20B /* SLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05049BB23CE016600AEF20B /* SLColor.swift */; };
 		C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */; };
 		C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D323C7DDDC00EB5D98 /* Statics.swift */; };
@@ -52,6 +53,8 @@
 		C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */; };
 		C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B6108A23C7A46700D34B8C /* StartupViewController.swift */; };
 		C0B76DEB23D0DCEB003AAB7E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B76DEA23D0DCEB003AAB7E /* Settings.storyboard */; };
+		C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B76DEE23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift */; };
+		C0B76DF123D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */; };
 		C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
@@ -84,6 +87,7 @@
 		0254E80DF195D59879C361F4 /* Pods-Simple Login.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Simple Login.debug.xcconfig"; path = "Target Support Files/Pods-Simple Login/Pods-Simple Login.debug.xcconfig"; sourceTree = "<group>"; };
 		66938BAB79E16DEEA4E367CF /* Pods-Simple Login.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Simple Login.release.xcconfig"; path = "Target Support Files/Pods-Simple Login/Pods-Simple Login.release.xcconfig"; sourceTree = "<group>"; };
 		92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Simple_Login.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C02646FE23D0F4F600E9932B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		C05049BB23CE016600AEF20B /* SLColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLColor.swift; sourceTree = "<group>"; };
 		C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLKeychainService.swift; sourceTree = "<group>"; };
 		C052F0D323C7DDDC00EB5D98 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
@@ -132,6 +136,8 @@
 		C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuOption.swift; sourceTree = "<group>"; };
 		C0B6108A23C7A46700D34B8C /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		C0B76DEA23D0DCEB003AAB7E /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		C0B76DEE23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAndMembershipTableViewCell.swift; sourceTree = "<group>"; };
+		C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileAndMembershipTableViewCell.xib; sourceTree = "<group>"; };
 		C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toaster+Convenience.swift"; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -384,6 +390,7 @@
 			children = (
 				C05049BD23CE356900AEF20B /* LeftMenu */,
 				C05049BE23CE357A00AEF20B /* Alias */,
+				C0B76DEC23D0DDF2003AAB7E /* Settings */,
 				C0D6A26B23D072CE00EF21B8 /* About */,
 			);
 			path = "Cells, Headers & Footers";
@@ -430,10 +437,28 @@
 			isa = PBXGroup;
 			children = (
 				C0D6A28523D09EC800EF21B8 /* BorderedShadowedView.swift */,
+				C02646FE23D0F4F600E9932B /* AvatarImageView.swift */,
 				C0B1DE4323C90D53003EED3B /* Cells, Headers & Footers */,
 				C0B1DE3A23C8AD6D003EED3B /* Storyboards */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C0B76DEC23D0DDF2003AAB7E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C0B76DED23D0DE05003AAB7E /* ProfileAndMembershipTableViewCell */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		C0B76DED23D0DE05003AAB7E /* ProfileAndMembershipTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0B76DEE23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift */,
+				C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */,
+			);
+			path = ProfileAndMembershipTableViewCell;
 			sourceTree = "<group>";
 		};
 		C0D6A26B23D072CE00EF21B8 /* About */ = {
@@ -618,6 +643,7 @@
 				C0D6A27A23D078AB00EF21B8 /* TeamAndContactTableViewCell.xib in Resources */,
 				C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */,
 				C08A202C23CC968800CB8D2F /* ReverseAliasTableViewCell.xib in Resources */,
+				C0B76DF123D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib in Resources */,
 				C0747EEB23CCFB18008035E9 /* AliasActivityTableViewCell.xib in Resources */,
 				C09147FB23CF848100D56CDC /* About.storyboard in Resources */,
 			);
@@ -705,6 +731,7 @@
 				C05CD31823CA3F0A007F1C9E /* AliasTableViewCell.swift in Sources */,
 				C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */,
 				C0D6A28B23D0A89500EF21B8 /* StepTableViewCell.swift in Sources */,
+				C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */,
 				C0747EE923CCFAFE008035E9 /* AliasActivityTableViewCell.swift in Sources */,
 				C0D6A27D23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift in Sources */,
 				C0D6A28623D09EC800EF21B8 /* BorderedShadowedView.swift in Sources */,
@@ -717,6 +744,7 @@
 				C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */,
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
 				C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */,
+				C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
 				C091480023CFB46300D56CDC /* WebViewController.swift in Sources */,
 				C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */,
