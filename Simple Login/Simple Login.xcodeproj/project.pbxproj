@@ -41,6 +41,8 @@
 		C09147FB23CF848100D56CDC /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09147FA23CF848100D56CDC /* About.storyboard */; };
 		C09147FD23CF860B00D56CDC /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09147FC23CF860B00D56CDC /* BaseTableViewController.swift */; };
 		C091480023CFB46300D56CDC /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09147FF23CFB46300D56CDC /* WebViewController.swift */; };
+		C0956A4623D105B7000CEBDD /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0956A4523D105B7000CEBDD /* NotificationTableViewCell.swift */; };
+		C0956A4823D105CC000CEBDD /* NotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0956A4723D105CC000CEBDD /* NotificationTableViewCell.xib */; };
 		C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097A9E623C7987F00EC1EFE /* AppDelegate.swift */; };
 		C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* Main.storyboard */; };
 		C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
@@ -125,6 +127,8 @@
 		C09147FA23CF848100D56CDC /* About.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
 		C09147FC23CF860B00D56CDC /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		C09147FF23CFB46300D56CDC /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		C0956A4523D105B7000CEBDD /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
+		C0956A4723D105CC000CEBDD /* NotificationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTableViewCell.xib; sourceTree = "<group>"; };
 		C097A9E323C7987F00EC1EFE /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C097A9E623C7987F00EC1EFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C097A9ED23C7987F00EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -358,6 +362,15 @@
 			path = About;
 			sourceTree = "<group>";
 		};
+		C0956A4423D105A2000CEBDD /* NotificationTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0956A4523D105B7000CEBDD /* NotificationTableViewCell.swift */,
+				C0956A4723D105CC000CEBDD /* NotificationTableViewCell.xib */,
+			);
+			path = NotificationTableViewCell;
+			sourceTree = "<group>";
+		};
 		C097A9DA23C7987F00EC1EFE = {
 			isa = PBXGroup;
 			children = (
@@ -476,6 +489,7 @@
 				C0B76DED23D0DE05003AAB7E /* ProfileAndMembershipTableViewCell */,
 				C06BD31623D0F91D0056A9B3 /* MfaTableViewCell */,
 				C06BD31B23D0FBFE0056A9B3 /* ChangePasswordTableViewCell */,
+				C0956A4423D105A2000CEBDD /* NotificationTableViewCell */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -672,6 +686,7 @@
 				C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */,
 				C06BD31F23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib in Resources */,
 				C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */,
+				C0956A4823D105CC000CEBDD /* NotificationTableViewCell.xib in Resources */,
 				C08A202C23CC968800CB8D2F /* ReverseAliasTableViewCell.xib in Resources */,
 				C0B76DF123D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib in Resources */,
 				C0747EEB23CCFB18008035E9 /* AliasActivityTableViewCell.xib in Resources */,
@@ -756,6 +771,7 @@
 				C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */,
 				C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */,
 				C08A202E23CC9AD800CB8D2F /* ReverseAlias.swift in Sources */,
+				C0956A4623D105B7000CEBDD /* NotificationTableViewCell.swift in Sources */,
 				C0D6A27323D0759800EF21B8 /* HowAndFaqTableViewCell.swift in Sources */,
 				C06BD31D23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift in Sources */,
 				C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */,

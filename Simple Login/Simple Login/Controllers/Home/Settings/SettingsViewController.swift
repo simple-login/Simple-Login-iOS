@@ -29,6 +29,7 @@ final class SettingsViewController: BaseViewController {
         ProfileAndMembershipTableViewCell.register(with: tableView)
         MfaTableViewCell.register(with: tableView)
         ChangePasswordTableViewCell.register(with: tableView)
+        NotificationTableViewCell.register(with: tableView)
     }
 }
 
@@ -127,7 +128,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -159,6 +160,15 @@ extension SettingsViewController: UITableViewDataSource {
             
             cell.didTapRootView = { [unowned self] in
                 self.showAlertChangePassword()
+            }
+            
+            return cell
+            
+        case 3:
+            let cell = NotificationTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didSwitch = { [unowned self] isOn in
+               Toast.displayShortly(message: "\(isOn)")
             }
             
             return cell

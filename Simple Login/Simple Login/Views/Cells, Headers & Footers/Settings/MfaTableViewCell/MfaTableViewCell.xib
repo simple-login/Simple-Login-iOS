@@ -32,7 +32,7 @@
                                                 <color key="textColor" name="TextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="999" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCa-bI-SSS">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCa-bI-SSS">
                                                 <rect key="frame" x="0.0" y="26" width="303" height="85"/>
                                                 <string key="text">Secure your account with Multi-Factor Authentication. This requires having applications like Google Authenticator, Authy, FreeOTP, etc.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
