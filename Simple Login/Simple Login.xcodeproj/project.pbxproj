@@ -51,6 +51,7 @@
 		C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B1DE4723C90DED003EED3B /* LeftMenuOptionTableViewCell.xib */; };
 		C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */; };
 		C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B6108A23C7A46700D34B8C /* StartupViewController.swift */; };
+		C0B76DEB23D0DCEB003AAB7E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B76DEA23D0DCEB003AAB7E /* Settings.storyboard */; };
 		C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
@@ -130,6 +131,7 @@
 		C0B1DE4723C90DED003EED3B /* LeftMenuOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeftMenuOptionTableViewCell.xib; sourceTree = "<group>"; };
 		C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuOption.swift; sourceTree = "<group>"; };
 		C0B6108A23C7A46700D34B8C /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
+		C0B76DEA23D0DCEB003AAB7E /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toaster+Convenience.swift"; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -242,9 +244,9 @@
 				C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */,
 				C0D9B65F23CBC083009A6699 /* Alias */,
 				C09147FE23CFB43300D56CDC /* About */,
+				C0D6A29923D0DC5000EF21B8 /* Settings */,
 				C05CD30723CA044E007F1C9E /* DirectoryViewController.swift */,
 				C05CD30923CA0473007F1C9E /* CustomDomainViewController.swift */,
-				C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -364,6 +366,7 @@
 				C097A9EC23C7987F00EC1EFE /* Main.storyboard */,
 				C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */,
 				C09147FA23CF848100D56CDC /* About.storyboard */,
+				C0B76DEA23D0DCEB003AAB7E /* Settings.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -510,6 +513,14 @@
 			path = FaqTableViewCell;
 			sourceTree = "<group>";
 		};
+		C0D6A29923D0DC5000EF21B8 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		C0D9B65F23CBC083009A6699 /* Alias */ = {
 			isa = PBXGroup;
 			children = (
@@ -591,6 +602,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0D6A28423D07AB000EF21B8 /* TermsAndPrivacyTableViewCell.xib in Resources */,
+				C0B76DEB23D0DCEB003AAB7E /* Settings.storyboard in Resources */,
 				C0D6A28F23D0A93800EF21B8 /* StepTableViewCell.xib in Resources */,
 				C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */,
 				C0D6A27523D0767000EF21B8 /* HowAndFaqTableViewCell.xib in Resources */,
