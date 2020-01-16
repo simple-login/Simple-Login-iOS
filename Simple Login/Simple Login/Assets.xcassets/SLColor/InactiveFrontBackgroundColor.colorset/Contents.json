@@ -23,8 +23,11 @@
         }
       ],
       "color" : {
-        "platform" : "ios",
-        "reference" : "darkTextColor"
+        "color-space" : "gray-gamma-22",
+        "components" : {
+          "white" : "0.150",
+          "alpha" : "1.000"
+        }
       }
     }
   ]

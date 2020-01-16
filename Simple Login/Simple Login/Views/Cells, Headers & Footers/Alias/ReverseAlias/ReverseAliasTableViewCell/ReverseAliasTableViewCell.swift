@@ -27,7 +27,6 @@ final class ReverseAliasTableViewCell: UITableViewCell, RegisterableCell {
 
         selectionStyle = UITableViewCell.SelectionStyle.none
         
-        rootView.backgroundColor = SLColor.frontBackgroundColor
         rootView.layer.cornerRadius = 8
         
         mailImageView.tintColor = SLColor.textColor

@@ -24,12 +24,10 @@ final class AliasActivityViewController: UIViewController {
     
     private func setUpUI() {
         title = alias.name
-        view.backgroundColor = SLColor.backBackgroundColor
         // tableView
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = .clear
-        tableView.backgroundColor = .clear
         tableView.register(UINib(nibName: "AliasActivityTableHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "AliasActivityTableHeaderView")
         AliasActivityTableViewCell.register(with: tableView)
     }

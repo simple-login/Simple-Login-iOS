@@ -31,6 +31,8 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = UITableViewCell.SelectionStyle.none
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
         
         rootView.layer.cornerRadius = 8
         
@@ -64,7 +66,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         if alias.isEnabled {
             rootView.backgroundColor = SLColor.frontBackgroundColor
         } else {
-            rootView.backgroundColor = SLColor.backBackgroundColor
+            rootView.backgroundColor = SLColor.inactiveFrontBackgroundColor
         }
     }
     

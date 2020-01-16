@@ -47,12 +47,10 @@ final class AliasViewController: BaseViewController {
     }
     
     private func setUpUI() {
-        view.backgroundColor = SLColor.backBackgroundColor
         // tableView
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = .clear
-        tableView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         AliasTableViewCell.register(with: tableView)
     }
     
@@ -149,6 +147,10 @@ extension AliasViewController: UITableViewDelegate {
         }
         
         performSegue(withIdentifier: "showAliasActivity", sender: alias)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1.0
     }
 }
 

@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,11 +33,11 @@
                                         <rect key="frame" x="0.0" y="26.5" width="401" height="14.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="251" image="ClockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="HF9-F0-WrU">
-                                                <rect key="frame" x="0.0" y="0.0" width="18" height="14.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="36" height="14.5"/>
                                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 day agos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dac-f3-J43">
-                                                <rect key="frame" x="22" y="0.0" width="379" height="14.5"/>
+                                                <rect key="frame" x="40" y="0.0" width="361" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -46,7 +47,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" name="FrontBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="RQ1-Qj-O3j" firstAttribute="leading" secondItem="BNq-5u-xhf" secondAttribute="leading" constant="10" id="Ga2-Kp-mvf"/>
                             <constraint firstAttribute="trailing" secondItem="RQ1-Qj-O3j" secondAttribute="trailing" constant="10" id="Nu2-PH-JfX"/>
@@ -75,5 +76,8 @@
     </objects>
     <resources>
         <image name="ClockIcon" width="18" height="18"/>
+        <namedColor name="FrontBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

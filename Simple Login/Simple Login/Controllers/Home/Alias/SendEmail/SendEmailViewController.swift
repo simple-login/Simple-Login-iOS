@@ -34,12 +34,10 @@ final class SendEmailViewController: UIViewController {
     }
     
     private func setUpUI() {
-        view.backgroundColor = SLColor.backBackgroundColor
         // tableView
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorColor = .clear
         tableView.tableFooterView = UIView(frame: .zero)
-        tableView.backgroundColor = .clear
         ReverseAliasTableViewCell.register(with: tableView)
     }
     

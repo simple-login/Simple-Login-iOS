@@ -13,7 +13,7 @@ struct SLColor {
     static let titleColor = UIColor(named: "TitleColor")!
     static let secondaryTitleColor = UIColor(named: "SecondaryTitleColor")!
     static let frontBackgroundColor = UIColor(named: "FrontBackgroundColor")!
-    static let backBackgroundColor = UIColor(named: "BackBackgroundColor")!
+    static let inactiveFrontBackgroundColor = UIColor(named: "InactiveFrontBackgroundColor")!
     static let menuBackgroundColor = UIColor(named: "MenuBackgroundColor")!
     static let tintColor = UIColor(named: "TintColor")!
     static let premiumColor = UIColor(named: "PremiumColor")!
