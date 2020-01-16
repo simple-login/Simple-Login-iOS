@@ -33,15 +33,15 @@ final class AboutViewController: BaseViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let webViewController = segue.destination as? WebViewController else { return }
-        switch segue.identifier {
-        case "showTeam": webViewController.module = .team
-        case "showPricing": webViewController.module = .pricing
-        case "showBlog": webViewController.module = .blog
-        case "showTerms": webViewController.module = .terms
-        case "showPrivacy": webViewController.module = .privacy
-        default: return
-        }
+//        guard let webViewController = segue.destination as? WebViewController else { return }
+//        switch segue.identifier {
+//        case "showTeam": webViewController.module = .team
+//        case "showPricing": webViewController.module = .pricing
+//        case "showBlog": webViewController.module = .blog
+//        case "showTerms": webViewController.module = .terms
+//        case "showPrivacy": webViewController.module = .privacy
+//        default: return
+//        }
     }
     
     private func openContactForm() {
@@ -73,9 +73,23 @@ extension AboutViewController: UITableViewDataSource {
         case 0: return GeneralInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         case 1:
             let cell = HowAndFaqTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapHowItWorksLabel = { [unowned self] in
+                self.performSegue(withIdentifier: "showHow", sender: nil)
+            }
+            
+            cell.didTapFaqLabel = { [unowned self] in
+                self.performSegue(withIdentifier: "showFaq", sender: nil)
+            }
+            
             return cell
         case 2:
             let cell = TeamAndContactTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapContactLabel = { [unowned self] in
+                self.openContactForm()
+            }
+            
             return cell
         case 3:
             let cell = PricingAndBlogTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)

@@ -34,7 +34,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Frequently asked questions" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XpH-9c-CBU">
-                                <rect key="frame" x="16" y="66" width="182.5" height="47"/>
+                                <rect key="frame" x="16" y="66" width="380" height="47"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <color key="textColor" name="ClickableTitleColor"/>
                                 <nil key="highlightedColor"/>
@@ -44,6 +44,7 @@
                         <constraints>
                             <constraint firstItem="jck-NS-yJs" firstAttribute="top" secondItem="qTf-zG-kNa" secondAttribute="top" constant="16" id="0wb-lm-7bF"/>
                             <constraint firstAttribute="bottom" secondItem="XpH-9c-CBU" secondAttribute="bottom" constant="16" id="1Kf-D4-sk3"/>
+                            <constraint firstAttribute="trailing" secondItem="XpH-9c-CBU" secondAttribute="trailing" constant="16" id="60f-99-L9U"/>
                             <constraint firstAttribute="trailing" secondItem="YUr-JT-P5S" secondAttribute="trailing" id="6HK-Hu-EM1"/>
                             <constraint firstItem="jck-NS-yJs" firstAttribute="leading" secondItem="qTf-zG-kNa" secondAttribute="leading" constant="16" id="6cg-BP-mYT"/>
                             <constraint firstAttribute="trailing" secondItem="jck-NS-yJs" secondAttribute="trailing" constant="16" id="CdB-OF-UG9"/>

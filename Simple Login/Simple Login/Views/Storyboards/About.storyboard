@@ -62,180 +62,6 @@
             </objects>
             <point key="canvasLocation" x="-49" y="4158"/>
         </scene>
-        <!--Frequently asked questions-->
-        <scene sceneID="pn2-1D-zMt">
-            <objects>
-                <tableViewController id="bEz-bc-vCH" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="zrQ-xs-eEI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <sections>
-                            <tableViewSection id="oZZ-7a-kyv">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="Fid-rl-Ce7">
-                                        <rect key="frame" x="0.0" y="18" width="414" height="132"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fid-rl-Ce7" id="mYy-el-Qdb">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is an email alias?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zrt-RO-iyG">
-                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <color key="textColor" name="TextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1m9-Hq-Ydd">
-                                                    <rect key="frame" x="20" y="20" width="374" height="14"/>
-                                                    <string key="text">Email alias is similar to forward email address: all emails sent to an alias will be forwarded to your inbox.
-
-Thanks to SimpleLogin technology, an alias can also send emails.
-
-For your contact, the alias is therefore your email address.</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" name="TitleColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="1m9-Hq-Ydd" firstAttribute="top" secondItem="Zrt-RO-iyG" secondAttribute="bottom" constant="10" id="2my-Ea-hfc"/>
-                                                <constraint firstAttribute="trailing" secondItem="1m9-Hq-Ydd" secondAttribute="trailing" constant="20" id="Ljb-ZR-ddY"/>
-                                                <constraint firstItem="Zrt-RO-iyG" firstAttribute="leading" secondItem="mYy-el-Qdb" secondAttribute="leading" constant="20" id="PLd-MT-DzB"/>
-                                                <constraint firstItem="1m9-Hq-Ydd" firstAttribute="leading" secondItem="mYy-el-Qdb" secondAttribute="leading" constant="20" id="TIr-Lo-tZf"/>
-                                                <constraint firstAttribute="bottom" secondItem="1m9-Hq-Ydd" secondAttribute="bottom" constant="10" id="cfV-9A-lr3"/>
-                                                <constraint firstAttribute="trailing" secondItem="Zrt-RO-iyG" secondAttribute="trailing" constant="20" id="gNT-Uh-2kn"/>
-                                                <constraint firstItem="Zrt-RO-iyG" firstAttribute="top" secondItem="mYy-el-Qdb" secondAttribute="top" constant="10" id="xIm-7J-vQN"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="O0b-oO-0r9">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="kTg-Zn-xlP">
-                                        <rect key="frame" x="0.0" y="186" width="414" height="132"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kTg-Zn-xlP" id="fRE-zi-jKc">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is email alias permanent?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCA-6I-iLg">
-                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <color key="textColor" name="TextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" text="Yes! An email alias is actually a normal email address that exists forever unless you remove it on your SimpleLogin dashboard." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITe-43-Uga">
-                                                    <rect key="frame" x="20" y="20" width="374" height="14"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" name="TitleColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="ITe-43-Uga" firstAttribute="top" secondItem="WCA-6I-iLg" secondAttribute="bottom" constant="10" id="40P-zM-vlF"/>
-                                                <constraint firstItem="ITe-43-Uga" firstAttribute="leading" secondItem="fRE-zi-jKc" secondAttribute="leading" constant="20" id="8c7-Ks-Wzk"/>
-                                                <constraint firstAttribute="bottom" secondItem="ITe-43-Uga" secondAttribute="bottom" constant="10" id="HtN-2R-hwm"/>
-                                                <constraint firstItem="WCA-6I-iLg" firstAttribute="leading" secondItem="fRE-zi-jKc" secondAttribute="leading" constant="20" id="g2d-Ra-5z0"/>
-                                                <constraint firstAttribute="trailing" secondItem="WCA-6I-iLg" secondAttribute="trailing" constant="20" id="ips-61-JWh"/>
-                                                <constraint firstItem="WCA-6I-iLg" firstAttribute="top" secondItem="fRE-zi-jKc" secondAttribute="top" constant="10" id="mKz-nL-TpS"/>
-                                                <constraint firstAttribute="trailing" secondItem="ITe-43-Uga" secondAttribute="trailing" constant="20" id="o0I-RP-t9V"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="71J-8L-PJH">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="SEc-VW-zAn">
-                                        <rect key="frame" x="0.0" y="354" width="414" height="132"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SEc-VW-zAn" id="ivg-Kl-oxE">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How SimpleLogin is different than temporary email services?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTF-nr-grf">
-                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <color key="textColor" name="TextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fn-iY-6eW">
-                                                    <rect key="frame" x="20" y="20" width="374" height="14"/>
-                                                    <string key="text">SimpleLogin alias are permanent as opposed to the temporary emails created on services like temp-mail.org, 10minutemail.net, etc.
-
-SimpleLogin also doesn't store the emails.
-
-We are simply different products for different usecases.</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" name="TitleColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="TTF-nr-grf" firstAttribute="top" secondItem="ivg-Kl-oxE" secondAttribute="top" constant="10" id="08C-ou-ivR"/>
-                                                <constraint firstAttribute="trailing" secondItem="TTF-nr-grf" secondAttribute="trailing" constant="20" id="0j5-f8-aZF"/>
-                                                <constraint firstAttribute="bottom" secondItem="9fn-iY-6eW" secondAttribute="bottom" constant="10" id="4cp-ff-utj"/>
-                                                <constraint firstItem="9fn-iY-6eW" firstAttribute="top" secondItem="TTF-nr-grf" secondAttribute="bottom" constant="10" id="Csm-y8-CgW"/>
-                                                <constraint firstItem="9fn-iY-6eW" firstAttribute="leading" secondItem="ivg-Kl-oxE" secondAttribute="leading" constant="20" id="Spn-mp-xAJ"/>
-                                                <constraint firstItem="TTF-nr-grf" firstAttribute="leading" secondItem="ivg-Kl-oxE" secondAttribute="leading" constant="20" id="bGP-mq-VZA"/>
-                                                <constraint firstAttribute="trailing" secondItem="9fn-iY-6eW" secondAttribute="trailing" constant="20" id="nBZ-V8-qtM"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="8ar-gb-hk8">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="oEK-UF-q4E">
-                                        <rect key="frame" x="0.0" y="522" width="414" height="132"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oEK-UF-q4E" id="xbR-g6-LeL">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you read forwarded emails?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b16-IH-k0V">
-                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <color key="textColor" name="TextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qdr-Uk-H8C">
-                                                    <rect key="frame" x="20" y="20" width="374" height="14"/>
-                                                    <string key="text">SimpleLogin doesn't store the emails (we don't want to become another Gmail 💰).
-
-Technically the emails DO arrive at SimpleLogin server and we modify email headers to implement the "magic" but the email content is never read.</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" name="TitleColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="qdr-Uk-H8C" secondAttribute="bottom" constant="10" id="61F-Xs-zKP"/>
-                                                <constraint firstItem="b16-IH-k0V" firstAttribute="top" secondItem="xbR-g6-LeL" secondAttribute="top" constant="10" id="KVu-Hd-VSA"/>
-                                                <constraint firstItem="qdr-Uk-H8C" firstAttribute="top" secondItem="b16-IH-k0V" secondAttribute="bottom" constant="10" id="L1N-yD-NcT"/>
-                                                <constraint firstItem="b16-IH-k0V" firstAttribute="leading" secondItem="xbR-g6-LeL" secondAttribute="leading" constant="20" id="Wo1-1h-o6L"/>
-                                                <constraint firstAttribute="trailing" secondItem="b16-IH-k0V" secondAttribute="trailing" constant="20" id="YV1-0T-Z9R"/>
-                                                <constraint firstItem="qdr-Uk-H8C" firstAttribute="leading" secondItem="xbR-g6-LeL" secondAttribute="leading" constant="20" id="qCA-8Z-22C"/>
-                                                <constraint firstAttribute="trailing" secondItem="qdr-Uk-H8C" secondAttribute="trailing" constant="20" id="zVf-Xy-3cf"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="bEz-bc-vCH" id="RIJ-Ws-qBK"/>
-                            <outlet property="delegate" destination="bEz-bc-vCH" id="lqO-cL-1NY"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Frequently asked questions" id="GYT-mx-U3M"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wWg-6m-9dQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="876.81159420289862" y="3789.5089285714284"/>
-        </scene>
         <!--About SimpleLogin-->
         <scene sceneID="MIH-6d-SqI">
             <objects>
@@ -265,175 +91,90 @@ Technically the emails DO arrive at SimpleLogin server and we modify email heade
                     <navigationItem key="navigationItem" title="About SimpleLogin" id="FpN-O0-ze3"/>
                     <connections>
                         <outlet property="tableView" destination="1Ix-uz-rp6" id="dLr-MJ-MTi"/>
+                        <segue destination="s54-In-N1T" kind="show" identifier="showHow" id="Xhm-AG-Ybx"/>
+                        <segue destination="LJY-CD-sfd" kind="show" identifier="showFaq" id="bao-Lw-Yy9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBw-ky-Dgc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="26" y="3451"/>
         </scene>
-        <!--How SimpleLogin works-->
-        <scene sceneID="hpE-4T-jYh">
+        <!--Frequently Asked Questions-->
+        <scene sceneID="WId-Ff-dW1">
             <objects>
-                <tableViewController id="cXx-Mb-yJn" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="kaC-aH-CC5">
+                <viewController id="LJY-CD-sfd" customClass="FaqViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1bY-nC-v32">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eCb-0U-Fj7">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="LJY-CD-sfd" id="jNQ-Rd-e61"/>
+                                    <outlet property="delegate" destination="LJY-CD-sfd" id="NcB-XB-7JN"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <sections>
-                            <tableViewSection id="sDe-7c-wD4">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="0Nw-yC-dt7">
-                                        <rect key="frame" x="0.0" y="18" width="414" height="350"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Nw-yC-dt7" id="QuD-MY-9QW">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A. Hide your personal email address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCG-9r-BSG">
-                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <color key="textColor" name="TextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="StepA" translatesAutoresizingMaskIntoConstraints="NO" id="vth-b2-FCH">
-                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipF-S7-7fC">
-                                                    <rect key="frame" x="20" y="18" width="374" height="16"/>
-                                                    <string key="text">Create quickly a random, secure email alias on any website.
-
-All emails going to an alias will be forwarded to your personal inbox.</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" name="TitleColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="vth-b2-FCH" secondAttribute="trailing" constant="20" id="ANm-yY-fig"/>
-                                                <constraint firstItem="ipF-S7-7fC" firstAttribute="top" secondItem="vth-b2-FCH" secondAttribute="bottom" constant="8" symbolic="YES" id="Efu-7l-4WJ"/>
-                                                <constraint firstAttribute="trailing" secondItem="dCG-9r-BSG" secondAttribute="trailing" constant="20" id="I9O-kw-zR6"/>
-                                                <constraint firstItem="vth-b2-FCH" firstAttribute="leading" secondItem="QuD-MY-9QW" secondAttribute="leading" constant="20" id="VNK-Vm-nRT"/>
-                                                <constraint firstAttribute="trailing" secondItem="ipF-S7-7fC" secondAttribute="trailing" constant="20" id="h91-C8-g44"/>
-                                                <constraint firstItem="ipF-S7-7fC" firstAttribute="leading" secondItem="QuD-MY-9QW" secondAttribute="leading" constant="20" id="hBa-he-gW8"/>
-                                                <constraint firstItem="vth-b2-FCH" firstAttribute="top" secondItem="dCG-9r-BSG" secondAttribute="bottom" id="n62-WR-0TV"/>
-                                                <constraint firstAttribute="bottom" secondItem="ipF-S7-7fC" secondAttribute="bottom" constant="10" id="pmM-W1-uK2"/>
-                                                <constraint firstItem="dCG-9r-BSG" firstAttribute="top" secondItem="QuD-MY-9QW" secondAttribute="top" constant="10" id="vz7-TS-gkw"/>
-                                                <constraint firstItem="dCG-9r-BSG" firstAttribute="leading" secondItem="QuD-MY-9QW" secondAttribute="leading" constant="20" id="wAc-hi-tc2"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="39B-bI-7DU">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="o3X-hb-cGZ">
-                                        <rect key="frame" x="0.0" y="404" width="414" height="350"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o3X-hb-cGZ" id="Y7B-ul-6R4">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B. Control who can send you emails" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Vc-N3-rVx">
-                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <color key="textColor" name="TextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="StepA" translatesAutoresizingMaskIntoConstraints="NO" id="LHw-1L-srF">
-                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Simply block an alias if it's too spammy." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J1a-Ng-Ktz">
-                                                    <rect key="frame" x="20" y="18" width="374" height="16"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" name="TitleColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="J1a-Ng-Ktz" firstAttribute="leading" secondItem="Y7B-ul-6R4" secondAttribute="leading" constant="20" id="9NY-AE-e1f"/>
-                                                <constraint firstItem="LHw-1L-srF" firstAttribute="top" secondItem="8Vc-N3-rVx" secondAttribute="bottom" id="HEy-gT-pKG"/>
-                                                <constraint firstItem="8Vc-N3-rVx" firstAttribute="leading" secondItem="Y7B-ul-6R4" secondAttribute="leading" constant="20" id="W1d-1h-ZZh"/>
-                                                <constraint firstAttribute="trailing" secondItem="LHw-1L-srF" secondAttribute="trailing" constant="20" id="X0G-Xc-B26"/>
-                                                <constraint firstAttribute="trailing" secondItem="J1a-Ng-Ktz" secondAttribute="trailing" constant="20" id="bP6-3e-jQX"/>
-                                                <constraint firstItem="J1a-Ng-Ktz" firstAttribute="top" secondItem="LHw-1L-srF" secondAttribute="bottom" constant="8" symbolic="YES" id="dUQ-xF-8tN"/>
-                                                <constraint firstItem="LHw-1L-srF" firstAttribute="leading" secondItem="Y7B-ul-6R4" secondAttribute="leading" constant="20" id="dkd-cA-zj5"/>
-                                                <constraint firstItem="8Vc-N3-rVx" firstAttribute="top" secondItem="Y7B-ul-6R4" secondAttribute="top" constant="10" id="qwD-9R-9Jt"/>
-                                                <constraint firstAttribute="trailing" secondItem="8Vc-N3-rVx" secondAttribute="trailing" constant="20" id="s0c-dj-IUp"/>
-                                                <constraint firstAttribute="bottom" secondItem="J1a-Ng-Ktz" secondAttribute="bottom" constant="10" id="s4Y-kh-x69"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="QvO-lX-RDM">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="3jJ-8F-rAb">
-                                        <rect key="frame" x="0.0" y="790" width="414" height="350"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3jJ-8F-rAb" id="ynb-fB-S6g">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C. Reply with an alias" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGM-F3-evF">
-                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <color key="textColor" name="TextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="StepA" translatesAutoresizingMaskIntoConstraints="NO" id="FmM-3N-LOe">
-                                                    <rect key="frame" x="20" y="10" width="374" height="0.0"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7U2-Rk-6eD">
-                                                    <rect key="frame" x="20" y="18" width="374" height="16"/>
-                                                    <string key="text">Not only an alias can receive emails, it can send emails too.
-
-Simply hit "Reply" in your favorite email client and the reply will come from the alias.
-
-Your personal email address is never revealed.</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" name="TitleColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="7U2-Rk-6eD" firstAttribute="top" secondItem="FmM-3N-LOe" secondAttribute="bottom" constant="8" symbolic="YES" id="DHf-oJ-iML"/>
-                                                <constraint firstItem="jGM-F3-evF" firstAttribute="leading" secondItem="ynb-fB-S6g" secondAttribute="leading" constant="20" id="FND-VQ-VC2"/>
-                                                <constraint firstItem="FmM-3N-LOe" firstAttribute="top" secondItem="jGM-F3-evF" secondAttribute="bottom" id="GjT-f9-gUn"/>
-                                                <constraint firstItem="jGM-F3-evF" firstAttribute="top" secondItem="ynb-fB-S6g" secondAttribute="top" constant="10" id="OnS-LC-XgQ"/>
-                                                <constraint firstItem="7U2-Rk-6eD" firstAttribute="leading" secondItem="ynb-fB-S6g" secondAttribute="leading" constant="20" id="Vek-XS-GbL"/>
-                                                <constraint firstItem="FmM-3N-LOe" firstAttribute="leading" secondItem="ynb-fB-S6g" secondAttribute="leading" constant="20" id="Zzn-Ky-aWj"/>
-                                                <constraint firstAttribute="trailing" secondItem="jGM-F3-evF" secondAttribute="trailing" constant="20" id="ccD-tb-SRG"/>
-                                                <constraint firstAttribute="bottom" secondItem="7U2-Rk-6eD" secondAttribute="bottom" constant="10" id="e4l-ia-ZbH"/>
-                                                <constraint firstAttribute="trailing" secondItem="FmM-3N-LOe" secondAttribute="trailing" constant="20" id="jSe-7l-KIc"/>
-                                                <constraint firstAttribute="trailing" secondItem="7U2-Rk-6eD" secondAttribute="trailing" constant="20" id="o7U-19-faa"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="cXx-Mb-yJn" id="oo4-oB-zXt"/>
-                            <outlet property="delegate" destination="cXx-Mb-yJn" id="a9L-CF-gZd"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="How SimpleLogin works" id="hXY-Bh-u1o"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Pkd-7G-6o0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="eCb-0U-Fj7" secondAttribute="bottom" id="RtG-MG-nxI"/>
+                            <constraint firstItem="Whg-Tq-mmg" firstAttribute="trailing" secondItem="eCb-0U-Fj7" secondAttribute="trailing" id="Wlj-Vn-j9f"/>
+                            <constraint firstItem="eCb-0U-Fj7" firstAttribute="leading" secondItem="Whg-Tq-mmg" secondAttribute="leading" id="kmh-fm-sgM"/>
+                            <constraint firstItem="eCb-0U-Fj7" firstAttribute="top" secondItem="Whg-Tq-mmg" secondAttribute="top" id="lw9-q4-bFk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Whg-Tq-mmg"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Frequently Asked Questions" id="psF-PR-JJ2"/>
+                    <connections>
+                        <outlet property="tableView" destination="eCb-0U-Fj7" id="LQp-bH-336"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D1s-ly-kC6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="876.81159420289862" y="3091.7410714285711"/>
+            <point key="canvasLocation" x="901" y="3797"/>
+        </scene>
+        <!--How it works-->
+        <scene sceneID="3i0-zK-D3f">
+            <objects>
+                <viewController id="s54-In-N1T" customClass="HowItWorksViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="biP-hT-zzY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jby-vO-c4M">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="s54-In-N1T" id="wGu-qY-ken"/>
+                                    <outlet property="delegate" destination="s54-In-N1T" id="6dm-Lh-TSO"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Jby-vO-c4M" firstAttribute="top" secondItem="H5b-pz-VDL" secondAttribute="top" id="7B0-Yx-ass"/>
+                            <constraint firstItem="H5b-pz-VDL" firstAttribute="trailing" secondItem="Jby-vO-c4M" secondAttribute="trailing" id="8tZ-rc-A4O"/>
+                            <constraint firstAttribute="bottom" secondItem="Jby-vO-c4M" secondAttribute="bottom" id="E3F-nD-oSy"/>
+                            <constraint firstItem="Jby-vO-c4M" firstAttribute="leading" secondItem="H5b-pz-VDL" secondAttribute="leading" id="dhA-Xa-u50"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="H5b-pz-VDL"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="How it works" id="Mf7-v8-BWD"/>
+                    <connections>
+                        <outlet property="tableView" destination="Jby-vO-c4M" id="Dkf-yN-9en"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xC8-je-AVT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="902" y="3119"/>
         </scene>
     </scenes>
     <resources>
-        <image name="StepA" width="558" height="153"/>
         <namedColor name="BackBackgroundColor">
             <color white="0.89999997615814209" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </namedColor>
-        <namedColor name="TextColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="TitleColor">
-            <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
     </resources>
 </document>
