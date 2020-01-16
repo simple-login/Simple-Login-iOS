@@ -33,15 +33,20 @@ final class AboutViewController: BaseViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        guard let webViewController = segue.destination as? WebViewController else { return }
-//        switch segue.identifier {
-//        case "showTeam": webViewController.module = .team
-//        case "showPricing": webViewController.module = .pricing
-//        case "showBlog": webViewController.module = .blog
-//        case "showTerms": webViewController.module = .terms
-//        case "showPrivacy": webViewController.module = .privacy
-//        default: return
-//        }
+        switch segue.destination {
+        case let webViewController as WebViewController:
+            
+            switch segue.identifier {
+            case "showTeam": webViewController.module = .team
+            case "showPricing": webViewController.module = .pricing
+            case "showBlog": webViewController.module = .blog
+            case "showTerms": webViewController.module = .terms
+            case "showPrivacy": webViewController.module = .privacy
+            default: return
+            }
+            
+        default: return
+        }
     }
     
     private func openContactForm() {
@@ -71,6 +76,7 @@ extension AboutViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0: return GeneralInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
         case 1:
             let cell = HowAndFaqTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             
@@ -83,20 +89,46 @@ extension AboutViewController: UITableViewDataSource {
             }
             
             return cell
+            
         case 2:
             let cell = TeamAndContactTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapTeamLabel = { [unowned self] in
+                self.performSegue(withIdentifier: "showTeam", sender: nil)
+            }
             
             cell.didTapContactLabel = { [unowned self] in
                 self.openContactForm()
             }
             
             return cell
+            
         case 3:
             let cell = PricingAndBlogTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapPricingLabel = { [unowned self] in
+                self.performSegue(withIdentifier: "showPricing", sender: nil)
+            }
+            
+            cell.didTapBlogLabel = { [unowned self] in
+                self.performSegue(withIdentifier: "showBlog", sender: nil)
+            }
+            
             return cell
+            
         case 4:
             let cell = TermsAndPrivacyTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapTermsLabel = { [unowned self] in
+                self.performSegue(withIdentifier: "showTerms", sender: nil)
+            }
+            
+            cell.didTapPrivacyLabel = { [unowned self] in
+                self.performSegue(withIdentifier: "showPrivacy", sender: nil)
+            }
+            
             return cell
+            
         default: return UITableViewCell()
         }
     }
