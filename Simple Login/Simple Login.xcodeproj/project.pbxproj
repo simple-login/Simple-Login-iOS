@@ -43,6 +43,8 @@
 		C091480023CFB46300D56CDC /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09147FF23CFB46300D56CDC /* WebViewController.swift */; };
 		C0956A4623D105B7000CEBDD /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0956A4523D105B7000CEBDD /* NotificationTableViewCell.swift */; };
 		C0956A4823D105CC000CEBDD /* NotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0956A4723D105CC000CEBDD /* NotificationTableViewCell.xib */; };
+		C0956A4B23D109D8000CEBDD /* ExportDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0956A4A23D109D8000CEBDD /* ExportDataTableViewCell.swift */; };
+		C0956A4D23D109FB000CEBDD /* ExportDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0956A4C23D109FB000CEBDD /* ExportDataTableViewCell.xib */; };
 		C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097A9E623C7987F00EC1EFE /* AppDelegate.swift */; };
 		C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* Main.storyboard */; };
 		C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
@@ -129,6 +131,8 @@
 		C09147FF23CFB46300D56CDC /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C0956A4523D105B7000CEBDD /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		C0956A4723D105CC000CEBDD /* NotificationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTableViewCell.xib; sourceTree = "<group>"; };
+		C0956A4A23D109D8000CEBDD /* ExportDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDataTableViewCell.swift; sourceTree = "<group>"; };
+		C0956A4C23D109FB000CEBDD /* ExportDataTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportDataTableViewCell.xib; sourceTree = "<group>"; };
 		C097A9E323C7987F00EC1EFE /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C097A9E623C7987F00EC1EFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C097A9ED23C7987F00EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -371,6 +375,15 @@
 			path = NotificationTableViewCell;
 			sourceTree = "<group>";
 		};
+		C0956A4923D109C6000CEBDD /* ExportDataTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0956A4A23D109D8000CEBDD /* ExportDataTableViewCell.swift */,
+				C0956A4C23D109FB000CEBDD /* ExportDataTableViewCell.xib */,
+			);
+			path = ExportDataTableViewCell;
+			sourceTree = "<group>";
+		};
 		C097A9DA23C7987F00EC1EFE = {
 			isa = PBXGroup;
 			children = (
@@ -490,6 +503,7 @@
 				C06BD31623D0F91D0056A9B3 /* MfaTableViewCell */,
 				C06BD31B23D0FBFE0056A9B3 /* ChangePasswordTableViewCell */,
 				C0956A4423D105A2000CEBDD /* NotificationTableViewCell */,
+				C0956A4923D109C6000CEBDD /* ExportDataTableViewCell */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -671,6 +685,7 @@
 				C0D6A28423D07AB000EF21B8 /* TermsAndPrivacyTableViewCell.xib in Resources */,
 				C0B76DEB23D0DCEB003AAB7E /* Settings.storyboard in Resources */,
 				C0D6A28F23D0A93800EF21B8 /* StepTableViewCell.xib in Resources */,
+				C0956A4D23D109FB000CEBDD /* ExportDataTableViewCell.xib in Resources */,
 				C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */,
 				C0D6A27523D0767000EF21B8 /* HowAndFaqTableViewCell.xib in Resources */,
 				C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */,
@@ -794,6 +809,7 @@
 				C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */,
 				C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
+				C0956A4B23D109D8000CEBDD /* ExportDataTableViewCell.swift in Sources */,
 				C091480023CFB46300D56CDC /* WebViewController.swift in Sources */,
 				C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */,
 				C0D6A27823D077E800EF21B8 /* TeamAndContactTableViewCell.swift in Sources */,

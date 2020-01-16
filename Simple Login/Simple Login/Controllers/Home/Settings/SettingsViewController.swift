@@ -30,6 +30,7 @@ final class SettingsViewController: BaseViewController {
         MfaTableViewCell.register(with: tableView)
         ChangePasswordTableViewCell.register(with: tableView)
         NotificationTableViewCell.register(with: tableView)
+        ExportDataTableViewCell.register(with: tableView)
     }
 }
 
@@ -119,6 +120,20 @@ extension SettingsViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    
+    private func showAlertExportData() {
+        let alert = UIAlertController(title: "Export data?", message: "We will send you a JSON file containing all your informations", preferredStyle: .alert)
+        
+        let yesAction = UIAlertAction(title: "Yes, send me", style: .default) { [unowned self] (_) in
+            
+        }
+        alert.addAction(yesAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -128,7 +143,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -169,6 +184,15 @@ extension SettingsViewController: UITableViewDataSource {
             
             cell.didSwitch = { [unowned self] isOn in
                Toast.displayShortly(message: "\(isOn)")
+            }
+            
+            return cell
+            
+        case 4:
+            let cell = ExportDataTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapRootView = { [unowned self] in
+                self.showAlertExportData()
             }
             
             return cell
