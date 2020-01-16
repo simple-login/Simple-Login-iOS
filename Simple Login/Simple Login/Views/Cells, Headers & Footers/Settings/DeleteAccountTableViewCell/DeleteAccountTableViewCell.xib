@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeleteAccountTableViewCell" rowHeight="100" id="aye-1u-xC8" customClass="DeleteAccountTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="443" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aye-1u-xC8" id="5ag-on-ZgK">
+                <rect key="frame" x="0.0" y="0.0" width="443" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uL0-aU-86F" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
+                        <rect key="frame" x="8" y="4" width="427" height="92"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2xO-jQ-qcb">
+                                <rect key="frame" x="16" y="16" width="395" height="60"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ofc-Si-Akt">
+                                        <rect key="frame" x="0.0" y="0.0" width="267" height="60"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Delete Account" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grc-Ax-zCC">
+                                                <rect key="frame" x="0.0" y="0.0" width="267" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <color key="textColor" name="TextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Please note that this operation is irreversible." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbB-1a-bi3">
+                                                <rect key="frame" x="0.0" y="26" width="267" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" name="TitleColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="DELETE ACCOUNT" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHT-p7-LXr">
+                                        <rect key="frame" x="275" y="0.0" width="120" height="60"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <color key="textColor" name="NegativeColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="FrontBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2xO-jQ-qcb" firstAttribute="top" secondItem="uL0-aU-86F" secondAttribute="top" constant="16" id="4VJ-D5-DpM"/>
+                            <constraint firstAttribute="trailing" secondItem="2xO-jQ-qcb" secondAttribute="trailing" constant="16" id="EBe-lR-y4J"/>
+                            <constraint firstItem="2xO-jQ-qcb" firstAttribute="leading" secondItem="uL0-aU-86F" secondAttribute="leading" constant="16" id="Orz-2B-tix"/>
+                            <constraint firstAttribute="bottom" secondItem="2xO-jQ-qcb" secondAttribute="bottom" constant="16" id="cae-xd-3wA"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="uL0-aU-86F" secondAttribute="trailing" constant="8" id="LbV-p4-YnB"/>
+                    <constraint firstAttribute="bottom" secondItem="uL0-aU-86F" secondAttribute="bottom" constant="4" id="VWM-TM-aGQ"/>
+                    <constraint firstItem="uL0-aU-86F" firstAttribute="leading" secondItem="5ag-on-ZgK" secondAttribute="leading" constant="8" id="xZw-dk-HR7"/>
+                    <constraint firstItem="uL0-aU-86F" firstAttribute="top" secondItem="5ag-on-ZgK" secondAttribute="top" constant="4" id="zcw-gi-0Om"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <connections>
+                <outlet property="deleteLabel" destination="BHT-p7-LXr" id="8td-cC-TQ1"/>
+            </connections>
+            <point key="canvasLocation" x="-2.1739130434782612" y="-265.17857142857144"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="FrontBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="NegativeColor">
+            <color red="1" green="0.23100000619888306" blue="0.18799999356269836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TitleColor">
+            <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+    </resources>
+</document>

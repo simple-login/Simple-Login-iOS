@@ -31,6 +31,7 @@ final class SettingsViewController: BaseViewController {
         ChangePasswordTableViewCell.register(with: tableView)
         NotificationTableViewCell.register(with: tableView)
         ExportDataTableViewCell.register(with: tableView)
+        DeleteAccountTableViewCell.register(with: tableView)
     }
 }
 
@@ -134,6 +135,20 @@ extension SettingsViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    
+    private func showAlertDeleteAccount() {
+        let alert = UIAlertController(title: "Permanently delete this account", message: "All the informations related to this account will also be deleted. This operation is irreversible. Please confirm your choice.", preferredStyle: .alert)
+        
+        let yesAction = UIAlertAction(title: "Delete everything", style: .destructive) { [unowned self] (_) in
+            
+        }
+        alert.addAction(yesAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -143,7 +158,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -193,6 +208,15 @@ extension SettingsViewController: UITableViewDataSource {
             
             cell.didTapRootView = { [unowned self] in
                 self.showAlertExportData()
+            }
+            
+            return cell
+            
+        case 5:
+            let cell = DeleteAccountTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapDeleteLabel = { [unowned self] in
+                self.showAlertDeleteAccount()
             }
             
             return cell

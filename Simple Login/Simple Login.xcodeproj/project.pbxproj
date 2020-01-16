@@ -45,6 +45,8 @@
 		C0956A4823D105CC000CEBDD /* NotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0956A4723D105CC000CEBDD /* NotificationTableViewCell.xib */; };
 		C0956A4B23D109D8000CEBDD /* ExportDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0956A4A23D109D8000CEBDD /* ExportDataTableViewCell.swift */; };
 		C0956A4D23D109FB000CEBDD /* ExportDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0956A4C23D109FB000CEBDD /* ExportDataTableViewCell.xib */; };
+		C0956A5023D10C14000CEBDD /* DeleteAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0956A4F23D10C14000CEBDD /* DeleteAccountTableViewCell.swift */; };
+		C0956A5223D10C71000CEBDD /* DeleteAccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0956A5123D10C71000CEBDD /* DeleteAccountTableViewCell.xib */; };
 		C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097A9E623C7987F00EC1EFE /* AppDelegate.swift */; };
 		C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* Main.storyboard */; };
 		C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
@@ -133,6 +135,8 @@
 		C0956A4723D105CC000CEBDD /* NotificationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTableViewCell.xib; sourceTree = "<group>"; };
 		C0956A4A23D109D8000CEBDD /* ExportDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDataTableViewCell.swift; sourceTree = "<group>"; };
 		C0956A4C23D109FB000CEBDD /* ExportDataTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportDataTableViewCell.xib; sourceTree = "<group>"; };
+		C0956A4F23D10C14000CEBDD /* DeleteAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountTableViewCell.swift; sourceTree = "<group>"; };
+		C0956A5123D10C71000CEBDD /* DeleteAccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteAccountTableViewCell.xib; sourceTree = "<group>"; };
 		C097A9E323C7987F00EC1EFE /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C097A9E623C7987F00EC1EFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C097A9ED23C7987F00EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -384,6 +388,15 @@
 			path = ExportDataTableViewCell;
 			sourceTree = "<group>";
 		};
+		C0956A4E23D10BFB000CEBDD /* DeleteAccountTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0956A4F23D10C14000CEBDD /* DeleteAccountTableViewCell.swift */,
+				C0956A5123D10C71000CEBDD /* DeleteAccountTableViewCell.xib */,
+			);
+			path = DeleteAccountTableViewCell;
+			sourceTree = "<group>";
+		};
 		C097A9DA23C7987F00EC1EFE = {
 			isa = PBXGroup;
 			children = (
@@ -504,6 +517,7 @@
 				C06BD31B23D0FBFE0056A9B3 /* ChangePasswordTableViewCell */,
 				C0956A4423D105A2000CEBDD /* NotificationTableViewCell */,
 				C0956A4923D109C6000CEBDD /* ExportDataTableViewCell */,
+				C0956A4E23D10BFB000CEBDD /* DeleteAccountTableViewCell */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -697,6 +711,7 @@
 				C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */,
 				C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */,
 				C0D6A27F23D079C200EF21B8 /* PricingAndBlogTableViewCell.xib in Resources */,
+				C0956A5223D10C71000CEBDD /* DeleteAccountTableViewCell.xib in Resources */,
 				C0D6A27A23D078AB00EF21B8 /* TeamAndContactTableViewCell.xib in Resources */,
 				C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */,
 				C06BD31F23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib in Resources */,
@@ -772,6 +787,7 @@
 				C05CD30623CA0419007F1C9E /* AliasViewController.swift in Sources */,
 				C0D6A29323D0ABDC00EF21B8 /* Faq.swift in Sources */,
 				C05CD31323CA2A23007F1C9E /* UIView+Layout.swift in Sources */,
+				C0956A5023D10C14000CEBDD /* DeleteAccountTableViewCell.swift in Sources */,
 				C05CD31023CA0ACB007F1C9E /* BaseViewController.swift in Sources */,
 				C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */,
 				C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */,
