@@ -34,7 +34,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         
-        rootView.layer.cornerRadius = 8
+        rootView.layer.cornerRadius = CORNER_RADIUS
         
         enabledSwitch.onTintColor = SLColor.tintColor
         

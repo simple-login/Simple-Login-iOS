@@ -11,6 +11,7 @@ import UIKit
 struct SLColor {
     static let textColor = UIColor(named: "TextColor")!
     static let titleColor = UIColor(named: "TitleColor")!
+    static let clickableTitleColor = UIColor(named: "ClickableTitleColor")!
     static let secondaryTitleColor = UIColor(named: "SecondaryTitleColor")!
     static let frontBackgroundColor = UIColor(named: "FrontBackgroundColor")!
     static let inactiveFrontBackgroundColor = UIColor(named: "InactiveFrontBackgroundColor")!

@@ -18,7 +18,7 @@ final class AliasActivityTableViewCell: UITableViewCell, RegisterableCell {
         super.awakeFromNib()
         selectionStyle = .none
         
-        rootView.layer.cornerRadius = 8
+        rootView.layer.cornerRadius = CORNER_RADIUS
         rootView.backgroundColor = SLColor.frontBackgroundColor
         
         activityLabel.textColor = SLColor.textColor

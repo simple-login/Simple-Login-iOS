@@ -27,7 +27,7 @@ final class ReverseAliasTableViewCell: UITableViewCell, RegisterableCell {
 
         selectionStyle = UITableViewCell.SelectionStyle.none
         
-        rootView.layer.cornerRadius = 8
+        rootView.layer.cornerRadius = CORNER_RADIUS
         
         mailImageView.tintColor = SLColor.textColor
         arrowLabel.textColor = SLColor.textColor

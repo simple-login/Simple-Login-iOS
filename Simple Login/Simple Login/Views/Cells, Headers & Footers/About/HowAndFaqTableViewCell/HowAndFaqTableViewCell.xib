@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HowAndFaqTableViewCell" rowHeight="137" id="bMC-jz-MFj" customClass="HowAndFaqTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="428" height="137"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bMC-jz-MFj" id="udg-6k-l97">
+                <rect key="frame" x="0.0" y="0.0" width="428" height="137"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qTf-zG-kNa">
+                        <rect key="frame" x="8" y="4" width="412" height="129"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How it works" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jck-NS-yJs">
+                                <rect key="frame" x="16" y="16" width="380" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <color key="textColor" name="ClickableTitleColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YUr-JT-P5S" userLabel="SeparatorView">
+                                <rect key="frame" x="0.0" y="49" width="412" height="1"/>
+                                <color key="backgroundColor" name="SeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="jmz-Qv-mNa"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Frequently asked questions" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XpH-9c-CBU">
+                                <rect key="frame" x="16" y="66" width="182.5" height="47"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <color key="textColor" name="ClickableTitleColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" name="FrontBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jck-NS-yJs" firstAttribute="top" secondItem="qTf-zG-kNa" secondAttribute="top" constant="16" id="0wb-lm-7bF"/>
+                            <constraint firstAttribute="bottom" secondItem="XpH-9c-CBU" secondAttribute="bottom" constant="16" id="1Kf-D4-sk3"/>
+                            <constraint firstAttribute="trailing" secondItem="YUr-JT-P5S" secondAttribute="trailing" id="6HK-Hu-EM1"/>
+                            <constraint firstItem="jck-NS-yJs" firstAttribute="leading" secondItem="qTf-zG-kNa" secondAttribute="leading" constant="16" id="6cg-BP-mYT"/>
+                            <constraint firstAttribute="trailing" secondItem="jck-NS-yJs" secondAttribute="trailing" constant="16" id="CdB-OF-UG9"/>
+                            <constraint firstItem="YUr-JT-P5S" firstAttribute="leading" secondItem="qTf-zG-kNa" secondAttribute="leading" id="VmB-NL-mjt"/>
+                            <constraint firstItem="YUr-JT-P5S" firstAttribute="top" secondItem="jck-NS-yJs" secondAttribute="bottom" constant="16" id="Y1R-pW-ug3"/>
+                            <constraint firstItem="XpH-9c-CBU" firstAttribute="leading" secondItem="qTf-zG-kNa" secondAttribute="leading" constant="16" id="ghc-FQ-DGG"/>
+                            <constraint firstItem="XpH-9c-CBU" firstAttribute="top" secondItem="YUr-JT-P5S" secondAttribute="bottom" constant="16" id="jLc-v9-pgs"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                <constraints>
+                    <constraint firstItem="qTf-zG-kNa" firstAttribute="leading" secondItem="udg-6k-l97" secondAttribute="leading" constant="8" id="1MI-SM-ugI"/>
+                    <constraint firstAttribute="trailing" secondItem="qTf-zG-kNa" secondAttribute="trailing" constant="8" id="FAY-kS-dSS"/>
+                    <constraint firstItem="qTf-zG-kNa" firstAttribute="top" secondItem="udg-6k-l97" secondAttribute="top" constant="4" id="Flo-9G-193"/>
+                    <constraint firstAttribute="bottom" secondItem="qTf-zG-kNa" secondAttribute="bottom" constant="4" id="alu-Xx-Q76"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <connections>
+                <outlet property="faqLabel" destination="XpH-9c-CBU" id="Er1-ee-YfJ"/>
+                <outlet property="howLabel" destination="jck-NS-yJs" id="E91-Gd-tyw"/>
+                <outlet property="rootView" destination="qTf-zG-kNa" id="RU9-EF-ZFx"/>
+            </connections>
+            <point key="canvasLocation" x="184.05797101449278" y="134.93303571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="ClickableTitleColor">
+            <color white="0.0" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="FrontBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SeparatorColor">
+            <color white="0.80000001192092896" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+    </resources>
+</document>

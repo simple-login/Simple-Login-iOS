@@ -19,6 +19,8 @@ let BASE_WEBSITE_URL = "https://simplelogin.io"
 
 let ALIAS_PREFIX_MAX_LENGTH = 100
 
+let CORNER_RADIUS: CGFloat = 2.0
+
 var hasTopNotch: Bool {
     if #available(iOS 13.0,  *) {
         return UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0 > 20

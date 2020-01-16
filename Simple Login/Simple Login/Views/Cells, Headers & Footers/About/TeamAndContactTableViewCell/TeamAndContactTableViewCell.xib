@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TeamAndContactTableViewCell" rowHeight="139" id="zeP-ev-1fn" customClass="TeamAndContactTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="428" height="139"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zeP-ev-1fn" id="ytf-MJ-RPt">
+                <rect key="frame" x="0.0" y="0.0" width="428" height="139"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8AC-s7-zPb">
+                        <rect key="frame" x="8" y="4" width="412" height="131"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our team" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRl-8K-kAF">
+                                <rect key="frame" x="16" y="16" width="380" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <color key="textColor" name="ClickableTitleColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gfu-tA-yBn" userLabel="SeparatorView">
+                                <rect key="frame" x="0.0" y="49" width="412" height="1"/>
+                                <color key="backgroundColor" name="SeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="qG8-7h-WjM"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Contact us" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wer-C8-oCI">
+                                <rect key="frame" x="16" y="66" width="380" height="49"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <color key="textColor" name="ClickableTitleColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" name="FrontBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="gfu-tA-yBn" firstAttribute="top" secondItem="TRl-8K-kAF" secondAttribute="bottom" constant="16" id="3wx-FG-vLh"/>
+                            <constraint firstItem="Wer-C8-oCI" firstAttribute="leading" secondItem="8AC-s7-zPb" secondAttribute="leading" constant="16" id="5gy-Mn-oPh"/>
+                            <constraint firstItem="TRl-8K-kAF" firstAttribute="leading" secondItem="8AC-s7-zPb" secondAttribute="leading" constant="16" id="6Qx-14-lro"/>
+                            <constraint firstAttribute="trailing" secondItem="Wer-C8-oCI" secondAttribute="trailing" constant="16" id="6Zk-Qs-Xgk"/>
+                            <constraint firstItem="gfu-tA-yBn" firstAttribute="leading" secondItem="8AC-s7-zPb" secondAttribute="leading" id="AUB-4G-AhR"/>
+                            <constraint firstAttribute="trailing" secondItem="gfu-tA-yBn" secondAttribute="trailing" id="Rw3-rj-WQ4"/>
+                            <constraint firstAttribute="bottom" secondItem="Wer-C8-oCI" secondAttribute="bottom" constant="16" id="Rw9-NO-9Vt"/>
+                            <constraint firstItem="Wer-C8-oCI" firstAttribute="top" secondItem="gfu-tA-yBn" secondAttribute="bottom" constant="16" id="Y6F-rv-mbo"/>
+                            <constraint firstAttribute="trailing" secondItem="TRl-8K-kAF" secondAttribute="trailing" constant="16" id="bmP-re-Tln"/>
+                            <constraint firstItem="TRl-8K-kAF" firstAttribute="top" secondItem="8AC-s7-zPb" secondAttribute="top" constant="16" id="u1s-DV-iq0"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                <constraints>
+                    <constraint firstItem="8AC-s7-zPb" firstAttribute="leading" secondItem="ytf-MJ-RPt" secondAttribute="leading" constant="8" id="ANW-Ie-jCD"/>
+                    <constraint firstAttribute="trailing" secondItem="8AC-s7-zPb" secondAttribute="trailing" constant="8" id="NGj-rP-WUU"/>
+                    <constraint firstItem="8AC-s7-zPb" firstAttribute="top" secondItem="ytf-MJ-RPt" secondAttribute="top" constant="4" id="RSh-8N-O50"/>
+                    <constraint firstAttribute="bottom" secondItem="8AC-s7-zPb" secondAttribute="bottom" constant="4" id="Y73-Gv-zez"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <connections>
+                <outlet property="contactLabel" destination="Wer-C8-oCI" id="M3W-zU-GFj"/>
+                <outlet property="rootView" destination="8AC-s7-zPb" id="vXX-hi-nhU"/>
+                <outlet property="teamLabel" destination="TRl-8K-kAF" id="POc-sU-yMQ"/>
+            </connections>
+            <point key="canvasLocation" x="184.05797101449278" y="134.93303571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="ClickableTitleColor">
+            <color white="0.0" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="FrontBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SeparatorColor">
+            <color white="0.80000001192092896" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+    </resources>
+</document>

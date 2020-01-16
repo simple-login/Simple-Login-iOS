@@ -9,7 +9,8 @@
 import UIKit
 import MessageUI
 
-final class AboutViewController: BaseTableViewController {
+final class AboutViewController: BaseViewController {
+    @IBOutlet private weak var tableView: UITableView!
     
     deinit {
         print("AboutViewController is deallocated")
@@ -17,6 +18,18 @@ final class AboutViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpUI()
+    }
+    
+    private func setUpUI() {
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.separatorColor = .clear
+        GeneralInfoTableViewCell.register(with: tableView)
+        HowAndFaqTableViewCell.register(with: tableView)
+        TeamAndContactTableViewCell.register(with: tableView)
+        PricingAndBlogTableViewCell.register(with: tableView)
+        TermsAndPrivacyTableViewCell.register(with: tableView)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -45,13 +58,32 @@ final class AboutViewController: BaseTableViewController {
     }
 }
 
-extension AboutViewController {
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        switch (indexPath.section, indexPath.row) {
-        case (2, 1): openContactForm()
-        default: return
+// MARK: - UITableViewDataSource
+extension AboutViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.row {
+        case 0: return GeneralInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        case 1:
+            let cell = HowAndFaqTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            return cell
+        case 2:
+            let cell = TeamAndContactTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            return cell
+        case 3:
+            let cell = PricingAndBlogTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            return cell
+        case 4:
+            let cell = TermsAndPrivacyTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            return cell
+        default: return UITableViewCell()
         }
     }
 }
