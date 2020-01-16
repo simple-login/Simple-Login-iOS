@@ -27,6 +27,8 @@ final class SettingsViewController: BaseViewController {
         tableView.separatorColor = .clear
         
         ProfileAndMembershipTableViewCell.register(with: tableView)
+        MfaTableViewCell.register(with: tableView)
+        ChangePasswordTableViewCell.register(with: tableView)
     }
 }
 
@@ -101,6 +103,23 @@ extension SettingsViewController {
     }
 }
 
+// MARK: - Other actions
+extension SettingsViewController {
+    private func showAlertChangePassword() {
+        let alert = UIAlertController(title: "Change password?", message: nil, preferredStyle: .alert)
+        
+        let yesAction = UIAlertAction(title: "Yes, send me email", style: .default) { [unowned self] (_) in
+            
+        }
+        alert.addAction(yesAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+}
+
 // MARK: - UITableViewDataSource
 extension SettingsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -108,7 +127,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -122,6 +141,24 @@ extension SettingsViewController: UITableViewDataSource {
             
             cell.didTapUpgradeDowngradeLabel = { [unowned self] in
                 Toast.displayShortly(message: "upgrade/downgrade")
+            }
+            
+            return cell
+            
+        case 1:
+            let cell = MfaTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapEnableDisableLabel = { [unowned self] in
+                Toast.displayShortly(message: "enable/disable MFA")
+            }
+            
+            return cell
+            
+        case 2:
+            let cell = ChangePasswordTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapRootView = { [unowned self] in
+                self.showAlertChangePassword()
             }
             
             return cell

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MfaTableViewCell" rowHeight="151" id="fuG-MS-TTf" customClass="MfaTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="443" height="151"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fuG-MS-TTf" id="k6K-yh-aYH">
+                <rect key="frame" x="0.0" y="0.0" width="443" height="151"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="reo-Aq-Jcp" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
+                        <rect key="frame" x="8" y="4" width="427" height="143"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dGK-HB-266">
+                                <rect key="frame" x="16" y="16" width="395" height="111"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="z2u-Ye-hXY">
+                                        <rect key="frame" x="0.0" y="0.0" width="303" height="111"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Multi-Factor Authentication (MFA)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2P9-JS-4VW">
+                                                <rect key="frame" x="0.0" y="0.0" width="303" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <color key="textColor" name="TextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="999" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCa-bI-SSS">
+                                                <rect key="frame" x="0.0" y="26" width="303" height="85"/>
+                                                <string key="text">Secure your account with Multi-Factor Authentication. This requires having applications like Google Authenticator, Authy, FreeOTP, etc.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" name="TitleColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="ENABLE MFA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wL3-lU-Ao6">
+                                        <rect key="frame" x="311" y="0.0" width="84" height="111"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <color key="textColor" name="TintColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="FrontBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="dGK-HB-266" secondAttribute="trailing" constant="16" id="6Uj-cB-F13"/>
+                            <constraint firstItem="dGK-HB-266" firstAttribute="leading" secondItem="reo-Aq-Jcp" secondAttribute="leading" constant="16" id="9xJ-1N-7I0"/>
+                            <constraint firstAttribute="bottom" secondItem="dGK-HB-266" secondAttribute="bottom" constant="16" id="ATs-tA-BSn"/>
+                            <constraint firstItem="dGK-HB-266" firstAttribute="top" secondItem="reo-Aq-Jcp" secondAttribute="top" constant="16" id="H80-8Q-2GM"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                <constraints>
+                    <constraint firstItem="reo-Aq-Jcp" firstAttribute="leading" secondItem="k6K-yh-aYH" secondAttribute="leading" constant="8" id="ROG-fh-wsw"/>
+                    <constraint firstAttribute="trailing" secondItem="reo-Aq-Jcp" secondAttribute="trailing" constant="8" id="Xpf-ak-tIC"/>
+                    <constraint firstItem="reo-Aq-Jcp" firstAttribute="top" secondItem="k6K-yh-aYH" secondAttribute="top" constant="4" id="iOr-Gw-1ea"/>
+                    <constraint firstAttribute="bottom" secondItem="reo-Aq-Jcp" secondAttribute="bottom" constant="4" id="ypr-b8-kCl"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <connections>
+                <outlet property="enableDisableLabel" destination="wL3-lU-Ao6" id="O1i-Tf-jxF"/>
+            </connections>
+            <point key="canvasLocation" x="-2.1739130434782612" y="-248.10267857142856"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="FrontBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TintColor">
+            <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TitleColor">
+            <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+    </resources>
+</document>

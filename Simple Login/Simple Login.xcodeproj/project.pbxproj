@@ -23,6 +23,10 @@
 		C05CD31823CA3F0A007F1C9E /* AliasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31723CA3F0A007F1C9E /* AliasTableViewCell.swift */; };
 		C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31923CA4040007F1C9E /* Date+Distance.swift */; };
 		C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */; };
+		C06BD31823D0F9330056A9B3 /* MfaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BD31723D0F9330056A9B3 /* MfaTableViewCell.swift */; };
+		C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */; };
+		C06BD31D23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */; };
+		C06BD31F23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */; };
 		C0747EDF23CCA6F5008035E9 /* CreateReverseAliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EDE23CCA6F5008035E9 /* CreateReverseAliasViewController.swift */; };
 		C0747EE223CCDE63008035E9 /* AliasActivityTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE123CCDE63008035E9 /* AliasActivityTableHeaderView.swift */; };
 		C0747EE423CCDE7C008035E9 /* AliasActivityTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0747EE323CCDE7C008035E9 /* AliasActivityTableHeaderView.xib */; };
@@ -103,6 +107,10 @@
 		C05CD31723CA3F0A007F1C9E /* AliasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTableViewCell.swift; sourceTree = "<group>"; };
 		C05CD31923CA4040007F1C9E /* Date+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Distance.swift"; sourceTree = "<group>"; };
 		C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasTableViewCell.xib; sourceTree = "<group>"; };
+		C06BD31723D0F9330056A9B3 /* MfaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MfaTableViewCell.swift; sourceTree = "<group>"; };
+		C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MfaTableViewCell.xib; sourceTree = "<group>"; };
+		C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
+		C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePasswordTableViewCell.xib; sourceTree = "<group>"; };
 		C0747EDE23CCA6F5008035E9 /* CreateReverseAliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReverseAliasViewController.swift; sourceTree = "<group>"; };
 		C0747EE123CCDE63008035E9 /* AliasActivityTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityTableHeaderView.swift; sourceTree = "<group>"; };
 		C0747EE323CCDE7C008035E9 /* AliasActivityTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasActivityTableHeaderView.xib; sourceTree = "<group>"; };
@@ -284,6 +292,24 @@
 			path = AliasTableViewCell;
 			sourceTree = "<group>";
 		};
+		C06BD31623D0F91D0056A9B3 /* MfaTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C06BD31723D0F9330056A9B3 /* MfaTableViewCell.swift */,
+				C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */,
+			);
+			path = MfaTableViewCell;
+			sourceTree = "<group>";
+		};
+		C06BD31B23D0FBFE0056A9B3 /* ChangePasswordTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */,
+				C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */,
+			);
+			path = ChangePasswordTableViewCell;
+			sourceTree = "<group>";
+		};
 		C0747EE023CCDE46008035E9 /* AliasActivityTableHeaderView */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +474,8 @@
 			isa = PBXGroup;
 			children = (
 				C0B76DED23D0DE05003AAB7E /* ProfileAndMembershipTableViewCell */,
+				C06BD31623D0F91D0056A9B3 /* MfaTableViewCell */,
+				C06BD31B23D0FBFE0056A9B3 /* ChangePasswordTableViewCell */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -641,6 +669,8 @@
 				C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */,
 				C0D6A27F23D079C200EF21B8 /* PricingAndBlogTableViewCell.xib in Resources */,
 				C0D6A27A23D078AB00EF21B8 /* TeamAndContactTableViewCell.xib in Resources */,
+				C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */,
+				C06BD31F23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib in Resources */,
 				C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */,
 				C08A202C23CC968800CB8D2F /* ReverseAliasTableViewCell.xib in Resources */,
 				C0B76DF123D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib in Resources */,
@@ -720,12 +750,14 @@
 				C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */,
 				C05CD31523CA33C2007F1C9E /* Alias.swift in Sources */,
 				C05049BC23CE016600AEF20B /* SLColor.swift in Sources */,
+				C06BD31823D0F9330056A9B3 /* MfaTableViewCell.swift in Sources */,
 				C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */,
 				C05CD30E23CA054B007F1C9E /* AboutViewController.swift in Sources */,
 				C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */,
 				C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */,
 				C08A202E23CC9AD800CB8D2F /* ReverseAlias.swift in Sources */,
 				C0D6A27323D0759800EF21B8 /* HowAndFaqTableViewCell.swift in Sources */,
+				C06BD31D23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift in Sources */,
 				C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */,
 				C0747EE223CCDE63008035E9 /* AliasActivityTableHeaderView.swift in Sources */,
 				C05CD31823CA3F0A007F1C9E /* AliasTableViewCell.swift in Sources */,

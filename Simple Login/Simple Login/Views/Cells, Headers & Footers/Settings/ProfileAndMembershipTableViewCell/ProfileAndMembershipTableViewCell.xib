@@ -75,7 +75,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" name="FrontBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="V7h-RI-rJZ" firstAttribute="top" secondItem="9bp-T7-aN7" secondAttribute="bottom" constant="16" id="1su-en-1DZ"/>
                             <constraint firstItem="aqF-Dd-kAC" firstAttribute="top" secondItem="lYl-Xw-lOQ" secondAttribute="top" constant="16" id="32h-R2-gAr"/>
@@ -116,6 +116,9 @@
     </objects>
     <resources>
         <image name="UserIcon" width="170.5" height="170.5"/>
+        <namedColor name="FrontBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="PremiumColor">
             <color red="0.20399999618530273" green="0.77999997138977051" blue="0.34900000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

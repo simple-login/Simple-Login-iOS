@@ -21,6 +21,7 @@ final class ProfileAndMembershipTableViewCell: UITableViewCell, RegisterableCell
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        selectionStyle = .none
         
         let tapModify = UITapGestureRecognizer(target: self, action: #selector(modifyLabelTapped))
         modifyLabel.isUserInteractionEnabled = true
