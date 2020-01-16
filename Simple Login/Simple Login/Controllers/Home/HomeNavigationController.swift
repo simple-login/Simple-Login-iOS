@@ -54,7 +54,7 @@ final class HomeNavigationController: UINavigationController {
         switch segue.destination {
         case let sideMenuNavigationController as SideMenuNavigationController:
             SideMenuManager.default.leftMenuNavigationController = sideMenuNavigationController
-            SideMenuManager.default.addPanGestureToPresent(toView: navigationBar)
+            //SideMenuManager.default.addPanGestureToPresent(toView: navigationBar)
             SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: view, forMenu: .left)
             
             sideMenuNavigationController.presentationStyle = .menuSlideIn
