@@ -134,13 +134,15 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="26e-Bo-FzM">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="TtY-Vi-9th" id="jFW-gH-Xdd"/>
                                     <outlet property="delegate" destination="TtY-Vi-9th" id="GDY-Qz-I8q"/>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="26e-Bo-FzM" firstAttribute="leading" secondItem="UW7-Ja-QvH" secondAttribute="leading" id="NKM-iQ-xpE"/>
                             <constraint firstItem="26e-Bo-FzM" firstAttribute="top" secondItem="UW7-Ja-QvH" secondAttribute="top" id="hAl-iy-6Mo"/>

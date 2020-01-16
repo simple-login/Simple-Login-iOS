@@ -9,7 +9,6 @@
 import UIKit
 
 final class PricingAndBlogTableViewCell: UITableViewCell, RegisterableCell {
-    @IBOutlet private weak var rootView: UIView!
     @IBOutlet private weak var pricingLabel: UILabel!
     @IBOutlet private weak var blogLabel: UILabel!
     
@@ -18,7 +17,6 @@ final class PricingAndBlogTableViewCell: UITableViewCell, RegisterableCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        rootView.layer.cornerRadius = CORNER_RADIUS
         
         let tapPricing = UITapGestureRecognizer(target: self, action: #selector(pricingLabelTapped))
         pricingLabel.isUserInteractionEnabled = true

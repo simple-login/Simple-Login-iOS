@@ -10,7 +10,7 @@ import UIKit
 import Toaster
 
 final class AliasTableViewCell: UITableViewCell, RegisterableCell {
-    @IBOutlet private weak var rootView: UIView!
+    @IBOutlet private weak var rootView: BorderedShadowedView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var clockImageView: UIImageView!
     @IBOutlet private weak var creationLabel: UILabel!
@@ -33,8 +33,6 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         selectionStyle = UITableViewCell.SelectionStyle.none
         backgroundColor = .clear
         contentView.backgroundColor = .clear
-        
-        rootView.layer.cornerRadius = CORNER_RADIUS
         
         enabledSwitch.onTintColor = SLColor.tintColor
         

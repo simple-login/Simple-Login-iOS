@@ -9,7 +9,6 @@
 import UIKit
 
 final class HowAndFaqTableViewCell: UITableViewCell, RegisterableCell {
-    @IBOutlet private weak var rootView: UIView!
     @IBOutlet private weak var howLabel: UILabel!
     @IBOutlet private weak var faqLabel: UILabel!
     
@@ -18,7 +17,6 @@ final class HowAndFaqTableViewCell: UITableViewCell, RegisterableCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        rootView.layer.cornerRadius = CORNER_RADIUS
         
         let tapHow = UITapGestureRecognizer(target: self, action: #selector(howItWorksLabelTapped))
         howLabel.isUserInteractionEnabled = true

@@ -20,5 +20,6 @@ struct SLColor {
     static let premiumColor = UIColor(named: "PremiumColor")!
     static let shadowColor = UIColor(named: "ShadowColor")!
     static let separatorColor = UIColor(named: "SeparatorColor")!
+    static let borderColor = UIColor(named: "BorderColor")!
     static let negativeColor = UIColor(named: "NegativeColor")!
 }

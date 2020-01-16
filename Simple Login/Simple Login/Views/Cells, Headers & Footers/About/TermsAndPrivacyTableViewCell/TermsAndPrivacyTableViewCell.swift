@@ -9,7 +9,6 @@
 import UIKit
 
 final class TermsAndPrivacyTableViewCell: UITableViewCell, RegisterableCell {
-    @IBOutlet private weak var rootView: UIView!
     @IBOutlet private weak var termsLabel: UILabel!
     @IBOutlet private weak var privacyLabel: UILabel!
     
@@ -18,7 +17,6 @@ final class TermsAndPrivacyTableViewCell: UITableViewCell, RegisterableCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        rootView.layer.cornerRadius = CORNER_RADIUS
         
         let tapTerms = UITapGestureRecognizer(target: self, action: #selector(termsLabelTapped))
         termsLabel.isUserInteractionEnabled = true

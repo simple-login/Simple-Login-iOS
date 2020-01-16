@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="497" height="588"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F7g-3v-EMe">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F7g-3v-EMe" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
                         <rect key="frame" x="8" y="8" width="481" height="576"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SimpleLogin v1.0" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lea-ub-XDV">
@@ -78,7 +78,6 @@ SimpleLogin strives to offer a simple experience for both users and partners/dev
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <connections>
                 <outlet property="descriptionLabel" destination="hHR-UA-Mth" id="DLs-IW-JXe"/>
-                <outlet property="rootView" destination="F7g-3v-EMe" id="fC7-t7-28f"/>
                 <outlet property="versionLabel" destination="Lea-ub-XDV" id="agc-v8-Wq0"/>
             </connections>
             <point key="canvasLocation" x="174.63768115942031" y="281.91964285714283"/>

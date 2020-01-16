@@ -9,7 +9,6 @@
 import UIKit
 
 final class TeamAndContactTableViewCell: UITableViewCell, RegisterableCell {
-    @IBOutlet private weak var rootView: UIView!
     @IBOutlet private weak var teamLabel: UILabel!
     @IBOutlet private weak var contactLabel: UILabel!
     
@@ -18,7 +17,6 @@ final class TeamAndContactTableViewCell: UITableViewCell, RegisterableCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        rootView.layer.cornerRadius = CORNER_RADIUS
         
         let tapTeam = UITapGestureRecognizer(target: self, action: #selector(teamLabelTapped))
         teamLabel.isUserInteractionEnabled = true

@@ -16,7 +16,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="441" height="124"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e1i-i2-3yb">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e1i-i2-3yb" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
                         <rect key="frame" x="10" y="10" width="421" height="104"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cmq-KU-0f9">
@@ -136,7 +136,7 @@
                 <outlet property="enabledSwitch" destination="TWP-8A-4QJ" id="7Kp-7m-UJQ"/>
                 <outlet property="nameLabel" destination="y6r-rn-8iu" id="8aK-zp-Tg7"/>
                 <outlet property="rightArrowButton" destination="cmq-KU-0f9" id="jSL-kg-3ZG"/>
-                <outlet property="rootView" destination="e1i-i2-3yb" id="a7y-7x-5KT"/>
+                <outlet property="rootView" destination="e1i-i2-3yb" id="vAG-ok-5uA"/>
                 <outlet property="sendButton" destination="Vkw-2v-NGJ" id="Omf-KE-CVi"/>
             </connections>
             <point key="canvasLocation" x="22.463768115942031" y="94.419642857142847"/>

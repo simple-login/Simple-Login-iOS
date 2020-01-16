@@ -10,7 +10,6 @@ import UIKit
 import Toaster
 
 final class ReverseAliasTableViewCell: UITableViewCell, RegisterableCell {
-    @IBOutlet private weak var rootView: UIView!
     @IBOutlet private weak var mailImageView: UIImageView!
     @IBOutlet private weak var arrowLabel: UILabel!
     @IBOutlet private weak var destinationEmailLabel: UILabel!
@@ -24,10 +23,7 @@ final class ReverseAliasTableViewCell: UITableViewCell, RegisterableCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
         selectionStyle = UITableViewCell.SelectionStyle.none
-        
-        rootView.layer.cornerRadius = CORNER_RADIUS
         
         mailImageView.tintColor = SLColor.textColor
         arrowLabel.textColor = SLColor.textColor

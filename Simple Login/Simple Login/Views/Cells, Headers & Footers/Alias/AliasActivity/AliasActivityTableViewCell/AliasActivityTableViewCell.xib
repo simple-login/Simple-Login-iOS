@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="441" height="81"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNq-5u-xhf">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNq-5u-xhf" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
                         <rect key="frame" x="10" y="10" width="421" height="61"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RQ1-Qj-O3j">
@@ -68,7 +68,6 @@
             <connections>
                 <outlet property="activityLabel" destination="BY1-GB-CV2" id="fl4-Md-mhQ"/>
                 <outlet property="clockImageView" destination="HF9-F0-WrU" id="Idr-n9-NTR"/>
-                <outlet property="rootView" destination="BNq-5u-xhf" id="5Ay-rz-FAV"/>
                 <outlet property="timeLabel" destination="Dac-f3-J43" id="QZq-pA-MaQ"/>
             </connections>
             <point key="canvasLocation" x="22.463768115942031" y="80.022321428571431"/>

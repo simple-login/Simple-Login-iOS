@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="428" height="142"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GJx-T3-rOA">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GJx-T3-rOA" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
                         <rect key="frame" x="8" y="4" width="412" height="134"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pricing" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leN-iA-YQ0">
@@ -67,7 +67,6 @@
             <connections>
                 <outlet property="blogLabel" destination="RUE-dZ-qcl" id="LIt-2E-dfZ"/>
                 <outlet property="pricingLabel" destination="leN-iA-YQ0" id="eMh-tm-okg"/>
-                <outlet property="rootView" destination="GJx-T3-rOA" id="Exj-GJ-atE"/>
             </connections>
             <point key="canvasLocation" x="184.05797101449278" y="136.60714285714286"/>
         </tableViewCell>

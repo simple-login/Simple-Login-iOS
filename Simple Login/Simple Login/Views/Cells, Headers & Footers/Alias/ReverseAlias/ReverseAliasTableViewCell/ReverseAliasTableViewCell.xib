@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="441" height="115"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzK-MR-Krw">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzK-MR-Krw" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
                         <rect key="frame" x="10" y="10" width="421" height="95"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="TIW-ZH-37w">
@@ -116,7 +116,6 @@
                 <outlet property="deleteButton" destination="U1m-Ft-dS2" id="kKy-lu-R8c"/>
                 <outlet property="destinationEmailLabel" destination="dHo-hn-FCp" id="iZr-PQ-E9b"/>
                 <outlet property="mailImageView" destination="Zsw-lk-eme" id="BOB-pX-o56"/>
-                <outlet property="rootView" destination="FzK-MR-Krw" id="WoL-vV-qXQ"/>
             </connections>
             <point key="canvasLocation" x="21.014492753623191" y="102.79017857142857"/>
         </tableViewCell>

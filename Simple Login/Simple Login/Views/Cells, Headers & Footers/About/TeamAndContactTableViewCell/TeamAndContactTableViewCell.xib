@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="428" height="139"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8AC-s7-zPb">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8AC-s7-zPb" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
                         <rect key="frame" x="8" y="4" width="412" height="131"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our team" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRl-8K-kAF">
@@ -66,7 +66,6 @@
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <connections>
                 <outlet property="contactLabel" destination="Wer-C8-oCI" id="M3W-zU-GFj"/>
-                <outlet property="rootView" destination="8AC-s7-zPb" id="vXX-hi-nhU"/>
                 <outlet property="teamLabel" destination="TRl-8K-kAF" id="POc-sU-yMQ"/>
             </connections>
             <point key="canvasLocation" x="184.05797101449278" y="134.93303571428569"/>
