@@ -21,6 +21,12 @@ final class SettingsViewController: BaseViewController {
         setUpUI()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        // Fix error labels display only 1 line
+        tableView.reloadSections([0], with: .none)
+    }
+    
     private func setUpUI() {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)

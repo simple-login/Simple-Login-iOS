@@ -42,6 +42,28 @@ final class HomeNavigationController: UINavigationController {
         }
     }
     
+    override func didReceiveMemoryWarning() {
+        if viewControllers[0] != aliasViewController {
+            aliasViewController = nil
+        }
+        
+        if viewControllers[0] != directoryViewController {
+            directoryViewController = nil
+        }
+        
+        if viewControllers[0] != customDomainViewController {
+            customDomainViewController = nil
+        }
+        
+        if viewControllers[0] != settingsViewController {
+            settingsViewController = nil
+        }
+        
+        if viewControllers[0] != aboutViewController {
+            aboutViewController = nil
+        }
+    }
+    
     private func toggleLeftMenu() {
         performSegue(withIdentifier: "showLeftMenu", sender: self)
     }

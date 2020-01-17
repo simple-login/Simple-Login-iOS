@@ -60,13 +60,13 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="JZL-Ny-lbN">
                                         <rect key="frame" x="0.0" y="52.5" width="367" height="31.5"/>
                                         <subviews>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TWP-8A-4QJ">
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TWP-8A-4QJ">
                                                 <rect key="frame" x="0.0" y="0.5" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="enabledSwitchValueChanged" destination="5xL-BQ-s4w" eventType="valueChanged" id="w4c-6Y-ad8"/>
                                                 </connections>
                                             </switch>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0V-3Q-Kd6">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0V-3Q-Kd6">
                                                 <rect key="frame" x="64" y="4" width="57" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                 <state key="normal" title="Copy" image="CopyIcon">
@@ -76,7 +76,7 @@
                                                     <action selector="copyButtonTapped" destination="5xL-BQ-s4w" eventType="touchUpInside" id="4b8-p6-UCp"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vkw-2v-NGJ">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vkw-2v-NGJ">
                                                 <rect key="frame" x="136" y="4" width="93" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                 <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -87,7 +87,7 @@
                                                     <action selector="sendButtonTapped" destination="5xL-BQ-s4w" eventType="touchUpInside" id="RdA-L5-ezL"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOF-BR-rC6">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOF-BR-rC6">
                                                 <rect key="frame" x="244" y="4" width="65" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                 <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
