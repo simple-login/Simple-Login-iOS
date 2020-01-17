@@ -81,7 +81,7 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
     func didSelectAlias() {
         if aliasViewController == nil {
-            aliasViewController = storyboard?.instantiateViewController(withIdentifier: "AliasViewController") as? AliasViewController
+            aliasViewController = AliasViewController.instantiate(storyboardName: "Home")
             
             aliasViewController?.didTapLeftBarButtonItem = { [unowned self] in
                 self.toggleLeftMenu()
@@ -96,7 +96,7 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
     func didSelectDirectory() {
         if directoryViewController == nil {
-            directoryViewController = storyboard?.instantiateViewController(withIdentifier: "DirectoryViewController") as? DirectoryViewController
+            directoryViewController = DirectoryViewController.instantiate(storyboardName: "Home")
             
             directoryViewController?.didTapLeftBarButtonItem = { [unowned self] in
                 self.toggleLeftMenu()
@@ -111,7 +111,7 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
     func didSelectCustomDomain() {
         if customDomainViewController == nil {
-            customDomainViewController = storyboard?.instantiateViewController(withIdentifier: "CustomDomainViewController") as? CustomDomainViewController
+            customDomainViewController = CustomDomainViewController.instantiate(storyboardName: "Home")
             
             customDomainViewController?.didTapLeftBarButtonItem = { [unowned self] in
                 self.toggleLeftMenu()
@@ -126,8 +126,7 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
     func didSelectSettings() {
         if settingsViewController == nil {
-            let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil)
-            settingsViewController = settingsStoryboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController
+            settingsViewController = SettingsViewController.instantiate(storyboardName: "Settings")
             
             settingsViewController?.didTapLeftBarButtonItem = { [unowned self] in
                 self.toggleLeftMenu()
@@ -142,8 +141,7 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
     func didSelectAbout() {
         if aboutViewController == nil {
-            let aboutStoryboard = UIStoryboard(name: "About", bundle: nil)
-            aboutViewController = aboutStoryboard.instantiateViewController(withIdentifier: "AboutViewController") as? AboutViewController
+            aboutViewController = AboutViewController.instantiate(storyboardName: "About")
             
             aboutViewController?.didTapLeftBarButtonItem = { [unowned self] in
                 self.toggleLeftMenu()

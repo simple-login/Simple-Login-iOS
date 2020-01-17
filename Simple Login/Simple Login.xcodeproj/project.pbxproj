@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C00B123D25C390036B905 /* Storyboarded.swift */; };
 		C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02646FE23D0F4F600E9932B /* AvatarImageView.swift */; };
 		C05049BC23CE016600AEF20B /* SLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05049BB23CE016600AEF20B /* SLColor.swift */; };
 		C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */; };
@@ -97,6 +98,7 @@
 		0254E80DF195D59879C361F4 /* Pods-Simple Login.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Simple Login.debug.xcconfig"; path = "Target Support Files/Pods-Simple Login/Pods-Simple Login.debug.xcconfig"; sourceTree = "<group>"; };
 		66938BAB79E16DEEA4E367CF /* Pods-Simple Login.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Simple Login.release.xcconfig"; path = "Target Support Files/Pods-Simple Login/Pods-Simple Login.release.xcconfig"; sourceTree = "<group>"; };
 		92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Simple_Login.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C01C00B123D25C390036B905 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		C02646FE23D0F4F600E9932B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		C05049BB23CE016600AEF20B /* SLColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLColor.swift; sourceTree = "<group>"; };
 		C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLKeychainService.swift; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 			isa = PBXGroup;
 			children = (
 				C0B1DE4123C90D2C003EED3B /* RegisterableCell.swift */,
+				C01C00B123D25C390036B905 /* Storyboarded.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -820,6 +823,7 @@
 				C0D6A29623D0ACDF00EF21B8 /* FaqTableViewCell.swift in Sources */,
 				C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */,
 				C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */,
+				C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */,
 				C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */,
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
 				C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */,

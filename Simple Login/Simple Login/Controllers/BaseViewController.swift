@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, Storyboarded {
     var didTapLeftBarButtonItem: (() -> Void)?
     
     override func viewDidLoad() {
