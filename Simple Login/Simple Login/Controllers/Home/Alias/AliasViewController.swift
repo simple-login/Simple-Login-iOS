@@ -20,7 +20,7 @@ final class AliasViewController: BaseViewController {
     
     private lazy var aliases: [Alias] = {
         var aliases: [Alias] = []
-        for _ in 0...15 {
+        for _ in 0...10 {
             aliases.append(Alias())
         }
         
@@ -33,7 +33,23 @@ final class AliasViewController: BaseViewController {
     private var currentAliasType: AliasType = .all {
         didSet {
             tableView.reloadData()
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            
+            var scrollToTop: Bool = false
+            switch currentAliasType {
+            case .all: scrollToTop = aliases.count > 0
+            case .active: scrollToTop = activeAliases.count > 0
+            case .inactive: scrollToTop = inactiveAliases.count > 0
+            }
+            
+            if scrollToTop {
+                tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
+        }
+    }
+    
+    private var noAlias: Bool = false {
+        didSet {
+            tableView.isHidden = noAlias
         }
     }
     
@@ -76,7 +92,7 @@ extension AliasViewController {
     private func toggle(alias: Alias, at indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
             guard let self = self else { return }
             
             defer {
@@ -88,16 +104,16 @@ extension AliasViewController {
                 return
             }
             
-            self.tableView.beginUpdates()
-            
-            switch self.currentAliasType {
-            case .all: return
-            case .active: self.activeAliases.remove(at: indexPath.row)
-            case .inactive: self.inactiveAliases.remove(at: indexPath.row)
+            self.tableView.performBatchUpdates({
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                switch self.currentAliasType {
+                case .all: return
+                case .active: self.activeAliases.removeAll(where: {$0 == alias})
+                case .inactive: self.inactiveAliases.removeAll(where: {$0 == alias})
+                }
+            }) { (_) in
+                self.tableView.reloadData()
             }
-            
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            self.tableView.endUpdates()
         }
     }
 }
@@ -121,25 +137,34 @@ extension AliasViewController {
     private func delete(alias: Alias, at indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
             guard let self = self else { return }
             
             defer {
                 MBProgressHUD.hide(for: self.view, animated: true)
+                self.noAlias = self.aliases.count == 0
                 Toast.displayShortly(message: "Deleted \(alias.name)")
-                self.refilterAliasArrays()
             }
-            
-            self.tableView.beginUpdates()
-            
-            switch self.currentAliasType {
-            case .all: self.aliases.remove(at: indexPath.row)
-            case .active: self.activeAliases.remove(at: indexPath.row)
-            case .inactive: self.inactiveAliases.remove(at: indexPath.row)
+        
+            self.tableView.performBatchUpdates({
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                switch self.currentAliasType {
+                case .all:
+                    self.aliases.removeAll(where: {$0 == alias})
+                    self.refilterAliasArrays()
+                    
+                case .active:
+                    self.activeAliases.removeAll(where: {$0 == alias})
+                    self.aliases.removeAll(where: {$0 == alias})
+                    
+                case .inactive:
+                    self.inactiveAliases.removeAll(where: {$0 == alias})
+                    self.aliases.removeAll(where: {$0 == alias})
+                }
+            }) { (_) in
+                self.tableView.reloadData()
             }
-            
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            self.tableView.endUpdates()
         }
     }
 }
@@ -249,9 +274,6 @@ extension AliasViewController: UITableViewDataSource {
         }
         
         cell.didTapDeleteButton = { [unowned self] in
-            print(alias.name)
-            print(indexPath)
-            print("\n")
             self.presentAlertConfirmDelete(alias: alias, at: indexPath)
         }
         

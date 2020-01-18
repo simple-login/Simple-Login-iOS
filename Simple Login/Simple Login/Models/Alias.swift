@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class Alias {
+final class Alias: Equatable {
     let name: String
     let forwardCount: Int
     let blockCount: Int
@@ -55,5 +55,9 @@ final class Alias {
     
     func toggleIsEnabled() {
         isEnabled.toggle()
+    }
+    
+    static func ==(lhs: Alias, rhs: Alias) -> Bool {
+        return lhs.name == rhs.name
     }
 }
