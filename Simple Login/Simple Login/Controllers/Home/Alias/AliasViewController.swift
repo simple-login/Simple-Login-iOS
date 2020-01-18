@@ -8,6 +8,7 @@
 
 import UIKit
 import Toaster
+import MBProgressHUD
 
 final class AliasViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -19,7 +20,7 @@ final class AliasViewController: BaseViewController {
     
     private lazy var aliases: [Alias] = {
         var aliases: [Alias] = []
-        for _ in 0...30 {
+        for _ in 0...15 {
             aliases.append(Alias())
         }
         
@@ -68,12 +69,46 @@ final class AliasViewController: BaseViewController {
         default: return
         }
     }
-    
-    private func presentAlertConfirmDelete(alias: Alias) {
+}
+
+// MARK: - Toggle status
+extension AliasViewController {
+    private func toggle(alias: Alias, at indexPath: IndexPath) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
+            guard let self = self else { return }
+            
+            defer {
+                MBProgressHUD.hide(for: self.view, animated: true)
+                self.refilterAliasArrays()
+            }
+            
+            guard self.currentAliasType != .all else {
+                return
+            }
+            
+            self.tableView.beginUpdates()
+            
+            switch self.currentAliasType {
+            case .all: return
+            case .active: self.activeAliases.remove(at: indexPath.row)
+            case .inactive: self.inactiveAliases.remove(at: indexPath.row)
+            }
+            
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.tableView.endUpdates()
+        }
+    }
+}
+
+// MARK: - Delete
+extension AliasViewController {
+    private func presentAlertConfirmDelete(alias: Alias, at indexPath: IndexPath) {
         let alert = UIAlertController(title: "Delete \(alias.name)", message: "🛑 People/apps who used to contact you via this alias cannot reach you any more. This operation is irreversible", preferredStyle: .alert)
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
-            Toast.displayShortly(message: "Deleted")
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] (_) in
+            self.delete(alias: alias, at: indexPath)
         }
         alert.addAction(deleteAction)
         
@@ -81,6 +116,31 @@ final class AliasViewController: BaseViewController {
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func delete(alias: Alias, at indexPath: IndexPath) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
+            guard let self = self else { return }
+            
+            defer {
+                MBProgressHUD.hide(for: self.view, animated: true)
+                Toast.displayShortly(message: "Deleted \(alias.name)")
+                self.refilterAliasArrays()
+            }
+            
+            self.tableView.beginUpdates()
+            
+            switch self.currentAliasType {
+            case .all: self.aliases.remove(at: indexPath.row)
+            case .active: self.activeAliases.remove(at: indexPath.row)
+            case .inactive: self.inactiveAliases.remove(at: indexPath.row)
+            }
+            
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.tableView.endUpdates()
+        }
     }
 }
 
@@ -170,7 +230,7 @@ extension AliasViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = AliasTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        
+
         let alias: Alias
         switch currentAliasType {
         case .all: alias = aliases[indexPath.row]
@@ -181,7 +241,7 @@ extension AliasViewController: UITableViewDataSource {
         cell.bind(with: alias)
         
         cell.didToggleStatus = { [unowned self] isEnabled in
-            Toast.displayShortly(message: "is_enabled: \(isEnabled)")
+            self.toggle(alias: alias, at: indexPath)
         }
         
         cell.didTapSendButton = { [unowned self] in
@@ -189,7 +249,10 @@ extension AliasViewController: UITableViewDataSource {
         }
         
         cell.didTapDeleteButton = { [unowned self] in
-            self.presentAlertConfirmDelete(alias: alias)
+            print(alias.name)
+            print(indexPath)
+            print("\n")
+            self.presentAlertConfirmDelete(alias: alias, at: indexPath)
         }
         
         cell.didTapRightArrowButton = { [unowned self] in
