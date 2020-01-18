@@ -9,22 +9,8 @@
 import UIKit
 
 class BorderedShadowedView: UIView {
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setUpUI()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUpUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setUpUI()
-    }
-    
-    private func setUpUI() {
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
         layer.cornerRadius = CORNER_RADIUS
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale

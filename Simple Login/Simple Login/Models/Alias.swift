@@ -43,12 +43,14 @@ final class Alias {
     }()
     
     init() {
-        name = "random@simplelogin.co"
-        forwardCount = 1
-        blockCount = 0
-        replyCount = 3
+        let randomId = Array(0...100).randomElement()!
+        name = "random\(randomId)@simplelogin.co"
+        forwardCount = Array(0...10).randomElement()!
+        blockCount = Array(0...10).randomElement()!
+        replyCount = Array(0...10).randomElement()!
         isEnabled = Bool.random()
-        creationTimestamp = 1578697200
+        let randomHour = Array(0...10).randomElement()!
+        creationTimestamp = TimeInterval(1578697200 + randomHour * 86400)
     }
     
     func toggleIsEnabled() {
