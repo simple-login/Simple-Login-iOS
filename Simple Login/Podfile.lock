@@ -1,12 +1,14 @@
 PODS:
   - Alamofire (5.0.0-rc.3)
   - KeychainAccess (4.1.0)
+  - MBProgressHUD (1.2.0)
   - SideMenu (6.4.7)
   - Toaster (2.2.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
   - KeychainAccess
+  - MBProgressHUD (~> 1.2.0)
   - SideMenu (~> 6.0)
   - Toaster
 
@@ -14,15 +16,17 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - KeychainAccess
+    - MBProgressHUD
     - SideMenu
     - Toaster
 
 SPEC CHECKSUMS:
   Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
   KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   SideMenu: 928a015669c3afc201e1fe3a87f1b0bc8993a664
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: 5e7f71f668f654bf259fefb5da74f3f90b2ef227
+PODFILE CHECKSUM: 1acfea669a4ffa9a75aadf97a2587487259dd999
 
 COCOAPODS: 1.8.3

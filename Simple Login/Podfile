@@ -12,4 +12,5 @@ target 'Simple Login' do
   common_pods
   pod 'SideMenu', '~> 6.0'
   pod 'Toaster'
+  pod 'MBProgressHUD', '~> 1.2.0'
 end
