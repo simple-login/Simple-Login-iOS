@@ -24,6 +24,7 @@
 		C05CD31823CA3F0A007F1C9E /* AliasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31723CA3F0A007F1C9E /* AliasTableViewCell.swift */; };
 		C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31923CA4040007F1C9E /* Date+Distance.swift */; };
 		C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */; };
+		C069397923D395A1008AE6C1 /* SuffixListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C069397823D395A1008AE6C1 /* SuffixListViewController.swift */; };
 		C06BD31823D0F9330056A9B3 /* MfaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BD31723D0F9330056A9B3 /* MfaTableViewCell.swift */; };
 		C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */; };
 		C06BD31D23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */; };
@@ -115,6 +116,7 @@
 		C05CD31723CA3F0A007F1C9E /* AliasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTableViewCell.swift; sourceTree = "<group>"; };
 		C05CD31923CA4040007F1C9E /* Date+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Distance.swift"; sourceTree = "<group>"; };
 		C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasTableViewCell.xib; sourceTree = "<group>"; };
+		C069397823D395A1008AE6C1 /* SuffixListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuffixListViewController.swift; sourceTree = "<group>"; };
 		C06BD31723D0F9330056A9B3 /* MfaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MfaTableViewCell.swift; sourceTree = "<group>"; };
 		C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MfaTableViewCell.xib; sourceTree = "<group>"; };
 		C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
@@ -304,6 +306,15 @@
 				C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */,
 			);
 			path = AliasTableViewCell;
+			sourceTree = "<group>";
+		};
+		C069397723D3956A008AE6C1 /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */,
+				C069397823D395A1008AE6C1 /* SuffixListViewController.swift */,
+			);
+			path = Create;
 			sourceTree = "<group>";
 		};
 		C06BD31623D0F91D0056A9B3 /* MfaTableViewCell */ = {
@@ -623,8 +634,8 @@
 			isa = PBXGroup;
 			children = (
 				C05CD30523CA0419007F1C9E /* AliasViewController.swift */,
-				C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */,
 				C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */,
+				C069397723D3956A008AE6C1 /* Create */,
 				C08A202523CC774800CB8D2F /* SendEmail */,
 			);
 			path = Alias;
@@ -833,6 +844,7 @@
 				C091480023CFB46300D56CDC /* WebViewController.swift in Sources */,
 				C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */,
 				C0D6A27823D077E800EF21B8 /* TeamAndContactTableViewCell.swift in Sources */,
+				C069397923D395A1008AE6C1 /* SuffixListViewController.swift in Sources */,
 				C0D6A28823D0A6A500EF21B8 /* HowItWorksViewController.swift in Sources */,
 				C0D6A29123D0AB6800EF21B8 /* FaqViewController.swift in Sources */,
 			);
