@@ -18,14 +18,15 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kTO-ve-fOO">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="XCg-xt-4aA" id="lvq-ms-dek"/>
                                     <outlet property="delegate" destination="XCg-xt-4aA" id="AaW-AW-BDI"/>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="kTO-ve-fOO" firstAttribute="leading" secondItem="7wQ-EM-L4C" secondAttribute="leading" id="2pA-q7-8Mi"/>
                             <constraint firstAttribute="bottom" secondItem="kTO-ve-fOO" secondAttribute="bottom" id="RB8-wO-YRD"/>
@@ -37,11 +38,48 @@
                     <navigationItem key="navigationItem" title="Custom Domain" id="nye-R7-ntF"/>
                     <connections>
                         <outlet property="tableView" destination="kTO-ve-fOO" id="4hf-Ot-uTd"/>
+                        <segue destination="N8R-qw-IwM" kind="show" identifier="showDetail" id="DAu-Za-FkG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDK-iF-qnR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="206" y="2064"/>
+        </scene>
+        <!--Custom Domain Detail View Controller-->
+        <scene sceneID="0cc-bO-1Uq">
+            <objects>
+                <viewController storyboardIdentifier="CustomDomainDetailViewController" id="N8R-qw-IwM" customClass="CustomDomainDetailViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Uhu-6k-TfK">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XpL-QD-yvq">
+                                <rect key="frame" x="0.0" y="88" width="414" height="788"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="N8R-qw-IwM" id="vqb-iA-Svi"/>
+                                    <outlet property="delegate" destination="N8R-qw-IwM" id="YbN-gL-dMl"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="XpL-QD-yvq" firstAttribute="leading" secondItem="uR4-1r-MGe" secondAttribute="leading" id="JMG-wD-GjT"/>
+                            <constraint firstAttribute="bottom" secondItem="XpL-QD-yvq" secondAttribute="bottom" constant="20" symbolic="YES" id="juH-u2-dDE"/>
+                            <constraint firstItem="XpL-QD-yvq" firstAttribute="top" secondItem="uR4-1r-MGe" secondAttribute="top" id="k8v-Nm-98d"/>
+                            <constraint firstItem="uR4-1r-MGe" firstAttribute="trailing" secondItem="XpL-QD-yvq" secondAttribute="trailing" id="zek-K7-AgE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="uR4-1r-MGe"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="peP-Ib-rIv"/>
+                    <connections>
+                        <outlet property="tableView" destination="XpL-QD-yvq" id="NNO-1Q-DTq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qqE-Xn-N7g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1229" y="2064"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="R9Q-ke-isB">

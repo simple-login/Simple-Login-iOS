@@ -36,12 +36,24 @@ final class CustomDomainViewController: BaseViewController {
         tableView.separatorColor = .clear
         CustomDomainTableViewCell.register(with: tableView)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.destination {
+        case let customDomainDetailViewController as CustomDomainDetailViewController:
+            guard let customDomain = sender as? CustomDomain else { return }
+            customDomainDetailViewController.customDomain = customDomain
+        
+        default: return
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate
 extension CustomDomainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let customDomain = customDomains[indexPath.row]
+        performSegue(withIdentifier: "showDetail", sender: customDomain)
     }
 }
 
