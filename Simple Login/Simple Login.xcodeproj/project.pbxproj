@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C00B123D25C390036B905 /* Storyboarded.swift */; };
 		C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02646FE23D0F4F600E9932B /* AvatarImageView.swift */; };
+		C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D2D5F23D4AF300057F44F /* CustomDomain.swift */; };
 		C05049BC23CE016600AEF20B /* SLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05049BB23CE016600AEF20B /* SLColor.swift */; };
 		C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */; };
 		C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D323C7DDDC00EB5D98 /* Statics.swift */; };
@@ -53,6 +54,9 @@
 		C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* Main.storyboard */; };
 		C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
 		C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9F123C7988300EC1EFE /* LaunchScreen.storyboard */; };
+		C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */; };
+		C09ABE1023D3B8B200D5B731 /* CustomDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */; };
+		C09ABE1223D3BA9600D5B731 /* CustomDomainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */; };
 		C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3223C8AC72003EED3B /* SLApiService.swift */; };
 		C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3423C8AC8A003EED3B /* SLError.swift */; };
 		C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */; };
@@ -101,6 +105,7 @@
 		92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Simple_Login.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C01C00B123D25C390036B905 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		C02646FE23D0F4F600E9932B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
+		C03D2D5F23D4AF300057F44F /* CustomDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomain.swift; sourceTree = "<group>"; };
 		C05049BB23CE016600AEF20B /* SLColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLColor.swift; sourceTree = "<group>"; };
 		C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLKeychainService.swift; sourceTree = "<group>"; };
 		C052F0D323C7DDDC00EB5D98 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
@@ -147,6 +152,9 @@
 		C097A9EF23C7988300EC1EFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C097A9F223C7988300EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C097A9F423C7988400EC1EFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CustomDomain.storyboard; sourceTree = "<group>"; };
+		C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainTableViewCell.swift; sourceTree = "<group>"; };
+		C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomDomainTableViewCell.xib; sourceTree = "<group>"; };
 		C0B1DE3223C8AC72003EED3B /* SLApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLApiService.swift; sourceTree = "<group>"; };
 		C0B1DE3423C8AC8A003EED3B /* SLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLError.swift; sourceTree = "<group>"; };
 		C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseInfo.swift; sourceTree = "<group>"; };
@@ -218,6 +226,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C01A771223D3B56800E6BAA6 /* CustomDomain */ = {
+			isa = PBXGroup;
+			children = (
+				C09ABE0E23D3B8A300D5B731 /* CustomDomainTableViewCell */,
+			);
+			path = CustomDomain;
+			sourceTree = "<group>";
+		};
+		C01A771323D3B58600E6BAA6 /* CustomDomain */ = {
+			isa = PBXGroup;
+			children = (
+				C05CD30923CA0473007F1C9E /* CustomDomainViewController.swift */,
+			);
+			path = CustomDomain;
+			sourceTree = "<group>";
+		};
 		C05049BD23CE356900AEF20B /* LeftMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,10 +297,10 @@
 				C05CD30323CA0343007F1C9E /* HomeNavigationController.swift */,
 				C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */,
 				C0D9B65F23CBC083009A6699 /* Alias */,
+				C01A771323D3B58600E6BAA6 /* CustomDomain */,
 				C09147FE23CFB43300D56CDC /* About */,
 				C0D6A29923D0DC5000EF21B8 /* Settings */,
 				C05CD30723CA044E007F1C9E /* DirectoryViewController.swift */,
-				C05CD30923CA0473007F1C9E /* CustomDomainViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -444,11 +468,21 @@
 			path = "Simple Login";
 			sourceTree = "<group>";
 		};
+		C09ABE0E23D3B8A300D5B731 /* CustomDomainTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */,
+				C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */,
+			);
+			path = CustomDomainTableViewCell;
+			sourceTree = "<group>";
+		};
 		C0B1DE3A23C8AD6D003EED3B /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
 				C097A9EC23C7987F00EC1EFE /* Main.storyboard */,
 				C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */,
+				C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */,
 				C09147FA23CF848100D56CDC /* About.storyboard */,
 				C0B76DEA23D0DCEB003AAB7E /* Settings.storyboard */,
 			);
@@ -469,6 +503,7 @@
 			children = (
 				C05049BD23CE356900AEF20B /* LeftMenu */,
 				C05049BE23CE357A00AEF20B /* Alias */,
+				C01A771223D3B56800E6BAA6 /* CustomDomain */,
 				C0B76DEC23D0DDF2003AAB7E /* Settings */,
 				C0D6A26B23D072CE00EF21B8 /* About */,
 			);
@@ -504,6 +539,7 @@
 				C0B1DE3823C8AD22003EED3B /* UserOptions.swift */,
 				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
 				C05CD31423CA33C2007F1C9E /* Alias.swift */,
+				C03D2D5F23D4AF300057F44F /* CustomDomain.swift */,
 				C08A202D23CC9AD800CB8D2F /* ReverseAlias.swift */,
 				C05049BB23CE016600AEF20B /* SLColor.swift */,
 				C0D6A28C23D0A8EC00EF21B8 /* Step.swift */,
@@ -712,7 +748,9 @@
 			files = (
 				C0D6A28423D07AB000EF21B8 /* TermsAndPrivacyTableViewCell.xib in Resources */,
 				C0B76DEB23D0DCEB003AAB7E /* Settings.storyboard in Resources */,
+				C09ABE1223D3BA9600D5B731 /* CustomDomainTableViewCell.xib in Resources */,
 				C0D6A28F23D0A93800EF21B8 /* StepTableViewCell.xib in Resources */,
+				C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */,
 				C0956A4D23D109FB000CEBDD /* ExportDataTableViewCell.xib in Resources */,
 				C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */,
 				C0D6A27523D0767000EF21B8 /* HowAndFaqTableViewCell.xib in Resources */,
@@ -807,9 +845,11 @@
 				C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */,
 				C05CD30A23CA0473007F1C9E /* CustomDomainViewController.swift in Sources */,
 				C0D6A28D23D0A8EC00EF21B8 /* Step.swift in Sources */,
+				C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */,
 				C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */,
 				C05CD31523CA33C2007F1C9E /* Alias.swift in Sources */,
 				C05049BC23CE016600AEF20B /* SLColor.swift in Sources */,
+				C09ABE1023D3B8B200D5B731 /* CustomDomainTableViewCell.swift in Sources */,
 				C06BD31823D0F9330056A9B3 /* MfaTableViewCell.swift in Sources */,
 				C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */,
 				C05CD30E23CA054B007F1C9E /* AboutViewController.swift in Sources */,

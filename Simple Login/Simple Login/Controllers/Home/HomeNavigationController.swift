@@ -133,7 +133,7 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
     func didSelectCustomDomain() {
         if customDomainViewController == nil {
-            customDomainViewController = CustomDomainViewController.instantiate(storyboardName: "Home")
+            customDomainViewController = CustomDomainViewController.instantiate(storyboardName: "CustomDomain")
             
             customDomainViewController?.didTapLeftBarButtonItem = { [unowned self] in
                 self.toggleLeftMenu()
