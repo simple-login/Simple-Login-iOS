@@ -19,22 +19,14 @@ final class StartupViewController: UIViewController {
     
     private var apiKey: String?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-        
-//        if let apiKey = SLKeychainService.getApiKey() {
-//            self.apiKey = apiKey
-//            checkApiKeyAndProceed()
-//        } else {
-//            presentLoginViewController()
-//        }
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        presentHomeNavigationController(UserInfo())
+        if let apiKey = SLKeychainService.getApiKey() {
+            self.apiKey = apiKey
+            checkApiKeyAndProceed()
+        } else {
+            presentLoginViewController()
+        }
     }
     
     @IBAction private func retry() {
@@ -88,6 +80,9 @@ final class StartupViewController: UIViewController {
     }
     
     private func presentLoginViewController() {
-        print(#function)
+        let loginViewController = LoginViewController.instantiate(storyboardName: "Login")
+        loginViewController.modalPresentationStyle = .fullScreen
+        
+        present(loginViewController, animated: true, completion: nil)
     }
 }

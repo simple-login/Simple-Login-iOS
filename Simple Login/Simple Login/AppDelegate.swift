@@ -18,7 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setUpUI()
         #if DEBUG
         do {
-            try SLKeychainService.setApiKey("fwtdafjhcclxkoreayetkmhulscpqsceysgojqcklsimbacaqtouqyzmjikm")
+            //try SLKeychainService.setApiKey("fwtdafjhcclxkoreayetkmhulscpqsceysgojqcklsimbacaqtouqyzmjikm")
+            
+            try SLKeychainService.removeApiKey()
         } catch {
             print("Error setting api key to keychain")
         }

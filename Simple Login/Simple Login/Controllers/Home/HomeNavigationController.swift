@@ -9,7 +9,7 @@
 import UIKit
 import SideMenu
 
-final class HomeNavigationController: UINavigationController {
+final class HomeNavigationController: UINavigationController, Storyboarded {
     private var aliasViewController: AliasViewController?
     private var directoryViewController: DirectoryViewController?
     private var customDomainViewController: CustomDomainViewController?
