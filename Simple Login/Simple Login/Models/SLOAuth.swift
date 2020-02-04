@@ -22,6 +22,12 @@ struct SLOAuth {
         static let clientId = dictionary["client_id"]!
         static let clientSecret = dictionary["client_secret"]!
     }
+    
+    struct Google {
+        private init() {}
+        private static let dictionary = slOAuthDictionary["Google"] as! [String : String]
+        static let clientId = dictionary["client_id"]!
+    }
 }
 
 enum SLOAuthService: String {

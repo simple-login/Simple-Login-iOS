@@ -45,7 +45,7 @@ final class LoginViewController: UIViewController, Storyboarded {
         }
         
         googleView.didTap = { [unowned self] in
-            print("google")
+            self.oauthWithGoogle()
         }
         
         facebookView.didTap = { [unowned self] in
@@ -115,7 +115,7 @@ final class LoginViewController: UIViewController, Storyboarded {
 // MARK: - OAuth
 extension LoginViewController {
     private func socialLogin(social: SLOAuthService, accessToken: String) {
-        
+        Toast.displayShortly(message: "\(social.rawValue): \(accessToken)")
     }
     
     private func oauthWithGithub() {
@@ -125,13 +125,13 @@ extension LoginViewController {
             "authorize_uri": "https://github.com/login/oauth/authorize",
             "token_uri": "https://github.com/login/oauth/access_token",
             "scope": "user:email",
-            "redirect_uris": ["simplelogin://oauth/github"],
+            "redirect_uris": ["simplelogin://github/callback"],
             "secret_in_body": true,
         ])
         
         oauthGithub?.forgetTokens()
         
-        oauthGithub?.authorize() { [weak self]authParameters, error in
+        oauthGithub?.authorize() { [weak self] authParameters, error in
             guard let self = self else { return }
             
             if let _ = authParameters {
@@ -146,7 +146,29 @@ extension LoginViewController {
     }
     
     private func oauthWithGoogle() {
+        oauthGoogle = OAuth2CodeGrant(settings: [
+            "client_id": "\(SLOAuth.Google.clientId).apps.googleusercontent.com",
+            "authorize_uri": "https://accounts.google.com/o/oauth2/auth",
+            "token_uri": "https://www.googleapis.com/oauth2/v4/token",
+            "response_type": "code",
+            "scope": "email",
+            "redirect_uris": ["com.googleusercontent.apps.\(SLOAuth.Google.clientId):/oauth"]
+        ])
         
+        oauthGoogle?.forgetTokens()
+        
+        oauthGoogle?.authorize() { [weak self] authParameters, error in
+            guard let self = self else { return }
+            
+            if let _ = authParameters {
+                if let accessToken = self.oauthGoogle?.accessToken {
+                    self.socialLogin(social: .google, accessToken: accessToken)
+                }
+                
+            } else if let error = error {
+                Toast.displayShortly(message: "Error occured: \(error.description)")
+            }
+        }
     }
 }
 

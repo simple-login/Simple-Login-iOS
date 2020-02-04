@@ -36,10 +36,7 @@ class RippleView: UIView {
         
         let touchPoint = touch.location(in: self)
         rippleView.beginRippleTouchDown(at: touchPoint, animated: true, completion: nil)
-        didTap?()
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         rippleView.beginRippleTouchUp(animated: true, completion: nil)
+        didTap?()
     }
 }
