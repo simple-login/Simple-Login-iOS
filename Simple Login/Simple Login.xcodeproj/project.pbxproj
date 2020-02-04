@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -76,6 +76,9 @@
 		C0B76DF123D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */; };
 		C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */; };
 		C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3AFD23E98A5700887264 /* UserLogin.swift */; };
+		C0CA3B0123E9A1FF00887264 /* OAuth2 in Frameworks */ = {isa = PBXBuildFile; productRef = C0CA3B0023E9A1FF00887264 /* OAuth2 */; };
+		C0CA3B0323E9A74100887264 /* SLOAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0CA3B0223E9A74100887264 /* SLOAuth.plist */; };
+		C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3B0423E9A7A300887264 /* SLOAuth.swift */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
 		C0D6A27323D0759800EF21B8 /* HowAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */; };
@@ -184,6 +187,8 @@
 		C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileAndMembershipTableViewCell.xib; sourceTree = "<group>"; };
 		C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toaster+Convenience.swift"; sourceTree = "<group>"; };
 		C0CA3AFD23E98A5700887264 /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
+		C0CA3B0223E9A74100887264 /* SLOAuth.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SLOAuth.plist; sourceTree = "<group>"; };
+		C0CA3B0423E9A7A300887264 /* SLOAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLOAuth.swift; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAndFaqTableViewCell.swift; sourceTree = "<group>"; };
@@ -221,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF4943808190F444DC19D7B /* Pods_Simple_Login.framework in Frameworks */,
+				C0CA3B0123E9A1FF00887264 /* OAuth2 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +307,7 @@
 		C052F0D023C7DC8F00EB5D98 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C0CA3B0223E9A74100887264 /* SLOAuth.plist */,
 				C05CD31123CA2A14007F1C9E /* Extensions */,
 				C0B1DE4023C90CFD003EED3B /* Protocols */,
 				C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */,
@@ -556,6 +563,7 @@
 		C0B6108823C7A43D00D34B8C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C0CA3B0423E9A7A300887264 /* SLOAuth.swift */,
 				C0B1DE3423C8AC8A003EED3B /* SLError.swift */,
 				C0CA3AFD23E98A5700887264 /* UserLogin.swift */,
 				C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */,
@@ -755,6 +763,9 @@
 			dependencies = (
 			);
 			name = "Simple Login";
+			packageProductDependencies = (
+				C0CA3B0023E9A1FF00887264 /* OAuth2 */,
+			);
 			productName = "Simple Login";
 			productReference = C097A9E323C7987F00EC1EFE /* SimpleLogin.app */;
 			productType = "com.apple.product-type.application";
@@ -783,6 +794,9 @@
 				Base,
 			);
 			mainGroup = C097A9DA23C7987F00EC1EFE;
+			packageReferences = (
+				C0CA3AFF23E9A1FF00887264 /* XCRemoteSwiftPackageReference "OAuth2" */,
+			);
 			productRefGroup = C097A9E423C7987F00EC1EFE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -798,6 +812,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0D6A28423D07AB000EF21B8 /* TermsAndPrivacyTableViewCell.xib in Resources */,
+				C0CA3B0323E9A74100887264 /* SLOAuth.plist in Resources */,
 				C0B76DEB23D0DCEB003AAB7E /* Settings.storyboard in Resources */,
 				C09ABE1223D3BA9600D5B731 /* CustomDomainTableViewCell.xib in Resources */,
 				C0D6A28F23D0A93800EF21B8 /* StepTableViewCell.xib in Resources */,
@@ -939,6 +954,7 @@
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
 				C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */,
 				C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */,
+				C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
 				C0956A4B23D109D8000CEBDD /* ExportDataTableViewCell.swift in Sources */,
 				C091480023CFB46300D56CDC /* WebViewController.swift in Sources */,
@@ -1150,6 +1166,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C0CA3AFF23E9A1FF00887264 /* XCRemoteSwiftPackageReference "OAuth2" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/p2/OAuth2.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C0CA3B0023E9A1FF00887264 /* OAuth2 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0CA3AFF23E9A1FF00887264 /* XCRemoteSwiftPackageReference "OAuth2" */;
+			productName = OAuth2;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C097A9DB23C7987F00EC1EFE /* Project object */;
 }

@@ -13,6 +13,7 @@ import Toaster
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var loginViewController: LoginViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setUpUI()
@@ -37,3 +38,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        // Callback from oauth
+        if let scheme = url.scheme {
+            if scheme.contains("oauth/github") {
+                loginViewController?.oauthGithub?.handleRedirectURL(url)
+            }
+        }
+    
+        return true
+    }
+}

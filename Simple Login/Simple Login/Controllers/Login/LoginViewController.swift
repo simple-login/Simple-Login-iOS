@@ -11,6 +11,7 @@ import SkyFloatingLabelTextField
 import MaterialComponents.MaterialRipple
 import MBProgressHUD
 import Toaster
+import OAuth2
 
 final class LoginViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
@@ -27,6 +28,9 @@ final class LoginViewController: UIViewController, Storyboarded {
             loginButton.isEnabled = isValidEmailAddress
         }
     }
+    
+    private(set) var oauthGithub: OAuth2CodeGrant?
+    private(set) var oauthGoogle: OAuth2CodeGrant?
 
     deinit {
         print("LoginViewController is deallocated")
@@ -36,17 +40,19 @@ final class LoginViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         setUpUI()
         
-        googleView.didTap = { [unowned self] in
-            print("github")
+        githubView.didTap = { [unowned self] in
+            self.oauthWithGithub()
         }
         
-        githubView.didTap = { [unowned self] in
+        googleView.didTap = { [unowned self] in
             print("google")
         }
         
         facebookView.didTap = { [unowned self] in
             print("facebook")
         }
+        
+        (UIApplication.shared.delegate as! AppDelegate).loginViewController = self
     }
     
     private func setUpUI() {
@@ -103,6 +109,44 @@ final class LoginViewController: UIViewController, Storyboarded {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
+    }
+}
+
+// MARK: - OAuth
+extension LoginViewController {
+    private func socialLogin(social: SLOAuthService, accessToken: String) {
+        
+    }
+    
+    private func oauthWithGithub() {
+        oauthGithub = OAuth2CodeGrant(settings: [
+            "client_id": SLOAuth.Github.clientId,
+            "client_secret": SLOAuth.Github.clientSecret,
+            "authorize_uri": "https://github.com/login/oauth/authorize",
+            "token_uri": "https://github.com/login/oauth/access_token",
+            "scope": "user:email",
+            "redirect_uris": ["simplelogin://oauth/github"],
+            "secret_in_body": true,
+        ])
+        
+        oauthGithub?.forgetTokens()
+        
+        oauthGithub?.authorize() { [weak self]authParameters, error in
+            guard let self = self else { return }
+            
+            if let _ = authParameters {
+                if let accessToken = self.oauthGithub?.accessToken {
+                    self.socialLogin(social: .github, accessToken: accessToken)
+                }
+                
+            } else if let error = error {
+                Toast.displayShortly(message: "Error occured: \(error.description)")
+            }
+        }
+    }
+    
+    private func oauthWithGoogle() {
+        
     }
 }
 
