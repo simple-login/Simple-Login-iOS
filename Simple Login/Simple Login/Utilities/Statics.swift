@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 #if DEBUG
-let BASE_URL = "https://app.sl.meo.ovh"
+let BASE_URL = "https://app.sldev.ovh/"
 #else
 let BASE_URL = "https://app.simplelogin.io"
 #endif

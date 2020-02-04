@@ -10,6 +10,36 @@ import Foundation
 import Alamofire
 
 final class SLApiService {
+    static func login(email: String, password: String, completion: @escaping (_ userLogin: UserLogin?, _ error: SLError?) -> Void) {
+        let parameters = ["email" : email, "password" : password, "device" : UIDevice.current.name]
+        
+        AF.request("\(BASE_URL)/api/auth/login", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
+            
+            guard let data = response.data else {
+                completion(nil, SLError.noData)
+                return
+            }
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(nil, SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200:
+                do {
+                    let userLogin = try UserLogin(fromData: data)
+                    completion(userLogin, nil)
+                } catch let error {
+                    completion(nil, error as? SLError)
+                }
+                
+            case 400: completion(nil, SLError.emailOrPasswordIncorrect)
+            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
+    
     static func fetchUserInfo(_ apiKey: String, completion: @escaping (_ userInfo: UserInfo?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         

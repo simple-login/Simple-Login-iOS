@@ -29,7 +29,7 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cUp-c4-0nO" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                         <rect key="frame" x="0.0" y="34" width="300" height="39.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" textContentType="email"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Email address"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Email address"/>
@@ -58,7 +58,7 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pbb-im-ZEh" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                         <rect key="frame" x="0.0" y="83.5" width="300" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="continue" secureTextEntry="YES" textContentType="password"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES" textContentType="password"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Password"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Password"/>
@@ -89,6 +89,9 @@
                                         <state key="normal" title="Log in">
                                             <color key="titleColor" name="TintColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="login" destination="97x-xh-V5v" eventType="touchUpInside" id="YdX-q9-F5q"/>
+                                        </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="x3v-sO-Y0B">
                                         <rect key="frame" x="0.0" y="175.5" width="300" height="30"/>
@@ -219,6 +222,7 @@
                         <outlet property="facebookView" destination="vgD-3x-gdL" id="SYR-zE-Cau"/>
                         <outlet property="githubView" destination="2Ch-J0-0eU" id="3wF-2V-mS8"/>
                         <outlet property="googleView" destination="l5F-Wb-es6" id="yFe-Yk-8kG"/>
+                        <outlet property="loginButton" destination="Xrj-4t-axY" id="Pex-Qr-jlW"/>
                         <outlet property="passwordTextField" destination="Pbb-im-ZEh" id="5v3-Km-ML0"/>
                         <outletCollection property="socialLoginViews" destination="l5F-Wb-es6" collectionClass="NSMutableArray" id="Spq-Nn-J4g"/>
                         <outletCollection property="socialLoginViews" destination="2Ch-J0-0eU" collectionClass="NSMutableArray" id="D5f-mp-3og"/>

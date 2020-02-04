@@ -75,6 +75,7 @@
 		C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B76DEE23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift */; };
 		C0B76DF123D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */; };
 		C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */; };
+		C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3AFD23E98A5700887264 /* UserLogin.swift */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
 		C0D6A27323D0759800EF21B8 /* HowAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */; };
@@ -182,6 +183,7 @@
 		C0B76DEE23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAndMembershipTableViewCell.swift; sourceTree = "<group>"; };
 		C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileAndMembershipTableViewCell.xib; sourceTree = "<group>"; };
 		C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toaster+Convenience.swift"; sourceTree = "<group>"; };
+		C0CA3AFD23E98A5700887264 /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAndFaqTableViewCell.swift; sourceTree = "<group>"; };
@@ -555,6 +557,7 @@
 			isa = PBXGroup;
 			children = (
 				C0B1DE3423C8AC8A003EED3B /* SLError.swift */,
+				C0CA3AFD23E98A5700887264 /* UserLogin.swift */,
 				C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */,
 				C0B1DE3823C8AD22003EED3B /* UserOptions.swift */,
 				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
@@ -890,6 +893,7 @@
 				C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */,
 				C05CD30623CA0419007F1C9E /* AliasViewController.swift in Sources */,
 				C0D6A29323D0ABDC00EF21B8 /* Faq.swift in Sources */,
+				C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */,
 				C05CD31323CA2A23007F1C9E /* UIView+Layout.swift in Sources */,
 				C0956A5023D10C14000CEBDD /* DeleteAccountTableViewCell.swift in Sources */,
 				C05CD31023CA0ACB007F1C9E /* BaseViewController.swift in Sources */,
