@@ -45,6 +45,8 @@ extension AppDelegate {
             loginViewController?.oauthGithub?.handleRedirectURL(url)
         } else if url.absoluteString.contains("com.googleusercontent") {
             loginViewController?.oauthGoogle?.handleRedirectURL(url)
+        } else if url.absoluteString.contains("fb") {
+            loginViewController?.oauthFacebook?.handleRedirectURL(url)
         }
     
         return true

@@ -31,6 +31,7 @@ final class LoginViewController: UIViewController, Storyboarded {
     
     private(set) var oauthGithub: OAuth2CodeGrant?
     private(set) var oauthGoogle: OAuth2CodeGrant?
+    private(set) var oauthFacebook: OAuth2CodeGrantNoTokenType?
 
     deinit {
         print("LoginViewController is deallocated")
@@ -49,7 +50,7 @@ final class LoginViewController: UIViewController, Storyboarded {
         }
         
         facebookView.didTap = { [unowned self] in
-            print("facebook")
+            self.oauthWithFacebook()
         }
         
         (UIApplication.shared.delegate as! AppDelegate).loginViewController = self
@@ -163,6 +164,35 @@ extension LoginViewController {
             if let _ = authParameters {
                 if let accessToken = self.oauthGoogle?.accessToken {
                     self.socialLogin(social: .google, accessToken: accessToken)
+                }
+                
+            } else if let error = error {
+                Toast.displayShortly(message: "Error occured: \(error.description)")
+            }
+        }
+    }
+    
+    private func oauthWithFacebook() {
+        oauthFacebook = OAuth2CodeGrantNoTokenType(settings: [
+            "client_id": SLOAuth.Facebook.clientId,
+            "client_secret": SLOAuth.Facebook.clientSecret,
+            "authorize_uri": "https://graph.facebook.com/oauth/authorize",
+            "token_uri": "https://graph.facebook.com/oauth/access_token",
+            "response_type": "token",
+            "scope": "email",
+            "secret_in_body": true,
+            "redirect_uris": ["fb\(SLOAuth.Facebook.clientId)://authorize/"]
+        ])
+        
+        oauthFacebook?.forgetTokens()
+        oauthFacebook?.logger = OAuth2DebugLogger(.trace)
+        
+        oauthFacebook?.authorize() { [weak self] authParameters, error in
+            guard let self = self else { return }
+
+            if let _ = authParameters {
+                if let accessToken = self.oauthFacebook?.accessToken {
+                    self.socialLogin(social: .facebook, accessToken: accessToken)
                 }
                 
             } else if let error = error {
