@@ -32,6 +32,8 @@ final class LoginViewController: UIViewController, Storyboarded {
     private(set) var oauthGithub: OAuth2CodeGrant?
     private(set) var oauthGoogle: OAuth2CodeGrant?
     private(set) var oauthFacebook: OAuth2CodeGrantNoTokenType?
+    
+    var loginSuccessul: ((_ userInfo: UserInfo) -> Void)?
 
     deinit {
         print("LoginViewController is deallocated")
@@ -61,6 +63,11 @@ final class LoginViewController: UIViewController, Storyboarded {
         
         loginButton.setTitleColor(SLColor.tintColor, for: .normal)
         loginButton.setTitleColor(SLColor.tintColor.withAlphaComponent(0.3), for: .disabled)
+        
+        #if DEBUG
+        emailTextField.text = "incomplete.2804@yahoo.com"
+        passwordTextField.text = "12345678"
+        #endif
     }
     
     @IBAction private func login() {
@@ -82,7 +89,16 @@ final class LoginViewController: UIViewController, Storyboarded {
             MBProgressHUD.hide(for: self.view, animated: true)
             
             if let userLogin = userLogin {
-                print(userLogin.apiKey)
+                if userLogin.isMfaEnabled {
+                    self.otpVerification()
+                } else {
+                    if let apiKey = userLogin.apiKey {
+                        self.finalizeLogin(apiKey: apiKey)
+                    } else {
+                        Toast.displayShortly(message: "API key is null")
+                    }
+                }
+                
             } else if let error = error {
                 Toast.displayShortly(message: error.description)
             }
@@ -110,6 +126,33 @@ final class LoginViewController: UIViewController, Storyboarded {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
+    }
+    
+    private func otpVerification() {
+        guard let otpNavigationController = storyboard?.instantiateViewController(withIdentifier: "OtpNavigationController") as? UINavigationController,
+            let otpViewController = otpNavigationController.viewControllers[0] as? OtpViewController else { return }
+        
+        otpNavigationController.modalPresentationStyle = .fullScreen
+        
+        otpViewController.verificationSuccesful = { [unowned self] apiKey in
+            self.finalizeLogin(apiKey: apiKey)
+        }
+        
+        present(otpNavigationController, animated: true, completion: nil)
+    }
+    
+    private func finalizeLogin(apiKey: String) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.fetchUserInfo(apiKey) { [weak self] (userInfo, error) in
+            guard let self = self else { return }
+            
+            if let userInfo = userInfo {
+                self.loginSuccessul?(userInfo)
+            } else if let error = error {
+                Toast.displayShortly(message: "Error occured: \(error.description)")
+            }
+        }
     }
 }
 

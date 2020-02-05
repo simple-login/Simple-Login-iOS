@@ -39,6 +39,9 @@
 		C0747EE623CCF4BE008035E9 /* AliasActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */; };
 		C0747EE923CCFAFE008035E9 /* AliasActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE823CCFAFE008035E9 /* AliasActivityTableViewCell.swift */; };
 		C0747EEB23CCFB18008035E9 /* AliasActivityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0747EEA23CCFB18008035E9 /* AliasActivityTableViewCell.xib */; };
+		C07B41F623EAEDCD002E6223 /* OtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F523EAEDCD002E6223 /* OtpViewController.swift */; };
+		C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F723EB1BC4002E6223 /* Notification+Name.swift */; };
+		C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */; };
 		C08A202423CC6CA300CB8D2F /* SendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202323CC6CA300CB8D2F /* SendEmailViewController.swift */; };
 		C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */; };
 		C08A202A23CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202923CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift */; };
@@ -147,6 +150,9 @@
 		C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityViewController.swift; sourceTree = "<group>"; };
 		C0747EE823CCFAFE008035E9 /* AliasActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityTableViewCell.swift; sourceTree = "<group>"; };
 		C0747EEA23CCFB18008035E9 /* AliasActivityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasActivityTableViewCell.xib; sourceTree = "<group>"; };
+		C07B41F523EAEDCD002E6223 /* OtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpViewController.swift; sourceTree = "<group>"; };
+		C07B41F723EB1BC4002E6223 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
+		C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utitlities.swift"; sourceTree = "<group>"; };
 		C08A202323CC6CA300CB8D2F /* SendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailViewController.swift; sourceTree = "<group>"; };
 		C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToSendEmailViewController.swift; sourceTree = "<group>"; };
 		C08A202923CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseAliasTableViewCell.swift; sourceTree = "<group>"; };
@@ -336,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				C00D74E823E8ACE400BE48F0 /* LoginViewController.swift */,
+				C07B41F523EAEDCD002E6223 /* OtpViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -347,6 +354,8 @@
 				C05CD31923CA4040007F1C9E /* Date+Distance.swift */,
 				C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */,
 				C0D9B66423CBC838009A6699 /* String+Utilities.swift */,
+				C07B41F723EB1BC4002E6223 /* Notification+Name.swift */,
+				C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -894,6 +903,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C07B41F623EAEDCD002E6223 /* OtpViewController.swift in Sources */,
 				C0B1DE4623C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift in Sources */,
 				C0747EDF23CCA6F5008035E9 /* CreateReverseAliasViewController.swift in Sources */,
 				C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */,
@@ -931,6 +941,7 @@
 				C0956A4623D105B7000CEBDD /* NotificationTableViewCell.swift in Sources */,
 				C0D6A27323D0759800EF21B8 /* HowAndFaqTableViewCell.swift in Sources */,
 				C06BD31D23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift in Sources */,
+				C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */,
 				C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */,
 				C0747EE223CCDE63008035E9 /* AliasActivityTableHeaderView.swift in Sources */,
 				C05CD31823CA3F0A007F1C9E /* AliasTableViewCell.swift in Sources */,
@@ -941,6 +952,7 @@
 				C0D6A27D23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift in Sources */,
 				C0F84B2323D4BAA200E0852C /* DomainInfoTableViewCell.swift in Sources */,
 				C0D6A28623D09EC800EF21B8 /* BorderedShadowedView.swift in Sources */,
+				C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */,
 				C0D6A28223D07A1500EF21B8 /* TermsAndPrivacyTableViewCell.swift in Sources */,
 				C08A202A23CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift in Sources */,
 				C05CD30823CA044E007F1C9E /* DirectoryViewController.swift in Sources */,

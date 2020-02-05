@@ -36,6 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ToastView.appearance().backgroundColor = SLColor.textColor
         ToastView.appearance().textColor = SLColor.menuBackgroundColor
     }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        NotificationCenter.default.post(name: .applicationDidBecomeActive, object: nil)
+    }
 }
 
 extension AppDelegate {
