@@ -55,13 +55,13 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     
     func bind(with alias: Alias) {
         self.alias = alias
-        nameLabel.text = alias.name
-        enabledSwitch.isOn = alias.isEnabled
-        sendButton.isEnabled = alias.isEnabled
-        copyButton.isEnabled = alias.isEnabled
+        nameLabel.text = alias.email
+        enabledSwitch.isOn = alias.isActive
+        sendButton.isEnabled = alias.isActive
+        copyButton.isEnabled = alias.isActive
         countLabel.attributedText = alias.countAttributedString
         
-        if alias.isEnabled {
+        if alias.isActive {
             rootView.backgroundColor = SLColor.frontBackgroundColor
         } else {
             rootView.backgroundColor = SLColor.inactiveFrontBackgroundColor
@@ -69,18 +69,18 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     }
     
     @IBAction private func enabledSwitchValueChanged() {
-        alias?.toggleIsEnabled()
-        if let alias = alias {
-            bind(with: alias)
-        }
-        
-        didToggleStatus?(enabledSwitch.isOn)
+//        alias?.toggleIsEnabled()
+//        if let alias = alias {
+//            bind(with: alias)
+//        }
+//
+//        didToggleStatus?(enabledSwitch.isOn)
     }
     
     @IBAction private func copyButtonTapped() {
         guard let alias = alias else { return }
-        UIPasteboard.general.string = alias.name
-        Toast.displayShortly(message: "Copied \(alias.name) to clipboard")
+        UIPasteboard.general.string = alias.email
+        Toast.displayShortly(message: "Copied \(alias.email) to clipboard")
     }
     
     @IBAction private func sendButtonTapped() {

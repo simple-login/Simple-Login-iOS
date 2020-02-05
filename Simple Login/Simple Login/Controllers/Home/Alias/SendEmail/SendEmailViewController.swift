@@ -51,7 +51,7 @@ final class SendEmailViewController: UIViewController {
     }
     
     private func presentAlertWriteEmail(_ reverseAlias: ReverseAlias) {
-        let alert = UIAlertController(title: "Compose and send email", message: "From \(alias.name) to \(reverseAlias.destinationEmail)", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Compose and send email", message: "From \(alias.email) to \(reverseAlias.destinationEmail)", preferredStyle: .actionSheet)
         
         let copyAction = UIAlertAction(title: "Copy reverse-alias", style: .default) { (_) in
             UIPasteboard.general.string = reverseAlias.name
@@ -101,7 +101,7 @@ extension SendEmailViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return alias.name
+        return alias.email
     }
 }
 

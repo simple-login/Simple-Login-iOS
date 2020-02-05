@@ -35,7 +35,7 @@ final class CreateReverseAliasViewController: UIViewController {
     }
     
     private func setUpUI() {
-        let plainString = "Create a reverse-alias to send email from your alias\n\(alias.name)"
+        let plainString = "Create a reverse-alias to send email from your alias\n\(alias.email)"
         
         let attributedString = NSMutableAttributedString(string: plainString)
         
@@ -46,7 +46,7 @@ final class CreateReverseAliasViewController: UIViewController {
             .font: UIFont.systemFont(ofSize: 15),
             .foregroundColor: SLColor.titleColor], range: NSRange(plainString.startIndex..., in: plainString))
         
-        if let aliasNameRange = plainString.range(of: alias.name) {
+        if let aliasNameRange = plainString.range(of: alias.email) {
             attributedString.addAttributes([
             .font: UIFont.systemFont(ofSize: 15, weight: .bold),
             .foregroundColor: SLColor.textColor], range: NSRange(aliasNameRange, in: plainString))

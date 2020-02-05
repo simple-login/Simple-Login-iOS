@@ -23,7 +23,7 @@ final class AliasActivityViewController: UIViewController {
     }
     
     private func setUpUI() {
-        title = alias.name
+        title = alias.email
         // tableView
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)

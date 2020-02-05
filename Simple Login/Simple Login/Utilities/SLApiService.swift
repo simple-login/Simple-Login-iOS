@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 
+// MARK: Login
 final class SLApiService {
     static func login(email: String, password: String, completion: @escaping (_ userLogin: UserLogin?, _ error: SLError?) -> Void) {
         let parameters = ["email" : email, "password" : password, "device" : UIDevice.current.name]
@@ -93,6 +94,57 @@ final class SLApiService {
                 } catch let error {
                     completion(nil, error as? SLError)
                 }
+            case 401: completion(nil, SLError.invalidApiKey)
+            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
+}
+
+// MARK: - Alias
+extension SLApiService {
+    static func fetchAliases(apiKey: String, page: Int, completion: @escaping (_ aliases: [Alias]?, _ error: SLError?) -> Void) {
+        let headers: HTTPHeaders = ["Authentication": apiKey]
+        
+        AF.request("\(BASE_URL)/api/aliases?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+
+            guard let statusCode = response.response?.statusCode else {
+                completion(nil, SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200:
+                guard let data = response.data else {
+                    completion(nil, SLError.noData)
+                    return
+                }
+                
+                do {
+                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                    
+                    if let aliasDictionaries = jsonDictionary?["aliases"] as? [[String : Any]] {
+                        var aliases: [Alias] = []
+                        try aliasDictionaries.forEach { (dictionary) in
+                            do {
+                                try aliases.append(Alias(fromDictionary: dictionary))
+                            } catch let error as SLError {
+                                completion(nil, error)
+                                return
+                            }
+                        }
+                        
+                        completion(aliases, nil)
+                    
+                    } else {
+                        completion(nil, SLError.failToSerializeJSONData)
+                    }
+                    
+                } catch {
+                    completion(nil, SLError.failToSerializeJSONData)
+                }
+                
+            case 400: completion(nil, SLError.badRequest(description: "page_id must be provided in request query."))
             case 401: completion(nil, SLError.invalidApiKey)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }

@@ -9,12 +9,14 @@
 import UIKit
 
 final class Alias: Equatable {
-    let name: String
-    let forwardCount: Int
+    let id: Int
+    let email: String
+    let creationDate: String
+    let creationTimestamp: TimeInterval
     let blockCount: Int
     let replyCount: Int
-    private(set) var isEnabled: Bool
-    let creationTimestamp: TimeInterval
+    let forwardCount: Int
+    let isActive: Bool
     
     lazy var countAttributedString: NSAttributedString = {
         var plainString = ""
@@ -42,22 +44,30 @@ final class Alias: Equatable {
         return attributedString
     }()
     
-    init() {
-        let randomId = Array(0...100).randomElement()!
-        name = "random\(randomId)@simplelogin.co"
-        forwardCount = Array(0...10).randomElement()!
-        blockCount = Array(0...10).randomElement()!
-        replyCount = Array(0...10).randomElement()!
-        isEnabled = Bool.random()
-        let randomHour = Array(0...10).randomElement()!
-        creationTimestamp = TimeInterval(1578697200 + randomHour * 86400)
-    }
-    
-    func toggleIsEnabled() {
-        isEnabled.toggle()
+    init(fromDictionary dictionary: [String : Any]) throws {
+        let id = dictionary["id"] as? Int
+        let email = dictionary["email"] as? String
+        let creationDate = dictionary["creation_date"] as? String
+        let creationTimestamp = dictionary["creation_timestamp"] as? TimeInterval
+        let blockCount = dictionary["nb_block"] as? Int
+        let forwardCount = dictionary["nb_forward"] as? Int
+        let replyCount = dictionary["nb_reply"] as? Int
+        
+        if let id = id, let email = email, let creationDate = creationDate, let creationTimestamp = creationTimestamp, let blockCount = blockCount, let forwardCount = forwardCount, let replyCount = replyCount {
+            self.id = id
+            self.email = email
+            self.creationDate = creationDate
+            self.creationTimestamp = creationTimestamp
+            self.blockCount = blockCount
+            self.forwardCount = forwardCount
+            self.replyCount = replyCount
+            self.isActive = Bool.random()
+        } else {
+            throw SLError.failToParseUserInfo
+        }
     }
     
     static func ==(lhs: Alias, rhs: Alias) -> Bool {
-        return lhs.name == rhs.name
+        return lhs.id == rhs.id
     }
 }

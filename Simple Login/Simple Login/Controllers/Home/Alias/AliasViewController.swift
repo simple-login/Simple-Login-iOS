@@ -18,14 +18,7 @@ final class AliasViewController: BaseViewController {
         case all, active, inactive
     }
     
-    private lazy var aliases: [Alias] = {
-        var aliases: [Alias] = []
-        for _ in 0...10 {
-            aliases.append(Alias())
-        }
-        
-        return aliases
-    }()
+    private var aliases: [Alias] = []
     
     private var activeAliases: [Alias] = []
     private var inactiveAliases: [Alias] = []
@@ -60,7 +53,7 @@ final class AliasViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
-        refilterAliasArrays()
+        fetchAliases()
     }
     
     private func setUpUI() {
@@ -83,6 +76,29 @@ final class AliasViewController: BaseViewController {
             aliasActivityViewController.alias = alias
             
         default: return
+        }
+    }
+    
+    private func fetchAliases() {
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayShortly(message: "Error retrieving API key from keychain")
+            return
+        }
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.fetchAliases(apiKey: apiKey, page: 0) { [weak self] (aliases, error) in
+            guard let self = self else { return }
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if let aliases = aliases {
+                self.aliases.append(contentsOf: aliases)
+                self.refilterAliasArrays()
+                self.tableView.reloadData()
+            } else if let error = error {
+                Toast.displayShortly(message: "Error occured: \(error.description)")
+            }
         }
     }
 }
@@ -121,7 +137,7 @@ extension AliasViewController {
 // MARK: - Delete
 extension AliasViewController {
     private func presentAlertConfirmDelete(alias: Alias, at indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Delete \(alias.name)", message: "🛑 People/apps who used to contact you via this alias cannot reach you any more. This operation is irreversible", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete \(alias.email)", message: "🛑 People/apps who used to contact you via this alias cannot reach you any more. This operation is irreversible", preferredStyle: .alert)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] (_) in
             self.delete(alias: alias, at: indexPath)
@@ -143,7 +159,7 @@ extension AliasViewController {
             defer {
                 MBProgressHUD.hide(for: self.view, animated: true)
                 self.noAlias = self.aliases.count == 0
-                Toast.displayShortly(message: "Deleted \(alias.name)")
+                Toast.displayShortly(message: "Deleted \(alias.email)")
             }
         
             self.tableView.performBatchUpdates({
@@ -182,10 +198,10 @@ extension AliasViewController {
     
     private func refilterAliasArrays() {
         activeAliases.removeAll()
-        activeAliases.append(contentsOf: aliases.filter({$0.isEnabled == true}))
+        activeAliases.append(contentsOf: aliases.filter({$0.isActive == true}))
         
         inactiveAliases.removeAll()
-        inactiveAliases.append(contentsOf: aliases.filter({$0.isEnabled == false}))
+        inactiveAliases.append(contentsOf: aliases.filter({$0.isActive == false}))
     }
 }
 
