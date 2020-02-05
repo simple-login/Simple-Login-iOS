@@ -9,7 +9,7 @@
 import Foundation
 
 enum LeftMenuOption: CustomStringConvertible {
-    case separator, alias, aliasDirectory, customDomains, settings, about
+    case separator, alias, aliasDirectory, customDomains, settings, about, signOut
     
     var description: String {
         switch self {
@@ -19,6 +19,7 @@ enum LeftMenuOption: CustomStringConvertible {
         case .customDomains: return "Custom Domains"
         case .settings: return "Settings"
         case .about: return "About"
+        case .signOut: return "Sign Out"
         }
     }
     
@@ -30,6 +31,7 @@ enum LeftMenuOption: CustomStringConvertible {
         case .customDomains: return "DnsIcon"
         case .settings: return "SettingsIcon"
         case .about: return "InfoIcon"
+        case .signOut: return "SignOutIcon"
         }
     }
 }

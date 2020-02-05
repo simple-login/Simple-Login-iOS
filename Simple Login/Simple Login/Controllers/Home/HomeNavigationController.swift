@@ -8,6 +8,7 @@
 
 import UIKit
 import SideMenu
+import Toaster
 
 final class HomeNavigationController: UINavigationController, Storyboarded {
     private var aliasViewController: AliasViewController?
@@ -174,6 +175,28 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
         viewControllers = [aboutViewController]
         dismissLeftMenu()
+    }
+    
+    func didSelectSignOut() {
+        let alert = UIAlertController(title: "Confirmation", message: "You will be signed out", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Yes, sign me out", style: .destructive) { [unowned self] _ in
+            do {
+                try SLKeychainService.removeApiKey()
+                SideMenuManager.default.leftMenuNavigationController?.dismiss(animated: true, completion: {
+                    self.dismiss(animated: true, completion: nil)
+                })
+                
+            } catch {
+                Toast.displayShortly(message: "Error removing API key from keychain")
+            }
+        }
+        alert.addAction(okAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        SideMenuManager.default.leftMenuNavigationController?.present(alert, animated: true, completion: nil)
     }
 }
 

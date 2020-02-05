@@ -17,15 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setUpUI()
-        #if DEBUG
-        do {
-            //try SLKeychainService.setApiKey("fwtdafjhcclxkoreayetkmhulscpqsceysgojqcklsimbacaqtouqyzmjikm")
-            
-            try SLKeychainService.removeApiKey()
-        } catch {
-            print("Error setting api key to keychain")
-        }
-        #endif
         return true
     }
     

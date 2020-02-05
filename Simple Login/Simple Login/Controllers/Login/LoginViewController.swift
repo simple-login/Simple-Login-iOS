@@ -32,8 +32,6 @@ final class LoginViewController: UIViewController, Storyboarded {
     private(set) var oauthGithub: OAuth2CodeGrant?
     private(set) var oauthGoogle: OAuth2CodeGrant?
     private(set) var oauthFacebook: OAuth2CodeGrantNoTokenType?
-    
-    var loginSuccessul: ((_ userInfo: UserInfo) -> Void)?
 
     deinit {
         print("LoginViewController is deallocated")
@@ -82,7 +80,7 @@ final class LoginViewController: UIViewController, Storyboarded {
         guard let email = emailTextField.text, let password = passwordTextField.text else { return }
         
         MBProgressHUD.showAdded(to: view, animated: true)
-        
+    
         SLApiService.login(email: email, password: password) { [weak self] (userLogin, error) in
             guard let self = self else { return }
             
@@ -142,17 +140,13 @@ final class LoginViewController: UIViewController, Storyboarded {
     }
     
     private func finalizeLogin(apiKey: String) {
-        MBProgressHUD.showAdded(to: view, animated: true)
-        
-        SLApiService.fetchUserInfo(apiKey) { [weak self] (userInfo, error) in
-            guard let self = self else { return }
-            
-            if let userInfo = userInfo {
-                self.loginSuccessul?(userInfo)
-            } else if let error = error {
-                Toast.displayShortly(message: "Error occured: \(error.description)")
-            }
+        do {
+            try SLKeychainService.setApiKey(apiKey)
+        } catch {
+            Toast.displayShortly(message: "Error setting API key to keychain")
         }
+        
+        dismiss(animated: true, completion: nil)
     }
 }
 

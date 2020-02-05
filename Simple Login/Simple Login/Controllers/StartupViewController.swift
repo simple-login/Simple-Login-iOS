@@ -7,26 +7,19 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 final class StartupViewController: UIViewController {
     @IBOutlet private weak var messageLabel: UILabel!
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var retryButton: UIButton!
     
     deinit {
         print("StartupViewController is deallocated")
     }
     
-    private var apiKey: String?
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let apiKey = SLKeychainService.getApiKey() {
-            self.apiKey = apiKey
-            checkApiKeyAndProceed()
-        } else {
-            presentLoginViewController()
-        }
+        checkApiKeyAndProceed()
     }
     
     @IBAction private func retry() {
@@ -34,32 +27,27 @@ final class StartupViewController: UIViewController {
     }
     
     private func checkApiKeyAndProceed() {
-        guard let apiKey = apiKey else {
+        guard let apiKey = SLKeychainService.getApiKey() else {
             presentLoginViewController()
             return
         }
         
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
         messageLabel.text = "Connecting to server..."
-        activityIndicatorView.isHidden = false
-        activityIndicatorView.startAnimating()
-        retryButton.isHidden = true
+        retryButton.alpha = 0
+        retryButton.isEnabled = false
         
         SLApiService.fetchUserInfo(apiKey, completion: { [weak self] (userInfo, error) in
             guard let self = self else { return }
             
-            self.activityIndicatorView.isHidden = true
-            self.activityIndicatorView.stopAnimating()
+            MBProgressHUD.hide(for: self.view, animated: true)
             
             if let error = error {
                 self.messageLabel.text = "Error occured: \(error.description)"
-                self.retryButton.isHidden = false
-                
-                switch error {
-                case .invalidApiKey:
-                    self.presentLoginViewController()
-                    
-                default: return
-                }
+                self.retryButton.alpha = 1
+                self.retryButton.isEnabled = true
+                self.presentLoginViewController()
                 
             } else if let userInfo = userInfo {
                 self.presentHomeNavigationController(userInfo)
@@ -68,6 +56,9 @@ final class StartupViewController: UIViewController {
     }
     
     private func presentHomeNavigationController(_ userInfo: UserInfo) {
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
         let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
         
         guard let homeNavigationController = homeStoryboard.instantiateViewController(withIdentifier: "HomeNavigationController") as? HomeNavigationController else {
@@ -76,13 +67,15 @@ final class StartupViewController: UIViewController {
 
         homeNavigationController.userInfo = userInfo
         homeNavigationController.modalPresentationStyle = .fullScreen
-        present(homeNavigationController, animated: true, completion: nil)
+        
+        present(homeNavigationController, animated: true) { [unowned self] in
+            MBProgressHUD.hide(for: self.view, animated: true)
+        }
     }
     
     private func presentLoginViewController() {
         let loginViewController = LoginViewController.instantiate(storyboardName: "Login")
         loginViewController.modalPresentationStyle = .fullScreen
-        
         present(loginViewController, animated: true, completion: nil)
     }
 }

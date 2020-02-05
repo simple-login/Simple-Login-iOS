@@ -14,6 +14,7 @@ protocol LeftMenuViewControllerDelegate {
     func didSelectCustomDomain()
     func didSelectSettings()
     func didSelectAbout()
+    func didSelectSignOut()
 }
 
 final class LeftMenuViewController: UIViewController {
@@ -25,10 +26,14 @@ final class LeftMenuViewController: UIViewController {
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
     
-    private let options: [[LeftMenuOption]] = [[.alias, .aliasDirectory, .customDomains], [.separator],  [.settings, .about]]
+    private let options: [[LeftMenuOption]] = [[.alias, .aliasDirectory, .customDomains], [.separator],  [.settings, .about], [.separator], [.signOut]]
     
     var userInfo: UserInfo?
     var delegate: LeftMenuViewControllerDelegate?
+    
+    deinit {
+        print("LeftMenuViewController is deallocated")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,6 +139,7 @@ extension LeftMenuViewController: UITableViewDelegate {
         case .customDomains: delegate?.didSelectCustomDomain()
         case .settings: delegate?.didSelectSettings()
         case .about: delegate?.didSelectAbout()
+        case .signOut: delegate?.didSelectSignOut()
         case .separator: return
         }
     }
