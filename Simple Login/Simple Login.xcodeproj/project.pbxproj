@@ -63,6 +63,7 @@
 		C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */; };
 		C09ABE1023D3B8B200D5B731 /* CustomDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */; };
 		C09ABE1223D3BA9600D5B731 /* CustomDomainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */; };
+		C0A64AFF23ECC22800AF1458 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0A64AFE23ECC22800AF1458 /* GoogleService-Info.plist */; };
 		C0A726FA23EC131900A62A22 /* LoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A726F923EC131900A62A22 /* LoadingFooterView.swift */; };
 		C0A726FC23EC135000A62A22 /* LoadingFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0A726FB23EC135000A62A22 /* LoadingFooterView.xib */; };
 		C0A726FE23EC6D3E00A62A22 /* AliasActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */; };
@@ -179,6 +180,7 @@
 		C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CustomDomain.storyboard; sourceTree = "<group>"; };
 		C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainTableViewCell.swift; sourceTree = "<group>"; };
 		C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomDomainTableViewCell.xib; sourceTree = "<group>"; };
+		C0A64AFE23ECC22800AF1458 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C0A726F923EC131900A62A22 /* LoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooterView.swift; sourceTree = "<group>"; };
 		C0A726FB23EC135000A62A22 /* LoadingFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingFooterView.xib; sourceTree = "<group>"; };
 		C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivity.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 		C052F0D023C7DC8F00EB5D98 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C0A64AFE23ECC22800AF1458 /* GoogleService-Info.plist */,
 				C0CA3B0223E9A74100887264 /* SLOAuth.plist */,
 				C05CD31123CA2A14007F1C9E /* Extensions */,
 				C0B1DE4023C90CFD003EED3B /* Protocols */,
@@ -853,6 +856,7 @@
 				C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */,
 				C0956A4D23D109FB000CEBDD /* ExportDataTableViewCell.xib in Resources */,
 				C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */,
+				C0A64AFF23ECC22800AF1458 /* GoogleService-Info.plist in Resources */,
 				C0D6A27523D0767000EF21B8 /* HowAndFaqTableViewCell.xib in Resources */,
 				C00D74EB23E8AD0300BE48F0 /* Login.storyboard in Resources */,
 				C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */,

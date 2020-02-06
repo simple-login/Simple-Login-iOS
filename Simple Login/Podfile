@@ -16,4 +16,5 @@ target 'Simple Login' do
   pod 'SkyFloatingLabelTextField', '~> 3.0'
   pod 'MaterialComponents/Ripple'
   pod 'MarqueeLabel'
+  pod 'Firebase/Analytics'
 end
