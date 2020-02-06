@@ -89,6 +89,13 @@ final class AliasViewController: BaseViewController {
             guard let alias = sender as? Alias else { return }
             aliasActivityViewController.alias = alias
             
+        case let createAliasViewController as CreateAliasViewController:
+            createAliasViewController.createdAlias = { [unowned self] alias in
+                Toast.displayShortly(message: "Created \(alias)")
+                self.refreshControl.beginRefreshing()
+                self.refresh()
+            }
+            
         default: return
         }
     }

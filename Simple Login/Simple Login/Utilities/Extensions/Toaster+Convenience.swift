@@ -8,6 +8,7 @@
 
 import Foundation
 import Toaster
+import OAuth2
 
 extension Toast {
     class func displayShortly(message: String) {
@@ -24,7 +25,7 @@ extension Toast {
         Toast.displayShortly(message: "Error retrieving API key from keychain")
     }
     
-    class func displayError(_ error: SLError) {
+    class func displayError(_ error: CustomStringConvertible) {
         Toast.displayShortly(message: "Error occured: \(error.description)")
     }
 }

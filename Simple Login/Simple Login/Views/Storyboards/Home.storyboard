@@ -102,7 +102,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="veA-Kg-fpm">
                                 <connections>
-                                    <segue destination="2Fg-pV-p2H" kind="presentation" identifier="" id="IHl-4e-YY7"/>
+                                    <segue destination="2Fg-pV-p2H" kind="presentation" identifier="showCreateAlias" id="IHl-4e-YY7"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="shuffle" catalog="system" id="kR6-uB-jBh" userLabel="Shuffle">

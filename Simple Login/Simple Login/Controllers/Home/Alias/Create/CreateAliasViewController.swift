@@ -38,6 +38,8 @@ final class CreateAliasViewController: UIViewController {
         }
     }
     
+    var createdAlias: ((_ alias: String) -> Void)?
+    
     deinit {
         print("CreateAliasViewController is deallocated")
     }
@@ -52,6 +54,7 @@ final class CreateAliasViewController: UIViewController {
     
     private func setUpUI() {
         prefixTextField.textColor = SLColor.textColor
+        prefixTextField.delegate = self
         
         // suffixView
         let tap = UITapGestureRecognizer(target: self, action: #selector(presentSuffixListViewController))
@@ -65,15 +68,47 @@ final class CreateAliasViewController: UIViewController {
     }
     
     private func fetchUserOptions() {
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
         MBProgressHUD.showAdded(to: view, animated: true)
         rootStackView.isHidden = true
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
+        SLApiService.fetchUserOptions(apiKey: apiKey) { [weak self] (userOptions, error) in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
-            self.rootStackView.isHidden = false
-            self.userOptions = UserOptions()
+            
+            if let error = error {
+                Toast.displayError(error)
+            } else if let userOptions = userOptions {
+                self.rootStackView.isHidden = false
+                self.userOptions = userOptions
+            }
+        }
+    }
+    
+    private func createAlias() {
+        guard let apiKey = SLKeychainService.getApiKey(), let suffix = userOptions?.suffixes[selectedSuffixIndex] else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.createNewAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix) { [weak self] (newlyCreatedAlias, error) in
+            guard let self = self else { return }
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if let error = error {
+                Toast.displayError(error)
+            } else if let newlyCreatedAlias = newlyCreatedAlias{
+                self.createdAlias?(newlyCreatedAlias)
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
     
@@ -82,8 +117,7 @@ final class CreateAliasViewController: UIViewController {
     }
     
     @IBAction private func createButtonTapped() {
-        Toast.displayShortly(message: "Created")
-        dismiss(animated: true, completion: nil)
+        createAlias()
     }
     
     @IBAction private func prefixTextFieldEditingChanged() {
@@ -111,5 +145,13 @@ final class CreateAliasViewController: UIViewController {
 extension CreateAliasViewController: SuffixListViewControllerDelegate {
     func didSelectSuffix(atIndex index: Int) {
         selectedSuffixIndex = index
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension CreateAliasViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        createAlias()
+        return true
     }
 }

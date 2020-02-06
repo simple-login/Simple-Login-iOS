@@ -199,21 +199,40 @@ extension SLApiService {
         }
     }
     
-    static func createNewAlias(apiKey: String, prefix: String, suffix: String, completion: @escaping (_ error: SLError?) -> Void) {
+    static func createNewAlias(apiKey: String, prefix: String, suffix: String, completion: @escaping (_ newlyCreatedAlias: String?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         let parameters = ["alias_prefix" : prefix, "alias_suffix" : suffix]
     
         AF.request("\(BASE_URL)/api/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
 
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownError(description: "error code unknown"))
+                completion(nil, SLError.unknownError(description: "error code unknown"))
                 return
             }
             
             switch statusCode {
-            case 201: completion(nil)
-            case 409: completion(SLError.duplicatedAlias)
-            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            case 201:
+                guard let data = response.data else {
+                    completion(nil, SLError.noData)
+                    return
+                }
+                
+                do {
+                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                    
+                    if let newlyCreatedAlias = jsonDictionary?["alias"] as? String {
+                        completion(newlyCreatedAlias, nil)
+                    } else {
+                        completion(nil, SLError.failToParseObject(objectName: "newly created alias"))
+                    }
+                    
+                } catch {
+                    completion(nil, SLError.failToSerializeJSONData)
+                }
+                
+            case 401: completion(nil, SLError.invalidApiKey)
+            case 409: completion(nil, SLError.duplicatedAlias)
+            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
     }
