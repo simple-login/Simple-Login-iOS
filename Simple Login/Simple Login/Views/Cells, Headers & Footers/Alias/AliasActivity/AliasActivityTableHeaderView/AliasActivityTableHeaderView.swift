@@ -41,4 +41,11 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
         
         titleLabels.forEach({$0.textColor = UIColor.white.withAlphaComponent(0.7)})
     }
+    
+    func bind(with alias: Alias) {
+        handledCountLabel.text = "\(alias.replyCount + alias.forwardCount + alias.blockCount)"
+        repliedCountLabel.text = "\(alias.replyCount)"
+        forwardedCountLabel.text = "\(alias.forwardCount)"
+        blockedCountLabel.text = "\(alias.blockCount)"
+    }
 }

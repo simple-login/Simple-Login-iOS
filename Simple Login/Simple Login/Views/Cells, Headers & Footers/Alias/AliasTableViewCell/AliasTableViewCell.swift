@@ -60,9 +60,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         sendButton.isEnabled = alias.enabled
         copyButton.isEnabled = alias.enabled
         countLabel.attributedText = alias.countAttributedString
-        
-        let (value, unit) =  Date.init(timeIntervalSince1970: alias.creationTimestamp).distanceFromNow()
-        creationLabel.text = "Created \(value) \(unit) ago"
+        creationLabel.text = alias.creationString
         
         if alias.enabled {
             rootView.backgroundColor = SLColor.frontBackgroundColor

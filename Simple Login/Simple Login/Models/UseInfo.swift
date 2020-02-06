@@ -56,7 +56,7 @@ struct UserInfo {
             self.name = name
             self.isPremium = isPremium
         } else {
-            throw SLError.failToParseUserInfo
+            throw SLError.failToParseObject(objectName: "UserInfo")
         }
     }
 }

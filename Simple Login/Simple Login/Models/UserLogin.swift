@@ -30,7 +30,7 @@ struct UserLogin {
             self.mfaKey = mfaKey
             self.name = name
         } else {
-            throw SLError.failToParseUserInfo
+            throw SLError.failToParseObject(objectName: "UserLogin")
         }
     }
 }

@@ -44,6 +44,11 @@ final class Alias: Equatable {
         return attributedString
     }()
     
+    lazy var creationString: String = {
+        let (value, unit) =  Date.init(timeIntervalSince1970: creationTimestamp).distanceFromNow()
+        return "Created \(value) \(unit) ago"
+    }()
+    
     init(fromDictionary dictionary: [String : Any]) throws {
         let id = dictionary["id"] as? Int
         let email = dictionary["email"] as? String
@@ -63,7 +68,7 @@ final class Alias: Equatable {
             self.replyCount = replyCount
             self.enabled = Bool.random()
         } else {
-            throw SLError.failToParseUserInfo
+            throw SLError.failToParseObject(objectName: "Alias")
         }
     }
     

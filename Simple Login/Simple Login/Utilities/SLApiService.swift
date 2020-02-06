@@ -151,6 +151,54 @@ extension SLApiService {
         }
     }
     
+    static func fetchAliasActivities(apiKey: String, aliasId: Int, page: Int, completion: @escaping (_ activities: [AliasActivity]?, _ error: SLError?) -> Void) {
+        let headers: HTTPHeaders = ["Authentication": apiKey]
+        
+        AF.request("\(BASE_URL)/api/aliases/\(aliasId)/activities?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+
+            guard let statusCode = response.response?.statusCode else {
+                completion(nil, SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200:
+                guard let data = response.data else {
+                    completion(nil, SLError.noData)
+                    return
+                }
+                
+                do {
+                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                    
+                    if let activityDictionaries = jsonDictionary?["activities"] as? [[String : Any]] {
+                        var activities: [AliasActivity] = []
+                        try activityDictionaries.forEach { (dictionary) in
+                            do {
+                                try activities.append(AliasActivity(fromDictionary: dictionary))
+                            } catch let error as SLError {
+                                completion(nil, error)
+                                return
+                            }
+                        }
+                        
+                        completion(activities, nil)
+                    
+                    } else {
+                        completion(nil, SLError.failToSerializeJSONData)
+                    }
+                    
+                } catch {
+                    completion(nil, SLError.failToSerializeJSONData)
+                }
+                
+            case 400: completion(nil, SLError.badRequest(description: "page_id must be provided in request query."))
+            case 401: completion(nil, SLError.invalidApiKey)
+            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
+    
     static func createNewAlias(apiKey: String, prefix: String, suffix: String, completion: @escaping (_ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         let parameters = ["alias_prefix" : prefix, "alias_suffix" : suffix]

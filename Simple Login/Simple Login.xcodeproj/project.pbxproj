@@ -65,6 +65,7 @@
 		C09ABE1223D3BA9600D5B731 /* CustomDomainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */; };
 		C0A726FA23EC131900A62A22 /* LoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A726F923EC131900A62A22 /* LoadingFooterView.swift */; };
 		C0A726FC23EC135000A62A22 /* LoadingFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0A726FB23EC135000A62A22 /* LoadingFooterView.xib */; };
+		C0A726FE23EC6D3E00A62A22 /* AliasActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */; };
 		C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3223C8AC72003EED3B /* SLApiService.swift */; };
 		C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3423C8AC8A003EED3B /* SLError.swift */; };
 		C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */; };
@@ -180,6 +181,7 @@
 		C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomDomainTableViewCell.xib; sourceTree = "<group>"; };
 		C0A726F923EC131900A62A22 /* LoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooterView.swift; sourceTree = "<group>"; };
 		C0A726FB23EC135000A62A22 /* LoadingFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingFooterView.xib; sourceTree = "<group>"; };
+		C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivity.swift; sourceTree = "<group>"; };
 		C0B1DE3223C8AC72003EED3B /* SLApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLApiService.swift; sourceTree = "<group>"; };
 		C0B1DE3423C8AC8A003EED3B /* SLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLError.swift; sourceTree = "<group>"; };
 		C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseInfo.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 				C0B1DE3823C8AD22003EED3B /* UserOptions.swift */,
 				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
 				C05CD31423CA33C2007F1C9E /* Alias.swift */,
+				C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */,
 				C03D2D5F23D4AF300057F44F /* CustomDomain.swift */,
 				C08A202D23CC9AD800CB8D2F /* ReverseAlias.swift */,
 				C05049BB23CE016600AEF20B /* SLColor.swift */,
@@ -945,6 +948,7 @@
 				C05CD31323CA2A23007F1C9E /* UIView+Layout.swift in Sources */,
 				C0956A5023D10C14000CEBDD /* DeleteAccountTableViewCell.swift in Sources */,
 				C05CD31023CA0ACB007F1C9E /* BaseViewController.swift in Sources */,
+				C0A726FE23EC6D3E00A62A22 /* AliasActivity.swift in Sources */,
 				C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */,
 				C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */,
 				C05CD30A23CA0473007F1C9E /* CustomDomainViewController.swift in Sources */,

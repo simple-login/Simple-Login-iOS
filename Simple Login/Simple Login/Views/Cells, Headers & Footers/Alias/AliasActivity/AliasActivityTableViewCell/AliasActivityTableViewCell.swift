@@ -22,4 +22,9 @@ final class AliasActivityTableViewCell: UITableViewCell, RegisterableCell {
         clockImageView.tintColor = SLColor.titleColor
         timeLabel.textColor = SLColor.titleColor
     }
+    
+    func bind(with aliasActivity: AliasActivity) {
+        activityLabel.text = "\(aliasActivity.from) ⮕ \(aliasActivity.to)"
+        timeLabel.text = aliasActivity.timestampString
+    }
 }

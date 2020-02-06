@@ -40,7 +40,7 @@ struct UserOptions {
             self.prefixSuggestion = prefixSuggestion
             self.suffixes = suffixes
         } else {
-            throw SLError.failToParseUserOptions
+            throw SLError.failToParseObject(objectName: "UserOptions")
         }
     }
 }
