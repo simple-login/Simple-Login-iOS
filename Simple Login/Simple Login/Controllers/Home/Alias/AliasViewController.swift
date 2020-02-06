@@ -13,6 +13,7 @@ import MBProgressHUD
 final class AliasViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var segmentedControl: UISegmentedControl!
+    private let refreshControl = UIRefreshControl()
     
     private enum AliasType {
         case all, active, inactive
@@ -69,9 +70,12 @@ final class AliasViewController: BaseViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = .clear
-        AliasTableViewCell.register(with: tableView)
         
+        AliasTableViewCell.register(with: tableView)
         tableView.register(UINib(nibName: "LoadingFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LoadingFooterView")
+        
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -89,17 +93,27 @@ final class AliasViewController: BaseViewController {
         }
     }
     
+    @objc private func refresh() {
+        fetchAliases()
+    }
+    
     private func fetchAliases() {
         guard let apiKey = SLKeychainService.getApiKey() else {
             Toast.displayShortly(message: "Error retrieving API key from keychain")
             return
         }
         
+        if refreshControl.isRefreshing {
+            moreToLoad = true
+        }
+        
         guard moreToLoad, !isFetching else { return }
         
         isFetching = true
         
-        SLApiService.fetchAliases(apiKey: apiKey, page: fetchedPage + 1) { [weak self] (aliases, error) in
+        let pageToFetch = refreshControl.isRefreshing ? 0 : fetchedPage + 1
+        
+        SLApiService.fetchAliases(apiKey: apiKey, page: pageToFetch) { [weak self] (aliases, error) in
             guard let self = self else { return }
             
             self.isFetching = false
@@ -109,15 +123,28 @@ final class AliasViewController: BaseViewController {
                 if aliases.count == 0 {
                     self.moreToLoad = false
                 } else {
-                    print("Fetched page \(self.fetchedPage + 1) - \(aliases.count) aliases")
-                    self.fetchedPage += 1
+                    if self.refreshControl.isRefreshing {
+                        print("Refreshed & fetched \(aliases.count) aliases")
+                    } else {
+                        print("Fetched page \(self.fetchedPage + 1) - \(aliases.count) aliases")
+                    }
+                    
+                    if self.refreshControl.isRefreshing {
+                        self.fetchedPage = 0
+                        self.aliases.removeAll()
+                    } else {
+                        self.fetchedPage += 1
+                    }
+                    
                     self.aliases.append(contentsOf: aliases)
                     self.refilterAliasArrays()
                 }
                 
+                self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
                 
             } else if let error = error {
+                self.refreshControl.endRefreshing()
                 Toast.displayShortly(message: "Error occured: \(error.description)")
             }
         }
