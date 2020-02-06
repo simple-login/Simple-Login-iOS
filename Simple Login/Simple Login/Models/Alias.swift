@@ -61,7 +61,7 @@ final class Alias: Equatable {
             self.blockCount = blockCount
             self.forwardCount = forwardCount
             self.replyCount = replyCount
-            self.enaled = Bool.random()
+            self.enabled = Bool.random()
         } else {
             throw SLError.failToParseUserInfo
         }

@@ -45,7 +45,7 @@ extension Date {
             return (hour, "hours")
         }
     
-        if minute == 1 {
+        if minute <= 1 {
             return (minute, "minute")
         } else {
             return (minute, "minutes")

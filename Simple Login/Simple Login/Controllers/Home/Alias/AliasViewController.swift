@@ -18,10 +18,18 @@ final class AliasViewController: BaseViewController {
         case all, active, inactive
     }
     
-    private var aliases: [Alias] = []
+    private var aliases: [Alias] = [] {
+        didSet {
+            noAlias = aliases.count == 0
+        }
+    }
     
     private var activeAliases: [Alias] = []
     private var inactiveAliases: [Alias] = []
+    
+    private var fetchedPage: Int = -1
+    private var isFetching: Bool = false
+    private var moreToLoad: Bool = true
     
     private var currentAliasType: AliasType = .all {
         didSet {
@@ -62,6 +70,8 @@ final class AliasViewController: BaseViewController {
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = .clear
         AliasTableViewCell.register(with: tableView)
+        
+        tableView.register(UINib(nibName: "LoadingFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LoadingFooterView")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -85,17 +95,28 @@ final class AliasViewController: BaseViewController {
             return
         }
         
-        MBProgressHUD.showAdded(to: view, animated: true)
+        guard moreToLoad, !isFetching else { return }
         
-        SLApiService.fetchAliases(apiKey: apiKey, page: 0) { [weak self] (aliases, error) in
+        isFetching = true
+        
+        SLApiService.fetchAliases(apiKey: apiKey, page: fetchedPage + 1) { [weak self] (aliases, error) in
             guard let self = self else { return }
             
-            MBProgressHUD.hide(for: self.view, animated: true)
+            self.isFetching = false
             
             if let aliases = aliases {
-                self.aliases.append(contentsOf: aliases)
-                self.refilterAliasArrays()
+                
+                if aliases.count == 0 {
+                    self.moreToLoad = false
+                } else {
+                    print("Fetched page \(self.fetchedPage + 1) - \(aliases.count) aliases")
+                    self.fetchedPage += 1
+                    self.aliases.append(contentsOf: aliases)
+                    self.refilterAliasArrays()
+                }
+                
                 self.tableView.reloadData()
+                
             } else if let error = error {
                 Toast.displayShortly(message: "Error occured: \(error.description)")
             }
@@ -252,6 +273,26 @@ extension AliasViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return moreToLoad ? 44.0 : 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if moreToLoad {
+            let loadingFooterView =  tableView.dequeueReusableHeaderFooterView(withIdentifier: "LoadingFooterView") as? LoadingFooterView
+            loadingFooterView?.animate()
+            return loadingFooterView
+        } else {
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        if moreToLoad {
+            fetchAliases()
+        }
     }
 }
 
