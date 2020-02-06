@@ -28,3 +28,9 @@ var hasTopNotch: Bool {
         return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
     }
 }
+
+let preciseDateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "d MMM yyyy 'at' HH:mm"
+    return dateFormatter
+}()

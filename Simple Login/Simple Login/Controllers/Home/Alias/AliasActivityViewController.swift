@@ -8,6 +8,7 @@
 
 import UIKit
 import Toaster
+import MarqueeLabel
 
 final class AliasActivityViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -33,7 +34,8 @@ final class AliasActivityViewController: UIViewController {
     
     private func setUpUI() {
         // set up title
-        let titleLabel = UILabel()
+        let titleLabel = MarqueeLabel(frame: .zero, duration: 1.0, fadeLength: 8.0)
+        titleLabel.type = .leftRight
         titleLabel.backgroundColor = .clear
         titleLabel.textColor = SLColor.textColor
         titleLabel.numberOfLines = 2

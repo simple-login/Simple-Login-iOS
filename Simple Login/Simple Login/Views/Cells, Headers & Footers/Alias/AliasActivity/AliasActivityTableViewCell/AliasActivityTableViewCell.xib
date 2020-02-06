@@ -20,12 +20,20 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNq-5u-xhf" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
                         <rect key="frame" x="10" y="10" width="421" height="61"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PaperPlaneIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Qqk-w9-2K1">
+                                <rect key="frame" x="381" y="14.5" width="32" height="32"/>
+                                <color key="tintColor" name="TintColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="QG1-q1-X4r"/>
+                                    <constraint firstAttribute="width" secondItem="Qqk-w9-2K1" secondAttribute="height" multiplier="1:1" id="wxM-cU-uaS"/>
+                                </constraints>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RQ1-Qj-O3j">
                                 <rect key="frame" x="10" y="10" width="401" height="41"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="my.email@example.com ⮕ an.alias@simplelogin.co" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BY1-GB-CV2">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="marketing@example.com" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BY1-GB-CV2">
                                         <rect key="frame" x="0.0" y="0.0" width="401" height="16.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="textColor" name="TextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -53,6 +61,8 @@
                             <constraint firstAttribute="trailing" secondItem="RQ1-Qj-O3j" secondAttribute="trailing" constant="10" id="Nu2-PH-JfX"/>
                             <constraint firstItem="RQ1-Qj-O3j" firstAttribute="top" secondItem="BNq-5u-xhf" secondAttribute="top" constant="10" id="UZO-jv-qVU"/>
                             <constraint firstAttribute="bottom" secondItem="RQ1-Qj-O3j" secondAttribute="bottom" constant="10" id="YQg-AW-sEn"/>
+                            <constraint firstAttribute="trailing" secondItem="Qqk-w9-2K1" secondAttribute="trailing" constant="8" id="lQp-5W-foV"/>
+                            <constraint firstItem="Qqk-w9-2K1" firstAttribute="centerY" secondItem="BNq-5u-xhf" secondAttribute="centerY" id="mJf-3U-8QK"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -66,8 +76,9 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
-                <outlet property="activityLabel" destination="BY1-GB-CV2" id="fl4-Md-mhQ"/>
+                <outlet property="actionImageView" destination="Qqk-w9-2K1" id="G2t-Z1-Eki"/>
                 <outlet property="clockImageView" destination="HF9-F0-WrU" id="Idr-n9-NTR"/>
+                <outlet property="contactLabel" destination="BY1-GB-CV2" id="fl4-Md-mhQ"/>
                 <outlet property="timeLabel" destination="Dac-f3-J43" id="QZq-pA-MaQ"/>
             </connections>
             <point key="canvasLocation" x="22.463768115942031" y="80.022321428571431"/>
@@ -75,11 +86,15 @@
     </objects>
     <resources>
         <image name="ClockIcon" width="18" height="18"/>
+        <image name="PaperPlaneIcon" width="170.5" height="170.5"/>
         <namedColor name="FrontBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="TextColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TintColor">
+            <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

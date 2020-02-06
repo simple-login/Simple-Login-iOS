@@ -15,4 +15,5 @@ target 'Simple Login' do
   pod 'MBProgressHUD', '~> 1.2.0'
   pod 'SkyFloatingLabelTextField', '~> 3.0'
   pod 'MaterialComponents/Ripple'
+  pod 'MarqueeLabel'
 end

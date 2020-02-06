@@ -15,8 +15,10 @@ final class AliasActivity {
     let timestamp: TimeInterval
     
     lazy var timestampString: String = {
-        let (value, unit) =  Date.init(timeIntervalSince1970: timestamp).distanceFromNow()
-        return "\(value) \(unit) ago"
+        let date = Date(timeIntervalSince1970: timestamp)
+        let preciseDateAndTime = preciseDateFormatter.string(from: date)
+        let (value, unit) =  date.distanceFromNow()
+        return "\(preciseDateAndTime) (\(value) \(unit) ago)"
     }()
     
     init(fromDictionary dictionary: [String : Any]) throws {
