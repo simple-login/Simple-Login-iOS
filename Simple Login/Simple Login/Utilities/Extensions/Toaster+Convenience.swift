@@ -19,4 +19,12 @@ extension Toast {
         ToastCenter.default.cancelAll()
         Toast(text: message, duration: Delay.long).show()
     }
+    
+    class func displayErrorRetrieveingApiKey() {
+        Toast.displayShortly(message: "Error retrieving API key from keychain")
+    }
+    
+    class func displayError(_ error: SLError) {
+        Toast.displayShortly(message: "Error occured: \(error.description)")
+    }
 }

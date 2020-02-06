@@ -62,7 +62,7 @@ final class AliasActivityViewController: UIViewController {
     
     private func fetchActivities() {
         guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayShortly(message: "Error retrieving API key from keychain")
+            Toast.displayErrorRetrieveingApiKey()
             return
         }
         
@@ -107,7 +107,7 @@ final class AliasActivityViewController: UIViewController {
                 
             } else if let error = error {
                 self.refreshControl.endRefreshing()
-                Toast.displayShortly(message: "Error occured: \(error.description)")
+                Toast.displayError(error)
             }
             
         }

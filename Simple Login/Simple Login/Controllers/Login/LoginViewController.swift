@@ -178,7 +178,7 @@ extension LoginViewController {
                 }
                 
             } else if let error = error {
-                Toast.displayShortly(message: "Error occured: \(error.description)")
+                Toast.displayError(error)
             }
         }
     }
@@ -204,7 +204,7 @@ extension LoginViewController {
                 }
                 
             } else if let error = error {
-                Toast.displayShortly(message: "Error occured: \(error.description)")
+                Toast.displayError(error)
             }
         }
     }
@@ -233,7 +233,7 @@ extension LoginViewController {
                 }
                 
             } else if let error = error {
-                Toast.displayShortly(message: "Error occured: \(error.description)")
+                Toast.displayError(error)
             }
         }
     }

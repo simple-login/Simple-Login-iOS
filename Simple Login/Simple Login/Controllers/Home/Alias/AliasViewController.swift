@@ -99,7 +99,7 @@ final class AliasViewController: BaseViewController {
     
     private func fetchAliases() {
         guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayShortly(message: "Error retrieving API key from keychain")
+            Toast.displayErrorRetrieveingApiKey()
             return
         }
         
@@ -145,7 +145,7 @@ final class AliasViewController: BaseViewController {
                 
             } else if let error = error {
                 self.refreshControl.endRefreshing()
-                Toast.displayShortly(message: "Error occured: \(error.description)")
+                Toast.displayError(error)
             }
         }
     }
