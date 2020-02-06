@@ -56,12 +56,12 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     func bind(with alias: Alias) {
         self.alias = alias
         nameLabel.text = alias.email
-        enabledSwitch.isOn = alias.isActive
-        sendButton.isEnabled = alias.isActive
-        copyButton.isEnabled = alias.isActive
+        enabledSwitch.isOn = alias.enabled
+        sendButton.isEnabled = alias.enabled
+        copyButton.isEnabled = alias.enabled
         countLabel.attributedText = alias.countAttributedString
         
-        if alias.isActive {
+        if alias.enabled {
             rootView.backgroundColor = SLColor.frontBackgroundColor
         } else {
             rootView.backgroundColor = SLColor.inactiveFrontBackgroundColor

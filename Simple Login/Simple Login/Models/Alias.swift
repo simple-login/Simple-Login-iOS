@@ -16,7 +16,7 @@ final class Alias: Equatable {
     let blockCount: Int
     let replyCount: Int
     let forwardCount: Int
-    let isActive: Bool
+    let enabled: Bool
     
     lazy var countAttributedString: NSAttributedString = {
         var plainString = ""
@@ -61,7 +61,7 @@ final class Alias: Equatable {
             self.blockCount = blockCount
             self.forwardCount = forwardCount
             self.replyCount = replyCount
-            self.isActive = Bool.random()
+            self.enaled = Bool.random()
         } else {
             throw SLError.failToParseUserInfo
         }

@@ -198,10 +198,10 @@ extension AliasViewController {
     
     private func refilterAliasArrays() {
         activeAliases.removeAll()
-        activeAliases.append(contentsOf: aliases.filter({$0.isActive == true}))
+        activeAliases.append(contentsOf: aliases.filter({$0.enabled == true}))
         
         inactiveAliases.removeAll()
-        inactiveAliases.append(contentsOf: aliases.filter({$0.isActive == false}))
+        inactiveAliases.append(contentsOf: aliases.filter({$0.enabled == false}))
     }
 }
 
