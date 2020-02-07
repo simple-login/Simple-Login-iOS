@@ -57,8 +57,9 @@ final class Alias: Equatable {
         let blockCount = dictionary["nb_block"] as? Int
         let forwardCount = dictionary["nb_forward"] as? Int
         let replyCount = dictionary["nb_reply"] as? Int
+        let enabled = dictionary["enabled"] as? Bool
         
-        if let id = id, let email = email, let creationDate = creationDate, let creationTimestamp = creationTimestamp, let blockCount = blockCount, let forwardCount = forwardCount, let replyCount = replyCount {
+        if let id = id, let email = email, let creationDate = creationDate, let creationTimestamp = creationTimestamp, let blockCount = blockCount, let forwardCount = forwardCount, let replyCount = replyCount, let enabled = enabled {
             self.id = id
             self.email = email
             self.creationDate = creationDate
@@ -66,7 +67,7 @@ final class Alias: Equatable {
             self.blockCount = blockCount
             self.forwardCount = forwardCount
             self.replyCount = replyCount
-            self.enabled = Bool.random()
+            self.enabled = enabled
         } else {
             throw SLError.failToParseObject(objectName: "Alias")
         }

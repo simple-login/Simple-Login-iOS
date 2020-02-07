@@ -236,4 +236,41 @@ extension SLApiService {
             }
         }
     }
+        
+        
+    static func randomAlias(apiKey: String, randomMode: RandomMode, completion: @escaping (_ newlyCreatedAlias: String?, _ error: SLError?) -> Void) {
+        let headers: HTTPHeaders = ["Authentication": apiKey]
+            
+        AF.request("\(BASE_URL)/api/alias/random/new?mode=\(randomMode.rawValue)", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+                
+                guard let statusCode = response.response?.statusCode else {
+                    completion(nil, SLError.unknownError(description: "error code unknown"))
+                    return
+                }
+                
+                switch statusCode {
+                case 201:
+                    guard let data = response.data else {
+                        completion(nil, SLError.noData)
+                        return
+                    }
+                    
+                    do {
+                        let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                        
+                        if let newlyCreatedAlias = jsonDictionary?["alias"] as? String {
+                            completion(newlyCreatedAlias, nil)
+                        } else {
+                            completion(nil, SLError.failToParseObject(objectName: "newly created alias"))
+                        }
+                        
+                    } catch {
+                        completion(nil, SLError.failToSerializeJSONData)
+                    }
+                    
+                case 401: completion(nil, SLError.invalidApiKey)
+                default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+                }
+        }
+    }
 }

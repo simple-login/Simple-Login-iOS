@@ -266,12 +266,12 @@ extension AliasViewController {
         let alert = UIAlertController(title: "New email alias", message: "Randomly create an alias", preferredStyle: .actionSheet)
         
         let byWordAction = UIAlertAction(title: "By random words", style: .default) { [unowned self] (_) in
-            self.randomByWords()
+            self.randomAlias(mode: .word)
         }
         alert.addAction(byWordAction)
         
         let byUUIDAction = UIAlertAction(title: "By UUID", style: .default) { [unowned self] (_) in
-            self.randomByUUID()
+            self.randomAlias(mode: .uuid)
         }
         alert.addAction(byUUIDAction)
         
@@ -281,12 +281,27 @@ extension AliasViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func randomByWords() {
-        Toast.displayShortly(message: #function)
-    }
-    
-    private func randomByUUID() {
-        Toast.displayShortly(message: #function)
+    private func randomAlias(mode: RandomMode) {
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.randomAlias(apiKey: apiKey, randomMode: mode) { [weak self] (newlyCreatedAlias, error) in
+            guard let self = self else { return }
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if let error = error {
+                Toast.displayError(error)
+            } else if let newlyCreatedAlias = newlyCreatedAlias {
+                Toast.displayShortly(message: "Created \(newlyCreatedAlias)")
+                self.refreshControl.beginRefreshing()
+                self.refresh()
+            }
+        }
     }
 }
 
