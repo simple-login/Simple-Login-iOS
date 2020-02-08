@@ -309,4 +309,40 @@ extension SLApiService {
             }
         }
     }
+    
+    static func deleteAlias(apiKey: String, id: Int, completion: @escaping (_ deleted: Bool?, _ error: SLError?) -> Void) {
+        let headers: HTTPHeaders = ["Authentication": apiKey]
+        
+        AF.request("\(BASE_URL)/api/aliases/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(nil, SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200:
+                guard let data = response.data else {
+                    completion(nil, SLError.noData)
+                    return
+                }
+                
+                do {
+                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                    
+                    if let deleted = jsonDictionary?["deleted"] as? Bool {
+                        completion(deleted, nil)
+                    } else {
+                        completion(nil, SLError.failToParseObject(objectName: "delete alias"))
+                    }
+                    
+                } catch {
+                    completion(nil, SLError.failToSerializeJSONData)
+                }
+                
+            case 401: completion(nil, SLError.invalidApiKey)
+            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
 }

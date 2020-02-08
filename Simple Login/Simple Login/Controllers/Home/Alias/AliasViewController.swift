@@ -172,7 +172,7 @@ extension AliasViewController {
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
-
+            
             if let enabled = enabled {
                 alias.setEnabled(enabled)
                 
@@ -219,35 +219,44 @@ extension AliasViewController {
     }
     
     private func delete(alias: Alias, at indexPath: IndexPath) {
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
+        SLApiService.deleteAlias(apiKey: apiKey, id: alias.id) { [weak self] (deleted, error) in
             guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
             
-            defer {
-                MBProgressHUD.hide(for: self.view, animated: true)
-                self.noAlias = self.aliases.count == 0
-                Toast.displayShortly(message: "Deleted \(alias.email)")
-            }
-        
-            self.tableView.performBatchUpdates({
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
+            if let _ = deleted {
                 
-                switch self.currentAliasType {
-                case .all:
-                    self.aliases.removeAll(where: {$0 == alias})
-                    self.refilterAliasArrays()
+                self.tableView.performBatchUpdates({
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
                     
-                case .active:
-                    self.activeAliases.removeAll(where: {$0 == alias})
-                    self.aliases.removeAll(where: {$0 == alias})
+                    switch self.currentAliasType {
+                    case .all:
+                        self.aliases.removeAll(where: {$0 == alias})
+                        self.refilterAliasArrays()
+                        
+                    case .active:
+                        self.activeAliases.removeAll(where: {$0 == alias})
+                        self.aliases.removeAll(where: {$0 == alias})
+                        
+                    case .inactive:
+                        self.inactiveAliases.removeAll(where: {$0 == alias})
+                        self.aliases.removeAll(where: {$0 == alias})
+                    }
                     
-                case .inactive:
-                    self.inactiveAliases.removeAll(where: {$0 == alias})
-                    self.aliases.removeAll(where: {$0 == alias})
+                }) { (_) in
+                    self.tableView.reloadData()
+                    self.noAlias = self.aliases.count == 0
+                    Toast.displayShortly(message: "Deleted \(alias.email)")
                 }
-            }) { (_) in
-                self.tableView.reloadData()
+                
+            } else if let error = error {
+                Toast.displayError(error)
             }
         }
     }
@@ -374,7 +383,7 @@ extension AliasViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = AliasTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-
+        
         let alias: Alias
         switch currentAliasType {
         case .all: alias = aliases[indexPath.row]
