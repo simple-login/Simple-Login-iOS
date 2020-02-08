@@ -16,7 +16,7 @@ final class Alias: Equatable {
     let blockCount: Int
     let replyCount: Int
     let forwardCount: Int
-    let enabled: Bool
+    private(set) var enabled: Bool
     
     lazy var countAttributedString: NSAttributedString = {
         var plainString = ""
@@ -71,6 +71,10 @@ final class Alias: Equatable {
         } else {
             throw SLError.failToParseObject(objectName: "Alias")
         }
+    }
+    
+    func setEnabled(_ enabled: Bool) {
+        self.enabled = enabled
     }
     
     static func ==(lhs: Alias, rhs: Alias) -> Bool {

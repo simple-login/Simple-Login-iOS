@@ -161,28 +161,41 @@ final class AliasViewController: BaseViewController {
 // MARK: - Toggle status
 extension AliasViewController {
     private func toggle(alias: Alias, at indexPath: IndexPath) {
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
+        SLApiService.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] (enabled, error) in
             guard let self = self else { return }
             
-            defer {
-                MBProgressHUD.hide(for: self.view, animated: true)
-                self.refilterAliasArrays()
-            }
-            
-            guard self.currentAliasType != .all else {
-                return
-            }
-            
-            self.tableView.performBatchUpdates({
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
-                switch self.currentAliasType {
-                case .all: return
-                case .active: self.activeAliases.removeAll(where: {$0 == alias})
-                case .inactive: self.inactiveAliases.removeAll(where: {$0 == alias})
+            MBProgressHUD.hide(for: self.view, animated: true)
+
+            if let enabled = enabled {
+                alias.setEnabled(enabled)
+                
+                self.tableView.performBatchUpdates({
+                    switch self.currentAliasType {
+                    case .all: return
+                        
+                    case .active:
+                        self.activeAliases.removeAll(where: {$0 == alias})
+                        self.tableView.deleteRows(at: [indexPath], with: .fade)
+                        
+                    case .inactive:
+                        self.inactiveAliases.removeAll(where: {$0 == alias})
+                        self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
+                }) { (_) in
+                    self.refilterAliasArrays()
+                    self.tableView.reloadData()
                 }
-            }) { (_) in
+                
+            } else if let error = error {
+                Toast.displayError(error)
+                // reload data to switch alias to initial state when request to server fails
                 self.tableView.reloadData()
             }
         }

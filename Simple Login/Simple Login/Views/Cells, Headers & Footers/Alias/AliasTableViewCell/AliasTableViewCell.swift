@@ -70,12 +70,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     }
     
     @IBAction private func enabledSwitchValueChanged() {
-//        alias?.toggleIsEnabled()
-//        if let alias = alias {
-//            bind(with: alias)
-//        }
-//
-//        didToggleStatus?(enabledSwitch.isOn)
+        didToggleStatus?(enabledSwitch.isOn)
     }
     
     @IBAction private func copyButtonTapped() {

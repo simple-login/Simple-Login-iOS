@@ -73,9 +73,9 @@ final class SLApiService {
     
     static func fetchUserOptions(apiKey: String, completion: @escaping (_ userOptions: UserOptions?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
-
+        
         AF.request("\(BASE_URL)/api/v2/alias/options", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
-
+            
             guard let data = response.data else {
                 completion(nil, SLError.noData)
                 return
@@ -107,7 +107,7 @@ extension SLApiService {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/aliases?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
-
+            
             guard let statusCode = response.response?.statusCode else {
                 completion(nil, SLError.unknownError(description: "error code unknown"))
                 return
@@ -135,7 +135,7 @@ extension SLApiService {
                         }
                         
                         completion(aliases, nil)
-                    
+                        
                     } else {
                         completion(nil, SLError.failToSerializeJSONData)
                     }
@@ -155,7 +155,7 @@ extension SLApiService {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/aliases/\(aliasId)/activities?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
-
+            
             guard let statusCode = response.response?.statusCode else {
                 completion(nil, SLError.unknownError(description: "error code unknown"))
                 return
@@ -183,7 +183,7 @@ extension SLApiService {
                         }
                         
                         completion(activities, nil)
-                    
+                        
                     } else {
                         completion(nil, SLError.failToSerializeJSONData)
                     }
@@ -202,9 +202,9 @@ extension SLApiService {
     static func createNewAlias(apiKey: String, prefix: String, suffix: String, completion: @escaping (_ newlyCreatedAlias: String?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         let parameters = ["alias_prefix" : prefix, "alias_suffix" : suffix]
-    
+        
         AF.request("\(BASE_URL)/api/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
-
+            
             guard let statusCode = response.response?.statusCode else {
                 completion(nil, SLError.unknownError(description: "error code unknown"))
                 return
@@ -236,41 +236,77 @@ extension SLApiService {
             }
         }
     }
-        
-        
+    
+    
     static func randomAlias(apiKey: String, randomMode: RandomMode, completion: @escaping (_ newlyCreatedAlias: String?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
-            
+        
         AF.request("\(BASE_URL)/api/alias/random/new?mode=\(randomMode.rawValue)", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
-                
-                guard let statusCode = response.response?.statusCode else {
-                    completion(nil, SLError.unknownError(description: "error code unknown"))
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(nil, SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 201:
+                guard let data = response.data else {
+                    completion(nil, SLError.noData)
                     return
                 }
                 
-                switch statusCode {
-                case 201:
-                    guard let data = response.data else {
-                        completion(nil, SLError.noData)
-                        return
+                do {
+                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                    
+                    if let newlyCreatedAlias = jsonDictionary?["alias"] as? String {
+                        completion(newlyCreatedAlias, nil)
+                    } else {
+                        completion(nil, SLError.failToParseObject(objectName: "newly created alias"))
                     }
                     
-                    do {
-                        let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
-                        
-                        if let newlyCreatedAlias = jsonDictionary?["alias"] as? String {
-                            completion(newlyCreatedAlias, nil)
-                        } else {
-                            completion(nil, SLError.failToParseObject(objectName: "newly created alias"))
-                        }
-                        
-                    } catch {
-                        completion(nil, SLError.failToSerializeJSONData)
-                    }
-                    
-                case 401: completion(nil, SLError.invalidApiKey)
-                default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+                } catch {
+                    completion(nil, SLError.failToSerializeJSONData)
                 }
+                
+            case 401: completion(nil, SLError.invalidApiKey)
+            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
+    
+    static func toggleAlias(apiKey: String, id: Int, completion: @escaping (_ enabled: Bool?, _ error: SLError?) -> Void) {
+        let headers: HTTPHeaders = ["Authentication": apiKey]
+        
+        AF.request("\(BASE_URL)/api/aliases/\(id)/toggle", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(nil, SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200:
+                guard let data = response.data else {
+                    completion(nil, SLError.noData)
+                    return
+                }
+                
+                do {
+                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                    
+                    if let enabled = jsonDictionary?["enabled"] as? Bool {
+                        completion(enabled, nil)
+                    } else {
+                        completion(nil, SLError.failToParseObject(objectName: "toggle alias status"))
+                    }
+                    
+                } catch {
+                    completion(nil, SLError.failToSerializeJSONData)
+                }
+                
+            case 401: completion(nil, SLError.invalidApiKey)
+            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            }
         }
     }
 }
