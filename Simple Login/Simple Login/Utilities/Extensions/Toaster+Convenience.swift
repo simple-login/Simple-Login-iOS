@@ -8,7 +8,6 @@
 
 import Foundation
 import Toaster
-import OAuth2
 
 extension Toast {
     class func displayShortly(message: String) {

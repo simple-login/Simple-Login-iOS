@@ -52,6 +52,11 @@
 		C07B41F623EAEDCD002E6223 /* OtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F523EAEDCD002E6223 /* OtpViewController.swift */; };
 		C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F723EB1BC4002E6223 /* Notification+Name.swift */; };
 		C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */; };
+		C081656223FDA97E005B0ABD /* SLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05049BB23CE016600AEF20B /* SLColor.swift */; };
+		C081656323FDA992005B0ABD /* SuffixListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C069397823D395A1008AE6C1 /* SuffixListViewController.swift */; };
+		C081656523FDAA5F005B0ABD /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66423CBC838009A6699 /* String+Utilities.swift */; };
+		C081656623FDAA6B005B0ABD /* RegexHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */; };
+		C081656723FDAD09005B0ABD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
 		C08A202423CC6CA300CB8D2F /* SendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202323CC6CA300CB8D2F /* SendEmailViewController.swift */; };
 		C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */; };
 		C08A202A23CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202923CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift */; };
@@ -945,6 +950,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C081656723FDAD09005B0ABD /* Assets.xcassets in Resources */,
 				C042C25E23EF3A570045A04D /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1061,11 +1067,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C00BC55B23FDA12000E66FFE /* BaseUrlStatic.swift in Sources */,
+				C081656323FDA992005B0ABD /* SuffixListViewController.swift in Sources */,
 				C00BC55823FDA0DC00E66FFE /* SLError.swift in Sources */,
 				C00BC54A23FD95E100E66FFE /* SLKeychainService.swift in Sources */,
+				C081656223FDA97E005B0ABD /* SLColor.swift in Sources */,
 				C00BC55623FDA08100E66FFE /* SLApiService.swift in Sources */,
 				C042C25B23EF3A570045A04D /* ShareViewController.swift in Sources */,
+				C081656523FDAA5F005B0ABD /* String+Utilities.swift in Sources */,
 				C00BC55723FDA0D900E66FFE /* UserOptions.swift in Sources */,
+				C081656623FDAA6B005B0ABD /* RegexHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

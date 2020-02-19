@@ -13,3 +13,5 @@ let BASE_URL = "https://app.sldev.ovh/"
 #else
 let BASE_URL = "https://app.simplelogin.io"
 #endif
+
+let ALIAS_PREFIX_MAX_LENGTH = 100
