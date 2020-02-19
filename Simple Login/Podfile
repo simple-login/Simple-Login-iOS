@@ -18,3 +18,7 @@ target 'Simple Login' do
   pod 'MarqueeLabel'
   pod 'Firebase/Analytics'
 end
+
+target 'Share Extension' do
+  common_pods
+end

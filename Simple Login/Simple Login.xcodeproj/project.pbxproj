@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C00BC54A23FD95E100E66FFE /* SLKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */; };
 		C00D74E923E8ACE400BE48F0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D74E823E8ACE400BE48F0 /* LoginViewController.swift */; };
 		C00D74EB23E8AD0300BE48F0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C00D74EA23E8AD0300BE48F0 /* Login.storyboard */; };
 		C00D74ED23E8C2CC00BE48F0 /* RippleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D74EC23E8C2CC00BE48F0 /* RippleView.swift */; };
@@ -14,6 +15,9 @@
 		C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02646FE23D0F4F600E9932B /* AvatarImageView.swift */; };
 		C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D2D5F23D4AF300057F44F /* CustomDomain.swift */; };
 		C04007B023EE1DFB005AD66B /* RandomMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04007AF23EE1DFB005AD66B /* RandomMode.swift */; };
+		C042C25B23EF3A570045A04D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C042C25A23EF3A570045A04D /* ShareViewController.swift */; };
+		C042C25E23EF3A570045A04D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C042C25C23EF3A570045A04D /* MainInterface.storyboard */; };
+		C042C26223EF3A570045A04D /* SimpleLogin Share Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C042C25823EF3A570045A04D /* SimpleLogin Share Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C05049BC23CE016600AEF20B /* SLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05049BB23CE016600AEF20B /* SLColor.swift */; };
 		C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */; };
 		C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D323C7DDDC00EB5D98 /* Statics.swift */; };
@@ -84,7 +88,7 @@
 		C0B76DF123D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */; };
 		C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */; };
 		C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3AFD23E98A5700887264 /* UserLogin.swift */; };
-		C0CA3B0123E9A1FF00887264 /* OAuth2 in Frameworks */ = {isa = PBXBuildFile; productRef = C0CA3B0023E9A1FF00887264 /* OAuth2 */; };
+		C0CA3B0123E9A1FF00887264 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C0CA3B0023E9A1FF00887264 /* SwiftPackageProductDependency */; };
 		C0CA3B0323E9A74100887264 /* SLOAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0CA3B0223E9A74100887264 /* SLOAuth.plist */; };
 		C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3B0423E9A7A300887264 /* SLOAuth.swift */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
@@ -117,19 +121,52 @@
 		C0F84B2523D4BB1900E0852C /* DomainInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0F84B2423D4BB1900E0852C /* DomainInfoTableViewCell.xib */; };
 		C0F84B2723D4BCCA00E0852C /* NotVerifiedDomainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0F84B2623D4BCCA00E0852C /* NotVerifiedDomainTableViewCell.xib */; };
 		DBF4943808190F444DC19D7B /* Pods_Simple_Login.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */; };
+		F339A69F846BC4DA18B7C179 /* Pods_Share_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12DCCAF8C4A62F479382058A /* Pods_Share_Extension.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C042C26023EF3A570045A04D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C097A9DB23C7987F00EC1EFE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C042C25723EF3A570045A04D;
+			remoteInfo = "Share Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C042C26323EF3A570045A04D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C042C26223EF3A570045A04D /* SimpleLogin Share Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0254E80DF195D59879C361F4 /* Pods-Simple Login.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Simple Login.debug.xcconfig"; path = "Target Support Files/Pods-Simple Login/Pods-Simple Login.debug.xcconfig"; sourceTree = "<group>"; };
+		12DCCAF8C4A62F479382058A /* Pods_Share_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Share_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F36F7C97BB0E4EDDA3AA0A2 /* Pods-Share Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Share Extension.release.xcconfig"; path = "Target Support Files/Pods-Share Extension/Pods-Share Extension.release.xcconfig"; sourceTree = "<group>"; };
 		66938BAB79E16DEEA4E367CF /* Pods-Simple Login.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Simple Login.release.xcconfig"; path = "Target Support Files/Pods-Simple Login/Pods-Simple Login.release.xcconfig"; sourceTree = "<group>"; };
+		68607382CA25E093A6AF6F3E /* Pods-Share Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Share Extension.debug.xcconfig"; path = "Target Support Files/Pods-Share Extension/Pods-Share Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Simple_Login.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C00D74E823E8ACE400BE48F0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C00D74EA23E8AD0300BE48F0 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C00D74EC23E8C2CC00BE48F0 /* RippleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleView.swift; sourceTree = "<group>"; };
 		C01C00B123D25C390036B905 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		C02646FE23D0F4F600E9932B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
+		C0373A8823EF55160044507C /* SimpleLogin Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SimpleLogin Share Extension.entitlements"; sourceTree = "<group>"; };
 		C03D2D5F23D4AF300057F44F /* CustomDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomain.swift; sourceTree = "<group>"; };
 		C04007AF23EE1DFB005AD66B /* RandomMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMode.swift; sourceTree = "<group>"; };
+		C042C25823EF3A570045A04D /* SimpleLogin Share Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SimpleLogin Share Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C042C25A23EF3A570045A04D /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		C042C25D23EF3A570045A04D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		C042C25F23EF3A570045A04D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C05049BB23CE016600AEF20B /* SLColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLColor.swift; sourceTree = "<group>"; };
 		C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLKeychainService.swift; sourceTree = "<group>"; };
 		C052F0D323C7DDDC00EB5D98 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
@@ -237,12 +274,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C042C25523EF3A570045A04D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F339A69F846BC4DA18B7C179 /* Pods_Share_Extension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C097A9E023C7987F00EC1EFE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				DBF4943808190F444DC19D7B /* Pods_Simple_Login.framework in Frameworks */,
-				C0CA3B0123E9A1FF00887264 /* OAuth2 in Frameworks */,
+				C0CA3B0123E9A1FF00887264 /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +299,8 @@
 			children = (
 				0254E80DF195D59879C361F4 /* Pods-Simple Login.debug.xcconfig */,
 				66938BAB79E16DEEA4E367CF /* Pods-Simple Login.release.xcconfig */,
+				68607382CA25E093A6AF6F3E /* Pods-Share Extension.debug.xcconfig */,
+				5F36F7C97BB0E4EDDA3AA0A2 /* Pods-Share Extension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -262,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */,
+				12DCCAF8C4A62F479382058A /* Pods_Share_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -282,6 +330,17 @@
 				C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */,
 			);
 			path = CustomDomain;
+			sourceTree = "<group>";
+		};
+		C042C25923EF3A570045A04D /* Share Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C0373A8823EF55160044507C /* SimpleLogin Share Extension.entitlements */,
+				C042C25A23EF3A570045A04D /* ShareViewController.swift */,
+				C042C25C23EF3A570045A04D /* MainInterface.storyboard */,
+				C042C25F23EF3A570045A04D /* Info.plist */,
+			);
+			path = "Share Extension";
 			sourceTree = "<group>";
 		};
 		C05049BD23CE356900AEF20B /* LeftMenu */ = {
@@ -486,6 +545,7 @@
 			isa = PBXGroup;
 			children = (
 				C097A9E523C7987F00EC1EFE /* Simple Login */,
+				C042C25923EF3A570045A04D /* Share Extension */,
 				C097A9E423C7987F00EC1EFE /* Products */,
 				11AA2A54C6C9540D19D570C3 /* Pods */,
 				1A9FAA8CC28530FCE6CE6E9B /* Frameworks */,
@@ -496,6 +556,7 @@
 			isa = PBXGroup;
 			children = (
 				C097A9E323C7987F00EC1EFE /* SimpleLogin.app */,
+				C042C25823EF3A570045A04D /* SimpleLogin Share Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -788,6 +849,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C042C25723EF3A570045A04D /* Share Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C042C26623EF3A570045A04D /* Build configuration list for PBXNativeTarget "Share Extension" */;
+			buildPhases = (
+				04B628E2C3F4F5EBF7E2A95E /* [CP] Check Pods Manifest.lock */,
+				C042C25423EF3A570045A04D /* Sources */,
+				C042C25523EF3A570045A04D /* Frameworks */,
+				C042C25623EF3A570045A04D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Share Extension";
+			productName = "Share Extension";
+			productReference = C042C25823EF3A570045A04D /* SimpleLogin Share Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		C097A9E223C7987F00EC1EFE /* Simple Login */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C097A9F723C7988400EC1EFE /* Build configuration list for PBXNativeTarget "Simple Login" */;
@@ -797,14 +876,16 @@
 				C097A9E023C7987F00EC1EFE /* Frameworks */,
 				C097A9E123C7987F00EC1EFE /* Resources */,
 				5CD82E415A486CFF9D844F00 /* [CP] Embed Pods Frameworks */,
+				C042C26323EF3A570045A04D /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C042C26123EF3A570045A04D /* PBXTargetDependency */,
 			);
 			name = "Simple Login";
 			packageProductDependencies = (
-				C0CA3B0023E9A1FF00887264 /* OAuth2 */,
+				C0CA3B0023E9A1FF00887264 /* SwiftPackageProductDependency */,
 			);
 			productName = "Simple Login";
 			productReference = C097A9E323C7987F00EC1EFE /* SimpleLogin.app */;
@@ -820,6 +901,9 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = SimpleLogin;
 				TargetAttributes = {
+					C042C25723EF3A570045A04D = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 					C097A9E223C7987F00EC1EFE = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -835,18 +919,27 @@
 			);
 			mainGroup = C097A9DA23C7987F00EC1EFE;
 			packageReferences = (
-				C0CA3AFF23E9A1FF00887264 /* XCRemoteSwiftPackageReference "OAuth2" */,
+				C0CA3AFF23E9A1FF00887264 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = C097A9E423C7987F00EC1EFE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				C097A9E223C7987F00EC1EFE /* Simple Login */,
+				C042C25723EF3A570045A04D /* Share Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C042C25623EF3A570045A04D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C042C25E23EF3A570045A04D /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C097A9E123C7987F00EC1EFE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -890,6 +983,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		04B628E2C3F4F5EBF7E2A95E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Share Extension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		1C68917DAB7AD6DA4F48EAD5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -932,6 +1047,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C042C25423EF3A570045A04D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C00BC54A23FD95E100E66FFE /* SLKeychainService.swift in Sources */,
+				C042C25B23EF3A570045A04D /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C097A9DF23C7987F00EC1EFE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1016,7 +1140,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		C042C26123EF3A570045A04D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C042C25723EF3A570045A04D /* Share Extension */;
+			targetProxy = C042C26023EF3A570045A04D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		C042C25C23EF3A570045A04D /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C042C25D23EF3A570045A04D /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		C097A9EC23C7987F00EC1EFE /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1036,6 +1176,50 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C042C26423EF3A570045A04D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68607382CA25E093A6AF6F3E /* Pods-Share Extension.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Share Extension/SimpleLogin Share Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 975H7B86B7;
+				INFOPLIST_FILE = "Share Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.share-extension";
+				PRODUCT_NAME = "SimpleLogin Share Extension";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C042C26523EF3A570045A04D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F36F7C97BB0E4EDDA3AA0A2 /* Pods-Share Extension.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Share Extension/SimpleLogin Share Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 975H7B86B7;
+				INFOPLIST_FILE = "Share Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.share-extension";
+				PRODUCT_NAME = "SimpleLogin Share Extension";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C097A9F523C7988400EC1EFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1154,6 +1338,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0254E80DF195D59879C361F4 /* Pods-Simple Login.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Simple Login/SimpleLogin.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -1175,6 +1360,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 66938BAB79E16DEEA4E367CF /* Pods-Simple Login.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Simple Login/SimpleLogin.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -1195,6 +1381,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C042C26623EF3A570045A04D /* Build configuration list for PBXNativeTarget "Share Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C042C26423EF3A570045A04D /* Debug */,
+				C042C26523EF3A570045A04D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C097A9DE23C7987F00EC1EFE /* Build configuration list for PBXProject "Simple Login" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1216,7 +1411,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C0CA3AFF23E9A1FF00887264 /* XCRemoteSwiftPackageReference "OAuth2" */ = {
+		C0CA3AFF23E9A1FF00887264 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/p2/OAuth2.git";
 			requirement = {
@@ -1227,9 +1422,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C0CA3B0023E9A1FF00887264 /* OAuth2 */ = {
+		C0CA3B0023E9A1FF00887264 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C0CA3AFF23E9A1FF00887264 /* XCRemoteSwiftPackageReference "OAuth2" */;
+			package = C0CA3AFF23E9A1FF00887264 /* RemoteSwiftPackageReference */;
 			productName = OAuth2;
 		};
 /* End XCSwiftPackageProductDependency section */

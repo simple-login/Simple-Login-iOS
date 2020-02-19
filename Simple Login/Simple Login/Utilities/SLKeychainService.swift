@@ -10,7 +10,7 @@ import Foundation
 import KeychainAccess
 
 final class SLKeychainService {
-    private static let keychainService = Keychain()
+    private static let keychainService = Keychain(service: "975H7B86B7.io.simplelogin.ios-app.shared")
     private static let API_KEY = "API_KEY"
     
     static func setApiKey(_ apiKey: String) throws {
