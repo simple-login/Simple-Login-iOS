@@ -5,6 +5,7 @@ use_frameworks!
 
 def common_pods
   pod 'Alamofire', '~> 5.0.0-rc.3'
+  pod 'MBProgressHUD', '~> 1.2.0'
   pod 'KeychainAccess'
 end
 
@@ -12,7 +13,6 @@ target 'Simple Login' do
   common_pods
   pod 'SideMenu', '~> 6.0'
   pod 'Toaster'
-  pod 'MBProgressHUD', '~> 1.2.0'
   pod 'SkyFloatingLabelTextField', '~> 3.0'
   pod 'MaterialComponents/Ripple'
   pod 'MarqueeLabel'

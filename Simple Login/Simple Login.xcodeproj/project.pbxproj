@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		C00BC54A23FD95E100E66FFE /* SLKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */; };
+		C00BC55623FDA08100E66FFE /* SLApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BC55523FDA08100E66FFE /* SLApiService.swift */; };
+		C00BC55723FDA0D900E66FFE /* UserOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3823C8AD22003EED3B /* UserOptions.swift */; };
+		C00BC55823FDA0DC00E66FFE /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3423C8AC8A003EED3B /* SLError.swift */; };
+		C00BC55A23FDA10900E66FFE /* BaseUrlStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BC55923FDA10900E66FFE /* BaseUrlStatic.swift */; };
+		C00BC55B23FDA12000E66FFE /* BaseUrlStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BC55923FDA10900E66FFE /* BaseUrlStatic.swift */; };
 		C00D74E923E8ACE400BE48F0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D74E823E8ACE400BE48F0 /* LoginViewController.swift */; };
 		C00D74EB23E8AD0300BE48F0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C00D74EA23E8AD0300BE48F0 /* Login.storyboard */; };
 		C00D74ED23E8C2CC00BE48F0 /* RippleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D74EC23E8C2CC00BE48F0 /* RippleView.swift */; };
@@ -88,7 +93,7 @@
 		C0B76DF123D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */; };
 		C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */; };
 		C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3AFD23E98A5700887264 /* UserLogin.swift */; };
-		C0CA3B0123E9A1FF00887264 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C0CA3B0023E9A1FF00887264 /* SwiftPackageProductDependency */; };
+		C0CA3B0123E9A1FF00887264 /* OAuth2 in Frameworks */ = {isa = PBXBuildFile; productRef = C0CA3B0023E9A1FF00887264 /* OAuth2 */; };
 		C0CA3B0323E9A74100887264 /* SLOAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0CA3B0223E9A74100887264 /* SLOAuth.plist */; };
 		C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3B0423E9A7A300887264 /* SLOAuth.swift */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
@@ -155,6 +160,8 @@
 		66938BAB79E16DEEA4E367CF /* Pods-Simple Login.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Simple Login.release.xcconfig"; path = "Target Support Files/Pods-Simple Login/Pods-Simple Login.release.xcconfig"; sourceTree = "<group>"; };
 		68607382CA25E093A6AF6F3E /* Pods-Share Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Share Extension.debug.xcconfig"; path = "Target Support Files/Pods-Share Extension/Pods-Share Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		92B972E97807276DFA1D0B8C /* Pods_Simple_Login.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Simple_Login.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C00BC55523FDA08100E66FFE /* SLApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLApiService.swift; sourceTree = "<group>"; };
+		C00BC55923FDA10900E66FFE /* BaseUrlStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUrlStatic.swift; sourceTree = "<group>"; };
 		C00D74E823E8ACE400BE48F0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C00D74EA23E8AD0300BE48F0 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C00D74EC23E8C2CC00BE48F0 /* RippleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleView.swift; sourceTree = "<group>"; };
@@ -287,7 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF4943808190F444DC19D7B /* Pods_Simple_Login.framework in Frameworks */,
-				C0CA3B0123E9A1FF00887264 /* BuildFile in Frameworks */,
+				C0CA3B0123E9A1FF00887264 /* OAuth2 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				C0373A8823EF55160044507C /* SimpleLogin Share Extension.entitlements */,
+				C00BC55523FDA08100E66FFE /* SLApiService.swift */,
 				C042C25A23EF3A570045A04D /* ShareViewController.swift */,
 				C042C25C23EF3A570045A04D /* MainInterface.storyboard */,
 				C042C25F23EF3A570045A04D /* Info.plist */,
@@ -388,6 +396,7 @@
 				C0B1DE4023C90CFD003EED3B /* Protocols */,
 				C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */,
 				C052F0D323C7DDDC00EB5D98 /* Statics.swift */,
+				C00BC55923FDA10900E66FFE /* BaseUrlStatic.swift */,
 				C0B1DE3223C8AC72003EED3B /* SLApiService.swift */,
 				C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */,
 			);
@@ -885,7 +894,7 @@
 			);
 			name = "Simple Login";
 			packageProductDependencies = (
-				C0CA3B0023E9A1FF00887264 /* SwiftPackageProductDependency */,
+				C0CA3B0023E9A1FF00887264 /* OAuth2 */,
 			);
 			productName = "Simple Login";
 			productReference = C097A9E323C7987F00EC1EFE /* SimpleLogin.app */;
@@ -919,7 +928,7 @@
 			);
 			mainGroup = C097A9DA23C7987F00EC1EFE;
 			packageReferences = (
-				C0CA3AFF23E9A1FF00887264 /* RemoteSwiftPackageReference */,
+				C0CA3AFF23E9A1FF00887264 /* XCRemoteSwiftPackageReference "OAuth2" */,
 			);
 			productRefGroup = C097A9E423C7987F00EC1EFE /* Products */;
 			projectDirPath = "";
@@ -1051,8 +1060,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C00BC55B23FDA12000E66FFE /* BaseUrlStatic.swift in Sources */,
+				C00BC55823FDA0DC00E66FFE /* SLError.swift in Sources */,
 				C00BC54A23FD95E100E66FFE /* SLKeychainService.swift in Sources */,
+				C00BC55623FDA08100E66FFE /* SLApiService.swift in Sources */,
 				C042C25B23EF3A570045A04D /* ShareViewController.swift in Sources */,
+				C00BC55723FDA0D900E66FFE /* UserOptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1132,6 +1145,7 @@
 				C091480023CFB46300D56CDC /* WebViewController.swift in Sources */,
 				C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */,
 				C0D6A27823D077E800EF21B8 /* TeamAndContactTableViewCell.swift in Sources */,
+				C00BC55A23FDA10900E66FFE /* BaseUrlStatic.swift in Sources */,
 				C069397923D395A1008AE6C1 /* SuffixListViewController.swift in Sources */,
 				C0D6A28823D0A6A500EF21B8 /* HowItWorksViewController.swift in Sources */,
 				C0D6A29123D0AB6800EF21B8 /* FaqViewController.swift in Sources */,
@@ -1411,7 +1425,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C0CA3AFF23E9A1FF00887264 /* RemoteSwiftPackageReference */ = {
+		C0CA3AFF23E9A1FF00887264 /* XCRemoteSwiftPackageReference "OAuth2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/p2/OAuth2.git";
 			requirement = {
@@ -1422,9 +1436,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C0CA3B0023E9A1FF00887264 /* SwiftPackageProductDependency */ = {
+		C0CA3B0023E9A1FF00887264 /* OAuth2 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C0CA3AFF23E9A1FF00887264 /* RemoteSwiftPackageReference */;
+			package = C0CA3AFF23E9A1FF00887264 /* XCRemoteSwiftPackageReference "OAuth2" */;
 			productName = OAuth2;
 		};
 /* End XCSwiftPackageProductDependency section */
