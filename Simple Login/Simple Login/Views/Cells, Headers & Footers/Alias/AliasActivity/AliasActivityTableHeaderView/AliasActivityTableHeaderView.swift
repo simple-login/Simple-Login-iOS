@@ -9,6 +9,8 @@
 import UIKit
 
 final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
+    @IBOutlet private weak var creationDateLabel: UILabel!
+    @IBOutlet private weak var notesLabel: UILabel!
     @IBOutlet private weak var handledCountLabel: UILabel!
     @IBOutlet private weak var forwardedCountLabel: UILabel!
     @IBOutlet private weak var repliedCountLabel: UILabel!
@@ -43,6 +45,8 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
     }
     
     func bind(with alias: Alias) {
+        creationDateLabel.text = alias.creationTimestampString
+        notesLabel.text = alias.notes
         handledCountLabel.text = "\(alias.replyCount + alias.forwardCount + alias.blockCount)"
         repliedCountLabel.text = "\(alias.replyCount)"
         forwardedCountLabel.text = "\(alias.forwardCount)"

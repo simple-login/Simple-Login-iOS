@@ -19,6 +19,13 @@ final class Alias: Equatable {
     let notes: String
     private(set) var enabled: Bool
     
+    lazy var creationTimestampString: String = {
+        let date = Date(timeIntervalSince1970: creationTimestamp)
+        let preciseDateAndTime = preciseDateFormatter.string(from: date)
+        let (value, unit) =  date.distanceFromNow()
+        return "Created on \(preciseDateAndTime) (\(value) \(unit) ago)"
+    }()
+    
     lazy var countAttributedString: NSAttributedString = {
         var plainString = ""
         plainString += " \(forwardCount) "
