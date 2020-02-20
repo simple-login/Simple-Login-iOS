@@ -16,6 +16,7 @@ final class Alias: Equatable {
     let blockCount: Int
     let replyCount: Int
     let forwardCount: Int
+    let notes: String
     private(set) var enabled: Bool
     
     lazy var countAttributedString: NSAttributedString = {
@@ -68,6 +69,7 @@ final class Alias: Equatable {
             self.forwardCount = forwardCount
             self.replyCount = replyCount
             self.enabled = enabled
+            self.notes = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
         } else {
             throw SLError.failToParseObject(objectName: "Alias")
         }
