@@ -41,6 +41,55 @@ final class SLApiService {
         }
     }
     
+    static func verifyMFA(mfaKey: String, mfaToken: String, completion: @escaping (_ apiKey: String?, _ error: SLError?) -> Void) {
+        let parameters = ["mfa_token" : mfaToken, "mfa_key" : mfaKey, "device" : UIDevice.current.name]
+        
+        AF.request("\(BASE_URL)/api/auth/mfa", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
+            
+            guard let data = response.data else {
+                completion(nil, SLError.noData)
+                return
+            }
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(nil, SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200:
+                do {
+                    guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiKey = jsonDictionary["api_key"] as? String else {
+                        completion(nil, SLError.failToSerializeJSONData)
+                        return
+                    }
+                    
+                    completion(apiKey, nil)
+                    
+                } catch let error {
+                    completion(nil, error as? SLError)
+                }
+                
+            case 400:
+                do {
+                    guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let error = jsonDictionary["error"] as? String else {
+                        completion(nil, SLError.badRequest(description: "Failed to serialize json"))
+                        return
+                    }
+                    
+                    completion(nil, SLError.badRequest(description: error))
+                    
+                } catch let error {
+                    completion(nil, error as? SLError)
+                }
+                
+            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
+    
     static func fetchUserInfo(_ apiKey: String, completion: @escaping (_ userInfo: UserInfo?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         

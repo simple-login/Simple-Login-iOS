@@ -88,7 +88,12 @@ final class LoginViewController: UIViewController, Storyboarded {
             
             if let userLogin = userLogin {
                 if userLogin.isMfaEnabled {
-                    self.otpVerification()
+                    if let mfaKey = userLogin.mfaKey {
+                        self.otpVerification(mfaKey: mfaKey)
+                    } else {
+                        Toast.displayLongly(message: "MFA key is null")
+                    }
+                    
                 } else {
                     if let apiKey = userLogin.apiKey {
                         self.finalizeLogin(apiKey: apiKey)
@@ -126,11 +131,12 @@ final class LoginViewController: UIViewController, Storyboarded {
         passwordTextField.resignFirstResponder()
     }
     
-    private func otpVerification() {
+    private func otpVerification(mfaKey: String) {
         guard let otpNavigationController = storyboard?.instantiateViewController(withIdentifier: "OtpNavigationController") as? UINavigationController,
             let otpViewController = otpNavigationController.viewControllers[0] as? OtpViewController else { return }
         
         otpNavigationController.modalPresentationStyle = .fullScreen
+        otpViewController.mfaKey = mfaKey
         
         otpViewController.verificationSuccesful = { [unowned self] apiKey in
             self.finalizeLogin(apiKey: apiKey)
@@ -146,7 +152,7 @@ final class LoginViewController: UIViewController, Storyboarded {
             Toast.displayShortly(message: "Error setting API key to keychain")
         }
         
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

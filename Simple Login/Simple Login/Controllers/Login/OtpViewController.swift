@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 final class OtpViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var firstNumberLabel: UILabel!
@@ -34,6 +35,7 @@ final class OtpViewController: UIViewController, Storyboarded {
     
     var verificationSuccesful: ((_ apiKey: String) -> Void)?
     
+    var mfaKey: String!
     deinit {
         print("OtpViewController is deallocated")
         NotificationCenter.default.removeObserver(self, name: .applicationDidBecomeActive, object: nil)
@@ -76,12 +78,27 @@ final class OtpViewController: UIViewController, Storyboarded {
     }
     
     private func verify(otpCode: String) {
-        showErrorLabel(true)
-        reset()
+        showErrorLabel(false)
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.verifyMFA(mfaKey: mfaKey, mfaToken: otpCode) { [weak self] (apiKey, error) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if let error = error {
+                self.showErrorLabel(true, errorMessage: error.description)
+                self.reset()
+            } else if let apiKey = apiKey {
+                self.dismiss(animated: true) {
+                    self.verificationSuccesful?(apiKey)
+                }
+            }
+        }
     }
     
-    private func showErrorLabel(_ show: Bool) {
+    private func showErrorLabel(_ show: Bool, errorMessage: String? = nil) {
         if show {
+            errorLabel.text = errorMessage
             errorLabel.alpha = 1
             errorLabel.shake()
         } else {
