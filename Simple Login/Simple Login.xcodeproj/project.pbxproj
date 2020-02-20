@@ -101,6 +101,8 @@
 		C0CA3B0123E9A1FF00887264 /* OAuth2 in Frameworks */ = {isa = PBXBuildFile; productRef = C0CA3B0023E9A1FF00887264 /* OAuth2 */; };
 		C0CA3B0323E9A74100887264 /* SLOAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0CA3B0223E9A74100887264 /* SLOAuth.plist */; };
 		C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3B0423E9A7A300887264 /* SLOAuth.swift */; };
+		C0D0500E23FED25D00B13221 /* UIViewController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience.swift */; };
+		C0D0500F23FED26900B13221 /* UIViewController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience.swift */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
 		C0D6A27323D0759800EF21B8 /* HowAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */; };
@@ -254,6 +256,7 @@
 		C0CA3AFD23E98A5700887264 /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
 		C0CA3B0223E9A74100887264 /* SLOAuth.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SLOAuth.plist; sourceTree = "<group>"; };
 		C0CA3B0423E9A7A300887264 /* SLOAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLOAuth.swift; sourceTree = "<group>"; };
+		C0D0500D23FED25D00B13221 /* UIViewController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience.swift"; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAndFaqTableViewCell.swift; sourceTree = "<group>"; };
@@ -440,6 +443,7 @@
 				C0D9B66423CBC838009A6699 /* String+Utilities.swift */,
 				C07B41F723EB1BC4002E6223 /* Notification+Name.swift */,
 				C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */,
+				C0D0500D23FED25D00B13221 /* UIViewController+Convenience.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1070,6 +1074,7 @@
 				C081656323FDA992005B0ABD /* SuffixListViewController.swift in Sources */,
 				C00BC55823FDA0DC00E66FFE /* SLError.swift in Sources */,
 				C00BC54A23FD95E100E66FFE /* SLKeychainService.swift in Sources */,
+				C0D0500F23FED26900B13221 /* UIViewController+Convenience.swift in Sources */,
 				C081656223FDA97E005B0ABD /* SLColor.swift in Sources */,
 				C00BC55623FDA08100E66FFE /* SLApiService.swift in Sources */,
 				C042C25B23EF3A570045A04D /* ShareViewController.swift in Sources */,
@@ -1153,6 +1158,7 @@
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
 				C0956A4B23D109D8000CEBDD /* ExportDataTableViewCell.swift in Sources */,
 				C091480023CFB46300D56CDC /* WebViewController.swift in Sources */,
+				C0D0500E23FED25D00B13221 /* UIViewController+Convenience.swift in Sources */,
 				C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */,
 				C0D6A27823D077E800EF21B8 /* TeamAndContactTableViewCell.swift in Sources */,
 				C00BC55A23FDA10900E66FFE /* BaseUrlStatic.swift in Sources */,

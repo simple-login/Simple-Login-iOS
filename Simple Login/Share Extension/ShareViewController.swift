@@ -46,7 +46,19 @@ class ShareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
-        extractUrlString()
+        
+        if let _ = SLKeychainService.getApiKey() {
+            extractUrlString()
+        } else {
+            let alert = UIAlertController(title: "Sign-in required", message: "You have to sign in before using this feature", preferredStyle: .alert)
+            
+            let closeAction = UIAlertAction(title: "Close", style: .cancel) { (_) in
+                self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            }
+            
+            alert.addAction(closeAction)
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     private func setUpUI() {
@@ -123,7 +135,10 @@ extension ShareViewController {
             MBProgressHUD.hide(for: self.view, animated: true)
             
             if let error = error {
-                //Toast.displayError(error)
+                self.alertError(error) {
+                    self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                }
+                
             } else if let userOptions = userOptions {
                 self.rootStackView.isHidden = false
                 self.userOptions = userOptions
@@ -144,10 +159,18 @@ extension ShareViewController {
             MBProgressHUD.hide(for: self.view, animated: true)
             
             if let error = error {
-                //Toast.displayError(error)
+                self.alertError(error) {
+                    self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                }
+                
             } else if let newlyCreatedAlias = newlyCreatedAlias {
-                UIPasteboard.general.string = newlyCreatedAlias
-                self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                let alert = UIAlertController(title: "You are all set!", message: "\"\(newlyCreatedAlias)\"\nis created and ready to use", preferredStyle: .alert)
+                let closeAction = UIAlertAction(title: "Copy & Close", style: .default) { (_) in
+                    UIPasteboard.general.string = newlyCreatedAlias
+                    self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                }
+                alert.addAction(closeAction)
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
