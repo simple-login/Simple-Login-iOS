@@ -116,6 +116,37 @@ final class AliasActivityViewController: UIViewController {
     }
 }
 
+// MARK: - Edit notes
+extension AliasActivityViewController {
+    private func presentAlertEditNotes() {
+        let alert = UIAlertController(title: "Edit notes for alias", message: alias.email, preferredStyle: .alert)
+        
+        // textViewController
+        let textView = UITextView()
+        textView.text = alias.notes
+        
+        let textViewController = UIViewController()
+        textViewController.view.addSubview(textView)
+        textView.fillSuperview(padding: UIEdgeInsets(top: 0, left: 10, bottom: 8, right: 10))
+        textView.layer.borderWidth = 1.0
+        textView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        alert.setValue(textViewController, forKey: "contentViewController")
+        alert.view.constrainHeight(constant: 200)
+        
+        let updateAction = UIAlertAction(title: "Update notes", style: .default) { (_) in
+            //print(textView.text)
+        }
+        alert.addAction(updateAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        present(alert, animated: true) {
+            textView.becomeFirstResponder()
+        }
+    }
+}
+
 // MARK: - UITableViewDelegate
 extension AliasActivityViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -125,6 +156,11 @@ extension AliasActivityViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AliasActivityTableHeaderView") as? AliasActivityTableHeaderView
         header?.bind(with: alias)
+        
+        header?.didTapEditButton = { [unowned self] in
+            self.presentAlertEditNotes()
+        }
+        
         return header
     }
     

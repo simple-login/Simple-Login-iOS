@@ -22,6 +22,8 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
     @IBOutlet private var titleLabels: [UILabel]!
     @IBOutlet private var imageViews: [UIImageView]!
     
+    var didTapEditButton: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -51,5 +53,9 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
         repliedCountLabel.text = "\(alias.replyCount)"
         forwardedCountLabel.text = "\(alias.forwardCount)"
         blockedCountLabel.text = "\(alias.blockCount)"
+    }
+    
+    @IBAction private func editButtonTapped() {
+        didTapEditButton?()
     }
 }

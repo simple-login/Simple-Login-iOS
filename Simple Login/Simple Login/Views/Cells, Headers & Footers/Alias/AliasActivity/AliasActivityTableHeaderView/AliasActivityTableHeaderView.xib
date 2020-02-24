@@ -19,26 +19,40 @@
                     <rect key="frame" x="10" y="10" width="394" height="224"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="XhY-rS-Scd">
-                            <rect key="frame" x="0.0" y="0.0" width="394" height="20"/>
+                            <rect key="frame" x="0.0" y="0.0" width="394" height="35"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="251" image="ClockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Gzr-Dy-0RP">
-                                    <rect key="frame" x="0.0" y="0.0" width="18" height="20"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="36" height="35"/>
                                     <color key="tintColor" name="TitleColor"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created on" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTp-ib-WVJ">
-                                    <rect key="frame" x="26" y="0.0" width="368" height="20"/>
+                                    <rect key="frame" x="44" y="0.0" width="350" height="35"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" name="TitleColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                         </stackView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alias notes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="baC-Rg-0Hb">
-                            <rect key="frame" x="0.0" y="28" width="394" height="38"/>
-                            <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
-                            <color key="textColor" name="TitleColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YwZ-iA-Xdp">
+                            <rect key="frame" x="0.0" y="43" width="394" height="23"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alias notes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="baC-Rg-0Hb">
+                                    <rect key="frame" x="0.0" y="0.0" width="356" height="23"/>
+                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                    <color key="textColor" name="TitleColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4cv-Cw-o57">
+                                    <rect key="frame" x="364" y="0.0" width="30" height="23"/>
+                                    <state key="normal" title="Edit">
+                                        <color key="titleColor" name="TintColor"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="editButtonTapped" destination="iN0-l3-epB" eventType="touchUpInside" id="xpV-wJ-SQi"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dt9-9F-H5w">
                             <rect key="frame" x="0.0" y="74" width="394" height="150"/>
                             <subviews>
@@ -252,6 +266,9 @@
         <image name="ClockIcon" width="18" height="18"/>
         <image name="PaperPlaneIcon" width="170.5" height="170.5"/>
         <image name="ReplyIcon" width="170.5" height="170.5"/>
+        <namedColor name="TintColor">
+            <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="TitleColor">
             <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
