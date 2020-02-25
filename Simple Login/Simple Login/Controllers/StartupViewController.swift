@@ -19,7 +19,20 @@ final class StartupViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        checkApiKeyAndProceed()
+
+        if UserDefaults.isFirstRun() {
+            let walkthroughViewController = WalkthroughViewController.instantiate(storyboardName: "Walkthrough")
+            walkthroughViewController.modalPresentationStyle = .fullScreen
+    
+            walkthroughViewController.getStarted = { [unowned self] in
+                self.checkApiKeyAndProceed()
+            }
+            
+            UserDefaults.firstRunComplete()
+            present(walkthroughViewController, animated: true, completion: nil)
+        } else {
+            checkApiKeyAndProceed()
+        }
     }
     
     @IBAction private func retry() {

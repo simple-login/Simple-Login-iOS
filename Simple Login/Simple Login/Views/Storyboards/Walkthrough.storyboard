@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Walkthrough View Controller-->
+        <scene sceneID="XKK-iT-tcm">
+            <objects>
+                <pageViewController storyboardIdentifier="WalkthroughViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="5uX-2w-3TI" customClass="WalkthroughViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cSb-fz-p2t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="280" y="123"/>
+        </scene>
+        <!--Walkthrough Welcome View Controller-->
+        <scene sceneID="Qlr-Is-Ud1">
+            <objects>
+                <viewController storyboardIdentifier="WalkthroughWelcomeViewController" id="zNj-GC-Jn5" customClass="WalkthroughWelcomeViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="n6w-eg-e5o">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="superman.gif" translatesAutoresizingMaskIntoConstraints="NO" id="LoO-ic-e8I" customClass="GIFImageView" customModule="Gifu">
+                                <rect key="frame" x="20" y="261" width="374" height="374"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="LoO-ic-e8I" secondAttribute="height" multiplier="1:1" id="KtA-MH-0Qb"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LBp-ra-Jfq">
+                                <rect key="frame" x="20" y="162.5" width="374" height="58.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to SimpleLogin!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1og-X2-o2H">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <color key="textColor" name="MenuBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your anti-spam hero 🦸‍♂️" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frq-Cg-s7N">
+                                        <rect key="frame" x="0.0" y="38" width="374" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="MenuBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="TintColor"/>
+                        <constraints>
+                            <constraint firstItem="LoO-ic-e8I" firstAttribute="centerY" secondItem="n6w-eg-e5o" secondAttribute="centerY" id="Aau-2D-LRj"/>
+                            <constraint firstItem="LoO-ic-e8I" firstAttribute="leading" secondItem="dAH-Z8-guh" secondAttribute="leading" constant="20" id="QN0-sC-t2M"/>
+                            <constraint firstItem="LoO-ic-e8I" firstAttribute="top" secondItem="LBp-ra-Jfq" secondAttribute="bottom" constant="40" id="aSE-u0-Ra1"/>
+                            <constraint firstItem="LBp-ra-Jfq" firstAttribute="centerX" secondItem="n6w-eg-e5o" secondAttribute="centerX" id="dc6-bH-15z"/>
+                            <constraint firstItem="LBp-ra-Jfq" firstAttribute="leading" secondItem="dAH-Z8-guh" secondAttribute="leading" constant="20" id="egd-fc-8tw"/>
+                            <constraint firstItem="dAH-Z8-guh" firstAttribute="trailing" secondItem="LoO-ic-e8I" secondAttribute="trailing" constant="20" id="jnI-jI-u47"/>
+                            <constraint firstItem="dAH-Z8-guh" firstAttribute="trailing" secondItem="LBp-ra-Jfq" secondAttribute="trailing" constant="20" id="kpc-ZS-5iB"/>
+                            <constraint firstItem="LoO-ic-e8I" firstAttribute="centerX" secondItem="n6w-eg-e5o" secondAttribute="centerX" id="zSU-yq-Rhk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dAH-Z8-guh"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="LoO-ic-e8I" id="v6e-Z7-MbF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PEW-NS-FPS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="280" y="822"/>
+        </scene>
+        <!--Walkthrough Last Step View Controller-->
+        <scene sceneID="sHa-xp-ycz">
+            <objects>
+                <viewController storyboardIdentifier="WalkthroughLastStepViewController" id="zKF-PG-V1u" customClass="WalkthroughLastStepViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2PP-wN-2EX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="mLI-AU-MY8">
+                                <rect key="frame" x="20" y="160.5" width="374" height="60.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Professional custom email" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEg-7o-qbb">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <color key="textColor" name="MenuBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="...and many more features" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qsK-MY-9T8">
+                                        <rect key="frame" x="0.0" y="40" width="374" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="MenuBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="superman.gif" translatesAutoresizingMaskIntoConstraints="NO" id="6sm-Em-Lre" customClass="GIFImageView" customModule="Gifu">
+                                <rect key="frame" x="20" y="261" width="374" height="374"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="6sm-Em-Lre" secondAttribute="height" multiplier="1:1" id="Dsc-e6-sac"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vvr-GH-nlo">
+                                <rect key="frame" x="132" y="675" width="150" height="33"/>
+                                <color key="backgroundColor" name="MenuBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="Rnr-u6-b8X"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <state key="normal" title="GET STARTED">
+                                    <color key="titleColor" name="TintColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="getStartedButtonTapped" destination="zKF-PG-V1u" eventType="touchUpInside" id="i5X-hG-esn"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="TintColor"/>
+                        <constraints>
+                            <constraint firstItem="3vp-Qw-21m" firstAttribute="trailing" secondItem="mLI-AU-MY8" secondAttribute="trailing" constant="20" id="BpY-sD-pbF"/>
+                            <constraint firstItem="6sm-Em-Lre" firstAttribute="centerY" secondItem="2PP-wN-2EX" secondAttribute="centerY" id="FoX-vk-N7e"/>
+                            <constraint firstItem="mLI-AU-MY8" firstAttribute="centerX" secondItem="2PP-wN-2EX" secondAttribute="centerX" id="IS9-u3-V5W"/>
+                            <constraint firstAttribute="trailing" secondItem="6sm-Em-Lre" secondAttribute="trailing" constant="20" id="MRX-ld-XXI"/>
+                            <constraint firstItem="Vvr-GH-nlo" firstAttribute="centerX" secondItem="2PP-wN-2EX" secondAttribute="centerX" id="ThX-IC-LYD"/>
+                            <constraint firstItem="6sm-Em-Lre" firstAttribute="centerX" secondItem="2PP-wN-2EX" secondAttribute="centerX" id="XZQ-Mn-NA7"/>
+                            <constraint firstItem="6sm-Em-Lre" firstAttribute="width" secondItem="6sm-Em-Lre" secondAttribute="height" multiplier="1:1" id="Yqj-Wd-Ura"/>
+                            <constraint firstItem="6sm-Em-Lre" firstAttribute="leading" secondItem="2PP-wN-2EX" secondAttribute="leading" constant="20" id="Zrv-PI-aAP"/>
+                            <constraint firstItem="mLI-AU-MY8" firstAttribute="leading" secondItem="3vp-Qw-21m" secondAttribute="leading" constant="20" id="fCV-FN-gfi"/>
+                            <constraint firstItem="Vvr-GH-nlo" firstAttribute="top" secondItem="6sm-Em-Lre" secondAttribute="bottom" constant="40" id="inS-cb-T9W"/>
+                            <constraint firstItem="6sm-Em-Lre" firstAttribute="top" secondItem="mLI-AU-MY8" secondAttribute="bottom" constant="40" id="j9N-4G-WKv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3vp-Qw-21m"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="6sm-Em-Lre" id="LFk-pF-HyA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Xs-2A-OSi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2552" y="822"/>
+        </scene>
+        <!--Walkthrough No Extra Mail View Controller-->
+        <scene sceneID="AID-4D-nBA">
+            <objects>
+                <viewController storyboardIdentifier="WalkthroughNoExtraMailViewController" id="LyQ-qA-Own" customClass="WalkthroughNoExtraMailViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="468-6c-Zyr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="superman.gif" translatesAutoresizingMaskIntoConstraints="NO" id="qgr-Rb-UcT" customClass="GIFImageView" customModule="Gifu">
+                                <rect key="frame" x="20" y="261" width="374" height="374"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="qgr-Rb-UcT" secondAttribute="height" multiplier="1:1" id="Zes-A4-Hgj"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nTE-ka-TkL">
+                                <rect key="frame" x="20" y="162.5" width="374" height="58.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No more extra mailbox needed" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IgX-lN-ZWO">
+                                        <rect key="frame" x="10" y="0.0" width="354" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <color key="textColor" name="MenuBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One primary email for everything" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26z-Ad-gwo">
+                                        <rect key="frame" x="62" y="38" width="250" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="MenuBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="TintColor"/>
+                        <constraints>
+                            <constraint firstItem="qgr-Rb-UcT" firstAttribute="top" secondItem="nTE-ka-TkL" secondAttribute="bottom" constant="40" id="KBD-Hd-rxf"/>
+                            <constraint firstItem="qgr-Rb-UcT" firstAttribute="leading" secondItem="KHA-rB-gKi" secondAttribute="leading" constant="20" id="PIB-Tu-1AN"/>
+                            <constraint firstItem="qgr-Rb-UcT" firstAttribute="centerY" secondItem="468-6c-Zyr" secondAttribute="centerY" id="PYV-cT-Y0E"/>
+                            <constraint firstItem="nTE-ka-TkL" firstAttribute="leading" secondItem="KHA-rB-gKi" secondAttribute="leading" constant="20" id="QSh-YC-38E"/>
+                            <constraint firstItem="KHA-rB-gKi" firstAttribute="trailing" secondItem="qgr-Rb-UcT" secondAttribute="trailing" constant="20" id="dLo-iQ-lKs"/>
+                            <constraint firstItem="KHA-rB-gKi" firstAttribute="trailing" secondItem="nTE-ka-TkL" secondAttribute="trailing" constant="20" id="sRV-zz-fde"/>
+                            <constraint firstItem="nTE-ka-TkL" firstAttribute="centerX" secondItem="468-6c-Zyr" secondAttribute="centerX" id="x3A-5Y-Mza"/>
+                            <constraint firstItem="qgr-Rb-UcT" firstAttribute="centerX" secondItem="468-6c-Zyr" secondAttribute="centerX" id="yd7-7N-BRm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KHA-rB-gKi"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="qgr-Rb-UcT" id="T13-iG-0Tx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Elb-iY-3P6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1065" y="822"/>
+        </scene>
+        <!--Walkthrough No More Spam View Controller-->
+        <scene sceneID="cX2-1H-hpO">
+            <objects>
+                <viewController storyboardIdentifier="WalkthroughNoMoreSpamViewController" id="IMG-wE-Pbi" customClass="WalkthroughNoMoreSpamViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vrK-NA-vem">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="superman.gif" translatesAutoresizingMaskIntoConstraints="NO" id="NU9-so-qcJ" customClass="GIFImageView" customModule="Gifu">
+                                <rect key="frame" x="20" y="261" width="374" height="374"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="NU9-so-qcJ" secondAttribute="height" multiplier="1:1" id="lkC-HY-ylt"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uX2-Sd-gXc">
+                                <rect key="frame" x="20" y="162.5" width="374" height="58.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No more spam" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UAa-AM-OJi">
+                                        <rect key="frame" x="103" y="0.0" width="168" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <color key="textColor" name="MenuBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A simple gesture to disable a spammy alias" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vx1-Jw-LbV">
+                                        <rect key="frame" x="23" y="38" width="328" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="MenuBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="TintColor"/>
+                        <constraints>
+                            <constraint firstItem="NU9-so-qcJ" firstAttribute="centerY" secondItem="vrK-NA-vem" secondAttribute="centerY" id="0ws-EA-SwE"/>
+                            <constraint firstItem="uX2-Sd-gXc" firstAttribute="leading" secondItem="w7Z-IK-fsY" secondAttribute="leading" constant="20" id="8XA-yz-QO2"/>
+                            <constraint firstItem="w7Z-IK-fsY" firstAttribute="trailing" secondItem="NU9-so-qcJ" secondAttribute="trailing" constant="20" id="AY1-l0-cHp"/>
+                            <constraint firstItem="NU9-so-qcJ" firstAttribute="leading" secondItem="w7Z-IK-fsY" secondAttribute="leading" constant="20" id="GcU-sH-erq"/>
+                            <constraint firstItem="NU9-so-qcJ" firstAttribute="top" secondItem="uX2-Sd-gXc" secondAttribute="bottom" constant="40" id="MZQ-3b-B3S"/>
+                            <constraint firstItem="w7Z-IK-fsY" firstAttribute="trailing" secondItem="uX2-Sd-gXc" secondAttribute="trailing" constant="20" id="WgE-oI-KZv"/>
+                            <constraint firstItem="NU9-so-qcJ" firstAttribute="centerX" secondItem="vrK-NA-vem" secondAttribute="centerX" id="X2f-Gm-cEr"/>
+                            <constraint firstItem="uX2-Sd-gXc" firstAttribute="centerX" secondItem="vrK-NA-vem" secondAttribute="centerX" id="sJ4-WY-r8P"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="w7Z-IK-fsY"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="NU9-so-qcJ" id="BSc-kH-Jvg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tnx-kP-6d8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1803" y="822"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="superman.gif" width="518" height="364"/>
+        <namedColor name="MenuBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TintColor">
+            <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

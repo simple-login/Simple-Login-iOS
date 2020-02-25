@@ -17,6 +17,7 @@ target 'Simple Login' do
   pod 'MaterialComponents/Ripple'
   pod 'MarqueeLabel'
   pod 'Firebase/Analytics'
+  pod 'Gifu'
 end
 
 target 'Share Extension' do
