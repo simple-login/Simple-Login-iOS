@@ -62,7 +62,7 @@ final class WalkthroughViewController: UIPageViewController, Storyboarded {
 // MARK: - UIPageViewControllerDataSource
 extension WalkthroughViewController: UIPageViewControllerDataSource {
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return WalkthroughStep.allCases.count
+        return 4
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
