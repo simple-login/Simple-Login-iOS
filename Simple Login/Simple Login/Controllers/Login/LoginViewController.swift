@@ -160,6 +160,7 @@ final class LoginViewController: UIViewController, Storyboarded {
 extension LoginViewController {
     private func socialLogin(social: SLOAuthService, accessToken: String) {
         Toast.displayShortly(message: "\(social.rawValue): \(accessToken)")
+        print("\(social.rawValue): \(accessToken)")
     }
     
     private func oauthWithGithub() {
