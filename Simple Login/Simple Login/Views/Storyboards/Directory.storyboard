@@ -16,20 +16,79 @@
                     <view key="view" contentMode="scaleToFill" id="XsC-Yu-GfG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2hK-A3-uys">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Imx-Ra-3QB">
+                                        <rect key="frame" x="40" y="220" width="334" height="368"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IcebergIcon" translatesAutoresizingMaskIntoConstraints="NO" id="8dg-jN-pi9">
+                                                <rect key="frame" x="0.0" y="0.0" width="334" height="334"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="8dg-jN-pi9" secondAttribute="height" multiplier="1:1" id="iMJ-Zy-vqr"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click + button to create a directory" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOz-33-QGG">
+                                                <rect key="frame" x="0.0" y="350" width="334" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <color key="textColor" name="TitleColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="Imx-Ra-3QB" firstAttribute="centerX" secondItem="2hK-A3-uys" secondAttribute="centerX" id="1Eb-y8-ks2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Imx-Ra-3QB" secondAttribute="trailing" constant="40" id="AlF-lS-Jsl"/>
+                                    <constraint firstItem="Imx-Ra-3QB" firstAttribute="leading" secondItem="2hK-A3-uys" secondAttribute="leading" constant="40" id="bpd-DE-sp6"/>
+                                    <constraint firstItem="Imx-Ra-3QB" firstAttribute="centerY" secondItem="2hK-A3-uys" secondAttribute="centerY" id="goq-5B-DZZ"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YLz-3L-yyc">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ayx-Di-FFb" id="s90-kc-kNj"/>
+                                    <outlet property="delegate" destination="ayx-Di-FFb" id="E5o-9q-IDp"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="YLz-3L-yyc" secondAttribute="bottom" id="EB4-cU-XYs"/>
+                            <constraint firstItem="YLz-3L-yyc" firstAttribute="top" secondItem="MtY-8E-xCG" secondAttribute="top" id="OVO-u3-ON7"/>
+                            <constraint firstAttribute="bottom" secondItem="2hK-A3-uys" secondAttribute="bottom" id="eTb-yo-WvO"/>
+                            <constraint firstItem="2hK-A3-uys" firstAttribute="leading" secondItem="XsC-Yu-GfG" secondAttribute="leading" id="ega-Cs-auy"/>
+                            <constraint firstItem="YLz-3L-yyc" firstAttribute="leading" secondItem="XsC-Yu-GfG" secondAttribute="leading" id="tI8-h8-e1U"/>
+                            <constraint firstAttribute="trailing" secondItem="YLz-3L-yyc" secondAttribute="trailing" id="tn3-yj-YnX"/>
+                            <constraint firstItem="2hK-A3-uys" firstAttribute="top" secondItem="MtY-8E-xCG" secondAttribute="top" id="uyy-xj-fcB"/>
+                            <constraint firstAttribute="trailing" secondItem="2hK-A3-uys" secondAttribute="trailing" id="ziW-Gg-F3E"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="MtY-8E-xCG"/>
                     </view>
                     <navigationItem key="navigationItem" title="Alias Directory" id="4gT-fA-rmA">
-                        <barButtonItem key="rightBarButtonItem" title="💡How to" id="CZs-s4-39U">
-                            <connections>
-                                <segue destination="HsE-KO-26L" kind="presentation" identifier="showExplanation" id="lz8-0Q-gaQ"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="💡How to" id="CZs-s4-39U">
+                                <connections>
+                                    <segue destination="HsE-KO-26L" kind="presentation" identifier="showExplanation" id="lz8-0Q-gaQ"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="wEA-EV-Y5U">
+                                <connections>
+                                    <action selector="addButtonTapped" destination="ayx-Di-FFb" id="V1d-og-lWh"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="YLz-3L-yyc" id="vay-Fj-VF9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ki2-Bt-tWH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="206" y="1381"/>
+            <point key="canvasLocation" x="205.79710144927537" y="1380.8035714285713"/>
         </scene>
         <!--Directory Explanation View Controller-->
         <scene sceneID="atb-1B-3cW">
@@ -148,8 +207,12 @@ sldev.ovh</string>
         </scene>
     </scenes>
     <resources>
+        <image name="IcebergIcon" width="682.5" height="682.5"/>
         <namedColor name="TextColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TitleColor">
+            <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
     </resources>
 </document>

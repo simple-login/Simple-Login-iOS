@@ -118,6 +118,9 @@
 		C0D069A32406A95E00EBAC10 /* DeleteDomainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D069A22406A95E00EBAC10 /* DeleteDomainTableViewCell.xib */; };
 		C0D069A62406AF5600EBAC10 /* DomainCatchAllTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D069A52406AF5600EBAC10 /* DomainCatchAllTableViewCell.swift */; };
 		C0D069A82406AF8E00EBAC10 /* DomainCatchAllTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D069A72406AF8E00EBAC10 /* DomainCatchAllTableViewCell.xib */; };
+		C0D069AB2406BE7800EBAC10 /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D069AA2406BE7800EBAC10 /* Directory.swift */; };
+		C0D069AE2406BFC800EBAC10 /* DirectoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D069AD2406BFC800EBAC10 /* DirectoryTableViewCell.swift */; };
+		C0D069B02406BFE000EBAC10 /* DirectoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D069AF2406BFE000EBAC10 /* DirectoryTableViewCell.xib */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
 		C0D6A27323D0759800EF21B8 /* HowAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */; };
@@ -287,6 +290,9 @@
 		C0D069A22406A95E00EBAC10 /* DeleteDomainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteDomainTableViewCell.xib; sourceTree = "<group>"; };
 		C0D069A52406AF5600EBAC10 /* DomainCatchAllTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainCatchAllTableViewCell.swift; sourceTree = "<group>"; };
 		C0D069A72406AF8E00EBAC10 /* DomainCatchAllTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainCatchAllTableViewCell.xib; sourceTree = "<group>"; };
+		C0D069AA2406BE7800EBAC10 /* Directory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
+		C0D069AD2406BFC800EBAC10 /* DirectoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryTableViewCell.swift; sourceTree = "<group>"; };
+		C0D069AF2406BFE000EBAC10 /* DirectoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectoryTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAndFaqTableViewCell.swift; sourceTree = "<group>"; };
@@ -691,6 +697,7 @@
 				C0A726F723EC12FC00A62A22 /* Common */,
 				C05049BD23CE356900AEF20B /* LeftMenu */,
 				C05049BE23CE357A00AEF20B /* Alias */,
+				C0D069A92406BB7300EBAC10 /* Directory */,
 				C01A771223D3B56800E6BAA6 /* CustomDomain */,
 				C0B76DEC23D0DDF2003AAB7E /* Settings */,
 				C0D6A26B23D072CE00EF21B8 /* About */,
@@ -731,6 +738,7 @@
 				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
 				C05CD31423CA33C2007F1C9E /* Alias.swift */,
 				C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */,
+				C0D069AA2406BE7800EBAC10 /* Directory.swift */,
 				C03D2D5F23D4AF300057F44F /* CustomDomain.swift */,
 				C08A202D23CC9AD800CB8D2F /* ReverseAlias.swift */,
 				C05049BB23CE016600AEF20B /* SLColor.swift */,
@@ -813,6 +821,23 @@
 				C0D069A72406AF8E00EBAC10 /* DomainCatchAllTableViewCell.xib */,
 			);
 			path = DomainCatchAllTableViewCell;
+			sourceTree = "<group>";
+		};
+		C0D069A92406BB7300EBAC10 /* Directory */ = {
+			isa = PBXGroup;
+			children = (
+				C0D069AC2406BFAF00EBAC10 /* DirectoryTableViewCell */,
+			);
+			path = Directory;
+			sourceTree = "<group>";
+		};
+		C0D069AC2406BFAF00EBAC10 /* DirectoryTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0D069AD2406BFC800EBAC10 /* DirectoryTableViewCell.swift */,
+				C0D069AF2406BFE000EBAC10 /* DirectoryTableViewCell.xib */,
+			);
+			path = DirectoryTableViewCell;
 			sourceTree = "<group>";
 		};
 		C0D6A26B23D072CE00EF21B8 /* About */ = {
@@ -1060,6 +1085,7 @@
 				C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */,
 				C0A64AFF23ECC22800AF1458 /* GoogleService-Info.plist in Resources */,
 				C0D6A27523D0767000EF21B8 /* HowAndFaqTableViewCell.xib in Resources */,
+				C0D069B02406BFE000EBAC10 /* DirectoryTableViewCell.xib in Resources */,
 				C00D74EB23E8AD0300BE48F0 /* Login.storyboard in Resources */,
 				C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */,
 				C0F84B2723D4BCCA00E0852C /* NotVerifiedDomainTableViewCell.xib in Resources */,
@@ -1241,6 +1267,7 @@
 				C08A202A23CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift in Sources */,
 				C0D6A29623D0ACDF00EF21B8 /* FaqTableViewCell.swift in Sources */,
 				C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */,
+				C0D069AB2406BE7800EBAC10 /* Directory.swift in Sources */,
 				C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */,
 				C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */,
 				C0F84B1C23D4B6F300E0852C /* CustomDomainDetailViewController.swift in Sources */,
@@ -1252,6 +1279,7 @@
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
 				C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */,
 				C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */,
+				C0D069AE2406BFC800EBAC10 /* DirectoryTableViewCell.swift in Sources */,
 				C027A28424054F8D00BD19C9 /* UserDefaults+Convenience.swift in Sources */,
 				C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,

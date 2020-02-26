@@ -1,20 +1,19 @@
 //
-//  CustomDomain.swift
+//  Directory.swift
 //  Simple Login
 //
-//  Created by Thanh-Nhon Nguyen on 19/01/2020.
+//  Created by Thanh-Nhon Nguyen on 26/02/2020.
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-final class CustomDomain {
+final class Directory {
     let id: Int
     let name: String
     let creationTimestamp: TimeInterval
     let aliasCount: Int
-    let isVerified: Bool
     
     lazy var countAttributedString: NSAttributedString = {
         var plainString = ""
@@ -43,35 +42,12 @@ final class CustomDomain {
         return "Created on \(preciseDateAndTime) (\(value) \(unit) ago)"
     }()
     
-    lazy var catchAllDescriptionString: NSAttributedString = {
-        let text = """
-            This feature allows you to create aliases on the fly. Simply use anything@\(name) next time you need an email address.
-            The alias will be created the first time it receives an email.
-            """
-        
-        let attributedString = NSMutableAttributedString(string: text)
-        
-        attributedString.addAttributes([.foregroundColor: SLColor.secondaryTitleColor, .font: UIFont.systemFont(ofSize: 14)], range: NSRange(text.startIndex..., in: text))
-        
-        if let onTheFlyRange = text.range(of: "on the fly") {
-            attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 14), range: NSRange(onTheFlyRange, in: text))
-        }
-        
-        if let emailRange = text.range(of: "anything@\(name)") {
-            attributedString.addAttribute(.backgroundColor, value: UIColor.systemYellow, range: NSRange(emailRange, in: text))
-            attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 14), range: NSRange(emailRange, in: text))
-        }
-        
-        return attributedString
-    }()
-    
     init() {
         let randomId = Array(0...100).randomElement()!
         id = randomId
-        name = "example\(randomId).com"
+        name = "example\(randomId)"
         let randomHour = Array(0...10).randomElement()!
         creationTimestamp = TimeInterval(1578697200 + randomHour * 86400)
         aliasCount = Array(0...100).randomElement()!
-        isVerified = Bool.random()
     }
 }
