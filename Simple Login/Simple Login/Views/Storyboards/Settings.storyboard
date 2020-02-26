@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -38,6 +39,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="UE1-S6-oBo"/>
                     <connections>
                         <outlet property="tableView" destination="w1p-GC-84b" id="WL3-wv-Lhu"/>
+                        <segue destination="dCX-cK-aAs" kind="show" identifier="showDeletedAliases" id="dox-OC-sBP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NO3-Le-RK7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -62,5 +64,79 @@
             </objects>
             <point key="canvasLocation" x="-859" y="2772"/>
         </scene>
+        <!--Deleted Aliases-->
+        <scene sceneID="3qa-xY-ydb">
+            <objects>
+                <viewController storyboardIdentifier="DeletedAliasesViewController" id="dCX-cK-aAs" customClass="DeletedAliasesViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SkI-yM-PJK">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="umj-uo-8oM">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="58B-v1-6A4">
+                                        <rect key="frame" x="40" y="220" width="334" height="368"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IcebergIcon" translatesAutoresizingMaskIntoConstraints="NO" id="ltx-Ez-BuD">
+                                                <rect key="frame" x="0.0" y="0.0" width="334" height="334"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="ltx-Ez-BuD" secondAttribute="height" multiplier="1:1" id="Km1-Lz-cId"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You haven't deleted any alias" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0t-wQ-Ptf">
+                                                <rect key="frame" x="0.0" y="350" width="334" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <color key="textColor" name="TitleColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="58B-v1-6A4" firstAttribute="centerY" secondItem="umj-uo-8oM" secondAttribute="centerY" id="GBt-jU-H75"/>
+                                    <constraint firstItem="58B-v1-6A4" firstAttribute="leading" secondItem="umj-uo-8oM" secondAttribute="leading" constant="40" id="QLg-wn-dwU"/>
+                                    <constraint firstAttribute="trailing" secondItem="58B-v1-6A4" secondAttribute="trailing" constant="40" id="hWl-wl-ZWS"/>
+                                    <constraint firstItem="58B-v1-6A4" firstAttribute="centerX" secondItem="umj-uo-8oM" secondAttribute="centerX" id="tWl-ge-aFh"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tcQ-mF-1u8">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="dCX-cK-aAs" id="IUa-c9-MyN"/>
+                                    <outlet property="delegate" destination="dCX-cK-aAs" id="J9u-Yk-LpH"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="umj-uo-8oM" secondAttribute="bottom" id="GW8-BU-ZN1"/>
+                            <constraint firstAttribute="trailing" secondItem="tcQ-mF-1u8" secondAttribute="trailing" id="Slk-Mg-nTT"/>
+                            <constraint firstAttribute="bottom" secondItem="tcQ-mF-1u8" secondAttribute="bottom" id="aRU-ha-ryx"/>
+                            <constraint firstItem="tcQ-mF-1u8" firstAttribute="top" secondItem="Bd2-0G-wHj" secondAttribute="top" id="bBp-Kx-fr4"/>
+                            <constraint firstItem="umj-uo-8oM" firstAttribute="top" secondItem="Bd2-0G-wHj" secondAttribute="top" id="iaA-Jv-xuU"/>
+                            <constraint firstItem="tcQ-mF-1u8" firstAttribute="leading" secondItem="SkI-yM-PJK" secondAttribute="leading" id="meW-hG-OEk"/>
+                            <constraint firstAttribute="trailing" secondItem="umj-uo-8oM" secondAttribute="trailing" id="riy-S1-fqV"/>
+                            <constraint firstItem="umj-uo-8oM" firstAttribute="leading" secondItem="SkI-yM-PJK" secondAttribute="leading" id="uRP-xS-7qY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Bd2-0G-wHj"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Deleted Aliases" id="enY-5E-F2A"/>
+                    <connections>
+                        <outlet property="tableView" destination="tcQ-mF-1u8" id="9zG-Y7-YJ9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wbh-L0-syl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1203" y="2772"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="IcebergIcon" width="682.5" height="682.5"/>
+        <namedColor name="TitleColor">
+            <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+    </resources>
 </document>

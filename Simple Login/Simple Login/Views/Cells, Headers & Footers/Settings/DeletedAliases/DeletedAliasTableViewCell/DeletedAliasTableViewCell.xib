@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeletedAliasTableViewCell" rowHeight="80" id="Z4l-X3-wpt" customClass="DeletedAliasTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="441" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Z4l-X3-wpt" id="yXR-Ws-Cxr">
+                <rect key="frame" x="0.0" y="0.0" width="441" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fFv-3T-Due" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
+                        <rect key="frame" x="10" y="10" width="421" height="60"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vsj-PR-crq">
+                                <rect key="frame" x="10" y="10" width="401" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="example.com" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7BH-j7-UIL">
+                                        <rect key="frame" x="0.0" y="0.0" width="401" height="15.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="fXW-G7-dtl">
+                                        <rect key="frame" x="0.0" y="25.5" width="401" height="14.5"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="251" image="ClockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="yrj-SM-IAf">
+                                                <rect key="frame" x="0.0" y="0.0" width="36" height="14.5"/>
+                                                <color key="tintColor" name="TitleColor"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deleted 3 day agos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q66-3g-rmf">
+                                                <rect key="frame" x="40" y="0.0" width="361" height="14.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="vsj-PR-crq" secondAttribute="bottom" constant="10" id="MsL-di-1KX"/>
+                            <constraint firstItem="vsj-PR-crq" firstAttribute="leading" secondItem="fFv-3T-Due" secondAttribute="leading" constant="10" id="fy9-ML-PpY"/>
+                            <constraint firstAttribute="trailing" secondItem="vsj-PR-crq" secondAttribute="trailing" constant="10" id="jrq-M6-xgy"/>
+                            <constraint firstItem="vsj-PR-crq" firstAttribute="top" secondItem="fFv-3T-Due" secondAttribute="top" constant="10" id="t1y-Xi-bC2"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="fFv-3T-Due" firstAttribute="top" secondItem="yXR-Ws-Cxr" secondAttribute="top" constant="10" id="9OK-kI-CTW"/>
+                    <constraint firstAttribute="bottom" secondItem="fFv-3T-Due" secondAttribute="bottom" constant="10" id="FWr-iG-AC6"/>
+                    <constraint firstAttribute="trailing" secondItem="fFv-3T-Due" secondAttribute="trailing" constant="10" id="Rwv-aP-wJS"/>
+                    <constraint firstItem="fFv-3T-Due" firstAttribute="leading" secondItem="yXR-Ws-Cxr" secondAttribute="leading" constant="10" id="go6-Xo-uxY"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="deletionDateLabel" destination="Q66-3g-rmf" id="Yx5-4I-l4f"/>
+                <outlet property="nameLabel" destination="7BH-j7-UIL" id="cse-sq-qoL"/>
+            </connections>
+            <point key="canvasLocation" x="22.463768115942031" y="77.008928571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ClockIcon" width="18" height="18"/>
+        <namedColor name="TitleColor">
+            <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+    </resources>
+</document>

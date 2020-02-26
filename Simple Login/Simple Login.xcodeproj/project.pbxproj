@@ -121,6 +121,12 @@
 		C0D069AB2406BE7800EBAC10 /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D069AA2406BE7800EBAC10 /* Directory.swift */; };
 		C0D069AE2406BFC800EBAC10 /* DirectoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D069AD2406BFC800EBAC10 /* DirectoryTableViewCell.swift */; };
 		C0D069B02406BFE000EBAC10 /* DirectoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D069AF2406BFE000EBAC10 /* DirectoryTableViewCell.xib */; };
+		C0D069B22406CE4300EBAC10 /* DeletedAliasesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D069B12406CE4300EBAC10 /* DeletedAliasesViewController.swift */; };
+		C0D069B42406CFDE00EBAC10 /* DeletedAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D069B32406CFDE00EBAC10 /* DeletedAlias.swift */; };
+		C0D069B82406D09200EBAC10 /* ListDeletedAliasesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D069B72406D09200EBAC10 /* ListDeletedAliasesTableViewCell.swift */; };
+		C0D069BA2406D0A800EBAC10 /* ListDeletedAliasesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D069B92406D0A800EBAC10 /* ListDeletedAliasesTableViewCell.xib */; };
+		C0D069BF2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D069BE2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift */; };
+		C0D069C12406D20B00EBAC10 /* DeletedAliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D069C02406D20B00EBAC10 /* DeletedAliasTableViewCell.xib */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
 		C0D6A27323D0759800EF21B8 /* HowAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */; };
@@ -293,6 +299,12 @@
 		C0D069AA2406BE7800EBAC10 /* Directory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
 		C0D069AD2406BFC800EBAC10 /* DirectoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryTableViewCell.swift; sourceTree = "<group>"; };
 		C0D069AF2406BFE000EBAC10 /* DirectoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectoryTableViewCell.xib; sourceTree = "<group>"; };
+		C0D069B12406CE4300EBAC10 /* DeletedAliasesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAliasesViewController.swift; sourceTree = "<group>"; };
+		C0D069B32406CFDE00EBAC10 /* DeletedAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAlias.swift; sourceTree = "<group>"; };
+		C0D069B72406D09200EBAC10 /* ListDeletedAliasesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDeletedAliasesTableViewCell.swift; sourceTree = "<group>"; };
+		C0D069B92406D0A800EBAC10 /* ListDeletedAliasesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListDeletedAliasesTableViewCell.xib; sourceTree = "<group>"; };
+		C0D069BE2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAliasTableViewCell.swift; sourceTree = "<group>"; };
+		C0D069C02406D20B00EBAC10 /* DeletedAliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeletedAliasTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAndFaqTableViewCell.swift; sourceTree = "<group>"; };
@@ -737,6 +749,7 @@
 				C0B1DE3823C8AD22003EED3B /* UserOptions.swift */,
 				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
 				C05CD31423CA33C2007F1C9E /* Alias.swift */,
+				C0D069B32406CFDE00EBAC10 /* DeletedAlias.swift */,
 				C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */,
 				C0D069AA2406BE7800EBAC10 /* Directory.swift */,
 				C03D2D5F23D4AF300057F44F /* CustomDomain.swift */,
@@ -770,6 +783,7 @@
 				C0956A4423D105A2000CEBDD /* NotificationTableViewCell */,
 				C0956A4923D109C6000CEBDD /* ExportDataTableViewCell */,
 				C0956A4E23D10BFB000CEBDD /* DeleteAccountTableViewCell */,
+				C0D069B52406D06200EBAC10 /* DeletedAliases */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -838,6 +852,33 @@
 				C0D069AF2406BFE000EBAC10 /* DirectoryTableViewCell.xib */,
 			);
 			path = DirectoryTableViewCell;
+			sourceTree = "<group>";
+		};
+		C0D069B52406D06200EBAC10 /* DeletedAliases */ = {
+			isa = PBXGroup;
+			children = (
+				C0D069B62406D07200EBAC10 /* ListDeletedAliasesTableViewCell */,
+				C0D069BB2406D1D500EBAC10 /* DeletedAliasTableViewCell */,
+			);
+			path = DeletedAliases;
+			sourceTree = "<group>";
+		};
+		C0D069B62406D07200EBAC10 /* ListDeletedAliasesTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0D069B72406D09200EBAC10 /* ListDeletedAliasesTableViewCell.swift */,
+				C0D069B92406D0A800EBAC10 /* ListDeletedAliasesTableViewCell.xib */,
+			);
+			path = ListDeletedAliasesTableViewCell;
+			sourceTree = "<group>";
+		};
+		C0D069BB2406D1D500EBAC10 /* DeletedAliasTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0D069BE2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift */,
+				C0D069C02406D20B00EBAC10 /* DeletedAliasTableViewCell.xib */,
+			);
+			path = DeletedAliasTableViewCell;
 			sourceTree = "<group>";
 		};
 		C0D6A26B23D072CE00EF21B8 /* About */ = {
@@ -921,6 +962,7 @@
 			isa = PBXGroup;
 			children = (
 				C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */,
+				C0D069B12406CE4300EBAC10 /* DeletedAliasesViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1098,9 +1140,11 @@
 				C0D069A82406AF8E00EBAC10 /* DomainCatchAllTableViewCell.xib in Resources */,
 				C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */,
 				C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */,
+				C0D069BA2406D0A800EBAC10 /* ListDeletedAliasesTableViewCell.xib in Resources */,
 				C0D069A32406A95E00EBAC10 /* DeleteDomainTableViewCell.xib in Resources */,
 				C0F84B2523D4BB1900E0852C /* DomainInfoTableViewCell.xib in Resources */,
 				C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */,
+				C0D069C12406D20B00EBAC10 /* DeletedAliasTableViewCell.xib in Resources */,
 				C0D6A27F23D079C200EF21B8 /* PricingAndBlogTableViewCell.xib in Resources */,
 				C0956A5223D10C71000CEBDD /* DeleteAccountTableViewCell.xib in Resources */,
 				C0D6A27A23D078AB00EF21B8 /* TeamAndContactTableViewCell.xib in Resources */,
@@ -1245,6 +1289,7 @@
 				C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */,
 				C08A202E23CC9AD800CB8D2F /* ReverseAlias.swift in Sources */,
 				C0956A4623D105B7000CEBDD /* NotificationTableViewCell.swift in Sources */,
+				C0D069B22406CE4300EBAC10 /* DeletedAliasesViewController.swift in Sources */,
 				C0D6A27323D0759800EF21B8 /* HowAndFaqTableViewCell.swift in Sources */,
 				C06BD31D23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift in Sources */,
 				C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */,
@@ -1267,6 +1312,7 @@
 				C08A202A23CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift in Sources */,
 				C0D6A29623D0ACDF00EF21B8 /* FaqTableViewCell.swift in Sources */,
 				C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */,
+				C0D069B82406D09200EBAC10 /* ListDeletedAliasesTableViewCell.swift in Sources */,
 				C0D069AB2406BE7800EBAC10 /* Directory.swift in Sources */,
 				C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */,
 				C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */,
@@ -1279,10 +1325,12 @@
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
 				C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */,
 				C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */,
+				C0D069B42406CFDE00EBAC10 /* DeletedAlias.swift in Sources */,
 				C0D069AE2406BFC800EBAC10 /* DirectoryTableViewCell.swift in Sources */,
 				C027A28424054F8D00BD19C9 /* UserDefaults+Convenience.swift in Sources */,
 				C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
+				C0D069BF2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift in Sources */,
 				C0956A4B23D109D8000CEBDD /* ExportDataTableViewCell.swift in Sources */,
 				C091480023CFB46300D56CDC /* WebViewController.swift in Sources */,
 				C0D0500E23FED25D00B13221 /* UIViewController+Convenience.swift in Sources */,

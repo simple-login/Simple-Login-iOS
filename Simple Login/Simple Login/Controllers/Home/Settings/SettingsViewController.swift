@@ -36,6 +36,7 @@ final class SettingsViewController: BaseViewController {
         MfaTableViewCell.register(with: tableView)
         ChangePasswordTableViewCell.register(with: tableView)
         NotificationTableViewCell.register(with: tableView)
+        ListDeletedAliasesTableViewCell.register(with: tableView)
         ExportDataTableViewCell.register(with: tableView)
         DeleteAccountTableViewCell.register(with: tableView)
     }
@@ -164,7 +165,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 7
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -210,6 +211,15 @@ extension SettingsViewController: UITableViewDataSource {
             return cell
             
         case 4:
+            let cell = ListDeletedAliasesTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapRootView = { [unowned self] in
+                self.performSegue(withIdentifier: "showDeletedAliases", sender: nil)
+            }
+            
+            return cell
+            
+        case 5:
             let cell = ExportDataTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             
             cell.didTapRootView = { [unowned self] in
@@ -218,7 +228,7 @@ extension SettingsViewController: UITableViewDataSource {
             
             return cell
             
-        case 5:
+        case 6:
             let cell = DeleteAccountTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             
             cell.didTapDeleteLabel = { [unowned self] in
