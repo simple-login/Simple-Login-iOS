@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DomainCatchAllTableViewCell" rowHeight="151" id="gKx-zP-cpK" customClass="DomainCatchAllTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="441" height="151"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gKx-zP-cpK" id="GUu-6L-hch">
+                <rect key="frame" x="0.0" y="0.0" width="441" height="151"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" verticalHuggingPriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="aJI-kE-xEs" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
+                        <rect key="frame" x="10" y="10" width="421" height="131"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ddx-aH-O26">
+                                <rect key="frame" x="10" y="10" width="401" height="111"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="XnQ-7p-fZ8">
+                                        <rect key="frame" x="0.0" y="0.0" width="401" height="34"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1" text="Catch All" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlf-B4-RtK">
+                                                <rect key="frame" x="0.0" y="8" width="332" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" name="TextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="48e-Zs-Hlr">
+                                                <rect key="frame" x="342" y="1.5" width="51" height="31"/>
+                                                <color key="onTintColor" name="TintColor"/>
+                                                <connections>
+                                                    <action selector="switched" destination="gKx-zP-cpK" eventType="valueChanged" id="7k4-5v-YQs"/>
+                                                </connections>
+                                            </switch>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O0N-jr-5DT">
+                                                <rect key="frame" x="401" y="0.0" width="0.0" height="34"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" id="aDk-Ga-GtE"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ji-wS-jFY">
+                                        <rect key="frame" x="0.0" y="44" width="401" height="67"/>
+                                        <string key="text">This feature allows you to create aliases on the fly. Simply use anything@nguyenthanhnhon.info next time you need an email address.
+The alias will be created the first time it receives an email.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" name="SecondaryTitleColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Ddx-aH-O26" secondAttribute="trailing" constant="10" id="3Ra-Jw-cM7"/>
+                            <constraint firstItem="Ddx-aH-O26" firstAttribute="leading" secondItem="aJI-kE-xEs" secondAttribute="leading" constant="10" id="QMT-H0-6ln"/>
+                            <constraint firstAttribute="bottom" secondItem="Ddx-aH-O26" secondAttribute="bottom" constant="10" id="fZP-aX-Qj8"/>
+                            <constraint firstItem="Ddx-aH-O26" firstAttribute="top" secondItem="aJI-kE-xEs" secondAttribute="top" constant="10" id="mh9-Rt-vSC"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="aJI-kE-xEs" secondAttribute="trailing" constant="10" id="fM0-LF-PZN"/>
+                    <constraint firstItem="aJI-kE-xEs" firstAttribute="leading" secondItem="GUu-6L-hch" secondAttribute="leading" constant="10" id="mdQ-E0-TLU"/>
+                    <constraint firstAttribute="bottom" secondItem="aJI-kE-xEs" secondAttribute="bottom" constant="10" id="tDD-dw-rA6"/>
+                    <constraint firstItem="aJI-kE-xEs" firstAttribute="top" secondItem="GUu-6L-hch" secondAttribute="top" constant="10" id="wFu-pS-B3D"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="catchAllSwitch" destination="48e-Zs-Hlr" id="eV5-X9-UT1"/>
+                <outlet property="descriptionLabel" destination="8Ji-wS-jFY" id="E2f-y5-uGL"/>
+            </connections>
+            <point key="canvasLocation" x="22.463768115942031" y="102.79017857142857"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="SecondaryTitleColor">
+            <color white="0.64999997615814209" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="TextColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TintColor">
+            <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

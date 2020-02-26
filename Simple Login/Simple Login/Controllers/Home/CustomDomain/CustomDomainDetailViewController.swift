@@ -31,6 +31,7 @@ final class CustomDomainDetailViewController: UIViewController {
         DomainInfoTableViewCell.register(with: tableView)
         NotVerifiedDomainTableViewCell.register(with: tableView)
         DeleteDomainTableViewCell.register(with: tableView)
+        DomainCatchAllTableViewCell.register(with: tableView)
     }
     
     private func showConfirmDeletionAlert() {
@@ -71,15 +72,29 @@ extension CustomDomainDetailViewController: UITableViewDataSource {
             return cell
             
         case 1:
-            let cell = NotVerifiedDomainTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-            
-            cell.didTapVerifyButton = { [unowned self] in
-                if let url = URL(string: "\(BASE_URL)/dashboard/domains/\(self.customDomain.id)/dns") {
-                    UIApplication.shared.open(url)
+            if customDomain.isVerified {
+                let cell = DomainCatchAllTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+                
+                cell.didSwitch = { [unowned self] isOn in
+                    print(isOn)
                 }
+                
+                cell.bind(with: customDomain)
+                
+                return cell
+                
+            } else {
+                let cell = NotVerifiedDomainTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+                
+                cell.didTapVerifyButton = { [unowned self] in
+                    if let url = URL(string: "\(BASE_URL)/dashboard/domains/\(self.customDomain.id)/dns") {
+                        UIApplication.shared.open(url)
+                    }
+                }
+                
+                return cell
             }
             
-            return cell
         case 2:
             let cell = DeleteDomainTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             

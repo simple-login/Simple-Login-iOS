@@ -23,6 +23,28 @@ final class CustomDomain {
         return "Created on \(preciseDateAndTime) (\(value) \(unit) ago)"
     }()
     
+    lazy var catchAllDescriptionString: NSAttributedString = {
+        let text = """
+            This feature allows you to create aliases on the fly. Simply use anything@\(name) next time you need an email address.
+            The alias will be created the first time it receives an email.
+            """
+        
+        let attributedString = NSMutableAttributedString(string: text)
+        
+        attributedString.addAttributes([.foregroundColor: SLColor.secondaryTitleColor, .font: UIFont.systemFont(ofSize: 14)], range: NSRange(text.startIndex..., in: text))
+        
+        if let onTheFlyRange = text.range(of: "on the fly") {
+            attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 14), range: NSRange(onTheFlyRange, in: text))
+        }
+        
+        if let emailRange = text.range(of: "anything@\(name)") {
+            attributedString.addAttribute(.backgroundColor, value: UIColor.systemYellow, range: NSRange(emailRange, in: text))
+            attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 14), range: NSRange(emailRange, in: text))
+        }
+        
+        return attributedString
+    }()
+    
     init() {
         let randomId = Array(0...100).randomElement()!
         id = randomId

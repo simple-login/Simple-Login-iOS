@@ -25,7 +25,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please note that this operation is irreversible. All aliases associated with this domain will be also deleted" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWq-7O-rYM">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="75"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" name="SecondaryTitleColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
