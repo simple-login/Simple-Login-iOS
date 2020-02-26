@@ -32,6 +32,7 @@ final class CustomDomainTableViewCell: UITableViewCell, RegisterableCell {
     
     func bind(with customDomain: CustomDomain) {
         domainNameLabel.text = customDomain.name
+        creationDateLabel.text = customDomain.creationTimestampString
         countLabel.attributedText = customDomain.countAttributedString
         
         rootView.backgroundColor = customDomain.isVerified ? SLColor.premiumColor.withAlphaComponent(0.2) : SLColor.negativeColor.withAlphaComponent(0.2)

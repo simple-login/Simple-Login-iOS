@@ -15,6 +15,13 @@ final class CustomDomain {
     let aliasCount: Int
     let isVerified: Bool
     
+    lazy var creationTimestampString: String = {
+        let date = Date(timeIntervalSince1970: creationTimestamp)
+        let preciseDateAndTime = preciseDateFormatter.string(from: date)
+        let (value, unit) =  date.distanceFromNow()
+        return "Created on \(preciseDateAndTime) (\(value) \(unit) ago)"
+    }()
+    
     init() {
         let randomId = Array(0...100).randomElement()!
         name = "example\(randomId).com"

@@ -789,6 +789,13 @@
 			path = Directory;
 			sourceTree = "<group>";
 		};
+		C0D0699F2406A84400EBAC10 /* DeleteDomainTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DeleteDomainTableViewCell;
+			sourceTree = "<group>";
+		};
 		C0D6A26B23D072CE00EF21B8 /* About */ = {
 			isa = PBXGroup;
 			children = (
@@ -899,6 +906,7 @@
 			children = (
 				C0F84B2123D4BA8500E0852C /* DomainInfoTableViewCell */,
 				C0F84B1E23D4B9D600E0852C /* NotVerifiedDomainTableViewCell */,
+				C0D0699F2406A84400EBAC10 /* DeleteDomainTableViewCell */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
