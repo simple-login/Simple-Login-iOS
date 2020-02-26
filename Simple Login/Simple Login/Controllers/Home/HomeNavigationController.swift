@@ -119,7 +119,7 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
     func didSelectDirectory() {
         if directoryViewController == nil {
-            directoryViewController = DirectoryViewController.instantiate(storyboardName: "Home")
+            directoryViewController = DirectoryViewController.instantiate(storyboardName: "Directory")
             
             directoryViewController?.didTapLeftBarButtonItem = { [unowned self] in
                 self.toggleLeftMenu()

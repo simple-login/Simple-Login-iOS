@@ -37,7 +37,6 @@
 		C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D323C7DDDC00EB5D98 /* Statics.swift */; };
 		C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30323CA0343007F1C9E /* HomeNavigationController.swift */; };
 		C05CD30623CA0419007F1C9E /* AliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30523CA0419007F1C9E /* AliasViewController.swift */; };
-		C05CD30823CA044E007F1C9E /* DirectoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30723CA044E007F1C9E /* DirectoryViewController.swift */; };
 		C05CD30A23CA0473007F1C9E /* CustomDomainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30923CA0473007F1C9E /* CustomDomainViewController.swift */; };
 		C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */; };
 		C05CD30E23CA054B007F1C9E /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30D23CA054B007F1C9E /* AboutViewController.swift */; };
@@ -112,6 +111,8 @@
 		C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3B0423E9A7A300887264 /* SLOAuth.swift */; };
 		C0D0500E23FED25D00B13221 /* UIViewController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience.swift */; };
 		C0D0500F23FED26900B13221 /* UIViewController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience.swift */; };
+		C0D069992406798600EBAC10 /* Directory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0D069982406798600EBAC10 /* Directory.storyboard */; };
+		C0D0699C24067AC700EBAC10 /* DirectoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0699B24067AC700EBAC10 /* DirectoryViewController.swift */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
 		C0D6A27323D0759800EF21B8 /* HowAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */; };
@@ -204,7 +205,6 @@
 		C052F0D323C7DDDC00EB5D98 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
 		C05CD30323CA0343007F1C9E /* HomeNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationController.swift; sourceTree = "<group>"; };
 		C05CD30523CA0419007F1C9E /* AliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasViewController.swift; sourceTree = "<group>"; };
-		C05CD30723CA044E007F1C9E /* DirectoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
 		C05CD30923CA0473007F1C9E /* CustomDomainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainViewController.swift; sourceTree = "<group>"; };
 		C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C05CD30D23CA054B007F1C9E /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -275,6 +275,8 @@
 		C0CA3B0223E9A74100887264 /* SLOAuth.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SLOAuth.plist; sourceTree = "<group>"; };
 		C0CA3B0423E9A7A300887264 /* SLOAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLOAuth.swift; sourceTree = "<group>"; };
 		C0D0500D23FED25D00B13221 /* UIViewController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience.swift"; sourceTree = "<group>"; };
+		C0D069982406798600EBAC10 /* Directory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Directory.storyboard; sourceTree = "<group>"; };
+		C0D0699B24067AC700EBAC10 /* DirectoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAndFaqTableViewCell.swift; sourceTree = "<group>"; };
@@ -443,10 +445,10 @@
 				C05CD30323CA0343007F1C9E /* HomeNavigationController.swift */,
 				C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */,
 				C0D9B65F23CBC083009A6699 /* Alias */,
+				C0D0699A240679B000EBAC10 /* Directory */,
 				C01A771323D3B58600E6BAA6 /* CustomDomain */,
 				C09147FE23CFB43300D56CDC /* About */,
 				C0D6A29923D0DC5000EF21B8 /* Settings */,
-				C05CD30723CA044E007F1C9E /* DirectoryViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -659,6 +661,7 @@
 				C0B76DEA23D0DCEB003AAB7E /* Settings.storyboard */,
 				C00D74EA23E8AD0300BE48F0 /* Login.storyboard */,
 				C027A26E24051D9700BD19C9 /* Walkthrough.storyboard */,
+				C0D069982406798600EBAC10 /* Directory.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -773,6 +776,14 @@
 				C027A27924053AA800BD19C9 /* WalkthroughLastStepViewController.swift */,
 			);
 			path = Walkthrough;
+			sourceTree = "<group>";
+		};
+		C0D0699A240679B000EBAC10 /* Directory */ = {
+			isa = PBXGroup;
+			children = (
+				C0D0699B24067AC700EBAC10 /* DirectoryViewController.swift */,
+			);
+			path = Directory;
 			sourceTree = "<group>";
 		};
 		C0D6A26B23D072CE00EF21B8 /* About */ = {
@@ -1006,6 +1017,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0D069992406798600EBAC10 /* Directory.storyboard in Resources */,
 				C0D6A28423D07AB000EF21B8 /* TermsAndPrivacyTableViewCell.xib in Resources */,
 				C0CA3B0323E9A74100887264 /* SLOAuth.plist in Resources */,
 				C0B76DEB23D0DCEB003AAB7E /* Settings.storyboard in Resources */,
@@ -1191,7 +1203,6 @@
 				C0D6A28223D07A1500EF21B8 /* TermsAndPrivacyTableViewCell.swift in Sources */,
 				C04007B023EE1DFB005AD66B /* RandomMode.swift in Sources */,
 				C08A202A23CC95DF00CB8D2F /* ReverseAliasTableViewCell.swift in Sources */,
-				C05CD30823CA044E007F1C9E /* DirectoryViewController.swift in Sources */,
 				C0D6A29623D0ACDF00EF21B8 /* FaqTableViewCell.swift in Sources */,
 				C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */,
 				C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */,
@@ -1214,6 +1225,7 @@
 				C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */,
 				C0D6A27823D077E800EF21B8 /* TeamAndContactTableViewCell.swift in Sources */,
 				C00BC55A23FDA10900E66FFE /* BaseUrlStatic.swift in Sources */,
+				C0D0699C24067AC700EBAC10 /* DirectoryViewController.swift in Sources */,
 				C069397923D395A1008AE6C1 /* SuffixListViewController.swift in Sources */,
 				C0D6A28823D0A6A500EF21B8 /* HowItWorksViewController.swift in Sources */,
 				C0D6A29123D0AB6800EF21B8 /* FaqViewController.swift in Sources */,
