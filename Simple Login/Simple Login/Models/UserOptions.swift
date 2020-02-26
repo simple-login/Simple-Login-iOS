@@ -14,6 +14,18 @@ struct UserOptions {
     let prefixSuggestion: String
     let suffixes: [String]
     
+    lazy var domains: [String] = {
+        var domains: [String] = []
+        
+        suffixes.forEach { (suffix) in
+            if let domain = RegexHelpers.firstMatch(for: #"(?<=@).*"#, inString: suffix) {
+                domains.append(domain)
+            }
+        }
+        
+        return domains
+    }()
+    
     init(fromData data: Data) throws {
         guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
             throw SLError.failToSerializeJSONData
