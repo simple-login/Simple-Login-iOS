@@ -114,6 +114,8 @@
 		C0D069992406798600EBAC10 /* Directory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0D069982406798600EBAC10 /* Directory.storyboard */; };
 		C0D0699C24067AC700EBAC10 /* DirectoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0699B24067AC700EBAC10 /* DirectoryViewController.swift */; };
 		C0D0699E24067D1400EBAC10 /* DirectoryExplanationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0699D24067D1400EBAC10 /* DirectoryExplanationViewController.swift */; };
+		C0D069A12406A94000EBAC10 /* DeleteDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D069A02406A94000EBAC10 /* DeleteDomainTableViewCell.swift */; };
+		C0D069A32406A95E00EBAC10 /* DeleteDomainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D069A22406A95E00EBAC10 /* DeleteDomainTableViewCell.xib */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
 		C0D6A27323D0759800EF21B8 /* HowAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */; };
@@ -279,6 +281,8 @@
 		C0D069982406798600EBAC10 /* Directory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Directory.storyboard; sourceTree = "<group>"; };
 		C0D0699B24067AC700EBAC10 /* DirectoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
 		C0D0699D24067D1400EBAC10 /* DirectoryExplanationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryExplanationViewController.swift; sourceTree = "<group>"; };
+		C0D069A02406A94000EBAC10 /* DeleteDomainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDomainTableViewCell.swift; sourceTree = "<group>"; };
+		C0D069A22406A95E00EBAC10 /* DeleteDomainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteDomainTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAndFaqTableViewCell.swift; sourceTree = "<group>"; };
@@ -792,6 +796,8 @@
 		C0D0699F2406A84400EBAC10 /* DeleteDomainTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				C0D069A02406A94000EBAC10 /* DeleteDomainTableViewCell.swift */,
+				C0D069A22406A95E00EBAC10 /* DeleteDomainTableViewCell.xib */,
 			);
 			path = DeleteDomainTableViewCell;
 			sourceTree = "<group>";
@@ -1051,6 +1057,7 @@
 				C0D6A29823D0AD2400EF21B8 /* FaqTableViewCell.xib in Resources */,
 				C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */,
 				C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */,
+				C0D069A32406A95E00EBAC10 /* DeleteDomainTableViewCell.xib in Resources */,
 				C0F84B2523D4BB1900E0852C /* DomainInfoTableViewCell.xib in Resources */,
 				C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */,
 				C0D6A27F23D079C200EF21B8 /* PricingAndBlogTableViewCell.xib in Resources */,
@@ -1174,6 +1181,7 @@
 				C0D6A29323D0ABDC00EF21B8 /* Faq.swift in Sources */,
 				C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */,
 				C05CD31323CA2A23007F1C9E /* UIView+Layout.swift in Sources */,
+				C0D069A12406A94000EBAC10 /* DeleteDomainTableViewCell.swift in Sources */,
 				C0956A5023D10C14000CEBDD /* DeleteAccountTableViewCell.swift in Sources */,
 				C05CD31023CA0ACB007F1C9E /* BaseViewController.swift in Sources */,
 				C0A726FE23EC6D3E00A62A22 /* AliasActivity.swift in Sources */,

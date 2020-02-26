@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeleteDomainTableViewCell" rowHeight="115" id="JCY-kG-h6t" customClass="DeleteDomainTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="441" height="115"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JCY-kG-h6t" id="aH0-Ws-HX8">
+                <rect key="frame" x="0.0" y="0.0" width="441" height="115"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" verticalHuggingPriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="MVI-uA-Mjt" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
+                        <rect key="frame" x="10" y="10" width="421" height="95"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="oIY-5L-9tV">
+                                <rect key="frame" x="10" y="10" width="401" height="75"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please note that this operation is irreversible. All aliases associated with this domain will be also deleted" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWq-7O-rYM">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="75"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" name="SecondaryTitleColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlr-md-SU8">
+                                        <rect key="frame" x="292" y="0.0" width="109" height="75"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <state key="normal" title="DELETE DOMAIN">
+                                            <color key="titleColor" name="NegativeColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteButtonTapped" destination="JCY-kG-h6t" eventType="touchUpInside" id="cLo-6W-aeN"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="oIY-5L-9tV" firstAttribute="top" secondItem="MVI-uA-Mjt" secondAttribute="top" constant="10" id="A8F-Cz-3ew"/>
+                            <constraint firstAttribute="bottom" secondItem="oIY-5L-9tV" secondAttribute="bottom" constant="10" id="BRO-Gp-FP9"/>
+                            <constraint firstItem="oIY-5L-9tV" firstAttribute="leading" secondItem="MVI-uA-Mjt" secondAttribute="leading" constant="10" id="Sbm-Kw-ecp"/>
+                            <constraint firstAttribute="trailing" secondItem="oIY-5L-9tV" secondAttribute="trailing" constant="10" id="bjW-C9-UMv"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="MVI-uA-Mjt" secondAttribute="bottom" constant="10" id="fh7-2Y-o5Q"/>
+                    <constraint firstItem="MVI-uA-Mjt" firstAttribute="top" secondItem="aH0-Ws-HX8" secondAttribute="top" constant="10" id="ksL-Cv-B0T"/>
+                    <constraint firstItem="MVI-uA-Mjt" firstAttribute="leading" secondItem="aH0-Ws-HX8" secondAttribute="leading" constant="10" id="qWk-qD-r3V"/>
+                    <constraint firstAttribute="trailing" secondItem="MVI-uA-Mjt" secondAttribute="trailing" constant="10" id="voV-qs-vjZ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <point key="canvasLocation" x="22.463768115942031" y="90.736607142857139"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="NegativeColor">
+            <color red="1" green="0.23100000619888306" blue="0.18799999356269836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SecondaryTitleColor">
+            <color white="0.64999997615814209" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+    </resources>
+</document>

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 final class CustomDomain {
+    let id: Int
     let name: String
     let creationTimestamp: TimeInterval
     let aliasCount: Int
@@ -24,6 +25,7 @@ final class CustomDomain {
     
     init() {
         let randomId = Array(0...100).randomElement()!
+        id = randomId
         name = "example\(randomId).com"
         let randomHour = Array(0...10).randomElement()!
         creationTimestamp = TimeInterval(1578697200 + randomHour * 86400)

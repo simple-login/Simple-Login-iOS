@@ -30,6 +30,25 @@ final class CustomDomainDetailViewController: UIViewController {
         
         DomainInfoTableViewCell.register(with: tableView)
         NotVerifiedDomainTableViewCell.register(with: tableView)
+        DeleteDomainTableViewCell.register(with: tableView)
+    }
+    
+    private func showConfirmDeletionAlert() {
+        let alert = UIAlertController(title: "Please confirm", message: "You are about to delete domain \"\(customDomain.name)\" from SimpleLogin", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Yes, delete this domain", style: .destructive) { [unowned self] (_) in
+            self.deleteDomain()
+        }
+        alert.addAction(deleteAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func deleteDomain() {
+        
     }
 }
 
@@ -40,7 +59,7 @@ extension CustomDomainDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -55,7 +74,17 @@ extension CustomDomainDetailViewController: UITableViewDataSource {
             let cell = NotVerifiedDomainTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             
             cell.didTapVerifyButton = { [unowned self] in
-                print("verify")
+                if let url = URL(string: "\(BASE_URL)/dashboard/domains/\(self.customDomain.id)/dns") {
+                    UIApplication.shared.open(url)
+                }
+            }
+            
+            return cell
+        case 2:
+            let cell = DeleteDomainTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapDeleteButton = { [unowned self] in
+                self.showConfirmDeletionAlert()
             }
             
             return cell
