@@ -164,6 +164,36 @@ final class LoginViewController: UIViewController, Storyboarded {
     }
 }
 
+// MARK: - Sign Up
+extension LoginViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.destination {
+        case let signUpViewController as SignUpViewController:
+            signUpViewController.signUp = { [unowned self] email, password in
+                self.signUp(email: email, password: password)
+            }
+            
+        default: return
+        }
+    }
+    
+    private func signUp(email: String, password: String) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.signUp(email: email, password: password) { [weak self] (error) in
+            guard let self = self else { return }
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if let error = error {
+                Toast.displayError(error)
+            } else {
+                
+            }
+        }
+    }
+}
+
 // MARK: - OAuth
 extension LoginViewController {
     private func socialLogin(social: SLOAuthService, accessToken: String) {

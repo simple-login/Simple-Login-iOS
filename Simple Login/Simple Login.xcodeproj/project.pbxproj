@@ -125,6 +125,7 @@
 		C0D069BA2406D0A800EBAC10 /* ListDeletedAliasesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D069B92406D0A800EBAC10 /* ListDeletedAliasesTableViewCell.xib */; };
 		C0D069BF2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D069BE2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift */; };
 		C0D069C12406D20B00EBAC10 /* DeletedAliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D069C02406D20B00EBAC10 /* DeletedAliasTableViewCell.xib */; };
+		C0D2F950240B0A2700CCE6BD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2F94F240B0A2700CCE6BD /* SignUpViewController.swift */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
 		C0D6A27323D0759800EF21B8 /* HowAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */; };
@@ -302,6 +303,7 @@
 		C0D069B92406D0A800EBAC10 /* ListDeletedAliasesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListDeletedAliasesTableViewCell.xib; sourceTree = "<group>"; };
 		C0D069BE2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAliasTableViewCell.swift; sourceTree = "<group>"; };
 		C0D069C02406D20B00EBAC10 /* DeletedAliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeletedAliasTableViewCell.xib; sourceTree = "<group>"; };
+		C0D2F94F240B0A2700CCE6BD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27223D0759800EF21B8 /* HowAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAndFaqTableViewCell.swift; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 			children = (
 				C00D74E823E8ACE400BE48F0 /* LoginViewController.swift */,
 				C07B41F523EAEDCD002E6223 /* OtpViewController.swift */,
+				C0D2F94F240B0A2700CCE6BD /* SignUpViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1254,6 +1257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0D2F950240B0A2700CCE6BD /* SignUpViewController.swift in Sources */,
 				C07B41F623EAEDCD002E6223 /* OtpViewController.swift in Sources */,
 				C0B1DE4623C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift in Sources */,
 				C0747EDF23CCA6F5008035E9 /* CreateReverseAliasViewController.swift in Sources */,

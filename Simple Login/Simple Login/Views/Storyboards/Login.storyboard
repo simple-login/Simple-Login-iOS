@@ -107,6 +107,9 @@
                                                 <state key="normal" title="Sign up">
                                                     <color key="titleColor" name="TintColor"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="tyI-U9-VlY" kind="presentation" identifier="showSignUp" id="YVJ-PM-a0r"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -544,6 +547,127 @@
             </objects>
             <point key="canvasLocation" x="15.942028985507248" y="791.51785714285711"/>
         </scene>
+        <!--Sign Up View Controller-->
+        <scene sceneID="uoj-N4-LWQ">
+            <objects>
+                <viewController storyboardIdentifier="SignUpViewController" id="tyI-U9-VlY" customClass="SignUpViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="736-t7-NWo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="heh-MJ-18G">
+                                <rect key="frame" x="57" y="188.5" width="300" height="165"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up for SimpleLogin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3LP-Rl-kSu">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <color key="textColor" name="TintColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KDT-kJ-cJJ" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                        <rect key="frame" x="0.0" y="34" width="300" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Email address"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Email address"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Email address"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" name="TitleColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" name="TextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="emailTextFieldEditingChanged" destination="tyI-U9-VlY" eventType="editingChanged" id="n3f-J7-kJc"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vNk-Nl-ceR" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                        <rect key="frame" x="0.0" y="83" width="300" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES" textContentType="password"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Password"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Password"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Password"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" name="TitleColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" name="TextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="passwordTextFieldEditingChanged" destination="tyI-U9-VlY" eventType="editingChanged" id="4Ds-i3-XBm"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SOB-bB-30e">
+                                        <rect key="frame" x="0.0" y="132" width="300" height="33"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <state key="normal" title="Sign Up">
+                                            <color key="titleColor" name="TintColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="signUpButtonTapped" destination="tyI-U9-VlY" eventType="touchUpInside" id="4qo-K6-9HL"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="xNL-8A-lei"/>
+                                </constraints>
+                            </stackView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BlE-am-6Me">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem id="7Yb-2D-gb1">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="7Aj-Rd-bW2">
+                                            <connections>
+                                                <action selector="cancelButtonTapped" destination="tyI-U9-VlY" id="Dcj-En-m3H"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="BlE-am-6Me" firstAttribute="top" secondItem="yZR-eG-22e" secondAttribute="top" id="CDL-WB-uDR"/>
+                            <constraint firstItem="heh-MJ-18G" firstAttribute="centerY" secondItem="736-t7-NWo" secondAttribute="centerY" constant="-150" id="fry-eG-dAL"/>
+                            <constraint firstItem="BlE-am-6Me" firstAttribute="leading" secondItem="yZR-eG-22e" secondAttribute="leading" id="jaq-wU-mvU"/>
+                            <constraint firstItem="heh-MJ-18G" firstAttribute="centerX" secondItem="736-t7-NWo" secondAttribute="centerX" id="mSb-i7-2uK"/>
+                            <constraint firstItem="BlE-am-6Me" firstAttribute="trailing" secondItem="yZR-eG-22e" secondAttribute="trailing" id="zqF-XX-zM5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yZR-eG-22e"/>
+                    </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="KDT-kJ-cJJ" id="Xwr-5r-4bL"/>
+                        <outlet property="passwordTextField" destination="vNk-Nl-ceR" id="DvB-jR-C7Z"/>
+                        <outlet property="signUpButton" destination="SOB-bB-30e" id="SOF-hs-juw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A7m-mx-DLa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="926" y="102"/>
+        </scene>
     </scenes>
     <resources>
         <image name="DeleteLeftFillIcon" width="32" height="27"/>
@@ -566,7 +690,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TintColor">
-            <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.93333333333333335" green="0.18823529411764706" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TitleColor">
             <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

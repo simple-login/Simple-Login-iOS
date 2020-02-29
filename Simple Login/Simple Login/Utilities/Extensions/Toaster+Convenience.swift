@@ -25,6 +25,6 @@ extension Toast {
     }
     
     class func displayError(_ error: CustomStringConvertible) {
-        Toast.displayShortly(message: "Error occured: \(error.description)")
+        Toast.displayShortly(message: "\(error.description)")
     }
 }
