@@ -1042,6 +1042,7 @@
 				C097A9E123C7987F00EC1EFE /* Resources */,
 				5CD82E415A486CFF9D844F00 /* [CP] Embed Pods Frameworks */,
 				C042C26323EF3A570045A04D /* Embed App Extensions */,
+				273963AE674172256A977D25 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1049,8 +1050,6 @@
 				C042C26123EF3A570045A04D /* PBXTargetDependency */,
 			);
 			name = "Simple Login";
-			packageProductDependencies = (
-			);
 			productName = "Simple Login";
 			productReference = C097A9E323C7987F00EC1EFE /* SimpleLogin.app */;
 			productType = "com.apple.product-type.application";
@@ -1082,8 +1081,6 @@
 				Base,
 			);
 			mainGroup = C097A9DA23C7987F00EC1EFE;
-			packageReferences = (
-			);
 			productRefGroup = C097A9E423C7987F00EC1EFE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1196,6 +1193,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		273963AE674172256A977D25 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Simple Login/Pods-Simple Login-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Simple Login/Pods-Simple Login-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Simple Login/Pods-Simple Login-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5CD82E415A486CFF9D844F00 /* [CP] Embed Pods Frameworks */ = {

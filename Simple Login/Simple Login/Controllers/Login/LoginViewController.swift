@@ -12,6 +12,7 @@ import MaterialComponents.MaterialRipple
 import MBProgressHUD
 import Toaster
 import FacebookLogin
+import GoogleSignIn
 
 final class LoginViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
@@ -31,6 +32,7 @@ final class LoginViewController: UIViewController, Storyboarded {
 
     deinit {
         print("LoginViewController is deallocated")
+        NotificationCenter.default.removeObserver(self, name: .didSignInWithGoogle, object: nil)
     }
     
     override func viewDidLoad() {
@@ -48,6 +50,8 @@ final class LoginViewController: UIViewController, Storyboarded {
         facebookView.didTap = { [unowned self] in
             self.oauthWithFacebook()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didSignInWithGoogle), name: .didSignInWithGoogle, object: nil)
     }
     
     private func setUpUI() {
@@ -125,6 +129,12 @@ final class LoginViewController: UIViewController, Storyboarded {
         passwordTextField.resignFirstResponder()
     }
     
+    @objc private func didSignInWithGoogle(_ notification: Notification) {
+        if let accessToken = notification.object as? String {
+            socialLogin(social: .google, accessToken: accessToken)
+        }
+    }
+    
     private func otpVerification(mfaKey: String) {
         guard let otpNavigationController = storyboard?.instantiateViewController(withIdentifier: "OtpNavigationController") as? UINavigationController,
             let otpViewController = otpNavigationController.viewControllers[0] as? OtpViewController else { return }
@@ -162,7 +172,8 @@ extension LoginViewController {
     }
     
     private func oauthWithGoogle() {
-
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance()?.signIn()
     }
     
     private func oauthWithFacebook() {
