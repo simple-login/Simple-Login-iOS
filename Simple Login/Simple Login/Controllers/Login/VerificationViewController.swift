@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-final class OtpViewController: UIViewController, Storyboarded {
+final class VerificationViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var firstNumberLabel: UILabel!
     @IBOutlet private weak var secondNumberLabel: UILabel!
     @IBOutlet private weak var thirdNumberLabel: UILabel!
@@ -37,7 +37,7 @@ final class OtpViewController: UIViewController, Storyboarded {
     
     var mfaKey: String!
     deinit {
-        print("OtpViewController is deallocated")
+        print("VerificationViewController is deallocated")
         NotificationCenter.default.removeObserver(self, name: .applicationDidBecomeActive, object: nil)
     }
     
@@ -112,7 +112,7 @@ final class OtpViewController: UIViewController, Storyboarded {
 }
 
 // MARK: - Button actions
-extension OtpViewController {
+extension VerificationViewController {
     private func addNumber(_ number: String) {
         if firstNumberLabel.text == "-" {
             firstNumberLabel.text = number

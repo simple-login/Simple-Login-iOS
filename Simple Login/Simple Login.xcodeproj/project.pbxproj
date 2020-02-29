@@ -57,7 +57,7 @@
 		C0747EE623CCF4BE008035E9 /* AliasActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */; };
 		C0747EE923CCFAFE008035E9 /* AliasActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE823CCFAFE008035E9 /* AliasActivityTableViewCell.swift */; };
 		C0747EEB23CCFB18008035E9 /* AliasActivityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0747EEA23CCFB18008035E9 /* AliasActivityTableViewCell.xib */; };
-		C07B41F623EAEDCD002E6223 /* OtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F523EAEDCD002E6223 /* OtpViewController.swift */; };
+		C07B41F623EAEDCD002E6223 /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F523EAEDCD002E6223 /* VerificationViewController.swift */; };
 		C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F723EB1BC4002E6223 /* Notification+Name.swift */; };
 		C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */; };
 		C081656223FDA97E005B0ABD /* SLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05049BB23CE016600AEF20B /* SLColor.swift */; };
@@ -238,7 +238,7 @@
 		C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityViewController.swift; sourceTree = "<group>"; };
 		C0747EE823CCFAFE008035E9 /* AliasActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityTableViewCell.swift; sourceTree = "<group>"; };
 		C0747EEA23CCFB18008035E9 /* AliasActivityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasActivityTableViewCell.xib; sourceTree = "<group>"; };
-		C07B41F523EAEDCD002E6223 /* OtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpViewController.swift; sourceTree = "<group>"; };
+		C07B41F523EAEDCD002E6223 /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
 		C07B41F723EB1BC4002E6223 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utitlities.swift"; sourceTree = "<group>"; };
 		C08A202323CC6CA300CB8D2F /* SendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailViewController.swift; sourceTree = "<group>"; };
@@ -482,7 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				C00D74E823E8ACE400BE48F0 /* LoginViewController.swift */,
-				C07B41F523EAEDCD002E6223 /* OtpViewController.swift */,
+				C07B41F523EAEDCD002E6223 /* VerificationViewController.swift */,
 				C0D2F94F240B0A2700CCE6BD /* SignUpViewController.swift */,
 			);
 			path = Login;
@@ -1258,7 +1258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0D2F950240B0A2700CCE6BD /* SignUpViewController.swift in Sources */,
-				C07B41F623EAEDCD002E6223 /* OtpViewController.swift in Sources */,
+				C07B41F623EAEDCD002E6223 /* VerificationViewController.swift in Sources */,
 				C0B1DE4623C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift in Sources */,
 				C0747EDF23CCA6F5008035E9 /* CreateReverseAliasViewController.swift in Sources */,
 				C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */,

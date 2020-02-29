@@ -119,7 +119,7 @@ final class LoginViewController: UIViewController, Storyboarded {
     
     private func otpVerification(mfaKey: String) {
         guard let otpNavigationController = storyboard?.instantiateViewController(withIdentifier: "OtpNavigationController") as? UINavigationController,
-            let otpViewController = otpNavigationController.viewControllers[0] as? OtpViewController else { return }
+            let otpViewController = otpNavigationController.viewControllers[0] as? VerificationViewController else { return }
         
         otpNavigationController.modalPresentationStyle = .fullScreen
         otpViewController.mfaKey = mfaKey
