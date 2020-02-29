@@ -1,5 +1,21 @@
 PODS:
   - Alamofire (5.0.0-rc.3)
+  - FacebookCore (0.9.0):
+    - FBSDKCoreKit (~> 5.0)
+  - FacebookLogin (0.9.0):
+    - FacebookCore (~> 0.9.0)
+    - FBSDKCoreKit (~> 5.0)
+    - FBSDKLoginKit (~> 5.0)
+  - FBSDKCoreKit (5.15.1):
+    - FBSDKCoreKit/Basics (= 5.15.1)
+    - FBSDKCoreKit/Core (= 5.15.1)
+  - FBSDKCoreKit/Basics (5.15.1)
+  - FBSDKCoreKit/Core (5.15.1):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (5.15.1):
+    - FBSDKLoginKit/Login (= 5.15.1)
+  - FBSDKLoginKit/Login (5.15.1):
+    - FBSDKCoreKit (~> 5.0)
   - Firebase/Analytics (6.15.0):
     - Firebase/Core
   - Firebase/Core (6.15.0):
@@ -88,6 +104,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
+  - FacebookLogin
   - Firebase/Analytics
   - Gifu
   - KeychainAccess
@@ -101,6 +118,10 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - FacebookCore
+    - FacebookLogin
+    - FBSDKCoreKit
+    - FBSDKLoginKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -125,6 +146,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
+  FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
+  FacebookLogin: 6cee9fd6e1fe976fe8f7eec199e27b28b14f5d63
+  FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
+  FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
   Firebase: 5d77105d9740a07ca6b16927ca971db7e860faaf
   FirebaseAnalytics: e83e64b1231dedcd9ddd4bdecd9bcfd6ba341679
   FirebaseCore: 4aeb81ff53dcd9a3634ca725dc1fb8c2a4622046
@@ -147,6 +172,6 @@ SPEC CHECKSUMS:
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: 5c560a00062a5ef6fdb772f05f6c0a5a92f9f0cc
+PODFILE CHECKSUM: 776c73bd09f43c8a83f254cae453da4c8104836a
 
 COCOAPODS: 1.8.3

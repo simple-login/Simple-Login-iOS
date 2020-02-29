@@ -9,6 +9,7 @@
 import UIKit
 import Toaster
 import Firebase
+import FacebookCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setUpUI()
         FirebaseApp.configure()
         UserDefaults.registerDefaultValues()
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return ApplicationDelegate.shared.application(app, open: url, options: options)
     }
     
     private func setUpUI () {

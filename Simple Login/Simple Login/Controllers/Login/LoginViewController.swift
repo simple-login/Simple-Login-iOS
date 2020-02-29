@@ -11,6 +11,7 @@ import SkyFloatingLabelTextField
 import MaterialComponents.MaterialRipple
 import MBProgressHUD
 import Toaster
+import FacebookLogin
 
 final class LoginViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
@@ -165,7 +166,23 @@ extension LoginViewController {
     }
     
     private func oauthWithFacebook() {
-
+        let loginManager = LoginManager()
+        loginManager.logIn(permissions: ["email"], from: self) { [weak self] (result, error) in
+            guard let self = self else { return }
+            if let error = error {
+                Toast.displayError(error.localizedDescription)
+            } else if let result = result {
+                if result.isCancelled {
+                    Toast.displayShortly(message: "Log in with Facebook cancelled")
+                } else {
+                    if let accessToken = result.token {
+                        self.socialLogin(social: .facebook, accessToken: accessToken.tokenString)
+                    } else {
+                        Toast.displayShortly(message: "Facebook access token is null")
+                    }
+                }
+            }
+        }
     }
 }
 
