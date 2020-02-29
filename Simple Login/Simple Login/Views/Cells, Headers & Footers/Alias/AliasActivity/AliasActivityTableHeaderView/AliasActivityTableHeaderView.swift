@@ -28,7 +28,7 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
         super.awakeFromNib()
         
         rootViews.forEach({
-            $0.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.7)
+            $0.backgroundColor = SLColor.tintColor.withAlphaComponent(0.7)
             $0.layer.cornerRadius = 4
         })
         blockedRootView.backgroundColor = UIColor.systemRed.withAlphaComponent(0.7)
