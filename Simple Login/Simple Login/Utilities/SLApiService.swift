@@ -218,6 +218,43 @@ extension SLApiService {
             }
         }
     }
+    
+    static func verifyEmail(email: String, code: String, completion: @escaping (_ error: SLError?) -> Void) {
+        let parameters = ["email" : email, "code" : code]
+        
+        AF.request("\(BASE_URL)/api/auth/activate", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
+            
+            guard let data = response.data else {
+                completion(SLError.noData)
+                return
+            }
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200: completion(nil)
+                
+            case 400:
+                do {
+                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                    
+                    if let error = jsonDictionary?["error"] as? String {
+                        completion(SLError.badRequest(description: error))
+                    } else {
+                        completion(SLError.failToSerializeJSONData)
+                    }
+                    
+                } catch {
+                    completion(SLError.failToSerializeJSONData)
+                }
+                
+            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
 }
 
 // MARK: - Alias

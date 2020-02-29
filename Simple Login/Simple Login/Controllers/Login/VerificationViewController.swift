@@ -9,6 +9,12 @@
 import UIKit
 import MBProgressHUD
 
+extension VerificationViewController {
+    enum VerificationMode {
+        case otp(mfaKey: String), accountActivation(email: String, password: String)
+    }
+}
+
 final class VerificationViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var firstNumberLabel: UILabel!
     @IBOutlet private weak var secondNumberLabel: UILabel!
@@ -33,9 +39,11 @@ final class VerificationViewController: UIViewController, Storyboarded {
     
     @IBOutlet private var buttons: [UIButton]!
     
-    var verificationSuccesful: ((_ apiKey: String) -> Void)?
+    var otpVerificationSuccesful: ((_ apiKey: String) -> Void)?
+    var accountVerificationSuccesful: (() -> Void)?
     
-    var mfaKey: String!
+    var mode: VerificationMode!
+    
     deinit {
         print("VerificationViewController is deallocated")
         NotificationCenter.default.removeObserver(self, name: .applicationDidBecomeActive, object: nil)
@@ -54,6 +62,12 @@ final class VerificationViewController: UIViewController, Storyboarded {
         }
         
         errorLabel.alpha = 0
+        
+        switch mode {
+        case .otp: title = "Enter OTP"
+        case .accountActivation: title = "Enter activation code"
+        case .none: title = nil
+        }
     }
     
     @objc private func applicationDidBecomeActive() {
@@ -81,19 +95,40 @@ final class VerificationViewController: UIViewController, Storyboarded {
         showErrorLabel(false)
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.verifyMFA(mfaKey: mfaKey, mfaToken: otpCode) { [weak self] (apiKey, error) in
-            guard let self = self else { return }
-            MBProgressHUD.hide(for: self.view, animated: true)
-            
-            if let error = error {
-                self.showErrorLabel(true, errorMessage: error.description)
-                self.reset()
-            } else if let apiKey = apiKey {
-                self.dismiss(animated: true) {
-                    self.verificationSuccesful?(apiKey)
+        switch mode {
+        case .otp(let mfaKey):
+            SLApiService.verifyMFA(mfaKey: mfaKey, mfaToken: otpCode) { [weak self] (apiKey, error) in
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
+                
+                if let error = error {
+                    self.showErrorLabel(true, errorMessage: error.description)
+                    self.reset()
+                } else if let apiKey = apiKey {
+                    self.dismiss(animated: true) {
+                        self.otpVerificationSuccesful?(apiKey)
+                    }
                 }
             }
+            
+        case .accountActivation(let email, _):
+            SLApiService.verifyEmail(email: email, code: otpCode) { [weak self] (error) in
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
+                
+                if let error = error {
+                    self.showErrorLabel(true, errorMessage: error.description)
+                    self.reset()
+                } else {
+                    self.dismiss(animated: true) {
+                        self.accountVerificationSuccesful?()
+                    }
+                }
+            }
+            
+        default: return
         }
+        
     }
     
     private func showErrorLabel(_ show: Bool, errorMessage: String? = nil) {

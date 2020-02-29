@@ -239,7 +239,7 @@
         <!--Enter OTP-->
         <scene sceneID="hPt-gV-3Nf">
             <objects>
-                <viewController storyboardIdentifier="OtpViewController" id="Dgx-Pd-tG0" customClass="VerificationViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VerificationViewController" id="Dgx-Pd-tG0" customClass="VerificationViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jsx-6H-At2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -532,7 +532,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Dhh-vA-hVE">
             <objects>
-                <navigationController storyboardIdentifier="OtpNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Z9v-ux-YaR" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="VerificationNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Z9v-ux-YaR" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PJj-4d-PVS">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

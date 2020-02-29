@@ -117,18 +117,29 @@ final class LoginViewController: UIViewController, Storyboarded {
         }
     }
     
-    private func otpVerification(mfaKey: String) {
-        guard let otpNavigationController = storyboard?.instantiateViewController(withIdentifier: "OtpNavigationController") as? UINavigationController,
-            let otpViewController = otpNavigationController.viewControllers[0] as? VerificationViewController else { return }
+    private func verify(mode: VerificationViewController.VerificationMode) {
+        guard let verificationNavigationController = storyboard?.instantiateViewController(withIdentifier: "VerificationNavigationController") as? UINavigationController,
+            let verificationViewController = verificationNavigationController.viewControllers[0] as? VerificationViewController else { return }
         
-        otpNavigationController.modalPresentationStyle = .fullScreen
-        otpViewController.mfaKey = mfaKey
+        verificationNavigationController.modalPresentationStyle = .fullScreen
+        verificationViewController.mode = mode
         
-        otpViewController.verificationSuccesful = { [unowned self] apiKey in
+        verificationViewController.otpVerificationSuccesful = { [unowned self] apiKey in
             self.finalizeLogin(apiKey: apiKey)
         }
         
-        present(otpNavigationController, animated: true, completion: nil)
+        switch mode {
+        case .accountActivation(let email, let password):
+            verificationViewController.accountVerificationSuccesful = { [unowned self] in
+                self.emailTextField.text = email
+                self.passwordTextField.text = password
+                self.login()
+            }
+            
+        default: return
+        }
+        
+        present(verificationNavigationController, animated: true, completion: nil)
     }
     
     private func finalizeLogin(apiKey: String) {
@@ -145,7 +156,7 @@ final class LoginViewController: UIViewController, Storyboarded {
         if let userLogin = userLogin {
             if userLogin.isMfaEnabled {
                 if let mfaKey = userLogin.mfaKey {
-                    self.otpVerification(mfaKey: mfaKey)
+                    self.verify(mode: .otp(mfaKey: mfaKey))
                 } else {
                     Toast.displayLongly(message: "MFA key is null")
                 }
@@ -188,7 +199,7 @@ extension LoginViewController {
             if let error = error {
                 Toast.displayError(error)
             } else {
-                
+                self.verify(mode: .accountActivation(email: email, password: password))
             }
         }
     }
