@@ -39,6 +39,7 @@ final class LoginViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         setUpUI()
         
+        githubView.isHidden = true
         githubView.didTap = { [unowned self] in
             self.oauthWithGithub()
         }
@@ -83,26 +84,7 @@ final class LoginViewController: UIViewController, Storyboarded {
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
-            
-            if let userLogin = userLogin {
-                if userLogin.isMfaEnabled {
-                    if let mfaKey = userLogin.mfaKey {
-                        self.otpVerification(mfaKey: mfaKey)
-                    } else {
-                        Toast.displayLongly(message: "MFA key is null")
-                    }
-                    
-                } else {
-                    if let apiKey = userLogin.apiKey {
-                        self.finalizeLogin(apiKey: apiKey)
-                    } else {
-                        Toast.displayShortly(message: "API key is null")
-                    }
-                }
-                
-            } else if let error = error {
-                Toast.displayShortly(message: error.description)
-            }
+            self.finalizeLoginApiCall(userLogin: userLogin, error: error)
         }
     }
     
@@ -158,13 +140,41 @@ final class LoginViewController: UIViewController, Storyboarded {
         
         self.dismiss(animated: true, completion: nil)
     }
+    
+    private func finalizeLoginApiCall(userLogin: UserLogin?, error: SLError?) {
+        if let userLogin = userLogin {
+            if userLogin.isMfaEnabled {
+                if let mfaKey = userLogin.mfaKey {
+                    self.otpVerification(mfaKey: mfaKey)
+                } else {
+                    Toast.displayLongly(message: "MFA key is null")
+                }
+                
+            } else {
+                if let apiKey = userLogin.apiKey {
+                    self.finalizeLogin(apiKey: apiKey)
+                } else {
+                    Toast.displayShortly(message: "API key is null")
+                }
+            }
+            
+        } else if let error = error {
+            Toast.displayShortly(message: error.description)
+        }
+    }
 }
 
 // MARK: - OAuth
 extension LoginViewController {
     private func socialLogin(social: SLOAuthService, accessToken: String) {
-        Toast.displayShortly(message: "\(social.rawValue): \(accessToken)")
-        print("\(social.rawValue): \(accessToken)")
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.socialLogin(service: social, accessToken: accessToken) { [weak self] (userLogin, error) in
+            guard let self = self else { return }
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+            self.finalizeLoginApiCall(userLogin: userLogin, error: error)
+        }
     }
     
     private func oauthWithGithub() {

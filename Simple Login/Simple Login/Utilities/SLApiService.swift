@@ -41,6 +41,36 @@ final class SLApiService {
         }
     }
     
+    static func socialLogin(service: SLOAuthService, accessToken: String, completion: @escaping (_ userLogin: UserLogin?, _ error: SLError?) -> Void) {
+        let parameters = ["\(service.rawValue)_token" : accessToken, "device" : UIDevice.current.name]
+        
+        AF.request("\(BASE_URL)/api/auth/\(service.rawValue)", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
+            
+            guard let data = response.data else {
+                completion(nil, SLError.noData)
+                return
+            }
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(nil, SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200:
+                do {
+                    let userLogin = try UserLogin(fromData: data)
+                    completion(userLogin, nil)
+                } catch let error {
+                    completion(nil, error as? SLError)
+                }
+                
+            case 400: completion(nil, SLError.emailOrPasswordIncorrect)
+            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
+    
     static func verifyMFA(mfaKey: String, mfaToken: String, completion: @escaping (_ apiKey: String?, _ error: SLError?) -> Void) {
         let parameters = ["mfa_token" : mfaToken, "mfa_key" : mfaKey, "device" : UIDevice.current.name]
         
