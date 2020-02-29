@@ -11,7 +11,6 @@ import SkyFloatingLabelTextField
 import MaterialComponents.MaterialRipple
 import MBProgressHUD
 import Toaster
-import OAuth2
 
 final class LoginViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
@@ -28,10 +27,6 @@ final class LoginViewController: UIViewController, Storyboarded {
             loginButton.isEnabled = isValidEmailAddress
         }
     }
-    
-    private(set) var oauthGithub: OAuth2CodeGrant?
-    private(set) var oauthGoogle: OAuth2CodeGrant?
-    private(set) var oauthFacebook: OAuth2CodeGrantNoTokenType?
 
     deinit {
         print("LoginViewController is deallocated")
@@ -52,8 +47,6 @@ final class LoginViewController: UIViewController, Storyboarded {
         facebookView.didTap = { [unowned self] in
             self.oauthWithFacebook()
         }
-        
-        (UIApplication.shared.delegate as! AppDelegate).loginViewController = self
     }
     
     private func setUpUI() {
@@ -164,85 +157,15 @@ extension LoginViewController {
     }
     
     private func oauthWithGithub() {
-        oauthGithub = OAuth2CodeGrant(settings: [
-            "client_id": SLOAuth.Github.clientId,
-            "client_secret": SLOAuth.Github.clientSecret,
-            "authorize_uri": "https://github.com/login/oauth/authorize",
-            "token_uri": "https://github.com/login/oauth/access_token",
-            "scope": "user:email",
-            "redirect_uris": ["simplelogin://github/callback"],
-            "secret_in_body": true,
-        ])
-        
-        oauthGithub?.forgetTokens()
-        
-        oauthGithub?.authorize() { [weak self] authParameters, error in
-            guard let self = self else { return }
-            
-            if let _ = authParameters {
-                if let accessToken = self.oauthGithub?.accessToken {
-                    self.socialLogin(social: .github, accessToken: accessToken)
-                }
-                
-            } else if let error = error {
-                Toast.displayError(error)
-            }
-        }
+
     }
     
     private func oauthWithGoogle() {
-        oauthGoogle = OAuth2CodeGrant(settings: [
-            "client_id": "\(SLOAuth.Google.clientId).apps.googleusercontent.com",
-            "authorize_uri": "https://accounts.google.com/o/oauth2/auth",
-            "token_uri": "https://www.googleapis.com/oauth2/v4/token",
-            "response_type": "code",
-            "scope": "email",
-            "redirect_uris": ["com.googleusercontent.apps.\(SLOAuth.Google.clientId):/oauth"]
-        ])
-        
-        oauthGoogle?.forgetTokens()
-        
-        oauthGoogle?.authorize() { [weak self] authParameters, error in
-            guard let self = self else { return }
-            
-            if let _ = authParameters {
-                if let accessToken = self.oauthGoogle?.accessToken {
-                    self.socialLogin(social: .google, accessToken: accessToken)
-                }
-                
-            } else if let error = error {
-                Toast.displayError(error)
-            }
-        }
+
     }
     
     private func oauthWithFacebook() {
-        oauthFacebook = OAuth2CodeGrantNoTokenType(settings: [
-            "client_id": SLOAuth.Facebook.clientId,
-            "client_secret": SLOAuth.Facebook.clientSecret,
-            "authorize_uri": "https://graph.facebook.com/oauth/authorize",
-            "token_uri": "https://graph.facebook.com/oauth/access_token",
-            "response_type": "token",
-            "scope": "email",
-            "secret_in_body": true,
-            "redirect_uris": ["fb\(SLOAuth.Facebook.clientId)://authorize/"]
-        ])
-        
-        oauthFacebook?.forgetTokens()
-        oauthFacebook?.logger = OAuth2DebugLogger(.trace)
-        
-        oauthFacebook?.authorize() { [weak self] authParameters, error in
-            guard let self = self else { return }
 
-            if let _ = authParameters {
-                if let accessToken = self.oauthFacebook?.accessToken {
-                    self.socialLogin(social: .facebook, accessToken: accessToken)
-                }
-                
-            } else if let error = error {
-                Toast.displayError(error)
-            }
-        }
     }
 }
 
