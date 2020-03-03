@@ -15,6 +15,7 @@ enum SLError: Error, CustomStringConvertible {
     case emailOrPasswordIncorrect
     case invalidApiKey
     case duplicatedAlias
+    case reactivationNeeded
     case badRequest(description: String)
     case unknownError(description: String)
     
@@ -26,6 +27,7 @@ enum SLError: Error, CustomStringConvertible {
         case .emailOrPasswordIncorrect: return "Email or password incorrect"
         case .invalidApiKey: return "Invalid API key"
         case .duplicatedAlias: return "Alias is duplicated"
+        case .reactivationNeeded: return "Reactivation needed"
         case .badRequest(let description): return "Bad request: \(description)"
         case .unknownError(let description): return "Unknown error: \(description)"
         }

@@ -124,11 +124,12 @@ final class LoginViewController: UIViewController, Storyboarded {
         verificationNavigationController.modalPresentationStyle = .fullScreen
         verificationViewController.mode = mode
         
-        verificationViewController.otpVerificationSuccesful = { [unowned self] apiKey in
-            self.finalizeLogin(apiKey: apiKey)
-        }
-        
         switch mode {
+        case .otp(let mfaKey):
+            verificationViewController.otpVerificationSuccesful = { [unowned self] apiKey in
+                self.finalizeLogin(apiKey: apiKey)
+            }
+            
         case .accountActivation(let email, let password):
             verificationViewController.accountVerificationSuccesful = { [unowned self] in
                 self.emailTextField.text = email

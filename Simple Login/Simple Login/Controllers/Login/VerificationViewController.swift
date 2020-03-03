@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import Toaster
 
 extension VerificationViewController {
     enum VerificationMode {
@@ -117,8 +118,15 @@ final class VerificationViewController: UIViewController, Storyboarded {
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
                 if let error = error {
-                    self.showErrorLabel(true, errorMessage: error.description)
+                    switch error {
+                    case .reactivationNeeded: self.showReactivateAlert(email: email)
+                        
+                    default:
+                        self.showErrorLabel(true, errorMessage: error.description)
+                    }
+                    
                     self.reset()
+                    
                 } else {
                     self.dismiss(animated: true) {
                         self.accountVerificationSuccesful?()
@@ -141,6 +149,36 @@ final class VerificationViewController: UIViewController, Storyboarded {
             
             UIView.animate(withDuration: 0.35) { [unowned self] in
                 self.errorLabel.alpha = 0
+            }
+        }
+    }
+    
+    private func showReactivateAlert(email: String) {
+        let alert = UIAlertController(title: "Wrong code too many times", message: "Resend a new activation code for \"\(email)\"", preferredStyle: .alert)
+        
+        let resendAction = UIAlertAction(title: "Resend me new code", style: .default) { [unowned self] (_) in
+            self.reactivate(email: email)
+        }
+        alert.addAction(resendAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func reactivate(email: String) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.reactivate(email: email) { [weak self] (error) in
+            guard let self = self else { return }
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if let error = error {
+                self.showErrorLabel(true, errorMessage: error.description)
+            } else {
+                Toast.displayLongly(message: "Check your inbox for new activation code")
             }
         }
     }

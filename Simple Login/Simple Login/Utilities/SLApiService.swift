@@ -251,6 +251,30 @@ extension SLApiService {
                     completion(SLError.failToSerializeJSONData)
                 }
                 
+            case 410: completion(SLError.reactivationNeeded)
+                
+            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
+    
+    static func reactivate(email: String, completion: @escaping (_ error: SLError?) -> Void) {
+        let parameters = ["email" : email]
+        
+        AF.request("\(BASE_URL)/api/auth/reactivate", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
+            
+            guard let _ = response.data else {
+                completion(SLError.noData)
+                return
+            }
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200: completion(nil)
             default: completion(SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
