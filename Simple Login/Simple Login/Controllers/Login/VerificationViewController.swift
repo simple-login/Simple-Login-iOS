@@ -85,20 +85,20 @@ final class VerificationViewController: UIViewController, Storyboarded {
         fifthNumberLabel.text = String(copiedText[4])
         sixthNumberLabel.text = String(copiedText[5])
         
-        verify(otpCode: copiedText)
+        verify(code: copiedText)
     }
     
     @IBAction private func closeButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
     
-    private func verify(otpCode: String) {
+    private func verify(code: String) {
         showErrorLabel(false)
         MBProgressHUD.showAdded(to: view, animated: true)
         
         switch mode {
         case .otp(let mfaKey):
-            SLApiService.verifyMFA(mfaKey: mfaKey, mfaToken: otpCode) { [weak self] (apiKey, error) in
+            SLApiService.verifyMFA(mfaKey: mfaKey, mfaToken: code) { [weak self] (apiKey, error) in
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
@@ -113,7 +113,7 @@ final class VerificationViewController: UIViewController, Storyboarded {
             }
             
         case .accountActivation(let email, _):
-            SLApiService.verifyEmail(email: email, code: otpCode) { [weak self] (error) in
+            SLApiService.verifyEmail(email: email, code: code) { [weak self] (error) in
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
@@ -200,15 +200,15 @@ extension VerificationViewController {
             fifthNumberLabel.text = number
         } else if sixthNumberLabel.text == "-" {
             sixthNumberLabel.text = number
-            var otpCode = ""
-            otpCode += firstNumberLabel.text ?? ""
-            otpCode += secondNumberLabel.text ?? ""
-            otpCode += thirdNumberLabel.text ?? ""
-            otpCode += fourthNumberLabel.text ?? ""
-            otpCode += fifthNumberLabel.text ?? ""
-            otpCode += sixthNumberLabel.text ?? ""
+            var code = ""
+            code += firstNumberLabel.text ?? ""
+            code += secondNumberLabel.text ?? ""
+            code += thirdNumberLabel.text ?? ""
+            code += fourthNumberLabel.text ?? ""
+            code += fifthNumberLabel.text ?? ""
+            code += sixthNumberLabel.text ?? ""
             
-            verify(otpCode: otpCode)
+            verify(code: code)
         }
     }
     
