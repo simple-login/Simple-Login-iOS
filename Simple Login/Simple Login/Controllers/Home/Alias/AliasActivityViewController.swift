@@ -119,11 +119,12 @@ final class AliasActivityViewController: UIViewController {
 // MARK: - Edit notes
 extension AliasActivityViewController {
     private func presentAlertEditNotes() {
-        let alert = UIAlertController(title: "Edit notes for alias", message: alias.email, preferredStyle: .alert)
+        let title = alias.note != nil ? "Edit note for alias" : "Add note for alias"
+        let alert = UIAlertController(title: title, message: alias.email, preferredStyle: .alert)
         
         // textViewController
         let textView = UITextView()
-        textView.text = alias.notes
+        textView.text = alias.note
         
         let textViewController = UIViewController()
         textViewController.view.addSubview(textView)
@@ -134,7 +135,7 @@ extension AliasActivityViewController {
         alert.setValue(textViewController, forKey: "contentViewController")
         alert.view.constrainHeight(constant: 200)
         
-        let updateAction = UIAlertAction(title: "Update notes", style: .default) { (_) in
+        let updateAction = UIAlertAction(title: "Save", style: .default) { (_) in
             //print(textView.text)
         }
         alert.addAction(updateAction)

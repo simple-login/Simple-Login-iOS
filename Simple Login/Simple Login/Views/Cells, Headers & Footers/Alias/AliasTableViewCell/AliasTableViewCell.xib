@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -142,7 +140,7 @@
                 <outlet property="deleteButton" destination="tOF-BR-rC6" id="o9u-Nh-jA1"/>
                 <outlet property="enabledSwitch" destination="TWP-8A-4QJ" id="7Kp-7m-UJQ"/>
                 <outlet property="nameLabel" destination="y6r-rn-8iu" id="8aK-zp-Tg7"/>
-                <outlet property="notesLabel" destination="ahL-6j-Ici" id="pQD-f7-E1D"/>
+                <outlet property="noteLabel" destination="ahL-6j-Ici" id="pQD-f7-E1D"/>
                 <outlet property="rightArrowButton" destination="cmq-KU-0f9" id="jSL-kg-3ZG"/>
                 <outlet property="rootView" destination="e1i-i2-3yb" id="vAG-ok-5uA"/>
                 <outlet property="sendButton" destination="Vkw-2v-NGJ" id="Omf-KE-CVi"/>

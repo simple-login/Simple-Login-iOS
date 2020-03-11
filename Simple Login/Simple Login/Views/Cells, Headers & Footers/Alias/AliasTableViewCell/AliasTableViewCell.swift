@@ -15,7 +15,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var clockImageView: UIImageView!
     @IBOutlet private weak var creationLabel: UILabel!
     @IBOutlet private weak var countLabel: UILabel!
-    @IBOutlet private weak var notesLabel: UILabel!
+    @IBOutlet private weak var noteLabel: UILabel!
     @IBOutlet private weak var enabledSwitch: UISwitch!
     @IBOutlet private weak var copyButton: UIButton!
     @IBOutlet private weak var sendButton: UIButton!
@@ -44,7 +44,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         sendButton.setTitleColor(SLColor.tintColor, for: .normal)
         
         nameLabel.textColor = SLColor.textColor
-        notesLabel.textColor = SLColor.textColor
+        noteLabel.textColor = SLColor.textColor
         
         clockImageView.tintColor = SLColor.titleColor
         creationLabel.textColor = SLColor.titleColor
@@ -58,7 +58,14 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     func bind(with alias: Alias) {
         self.alias = alias
         nameLabel.text = alias.email
-        notesLabel.text = alias.notes
+        
+        if let note = alias.note {
+            noteLabel.text = note
+            noteLabel.isHidden = false
+        } else {
+            noteLabel.isHidden = true
+        }
+        
         enabledSwitch.isOn = alias.enabled
         sendButton.isEnabled = alias.enabled
         copyButton.isEnabled = alias.enabled

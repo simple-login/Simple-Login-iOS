@@ -236,9 +236,10 @@
                 <outlet property="blockedCountLabel" destination="7QT-jG-7VW" id="yV9-yK-kks"/>
                 <outlet property="blockedRootView" destination="2uW-uI-MbP" id="2Xm-pd-GL1"/>
                 <outlet property="creationDateLabel" destination="VTp-ib-WVJ" id="MnB-k1-Dt8"/>
+                <outlet property="editButton" destination="4cv-Cw-o57" id="EO1-kE-ll1"/>
                 <outlet property="forwardedCountLabel" destination="mN3-zU-92a" id="eGW-BH-Fsu"/>
                 <outlet property="handledCountLabel" destination="SKs-xX-cXQ" id="IhQ-X0-q9z"/>
-                <outlet property="notesLabel" destination="baC-Rg-0Hb" id="Xvg-Ye-UuJ"/>
+                <outlet property="noteLabel" destination="baC-Rg-0Hb" id="Xvg-Ye-UuJ"/>
                 <outlet property="repliedCountLabel" destination="odP-Jq-Z9g" id="m7u-xl-dYQ"/>
                 <outletCollection property="imageViews" destination="dXh-cS-umx" collectionClass="NSMutableArray" id="liy-eV-OQB"/>
                 <outletCollection property="countLabels" destination="odP-Jq-Z9g" collectionClass="NSMutableArray" id="MWW-ha-6PQ"/>
