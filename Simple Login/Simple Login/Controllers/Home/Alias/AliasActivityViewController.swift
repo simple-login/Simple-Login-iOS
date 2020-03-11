@@ -122,18 +122,7 @@ extension AliasActivityViewController {
         let title = alias.note != nil ? "Edit note for alias" : "Add note for alias"
         let alert = UIAlertController(title: title, message: alias.email, preferredStyle: .alert)
         
-        // textViewController
-        let textView = UITextView()
-        textView.text = alias.note
-        
-        let textViewController = UIViewController()
-        textViewController.view.addSubview(textView)
-        textView.fillSuperview(padding: UIEdgeInsets(top: 0, left: 10, bottom: 8, right: 10))
-        textView.layer.borderWidth = 1.0
-        textView.layer.borderColor = UIColor.lightGray.cgColor
-        
-        alert.setValue(textViewController, forKey: "contentViewController")
-        alert.view.constrainHeight(constant: 200)
+        let textView = alert.addTextView(initialText: alias.note)
         
         let updateAction = UIAlertAction(title: "Save", style: .default) { (_) in
             //print(textView.text)

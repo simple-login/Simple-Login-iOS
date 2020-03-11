@@ -379,9 +379,13 @@ extension SLApiService {
         }
     }
     
-    static func createNewAlias(apiKey: String, prefix: String, suffix: String, completion: @escaping (_ newlyCreatedAlias: String?, _ error: SLError?) -> Void) {
+    static func createNewAlias(apiKey: String, prefix: String, suffix: String, note: String?, completion: @escaping (_ newlyCreatedAlias: String?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
-        let parameters = ["alias_prefix" : prefix, "alias_suffix" : suffix]
+        var parameters = ["alias_prefix" : prefix, "alias_suffix" : suffix]
+        
+        if let note = note {
+            parameters["note"] = note
+        }
         
         AF.request("\(BASE_URL)/api/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
@@ -418,10 +422,15 @@ extension SLApiService {
     }
     
     
-    static func randomAlias(apiKey: String, randomMode: RandomMode, completion: @escaping (_ newlyCreatedAlias: String?, _ error: SLError?) -> Void) {
+    static func randomAlias(apiKey: String, randomMode: RandomMode, note: String?, completion: @escaping (_ newlyCreatedAlias: String?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
+        var parameters: [String: Any]?
         
-        AF.request("\(BASE_URL)/api/alias/random/new?mode=\(randomMode.rawValue)", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+        if let note = note {
+            parameters = ["note": note]
+        }
+        
+        AF.request("\(BASE_URL)/api/alias/random/new?mode=\(randomMode.rawValue)", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(nil, SLError.unknownError(description: "error code unknown"))

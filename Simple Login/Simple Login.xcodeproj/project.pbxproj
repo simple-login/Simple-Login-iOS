@@ -27,6 +27,7 @@
 		C027A27E2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27D2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift */; };
 		C027A280240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27F240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift */; };
 		C027A28424054F8D00BD19C9 /* UserDefaults+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28324054F8D00BD19C9 /* UserDefaults+Convenience.swift */; };
+		C032D6ED2419830300C06EB7 /* UIAlertController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */; };
 		C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D2D5F23D4AF300057F44F /* CustomDomain.swift */; };
 		C04007B023EE1DFB005AD66B /* RandomMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04007AF23EE1DFB005AD66B /* RandomMode.swift */; };
 		C042C25B23EF3A570045A04D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C042C25A23EF3A570045A04D /* ShareViewController.swift */; };
@@ -206,6 +207,7 @@
 		C027A27D2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughNoExtraMailViewController.swift; sourceTree = "<group>"; };
 		C027A27F240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughNoMoreSpamViewController.swift; sourceTree = "<group>"; };
 		C027A28324054F8D00BD19C9 /* UserDefaults+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Convenience.swift"; sourceTree = "<group>"; };
+		C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Convenience.swift"; sourceTree = "<group>"; };
 		C0373A8823EF55160044507C /* SimpleLogin Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SimpleLogin Share Extension.entitlements"; sourceTree = "<group>"; };
 		C03D2D5F23D4AF300057F44F /* CustomDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomain.swift; sourceTree = "<group>"; };
 		C04007AF23EE1DFB005AD66B /* RandomMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMode.swift; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 				C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */,
 				C0D0500D23FED25D00B13221 /* UIViewController+Convenience.swift */,
 				C027A28324054F8D00BD19C9 /* UserDefaults+Convenience.swift */,
+				C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1347,6 +1350,7 @@
 				C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */,
 				C0D6A27823D077E800EF21B8 /* TeamAndContactTableViewCell.swift in Sources */,
 				C00BC55A23FDA10900E66FFE /* BaseUrlStatic.swift in Sources */,
+				C032D6ED2419830300C06EB7 /* UIAlertController+Convenience.swift in Sources */,
 				C0D0699C24067AC700EBAC10 /* DirectoryViewController.swift in Sources */,
 				C069397923D395A1008AE6C1 /* SuffixListViewController.swift in Sources */,
 				C0D6A28823D0A6A500EF21B8 /* HowItWorksViewController.swift in Sources */,

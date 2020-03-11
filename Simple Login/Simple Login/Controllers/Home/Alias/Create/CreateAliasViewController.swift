@@ -22,6 +22,7 @@ final class CreateAliasViewController: UIViewController {
     private var isValidEmailPrefix: Bool = false {
         didSet {
             createButton.isEnabled = isValidEmailPrefix
+            createButton.alpha = isValidEmailPrefix ? 1 : 0.3
             prefixTextField.textColor = isValidEmailPrefix ? SLColor.textColor : SLColor.negativeColor
         }
     }
@@ -47,7 +48,7 @@ final class CreateAliasViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prefixTextField.becomeFirstResponder()
-        createButton.isEnabled = false
+        isValidEmailPrefix = false
         setUpUI()
         fetchUserOptions()
     }
@@ -90,7 +91,7 @@ final class CreateAliasViewController: UIViewController {
         }
     }
     
-    private func createAlias() {
+    private func createAlias(note: String?) {
         guard let apiKey = SLKeychainService.getApiKey(), let suffix = userOptions?.suffixes[selectedSuffixIndex] else {
             Toast.displayErrorRetrieveingApiKey()
             return
@@ -98,7 +99,7 @@ final class CreateAliasViewController: UIViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.createNewAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix) { [weak self] (newlyCreatedAlias, error) in
+        SLApiService.createNewAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: note) { [weak self] (newlyCreatedAlias, error) in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
@@ -117,7 +118,25 @@ final class CreateAliasViewController: UIViewController {
     }
     
     @IBAction private func createButtonTapped() {
-        createAlias()
+        showAddNoteAlert()
+    }
+    
+    private func showAddNoteAlert() {
+        let alert = UIAlertController(title: "Add some note for this alias", message: "This is optional and can be modified at anytime later.", preferredStyle: .alert)
+    
+        let noteTextView = alert.addTextView()
+        
+        let createAction = UIAlertAction(title: "Create", style: .default) { [unowned self] _ in
+            self.createAlias(note: noteTextView.text)
+        }
+        alert.addAction(createAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true) {
+            noteTextView.becomeFirstResponder()
+        }
     }
     
     @IBAction private func prefixTextFieldEditingChanged() {
@@ -151,7 +170,7 @@ extension CreateAliasViewController: SuffixListViewControllerDelegate {
 // MARK: - UITextFieldDelegate
 extension CreateAliasViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        createAlias()
+        showAddNoteAlert()
         return true
     }
 }
