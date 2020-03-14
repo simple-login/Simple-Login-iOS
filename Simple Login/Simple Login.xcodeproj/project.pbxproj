@@ -150,6 +150,7 @@
 		C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66423CBC838009A6699 /* String+Utilities.swift */; };
 		C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */; };
 		C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */; };
+		C0F5701F241D362D00BCC84B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0F5701E241D362D00BCC84B /* GoogleService-Info.plist */; };
 		C0F84B1C23D4B6F300E0852C /* CustomDomainDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */; };
 		C0F84B2023D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B1F23D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift */; };
 		C0F84B2323D4BAA200E0852C /* DomainInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B2223D4BAA200E0852C /* DomainInfoTableViewCell.swift */; };
@@ -328,6 +329,7 @@
 		C0D9B66423CBC838009A6699 /* String+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
 		C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorTableViewCell.xib; sourceTree = "<group>"; };
+		C0F5701E241D362D00BCC84B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainDetailViewController.swift; sourceTree = "<group>"; };
 		C0F84B1F23D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotVerifiedDomainTableViewCell.swift; sourceTree = "<group>"; };
 		C0F84B2223D4BAA200E0852C /* DomainInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 		C027A2762405385800BD19C9 /* Ressources */ = {
 			isa = PBXGroup;
 			children = (
+				C0F5701E241D362D00BCC84B /* GoogleService-Info.plist */,
 				C027A2772405386900BD19C9 /* superman.gif */,
 			);
 			path = Ressources;
@@ -1125,6 +1128,7 @@
 				C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */,
 				C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */,
 				C0A726FC23EC135000A62A22 /* LoadingFooterView.xib in Resources */,
+				C0F5701F241D362D00BCC84B /* GoogleService-Info.plist in Resources */,
 				C0747EE423CCDE7C008035E9 /* AliasActivityTableHeaderView.xib in Resources */,
 				C027A26F24051D9700BD19C9 /* Walkthrough.storyboard in Resources */,
 				C0D6A29823D0AD2400EF21B8 /* FaqTableViewCell.xib in Resources */,
