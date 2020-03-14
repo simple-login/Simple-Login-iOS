@@ -535,3 +535,54 @@ extension SLApiService {
         }
     }
 }
+
+// MARK: - Reverse Aliases
+extension SLApiService {
+    static func fetchContacts(apiKey: String, aliasId: Int, page: Int, completion: @escaping (_ contacts: [Contact]?, _ error: SLError?) -> Void) {
+        let headers: HTTPHeaders = ["Authentication": apiKey]
+        
+        AF.request("\(BASE_URL)/api/aliases/\(aliasId)/contacts?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(nil, SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200:
+                guard let data = response.data else {
+                    completion(nil, SLError.noData)
+                    return
+                }
+                
+                do {
+                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                    
+                    if let contactDictionaries = jsonDictionary?["contacts"] as? [[String : Any]] {
+                        var contacts: [Contact] = []
+                        try contactDictionaries.forEach { (dictionary) in
+                            do {
+                                try contacts.append(Contact(fromDictionary: dictionary))
+                            } catch let error as SLError {
+                                completion(nil, error)
+                                return
+                            }
+                        }
+                        
+                        completion(contacts, nil)
+                        
+                    } else {
+                        completion(nil, SLError.failToSerializeJSONData)
+                    }
+                    
+                } catch {
+                    completion(nil, SLError.failToSerializeJSONData)
+                }
+                
+            case 400: completion(nil, SLError.badRequest(description: "page_id must be provided in request query."))
+            case 401: completion(nil, SLError.invalidApiKey)
+            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
+}

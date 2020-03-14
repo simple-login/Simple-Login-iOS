@@ -1,5 +1,5 @@
 //
-//  ReverseAliasTableViewCell.swift
+//  ContactTableViewCell.swift
 //  Simple Login
 //
 //  Created by Thanh-Nhon Nguyen on 13/01/2020.
@@ -9,12 +9,14 @@
 import UIKit
 import Toaster
 
-final class ReverseAliasTableViewCell: UITableViewCell, RegisterableCell {
+final class ContactTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var mailImageView: UIImageView!
     @IBOutlet private weak var arrowLabel: UILabel!
     @IBOutlet private weak var destinationEmailLabel: UILabel!
     @IBOutlet private weak var clockImageView: UIImageView!
     @IBOutlet private weak var creationDateLabel: UILabel!
+    @IBOutlet private weak var sendImageView: UIImageView!
+    @IBOutlet private weak var lastSentLabel: UILabel!
     @IBOutlet private weak var createButton: UIButton!
     @IBOutlet private weak var deleteButton: UIButton!
     
@@ -36,11 +38,15 @@ final class ReverseAliasTableViewCell: UITableViewCell, RegisterableCell {
         deleteButton.setTitleColor(SLColor.negativeColor, for: .normal)
         
         clockImageView.tintColor = SLColor.titleColor
+        sendImageView.tintColor = SLColor.titleColor
         creationDateLabel.textColor = SLColor.titleColor
+        lastSentLabel.textColor = SLColor.titleColor
     }
     
-    func bind(with reverseAlias: ReverseAlias) {
-        destinationEmailLabel.text = reverseAlias.destinationEmail
+    func bind(with contact: Contact) {
+        destinationEmailLabel.text = contact.email
+        creationDateLabel.text = contact.creationTimestampString
+        lastSentLabel.text = contact.lastEmailSentTimestampString
     }
     
     @IBAction private func writeEmailButtonTapped() {

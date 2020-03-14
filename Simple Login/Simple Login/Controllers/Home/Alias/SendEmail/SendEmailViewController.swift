@@ -12,17 +12,25 @@ import Toaster
 
 final class SendEmailViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
+    private let refreshControl = UIRefreshControl()
     
     var alias: Alias!
     
-    private lazy var reverseAliases: [ReverseAlias] = {
-        var reverseAliases: [ReverseAlias] = []
-        for _ in 0...30 {
-            reverseAliases.append(ReverseAlias())
+    private var contacts: [Contact] = [] {
+        didSet {
+            noContact = contacts.count == 0
         }
-        
-        return reverseAliases
-    }()
+    }
+    
+    private var noContact: Bool = false {
+        didSet {
+            tableView.isHidden = noContact
+        }
+    }
+    
+    private var fetchedPage: Int = -1
+    private var isFetching: Bool = false
+    private var moreToLoad: Bool = true
     
     deinit {
         print("SendEmailViewController is deallocated")
@@ -38,7 +46,68 @@ final class SendEmailViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorColor = .clear
         tableView.tableFooterView = UIView(frame: .zero)
-        ReverseAliasTableViewCell.register(with: tableView)
+        
+        ContactTableViewCell.register(with: tableView)
+        tableView.register(UINib(nibName: "LoadingFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LoadingFooterView")
+        
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+    }
+    
+    @objc private func refresh() {
+        fetchContacts()
+    }
+    
+    private func fetchContacts() {
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
+        if refreshControl.isRefreshing {
+            moreToLoad = true
+        }
+        
+        guard moreToLoad, !isFetching else { return }
+        
+        isFetching = true
+        
+        let pageToFetch = refreshControl.isRefreshing ? 0 : fetchedPage + 1
+        
+        SLApiService.fetchContacts(apiKey: apiKey, aliasId: alias.id, page: pageToFetch) { [weak self] (contacts, error) in
+            guard let self = self else { return }
+            
+            self.isFetching = false
+            
+            if let contacts = contacts {
+                
+                if contacts.count == 0 {
+                    self.moreToLoad = false
+                } else {
+                    if self.refreshControl.isRefreshing {
+                        print("Refreshed & fetched \(contacts.count) contacts")
+                    } else {
+                        print("Fetched page \(self.fetchedPage + 1) - \(contacts.count) contacts")
+                    }
+                    
+                    if self.refreshControl.isRefreshing {
+                        self.fetchedPage = 0
+                        self.contacts.removeAll()
+                    } else {
+                        self.fetchedPage += 1
+                    }
+                    
+                    self.contacts.append(contentsOf: contacts)
+                }
+                
+                self.refreshControl.endRefreshing()
+                self.tableView.reloadData()
+                
+            } else if let error = error {
+                self.refreshControl.endRefreshing()
+                Toast.displayError(error)
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -50,12 +119,12 @@ final class SendEmailViewController: UIViewController {
         }
     }
     
-    private func presentAlertWriteEmail(_ reverseAlias: ReverseAlias) {
-        let alert = UIAlertController(title: "Compose and send email", message: "From \(alias.email) to \(reverseAlias.destinationEmail)", preferredStyle: .actionSheet)
+    private func presentAlertWriteEmail(_ contact: Contact) {
+        let alert = UIAlertController(title: "Compose and send email", message: "From \(alias.email) to \(contact.email)", preferredStyle: .actionSheet)
         
         let copyAction = UIAlertAction(title: "Copy reverse-alias", style: .default) { (_) in
-            UIPasteboard.general.string = reverseAlias.name
-            Toast.displayShortly(message: "Copied \(reverseAlias.name)")
+            UIPasteboard.general.string = contact.reverseAlias
+            Toast.displayShortly(message: "Copied \(contact.reverseAlias)")
         }
         alert.addAction(copyAction)
         
@@ -67,7 +136,7 @@ final class SendEmailViewController: UIViewController {
             }
             
             mailComposerVC.mailComposeDelegate = self
-            mailComposerVC.setToRecipients([reverseAlias.name])
+            mailComposerVC.setToRecipients([contact.email])
             
             self.present(mailComposerVC, animated: true, completion: nil)
         }
@@ -79,8 +148,8 @@ final class SendEmailViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func presentAlertConfirmDelete(reverseAlias: ReverseAlias) {
-        let alert = UIAlertController(title: "Delete \(reverseAlias.name)", message: "🛑 This operation is irreversible", preferredStyle: .alert)
+    private func presentAlertConfirmDelete(_ contact: Contact) {
+        let alert = UIAlertController(title: "Delete \(contact.email)", message: "🛑 This operation is irreversible", preferredStyle: .alert)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
             Toast.displayShortly(message: "Deleted")
@@ -103,6 +172,26 @@ extension SendEmailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return alias.email
     }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return moreToLoad ? 44.0 : 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if moreToLoad {
+            let loadingFooterView =  tableView.dequeueReusableHeaderFooterView(withIdentifier: "LoadingFooterView") as? LoadingFooterView
+            loadingFooterView?.animate()
+            return loadingFooterView
+        } else {
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        if moreToLoad {
+            fetchContacts()
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -112,20 +201,20 @@ extension SendEmailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reverseAliases.count
+        return contacts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = ReverseAliasTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let reverseAlias = reverseAliases[indexPath.row]
-        cell.bind(with: reverseAlias)
+        let cell = ContactTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        let contact = contacts[indexPath.row]
+        cell.bind(with: contact)
         
         cell.didTapWriteEmailButton = { [unowned self] in
-            self.presentAlertWriteEmail(reverseAlias)
+            self.presentAlertWriteEmail(contact)
         }
         
         cell.didTapDeleteButton = { [unowned self] in
-            self.presentAlertConfirmDelete(reverseAlias: reverseAlias)
+            self.presentAlertConfirmDelete(contact)
         }
         
         return cell
