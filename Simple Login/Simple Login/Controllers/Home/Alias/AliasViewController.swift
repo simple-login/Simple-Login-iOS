@@ -19,11 +19,7 @@ final class AliasViewController: BaseViewController {
         case all, active, inactive
     }
     
-    private var aliases: [Alias] = [] {
-        didSet {
-            noAlias = aliases.count == 0
-        }
-    }
+    private var aliases: [Alias] = []
     
     private var activeAliases: [Alias] = []
     private var inactiveAliases: [Alias] = []
@@ -147,6 +143,7 @@ final class AliasViewController: BaseViewController {
                     self.refilterAliasArrays()
                 }
                 
+                self.noAlias = self.aliases.count == 0
                 self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
                 

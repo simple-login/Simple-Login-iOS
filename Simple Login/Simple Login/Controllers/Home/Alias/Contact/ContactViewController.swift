@@ -16,11 +16,7 @@ final class ContactViewController: UIViewController {
     
     var alias: Alias!
     
-    private var contacts: [Contact] = [] {
-        didSet {
-            noContact = contacts.count == 0
-        }
-    }
+    private var contacts: [Contact] = []
     
     private var noContact: Bool = false {
         didSet {
@@ -39,6 +35,7 @@ final class ContactViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        fetchContacts()
     }
     
     private func setUpUI() {
@@ -100,6 +97,7 @@ final class ContactViewController: UIViewController {
                     self.contacts.append(contentsOf: contacts)
                 }
                 
+                self.noContact = self.contacts.count == 0
                 self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
                 
@@ -114,6 +112,10 @@ final class ContactViewController: UIViewController {
         switch segue.destination {
         case let createContactViewController as CreateContactViewController:
             createContactViewController.alias = alias
+            createContactViewController.didCreateContact = { [unowned self] in
+                self.refreshControl.beginRefreshing()
+                self.refresh()
+            }
             
         default: return
         }

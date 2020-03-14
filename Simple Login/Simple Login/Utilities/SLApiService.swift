@@ -585,4 +585,24 @@ extension SLApiService {
             }
         }
     }
+    
+    static func createContact(apiKey: String, aliasId: Int, email: String, completion: @escaping (_ error: SLError?) -> Void) {
+        let headers: HTTPHeaders = ["Authentication": apiKey]
+        let parameters = ["contact" : email]
+
+        AF.request("\(BASE_URL)/api/aliases/\(aliasId)/contacts", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 201: completion(nil)
+            case 401: completion(SLError.invalidApiKey)
+            case 409: completion(SLError.duplicatedContact)
+            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
 }

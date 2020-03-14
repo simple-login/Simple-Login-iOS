@@ -8,6 +8,7 @@
 
 import UIKit
 import Toaster
+import MBProgressHUD
 
 final class CreateContactViewController: UIViewController {
     @IBOutlet private weak var messageLabel: UILabel!
@@ -15,6 +16,8 @@ final class CreateContactViewController: UIViewController {
     @IBOutlet private weak var createButton: UIButton!
     
     var alias: Alias!
+    
+    var didCreateContact: (() -> Void)?
     
     private var isValidEmailAddress: Bool = false {
         didSet {
@@ -55,9 +58,29 @@ final class CreateContactViewController: UIViewController {
         messageLabel.attributedText = attributedString
     }
     
-    private func create() {
-        Toast.displayShortly(message: "Created")
-        dismiss(animated: true, completion: nil)
+    private func create(_ email: String) {
+        destinationEmailTextField.resignFirstResponder()
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.createContact(apiKey: apiKey, aliasId: alias.id, email: email) { [weak self] (error) in
+            guard let self = self else { return }
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if let error = error {
+                Toast.displayError(error)
+            } else {
+                Toast.displayShortly(message: "Created contact \(email)")
+                self.dismiss(animated: true) {
+                    self.didCreateContact?()
+                }
+            }
+        }
     }
     
     @IBAction private func cancelButtonTapped() {
@@ -65,7 +88,15 @@ final class CreateContactViewController: UIViewController {
     }
     
     @IBAction private func createButtonTapped() {
-        create()
+        guard let email = destinationEmailTextField.text, email.isValidEmail() else {
+            let alert = UIAlertController(title: "Invalid email address", message: "Please verify that you have correctly entered", preferredStyle: .alert)
+            let closeButton = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+            alert.addAction(closeButton)
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        create(email)
     }
     
     @IBAction private func destinationEmailTextFieldEditingChanged() {
