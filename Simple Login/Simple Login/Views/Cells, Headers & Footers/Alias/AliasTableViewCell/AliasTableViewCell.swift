@@ -67,8 +67,6 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         }
         
         enabledSwitch.isOn = alias.enabled
-        sendButton.isEnabled = alias.enabled
-        copyButton.isEnabled = alias.enabled
         countLabel.attributedText = alias.countAttributedString
         creationLabel.text = alias.creationString
         

@@ -97,11 +97,11 @@ final class LeftMenuViewController: UIViewController {
         if userInfo.isPremium {
             statusLabel.text = "Premium"
             statusLabel.textColor = SLColor.premiumColor
-            statusLabel.shadowColor = SLColor.premiumColor.withAlphaComponent(0.5)
+            statusLabel.shadowColor = SLColor.premiumColor
         } else {
-            statusLabel.text = "Upgrade"
+            statusLabel.text = "Freemium"
             statusLabel.textColor = SLColor.titleColor
-            statusLabel.shadowColor = SLColor.titleColor.withAlphaComponent(0.5)
+            statusLabel.shadowColor = SLColor.titleColor
         }
     }
 }

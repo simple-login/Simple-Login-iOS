@@ -7,11 +7,10 @@
 //
 
 import UIKit
+import Toaster
 import MBProgressHUD
 
 final class StartupViewController: UIViewController {
-    @IBOutlet private weak var messageLabel: UILabel!
-    @IBOutlet private weak var retryButton: UIButton!
     
     deinit {
         print("StartupViewController is deallocated")
@@ -20,19 +19,21 @@ final class StartupViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if UserDefaults.isFirstRun() {
-            let walkthroughViewController = WalkthroughViewController.instantiate(storyboardName: "Walkthrough")
-            walkthroughViewController.modalPresentationStyle = .fullScreen
-    
-            walkthroughViewController.getStarted = { [unowned self] in
-                self.checkApiKeyAndProceed()
-            }
-            
-            UserDefaults.firstRunComplete()
-            present(walkthroughViewController, animated: true, completion: nil)
-        } else {
-            checkApiKeyAndProceed()
-        }
+//        if UserDefaults.isFirstRun() {
+//            let walkthroughViewController = WalkthroughViewController.instantiate(storyboardName: "Walkthrough")
+//            walkthroughViewController.modalPresentationStyle = .fullScreen
+//
+//            walkthroughViewController.getStarted = { [unowned self] in
+//                self.checkApiKeyAndProceed()
+//            }
+//
+//            UserDefaults.firstRunComplete()
+//            present(walkthroughViewController, animated: true, completion: nil)
+//        } else {
+//            checkApiKeyAndProceed()
+//        }
+//
+        checkApiKeyAndProceed()
     }
     
     @IBAction private func retry() {
@@ -47,19 +48,13 @@ final class StartupViewController: UIViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        messageLabel.text = "Connecting to server..."
-        retryButton.alpha = 0
-        retryButton.isEnabled = false
-        
         SLApiService.fetchUserInfo(apiKey, completion: { [weak self] (userInfo, error) in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
             if let error = error {
-                self.messageLabel.text = "Error occured: \(error.description)"
-                self.retryButton.alpha = 1
-                self.retryButton.isEnabled = true
+                Toast.displayLongly(message: "Error occured: \(error.description)")
                 self.presentLoginViewController()
                 
             } else if let userInfo = userInfo {
