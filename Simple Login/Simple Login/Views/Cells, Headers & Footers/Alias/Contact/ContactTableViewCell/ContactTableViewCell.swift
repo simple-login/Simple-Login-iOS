@@ -10,8 +10,6 @@ import UIKit
 import Toaster
 
 final class ContactTableViewCell: UITableViewCell, RegisterableCell {
-    @IBOutlet private weak var mailImageView: UIImageView!
-    @IBOutlet private weak var arrowLabel: UILabel!
     @IBOutlet private weak var destinationEmailLabel: UILabel!
     @IBOutlet private weak var clockImageView: UIImageView!
     @IBOutlet private weak var creationDateLabel: UILabel!
@@ -26,9 +24,7 @@ final class ContactTableViewCell: UITableViewCell, RegisterableCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = UITableViewCell.SelectionStyle.none
-        
-        mailImageView.tintColor = SLColor.textColor
-        arrowLabel.textColor = SLColor.textColor
+
         destinationEmailLabel.textColor = SLColor.textColor
         
         createButton.tintColor = SLColor.tintColor

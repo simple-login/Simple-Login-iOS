@@ -1,5 +1,5 @@
 //
-//  SendEmailViewController.swift
+//  ContactViewController.swift
 //  Simple Login
 //
 //  Created by Thanh-Nhon Nguyen on 13/01/2020.
@@ -10,7 +10,7 @@ import UIKit
 import MessageUI
 import Toaster
 
-final class SendEmailViewController: UIViewController {
+final class ContactViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
     
@@ -33,7 +33,7 @@ final class SendEmailViewController: UIViewController {
     private var moreToLoad: Bool = true
     
     deinit {
-        print("SendEmailViewController is deallocated")
+        print("ContactViewController is deallocated")
     }
     
     override func viewDidLoad() {
@@ -112,8 +112,8 @@ final class SendEmailViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.destination {
-        case let createReverseAliasViewController as CreateReverseAliasViewController:
-            createReverseAliasViewController.alias = alias
+        case let createContactViewController as CreateContactViewController:
+            createContactViewController.alias = alias
             
         default: return
         }
@@ -164,7 +164,7 @@ final class SendEmailViewController: UIViewController {
 }
 
 // MARK: - UITableViewDelegate
-extension SendEmailViewController: UITableViewDelegate {
+extension ContactViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -195,7 +195,7 @@ extension SendEmailViewController: UITableViewDelegate {
 }
 
 // MARK: - UITableViewDataSource
-extension SendEmailViewController: UITableViewDataSource {
+extension ContactViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -222,7 +222,7 @@ extension SendEmailViewController: UITableViewDataSource {
 }
 
 // MARK: - MFMailComposeViewControllerDelegate
-extension SendEmailViewController: MFMailComposeViewControllerDelegate {
+extension ContactViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }

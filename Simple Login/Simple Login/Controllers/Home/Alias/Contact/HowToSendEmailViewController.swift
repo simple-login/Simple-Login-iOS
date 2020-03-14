@@ -28,15 +28,15 @@ final class HowToSendEmailViewController: UIViewController {
         let plainString = """
         Follow these 2 simple steps:
         
-        1️⃣ Create a reverse-alias by entering an email address that you want to send to.
+        1️⃣ Create a contact by entering an email address that you want to send to.
 
-        2️⃣ Send email as you always do to that reverse-alias from your personal email address (the one that you use to register with SimpleLogin)
+        2️⃣ Send email as you always do to the reverse-alias of this contact from your personal email address (the one that you use to register with SimpleLogin)
 
         And that's all!
         We will take care of the rest to make magic happen
         🎩✨✨✨
 
-        ⚠️ Note that your reverse-aliases can only be used by you.
+        ⚠️ Note that the reverse-aliases can only be used by you.
         """
         
         let attributedString = NSMutableAttributedString(string: plainString)

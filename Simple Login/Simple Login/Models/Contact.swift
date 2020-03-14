@@ -31,7 +31,7 @@ final class Contact {
         let date = Date(timeIntervalSince1970: lastEmailSentTimestamp)
         let preciseDateAndTime = preciseDateFormatter.string(from: date)
         let (value, unit) =  date.distanceFromNow()
-        return "Last send on \(preciseDateAndTime) (\(value) \(unit) ago)"
+        return "Last sent on \(preciseDateAndTime) (\(value) \(unit) ago)"
     }()
     
     init(fromDictionary dictionary: [String : Any]) throws {

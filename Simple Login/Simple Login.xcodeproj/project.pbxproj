@@ -52,7 +52,7 @@
 		C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */; };
 		C06BD31D23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */; };
 		C06BD31F23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */; };
-		C0747EDF23CCA6F5008035E9 /* CreateReverseAliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EDE23CCA6F5008035E9 /* CreateReverseAliasViewController.swift */; };
+		C0747EDF23CCA6F5008035E9 /* CreateContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EDE23CCA6F5008035E9 /* CreateContactViewController.swift */; };
 		C0747EE223CCDE63008035E9 /* AliasActivityTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE123CCDE63008035E9 /* AliasActivityTableHeaderView.swift */; };
 		C0747EE423CCDE7C008035E9 /* AliasActivityTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0747EE323CCDE7C008035E9 /* AliasActivityTableHeaderView.xib */; };
 		C0747EE623CCF4BE008035E9 /* AliasActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */; };
@@ -66,7 +66,7 @@
 		C081656523FDAA5F005B0ABD /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66423CBC838009A6699 /* String+Utilities.swift */; };
 		C081656623FDAA6B005B0ABD /* RegexHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */; };
 		C081656723FDAD09005B0ABD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
-		C08A202423CC6CA300CB8D2F /* SendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202323CC6CA300CB8D2F /* SendEmailViewController.swift */; };
+		C08A202423CC6CA300CB8D2F /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202323CC6CA300CB8D2F /* ContactViewController.swift */; };
 		C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */; };
 		C08A202A23CC95DF00CB8D2F /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A202923CC95DF00CB8D2F /* ContactTableViewCell.swift */; };
 		C08A202C23CC968800CB8D2F /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C08A202B23CC968800CB8D2F /* ContactTableViewCell.xib */; };
@@ -234,7 +234,7 @@
 		C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MfaTableViewCell.xib; sourceTree = "<group>"; };
 		C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
 		C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePasswordTableViewCell.xib; sourceTree = "<group>"; };
-		C0747EDE23CCA6F5008035E9 /* CreateReverseAliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReverseAliasViewController.swift; sourceTree = "<group>"; };
+		C0747EDE23CCA6F5008035E9 /* CreateContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewController.swift; sourceTree = "<group>"; };
 		C0747EE123CCDE63008035E9 /* AliasActivityTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityTableHeaderView.swift; sourceTree = "<group>"; };
 		C0747EE323CCDE7C008035E9 /* AliasActivityTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasActivityTableHeaderView.xib; sourceTree = "<group>"; };
 		C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityViewController.swift; sourceTree = "<group>"; };
@@ -243,7 +243,7 @@
 		C07B41F523EAEDCD002E6223 /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
 		C07B41F723EB1BC4002E6223 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utitlities.swift"; sourceTree = "<group>"; };
-		C08A202323CC6CA300CB8D2F /* SendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailViewController.swift; sourceTree = "<group>"; };
+		C08A202323CC6CA300CB8D2F /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToSendEmailViewController.swift; sourceTree = "<group>"; };
 		C08A202923CC95DF00CB8D2F /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		C08A202B23CC968800CB8D2F /* ContactTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
@@ -560,14 +560,14 @@
 			path = AliasActivityTableViewCell;
 			sourceTree = "<group>";
 		};
-		C08A202523CC774800CB8D2F /* SendEmail */ = {
+		C08A202523CC774800CB8D2F /* Contact */ = {
 			isa = PBXGroup;
 			children = (
-				C08A202323CC6CA300CB8D2F /* SendEmailViewController.swift */,
+				C08A202323CC6CA300CB8D2F /* ContactViewController.swift */,
 				C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */,
-				C0747EDE23CCA6F5008035E9 /* CreateReverseAliasViewController.swift */,
+				C0747EDE23CCA6F5008035E9 /* CreateContactViewController.swift */,
 			);
-			path = SendEmail;
+			path = Contact;
 			sourceTree = "<group>";
 		};
 		C08A202823CC95C400CB8D2F /* ContactTableViewCell */ = {
@@ -974,7 +974,7 @@
 				C05CD30523CA0419007F1C9E /* AliasViewController.swift */,
 				C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */,
 				C069397723D3956A008AE6C1 /* Create */,
-				C08A202523CC774800CB8D2F /* SendEmail */,
+				C08A202523CC774800CB8D2F /* Contact */,
 			);
 			path = Alias;
 			sourceTree = "<group>";
@@ -1263,14 +1263,14 @@
 				C0D2F950240B0A2700CCE6BD /* SignUpViewController.swift in Sources */,
 				C07B41F623EAEDCD002E6223 /* VerificationViewController.swift in Sources */,
 				C0B1DE4623C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift in Sources */,
-				C0747EDF23CCA6F5008035E9 /* CreateReverseAliasViewController.swift in Sources */,
+				C0747EDF23CCA6F5008035E9 /* CreateContactViewController.swift in Sources */,
 				C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */,
 				C027A280240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift in Sources */,
 				C0B1DE4223C90D2C003EED3B /* RegisterableCell.swift in Sources */,
 				C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */,
 				C0D9B66123CBC0AA009A6699 /* CreateAliasViewController.swift in Sources */,
 				C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */,
-				C08A202423CC6CA300CB8D2F /* SendEmailViewController.swift in Sources */,
+				C08A202423CC6CA300CB8D2F /* ContactViewController.swift in Sources */,
 				C0747EE623CCF4BE008035E9 /* AliasActivityViewController.swift in Sources */,
 				C0F84B2023D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift in Sources */,
 				C09147FD23CF860B00D56CDC /* BaseTableViewController.swift in Sources */,

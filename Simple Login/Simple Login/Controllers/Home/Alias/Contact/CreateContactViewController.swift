@@ -1,5 +1,5 @@
 //
-//  CreateReverseAliasViewController.swift
+//  CreateContactViewController.swift
 //  Simple Login
 //
 //  Created by Thanh-Nhon Nguyen on 13/01/2020.
@@ -9,7 +9,7 @@
 import UIKit
 import Toaster
 
-final class CreateReverseAliasViewController: UIViewController {
+final class CreateContactViewController: UIViewController {
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var destinationEmailTextField: UITextField!
     @IBOutlet private weak var createButton: UIButton!
@@ -24,7 +24,7 @@ final class CreateReverseAliasViewController: UIViewController {
     }
     
     deinit {
-        print("CreateReverseAliasViewController is deallocated")
+        print("CreateContactViewController is deallocated")
     }
     
     override func viewDidLoad() {
@@ -35,7 +35,7 @@ final class CreateReverseAliasViewController: UIViewController {
     }
     
     private func setUpUI() {
-        let plainString = "Create a reverse-alias to send email from your alias\n\(alias.email)"
+        let plainString = "Create a contact to send email from your alias\n\(alias.email)"
         
         let attributedString = NSMutableAttributedString(string: plainString)
         

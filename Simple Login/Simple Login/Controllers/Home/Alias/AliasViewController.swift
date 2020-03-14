@@ -81,7 +81,7 @@ final class AliasViewController: BaseViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.destination {
             
-        case let sendEmailViewController as SendEmailViewController:
+        case let sendEmailViewController as ContactViewController:
             guard let alias = sender as? Alias else { return }
             sendEmailViewController.alias = alias
             

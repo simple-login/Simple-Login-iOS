@@ -158,10 +158,10 @@
             </objects>
             <point key="canvasLocation" x="1387" y="129"/>
         </scene>
-        <!--Send Email-->
+        <!--Contact-->
         <scene sceneID="z0l-2v-Gem">
             <objects>
-                <viewController id="TtY-Vi-9th" customClass="SendEmailViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="TtY-Vi-9th" userLabel="Contact" customClass="ContactViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZxW-iK-GXT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -185,7 +185,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UW7-Ja-QvH"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Send Email" id="NtE-BU-cHo">
+                    <navigationItem key="navigationItem" title="Contacts" id="NtE-BU-cHo">
                         <rightBarButtonItems>
                             <barButtonItem title="💡How to" id="liI-MB-jqC">
                                 <connections>
@@ -255,10 +255,10 @@
             </objects>
             <point key="canvasLocation" x="2590" y="307"/>
         </scene>
-        <!--Create Reverse Alias View Controller-->
+        <!--Create Contact View Controller-->
         <scene sceneID="Zvb-u5-EhH">
             <objects>
-                <viewController id="lfy-0M-dP6" customClass="CreateReverseAliasViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="lfy-0M-dP6" customClass="CreateContactViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cdR-JJ-RZ6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -266,7 +266,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1cV-gS-GP7">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                 <items>
-                                    <navigationItem title="Create Reverse-Alias" id="yNL-Z9-efC">
+                                    <navigationItem title="Create Contact" id="yNL-Z9-efC">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="k9P-hX-5bf">
                                             <connections>
                                                 <action selector="cancelButtonTapped" destination="lfy-0M-dP6" id="NzX-tV-rdt"/>
@@ -278,7 +278,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="uag-hs-CeE">
                                 <rect key="frame" x="20" y="260" width="374" height="122"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create reverse-alias" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSA-89-5h3">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create contact" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSA-89-5h3">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -352,7 +352,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="32"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Ex: groupon, newsletter" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GOg-ha-Q5h">
-                                                <rect key="frame" x="0.0" y="0.0" width="180.5" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="173" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartQuotesType="no" textContentType="email"/>
                                                 <connections>
@@ -360,19 +360,19 @@
                                                 </connections>
                                             </textField>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="aZw-vW-Oc0">
-                                                <rect key="frame" x="180.5" y="0.0" width="193.5" height="32"/>
+                                                <rect key="frame" x="173" y="0.0" width="201" height="32"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="7bc-8G-SIq">
-                                                        <rect key="frame" x="0.0" y="0.0" width="193.5" height="32"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="201" height="32"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" text=".example@simplelogin.co" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHo-7x-cNL">
-                                                                <rect key="frame" x="0.0" y="0.0" width="157.5" height="32"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="165" height="32"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="DownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="0pa-bv-KFS">
-                                                                <rect key="frame" x="157.5" y="0.0" width="36" height="32"/>
+                                                                <rect key="frame" x="165" y="0.0" width="36" height="32"/>
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </imageView>
                                                         </subviews>
