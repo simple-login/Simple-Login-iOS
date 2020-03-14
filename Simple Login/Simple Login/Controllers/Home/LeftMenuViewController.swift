@@ -26,7 +26,7 @@ final class LeftMenuViewController: UIViewController {
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
     
-    private let options: [[LeftMenuOption]] = [[.alias, .aliasDirectory, .customDomains], [.separator],  [.settings, .about], [.separator], [.signOut]]
+    private let options: [[LeftMenuOption]] = [[.alias], [.separator],  [.settings, .about], [.separator], [.signOut]]
     
     var userInfo: UserInfo?
     var delegate: LeftMenuViewControllerDelegate?

@@ -14,7 +14,6 @@ final class ProfileAndMembershipTableViewCell: UITableViewCell, RegisterableCell
     @IBOutlet private weak var emailLabel: UILabel!
     @IBOutlet private weak var modifyLabel: UILabel!
     @IBOutlet private weak var membershipLabel: UILabel!
-    @IBOutlet private weak var upgradeDowngradeLabel: UILabel!
     
     var didTapModifyLabel: (() -> Void)?
     var didTapUpgradeDowngradeLabel: (() -> Void)?
@@ -23,13 +22,10 @@ final class ProfileAndMembershipTableViewCell: UITableViewCell, RegisterableCell
         super.awakeFromNib()
         selectionStyle = .none
         
-        let tapModify = UITapGestureRecognizer(target: self, action: #selector(modifyLabelTapped))
-        modifyLabel.isUserInteractionEnabled = true
-        modifyLabel.addGestureRecognizer(tapModify)
-        
-        let tapUpgradeDowngrade = UITapGestureRecognizer(target: self, action: #selector(upgradeDowngradeLabelTapped))
-        upgradeDowngradeLabel.isUserInteractionEnabled = true
-        upgradeDowngradeLabel.addGestureRecognizer(tapUpgradeDowngrade)
+//        let tapModify = UITapGestureRecognizer(target: self, action: #selector(modifyLabelTapped))
+//        modifyLabel.isUserInteractionEnabled = true
+//        modifyLabel.addGestureRecognizer(tapModify)
+        modifyLabel.isHidden = true
     }
     
     @objc private func modifyLabelTapped() {
@@ -38,5 +34,17 @@ final class ProfileAndMembershipTableViewCell: UITableViewCell, RegisterableCell
     
     @objc private func upgradeDowngradeLabelTapped() {
         didTapUpgradeDowngradeLabel?()
+    }
+    
+    func bind(with userInfo: UserInfo) {
+        usernameLabel.text = userInfo.name
+        
+        if userInfo.isPremium {
+            membershipLabel.text = "Premium membership"
+            membershipLabel.textColor = SLColor.premiumColor
+        } else {
+            membershipLabel.text = "Freemium membership"
+            membershipLabel.textColor = SLColor.secondaryTitleColor
+        }
     }
 }

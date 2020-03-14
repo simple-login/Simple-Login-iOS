@@ -12,6 +12,8 @@ import Toaster
 final class SettingsViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
+    var userInfo: UserInfo!
+    
     deinit {
         print("SettingsViewController is deallocated")
     }
@@ -165,13 +167,15 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
             let cell = ProfileAndMembershipTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.bind(with: userInfo)
             
             cell.didTapModifyLabel = { [unowned self] in
                 self.showAlertModifyProfile()

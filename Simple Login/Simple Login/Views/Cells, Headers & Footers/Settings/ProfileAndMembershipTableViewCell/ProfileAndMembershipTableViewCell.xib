@@ -61,15 +61,9 @@
                                 <rect key="frame" x="16" y="93" width="669" height="49"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Freemium Membership" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bJ-2D-kx6">
-                                        <rect key="frame" x="0.0" y="0.0" width="604.5" height="49"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="669" height="49"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" name="TitleColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="UPGRADE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nru-KD-oam">
-                                        <rect key="frame" x="604.5" y="0.0" width="64.5" height="49"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                        <color key="textColor" name="PremiumColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -108,7 +102,6 @@
                 <outlet property="emailLabel" destination="ABl-ug-Iin" id="nAd-6y-ezq"/>
                 <outlet property="membershipLabel" destination="6bJ-2D-kx6" id="ZOL-5k-PMx"/>
                 <outlet property="modifyLabel" destination="E4Y-pP-XbB" id="qp0-G9-5Kh"/>
-                <outlet property="upgradeDowngradeLabel" destination="nru-KD-oam" id="kzi-Z5-0TT"/>
                 <outlet property="usernameLabel" destination="ijH-Lj-OUz" id="ZWb-gY-7dT"/>
             </connections>
             <point key="canvasLocation" x="377.536231884058" y="134.59821428571428"/>
@@ -119,9 +112,6 @@
         <namedColor name="FrontBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
-        <namedColor name="PremiumColor">
-            <color red="0.20399999618530273" green="0.77999997138977051" blue="0.34900000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="SeparatorColor">
             <color white="0.80000001192092896" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
@@ -129,7 +119,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TintColor">
-            <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.93333333333333335" green="0.18823529411764706" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TitleColor">
             <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

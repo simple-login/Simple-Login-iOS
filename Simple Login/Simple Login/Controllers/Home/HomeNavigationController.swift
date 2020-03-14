@@ -150,7 +150,7 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     func didSelectSettings() {
         if settingsViewController == nil {
             settingsViewController = SettingsViewController.instantiate(storyboardName: "Settings")
-            
+            settingsViewController?.userInfo = userInfo
             settingsViewController?.didTapLeftBarButtonItem = { [unowned self] in
                 self.toggleLeftMenu()
             }
