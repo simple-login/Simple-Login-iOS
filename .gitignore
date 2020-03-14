@@ -90,3 +90,5 @@ fastlane/test_output
 iOSInjectionProject/
 SLOAuth.plist
 GoogleService-Info.plist
+
+.DS_Store
