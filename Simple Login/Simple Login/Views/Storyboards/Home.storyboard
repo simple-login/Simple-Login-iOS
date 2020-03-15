@@ -88,7 +88,7 @@
                     <navigationItem key="navigationItem" id="Bkv-TN-Uzz">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="nt8-vm-ZTf">
-                            <rect key="frame" x="93.5" y="5.5" width="203" height="33"/>
+                            <rect key="frame" x="39" y="5.5" width="203" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="All"/>
@@ -110,6 +110,11 @@
                                     <action selector="shuffleButtonTapped" destination="k2o-CK-HuA" id="dr6-nF-CrK"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem systemItem="search" id="6W9-LP-dF2">
+                                <connections>
+                                    <segue destination="VrX-Ab-HwM" kind="presentation" modalPresentationStyle="fullScreen" id="je7-b2-oJx"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -122,6 +127,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dMR-uO-5ea" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="206" y="129"/>
+        </scene>
+        <!--Alias Search View Controller-->
+        <scene sceneID="epl-Q9-Yqq">
+            <objects>
+                <viewController storyboardIdentifier="AliasSearchViewController" id="hTb-Vd-rkt" customClass="AliasSearchViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lYx-XR-DRe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XYU-S2-j8V">
+                                <rect key="frame" x="20" y="438" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" name="TitleColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="p6c-gf-MT3">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="hTb-Vd-rkt" id="ck4-OI-hUF"/>
+                                    <outlet property="delegate" destination="hTb-Vd-rkt" id="LXm-uA-OpS"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="p6c-gf-MT3" secondAttribute="bottom" id="20u-Z0-q9v"/>
+                            <constraint firstItem="XYU-S2-j8V" firstAttribute="centerX" secondItem="lYx-XR-DRe" secondAttribute="centerX" id="48K-LT-wDf"/>
+                            <constraint firstItem="p6c-gf-MT3" firstAttribute="leading" secondItem="DVe-Dj-LzA" secondAttribute="leading" id="6tp-SF-TfM"/>
+                            <constraint firstItem="XYU-S2-j8V" firstAttribute="leading" secondItem="DVe-Dj-LzA" secondAttribute="leading" constant="20" id="HyD-Uz-P1p"/>
+                            <constraint firstItem="p6c-gf-MT3" firstAttribute="top" secondItem="DVe-Dj-LzA" secondAttribute="top" id="Q3W-47-nrD"/>
+                            <constraint firstItem="DVe-Dj-LzA" firstAttribute="trailing" secondItem="XYU-S2-j8V" secondAttribute="trailing" constant="20" id="SZh-Jn-Fg8"/>
+                            <constraint firstItem="DVe-Dj-LzA" firstAttribute="trailing" secondItem="p6c-gf-MT3" secondAttribute="trailing" id="YJc-Ip-ah7"/>
+                            <constraint firstItem="XYU-S2-j8V" firstAttribute="centerY" secondItem="lYx-XR-DRe" secondAttribute="centerY" id="vD1-H1-wS7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DVe-Dj-LzA"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="1YL-TX-CTl"/>
+                    <connections>
+                        <outlet property="messageLabel" destination="XYU-S2-j8V" id="Qkz-Gd-HLW"/>
+                        <outlet property="tableView" destination="p6c-gf-MT3" id="vP7-cc-sRl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gTh-Xc-S27" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1023" y="865"/>
         </scene>
         <!--Alias Activity View Controller-->
         <scene sceneID="OUy-kI-t6x">
@@ -239,7 +290,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qt2-jH-4ad" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1387" y="860"/>
+            <point key="canvasLocation" x="2055" y="856"/>
         </scene>
         <!--How To Send Email View Controller-->
         <scene sceneID="cB2-ZX-5p6">
@@ -286,7 +337,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="coZ-W9-sSl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2590" y="307"/>
+            <point key="canvasLocation" x="4410.144927536232" y="306.69642857142856"/>
         </scene>
         <!--Create Contact View Controller-->
         <scene sceneID="Zvb-u5-EhH">
@@ -356,7 +407,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pKg-cF-JCT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2633" y="1016"/>
+            <point key="canvasLocation" x="4452.1739130434789" y="1015.8482142857142"/>
         </scene>
         <!--Create Alias View Controller-->
         <scene sceneID="aaT-2b-NFK">
@@ -629,6 +680,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8B3-bD-pjq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="125" y="-563"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="G9n-Q3-qob">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VrX-Ab-HwM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PAa-Ck-f2L">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hTb-Vd-rkt" kind="relationship" relationship="rootViewController" id="bAc-oH-91s"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xVY-8f-HJd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="206" y="865"/>
         </scene>
     </scenes>
     <resources>

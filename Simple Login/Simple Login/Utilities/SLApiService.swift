@@ -606,3 +606,10 @@ extension SLApiService {
         }
     }
 }
+
+// MARK: - Search
+extension SLApiService {
+    static func search(apiKey: String, searchTerm: String, completion: @escaping (_ aliases: [Alias]?, _ error: SLError?) -> Void) {
+        completion([], nil)
+    }
+}

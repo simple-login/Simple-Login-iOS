@@ -52,6 +52,7 @@
 		C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */; };
 		C06BD31D23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */; };
 		C06BD31F23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */; };
+		C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07245EF241E294B00074360 /* AliasSearchViewController.swift */; };
 		C0747EDF23CCA6F5008035E9 /* CreateContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EDE23CCA6F5008035E9 /* CreateContactViewController.swift */; };
 		C0747EE223CCDE63008035E9 /* AliasActivityTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE123CCDE63008035E9 /* AliasActivityTableHeaderView.swift */; };
 		C0747EE423CCDE7C008035E9 /* AliasActivityTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0747EE323CCDE7C008035E9 /* AliasActivityTableHeaderView.xib */; };
@@ -234,6 +235,7 @@
 		C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MfaTableViewCell.xib; sourceTree = "<group>"; };
 		C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
 		C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePasswordTableViewCell.xib; sourceTree = "<group>"; };
+		C07245EF241E294B00074360 /* AliasSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasSearchViewController.swift; sourceTree = "<group>"; };
 		C0747EDE23CCA6F5008035E9 /* CreateContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewController.swift; sourceTree = "<group>"; };
 		C0747EE123CCDE63008035E9 /* AliasActivityTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityTableHeaderView.swift; sourceTree = "<group>"; };
 		C0747EE323CCDE7C008035E9 /* AliasActivityTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasActivityTableHeaderView.xib; sourceTree = "<group>"; };
@@ -540,6 +542,14 @@
 				C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */,
 			);
 			path = ChangePasswordTableViewCell;
+			sourceTree = "<group>";
+		};
+		C07245EE241E292F00074360 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				C07245EF241E294B00074360 /* AliasSearchViewController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		C0747EE023CCDE46008035E9 /* AliasActivityTableHeaderView */ = {
@@ -973,6 +983,7 @@
 			children = (
 				C05CD30523CA0419007F1C9E /* AliasViewController.swift */,
 				C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */,
+				C07245EE241E292F00074360 /* Search */,
 				C069397723D3956A008AE6C1 /* Create */,
 				C08A202523CC774800CB8D2F /* Contact */,
 			);
@@ -1317,6 +1328,7 @@
 				C0D6A27D23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift in Sources */,
 				C0F84B2323D4BAA200E0852C /* DomainInfoTableViewCell.swift in Sources */,
 				C0D6A28623D09EC800EF21B8 /* BorderedShadowedView.swift in Sources */,
+				C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */,
 				C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */,
 				C0D0699E24067D1400EBAC10 /* DirectoryExplanationViewController.swift in Sources */,
 				C0D6A28223D07A1500EF21B8 /* TermsAndPrivacyTableViewCell.swift in Sources */,
