@@ -138,7 +138,7 @@ final class ContactViewController: UIViewController {
             }
             
             mailComposerVC.mailComposeDelegate = self
-            mailComposerVC.setToRecipients([contact.email])
+            mailComposerVC.setToRecipients([contact.reverseAlias])
             
             self.present(mailComposerVC, animated: true, completion: nil)
         }
