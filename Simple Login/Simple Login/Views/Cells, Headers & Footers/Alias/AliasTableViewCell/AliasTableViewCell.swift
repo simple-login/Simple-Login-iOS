@@ -25,6 +25,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     weak var alias: Alias?
     
     var didToggleStatus: ((_ enabled: Bool) -> Void)?
+    var didTapCopyButton: (() -> Void)?
     var didTapSendButton: (() -> Void)?
     var didTapDeleteButton: (() -> Void)?
     var didTapRightArrowButton: (() -> Void)?
@@ -82,9 +83,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     }
     
     @IBAction private func copyButtonTapped() {
-        guard let alias = alias else { return }
-        UIPasteboard.general.string = alias.email
-        Toast.displayShortly(message: "Copied \(alias.email) to clipboard")
+        didTapCopyButton?()
     }
     
     @IBAction private func sendButtonTapped() {

@@ -13,6 +13,7 @@ final class ContactTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var destinationEmailLabel: UILabel!
     @IBOutlet private weak var clockImageView: UIImageView!
     @IBOutlet private weak var creationDateLabel: UILabel!
+    @IBOutlet private weak var sendStackView: UIStackView!
     @IBOutlet private weak var sendImageView: UIImageView!
     @IBOutlet private weak var lastSentLabel: UILabel!
     @IBOutlet private weak var createButton: UIButton!
@@ -42,7 +43,9 @@ final class ContactTableViewCell: UITableViewCell, RegisterableCell {
     func bind(with contact: Contact) {
         destinationEmailLabel.text = contact.email
         creationDateLabel.text = contact.creationTimestampString
+        
         lastSentLabel.text = contact.lastEmailSentTimestampString
+        sendStackView.isHidden = contact.lastEmailSentTimestampString == nil
     }
     
     @IBAction private func writeEmailButtonTapped() {

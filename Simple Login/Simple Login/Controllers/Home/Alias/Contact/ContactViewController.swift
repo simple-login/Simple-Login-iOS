@@ -122,11 +122,11 @@ final class ContactViewController: UIViewController {
     }
     
     private func presentAlertWriteEmail(_ contact: Contact) {
-        let alert = UIAlertController(title: "Compose and send email", message: "From \(alias.email) to \(contact.email)", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Compose and send email", message: "From: \"\(alias.email)\"\nTo: \"\(contact.email)\"", preferredStyle: .actionSheet)
         
         let copyAction = UIAlertAction(title: "Copy reverse-alias", style: .default) { (_) in
             UIPasteboard.general.string = contact.reverseAlias
-            Toast.displayShortly(message: "Copied \(contact.reverseAlias)")
+            Toast.displayShortly(message: "Copied \"\(contact.reverseAlias)\"")
         }
         alert.addAction(copyAction)
         

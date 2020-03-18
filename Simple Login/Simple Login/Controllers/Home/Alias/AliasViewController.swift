@@ -412,6 +412,11 @@ extension AliasViewController: UITableViewDataSource {
             self.toggle(alias: alias, at: indexPath)
         }
         
+        cell.didTapCopyButton = {
+            UIPasteboard.general.string = alias.email
+            Toast.displayShortly(message: "Copied \"\(alias.email)\"")
+        }
+        
         cell.didTapSendButton = { [unowned self] in
             self.performSegue(withIdentifier: "showSendEmail", sender: alias)
         }

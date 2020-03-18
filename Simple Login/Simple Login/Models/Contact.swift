@@ -9,6 +9,7 @@
 import Foundation
 
 final class Contact {
+    let id: Int
     let email: String
     let reverseAlias: String
     let creationDate: String
@@ -23,9 +24,9 @@ final class Contact {
         return "Created on \(preciseDateAndTime) (\(value) \(unit) ago)"
     }()
     
-    lazy var lastEmailSentTimestampString: String = {
+    lazy var lastEmailSentTimestampString: String? = {
         guard let lastEmailSentTimestamp = lastEmailSentTimestamp else {
-            return "You haven't sent anything to this email"
+            return nil
         }
         
         let date = Date(timeIntervalSince1970: lastEmailSentTimestamp)
@@ -35,6 +36,7 @@ final class Contact {
     }()
     
     init(fromDictionary dictionary: [String : Any]) throws {
+        let id = dictionary["id"] as? Int
         let email = dictionary["contact"] as? String
         let reverseAlias = dictionary["reverse_alias"] as? String
         let creationDate = dictionary["creation_date"] as? String
@@ -42,7 +44,8 @@ final class Contact {
         let lastEmailSentDate = dictionary["last_email_sent_date"] as? String
         let lastEmailSentTimestamp = dictionary["last_email_sent_timestamp"] as? TimeInterval
         
-        if let email = email, let creationDate = creationDate, let creationTimestamp = creationTimestamp, let reverseAlias = reverseAlias {
+        if let id = id, let email = email, let creationDate = creationDate, let creationTimestamp = creationTimestamp, let reverseAlias = reverseAlias {
+            self.id = id
             self.email = email
             self.reverseAlias = reverseAlias
             self.creationDate = creationDate

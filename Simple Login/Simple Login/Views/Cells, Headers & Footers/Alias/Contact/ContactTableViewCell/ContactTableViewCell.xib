@@ -118,6 +118,7 @@
                 <outlet property="destinationEmailLabel" destination="dHo-hn-FCp" id="iZr-PQ-E9b"/>
                 <outlet property="lastSentLabel" destination="4sa-IA-6vG" id="7oq-DG-FYD"/>
                 <outlet property="sendImageView" destination="Ceb-N4-BXX" id="84u-Ph-JMl"/>
+                <outlet property="sendStackView" destination="du8-7I-JRS" id="G8b-6f-AVQ"/>
             </connections>
             <point key="canvasLocation" x="21.014492753623191" y="124.21875"/>
         </tableViewCell>
