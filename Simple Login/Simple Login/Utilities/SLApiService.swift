@@ -510,20 +510,20 @@ extension SLApiService {
         }
     }
     
-    static func deleteAlias(apiKey: String, id: Int, completion: @escaping (_ deleted: Bool?, _ error: SLError?) -> Void) {
+    static func deleteAlias(apiKey: String, id: Int, completion: @escaping (_ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/aliases/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(SLError.unknownError(description: "error code unknown"))
                 return
             }
             
             switch statusCode {
             case 200:
                 guard let data = response.data else {
-                    completion(nil, SLError.noData)
+                    completion(SLError.noData)
                     return
                 }
                 
@@ -531,18 +531,18 @@ extension SLApiService {
                     let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
                     
                     if let deleted = jsonDictionary?["deleted"] as? Bool {
-                        completion(deleted, nil)
+                        deleted ? completion(nil) : completion(SLError.failToDelete(objectName: "Alias"))
                     } else {
-                        completion(nil, SLError.failToParseObject(objectName: "delete alias"))
+                        completion(SLError.failToParseObject(objectName: "delete alias"))
                     }
                     
                 } catch {
-                    completion(nil, SLError.failToSerializeJSONData)
+                    completion(SLError.failToSerializeJSONData)
                 }
                 
-            case 401: completion(nil, SLError.invalidApiKey)
-            case 500: completion(nil, SLError.internalServerError)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            case 401: completion(SLError.invalidApiKey)
+            case 500: completion(SLError.internalServerError)
+            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
     }

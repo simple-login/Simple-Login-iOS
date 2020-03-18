@@ -186,6 +186,7 @@ final class ContactViewController: UIViewController {
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
                 }) { _ in
                     self.tableView.reloadData()
+                    Toast.displayShortly(message: "Deleted contact \"\(contact.email)\"")
                 }
             }
         }
