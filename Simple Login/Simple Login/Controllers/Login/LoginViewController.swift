@@ -62,33 +62,6 @@ final class LoginViewController: UIViewController, Storyboarded {
         loginButton.setTitleColor(SLColor.tintColor.withAlphaComponent(0.3), for: .disabled)
     }
     
-    @IBAction private func forgotPassword() {
-        let alert = UIAlertController(title: "Enter your email", message: "We will send you an email with instruction to recover your password", preferredStyle: .alert)
-        alert.addTextField(configurationHandler: nil)
-        
-        let sendAction = UIAlertAction(title: "Send request", style: .default) { [unowned self] _ in
-            guard let email = alert.textFields?[0].text else { return }
-            MBProgressHUD.showAdded(to: self.view, animated: true)
-            
-            SLApiService.forgotPassword(email: email) { [weak self] (error) in
-                guard let self = self else { return }
-                MBProgressHUD.hide(for: self.view, animated: true)
-                
-                if let error = error {
-                    Toast.displayError(error)
-                } else {
-                    Toast.displayLongly(message: "Please check your inbox for further instruction")
-                }
-            }
-        }
-        alert.addAction(sendAction)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
     @IBAction private func login() {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()

@@ -99,7 +99,7 @@
                                                     <color key="titleColor" name="TintColor"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="forgotPassword" destination="97x-xh-V5v" eventType="touchUpInside" id="O9M-ZJ-XVh"/>
+                                                    <segue destination="mCs-uv-mP1" kind="show" id="Ka1-ji-39s"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2nc-lV-ucB">
@@ -546,6 +546,100 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIj-dw-UPc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="15.942028985507248" y="791.51785714285711"/>
+        </scene>
+        <!--Forgot Password View Controller-->
+        <scene sceneID="J7z-G9-OLR">
+            <objects>
+                <viewController id="mCs-uv-mP1" customClass="ForgotPasswordViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="P83-zi-mIp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CR7-eS-0q4">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem title="Forgot password" id="40x-Sr-Qqe">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="MDA-T4-YIF">
+                                            <connections>
+                                                <action selector="cancelButtonTapped" destination="mCs-uv-mP1" id="r5t-7x-zv6"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="t65-Al-sGp">
+                                <rect key="frame" x="57" y="143" width="300" height="256"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wwe-BZ-kuI">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="143.5"/>
+                                        <string key="text">For security reason and to avoid database leak, all "forgot password" requests are taken into account silently without you being informed if a request is successful or not.  So make sure that you enter the correct email address.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Uha-G5-6aM" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                        <rect key="frame" x="0.0" y="163.5" width="300" height="39.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Email address"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Email address"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Email address"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" name="TitleColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" name="TextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="emailTextFieldEditingChanged" destination="mCs-uv-mP1" eventType="editingChanged" id="1Ie-Hw-f3t"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NsT-XQ-Wb2">
+                                        <rect key="frame" x="0.0" y="223" width="300" height="33"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <state key="normal" title="Reset password">
+                                            <color key="titleColor" name="TintColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="resetButtonTapped" destination="mCs-uv-mP1" eventType="touchUpInside" id="hre-rJ-iWD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="fma-HG-gyh"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="CR7-eS-0q4" firstAttribute="leading" secondItem="P83-zi-mIp" secondAttribute="leading" symbolic="YES" id="BZ7-T5-eHj"/>
+                            <constraint firstItem="t65-Al-sGp" firstAttribute="centerX" secondItem="P83-zi-mIp" secondAttribute="centerX" id="E6E-xm-cKm"/>
+                            <constraint firstItem="cb7-i1-qit" firstAttribute="trailing" secondItem="CR7-eS-0q4" secondAttribute="trailing" id="FbT-Wu-i2T"/>
+                            <constraint firstItem="CR7-eS-0q4" firstAttribute="top" secondItem="cb7-i1-qit" secondAttribute="top" id="JZJ-Hg-ktV"/>
+                            <constraint firstItem="t65-Al-sGp" firstAttribute="centerY" secondItem="P83-zi-mIp" secondAttribute="centerY" constant="-150" id="bTG-kf-u00"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cb7-i1-qit"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="UY5-zI-lY3"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="Uha-G5-6aM" id="oab-Fl-t8y"/>
+                        <outlet property="resetButton" destination="NsT-XQ-Wb2" id="rvT-Q8-ZGh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WcP-fO-Clb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="925" y="-563"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="uoj-N4-LWQ">
