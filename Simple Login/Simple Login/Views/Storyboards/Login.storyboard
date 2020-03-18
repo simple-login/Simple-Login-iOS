@@ -98,6 +98,9 @@
                                                 <state key="normal" title="Forgot password">
                                                     <color key="titleColor" name="TintColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="forgotPassword" destination="97x-xh-V5v" eventType="touchUpInside" id="O9M-ZJ-XVh"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2nc-lV-ucB">
                                                 <rect key="frame" x="150" y="0.0" width="150" height="30"/>

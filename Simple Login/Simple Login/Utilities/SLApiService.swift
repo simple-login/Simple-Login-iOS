@@ -123,6 +123,42 @@ final class SLApiService {
         }
     }
     
+    static func forgotPassword(email: String, completion: @escaping (_ error: SLError?) -> Void) {
+        AF.request("\(BASE_URL)/api/auth/forgot_password", method: .post, parameters: ["email": email], encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
+
+            guard let statusCode = response.response?.statusCode else {
+                completion(SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200: completion(nil)
+                
+            case 400:
+                guard let data = response.data else {
+                    completion(SLError.noData)
+                    return
+                }
+                
+                do {
+                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                    
+                    if let errorMessage = jsonDictionary?["error"] as? String {
+                        completion(SLError.badRequest(description: errorMessage))
+                    } else {
+                        completion(SLError.failToParseObject(objectName: "forgot password error"))
+                    }
+                    
+                } catch {
+                    completion(SLError.failToSerializeJSONData)
+                }
+                
+            case 500: completion(SLError.internalServerError)
+            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
+    
     static func fetchUserInfo(_ apiKey: String, completion: @escaping (_ userInfo: UserInfo?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
