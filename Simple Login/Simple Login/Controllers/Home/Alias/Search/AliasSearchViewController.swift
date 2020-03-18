@@ -16,6 +16,17 @@ final class AliasSearchViewController: UIViewController {
     
     private var aliases: [Alias] = []
     
+    private var searchTerm: String? = nil
+    private var fetchedPage: Int = -1
+    private var isFetching: Bool = false
+    private var moreToLoad: Bool = true
+    
+    private var noAlias: Bool = false {
+        didSet {
+            tableView.isHidden = noAlias
+        }
+    }
+    
     deinit {
         print("AliasSearchViewController is deallocated")
     }
@@ -28,7 +39,7 @@ final class AliasSearchViewController: UIViewController {
     private func setUpUI() {
         // Add search bar
         let searchBar = UISearchBar()
-        searchBar.showsCancelButton = true
+        searchBar.showsCancelButton = false
         searchBar.placeholder = "Enter search term"
         searchBar.delegate = self
         searchBar.becomeFirstResponder()
@@ -42,30 +53,53 @@ final class AliasSearchViewController: UIViewController {
         AliasTableViewCell.register(with: tableView)
     }
     
-    private func search(_ term: String) {
+    @IBAction private func closeButtonTapped() {
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    private func search(_ term: String? = nil) {
         guard let apiKey = SLKeychainService.getApiKey() else {
             Toast.displayErrorRetrieveingApiKey()
             return
         }
         
-        MBProgressHUD.showAdded(to: view, animated: true)
+        if let term = term {
+            self.searchTerm = term
+            moreToLoad = true
+            isFetching = false
+            fetchedPage = -1
+            aliases.removeAll()
+        }
         
-        SLApiService.search(apiKey: apiKey, searchTerm: term) { [weak self] (aliases, error) in
+        guard moreToLoad, !isFetching else { return }
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        isFetching = true
+        
+        SLApiService.fetchAliases(apiKey: apiKey, page: fetchedPage + 1, searchTerm: self.searchTerm ?? "") { [weak self] (aliases, error) in
             guard let self = self else { return }
-            
             MBProgressHUD.hide(for: self.view, animated: true)
+            self.isFetching = false
             
-            if let error = error {
-                Toast.displayError(error)
-            } else if let aliases = aliases {
+            if let aliases = aliases {
                 if aliases.count == 0 {
-                    self.messageLabel.text = "No result for \"\(term)\""
+                    self.moreToLoad = false
+                } else {
+                    self.fetchedPage += 1
+                    self.aliases.append(contentsOf: aliases)
                 }
                 
-                self.aliases.removeAll()
-                self.aliases.append(contentsOf: aliases)
-                self.tableView.isHidden = aliases.count == 0
+                if (self.aliases.count == 0) {
+                    self.noAlias = true
+                    self.messageLabel.text = "No result found for \"\(self.searchTerm ?? "")\""
+                } else {
+                    self.noAlias = false
+                }
+                
                 self.tableView.reloadData()
+                
+            } else if let error = error {
+                Toast.displayError(error)
             }
         }
     }
@@ -73,13 +107,10 @@ final class AliasSearchViewController: UIViewController {
 
 // MARK: - UISearchBarDelegate
 extension AliasSearchViewController: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        navigationController?.dismiss(animated: true, completion: nil)
-    }
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchTerm = searchBar.text {
             search(searchTerm)
+            searchBar.resignFirstResponder()
         }
     }
 }
@@ -88,6 +119,12 @@ extension AliasSearchViewController: UISearchBarDelegate {
 extension AliasSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if (indexPath.row == aliases.count - 1) && moreToLoad {
+            search()
+        }
     }
 }
 

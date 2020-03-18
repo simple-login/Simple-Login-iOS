@@ -164,7 +164,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DVe-Dj-LzA"/>
                     </view>
-                    <navigationItem key="navigationItem" id="1YL-TX-CTl"/>
+                    <navigationItem key="navigationItem" id="1YL-TX-CTl">
+                        <barButtonItem key="rightBarButtonItem" title="Close" id="9Sp-tC-Vwj">
+                            <connections>
+                                <action selector="closeButtonTapped" destination="hTb-Vd-rkt" id="7lV-yW-vsZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="messageLabel" destination="XYU-S2-j8V" id="Qkz-Gd-HLW"/>
                         <outlet property="tableView" destination="p6c-gf-MT3" id="vP7-cc-sRl"/>

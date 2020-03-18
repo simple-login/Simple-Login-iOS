@@ -289,10 +289,21 @@ extension SLApiService {
 
 // MARK: - Alias
 extension SLApiService {
-    static func fetchAliases(apiKey: String, page: Int, completion: @escaping (_ aliases: [Alias]?, _ error: SLError?) -> Void) {
+    static func fetchAliases(apiKey: String, page: Int, searchTerm: String? = nil, completion: @escaping (_ aliases: [Alias]?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
-        AF.request("\(BASE_URL)/api/aliases?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+        let method: HTTPMethod
+        let parameters: [String: Any]?
+        if let searchTerm = searchTerm {
+            parameters = ["query": searchTerm]
+            method = .post
+        } else {
+            parameters = nil
+            method = .get
+        }
+        
+        
+        AF.request("\(BASE_URL)/api/aliases?page_id=\(page)", method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(nil, SLError.unknownError(description: "error code unknown"))
@@ -655,12 +666,5 @@ extension SLApiService {
             default: completion(SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
-    }
-}
-
-// MARK: - Search
-extension SLApiService {
-    static func search(apiKey: String, searchTerm: String, completion: @escaping (_ aliases: [Alias]?, _ error: SLError?) -> Void) {
-        completion([], nil)
     }
 }
