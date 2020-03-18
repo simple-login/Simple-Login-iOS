@@ -36,6 +36,7 @@ final class SLApiService {
                 }
                 
             case 400: completion(nil, SLError.emailOrPasswordIncorrect)
+            case 500: completion(nil, SLError.internalServerError)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -66,6 +67,7 @@ final class SLApiService {
                 }
                 
             case 400: completion(nil, SLError.emailOrPasswordIncorrect)
+            case 500: completion(nil, SLError.internalServerError)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -90,9 +92,9 @@ final class SLApiService {
             case 200:
                 do {
                     guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
-                    let apiKey = jsonDictionary["api_key"] as? String else {
-                        completion(nil, SLError.failToSerializeJSONData)
-                        return
+                        let apiKey = jsonDictionary["api_key"] as? String else {
+                            completion(nil, SLError.failToSerializeJSONData)
+                            return
                     }
                     
                     completion(apiKey, nil)
@@ -104,9 +106,9 @@ final class SLApiService {
             case 400:
                 do {
                     guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
-                    let error = jsonDictionary["error"] as? String else {
-                        completion(nil, SLError.badRequest(description: "Failed to serialize json"))
-                        return
+                        let error = jsonDictionary["error"] as? String else {
+                            completion(nil, SLError.badRequest(description: "Failed to serialize json"))
+                            return
                     }
                     
                     completion(nil, SLError.badRequest(description: error))
@@ -115,6 +117,7 @@ final class SLApiService {
                     completion(nil, error as? SLError)
                 }
                 
+            case 500: completion(nil, SLError.internalServerError)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -145,6 +148,7 @@ final class SLApiService {
                 }
                 
             case 401: completion(nil, SLError.invalidApiKey)
+            case 500: completion(nil, SLError.internalServerError)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -174,6 +178,7 @@ final class SLApiService {
                     completion(nil, error as? SLError)
                 }
             case 401: completion(nil, SLError.invalidApiKey)
+            case 500: completion(nil, SLError.internalServerError)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -213,7 +218,7 @@ extension SLApiService {
                 } catch {
                     completion(SLError.failToSerializeJSONData)
                 }
-                
+            case 500: completion(SLError.internalServerError)
             default: completion(SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -252,7 +257,7 @@ extension SLApiService {
                 }
                 
             case 410: completion(SLError.reactivationNeeded)
-                
+            case 500: completion(SLError.internalServerError)
             default: completion(SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -275,6 +280,7 @@ extension SLApiService {
             
             switch statusCode {
             case 200: completion(nil)
+            case 500: completion(SLError.internalServerError)
             default: completion(SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -326,6 +332,7 @@ extension SLApiService {
                 
             case 400: completion(nil, SLError.badRequest(description: "page_id must be provided in request query."))
             case 401: completion(nil, SLError.invalidApiKey)
+            case 500: completion(nil, SLError.internalServerError)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -374,6 +381,7 @@ extension SLApiService {
                 
             case 400: completion(nil, SLError.badRequest(description: "page_id must be provided in request query."))
             case 401: completion(nil, SLError.invalidApiKey)
+            case 500: completion(nil, SLError.internalServerError)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -416,6 +424,7 @@ extension SLApiService {
                 
             case 401: completion(nil, SLError.invalidApiKey)
             case 409: completion(nil, SLError.duplicatedAlias)
+            case 500: completion(nil, SLError.internalServerError)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -458,6 +467,7 @@ extension SLApiService {
                 }
                 
             case 401: completion(nil, SLError.invalidApiKey)
+            case 500: completion(nil, SLError.internalServerError)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -494,6 +504,7 @@ extension SLApiService {
                 }
                 
             case 401: completion(nil, SLError.invalidApiKey)
+            case 500: completion(nil, SLError.internalServerError)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -530,6 +541,7 @@ extension SLApiService {
                 }
                 
             case 401: completion(nil, SLError.invalidApiKey)
+            case 500: completion(nil, SLError.internalServerError)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -581,6 +593,7 @@ extension SLApiService {
                 
             case 400: completion(nil, SLError.badRequest(description: "page_id must be provided in request query."))
             case 401: completion(nil, SLError.invalidApiKey)
+            case 500: completion(nil, SLError.internalServerError)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
@@ -589,7 +602,7 @@ extension SLApiService {
     static func createContact(apiKey: String, aliasId: Int, email: String, completion: @escaping (_ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         let parameters = ["contact" : email]
-
+        
         AF.request("\(BASE_URL)/api/aliases/\(aliasId)/contacts", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
@@ -601,6 +614,7 @@ extension SLApiService {
             case 201: completion(nil)
             case 401: completion(SLError.invalidApiKey)
             case 409: completion(SLError.duplicatedContact)
+            case 500: completion(SLError.internalServerError)
             default: completion(SLError.unknownError(description: "error code \(statusCode)"))
             }
         }

@@ -17,6 +17,7 @@ enum SLError: Error, CustomStringConvertible {
     case duplicatedAlias
     case duplicatedContact
     case reactivationNeeded
+    case internalServerError
     case badRequest(description: String)
     case unknownError(description: String)
     
@@ -30,6 +31,7 @@ enum SLError: Error, CustomStringConvertible {
         case .duplicatedAlias: return "Alias is duplicated"
         case .duplicatedContact: return "Contact already created"
         case .reactivationNeeded: return "Reactivation needed"
+        case .internalServerError: return "Internal server error"
         case .badRequest(let description): return "Bad request: \(description)"
         case .unknownError(let description): return "Unknown error: \(description)"
         }
