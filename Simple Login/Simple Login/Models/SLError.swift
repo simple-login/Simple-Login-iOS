@@ -12,6 +12,7 @@ enum SLError: Error, CustomStringConvertible {
     case noData
     case failToSerializeJSONData
     case failToParseObject(objectName: String)
+    case failToDelete(objectName: String)
     case emailOrPasswordIncorrect
     case invalidApiKey
     case duplicatedAlias
@@ -26,6 +27,7 @@ enum SLError: Error, CustomStringConvertible {
         case .noData: return "Server returns no data"
         case .failToSerializeJSONData: return "Failed to serialize JSON data"
         case .failToParseObject(let objectName): return "Failed to parse \(objectName)"
+        case .failToDelete(let objectName): return "Failed to delete \(objectName)"
         case .emailOrPasswordIncorrect: return "Email or password incorrect"
         case .invalidApiKey: return "Invalid API key"
         case .duplicatedAlias: return "Alias is duplicated"

@@ -548,7 +548,7 @@ extension SLApiService {
     }
 }
 
-// MARK: - Reverse Aliases
+// MARK: - Contact
 extension SLApiService {
     static func fetchContacts(apiKey: String, aliasId: Int, page: Int, completion: @escaping (_ contacts: [Contact]?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
@@ -614,6 +614,43 @@ extension SLApiService {
             case 201: completion(nil)
             case 401: completion(SLError.invalidApiKey)
             case 409: completion(SLError.duplicatedContact)
+            case 500: completion(SLError.internalServerError)
+            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
+    
+    static func deleteContact(apiKey: String, id: Int, completion: @escaping (_ error: SLError?) -> Void) {
+        let headers: HTTPHeaders = ["Authentication": apiKey]
+        
+        AF.request("\(BASE_URL)/api/contacts/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200:
+                guard let data = response.data else {
+                    completion(SLError.noData)
+                    return
+                }
+                
+                do {
+                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                    
+                    if let deleted = jsonDictionary?["deleted"] as? Bool {
+                        deleted ? completion(nil) : completion(SLError.failToDelete(objectName: "Contact"))
+                    } else {
+                        completion(SLError.failToParseObject(objectName: "delete contact"))
+                    }
+                    
+                } catch {
+                    completion(SLError.failToSerializeJSONData)
+                }
+                
+            case 401: completion(SLError.invalidApiKey)
             case 500: completion(SLError.internalServerError)
             default: completion(SLError.unknownError(description: "error code \(statusCode)"))
             }

@@ -9,6 +9,7 @@
 import UIKit
 import MessageUI
 import Toaster
+import MBProgressHUD
 
 final class ContactViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -150,11 +151,11 @@ final class ContactViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func presentAlertConfirmDelete(_ contact: Contact) {
+    private func presentAlertConfirmDelete(_ contact: Contact, indexPath: IndexPath) {
         let alert = UIAlertController(title: "Delete \(contact.email)", message: "🛑 This operation is irreversible", preferredStyle: .alert)
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
-            Toast.displayShortly(message: "Deleted")
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
+            self.delete(contact: contact, indexPath: indexPath)
         }
         alert.addAction(deleteAction)
         
@@ -162,6 +163,32 @@ final class ContactViewController: UIViewController {
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func delete(contact: Contact, indexPath: IndexPath) {
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.deleteContact(apiKey: apiKey, id: contact.id) { [weak self] (error) in
+            guard let self = self else { return }
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if let error = error {
+                Toast.displayError(error)
+            } else {
+                self.tableView.performBatchUpdates({
+                    self.contacts.removeAll { $0.id == contact.id }
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                }) { _ in
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
 }
 
@@ -216,7 +243,7 @@ extension ContactViewController: UITableViewDataSource {
         }
         
         cell.didTapDeleteButton = { [unowned self] in
-            self.presentAlertConfirmDelete(contact)
+            self.presentAlertConfirmDelete(contact, indexPath: indexPath)
         }
         
         return cell
