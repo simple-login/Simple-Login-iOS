@@ -38,13 +38,17 @@ final class ProfileAndMembershipTableViewCell: UITableViewCell, RegisterableCell
     
     func bind(with userInfo: UserInfo) {
         usernameLabel.text = userInfo.name
+        emailLabel.text = userInfo.email
         
-        if userInfo.isPremium {
+        if userInfo.inTrial {
+            membershipLabel.text = "Premium trial membership"
+            membershipLabel.textColor = .systemBlue
+        } else if userInfo.isPremium {
             membershipLabel.text = "Premium membership"
             membershipLabel.textColor = SLColor.premiumColor
         } else {
-            membershipLabel.text = "Freemium membership"
-            membershipLabel.textColor = SLColor.secondaryTitleColor
+            membershipLabel.text = "Free membership"
+            membershipLabel.textColor = SLColor.titleColor
         }
     }
 }

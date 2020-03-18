@@ -23,6 +23,7 @@ final class LeftMenuViewController: UIViewController {
     @IBOutlet private weak var shadowView: UIView!
     @IBOutlet private weak var avatarImageView: AvatarImageView!
     @IBOutlet private weak var usernameLabel: UILabel!
+    @IBOutlet private weak var emailLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
     
@@ -50,9 +51,6 @@ final class LeftMenuViewController: UIViewController {
         
         // topView
         topViewHeightConstraint.constant = hasTopNotch ? 150 : 120
-        
-        // usernameLabel
-        usernameLabel.textColor = SLColor.textColor
         
         // shadowView
         let gradient = CAGradientLayer()
@@ -93,15 +91,17 @@ final class LeftMenuViewController: UIViewController {
         }
         
         usernameLabel.text = userInfo.name
+        emailLabel.text = userInfo.email
         
-        if userInfo.isPremium {
+        if userInfo.inTrial {
+            statusLabel.text = "Premium trial"
+            statusLabel.textColor = .systemBlue
+        } else if userInfo.isPremium {
             statusLabel.text = "Premium"
             statusLabel.textColor = SLColor.premiumColor
-            statusLabel.shadowColor = SLColor.premiumColor
         } else {
-            statusLabel.text = "Freemium"
-            statusLabel.textColor = SLColor.titleColor
-            statusLabel.shadowColor = SLColor.titleColor
+            statusLabel.text = "Free plan"
+            statusLabel.textColor = .white
         }
     }
 }
