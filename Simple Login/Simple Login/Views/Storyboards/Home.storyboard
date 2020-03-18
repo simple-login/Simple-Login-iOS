@@ -120,8 +120,8 @@
                     <connections>
                         <outlet property="segmentedControl" destination="nt8-vm-ZTf" id="eTp-nH-fbd"/>
                         <outlet property="tableView" destination="e3s-cy-q8e" id="uAX-r5-eHD"/>
-                        <segue destination="TtY-Vi-9th" kind="show" identifier="showSendEmail" id="0ce-pd-BHK"/>
-                        <segue destination="bMY-yI-3hV" kind="show" identifier="showAliasActivity" id="CtI-Wl-JNa"/>
+                        <segue destination="TtY-Vi-9th" kind="show" identifier="showContacts" id="0ce-pd-BHK"/>
+                        <segue destination="bMY-yI-3hV" kind="show" identifier="showActivities" id="CtI-Wl-JNa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dMR-uO-5ea" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -174,6 +174,8 @@
                     <connections>
                         <outlet property="messageLabel" destination="XYU-S2-j8V" id="Qkz-Gd-HLW"/>
                         <outlet property="tableView" destination="p6c-gf-MT3" id="vP7-cc-sRl"/>
+                        <segue destination="TtY-Vi-9th" kind="show" identifier="showContacts" id="vwo-0T-v3m"/>
+                        <segue destination="bMY-yI-3hV" kind="show" identifier="showActivities" id="psP-go-DPf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gTh-Xc-S27" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -719,4 +721,8 @@
             <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="0ce-pd-BHK"/>
+        <segue reference="CtI-Wl-JNa"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -103,6 +103,21 @@ final class AliasSearchViewController: UIViewController {
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.destination {
+            
+        case let sendEmailViewController as ContactViewController:
+            guard let alias = sender as? Alias else { return }
+            sendEmailViewController.alias = alias
+            
+        case let aliasActivityViewController as AliasActivityViewController:
+            guard let alias = sender as? Alias else { return }
+            aliasActivityViewController.alias = alias
+            
+        default: return
+        }
+    }
 }
 
 // MARK: - UISearchBarDelegate
@@ -119,6 +134,7 @@ extension AliasSearchViewController: UISearchBarDelegate {
 extension AliasSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "showActivities", sender: aliases[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -140,7 +156,31 @@ extension AliasSearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = AliasTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        cell.bind(with: aliases[indexPath.row])
+        let alias = aliases[indexPath.row]
+        
+        cell.bind(with: alias)
+        
+        cell.didToggleStatus = { [unowned self] isEnabled in
+            //self.toggle(alias: alias, at: indexPath)
+        }
+        
+        cell.didTapCopyButton = {
+            UIPasteboard.general.string = alias.email
+            Toast.displayShortly(message: "Copied \"\(alias.email)\"")
+        }
+        
+        cell.didTapSendButton = { [unowned self] in
+            self.performSegue(withIdentifier: "showContacts", sender: alias)
+        }
+        
+        cell.didTapDeleteButton = { [unowned self] in
+            //self.presentAlertConfirmDelete(alias: alias, at: indexPath)
+        }
+        
+        cell.didTapRightArrowButton = { [unowned self] in
+            self.performSegue(withIdentifier: "showActivities", sender: alias)
+        }
+        
         return cell
     }
 }

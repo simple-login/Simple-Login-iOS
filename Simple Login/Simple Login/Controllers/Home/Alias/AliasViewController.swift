@@ -352,7 +352,7 @@ extension AliasViewController: UITableViewDelegate {
         case .inactive: alias = inactiveAliases[indexPath.row]
         }
         
-        performSegue(withIdentifier: "showAliasActivity", sender: alias)
+        performSegue(withIdentifier: "showActivities", sender: alias)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -416,7 +416,7 @@ extension AliasViewController: UITableViewDataSource {
         }
         
         cell.didTapSendButton = { [unowned self] in
-            self.performSegue(withIdentifier: "showSendEmail", sender: alias)
+            self.performSegue(withIdentifier: "showContacts", sender: alias)
         }
         
         cell.didTapDeleteButton = { [unowned self] in
@@ -424,7 +424,7 @@ extension AliasViewController: UITableViewDataSource {
         }
         
         cell.didTapRightArrowButton = { [unowned self] in
-            self.performSegue(withIdentifier: "showAliasActivity", sender: alias)
+            self.performSegue(withIdentifier: "showActivities", sender: alias)
         }
         
         return cell
