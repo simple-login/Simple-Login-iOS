@@ -92,6 +92,26 @@ final class AliasViewController: BaseViewController {
                 self.refresh()
             }
             
+        case let aliasSearchNavigationController as AliasSearchNavigationController:
+            guard let aliasSearchViewController = aliasSearchNavigationController.viewControllers[0] as? AliasSearchViewController else { return }
+            
+            aliasSearchViewController.toggledAlias = { [unowned self] alias in
+                for eachAlias in self.aliases {
+                    if eachAlias == alias {
+                        eachAlias.setEnabled(alias.enabled)
+                        self.refilterAliasArrays()
+                        self.tableView.reloadData()
+                        break
+                    }
+                }
+            }
+            
+            aliasSearchViewController.deletedAlias = { [unowned self] alias in
+                self.aliases.removeAll(where: {$0 == alias})
+                self.refilterAliasArrays()
+                self.tableView.reloadData()
+            }
+            
         default: return
         }
     }

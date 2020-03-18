@@ -27,6 +27,9 @@ final class AliasSearchViewController: UIViewController {
         }
     }
     
+    var toggledAlias: ((_ alias: Alias) -> Void)?
+    var deletedAlias: ((_ alias: Alias) -> Void)?
+    
     deinit {
         print("AliasSearchViewController is deallocated")
     }
@@ -65,6 +68,7 @@ final class AliasSearchViewController: UIViewController {
         
         if let term = term {
             self.searchTerm = term
+            messageLabel.text = "No result found for \"\(term)\""
             moreToLoad = true
             isFetching = false
             fetchedPage = -1
@@ -89,13 +93,7 @@ final class AliasSearchViewController: UIViewController {
                     self.aliases.append(contentsOf: aliases)
                 }
                 
-                if (self.aliases.count == 0) {
-                    self.noAlias = true
-                    self.messageLabel.text = "No result found for \"\(self.searchTerm ?? "")\""
-                } else {
-                    self.noAlias = false
-                }
-                
+                self.noAlias = self.aliases.isEmpty
                 self.tableView.reloadData()
                 
             } else if let error = error {
@@ -116,6 +114,76 @@ final class AliasSearchViewController: UIViewController {
             aliasActivityViewController.alias = alias
             
         default: return
+        }
+    }
+}
+
+// MARK: - Actions
+extension AliasSearchViewController {
+    private func toggle(alias: Alias) {
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] (enabled, error) in
+            guard let self = self else { return }
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if let enabled = enabled {
+                alias.setEnabled(enabled)
+                self.toggledAlias?(alias)
+            } else if let error = error {
+                Toast.displayError(error)
+                self.tableView.reloadData()
+            }
+            
+            self.tableView.reloadData()
+        }
+    }
+    
+    private func presentAlertConfirmDelete(alias: Alias, at indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Delete \(alias.email)", message: "🛑 People/apps who used to contact you via this alias cannot reach you any more. This operation is irreversible", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] (_) in
+            self.delete(alias: alias, at: indexPath)
+        }
+        alert.addAction(deleteAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func delete(alias: Alias, at indexPath: IndexPath) {
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.deleteAlias(apiKey: apiKey, id: alias.id) { [weak self] (error) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if let error = error {
+                Toast.displayError(error)
+            } else {
+                self.tableView.performBatchUpdates({
+                    self.aliases.removeAll(where: {$0 == alias})
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                }) { (_) in
+                    self.tableView.reloadData()
+                    self.noAlias = self.aliases.count == 0
+                    self.deletedAlias?(alias)
+                    Toast.displayShortly(message: "Deleted alias \"\(alias.email)\"")
+                }
+            }
         }
     }
 }
@@ -161,7 +229,7 @@ extension AliasSearchViewController: UITableViewDataSource {
         cell.bind(with: alias)
         
         cell.didToggleStatus = { [unowned self] isEnabled in
-            //self.toggle(alias: alias, at: indexPath)
+            self.toggle(alias: alias)
         }
         
         cell.didTapCopyButton = {
@@ -174,7 +242,7 @@ extension AliasSearchViewController: UITableViewDataSource {
         }
         
         cell.didTapDeleteButton = { [unowned self] in
-            //self.presentAlertConfirmDelete(alias: alias, at: indexPath)
+            self.presentAlertConfirmDelete(alias: alias, at: indexPath)
         }
         
         cell.didTapRightArrowButton = { [unowned self] in

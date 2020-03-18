@@ -689,10 +689,10 @@
             </objects>
             <point key="canvasLocation" x="125" y="-563"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Alias Search Navigation Controller-->
         <scene sceneID="G9n-Q3-qob">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VrX-Ab-HwM" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VrX-Ab-HwM" customClass="AliasSearchNavigationController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PAa-Ck-f2L">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

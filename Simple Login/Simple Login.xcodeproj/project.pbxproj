@@ -33,6 +33,7 @@
 		C042C25B23EF3A570045A04D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C042C25A23EF3A570045A04D /* ShareViewController.swift */; };
 		C042C25E23EF3A570045A04D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C042C25C23EF3A570045A04D /* MainInterface.storyboard */; };
 		C042C26223EF3A570045A04D /* SimpleLogin Share Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C042C25823EF3A570045A04D /* SimpleLogin Share Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C04DA67A24227F8900130095 /* AliasSearchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04DA67924227F8900130095 /* AliasSearchNavigationController.swift */; };
 		C05049BC23CE016600AEF20B /* SLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05049BB23CE016600AEF20B /* SLColor.swift */; };
 		C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */; };
 		C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D323C7DDDC00EB5D98 /* Statics.swift */; };
@@ -216,6 +217,7 @@
 		C042C25A23EF3A570045A04D /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		C042C25D23EF3A570045A04D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		C042C25F23EF3A570045A04D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C04DA67924227F8900130095 /* AliasSearchNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasSearchNavigationController.swift; sourceTree = "<group>"; };
 		C05049BB23CE016600AEF20B /* SLColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLColor.swift; sourceTree = "<group>"; };
 		C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLKeychainService.swift; sourceTree = "<group>"; };
 		C052F0D323C7DDDC00EB5D98 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
@@ -548,6 +550,7 @@
 			isa = PBXGroup;
 			children = (
 				C07245EF241E294B00074360 /* AliasSearchViewController.swift */,
+				C04DA67924227F8900130095 /* AliasSearchNavigationController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1307,6 +1310,7 @@
 				C05049BC23CE016600AEF20B /* SLColor.swift in Sources */,
 				C09ABE1023D3B8B200D5B731 /* CustomDomainTableViewCell.swift in Sources */,
 				C06BD31823D0F9330056A9B3 /* MfaTableViewCell.swift in Sources */,
+				C04DA67A24227F8900130095 /* AliasSearchNavigationController.swift in Sources */,
 				C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */,
 				C05CD30E23CA054B007F1C9E /* AboutViewController.swift in Sources */,
 				C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */,
