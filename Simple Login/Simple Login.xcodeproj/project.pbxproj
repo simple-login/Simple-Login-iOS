@@ -83,7 +83,7 @@
 		C0956A5023D10C14000CEBDD /* DeleteAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0956A4F23D10C14000CEBDD /* DeleteAccountTableViewCell.swift */; };
 		C0956A5223D10C71000CEBDD /* DeleteAccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0956A5123D10C71000CEBDD /* DeleteAccountTableViewCell.xib */; };
 		C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097A9E623C7987F00EC1EFE /* AppDelegate.swift */; };
-		C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* Main.storyboard */; };
+		C097A9EE23C7987F00EC1EFE /* StartUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* StartUp.storyboard */; };
 		C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
 		C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9F123C7988300EC1EFE /* LaunchScreen.storyboard */; };
 		C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */; };
@@ -266,7 +266,7 @@
 		C0956A5123D10C71000CEBDD /* DeleteAccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteAccountTableViewCell.xib; sourceTree = "<group>"; };
 		C097A9E323C7987F00EC1EFE /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C097A9E623C7987F00EC1EFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C097A9ED23C7987F00EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C097A9ED23C7987F00EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/StartUp.storyboard; sourceTree = "<group>"; };
 		C097A9EF23C7988300EC1EFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C097A9F223C7988300EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C097A9F423C7988400EC1EFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -704,7 +704,7 @@
 		C0B1DE3A23C8AD6D003EED3B /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				C097A9EC23C7987F00EC1EFE /* Main.storyboard */,
+				C097A9EC23C7987F00EC1EFE /* StartUp.storyboard */,
 				C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */,
 				C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */,
 				C09147FA23CF848100D56CDC /* About.storyboard */,
@@ -1165,7 +1165,7 @@
 				C027A26F24051D9700BD19C9 /* Walkthrough.storyboard in Resources */,
 				C0D6A29823D0AD2400EF21B8 /* FaqTableViewCell.xib in Resources */,
 				C0D069A82406AF8E00EBAC10 /* DomainCatchAllTableViewCell.xib in Resources */,
-				C097A9EE23C7987F00EC1EFE /* Main.storyboard in Resources */,
+				C097A9EE23C7987F00EC1EFE /* StartUp.storyboard in Resources */,
 				C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */,
 				C0D069BA2406D0A800EBAC10 /* ListDeletedAliasesTableViewCell.xib in Resources */,
 				C0D069A32406A95E00EBAC10 /* DeleteDomainTableViewCell.xib in Resources */,
@@ -1413,12 +1413,12 @@
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
-		C097A9EC23C7987F00EC1EFE /* Main.storyboard */ = {
+		C097A9EC23C7987F00EC1EFE /* StartUp.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C097A9ED23C7987F00EC1EFE /* Base */,
 			);
-			name = Main.storyboard;
+			name = StartUp.storyboard;
 			sourceTree = "<group>";
 		};
 		C097A9F123C7988300EC1EFE /* LaunchScreen.storyboard */ = {
