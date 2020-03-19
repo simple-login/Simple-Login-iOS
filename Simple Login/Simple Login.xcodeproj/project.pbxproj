@@ -705,13 +705,13 @@
 			isa = PBXGroup;
 			children = (
 				C097A9EC23C7987F00EC1EFE /* StartUp.storyboard */,
+				C027A26E24051D9700BD19C9 /* Walkthrough.storyboard */,
+				C00D74EA23E8AD0300BE48F0 /* Login.storyboard */,
 				C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */,
 				C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */,
+				C0D069982406798600EBAC10 /* Directory.storyboard */,
 				C09147FA23CF848100D56CDC /* About.storyboard */,
 				C0B76DEA23D0DCEB003AAB7E /* Settings.storyboard */,
-				C00D74EA23E8AD0300BE48F0 /* Login.storyboard */,
-				C027A26E24051D9700BD19C9 /* Walkthrough.storyboard */,
-				C0D069982406798600EBAC10 /* Directory.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
