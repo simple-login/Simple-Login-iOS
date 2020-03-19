@@ -147,6 +147,8 @@
 		C0D6A29323D0ABDC00EF21B8 /* Faq.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A29223D0ABDC00EF21B8 /* Faq.swift */; };
 		C0D6A29623D0ACDF00EF21B8 /* FaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A29523D0ACDF00EF21B8 /* FaqTableViewCell.swift */; };
 		C0D6A29823D0AD2400EF21B8 /* FaqTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A29723D0AD2400EF21B8 /* FaqTableViewCell.xib */; };
+		C0D87CBE2423ABE300BCF5AB /* ContactTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D87CBD2423ABE300BCF5AB /* ContactTableHeaderView.swift */; };
+		C0D87CC02423ABFE00BCF5AB /* ContactTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D87CBF2423ABFE00BCF5AB /* ContactTableHeaderView.xib */; };
 		C0D9B66123CBC0AA009A6699 /* CreateAliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */; };
 		C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */; };
 		C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66423CBC838009A6699 /* String+Utilities.swift */; };
@@ -329,6 +331,8 @@
 		C0D6A29223D0ABDC00EF21B8 /* Faq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Faq.swift; sourceTree = "<group>"; };
 		C0D6A29523D0ACDF00EF21B8 /* FaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaqTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A29723D0AD2400EF21B8 /* FaqTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FaqTableViewCell.xib; sourceTree = "<group>"; };
+		C0D87CBD2423ABE300BCF5AB /* ContactTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableHeaderView.swift; sourceTree = "<group>"; };
+		C0D87CBF2423ABFE00BCF5AB /* ContactTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactTableHeaderView.xib; sourceTree = "<group>"; };
 		C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasViewController.swift; sourceTree = "<group>"; };
 		C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelpers.swift; sourceTree = "<group>"; };
 		C0D9B66423CBC838009A6699 /* String+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
@@ -453,6 +457,7 @@
 		C05049C023CE35A800AEF20B /* Contact */ = {
 			isa = PBXGroup;
 			children = (
+				C0D87CBC2423ABCD00BCF5AB /* ContactTableHeaderView */,
 				C08A202823CC95C400CB8D2F /* ContactTableViewCell */,
 			);
 			path = Contact;
@@ -984,6 +989,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		C0D87CBC2423ABCD00BCF5AB /* ContactTableHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				C0D87CBD2423ABE300BCF5AB /* ContactTableHeaderView.swift */,
+				C0D87CBF2423ABFE00BCF5AB /* ContactTableHeaderView.xib */,
+			);
+			path = ContactTableHeaderView;
+			sourceTree = "<group>";
+		};
 		C0D9B65F23CBC083009A6699 /* Alias */ = {
 			isa = PBXGroup;
 			children = (
@@ -1130,6 +1144,7 @@
 			files = (
 				C0D069992406798600EBAC10 /* Directory.storyboard in Resources */,
 				C0D6A28423D07AB000EF21B8 /* TermsAndPrivacyTableViewCell.xib in Resources */,
+				C0D87CC02423ABFE00BCF5AB /* ContactTableHeaderView.xib in Resources */,
 				C0B76DEB23D0DCEB003AAB7E /* Settings.storyboard in Resources */,
 				C09ABE1223D3BA9600D5B731 /* CustomDomainTableViewCell.xib in Resources */,
 				C0D6A28F23D0A93800EF21B8 /* StepTableViewCell.xib in Resources */,
@@ -1340,6 +1355,7 @@
 				C0D0699E24067D1400EBAC10 /* DirectoryExplanationViewController.swift in Sources */,
 				C0D6A28223D07A1500EF21B8 /* TermsAndPrivacyTableViewCell.swift in Sources */,
 				C04007B023EE1DFB005AD66B /* RandomMode.swift in Sources */,
+				C0D87CBE2423ABE300BCF5AB /* ContactTableHeaderView.swift in Sources */,
 				C08A202A23CC95DF00CB8D2F /* ContactTableViewCell.swift in Sources */,
 				C0D6A29623D0ACDF00EF21B8 /* FaqTableViewCell.swift in Sources */,
 				C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */,

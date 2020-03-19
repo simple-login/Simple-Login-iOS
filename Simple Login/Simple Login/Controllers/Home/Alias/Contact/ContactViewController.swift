@@ -46,6 +46,7 @@ final class ContactViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: .zero)
         
         ContactTableViewCell.register(with: tableView)
+        tableView.register(UINib(nibName: "ContactTableHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "ContactTableHeaderView")
         tableView.register(UINib(nibName: "LoadingFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LoadingFooterView")
         
         tableView.refreshControl = refreshControl
@@ -198,9 +199,11 @@ extension ContactViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return alias.email
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let contactTableHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ContactTableHeaderView") as? ContactTableHeaderView
+        contactTableHeaderView?.bind(with: alias.email)
+        return contactTableHeaderView
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
