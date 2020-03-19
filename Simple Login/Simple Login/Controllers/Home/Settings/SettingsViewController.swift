@@ -8,6 +8,7 @@
 
 import UIKit
 import Toaster
+import FirebaseAnalytics
 
 final class SettingsViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -21,6 +22,7 @@ final class SettingsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        Analytics.logEvent("open_settings_view_controller", parameters: nil)
     }
     
     override func viewWillLayoutSubviews() {

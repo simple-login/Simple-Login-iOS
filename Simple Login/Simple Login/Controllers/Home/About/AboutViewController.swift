@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import FirebaseAnalytics
 
 final class AboutViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -21,6 +22,7 @@ final class AboutViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        Analytics.logEvent("open_about_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -103,10 +105,12 @@ extension AboutViewController: UITableViewDataSource {
             
             cell.didTapTeamLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showTeam", sender: nil)
+                Analytics.logEvent("about_view_our_team", parameters: nil)
             }
             
             cell.didTapContactLabel = { [unowned self] in
                 self.openContactForm()
+                Analytics.logEvent("about_view_contact_us", parameters: nil)
             }
             
             return cell
@@ -116,10 +120,12 @@ extension AboutViewController: UITableViewDataSource {
             
             cell.didTapPricingLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showPricing", sender: nil)
+                Analytics.logEvent("about_view_pricing", parameters: nil)
             }
             
             cell.didTapBlogLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showBlog", sender: nil)
+                Analytics.logEvent("about_view_blog", parameters: nil)
             }
             
             return cell
@@ -129,10 +135,12 @@ extension AboutViewController: UITableViewDataSource {
             
             cell.didTapTermsLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showTerms", sender: nil)
+                Analytics.logEvent("about_view_terms_and_conditions", parameters: nil)
             }
             
             cell.didTapPrivacyLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showPrivacy", sender: nil)
+                Analytics.logEvent("about_view_privacy_policy", parameters: nil)
             }
             
             return cell

@@ -9,6 +9,7 @@
 import UIKit
 import SideMenu
 import Toaster
+import FirebaseAnalytics
 
 final class HomeNavigationController: UINavigationController, Storyboarded {
     private var aliasViewController: AliasViewController?
@@ -186,14 +187,18 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
                 SideMenuManager.default.leftMenuNavigationController?.dismiss(animated: true, completion: {
                     self.dismiss(animated: true, completion: nil)
                 })
+                Analytics.logEvent("sign_out_success", parameters: nil)
                 
             } catch {
                 Toast.displayShortly(message: "Error removing API key from keychain")
+                Analytics.logEvent("sign_out_error", parameters: nil)
             }
         }
         alert.addAction(okAction)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            Analytics.logEvent("sign_out_cancel", parameters: nil)
+        }
         alert.addAction(cancelAction)
         
         SideMenuManager.default.leftMenuNavigationController?.present(alert, animated: true, completion: nil)

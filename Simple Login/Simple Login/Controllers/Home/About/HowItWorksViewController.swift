@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 final class HowItWorksViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -18,6 +19,7 @@ final class HowItWorksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        Analytics.logEvent("open_how_it_works_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
