@@ -9,6 +9,7 @@
 import UIKit
 import Toaster
 import MBProgressHUD
+import FirebaseAnalytics
 
 final class StartupViewController: UIViewController {
     
@@ -53,6 +54,7 @@ final class StartupViewController: UIViewController {
             hud.hide(animated: true)
             
             if let error = error {
+                Analytics.logEvent("start_up_error", parameters: ["error": error.description])
                 switch error {
                 case .noData, .internalServerError:
                     self.presentRetryAlert(error: error)

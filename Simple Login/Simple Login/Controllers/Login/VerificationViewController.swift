@@ -9,6 +9,7 @@
 import UIKit
 import MBProgressHUD
 import Toaster
+import FirebaseAnalytics
 
 extension VerificationViewController {
     enum VerificationMode {
@@ -54,6 +55,7 @@ final class VerificationViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         setUpUI()
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: .applicationDidBecomeActive, object: nil)
+        Analytics.logEvent("open_verification_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -105,9 +107,11 @@ final class VerificationViewController: UIViewController, Storyboarded {
                 if let error = error {
                     self.showErrorLabel(true, errorMessage: error.description)
                     self.reset()
+                    Analytics.logEvent("verification_mfa_error", parameters: ["error": error.description])
                 } else if let apiKey = apiKey {
                     self.dismiss(animated: true) {
                         self.otpVerificationSuccesful?(apiKey)
+                        Analytics.logEvent("verification_mfa_success", parameters: nil)
                     }
                 }
             }
@@ -126,10 +130,11 @@ final class VerificationViewController: UIViewController, Storyboarded {
                     }
                     
                     self.reset()
-                    
+                    Analytics.logEvent("verification_account_activation_error", parameters: ["error": error.description])
                 } else {
                     self.dismiss(animated: true) {
                         self.accountVerificationSuccesful?()
+                        Analytics.logEvent("verification_account_activation_success", parameters: nil)
                     }
                 }
             }

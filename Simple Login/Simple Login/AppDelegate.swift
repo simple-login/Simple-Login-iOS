@@ -63,8 +63,10 @@ extension AppDelegate: GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             Toast.displayError(error.localizedDescription)
+            Analytics.logEvent("log_in_with_google_error", parameters: ["error": error.localizedDescription])
         } else if let accessToken = user.authentication.accessToken {
             NotificationCenter.default.post(name: .didSignInWithGoogle, object: accessToken)
+            Analytics.logEvent("log_in_with_google", parameters: nil)
         }
     }
 }

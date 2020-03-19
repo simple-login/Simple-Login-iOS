@@ -13,6 +13,7 @@ import MBProgressHUD
 import Toaster
 import FacebookLogin
 import GoogleSignIn
+import FirebaseAnalytics
 
 final class LoginViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
@@ -53,6 +54,8 @@ final class LoginViewController: UIViewController, Storyboarded {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(didSignInWithGoogle), name: .didSignInWithGoogle, object: nil)
+        
+        Analytics.logEvent("open_login_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -81,6 +84,8 @@ final class LoginViewController: UIViewController, Storyboarded {
             MBProgressHUD.hide(for: self.view, animated: true)
             self.finalizeLoginApiCall(userLogin: userLogin, error: error)
         }
+        
+        Analytics.logEvent("log_in_with_email_password", parameters: nil)
     }
     
     private func verifyEmailAddress() {
@@ -192,6 +197,7 @@ extension LoginViewController {
             
             if let error = error {
                 Toast.displayError(error)
+                Analytics.logEvent("sign_up_error", parameters: ["error": error])
             } else {
                 self.verify(mode: .accountActivation(email: email, password: password))
             }
@@ -230,11 +236,14 @@ extension LoginViewController {
             } else if let result = result {
                 if result.isCancelled {
                     Toast.displayShortly(message: "Log in with Facebook cancelled")
+                    Analytics.logEvent("log_in_with_facebook_cancelled", parameters: nil)
                 } else {
                     if let accessToken = result.token {
                         self.socialLogin(social: .facebook, accessToken: accessToken.tokenString)
+                        Analytics.logEvent("log_in_with_facebook", parameters: nil)
                     } else {
                         Toast.displayShortly(message: "Facebook access token is null")
+                        Analytics.logEvent("log_in_with_facebook_access_token_null", parameters: nil)
                     }
                 }
             }

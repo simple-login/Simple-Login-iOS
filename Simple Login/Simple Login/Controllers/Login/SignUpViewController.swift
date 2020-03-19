@@ -8,6 +8,7 @@
 
 import UIKit
 import SkyFloatingLabelTextField
+import FirebaseAnalytics
 
 final class SignUpViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
@@ -47,10 +48,12 @@ final class SignUpViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         isSignUpable = false
+        Analytics.logEvent("open_sign_up_view_controller", parameters: nil)
     }
     
     @IBAction private func cancelButtonTapped() {
         dismiss(animated: true, completion: nil)
+        Analytics.logEvent("sign_up_cancel", parameters: nil)
     }
     
     @IBAction private func emailTextFieldEditingChanged() {
