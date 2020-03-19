@@ -70,8 +70,7 @@ final class LeftMenuViewController: UIViewController {
         
         let footerView = UIView(frame: .init(origin: .zero, size: .init(width: tableView.bounds.width, height: 44)))
         let simpleLoginLabel = UILabel(frame: .zero)
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-        simpleLoginLabel.text = version != nil ? "SimpleLogin v\(version!)" : "SimpleLogin"
+        simpleLoginLabel.text = "SimpleLogin v\(versionString)"
         simpleLoginLabel.textColor = .lightGray
         simpleLoginLabel.font = UIFont.systemFont(ofSize: 11, weight: .medium)
         footerView.addSubview(simpleLoginLabel)

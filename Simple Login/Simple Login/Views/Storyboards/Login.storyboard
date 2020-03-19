@@ -18,13 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pup-H7-VKn">
-                                <rect key="frame" x="57" y="150" width="300" height="596"/>
+                                <rect key="frame" x="57" y="223.5" width="300" height="449"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LongLogo" translatesAutoresizingMaskIntoConstraints="NO" id="laP-0h-Fsk">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="102"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="51"/>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cUp-c4-0nO" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="0.0" y="112" width="300" height="39.5"/>
+                                        <rect key="frame" x="0.0" y="61" width="300" height="39.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
                                         <userDefinedRuntimeAttributes>
@@ -53,7 +53,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Pbb-im-ZEh" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="0.0" y="161.5" width="300" height="39"/>
+                                        <rect key="frame" x="0.0" y="110.5" width="300" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES" textContentType="password"/>
                                         <userDefinedRuntimeAttributes>
@@ -81,7 +81,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xrj-4t-axY">
-                                        <rect key="frame" x="0.0" y="210.5" width="300" height="33"/>
+                                        <rect key="frame" x="0.0" y="159.5" width="300" height="33"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <state key="normal" title="Log in">
                                             <color key="titleColor" name="TintColor"/>
@@ -91,7 +91,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="x3v-sO-Y0B">
-                                        <rect key="frame" x="0.0" y="253.5" width="300" height="30"/>
+                                        <rect key="frame" x="0.0" y="202.5" width="300" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVX-rL-el2">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
@@ -114,30 +114,30 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4t-79-tXy">
-                                        <rect key="frame" x="0.0" y="293.5" width="300" height="20"/>
+                                        <rect key="frame" x="0.0" y="242.5" width="300" height="20"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="y7P-j7-U8c"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or with social login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbv-qM-wuw">
-                                        <rect key="frame" x="0.0" y="323.5" width="300" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="272.5" width="300" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="TitleColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ch-J0-0eU" customClass="RippleView" customModule="SimpleLogin" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="354" width="300" height="74"/>
+                                        <rect key="frame" x="0.0" y="303" width="300" height="42"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d0w-Yz-LZw">
-                                                <rect key="frame" x="5" y="5" width="290" height="64"/>
+                                                <rect key="frame" x="5" y="5" width="290" height="32"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="github" translatesAutoresizingMaskIntoConstraints="NO" id="i1f-qH-KOe">
-                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Github" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbR-hA-qW9">
-                                                        <rect key="frame" x="74" y="0.0" width="216" height="64"/>
+                                                        <rect key="frame" x="42" y="0.0" width="248" height="32"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -154,17 +154,17 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l5F-Wb-es6" customClass="RippleView" customModule="SimpleLogin" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="438" width="300" height="74"/>
+                                        <rect key="frame" x="0.0" y="355" width="300" height="42"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QFH-Ip-aPF">
-                                                <rect key="frame" x="5" y="5" width="290" height="64"/>
+                                                <rect key="frame" x="5" y="5" width="290" height="32"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="google" translatesAutoresizingMaskIntoConstraints="NO" id="IOF-xU-hl3">
-                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Google" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pA-hL-zKD">
-                                                        <rect key="frame" x="74" y="0.0" width="216" height="64"/>
+                                                        <rect key="frame" x="42" y="0.0" width="248" height="32"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -181,17 +181,17 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgD-3x-gdL" customClass="RippleView" customModule="SimpleLogin" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="522" width="300" height="74"/>
+                                        <rect key="frame" x="0.0" y="407" width="300" height="42"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zqU-nR-coe">
-                                                <rect key="frame" x="5" y="5" width="290" height="64"/>
+                                                <rect key="frame" x="5" y="5" width="290" height="32"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="facebook" translatesAutoresizingMaskIntoConstraints="NO" id="HJX-fz-Vvi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Facebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCD-BE-F2b">
-                                                        <rect key="frame" x="74" y="0.0" width="216" height="64"/>
+                                                        <rect key="frame" x="42" y="0.0" width="248" height="32"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -212,11 +212,37 @@
                                     <constraint firstAttribute="width" constant="300" id="EfX-Va-diJ"/>
                                 </constraints>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="azn-RU-MZF">
+                                <rect key="frame" x="20" y="818" width="374" height="24"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SimpleLogin vX.X" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liq-7l-pbr">
+                                        <rect key="frame" x="0.0" y="0.0" width="281" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" name="TitleColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJG-UT-fXS">
+                                        <rect key="frame" x="281" y="0.0" width="93" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                        <color key="tintColor" name="TintColor"/>
+                                        <state key="normal" title=" About Us" image="InfoStrokeIcon">
+                                            <color key="titleColor" name="TintColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="aboutUsButtonTapped" destination="97x-xh-V5v" eventType="touchUpInside" id="fLj-86-k0d"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="pup-H7-VKn" firstAttribute="centerY" secondItem="NaI-PX-vy6" secondAttribute="centerY" id="5av-Gx-eYo"/>
+                            <constraint firstItem="azn-RU-MZF" firstAttribute="centerX" secondItem="NaI-PX-vy6" secondAttribute="centerX" id="UL8-kw-hR3"/>
                             <constraint firstItem="pup-H7-VKn" firstAttribute="centerX" secondItem="NaI-PX-vy6" secondAttribute="centerX" id="Wmz-eQ-Obx"/>
+                            <constraint firstItem="iX7-7w-Ft4" firstAttribute="trailing" secondItem="azn-RU-MZF" secondAttribute="trailing" constant="20" id="cHI-jI-GAo"/>
+                            <constraint firstItem="azn-RU-MZF" firstAttribute="leading" secondItem="iX7-7w-Ft4" secondAttribute="leading" constant="20" id="dAp-B5-5Cg"/>
+                            <constraint firstItem="iX7-7w-Ft4" firstAttribute="bottom" secondItem="azn-RU-MZF" secondAttribute="bottom" constant="20" id="ogf-A3-IZy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iX7-7w-Ft4"/>
                     </view>
@@ -227,6 +253,7 @@
                         <outlet property="googleView" destination="l5F-Wb-es6" id="yFe-Yk-8kG"/>
                         <outlet property="loginButton" destination="Xrj-4t-axY" id="Pex-Qr-jlW"/>
                         <outlet property="passwordTextField" destination="Pbb-im-ZEh" id="5v3-Km-ML0"/>
+                        <outlet property="versionLabel" destination="liq-7l-pbr" id="coj-Jj-DLG"/>
                         <outletCollection property="socialLoginViews" destination="l5F-Wb-es6" collectionClass="NSMutableArray" id="Spq-Nn-J4g"/>
                         <outletCollection property="socialLoginViews" destination="2Ch-J0-0eU" collectionClass="NSMutableArray" id="D5f-mp-3og"/>
                         <outletCollection property="socialLoginViews" destination="vgD-3x-gdL" collectionClass="NSMutableArray" id="w2W-Yz-SmP"/>
@@ -765,6 +792,7 @@
     </scenes>
     <resources>
         <image name="DeleteLeftFillIcon" width="32" height="27"/>
+        <image name="InfoStrokeIcon" width="24" height="24"/>
         <image name="LongLogo" width="333" height="51"/>
         <image name="facebook" width="32" height="32"/>
         <image name="github" width="32" height="32"/>

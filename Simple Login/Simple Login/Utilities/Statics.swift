@@ -26,3 +26,5 @@ let preciseDateFormatter: DateFormatter = {
     dateFormatter.dateFormat = "d MMM yyyy 'at' HH:mm"
     return dateFormatter
 }()
+
+let versionString = (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? ""

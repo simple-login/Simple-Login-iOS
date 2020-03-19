@@ -25,6 +25,8 @@ final class LoginViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var facebookView: RippleView!
     @IBOutlet private var socialLoginViews: [RippleView]!
     
+    @IBOutlet private weak var versionLabel: UILabel!
+    
     private var isValidEmailAddress: Bool = true {
         didSet {
             loginButton.isEnabled = isValidEmailAddress
@@ -63,6 +65,8 @@ final class LoginViewController: UIViewController, Storyboarded {
         
         loginButton.setTitleColor(SLColor.tintColor, for: .normal)
         loginButton.setTitleColor(SLColor.tintColor.withAlphaComponent(0.3), for: .disabled)
+        
+        versionLabel.text = "SimpleLogin v\(versionString)"
     }
     
     @IBAction private func login() {
@@ -115,6 +119,10 @@ final class LoginViewController: UIViewController, Storyboarded {
         if let accessToken = notification.object as? String {
             socialLogin(social: .google, accessToken: accessToken)
         }
+    }
+    
+    @IBAction private func aboutUsButtonTapped() {
+        
     }
     
     private func verify(mode: VerificationViewController.VerificationMode) {
