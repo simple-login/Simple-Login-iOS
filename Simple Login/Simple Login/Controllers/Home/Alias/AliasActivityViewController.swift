@@ -9,12 +9,15 @@
 import UIKit
 import Toaster
 import MarqueeLabel
+import MBProgressHUD
 
 final class AliasActivityViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
     
     var alias: Alias!
+    
+    var didUpdateNote: (() -> Void)?
     
     private var activities: [AliasActivity] = []
     
@@ -119,13 +122,19 @@ final class AliasActivityViewController: UIViewController {
 // MARK: - Edit notes
 extension AliasActivityViewController {
     private func presentAlertEditNotes() {
-        let title = alias.note != nil ? "Edit note for alias" : "Add note for alias"
+        let title: String
+        if let note = alias.note, note != "" {
+            title = "Edit note for alias"
+        } else {
+            title = "Add note for alias"
+        }
+        
         let alert = UIAlertController(title: title, message: alias.email, preferredStyle: .alert)
         
         let textView = alert.addTextView(initialText: alias.note)
         
-        let updateAction = UIAlertAction(title: "Save", style: .default) { (_) in
-            //print(textView.text)
+        let updateAction = UIAlertAction(title: "Save", style: .default) { [unowned self] _ in
+            self.updateNote(textView.text)
         }
         alert.addAction(updateAction)
         
@@ -133,6 +142,28 @@ extension AliasActivityViewController {
         alert.addAction(cancelAction)
         present(alert, animated: true) {
             textView.becomeFirstResponder()
+        }
+    }
+    
+    private func updateNote(_ note: String?) {
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.updateAliasNote(apiKey: apiKey, id: alias.id, note: note) { [weak self] error in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if let error = error {
+                Toast.displayError(error)
+            } else {
+                self.alias.setNote(note)
+                self.tableView.reloadData()
+                self.didUpdateNote?()
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ final class Alias: Equatable {
     let blockCount: Int
     let replyCount: Int
     let forwardCount: Int
-    let note: String?
+    private(set) var note: String?
     private(set) var enabled: Bool
     
     lazy var creationTimestampString: String = {
@@ -85,6 +85,10 @@ final class Alias: Equatable {
     
     func setEnabled(_ enabled: Bool) {
         self.enabled = enabled
+    }
+    
+    func setNote(_ note: String?) {
+        self.note = note
     }
     
     static func ==(lhs: Alias, rhs: Alias) -> Bool {

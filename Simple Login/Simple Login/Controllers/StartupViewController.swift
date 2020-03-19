@@ -36,26 +36,31 @@ final class StartupViewController: UIViewController {
         checkApiKeyAndProceed()
     }
     
-    @IBAction private func retry() {
-        checkApiKeyAndProceed()
-    }
-    
     private func checkApiKeyAndProceed() {
         guard let apiKey = SLKeychainService.getApiKey() else {
             presentLoginViewController()
             return
         }
         
-        MBProgressHUD.showAdded(to: view, animated: true)
+        let hud = MBProgressHUD.showAdded(to: view, animated: true)
+        hud.mode = .text
+        hud.label.text = "Connecting to server..."
+        hud.offset = CGPoint(x: 0.0, y: MBProgressMaxOffset)
         
         SLApiService.fetchUserInfo(apiKey, completion: { [weak self] (userInfo, error) in
             guard let self = self else { return }
             
-            MBProgressHUD.hide(for: self.view, animated: true)
+            hud.hide(animated: true)
             
             if let error = error {
-                Toast.displayLongly(message: "Error occured: \(error.description)")
-                self.presentLoginViewController()
+                switch error {
+                case .noData, .internalServerError:
+                    self.presentRetryAlert(error: error)
+                    
+                default:
+                    Toast.displayLongly(message: "Error occured: \(error.description)")
+                    self.presentLoginViewController()
+                }
                 
             } else if let userInfo = userInfo {
                 self.presentHomeNavigationController(userInfo)
@@ -64,9 +69,6 @@ final class StartupViewController: UIViewController {
     }
     
     private func presentHomeNavigationController(_ userInfo: UserInfo) {
-        
-        MBProgressHUD.showAdded(to: view, animated: true)
-        
         let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
         
         guard let homeNavigationController = homeStoryboard.instantiateViewController(withIdentifier: "HomeNavigationController") as? HomeNavigationController else {
@@ -76,14 +78,23 @@ final class StartupViewController: UIViewController {
         homeNavigationController.userInfo = userInfo
         homeNavigationController.modalPresentationStyle = .fullScreen
         
-        present(homeNavigationController, animated: true) { [unowned self] in
-            MBProgressHUD.hide(for: self.view, animated: true)
-        }
+        present(homeNavigationController, animated: true)
     }
     
     private func presentLoginViewController() {
         let loginViewController = LoginViewController.instantiate(storyboardName: "Login")
         loginViewController.modalPresentationStyle = .fullScreen
         present(loginViewController, animated: true, completion: nil)
+    }
+    
+    private func presentRetryAlert(error: SLError) {
+        let alert = UIAlertController(title: "Error occured", message: error.description, preferredStyle: .alert)
+        
+        let retryAction = UIAlertAction(title: "Retry", style: .default) { [unowned self] _ in
+            self.checkApiKeyAndProceed()
+        }
+        alert.addAction(retryAction)
+        
+        present(alert, animated: true, completion: nil)
     }
 }

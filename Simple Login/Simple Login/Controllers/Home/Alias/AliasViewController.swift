@@ -84,6 +84,9 @@ final class AliasViewController: BaseViewController {
         case let aliasActivityViewController as AliasActivityViewController:
             guard let alias = sender as? Alias else { return }
             aliasActivityViewController.alias = alias
+            aliasActivityViewController.didUpdateNote = { [unowned self] in
+                self.tableView.reloadData()
+            }
             
         case let createAliasViewController as CreateAliasViewController:
             createAliasViewController.createdAlias = { [unowned self] alias in

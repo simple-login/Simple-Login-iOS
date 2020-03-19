@@ -50,12 +50,13 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
     func bind(with alias: Alias) {
         creationDateLabel.text = alias.creationTimestampString
         
-        if let note = alias.note {
+        
+        if let note = alias.note, note != "" {
             noteLabel.text = note
             noteLabel.font = UIFont.systemFont(ofSize: 14)
-            editButton.setTitle("Edit", for: .normal)
+            editButton.setTitle("Edit note", for: .normal)
         } else {
-            noteLabel.text = "Add a note for this alias"
+            noteLabel.text = "Add some note for this alias"
             noteLabel.font = UIFont.italicSystemFont(ofSize: 14)
             editButton.setTitle("Add note", for: .normal)
         }

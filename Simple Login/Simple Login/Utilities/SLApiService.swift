@@ -563,6 +563,25 @@ extension SLApiService {
             }
         }
     }
+    
+    static func updateAliasNote(apiKey: String, id: Int, note: String?, completion: @escaping (_ error: SLError?) -> Void) {
+        let headers: HTTPHeaders = ["Authentication": apiKey]
+        
+        AF.request("\(BASE_URL)/api/aliases/\(id)", method: .put, parameters: ["note": note ?? ""], encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200: completion(nil)
+            case 401: completion(SLError.invalidApiKey)
+            case 500: completion(SLError.internalServerError)
+            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
 }
 
 // MARK: - Contact

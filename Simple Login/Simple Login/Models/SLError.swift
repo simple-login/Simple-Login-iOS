@@ -24,7 +24,7 @@ enum SLError: Error, CustomStringConvertible {
     
     var description: String {
         switch self {
-        case .noData: return "Server returns no data"
+        case .noData: return "Server isn't responding. Please try again later."
         case .failToSerializeJSONData: return "Failed to serialize JSON data"
         case .failToParseObject(let objectName): return "Failed to parse \(objectName)"
         case .failToDelete(let objectName): return "Failed to delete \(objectName)"
