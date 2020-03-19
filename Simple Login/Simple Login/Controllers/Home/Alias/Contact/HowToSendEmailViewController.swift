@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 final class HowToSendEmailViewController: UIViewController {
     @IBOutlet private weak var explicationLabel: UILabel!
@@ -18,6 +19,7 @@ final class HowToSendEmailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setExplicationLabel()
+        Analytics.logEvent("open_how_to_send_email_view_controller", parameters: nil)
     }
     
     @IBAction private func closeButtonTapped() {

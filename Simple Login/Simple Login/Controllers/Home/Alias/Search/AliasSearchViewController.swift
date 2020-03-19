@@ -9,6 +9,7 @@
 import UIKit
 import Toaster
 import MBProgressHUD
+import FirebaseAnalytics
 
 final class AliasSearchViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -37,6 +38,7 @@ final class AliasSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        Analytics.logEvent("open_alias_search_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -73,6 +75,7 @@ final class AliasSearchViewController: UIViewController {
             isFetching = false
             fetchedPage = -1
             aliases.removeAll()
+            Analytics.logEvent("alias_search_perform_a_search", parameters: nil)
         }
         
         guard moreToLoad, !isFetching else { return }
@@ -98,6 +101,7 @@ final class AliasSearchViewController: UIViewController {
                 
             } else if let error = error {
                 Toast.displayError(error)
+                Analytics.logEvent("alias_search_error", parameters: ["error": error.description])
             }
         }
     }

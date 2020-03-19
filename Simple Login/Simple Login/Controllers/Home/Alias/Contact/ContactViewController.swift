@@ -10,6 +10,7 @@ import UIKit
 import MessageUI
 import Toaster
 import MBProgressHUD
+import FirebaseAnalytics
 
 final class ContactViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -37,6 +38,7 @@ final class ContactViewController: UIViewController {
         super.viewDidLoad()
         setUpUI()
         fetchContacts()
+        Analytics.logEvent("open_contact_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -55,6 +57,7 @@ final class ContactViewController: UIViewController {
     
     @objc private func refresh() {
         fetchContacts()
+        Analytics.logEvent("contact_list_refresh", parameters: nil)
     }
     
     private func fetchContacts() {
@@ -84,12 +87,6 @@ final class ContactViewController: UIViewController {
                     self.moreToLoad = false
                 } else {
                     if self.refreshControl.isRefreshing {
-                        print("Refreshed & fetched \(contacts.count) contacts")
-                    } else {
-                        print("Fetched page \(self.fetchedPage + 1) - \(contacts.count) contacts")
-                    }
-                    
-                    if self.refreshControl.isRefreshing {
                         self.fetchedPage = 0
                         self.contacts.removeAll()
                     } else {
@@ -106,6 +103,7 @@ final class ContactViewController: UIViewController {
             } else if let error = error {
                 self.refreshControl.endRefreshing()
                 Toast.displayError(error)
+                Analytics.logEvent("contact_list_error_fetching", parameters: ["error": error.description])
             }
         }
     }
@@ -129,6 +127,7 @@ final class ContactViewController: UIViewController {
         let copyAction = UIAlertAction(title: "Copy reverse-alias", style: .default) { (_) in
             UIPasteboard.general.string = contact.reverseAlias
             Toast.displayShortly(message: "Copied \"\(contact.reverseAlias)\"")
+            Analytics.logEvent("contact_list_copied_a_contact", parameters: nil)
         }
         alert.addAction(copyAction)
         
@@ -143,6 +142,7 @@ final class ContactViewController: UIViewController {
             mailComposerVC.setToRecipients([contact.reverseAlias])
             
             self.present(mailComposerVC, animated: true, completion: nil)
+            Analytics.logEvent("contact_list_write_to_a_contact", parameters: nil)
         }
         alert.addAction(openEmaiAction)
         
@@ -181,6 +181,8 @@ final class ContactViewController: UIViewController {
             
             if let error = error {
                 Toast.displayError(error)
+                Analytics.logEvent("contact_list_delete_error", parameters: ["error": error.description])
+                
             } else {
                 self.tableView.performBatchUpdates({
                     self.contacts.removeAll { $0.id == contact.id }
@@ -188,6 +190,7 @@ final class ContactViewController: UIViewController {
                 }) { _ in
                     self.tableView.reloadData()
                     Toast.displayShortly(message: "Deleted contact \"\(contact.email)\"")
+                    Analytics.logEvent("contact_list_deleted_a_contact", parameters: nil)
                 }
             }
         }
@@ -223,6 +226,7 @@ extension ContactViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         if moreToLoad {
             fetchContacts()
+            Analytics.logEvent("contact_list_fetch_more", parameters: nil)
         }
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 import Toaster
 import MarqueeLabel
 import MBProgressHUD
+import FirebaseAnalytics
 
 final class AliasActivityViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -33,6 +34,7 @@ final class AliasActivityViewController: UIViewController {
         super.viewDidLoad()
         setUpUI()
         fetchActivities()
+        Analytics.logEvent("open_alias_activity_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -63,6 +65,7 @@ final class AliasActivityViewController: UIViewController {
     
     @objc private func refresh() {
         fetchActivities()
+        Analytics.logEvent("alias_activity_refresh", parameters: nil)
     }
     
     private func fetchActivities() {
@@ -92,12 +95,6 @@ final class AliasActivityViewController: UIViewController {
                     self.moreToLoad = false
                 } else {
                     if self.refreshControl.isRefreshing {
-                        print("Refreshed & fetched \(activities.count) activities")
-                    } else {
-                        print("Fetched page \(self.fetchedPage + 1) - \(activities.count) activities")
-                    }
-                    
-                    if self.refreshControl.isRefreshing {
                         self.fetchedPage = 0
                         self.activities.removeAll()
                     } else {
@@ -113,6 +110,7 @@ final class AliasActivityViewController: UIViewController {
             } else if let error = error {
                 self.refreshControl.endRefreshing()
                 Toast.displayError(error)
+                Analytics.logEvent("alias_activity_error_fetching", parameters: ["error": error.description])
             }
             
         }
@@ -159,10 +157,13 @@ extension AliasActivityViewController {
             
             if let error = error {
                 Toast.displayError(error)
+                Analytics.logEvent("alias_activity_edit_note_error", parameters: ["error": error.description])
+                
             } else {
                 self.alias.setNote(note)
                 self.tableView.reloadData()
                 self.didUpdateNote?()
+                Analytics.logEvent("alias_activity_edit_note_success", parameters: nil)
             }
         }
     }
@@ -202,6 +203,7 @@ extension AliasActivityViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         if moreToLoad {
             fetchActivities()
+            Analytics.logEvent("alias_activity_fetch_more", parameters: nil)
         }
     }
 }

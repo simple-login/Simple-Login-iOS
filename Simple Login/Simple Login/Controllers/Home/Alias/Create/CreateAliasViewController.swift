@@ -9,6 +9,7 @@
 import UIKit
 import Toaster
 import MBProgressHUD
+import FirebaseAnalytics
 
 final class CreateAliasViewController: UIViewController {
     @IBOutlet private weak var rootStackView: UIStackView!
@@ -51,6 +52,7 @@ final class CreateAliasViewController: UIViewController {
         isValidEmailPrefix = false
         setUpUI()
         fetchUserOptions()
+        Analytics.logEvent("open_create_alias_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -106,8 +108,21 @@ final class CreateAliasViewController: UIViewController {
             
             if let error = error {
                 Toast.displayError(error)
+                if let _ = note {
+                    Analytics.logEvent("create_alias_with_note_error", parameters: ["error": error.description])
+                } else {
+                    Analytics.logEvent("create_alias_without_note_error", parameters: ["error": error.description])
+                }
+                
             } else if let newlyCreatedAlias = newlyCreatedAlias{
                 self.createdAlias?(newlyCreatedAlias)
+                
+                if let _ = note {
+                    Analytics.logEvent("create_alias_with_note_success", parameters: nil)
+                } else {
+                    Analytics.logEvent("create_alias_without_note_success", parameters: nil)
+                }
+                
                 self.dismiss(animated: true, completion: nil)
             }
         }
@@ -154,6 +169,7 @@ final class CreateAliasViewController: UIViewController {
             suffixListViewController.selectedSuffixIndex = selectedSuffixIndex
             suffixListViewController.suffixes = userOptions?.suffixes
             suffixListViewController.delegate = self
+            Analytics.logEvent("open_suffix_list_view_controller", parameters: nil)
             
         default: return
         }
@@ -164,6 +180,7 @@ final class CreateAliasViewController: UIViewController {
 extension CreateAliasViewController: SuffixListViewControllerDelegate {
     func didSelectSuffix(atIndex index: Int) {
         selectedSuffixIndex = index
+        Analytics.logEvent("suffix_selected_a_suffix", parameters: nil)
     }
 }
 

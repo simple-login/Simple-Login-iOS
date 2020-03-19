@@ -9,6 +9,7 @@
 import UIKit
 import Toaster
 import MBProgressHUD
+import FirebaseAnalytics
 
 final class CreateContactViewController: UIViewController {
     @IBOutlet private weak var messageLabel: UILabel!
@@ -35,6 +36,7 @@ final class CreateContactViewController: UIViewController {
         setUpUI()
         createButton.isEnabled = false
         destinationEmailTextField.becomeFirstResponder()
+        Analytics.logEvent("open_create_contact_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -74,8 +76,11 @@ final class CreateContactViewController: UIViewController {
             
             if let error = error {
                 Toast.displayError(error)
+                Analytics.logEvent("create_contact_error_creating", parameters: ["error": error.description])
+                
             } else {
                 Toast.displayShortly(message: "Created contact \(email)")
+                Analytics.logEvent("create_contact_created_a_contact", parameters: nil)
                 self.dismiss(animated: true) {
                     self.didCreateContact?()
                 }
