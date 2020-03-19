@@ -16,7 +16,7 @@ class BaseViewController: UIViewController, Storyboarded {
         addLeftBarButtonItem()
     }
     
-    private func addLeftBarButtonItem() {
+    func addLeftBarButtonItem() {
         let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "MenuIcon"), style: .plain, target: self, action: #selector(tappedLeftBarButtonItem))
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }

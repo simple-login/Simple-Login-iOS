@@ -60,6 +60,16 @@ final class LoginViewController: UIViewController, Storyboarded {
         Analytics.logEvent("open_login_view_controller", parameters: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     private func setUpUI() {
         socialLoginViews.forEach({$0.layer.cornerRadius = 4})
         
@@ -122,7 +132,9 @@ final class LoginViewController: UIViewController, Storyboarded {
     }
     
     @IBAction private func aboutUsButtonTapped() {
-        
+        let aboutViewController = AboutViewController.instantiate(storyboardName: "About")
+        aboutViewController.openFromLoginViewController = true
+        navigationController?.pushViewController(aboutViewController, animated: true)
     }
     
     private func verify(mode: VerificationViewController.VerificationMode) {
@@ -156,7 +168,7 @@ final class LoginViewController: UIViewController, Storyboarded {
             Toast.displayShortly(message: "Error setting API key to keychain")
         }
         
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.dismiss(animated: true, completion: nil)
     }
     
     private func finalizeLoginApiCall(userLogin: UserLogin?, error: SLError?) {

@@ -149,6 +149,7 @@
 		C0D6A29823D0AD2400EF21B8 /* FaqTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A29723D0AD2400EF21B8 /* FaqTableViewCell.xib */; };
 		C0D87CBE2423ABE300BCF5AB /* ContactTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D87CBD2423ABE300BCF5AB /* ContactTableHeaderView.swift */; };
 		C0D87CC02423ABFE00BCF5AB /* ContactTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D87CBF2423ABFE00BCF5AB /* ContactTableHeaderView.xib */; };
+		C0D87CC22423C41800BCF5AB /* LoginNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D87CC12423C41800BCF5AB /* LoginNavigationViewController.swift */; };
 		C0D9B66123CBC0AA009A6699 /* CreateAliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */; };
 		C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */; };
 		C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66423CBC838009A6699 /* String+Utilities.swift */; };
@@ -333,6 +334,7 @@
 		C0D6A29723D0AD2400EF21B8 /* FaqTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FaqTableViewCell.xib; sourceTree = "<group>"; };
 		C0D87CBD2423ABE300BCF5AB /* ContactTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableHeaderView.swift; sourceTree = "<group>"; };
 		C0D87CBF2423ABFE00BCF5AB /* ContactTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactTableHeaderView.xib; sourceTree = "<group>"; };
+		C0D87CC12423C41800BCF5AB /* LoginNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNavigationViewController.swift; sourceTree = "<group>"; };
 		C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasViewController.swift; sourceTree = "<group>"; };
 		C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelpers.swift; sourceTree = "<group>"; };
 		C0D9B66423CBC838009A6699 /* String+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 			isa = PBXGroup;
 			children = (
 				C00D74E823E8ACE400BE48F0 /* LoginViewController.swift */,
+				C0D87CC12423C41800BCF5AB /* LoginNavigationViewController.swift */,
 				C07B41F523EAEDCD002E6223 /* VerificationViewController.swift */,
 				C0D2F94F240B0A2700CCE6BD /* SignUpViewController.swift */,
 				C05FB6412422C76B000A4740 /* ForgotPasswordViewController.swift */,
@@ -1346,6 +1349,7 @@
 				C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */,
 				C0747EE923CCFAFE008035E9 /* AliasActivityTableViewCell.swift in Sources */,
 				C027A27A24053AA800BD19C9 /* WalkthroughLastStepViewController.swift in Sources */,
+				C0D87CC22423C41800BCF5AB /* LoginNavigationViewController.swift in Sources */,
 				C0A726FA23EC131900A62A22 /* LoadingFooterView.swift in Sources */,
 				C0D6A27D23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift in Sources */,
 				C0F84B2323D4BAA200E0852C /* DomainInfoTableViewCell.swift in Sources */,

@@ -84,9 +84,9 @@ final class StartupViewController: UIViewController {
     }
     
     private func presentLoginViewController() {
-        let loginViewController = LoginViewController.instantiate(storyboardName: "Login")
-        loginViewController.modalPresentationStyle = .fullScreen
-        present(loginViewController, animated: true, completion: nil)
+        let loginNavigationViewController = LoginNavigationViewController.instantiate(storyboardName: "Login")
+        loginNavigationViewController.modalPresentationStyle = .fullScreen
+        present(loginNavigationViewController, animated: true, completion: nil)
     }
     
     private func presentRetryAlert(error: SLError) {

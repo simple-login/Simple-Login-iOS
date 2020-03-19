@@ -16,6 +16,8 @@ final class AboutViewController: BaseViewController {
         print("AboutViewController is deallocated")
     }
     
+    var openFromLoginViewController = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -30,6 +32,12 @@ final class AboutViewController: BaseViewController {
         TeamAndContactTableViewCell.register(with: tableView)
         PricingAndBlogTableViewCell.register(with: tableView)
         TermsAndPrivacyTableViewCell.register(with: tableView)
+    }
+    
+    override func addLeftBarButtonItem() {
+        if !openFromLoginViewController {
+            super.addLeftBarButtonItem()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
