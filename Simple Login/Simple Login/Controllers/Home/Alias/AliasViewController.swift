@@ -230,7 +230,7 @@ extension AliasViewController {
 // MARK: - Delete
 extension AliasViewController {
     private func presentAlertConfirmDelete(alias: Alias, at indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Delete \(alias.email)", message: "🛑 People/apps who used to contact you via this alias cannot reach you any more. This operation is irreversible", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete \"\(alias.email)\"?", message: "🛑 People/apps who used to contact you via this alias cannot reach you any more. This operation is irreversible. Please confirm.", preferredStyle: .alert)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] (_) in
             self.delete(alias: alias, at: indexPath)

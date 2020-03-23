@@ -153,7 +153,7 @@ final class ContactViewController: UIViewController {
     }
     
     private func presentAlertConfirmDelete(_ contact: Contact, indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Delete \(contact.email)", message: "🛑 This operation is irreversible", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete \"\(contact.email)\"?", message: "🛑 This operation is irreversible. Please confirm.", preferredStyle: .alert)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
             self.delete(contact: contact, indexPath: indexPath)

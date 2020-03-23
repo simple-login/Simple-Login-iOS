@@ -42,6 +42,11 @@ final class AliasActivityTableViewCell: UITableViewCell, RegisterableCell {
             contactLabel.text = aliasActivity.from
             actionImageView.image = UIImage(named: "BlockIcon")
             actionImageView.tintColor = SLColor.negativeColor
+            
+        case .bounced:
+            contactLabel.text = aliasActivity.from
+            actionImageView.image = UIImage(named: "BlockIcon")
+            actionImageView.tintColor = SLColor.negativeColor
         }
     }
 }

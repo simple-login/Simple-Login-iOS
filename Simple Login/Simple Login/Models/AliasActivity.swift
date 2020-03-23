@@ -44,6 +44,7 @@ extension AliasActivity {
     enum Action: String {
         case reply = "reply"
         case block = "block"
+        case bounced = "bounced"
         case forward = "forward"
     }
 }
