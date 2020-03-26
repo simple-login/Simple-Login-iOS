@@ -144,7 +144,7 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="p6c-gf-MT3">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="hTb-Vd-rkt" id="ck4-OI-hUF"/>
                                     <outlet property="delegate" destination="hTb-Vd-rkt" id="LXm-uA-OpS"/>
@@ -737,7 +737,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0ce-pd-BHK"/>
-        <segue reference="CtI-Wl-JNa"/>
+        <segue reference="vwo-0T-v3m"/>
+        <segue reference="psP-go-DPf"/>
     </inferredMetricsTieBreakers>
 </document>
