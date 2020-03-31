@@ -141,10 +141,16 @@ extension AliasSearchViewController {
             if let enabled = enabled {
                 alias.setEnabled(enabled)
                 self.toggledAlias?(alias)
-                 Analytics.logEvent("alias_search_toggle_alias_success", parameters: nil)
+                
+                if enabled {
+                    Analytics.logEvent("alias_search_enabled_an_alias", parameters: nil)
+                } else {
+                    Analytics.logEvent("alias_search_disabled_an_alias", parameters: nil)
+                }
+                
             } else if let error = error {
                 Toast.displayError(error)
-                Analytics.logEvent("alias_search_toggle_alias_error", parameters: error.toParameter())
+                Analytics.logEvent("alias_search_toggle_error", parameters: error.toParameter())
             }
             
             self.tableView.reloadData()
@@ -179,7 +185,7 @@ extension AliasSearchViewController {
             
             if let error = error {
                 Toast.displayError(error)
-                Analytics.logEvent("alias_search_delete_alias_error", parameters: error.toParameter())
+                Analytics.logEvent("alias_search_delete_error", parameters: error.toParameter())
             } else {
                 self.tableView.performBatchUpdates({
                     self.aliases.removeAll(where: {$0 == alias})
@@ -190,7 +196,7 @@ extension AliasSearchViewController {
                     self.deletedAlias?(alias)
                     Toast.displayShortly(message: "Deleted alias \"\(alias.email)\"")
                 }
-                Analytics.logEvent("alias_search_delete_alias_success", parameters: nil)
+                Analytics.logEvent("alias_search_delete_success", parameters: nil)
             }
         }
     }
@@ -243,12 +249,12 @@ extension AliasSearchViewController: UITableViewDataSource {
         cell.didTapCopyButton = {
             UIPasteboard.general.string = alias.email
             Toast.displayShortly(message: "Copied \"\(alias.email)\"")
-            Analytics.logEvent("alias_search_copy_alias", parameters: nil)
+            Analytics.logEvent("alias_search_copy", parameters: nil)
         }
         
         cell.didTapSendButton = { [unowned self] in
             self.performSegue(withIdentifier: "showContacts", sender: alias)
-            Analytics.logEvent("alias_search_view_alias_contacts", parameters: nil)
+            Analytics.logEvent("alias_search_view_contacts", parameters: nil)
         }
         
         cell.didTapDeleteButton = { [unowned self] in
@@ -257,7 +263,7 @@ extension AliasSearchViewController: UITableViewDataSource {
         
         cell.didTapRightArrowButton = { [unowned self] in
             self.performSegue(withIdentifier: "showActivities", sender: alias)
-            Analytics.logEvent("alias_search_view_alias_activities", parameters: nil)
+            Analytics.logEvent("alias_search_view_activities", parameters: nil)
         }
         
         return cell

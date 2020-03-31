@@ -169,7 +169,7 @@ final class CreateAliasViewController: UIViewController {
             suffixListViewController.selectedSuffixIndex = selectedSuffixIndex
             suffixListViewController.suffixes = userOptions?.suffixes
             suffixListViewController.delegate = self
-            Analytics.logEvent("open_suffix_list_view_controller", parameters: nil)
+            Analytics.logEvent("alias_create_show_suffixes", parameters: nil)
             
         default: return
         }
@@ -180,7 +180,7 @@ final class CreateAliasViewController: UIViewController {
 extension CreateAliasViewController: SuffixListViewControllerDelegate {
     func didSelectSuffix(atIndex index: Int) {
         selectedSuffixIndex = index
-        Analytics.logEvent("suffix_select_suffix", parameters: nil)
+        Analytics.logEvent("alias_create_select_suffix", parameters: nil)
     }
 }
 

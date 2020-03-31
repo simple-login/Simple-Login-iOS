@@ -257,7 +257,7 @@ extension AliasViewController {
             
             if let error = error {
                 Toast.displayError(error)
-                Analytics.logEvent("alias_list_delete_alias_error", parameters: nil)
+                Analytics.logEvent("alias_list_delete_error", parameters: nil)
             } else {
                 self.tableView.performBatchUpdates({
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
@@ -282,7 +282,7 @@ extension AliasViewController {
                     Toast.displayShortly(message: "Deleted alias \"\(alias.email)\"")
                 }
                 
-                Analytics.logEvent("alias_list_delete_alias_success", parameters: nil)
+                Analytics.logEvent("alias_list_delete_success", parameters: nil)
             }
         }
     }
@@ -460,11 +460,12 @@ extension AliasViewController: UITableViewDataSource {
         cell.didTapCopyButton = {
             UIPasteboard.general.string = alias.email
             Toast.displayShortly(message: "Copied \"\(alias.email)\"")
-            Analytics.logEvent("alias_list_copy_alias", parameters: nil)
+            Analytics.logEvent("alias_list_copy", parameters: nil)
         }
         
         cell.didTapSendButton = { [unowned self] in
             self.performSegue(withIdentifier: "showContacts", sender: alias)
+            Analytics.logEvent("alias_list_view_contacts", parameters: nil)
         }
         
         cell.didTapDeleteButton = { [unowned self] in
@@ -473,6 +474,7 @@ extension AliasViewController: UITableViewDataSource {
         
         cell.didTapRightArrowButton = { [unowned self] in
             self.performSegue(withIdentifier: "showActivities", sender: alias)
+            Analytics.logEvent("alias_list_view_activities", parameters: nil)
         }
         
         return cell

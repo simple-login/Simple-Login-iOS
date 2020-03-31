@@ -99,6 +99,7 @@ final class ContactViewController: UIViewController {
                 self.noContact = self.contacts.count == 0
                 self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
+                Analytics.logEvent("contact_fetch_success", parameters: nil)
                 
             } else if let error = error {
                 self.refreshControl.endRefreshing()

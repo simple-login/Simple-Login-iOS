@@ -219,6 +219,8 @@ extension LoginViewController {
                 Toast.displayError(error)
                 Analytics.logEvent("sign_up_error", parameters: error.toParameter())
             } else {
+                Toast.displayLongly(message: "Check your inbox for verification code")
+                Analytics.logEvent("sign_up_success", parameters: nil)
                 self.verify(mode: .accountActivation(email: email, password: password))
             }
         }

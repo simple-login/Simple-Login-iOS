@@ -106,6 +106,7 @@ final class AliasActivityViewController: UIViewController {
                 
                 self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
+                Analytics.logEvent("alias_activity_fetch_success", parameters: nil)
                 
             } else if let error = error {
                 self.refreshControl.endRefreshing()

@@ -105,12 +105,12 @@ extension AboutViewController: UITableViewDataSource {
             
             cell.didTapTeamLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showTeam", sender: nil)
-                Analytics.logEvent("about_view_our_team", parameters: nil)
+                Analytics.logEvent("about_view_team", parameters: nil)
             }
             
             cell.didTapContactLabel = { [unowned self] in
                 self.openContactForm()
-                Analytics.logEvent("about_view_contact_us", parameters: nil)
+                Analytics.logEvent("about_compose_email", parameters: nil)
             }
             
             return cell
@@ -135,12 +135,12 @@ extension AboutViewController: UITableViewDataSource {
             
             cell.didTapTermsLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showTerms", sender: nil)
-                Analytics.logEvent("about_view_terms_and_conditions", parameters: nil)
+                Analytics.logEvent("about_view_terms", parameters: nil)
             }
             
             cell.didTapPrivacyLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showPrivacy", sender: nil)
-                Analytics.logEvent("about_view_privacy_policy", parameters: nil)
+                Analytics.logEvent("about_view_privacy", parameters: nil)
             }
             
             return cell
