@@ -66,7 +66,7 @@ extension AppDelegate: GIDSignInDelegate {
             Analytics.logEvent("log_in_with_google_error", parameters: ["error": error.localizedDescription])
         } else if let accessToken = user.authentication.accessToken {
             NotificationCenter.default.post(name: .didSignInWithGoogle, object: accessToken)
-            Analytics.logEvent("log_in_with_google", parameters: nil)
+            Analytics.logEvent("log_in_with_google_success", parameters: nil)
         }
     }
 }

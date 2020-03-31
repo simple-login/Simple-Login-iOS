@@ -109,9 +109,9 @@ final class CreateAliasViewController: UIViewController {
             if let error = error {
                 Toast.displayError(error)
                 if let _ = note {
-                    Analytics.logEvent("create_alias_with_note_error", parameters: ["error": error.description])
+                    Analytics.logEvent("create_alias_with_note_error", parameters: error.toParameter())
                 } else {
-                    Analytics.logEvent("create_alias_without_note_error", parameters: ["error": error.description])
+                    Analytics.logEvent("create_alias_without_note_error", parameters: error.toParameter())
                 }
                 
             } else if let newlyCreatedAlias = newlyCreatedAlias{
@@ -180,7 +180,7 @@ final class CreateAliasViewController: UIViewController {
 extension CreateAliasViewController: SuffixListViewControllerDelegate {
     func didSelectSuffix(atIndex index: Int) {
         selectedSuffixIndex = index
-        Analytics.logEvent("suffix_selected_a_suffix", parameters: nil)
+        Analytics.logEvent("suffix_select_suffix", parameters: nil)
     }
 }
 

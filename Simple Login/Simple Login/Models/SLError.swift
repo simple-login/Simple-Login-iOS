@@ -38,4 +38,8 @@ enum SLError: Error, CustomStringConvertible {
         case .unknownError(let description): return "Unknown error: \(description)"
         }
     }
+    
+    func toParameter() -> [String: Any] {
+        return ["error": description]
+    }
 }

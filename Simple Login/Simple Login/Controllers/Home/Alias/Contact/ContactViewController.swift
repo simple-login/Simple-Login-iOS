@@ -57,7 +57,7 @@ final class ContactViewController: UIViewController {
     
     @objc private func refresh() {
         fetchContacts()
-        Analytics.logEvent("contact_list_refresh", parameters: nil)
+        Analytics.logEvent("contact_refresh", parameters: nil)
     }
     
     private func fetchContacts() {
@@ -103,7 +103,7 @@ final class ContactViewController: UIViewController {
             } else if let error = error {
                 self.refreshControl.endRefreshing()
                 Toast.displayError(error)
-                Analytics.logEvent("contact_list_error_fetching", parameters: ["error": error.description])
+                Analytics.logEvent("contact_fetch_error", parameters: error.toParameter())
             }
         }
     }
@@ -127,7 +127,7 @@ final class ContactViewController: UIViewController {
         let copyAction = UIAlertAction(title: "Copy reverse-alias", style: .default) { (_) in
             UIPasteboard.general.string = contact.reverseAlias
             Toast.displayShortly(message: "Copied \"\(contact.reverseAlias)\"")
-            Analytics.logEvent("contact_list_copied_a_contact", parameters: nil)
+            Analytics.logEvent("contact_copy", parameters: nil)
         }
         alert.addAction(copyAction)
         
@@ -142,7 +142,7 @@ final class ContactViewController: UIViewController {
             mailComposerVC.setToRecipients([contact.reverseAlias])
             
             self.present(mailComposerVC, animated: true, completion: nil)
-            Analytics.logEvent("contact_list_write_to_a_contact", parameters: nil)
+            Analytics.logEvent("contact_compose_email", parameters: nil)
         }
         alert.addAction(openEmaiAction)
         
@@ -181,7 +181,7 @@ final class ContactViewController: UIViewController {
             
             if let error = error {
                 Toast.displayError(error)
-                Analytics.logEvent("contact_list_delete_error", parameters: ["error": error.description])
+                Analytics.logEvent("contact_delete_error", parameters: error.toParameter())
                 
             } else {
                 self.tableView.performBatchUpdates({
@@ -190,7 +190,7 @@ final class ContactViewController: UIViewController {
                 }) { _ in
                     self.tableView.reloadData()
                     Toast.displayShortly(message: "Deleted contact \"\(contact.email)\"")
-                    Analytics.logEvent("contact_list_deleted_a_contact", parameters: nil)
+                    Analytics.logEvent("contact_delete_success", parameters: nil)
                 }
             }
         }
@@ -226,7 +226,7 @@ extension ContactViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         if moreToLoad {
             fetchContacts()
-            Analytics.logEvent("contact_list_fetch_more", parameters: nil)
+            Analytics.logEvent("contact_fetch_more", parameters: nil)
         }
     }
 }

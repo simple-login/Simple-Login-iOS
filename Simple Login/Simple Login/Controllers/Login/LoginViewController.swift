@@ -217,7 +217,7 @@ extension LoginViewController {
             
             if let error = error {
                 Toast.displayError(error)
-                Analytics.logEvent("sign_up_error", parameters: ["error": error])
+                Analytics.logEvent("sign_up_error", parameters: error.toParameter())
             } else {
                 self.verify(mode: .accountActivation(email: email, password: password))
             }
@@ -260,7 +260,7 @@ extension LoginViewController {
                 } else {
                     if let accessToken = result.token {
                         self.socialLogin(social: .facebook, accessToken: accessToken.tokenString)
-                        Analytics.logEvent("log_in_with_facebook", parameters: nil)
+                        Analytics.logEvent("log_in_with_facebook_success", parameters: nil)
                     } else {
                         Toast.displayShortly(message: "Facebook access token is null")
                         Analytics.logEvent("log_in_with_facebook_access_token_null", parameters: nil)

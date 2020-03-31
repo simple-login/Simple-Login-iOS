@@ -62,6 +62,6 @@ final class ForgotPasswordViewController: UIViewController {
             Toast.displayLongly(message: "We've sent reset password email to \"\(email)\"")
             self.dismiss(animated: true, completion: nil)
         }
-        Analytics.logEvent("forgot_password_made_request", parameters: nil)
+        Analytics.logEvent("forgot_password_success", parameters: nil)
     }
 }

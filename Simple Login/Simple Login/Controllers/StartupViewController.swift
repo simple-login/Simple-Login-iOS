@@ -54,7 +54,7 @@ final class StartupViewController: UIViewController {
             hud.hide(animated: true)
             
             if let error = error {
-                Analytics.logEvent("start_up_error", parameters: ["error": error.description])
+                Analytics.logEvent("start_up_error", parameters: error.toParameter())
                 switch error {
                 case .noData, .internalServerError:
                     self.presentRetryAlert(error: error)

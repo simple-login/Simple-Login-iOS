@@ -75,7 +75,7 @@ final class AliasSearchViewController: UIViewController {
             isFetching = false
             fetchedPage = -1
             aliases.removeAll()
-            Analytics.logEvent("alias_search_perform_a_search", parameters: nil)
+            Analytics.logEvent("alias_search_perform_search", parameters: nil)
         }
         
         guard moreToLoad, !isFetching else { return }
@@ -98,10 +98,11 @@ final class AliasSearchViewController: UIViewController {
                 
                 self.noAlias = self.aliases.isEmpty
                 self.tableView.reloadData()
+                Analytics.logEvent("alias_search_success", parameters: nil)
                 
             } else if let error = error {
                 Toast.displayError(error)
-                Analytics.logEvent("alias_search_error", parameters: ["error": error.description])
+                Analytics.logEvent("alias_search_error", parameters: error.toParameter())
             }
         }
     }
@@ -140,9 +141,10 @@ extension AliasSearchViewController {
             if let enabled = enabled {
                 alias.setEnabled(enabled)
                 self.toggledAlias?(alias)
+                 Analytics.logEvent("alias_search_toggle_alias_success", parameters: nil)
             } else if let error = error {
                 Toast.displayError(error)
-                self.tableView.reloadData()
+                Analytics.logEvent("alias_search_toggle_alias_error", parameters: error.toParameter())
             }
             
             self.tableView.reloadData()
@@ -177,6 +179,7 @@ extension AliasSearchViewController {
             
             if let error = error {
                 Toast.displayError(error)
+                Analytics.logEvent("alias_search_delete_alias_error", parameters: error.toParameter())
             } else {
                 self.tableView.performBatchUpdates({
                     self.aliases.removeAll(where: {$0 == alias})
@@ -187,6 +190,7 @@ extension AliasSearchViewController {
                     self.deletedAlias?(alias)
                     Toast.displayShortly(message: "Deleted alias \"\(alias.email)\"")
                 }
+                Analytics.logEvent("alias_search_delete_alias_success", parameters: nil)
             }
         }
     }
@@ -239,10 +243,12 @@ extension AliasSearchViewController: UITableViewDataSource {
         cell.didTapCopyButton = {
             UIPasteboard.general.string = alias.email
             Toast.displayShortly(message: "Copied \"\(alias.email)\"")
+            Analytics.logEvent("alias_search_copy_alias", parameters: nil)
         }
         
         cell.didTapSendButton = { [unowned self] in
             self.performSegue(withIdentifier: "showContacts", sender: alias)
+            Analytics.logEvent("alias_search_view_alias_contacts", parameters: nil)
         }
         
         cell.didTapDeleteButton = { [unowned self] in
@@ -251,6 +257,7 @@ extension AliasSearchViewController: UITableViewDataSource {
         
         cell.didTapRightArrowButton = { [unowned self] in
             self.performSegue(withIdentifier: "showActivities", sender: alias)
+            Analytics.logEvent("alias_search_view_alias_activities", parameters: nil)
         }
         
         return cell

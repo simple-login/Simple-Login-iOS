@@ -107,7 +107,7 @@ final class VerificationViewController: UIViewController, Storyboarded {
                 if let error = error {
                     self.showErrorLabel(true, errorMessage: error.description)
                     self.reset()
-                    Analytics.logEvent("verification_mfa_error", parameters: ["error": error.description])
+                    Analytics.logEvent("verification_mfa_error", parameters: error.toParameter())
                 } else if let apiKey = apiKey {
                     self.dismiss(animated: true) {
                         self.otpVerificationSuccesful?(apiKey)
@@ -130,7 +130,7 @@ final class VerificationViewController: UIViewController, Storyboarded {
                     }
                     
                     self.reset()
-                    Analytics.logEvent("verification_account_activation_error", parameters: ["error": error.description])
+                    Analytics.logEvent("verification_account_activation_error", parameters: error.toParameter())
                 } else {
                     self.dismiss(animated: true) {
                         self.accountVerificationSuccesful?()

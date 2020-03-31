@@ -170,7 +170,7 @@ final class AliasViewController: BaseViewController {
             } else if let error = error {
                 self.refreshControl.endRefreshing()
                 Toast.displayError(error)
-                Analytics.logEvent("alias_list_error_fetching", parameters: ["error": error.description])
+                Analytics.logEvent("alias_list_fetch_error", parameters: error.toParameter())
             }
         }
     }
@@ -221,7 +221,7 @@ extension AliasViewController {
                 Toast.displayError(error)
                 // reload data to switch alias to initial state when request to server fails
                 self.tableView.reloadData()
-                Analytics.logEvent("alias_list_error_toggling", parameters: ["error": error.description])
+                Analytics.logEvent("alias_list_toggle_error", parameters: error.toParameter())
             }
         }
     }
@@ -257,6 +257,7 @@ extension AliasViewController {
             
             if let error = error {
                 Toast.displayError(error)
+                Analytics.logEvent("alias_list_delete_alias_error", parameters: nil)
             } else {
                 self.tableView.performBatchUpdates({
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
@@ -281,7 +282,7 @@ extension AliasViewController {
                     Toast.displayShortly(message: "Deleted alias \"\(alias.email)\"")
                 }
                 
-                Analytics.logEvent("alias_list_deleted_an_alias", parameters: nil)
+                Analytics.logEvent("alias_list_delete_alias_success", parameters: nil)
             }
         }
     }
@@ -376,9 +377,9 @@ extension AliasViewController {
                 
                 switch mode {
                 case .uuid:
-                    Analytics.logEvent("alias_random_by_uuid", parameters: nil)
+                    Analytics.logEvent("alias_random_by_uuid_success", parameters: nil)
                 case .word:
-                    Analytics.logEvent("alias_random_by_word", parameters: nil)
+                    Analytics.logEvent("alias_random_by_word_success", parameters: nil)
                 }
             }
         }
@@ -459,7 +460,7 @@ extension AliasViewController: UITableViewDataSource {
         cell.didTapCopyButton = {
             UIPasteboard.general.string = alias.email
             Toast.displayShortly(message: "Copied \"\(alias.email)\"")
-            Analytics.logEvent("alias_list_copied_an_alias", parameters: nil)
+            Analytics.logEvent("alias_list_copy_alias", parameters: nil)
         }
         
         cell.didTapSendButton = { [unowned self] in

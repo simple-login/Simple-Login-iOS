@@ -110,7 +110,7 @@ final class AliasActivityViewController: UIViewController {
             } else if let error = error {
                 self.refreshControl.endRefreshing()
                 Toast.displayError(error)
-                Analytics.logEvent("alias_activity_error_fetching", parameters: ["error": error.description])
+                Analytics.logEvent("alias_activity_fetch_error", parameters: error.toParameter())
             }
             
         }
@@ -157,7 +157,7 @@ extension AliasActivityViewController {
             
             if let error = error {
                 Toast.displayError(error)
-                Analytics.logEvent("alias_activity_edit_note_error", parameters: ["error": error.description])
+                Analytics.logEvent("alias_activity_edit_note_error", parameters: error.toParameter())
                 
             } else {
                 self.alias.setNote(note)

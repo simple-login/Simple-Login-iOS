@@ -76,11 +76,11 @@ final class CreateContactViewController: UIViewController {
             
             if let error = error {
                 Toast.displayError(error)
-                Analytics.logEvent("create_contact_error_creating", parameters: ["error": error.description])
+                Analytics.logEvent("create_contact_create_error", parameters: error.toParameter())
                 
             } else {
                 Toast.displayShortly(message: "Created contact \(email)")
-                Analytics.logEvent("create_contact_created_a_contact", parameters: nil)
+                Analytics.logEvent("create_contact_create_success", parameters: nil)
                 self.dismiss(animated: true) {
                     self.didCreateContact?()
                 }
