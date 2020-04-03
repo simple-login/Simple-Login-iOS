@@ -159,15 +159,12 @@ final class VerificationViewController: UIViewController, Storyboarded {
     }
     
     private func showReactivateAlert(email: String) {
-        let alert = UIAlertController(title: "Wrong code too many times", message: "Resend a new activation code for \"\(email)\"", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Wrong code too many times", message: "We will send you a new activation code for \"\(email)\"", preferredStyle: .alert)
         
-        let resendAction = UIAlertAction(title: "Resend me new code", style: .default) { [unowned self] (_) in
+        let okAction = UIAlertAction(title: "Ok", style: .default) { [unowned self] (_) in
             self.reactivate(email: email)
         }
-        alert.addAction(resendAction)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
+        alert.addAction(okAction)
         
         present(alert, animated: true, completion: nil)
     }

@@ -105,20 +105,7 @@ final class SLApiService {
                     completion(nil, error as? SLError)
                 }
                 
-            case 400:
-                do {
-                    guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
-                        let error = jsonDictionary["error"] as? String else {
-                            completion(nil, SLError.badRequest(description: "Failed to serialize json"))
-                            return
-                    }
-                    
-                    completion(nil, SLError.badRequest(description: error))
-                    
-                } catch let error {
-                    completion(nil, error as? SLError)
-                }
-                
+            case 400: completion(nil, SLError.wrongTotpToken)
             case 500: completion(nil, SLError.internalServerError)
             case 502: completion(nil, SLError.badGateway)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
@@ -241,7 +228,7 @@ extension SLApiService {
         
         AF.request("\(BASE_URL)/api/auth/activate", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
             
-            guard let data = response.data else {
+            guard let _ = response.data else {
                 completion(SLError.noData)
                 return
             }
@@ -254,20 +241,7 @@ extension SLApiService {
             switch statusCode {
             case 200: completion(nil)
                 
-            case 400:
-                do {
-                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
-                    
-                    if let error = jsonDictionary?["error"] as? String {
-                        completion(SLError.badRequest(description: error))
-                    } else {
-                        completion(SLError.failToSerializeJSONData)
-                    }
-                    
-                } catch {
-                    completion(SLError.failToSerializeJSONData)
-                }
-                
+            case 400: completion(SLError.wrongVerificationCode)
             case 410: completion(SLError.reactivationNeeded)
             case 500: completion(SLError.internalServerError)
             case 502: completion(SLError.badGateway)

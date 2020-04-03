@@ -20,6 +20,8 @@ enum SLError: Error, CustomStringConvertible {
     case reactivationNeeded
     case internalServerError
     case badGateway
+    case wrongTotpToken
+    case wrongVerificationCode
     case badRequest(description: String)
     case unknownError(description: String)
     
@@ -36,6 +38,8 @@ enum SLError: Error, CustomStringConvertible {
         case .reactivationNeeded: return "Reactivation needed"
         case .internalServerError: return "Internal server error"
         case .badGateway: return "Bad gateway error"
+        case .wrongTotpToken: return "Wrong TOTP token"
+        case .wrongVerificationCode: return "Wrong verification code"
         case .badRequest(let description): return "Bad request: \(description)"
         case .unknownError(let description): return "Unknown error: \(description)"
         }
