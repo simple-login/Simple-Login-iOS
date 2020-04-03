@@ -40,7 +40,7 @@ final class CreateAliasViewController: UIViewController {
         }
     }
     
-    var createdAlias: ((_ alias: String) -> Void)?
+    var createdAlias: ((_ alias: Alias) -> Void)?
     
     deinit {
         print("CreateAliasViewController is deallocated")

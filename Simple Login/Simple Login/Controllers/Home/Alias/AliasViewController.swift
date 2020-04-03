@@ -102,9 +102,7 @@ final class AliasViewController: BaseViewController {
             
         case let createAliasViewController as CreateAliasViewController:
             createAliasViewController.createdAlias = { [unowned self] alias in
-                Toast.displayShortly(message: "Created \(alias)")
-                self.refreshControl.beginRefreshing()
-                self.refresh()
+                self.finalizeAliasCreation(alias)
             }
             
         case let aliasSearchNavigationController as AliasSearchNavigationController:
@@ -169,7 +167,10 @@ final class AliasViewController: BaseViewController {
                         self.fetchedPage += 1
                     }
                     
-                    self.aliases.append(contentsOf: aliases)
+                    // Remove duplicated aliases before appending to current array
+                    let aliasesToAppend = aliases.filter({!self.aliases.contains($0)})
+                    
+                    self.aliases.append(contentsOf: aliasesToAppend)
                     self.refilterAliasArrays()
                 }
                 
@@ -183,6 +184,25 @@ final class AliasViewController: BaseViewController {
                 Analytics.logEvent("alias_list_fetch_error", parameters: error.toParameter())
             }
         }
+    }
+    
+    private func finalizeAliasCreation(_ alias: Alias) {
+        switch currentAliasType {
+        case .all, .active:
+            tableView.performBatchUpdates({
+                self.aliases.insert(alias, at: 0)
+                self.refilterAliasArrays()
+                let firstIndexPath = IndexPath(row: 0, section: 0)
+                self.tableView.insertRows(at: [firstIndexPath], with: .automatic)
+                self.tableView.scrollToRow(at: firstIndexPath, at: .top, animated: true)
+            })
+            
+        case .inactive:
+            self.aliases.insert(alias, at: 0)
+            self.refilterAliasArrays()
+        }
+        
+        Toast.displayShortly(message: "Created \(alias.email)")
     }
 }
 
@@ -381,9 +401,7 @@ extension AliasViewController {
                 }
                 
             } else if let newlyCreatedAlias = newlyCreatedAlias {
-                Toast.displayShortly(message: "Created \(newlyCreatedAlias)")
-                self.refreshControl.beginRefreshing()
-                self.refresh()
+                self.finalizeAliasCreation(newlyCreatedAlias)
                 
                 switch mode {
                 case .uuid:

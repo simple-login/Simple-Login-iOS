@@ -404,7 +404,7 @@ extension SLApiService {
         }
     }
     
-    static func createNewAlias(apiKey: String, prefix: String, suffix: String, note: String?, completion: @escaping (_ newlyCreatedAlias: String?, _ error: SLError?) -> Void) {
+    static func createNewAlias(apiKey: String, prefix: String, suffix: String, note: String?, completion: @escaping (_ newlyCreatedAlias: Alias?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         var parameters = ["alias_prefix" : prefix, "alias_suffix" : suffix]
         
@@ -429,10 +429,13 @@ extension SLApiService {
                 do {
                     let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
                     
-                    if let newlyCreatedAlias = jsonDictionary?["alias"] as? String {
-                        completion(newlyCreatedAlias, nil)
-                    } else {
-                        completion(nil, SLError.failToParseObject(objectName: "newly created alias"))
+                    if let jsonDictionary = jsonDictionary {
+                        do {
+                            let alias = try Alias(fromDictionary: jsonDictionary)
+                            completion(alias, nil)
+                        } catch let error as SLError {
+                            completion(nil, error)
+                        }
                     }
                     
                 } catch {
@@ -448,7 +451,7 @@ extension SLApiService {
     }
     
     
-    static func randomAlias(apiKey: String, randomMode: RandomMode, note: String?, completion: @escaping (_ newlyCreatedAlias: String?, _ error: SLError?) -> Void) {
+    static func randomAlias(apiKey: String, randomMode: RandomMode, note: String?, completion: @escaping (_ newlyCreatedAlias: Alias?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         var parameters: [String: Any]?
         
@@ -473,10 +476,13 @@ extension SLApiService {
                 do {
                     let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
                     
-                    if let newlyCreatedAlias = jsonDictionary?["alias"] as? String {
-                        completion(newlyCreatedAlias, nil)
-                    } else {
-                        completion(nil, SLError.failToParseObject(objectName: "newly created alias"))
+                    if let jsonDictionary = jsonDictionary {
+                        do {
+                            let alias = try Alias(fromDictionary: jsonDictionary)
+                            completion(alias, nil)
+                        } catch let error as SLError {
+                            completion(nil, error)
+                        }
                     }
                     
                 } catch {
