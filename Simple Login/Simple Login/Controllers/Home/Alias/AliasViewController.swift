@@ -10,6 +10,7 @@ import UIKit
 import Toaster
 import MBProgressHUD
 import FirebaseAnalytics
+import Differ
 
 final class AliasViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -31,7 +32,16 @@ final class AliasViewController: BaseViewController {
     
     private var currentAliasType: AliasType = .all {
         didSet {
-            tableView.reloadData()
+        
+            switch (oldValue, currentAliasType) {
+            case (.all, .active): tableView.animateRowChanges(oldData: aliases, newData: activeAliases)
+            case (.all, .inactive): tableView.animateRowChanges(oldData: aliases, newData: inactiveAliases)
+            case (.active, .all): tableView.animateRowChanges(oldData: activeAliases, newData: aliases)
+            case (.active, .inactive): tableView.animateRowChanges(oldData: activeAliases, newData: inactiveAliases)
+            case (.inactive, .all): tableView.animateRowChanges(oldData: inactiveAliases, newData: aliases)
+            case (.inactive, .active): tableView.animateRowChanges(oldData: inactiveAliases, newData: activeAliases)
+            default: break
+            }
             
             var scrollToTop: Bool = false
             switch currentAliasType {

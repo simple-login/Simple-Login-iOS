@@ -18,6 +18,7 @@ target 'Simple Login' do
   pod 'MarqueeLabel'
   pod 'Firebase/Analytics'
   pod 'Gifu'
+  pod 'Differ'
   pod 'FacebookLogin'
   pod 'GoogleSignIn'
 end
