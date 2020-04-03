@@ -20,7 +20,6 @@ target 'Simple Login' do
   pod 'Gifu'
   pod 'FacebookLogin'
   pod 'GoogleSignIn'
-  pod 'MaterialComponents/Tabs'
 end
 
 target 'Share Extension' do
