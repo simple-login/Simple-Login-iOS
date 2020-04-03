@@ -18,22 +18,22 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uhw-fJ-ZSr" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
-                        <rect key="frame" x="16" y="8" width="399" height="243"/>
+                        <rect key="frame" x="10" y="5" width="411" height="249"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6iE-k1-hoz">
-                                <rect key="frame" x="16" y="16" width="367" height="211"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6iE-k1-hoz">
+                                <rect key="frame" x="10" y="10" width="391" height="229"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Step A" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rE5-vB-94l">
-                                        <rect key="frame" x="0.0" y="0.0" width="367" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Step A" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rE5-vB-94l">
+                                        <rect key="frame" x="0.0" y="0.0" width="391" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="textColor" name="TextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" ambiguous="YES" image="StepA" translatesAutoresizingMaskIntoConstraints="NO" id="lqN-1Q-xR4">
-                                        <rect key="frame" x="0.0" y="18" width="367" height="193"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="StepA" translatesAutoresizingMaskIntoConstraints="NO" id="lqN-1Q-xR4">
+                                        <rect key="frame" x="0.0" y="23" width="391" height="153"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" ambiguous="YES" text="Step description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcP-xl-hys">
-                                        <rect key="frame" x="0.0" y="211" width="367" height="0.0"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Step description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcP-xl-hys">
+                                        <rect key="frame" x="0.0" y="181" width="391" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" name="TitleColor"/>
                                         <nil key="highlightedColor"/>
@@ -43,19 +43,19 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="6iE-k1-hoz" secondAttribute="bottom" constant="16" id="1F7-l1-V7g"/>
-                            <constraint firstItem="6iE-k1-hoz" firstAttribute="top" secondItem="Uhw-fJ-ZSr" secondAttribute="top" constant="16" id="5FC-Ga-kFJ"/>
-                            <constraint firstAttribute="trailing" secondItem="6iE-k1-hoz" secondAttribute="trailing" constant="16" id="UE1-Qo-4zJ"/>
-                            <constraint firstItem="6iE-k1-hoz" firstAttribute="leading" secondItem="Uhw-fJ-ZSr" secondAttribute="leading" constant="16" id="oID-ki-CWs"/>
+                            <constraint firstAttribute="bottom" secondItem="6iE-k1-hoz" secondAttribute="bottom" constant="10" id="1F7-l1-V7g"/>
+                            <constraint firstItem="6iE-k1-hoz" firstAttribute="top" secondItem="Uhw-fJ-ZSr" secondAttribute="top" constant="10" id="5FC-Ga-kFJ"/>
+                            <constraint firstAttribute="trailing" secondItem="6iE-k1-hoz" secondAttribute="trailing" constant="10" id="UE1-Qo-4zJ"/>
+                            <constraint firstItem="6iE-k1-hoz" firstAttribute="leading" secondItem="Uhw-fJ-ZSr" secondAttribute="leading" constant="10" id="oID-ki-CWs"/>
                         </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="Uhw-fJ-ZSr" secondAttribute="trailing" constant="16" id="414-bb-RNz"/>
-                    <constraint firstItem="Uhw-fJ-ZSr" firstAttribute="leading" secondItem="yNO-3p-vCx" secondAttribute="leading" constant="16" id="ZBi-tE-2Ko"/>
-                    <constraint firstItem="Uhw-fJ-ZSr" firstAttribute="top" secondItem="yNO-3p-vCx" secondAttribute="top" constant="8" id="wzX-qg-1nX"/>
-                    <constraint firstAttribute="bottom" secondItem="Uhw-fJ-ZSr" secondAttribute="bottom" constant="8" id="zLs-oT-UAu"/>
+                    <constraint firstAttribute="trailing" secondItem="Uhw-fJ-ZSr" secondAttribute="trailing" constant="10" id="414-bb-RNz"/>
+                    <constraint firstItem="Uhw-fJ-ZSr" firstAttribute="leading" secondItem="yNO-3p-vCx" secondAttribute="leading" constant="10" id="ZBi-tE-2Ko"/>
+                    <constraint firstItem="Uhw-fJ-ZSr" firstAttribute="top" secondItem="yNO-3p-vCx" secondAttribute="top" constant="5" id="wzX-qg-1nX"/>
+                    <constraint firstAttribute="bottom" secondItem="Uhw-fJ-ZSr" secondAttribute="bottom" constant="5" id="zLs-oT-UAu"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>

@@ -18,19 +18,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49n-LQ-FgU" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
-                        <rect key="frame" x="16" y="8" width="392" height="139"/>
+                        <rect key="frame" x="10" y="5" width="404" height="145"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="eUt-bZ-s7v">
-                                <rect key="frame" x="16" y="16" width="360" height="107"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eUt-bZ-s7v">
+                                <rect key="frame" x="10" y="10" width="384" height="125"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is an email alias?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifc-c0-tJQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="360" height="18"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="textColor" name="TextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Email alias is similar to forward email address: all emails sent to an alias will be forwarded to your inbox." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7a3-pa-uz9">
-                                        <rect key="frame" x="0.0" y="34" width="360" height="73"/>
+                                        <rect key="frame" x="0.0" y="23" width="384" height="102"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" name="TitleColor"/>
                                         <nil key="highlightedColor"/>
@@ -40,19 +40,19 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="eUt-bZ-s7v" firstAttribute="leading" secondItem="49n-LQ-FgU" secondAttribute="leading" constant="16" id="G73-bL-E1K"/>
-                            <constraint firstAttribute="trailing" secondItem="eUt-bZ-s7v" secondAttribute="trailing" constant="16" id="WsJ-6E-x7M"/>
-                            <constraint firstItem="eUt-bZ-s7v" firstAttribute="top" secondItem="49n-LQ-FgU" secondAttribute="top" constant="16" id="k2E-BF-2uQ"/>
-                            <constraint firstAttribute="bottom" secondItem="eUt-bZ-s7v" secondAttribute="bottom" constant="16" id="z5i-6T-EGl"/>
+                            <constraint firstItem="eUt-bZ-s7v" firstAttribute="leading" secondItem="49n-LQ-FgU" secondAttribute="leading" constant="10" id="G73-bL-E1K"/>
+                            <constraint firstAttribute="trailing" secondItem="eUt-bZ-s7v" secondAttribute="trailing" constant="10" id="WsJ-6E-x7M"/>
+                            <constraint firstItem="eUt-bZ-s7v" firstAttribute="top" secondItem="49n-LQ-FgU" secondAttribute="top" constant="10" id="k2E-BF-2uQ"/>
+                            <constraint firstAttribute="bottom" secondItem="eUt-bZ-s7v" secondAttribute="bottom" constant="10" id="z5i-6T-EGl"/>
                         </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 <constraints>
-                    <constraint firstItem="49n-LQ-FgU" firstAttribute="top" secondItem="AGf-eE-Njp" secondAttribute="top" constant="8" id="0rA-z4-HXH"/>
-                    <constraint firstItem="49n-LQ-FgU" firstAttribute="leading" secondItem="AGf-eE-Njp" secondAttribute="leading" constant="16" id="5ru-hf-5GE"/>
-                    <constraint firstAttribute="trailing" secondItem="49n-LQ-FgU" secondAttribute="trailing" constant="16" id="fP6-1Q-8NF"/>
-                    <constraint firstAttribute="bottom" secondItem="49n-LQ-FgU" secondAttribute="bottom" constant="8" id="gMe-ht-djX"/>
+                    <constraint firstItem="49n-LQ-FgU" firstAttribute="top" secondItem="AGf-eE-Njp" secondAttribute="top" constant="5" id="0rA-z4-HXH"/>
+                    <constraint firstItem="49n-LQ-FgU" firstAttribute="leading" secondItem="AGf-eE-Njp" secondAttribute="leading" constant="10" id="5ru-hf-5GE"/>
+                    <constraint firstAttribute="trailing" secondItem="49n-LQ-FgU" secondAttribute="trailing" constant="10" id="fP6-1Q-8NF"/>
+                    <constraint firstAttribute="bottom" secondItem="49n-LQ-FgU" secondAttribute="bottom" constant="5" id="gMe-ht-djX"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
