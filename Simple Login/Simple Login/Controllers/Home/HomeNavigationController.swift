@@ -179,7 +179,7 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     }
     
     func didSelectSignOut() {
-        let alert = UIAlertController(title: "Confirmation", message: "You will be signed out", preferredStyle: .alert)
+        let alert = UIAlertController(title: "You will be signed out", message: "Please confirm", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "Yes, sign me out", style: .destructive) { [unowned self] _ in
             do {

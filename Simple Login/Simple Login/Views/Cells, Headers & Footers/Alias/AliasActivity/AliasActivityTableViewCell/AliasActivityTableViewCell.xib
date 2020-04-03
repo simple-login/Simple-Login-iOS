@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNq-5u-xhf" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
-                        <rect key="frame" x="10" y="10" width="421" height="61"/>
+                        <rect key="frame" x="10" y="5" width="421" height="71"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PaperPlaneIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Qqk-w9-2K1">
-                                <rect key="frame" x="381" y="14.5" width="32" height="32"/>
+                                <rect key="frame" x="381" y="19.5" width="32" height="32"/>
                                 <color key="tintColor" name="TintColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="QG1-q1-X4r"/>
@@ -29,23 +29,23 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RQ1-Qj-O3j">
-                                <rect key="frame" x="10" y="10" width="401" height="41"/>
+                                <rect key="frame" x="10" y="10" width="401" height="51"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="marketing@example.com" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BY1-GB-CV2">
-                                        <rect key="frame" x="0.0" y="0.0" width="401" height="16.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="401" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="textColor" name="TextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="fcD-O1-NRf">
-                                        <rect key="frame" x="0.0" y="26.5" width="401" height="14.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="401" height="23"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="251" image="ClockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="HF9-F0-WrU">
-                                                <rect key="frame" x="0.0" y="0.0" width="36" height="14.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="18" height="23"/>
                                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 day agos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dac-f3-J43">
-                                                <rect key="frame" x="40" y="0.0" width="361" height="14.5"/>
+                                                <rect key="frame" x="22" y="0.0" width="379" height="23"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -68,8 +68,8 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="BNq-5u-xhf" secondAttribute="bottom" constant="10" id="EfJ-gn-j7n"/>
-                    <constraint firstItem="BNq-5u-xhf" firstAttribute="top" secondItem="DWK-a0-IOl" secondAttribute="top" constant="10" id="S8X-Nr-dXM"/>
+                    <constraint firstAttribute="bottom" secondItem="BNq-5u-xhf" secondAttribute="bottom" constant="5" id="EfJ-gn-j7n"/>
+                    <constraint firstItem="BNq-5u-xhf" firstAttribute="top" secondItem="DWK-a0-IOl" secondAttribute="top" constant="5" id="S8X-Nr-dXM"/>
                     <constraint firstAttribute="trailing" secondItem="BNq-5u-xhf" secondAttribute="trailing" constant="10" id="b5K-f7-pbd"/>
                     <constraint firstItem="BNq-5u-xhf" firstAttribute="leading" secondItem="DWK-a0-IOl" secondAttribute="leading" constant="10" id="q8B-GU-Vo0"/>
                 </constraints>
@@ -94,7 +94,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TintColor">
-            <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.93333333333333335" green="0.18823529411764706" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

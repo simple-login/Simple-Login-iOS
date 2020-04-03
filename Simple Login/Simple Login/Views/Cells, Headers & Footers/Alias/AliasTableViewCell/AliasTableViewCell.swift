@@ -14,6 +14,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var clockImageView: UIImageView!
     @IBOutlet private weak var creationLabel: UILabel!
+    @IBOutlet private weak var waveImageView: UIImageView!
     @IBOutlet private weak var countLabel: UILabel!
     @IBOutlet private weak var noteLabel: UILabel!
     @IBOutlet private weak var enabledSwitch: UISwitch!
@@ -47,6 +48,8 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         
         clockImageView.tintColor = SLColor.titleColor
         creationLabel.textColor = SLColor.titleColor
+        
+        waveImageView.tintColor = SLColor.titleColor
         
         rightArrowButton.tintColor = SLColor.titleColor
     }
