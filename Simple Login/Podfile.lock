@@ -102,13 +102,39 @@ PODS:
   - KeychainAccess (4.1.0)
   - MarqueeLabel (4.0.1)
   - MaterialComponents/AnimationTiming (103.1.0)
+  - MaterialComponents/Elevation (103.1.0):
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/Ink (103.1.0):
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/Palettes (103.1.0)
+  - MaterialComponents/private/Application (103.1.0)
   - MaterialComponents/private/Color (103.1.0)
   - MaterialComponents/private/Math (103.1.0)
   - MaterialComponents/Ripple (103.1.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
+  - MaterialComponents/ShadowElevations (103.1.0)
+  - MaterialComponents/ShadowLayer (103.1.0):
+    - MaterialComponents/ShadowElevations
+  - MaterialComponents/Tabs (103.1.0):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/Elevation
+    - MaterialComponents/Ink
+    - MaterialComponents/Palettes
+    - MaterialComponents/private/Math
+    - MaterialComponents/Ripple
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+    - MDFInternationalization
+  - MaterialComponents/Typography (103.1.0):
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/Math
   - MBProgressHUD (1.2.0)
+  - MDFInternationalization (2.0.0)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -128,6 +154,7 @@ DEPENDENCIES:
   - KeychainAccess
   - MarqueeLabel
   - MaterialComponents/Ripple
+  - MaterialComponents/Tabs
   - MBProgressHUD (~> 1.2.0)
   - SideMenu (~> 6.0)
   - SkyFloatingLabelTextField (~> 3.0)
@@ -160,6 +187,7 @@ SPEC REPOS:
     - MarqueeLabel
     - MaterialComponents
     - MBProgressHUD
+    - MDFInternationalization
     - nanopb
     - PromisesObjC
     - SideMenu
@@ -192,12 +220,13 @@ SPEC CHECKSUMS:
   MarqueeLabel: d24e821159667c93064ea3042ccf1875ca94db6b
   MaterialComponents: 0312a643d1aed5e5f10cba4be06a6aa62bd07c14
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SideMenu: 928a015669c3afc201e1fe3a87f1b0bc8993a664
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: 36d86c7796d7a520442ecb9329ad1ffba3033d20
+PODFILE CHECKSUM: 8b8842015af16736c278587312391b61a47cadba
 
 COCOAPODS: 1.8.3
