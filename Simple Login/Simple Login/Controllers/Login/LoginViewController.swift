@@ -128,6 +128,38 @@ final class LoginViewController: UIViewController, Storyboarded {
         verifyEmailAddress()
     }
     
+    @IBAction private func signInWithApiKeyButtonTapped() {
+        let alert = UIAlertController(title: "Enter API key", message: "To get your API key, you have to sign in SimpleLogin via a browser then navigate to \"API Key\" tab", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "API Key"
+        }
+        
+        let setAction = UIAlertAction(title: "Set API key", style: .default) { [unowned self] (_) in
+            guard let enteredApiKey = alert.textFields?[0].text else { return }
+            
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            
+            SLApiService.fetchUserInfo(enteredApiKey) { [weak self] (userInfo, error) in
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
+                
+                if let error = error {
+                    Toast.displayError(error)
+                    Analytics.logEvent("log_in_with_api_key_error", parameters: error.toParameter())
+                } else if let _ = userInfo {
+                    self.finalizeLogin(apiKey: enteredApiKey)
+                    Analytics.logEvent("log_in_with_api_key_success", parameters: nil)
+                }
+            }
+        }
+        alert.addAction(setAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()

@@ -195,13 +195,16 @@ final class AliasViewController: BaseViewController {
     private func finalizeAliasCreation(_ alias: Alias) {
         switch currentAliasType {
         case .all, .active:
+            let firstIndexPath = IndexPath(row: 0, section: 0)
+            noAlias = false
+            
             tableView.performBatchUpdates({
                 self.aliases.insert(alias, at: 0)
                 self.refilterAliasArrays()
-                let firstIndexPath = IndexPath(row: 0, section: 0)
                 self.tableView.insertRows(at: [firstIndexPath], with: .automatic)
+            }) { _ in
                 self.tableView.scrollToRow(at: firstIndexPath, at: .top, animated: true)
-            })
+            }
             
         case .inactive:
             self.aliases.insert(alias, at: 0)
