@@ -99,6 +99,11 @@ final class AliasViewController: BaseViewController {
             aliasActivityViewController.didUpdateNote = { [unowned self] in
                 self.tableView.reloadData()
             }
+            aliasActivityViewController.didUpdateAlias = { [unowned self] updatedAlias in
+                if let index = self.aliases.firstIndex(where: {$0.id == updatedAlias.id}) {
+                    self.aliases[index] = updatedAlias
+                }
+            }
             
         case let createAliasViewController as CreateAliasViewController:
             createAliasViewController.createdAlias = { [unowned self] alias in

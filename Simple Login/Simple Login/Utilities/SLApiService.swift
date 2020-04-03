@@ -588,6 +588,46 @@ extension SLApiService {
             }
         }
     }
+    
+    static func getAlias(apiKey: String, id: Int, completion: @escaping (_ alias: Alias?, _ error: SLError?) -> Void) {
+        let headers: HTTPHeaders = ["Authentication": apiKey]
+        
+        AF.request("\(BASE_URL)/api/aliases/\(id)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(nil, SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200:
+                guard let data = response.data else {
+                    completion(nil, SLError.noData)
+                    return
+                }
+                
+                do {
+                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                    
+                    if let jsonDictionary = jsonDictionary {
+                        do {
+                            let alias = try Alias(fromDictionary: jsonDictionary)
+                            completion(alias, nil)
+                        } catch let error as SLError {
+                            completion(nil, error)
+                        }
+                    }
+                    
+                } catch {
+                    completion(nil, SLError.failToSerializeJSONData)
+                }
+                
+            case 401: completion(nil, SLError.invalidApiKey)
+            case 500: completion(nil, SLError.internalServerError)
+            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
 }
 
 // MARK: - Contact

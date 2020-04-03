@@ -18,6 +18,7 @@ final class AliasActivityViewController: UIViewController {
     
     var alias: Alias!
     
+    var didUpdateAlias: ((_ alias: Alias) -> Void)?
     var didUpdateNote: (() -> Void)?
     
     private var activities: [AliasActivity] = []
@@ -34,6 +35,7 @@ final class AliasActivityViewController: UIViewController {
         super.viewDidLoad()
         setUpUI()
         fetchActivities()
+        fetchAlias()
         Analytics.logEvent("open_alias_activity_view_controller", parameters: nil)
     }
     
@@ -65,6 +67,7 @@ final class AliasActivityViewController: UIViewController {
     
     @objc private func refresh() {
         fetchActivities()
+        fetchAlias()
         Analytics.logEvent("alias_activity_refresh", parameters: nil)
     }
     
@@ -115,6 +118,24 @@ final class AliasActivityViewController: UIViewController {
                 Analytics.logEvent("alias_activity_fetch_error", parameters: error.toParameter())
             }
             
+        }
+    }
+    
+    private func fetchAlias() {
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
+        SLApiService.getAlias(apiKey: apiKey, id: alias.id) { [weak self] (alias, error) in
+            guard let self = self else { return }
+            if let error = error {
+                Toast.displayError(error)
+            } else if let alias = alias {
+                self.alias = alias
+                self.didUpdateAlias?(alias)
+                self.tableView.reloadData()
+            }
         }
     }
 }
