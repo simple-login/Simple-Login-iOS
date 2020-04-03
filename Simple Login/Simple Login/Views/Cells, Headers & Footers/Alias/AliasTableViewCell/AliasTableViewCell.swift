@@ -19,7 +19,6 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var enabledSwitch: UISwitch!
     @IBOutlet private weak var copyButton: UIButton!
     @IBOutlet private weak var sendButton: UIButton!
-    @IBOutlet private weak var deleteButton: UIButton!
     @IBOutlet private weak var rightArrowButton: UIButton!
     
     weak var alias: Alias?
@@ -27,7 +26,6 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     var didToggleStatus: ((_ enabled: Bool) -> Void)?
     var didTapCopyButton: (() -> Void)?
     var didTapSendButton: (() -> Void)?
-    var didTapDeleteButton: (() -> Void)?
     var didTapRightArrowButton: (() -> Void)?
     
     override func awakeFromNib() {
@@ -49,9 +47,6 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         
         clockImageView.tintColor = SLColor.titleColor
         creationLabel.textColor = SLColor.titleColor
-        
-        deleteButton.tintColor = SLColor.negativeColor
-        deleteButton.setTitleColor(SLColor.negativeColor, for: .normal)
         
         rightArrowButton.tintColor = SLColor.titleColor
     }
@@ -88,10 +83,6 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     
     @IBAction private func sendButtonTapped() {
         didTapSendButton?()
-    }
-    
-    @IBAction private func deleteButtonTapped() {
-        didTapDeleteButton?()
     }
     
     @IBAction private func rightArrowButtonTapped() {

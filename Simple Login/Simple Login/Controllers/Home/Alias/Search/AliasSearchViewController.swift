@@ -224,6 +224,16 @@ extension AliasSearchViewController: UITableViewDelegate {
             search()
         }
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let alias = aliases[indexPath.row]
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] (_, indexPath) in
+            self.presentAlertConfirmDelete(alias: alias, at: indexPath)
+        }
+        
+        return [deleteAction]
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -255,10 +265,6 @@ extension AliasSearchViewController: UITableViewDataSource {
         cell.didTapSendButton = { [unowned self] in
             self.performSegue(withIdentifier: "showContacts", sender: alias)
             Analytics.logEvent("alias_search_view_contacts", parameters: nil)
-        }
-        
-        cell.didTapDeleteButton = { [unowned self] in
-            self.presentAlertConfirmDelete(alias: alias, at: indexPath)
         }
         
         cell.didTapRightArrowButton = { [unowned self] in

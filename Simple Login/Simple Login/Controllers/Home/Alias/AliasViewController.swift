@@ -425,6 +425,21 @@ extension AliasViewController: UITableViewDelegate {
             Analytics.logEvent("alias_list_fetch_more", parameters: nil)
         }
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let alias: Alias
+        switch currentAliasType {
+        case .all: alias = aliases[indexPath.row]
+        case .active: alias = activeAliases[indexPath.row]
+        case .inactive: alias = inactiveAliases[indexPath.row]
+        }
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] (_, indexPath) in
+            self.presentAlertConfirmDelete(alias: alias, at: indexPath)
+        }
+        
+        return [deleteAction]
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -466,10 +481,6 @@ extension AliasViewController: UITableViewDataSource {
         cell.didTapSendButton = { [unowned self] in
             self.performSegue(withIdentifier: "showContacts", sender: alias)
             Analytics.logEvent("alias_list_view_contacts", parameters: nil)
-        }
-        
-        cell.didTapDeleteButton = { [unowned self] in
-            self.presentAlertConfirmDelete(alias: alias, at: indexPath)
         }
         
         cell.didTapRightArrowButton = { [unowned self] in
