@@ -20,6 +20,7 @@ final class LoginViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var loginButton: UIButton!
     
+    @IBOutlet private weak var socialLoginLabel: UILabel!
     @IBOutlet private weak var githubView: RippleView!
     @IBOutlet private weak var googleView: RippleView!
     @IBOutlet private weak var facebookView: RippleView!
@@ -41,23 +42,30 @@ final class LoginViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        hideSocialLogins()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didSignInWithGoogle), name: .didSignInWithGoogle, object: nil)
+        
+        Analytics.logEvent("open_login_view_controller", parameters: nil)
+    }
+    
+    private func hideSocialLogins() {
+        socialLoginLabel.isHidden = true
         
         githubView.isHidden = true
         githubView.didTap = { [unowned self] in
             self.oauthWithGithub()
         }
         
+        googleView.isHidden = true
         googleView.didTap = { [unowned self] in
             self.oauthWithGoogle()
         }
         
+        facebookView.isHidden = true
         facebookView.didTap = { [unowned self] in
             self.oauthWithFacebook()
         }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(didSignInWithGoogle), name: .didSignInWithGoogle, object: nil)
-        
-        Analytics.logEvent("open_login_view_controller", parameters: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {

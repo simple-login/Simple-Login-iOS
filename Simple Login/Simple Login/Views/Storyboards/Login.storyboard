@@ -254,6 +254,7 @@
                         <outlet property="googleView" destination="l5F-Wb-es6" id="yFe-Yk-8kG"/>
                         <outlet property="loginButton" destination="Xrj-4t-axY" id="Pex-Qr-jlW"/>
                         <outlet property="passwordTextField" destination="Pbb-im-ZEh" id="5v3-Km-ML0"/>
+                        <outlet property="socialLoginLabel" destination="pbv-qM-wuw" id="okK-pg-JYM"/>
                         <outlet property="versionLabel" destination="liq-7l-pbr" id="coj-Jj-DLG"/>
                         <outletCollection property="socialLoginViews" destination="l5F-Wb-es6" collectionClass="NSMutableArray" id="Spq-Nn-J4g"/>
                         <outletCollection property="socialLoginViews" destination="2Ch-J0-0eU" collectionClass="NSMutableArray" id="D5f-mp-3og"/>
