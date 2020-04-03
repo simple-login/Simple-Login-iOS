@@ -153,7 +153,8 @@ final class ContactViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func presentAlertConfirmDelete(_ contact: Contact, indexPath: IndexPath) {
+    private func presentAlertConfirmDeleteContact(at indexPath: IndexPath) {
+        let contact = contacts[indexPath.row]
         let alert = UIAlertController(title: "Delete \"\(contact.email)\"?", message: "🛑 This operation is irreversible. Please confirm.", preferredStyle: .alert)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
@@ -202,6 +203,7 @@ final class ContactViewController: UIViewController {
 extension ContactViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        presentAlertWriteEmail(contacts[indexPath.row])
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -230,6 +232,14 @@ extension ContactViewController: UITableViewDelegate {
             Analytics.logEvent("contact_fetch_more", parameters: nil)
         }
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] (_, indexPath) in
+            self.presentAlertConfirmDeleteContact(at: indexPath)
+        }
+        
+        return [deleteAction]
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -244,17 +254,7 @@ extension ContactViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ContactTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let contact = contacts[indexPath.row]
-        cell.bind(with: contact)
-        
-        cell.didTapWriteEmailButton = { [unowned self] in
-            self.presentAlertWriteEmail(contact)
-        }
-        
-        cell.didTapDeleteButton = { [unowned self] in
-            self.presentAlertConfirmDelete(contact, indexPath: indexPath)
-        }
-        
+        cell.bind(with: contacts[indexPath.row])
         return cell
     }
 }

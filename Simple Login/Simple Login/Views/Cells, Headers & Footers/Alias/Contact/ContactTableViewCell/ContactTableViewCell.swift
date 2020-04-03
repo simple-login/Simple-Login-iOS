@@ -16,23 +16,12 @@ final class ContactTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var sendStackView: UIStackView!
     @IBOutlet private weak var sendImageView: UIImageView!
     @IBOutlet private weak var lastSentLabel: UILabel!
-    @IBOutlet private weak var createButton: UIButton!
-    @IBOutlet private weak var deleteButton: UIButton!
-    
-    var didTapWriteEmailButton: (() -> Void)?
-    var didTapDeleteButton: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = UITableViewCell.SelectionStyle.none
 
         destinationEmailLabel.textColor = SLColor.textColor
-        
-        createButton.tintColor = SLColor.tintColor
-        createButton.setTitleColor(SLColor.tintColor, for: .normal)
-        
-        deleteButton.tintColor = SLColor.negativeColor
-        deleteButton.setTitleColor(SLColor.negativeColor, for: .normal)
         
         clockImageView.tintColor = SLColor.titleColor
         sendImageView.tintColor = SLColor.titleColor
@@ -46,13 +35,5 @@ final class ContactTableViewCell: UITableViewCell, RegisterableCell {
         
         lastSentLabel.text = contact.lastEmailSentTimestampString
         sendStackView.isHidden = contact.lastEmailSentTimestampString == nil
-    }
-    
-    @IBAction private func writeEmailButtonTapped() {
-        didTapWriteEmailButton?()
-    }
-    
-    @IBAction private func deleteButtonTapped() {
-        didTapDeleteButton?()
     }
 }
