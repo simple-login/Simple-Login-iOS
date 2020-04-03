@@ -163,6 +163,7 @@ final class AliasViewController: BaseViewController {
                     if self.refreshControl.isRefreshing {
                         self.fetchedPage = 0
                         self.aliases.removeAll()
+                        Toast.displayUpToDate()
                     } else {
                         self.fetchedPage += 1
                     }

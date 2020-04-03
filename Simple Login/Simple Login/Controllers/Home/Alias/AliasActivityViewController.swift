@@ -97,6 +97,7 @@ final class AliasActivityViewController: UIViewController {
                     if self.refreshControl.isRefreshing {
                         self.fetchedPage = 0
                         self.activities.removeAll()
+                        Toast.displayUpToDate()
                     } else {
                         self.fetchedPage += 1
                     }

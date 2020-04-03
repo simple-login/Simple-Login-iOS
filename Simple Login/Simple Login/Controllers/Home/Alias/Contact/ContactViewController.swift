@@ -89,6 +89,7 @@ final class ContactViewController: UIViewController {
                     if self.refreshControl.isRefreshing {
                         self.fetchedPage = 0
                         self.contacts.removeAll()
+                        Toast.displayUpToDate()
                     } else {
                         self.fetchedPage += 1
                     }
