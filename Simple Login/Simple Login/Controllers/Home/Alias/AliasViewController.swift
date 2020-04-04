@@ -365,12 +365,12 @@ extension AliasViewController {
         let alert = UIAlertController(title: "New email alias", message: "Randomly create an alias", preferredStyle: .actionSheet)
         
         let byWordAction = UIAlertAction(title: "By random words", style: .default) { [unowned self] (_) in
-            self.showAddNoteAlert(mode: .word)
+            self.randomAlias(mode: .word)
         }
         alert.addAction(byWordAction)
         
         let byUUIDAction = UIAlertAction(title: "By UUID", style: .default) { [unowned self] (_) in
-            self.showAddNoteAlert(mode: .uuid)
+            self.randomAlias(mode: .uuid)
         }
         alert.addAction(byUUIDAction)
         
@@ -380,25 +380,7 @@ extension AliasViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func showAddNoteAlert(mode: RandomMode) {
-        let alert = UIAlertController(title: "Add some note for this alias", message: "This is optional and can be modified at anytime later.", preferredStyle: .alert)
-        
-        let noteTextView = alert.addTextView()
-        
-        let createAction = UIAlertAction(title: "Create", style: .default) { [unowned self] _ in
-            self.randomAlias(mode: mode, note: noteTextView.text)
-        }
-        alert.addAction(createAction)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        
-        present(alert, animated: true) {
-            noteTextView.becomeFirstResponder()
-        }
-    }
-    
-    private func randomAlias(mode: RandomMode, note: String?) {
+    private func randomAlias(mode: RandomMode) {
         guard let apiKey = SLKeychainService.getApiKey() else {
             Toast.displayErrorRetrieveingApiKey()
             return
@@ -406,7 +388,7 @@ extension AliasViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.randomAlias(apiKey: apiKey, randomMode: mode, note: note) { [weak self] (newlyCreatedAlias, error) in
+        SLApiService.randomAlias(apiKey: apiKey, randomMode: mode) { [weak self] (newlyCreatedAlias, error) in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)

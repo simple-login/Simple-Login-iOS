@@ -436,15 +436,10 @@ extension SLApiService {
     }
     
     
-    static func randomAlias(apiKey: String, randomMode: RandomMode, note: String?, completion: @escaping (_ newlyCreatedAlias: Alias?, _ error: SLError?) -> Void) {
+    static func randomAlias(apiKey: String, randomMode: RandomMode, completion: @escaping (_ newlyCreatedAlias: Alias?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
-        var parameters: [String: Any]?
         
-        if let note = note {
-            parameters = ["note": note]
-        }
-        
-        AF.request("\(BASE_URL)/api/alias/random/new?mode=\(randomMode.rawValue)", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
+        AF.request("\(BASE_URL)/api/alias/random/new?mode=\(randomMode.rawValue)", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(nil, SLError.unknownError(description: "error code unknown"))
