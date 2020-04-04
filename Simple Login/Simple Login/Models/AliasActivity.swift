@@ -10,6 +10,7 @@ import Foundation
 
 final class AliasActivity {
     let action: Action
+    let reverseAlias: String
     let from: String
     let to: String
     let timestamp: TimeInterval
@@ -25,12 +26,14 @@ final class AliasActivity {
         let actionString = dictionary["action"] as? String
         let action = Action(rawValue: actionString ?? "")
         
+        let reverseAlias = dictionary["reverse_alias"] as? String
         let from = dictionary["from"] as? String
         let to = dictionary["to"] as? String
         let timestamp = dictionary["timestamp"] as? TimeInterval
-        
-        if let action = action, let from = from, let to = to, let timestamp = timestamp {
+  
+        if let action = action, let reverseAlias = reverseAlias, let from = from, let to = to, let timestamp = timestamp {
             self.action = action
+            self.reverseAlias = reverseAlias
             self.from = from
             self.to = to
             self.timestamp = timestamp

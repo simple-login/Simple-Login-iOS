@@ -173,7 +173,6 @@ final class AliasViewController: BaseViewController {
                     if self.refreshControl.isRefreshing {
                         self.fetchedPage = 0
                         self.aliases.removeAll()
-                        Toast.displayUpToDate()
                     } else {
                         self.fetchedPage += 1
                     }
@@ -185,8 +184,12 @@ final class AliasViewController: BaseViewController {
                     self.refilterAliasArrays()
                 }
                 
+                if self.refreshControl.isRefreshing {
+                    self.refreshControl.endRefreshing()
+                    Toast.displayUpToDate()
+                }
+                
                 self.noAlias = self.aliases.count == 0
-                self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
                 
             } else if let error = error {

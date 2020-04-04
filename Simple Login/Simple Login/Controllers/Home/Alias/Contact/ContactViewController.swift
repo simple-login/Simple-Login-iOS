@@ -89,7 +89,6 @@ final class ContactViewController: UIViewController {
                     if self.refreshControl.isRefreshing {
                         self.fetchedPage = 0
                         self.contacts.removeAll()
-                        Toast.displayUpToDate()
                     } else {
                         self.fetchedPage += 1
                     }
@@ -97,8 +96,12 @@ final class ContactViewController: UIViewController {
                     self.contacts.append(contentsOf: contacts)
                 }
                 
+                if self.refreshControl.isRefreshing {
+                    self.refreshControl.endRefreshing()
+                    Toast.displayUpToDate()
+                }
+                
                 self.noContact = self.contacts.count == 0
-                self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
                 Analytics.logEvent("contact_fetch_success", parameters: nil)
                 
@@ -121,37 +124,6 @@ final class ContactViewController: UIViewController {
             
         default: return
         }
-    }
-    
-    private func presentAlertWriteEmail(_ contact: Contact) {
-        let alert = UIAlertController(title: "Compose and send email", message: "From: \"\(alias.email)\"\nTo: \"\(contact.email)\"", preferredStyle: .actionSheet)
-        
-        let copyAction = UIAlertAction(title: "Copy reverse-alias", style: .default) { (_) in
-            UIPasteboard.general.string = contact.reverseAlias
-            Toast.displayShortly(message: "Copied \"\(contact.reverseAlias)\"")
-            Analytics.logEvent("contact_copy", parameters: nil)
-        }
-        alert.addAction(copyAction)
-        
-        let openEmaiAction = UIAlertAction(title: "Begin composing with default email", style: .default) { (_) in
-            let mailComposerVC = MFMailComposeViewController()
-            
-            guard let _ = mailComposerVC.view else {
-                return
-            }
-            
-            mailComposerVC.mailComposeDelegate = self
-            mailComposerVC.setToRecipients([contact.reverseAlias])
-            
-            self.present(mailComposerVC, animated: true, completion: nil)
-            Analytics.logEvent("contact_compose_email", parameters: nil)
-        }
-        alert.addAction(openEmaiAction)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        
-        present(alert, animated: true, completion: nil)
     }
     
     private func presentAlertConfirmDeleteContact(at indexPath: IndexPath) {
@@ -204,7 +176,8 @@ final class ContactViewController: UIViewController {
 extension ContactViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        presentAlertWriteEmail(contacts[indexPath.row])
+        let contact = contacts[indexPath.row]
+        presentReverseAliasAlert(from: alias.email, to: contact.email, reverseAlias: contact.reverseAlias, mailComposerVCDelegate: self)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -11,6 +11,7 @@ import Toaster
 import MarqueeLabel
 import MBProgressHUD
 import FirebaseAnalytics
+import MessageUI
 
 final class AliasActivityViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -100,7 +101,7 @@ final class AliasActivityViewController: UIViewController {
                     if self.refreshControl.isRefreshing {
                         self.fetchedPage = 0
                         self.activities.removeAll()
-                        Toast.displayUpToDate()
+                        
                     } else {
                         self.fetchedPage += 1
                     }
@@ -108,7 +109,11 @@ final class AliasActivityViewController: UIViewController {
                     self.activities.append(contentsOf: activities)
                 }
                 
-                self.refreshControl.endRefreshing()
+                if self.refreshControl.isRefreshing {
+                    self.refreshControl.endRefreshing()
+                    Toast.displayUpToDate()
+                }
+                
                 self.tableView.reloadData()
                 Analytics.logEvent("alias_activity_fetch_success", parameters: nil)
                 
@@ -196,6 +201,15 @@ extension AliasActivityViewController {
 extension AliasActivityViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let activity = activities[indexPath.row]
+        
+        switch activity.action {
+        case .forward, .block, .bounced:
+            presentReverseAliasAlert(from: activity.to, to: activity.from, reverseAlias: activity.reverseAlias, mailComposerVCDelegate: self)
+            
+        case .reply:
+            presentReverseAliasAlert(from: activity.from, to: activity.to, reverseAlias: activity.reverseAlias, mailComposerVCDelegate: self)
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -245,5 +259,12 @@ extension AliasActivityViewController: UITableViewDataSource {
         let cell = AliasActivityTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.bind(with: activities[indexPath.row])
         return cell
+    }
+}
+
+// MARK: - MFMailComposeViewControllerDelegate
+extension AliasActivityViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
