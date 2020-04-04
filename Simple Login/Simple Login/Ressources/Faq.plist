@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>question</key>
+		<string>What exactly is an email alias?</string>
+		<key>answer</key>
+		<string>Email alias is similar to forward email address: all emails sent to an alias will be forwarded to your inbox.
+Thanks to SimpleLogin technology, you can also send emails from an alias.
+For your contact, the alias is therefore your email address.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>Why do I need SimpleLogin</string>
+		<key>answer</key>
+		<string>When you give away your personal email online, there is a good chance that your email address would end up with a spammer or leaked during a breach. You could check whether your email is leaked using website like have I been pwned?.
+
+SimpleLogin could also help manage your business emails. If you own a domain and don&apos;t want to pay a full solution like GSuite, you could add the domain into SimpleLogin and create emails like contact@my-domain.com, partner@my-domain.com with aliases. All our business emails (the @simplelogin.io) are actually aliases.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>What is the difference between SimpleLogin and other email forwarding services?</string>
+		<key>answer</key>
+		<string>• Fully open source: both SimpleLogin server and client code (browser extension, JS library) are open source so anyone can freely inspect and (hopefully) improve the code. You wouldn&apos;t trust a blackbox to handle your emails, would you?
+• No ads, no tracker.
+• The only email forwarding solution that is self-hostable, i.e. you could run SimpleLogin on your server. With our detailed self-hosting instructions and most of components running as Docker container, anyone who knows ssh is able to deploy SimpleLogin on their server.
+• You can send/reply emails from alias. There&apos;s also no caps or limits on this feature.
+• Not just email alias: SimpleLogin is also a privacy-focused and developer-friendly identity provider that:
+- respects user privacy
+- is simple to use for developers.
+SimpleLogin is a privacy-focused alternative to the &quot;Login with Facebook/Google/Apple&quot; buttons.
+• Plenty of features: browser extension, custom domain, catch-all alias, OAuth libraries, etc. and much more to come.
+• Open roadmap at Trello: you know the exciting features we are working on.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>Do you read the forwarded emails?</string>
+		<key>answer</key>
+		<string>Technically the emails DO go through SimpleLogin server but email content is NEVER read. SimpleLogin is open source so anyone could freely inspect the code on Github.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>Do you store the forwarded emails?</string>
+		<key>answer</key>
+		<string>No, SimpleLogin never stores any forwarded email. You can see how emails are handled in our code on Github. Also simply forwarding emails is much easier and cheaper than storing, indexing, ... your emails.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>What happens if SimpleLogin is gone?</string>
+		<key>answer</key>
+		<string>There are several reasons that you don&apos;t have to worry about SimpleLogin going down:
+
+- Our team and our family/friends rely on SimpleLogin: we&apos;ll keep SimpleLogin running, at least for existing users. If we decide to quit the adventure, we will close registrations for new users but existing users are not affected.
+
+- SimpleLogin is already profitable. Even though in beta, we already have enough paying customers to cover our server &amp; maintenance cost. The service can run on its own.
+
+- There are already several SimpleLogin &quot;instances&quot; (i.e. server that runs the same SimpleLogin code but on another domain). As SimpleLogin code is open source and we give detailed instructions on how to run the code, several people have already run SimpleLogin for their personal use. That is to say, if ever the team leaves the company, you can run your own SimpleLogin or use someone else&apos;s instance. As you can export and import your data easily from different SimpleLogin instances, the eventual migration is seamless.
+
+TL,DR: you can count on SimpleLogin for being around for a very long time.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>How SimpleLogin is different than temporary email services?</string>
+		<key>answer</key>
+		<string>SimpleLogin alias are permanent as opposed to the temporary emails created on services like temp-mail.org, 10minutemail.net, etc.
+SimpleLogin also doesn&apos;t store the emails.
+We are simply different products for different usecases.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>What is alias directory or catch-all feature?</string>
+		<key>answer</key>
+		<string>These 2 features both allow you to create alias on-the-fly, meaning you don&apos;t have to open SimpleLogin to create a new alias.
+Enabling catch-all on your domain allows you to use ANYTHING@my-domain.com as alias with ANYTHING being any word. The only limit is it has to have less than 128 characters.
+Alias Directory is similar to catch-all, you can use your_directory+ANYTHING@simplelogin.co as alias. your_directory is the name of the directory you created.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>I receive an email forwarded to my personal email from an alias. How can I reply to that email? Do I need to go to SimpleLogin to initiate the reply?</string>
+		<key>answer</key>
+		<string>You can reply directly from your email client. Just click on the &quot;reply&quot; button, the reply will be routed via SimpleLogin and SimpleLogin will make it coming from your alias. Your personal email will stay invisible to the original sender.
+
+Technically, the From header in your email is replaced by a special alias dynamically generated for each sender. When you reply, your reply is actually sent to this special alias and SimpleLogin will relay the reply back to the sender, making sure the email is sent from your alias. All information about your personal email address is removed during that process.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>Are my emails modified?</string>
+		<key>answer</key>
+		<string>No your email content is forwarded as-is, attachments included. SimpleLogin doesn&apos;t modify email content and only relies on email headers to do its &quot;magic&quot;.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>What is a reverse-alias?</string>
+		<key>answer</key>
+		<string>A reverse-alias is a special alias that allows you to send email from your alias.
+A reverse-alias is created for each alias you want to send email from and each contact you want to send email to.
+When you send an email to a reverse-alias from your personal email, the email will be sent from your alias to the contact.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>Is email alias permanent?</string>
+		<key>answer</key>
+		<string>As a normal email address, an email alias is always there unless you delete it.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>Whre is SimpleLogin server located?</string>
+		<key>answer</key>
+		<string>We use UpCloud, a Finland cloud provider. Our server is currently located in its France-Germany datacenter.</string>
+	</dict>
+	<dict>
+		<key>question</key>
+		<string>I don&apos;t find answer to my question here</string>
+		<key>answer</key>
+		<string>Please send your question to hi@simplelogin.io. You can also create an issue on our GitHub Issues.</string>
+	</dict>
+</array>
+</plist>

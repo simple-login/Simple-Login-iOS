@@ -54,6 +54,7 @@
 		C06BD31D23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */; };
 		C06BD31F23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */; };
 		C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07245EF241E294B00074360 /* AliasSearchViewController.swift */; };
+		C072CC1F2438A35F00DC4915 /* Faq.plist in Resources */ = {isa = PBXBuildFile; fileRef = C072CC1E2438A35F00DC4915 /* Faq.plist */; };
 		C0747EDF23CCA6F5008035E9 /* CreateContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EDE23CCA6F5008035E9 /* CreateContactViewController.swift */; };
 		C0747EE223CCDE63008035E9 /* AliasActivityTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE123CCDE63008035E9 /* AliasActivityTableHeaderView.swift */; };
 		C0747EE423CCDE7C008035E9 /* AliasActivityTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0747EE323CCDE7C008035E9 /* AliasActivityTableHeaderView.xib */; };
@@ -241,6 +242,7 @@
 		C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
 		C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePasswordTableViewCell.xib; sourceTree = "<group>"; };
 		C07245EF241E294B00074360 /* AliasSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasSearchViewController.swift; sourceTree = "<group>"; };
+		C072CC1E2438A35F00DC4915 /* Faq.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Faq.plist; sourceTree = "<group>"; };
 		C0747EDE23CCA6F5008035E9 /* CreateContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewController.swift; sourceTree = "<group>"; };
 		C0747EE123CCDE63008035E9 /* AliasActivityTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityTableHeaderView.swift; sourceTree = "<group>"; };
 		C0747EE323CCDE7C008035E9 /* AliasActivityTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasActivityTableHeaderView.xib; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 			children = (
 				C0F5701E241D362D00BCC84B /* GoogleService-Info.plist */,
 				C027A2772405386900BD19C9 /* superman.gif */,
+				C072CC1E2438A35F00DC4915 /* Faq.plist */,
 			);
 			path = Ressources;
 			sourceTree = "<group>";
@@ -1172,6 +1175,7 @@
 				C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */,
 				C0D069C12406D20B00EBAC10 /* DeletedAliasTableViewCell.xib in Resources */,
 				C0D6A27F23D079C200EF21B8 /* PricingAndBlogTableViewCell.xib in Resources */,
+				C072CC1F2438A35F00DC4915 /* Faq.plist in Resources */,
 				C0956A5223D10C71000CEBDD /* DeleteAccountTableViewCell.xib in Resources */,
 				C0D6A27A23D078AB00EF21B8 /* TeamAndContactTableViewCell.xib in Resources */,
 				C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */,

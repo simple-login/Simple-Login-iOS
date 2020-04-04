@@ -9,8 +9,8 @@
 import UIKit
 
 final class FaqTableViewCell: UITableViewCell, RegisterableCell {
-    @IBOutlet private weak var faqTitleLabel: UILabel!
-    @IBOutlet private weak var faqDescriptionLabel: UILabel!
+    @IBOutlet private weak var questionLabel: UILabel!
+    @IBOutlet private weak var answerLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -18,7 +18,7 @@ final class FaqTableViewCell: UITableViewCell, RegisterableCell {
     }
     
     func bind(with faq: Faq) {
-        faqTitleLabel.text = faq.title
-        faqDescriptionLabel.text = faq.description
+        questionLabel.text = faq.question
+        answerLabel.text = faq.answer
     }
 }
