@@ -434,7 +434,7 @@
                                 </items>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="IBO-J0-78q">
-                                <rect key="frame" x="20" y="221" width="374" height="200.5"/>
+                                <rect key="frame" x="20" y="106" width="374" height="259.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Dg-qx-suq">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="32"/>
@@ -477,8 +477,32 @@
                                             </view>
                                         </subviews>
                                     </stackView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9hH-kX-gXG" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                        <rect key="frame" x="0.0" y="52" width="374" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" name="TextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" name="TitleColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Alias note (optional)"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Alias note"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHM-Lr-YH4">
-                                        <rect key="frame" x="0.0" y="52" width="374" height="30"/>
+                                        <rect key="frame" x="0.0" y="111" width="374" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="CREATE"/>
                                         <connections>
@@ -486,14 +510,14 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vi-Kq-3lb">
-                                        <rect key="frame" x="0.0" y="102" width="374" height="47"/>
+                                        <rect key="frame" x="0.0" y="161" width="374" height="47"/>
                                         <string key="text">💡Hint: To make it easy to remember for later use, it is a good practice to use the name of the website that you plan to register with alias.</string>
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⚠️ Only letters, numbers, dash (-) &amp; underscore (_) are allowed" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gr2-qq-e0j">
-                                        <rect key="frame" x="0.0" y="169" width="374" height="31.5"/>
+                                        <rect key="frame" x="0.0" y="228" width="374" height="31.5"/>
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
                                         <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -508,14 +532,15 @@
                             <constraint firstItem="ZCw-BY-78C" firstAttribute="top" secondItem="KLn-M2-BjT" secondAttribute="top" id="THv-yg-WgU"/>
                             <constraint firstItem="IBO-J0-78q" firstAttribute="leading" secondItem="KLn-M2-BjT" secondAttribute="leading" constant="20" id="avO-N0-Mip"/>
                             <constraint firstAttribute="trailing" secondItem="ZCw-BY-78C" secondAttribute="trailing" symbolic="YES" id="cp6-0A-ybD"/>
-                            <constraint firstItem="IBO-J0-78q" firstAttribute="centerY" secondItem="IgZ-eO-zk7" secondAttribute="centerY" constant="-100" id="jQD-DF-bjD"/>
                             <constraint firstItem="IBO-J0-78q" firstAttribute="centerX" secondItem="IgZ-eO-zk7" secondAttribute="centerX" id="uta-ye-ucL"/>
+                            <constraint firstItem="IBO-J0-78q" firstAttribute="top" secondItem="ZCw-BY-78C" secondAttribute="bottom" constant="50" id="x5S-NS-EKg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KLn-M2-BjT"/>
                     </view>
                     <connections>
                         <outlet property="createButton" destination="zHM-Lr-YH4" id="0Sg-ll-W6l"/>
                         <outlet property="hintLabel" destination="6vi-Kq-3lb" id="jYy-Xv-fC0"/>
+                        <outlet property="noteTextField" destination="9hH-kX-gXG" id="4MP-Wz-T9z"/>
                         <outlet property="prefixTextField" destination="GOg-ha-Q5h" id="pm3-Qu-omE"/>
                         <outlet property="rootStackView" destination="IBO-J0-78q" id="qpx-Zp-Wa6"/>
                         <outlet property="suffixLabel" destination="QHo-7x-cNL" id="dvj-pW-aPd"/>
@@ -790,6 +815,9 @@
         <image name="UserIcon" width="170.5" height="170.5"/>
         <image name="VioletBackground" width="300" height="168.5"/>
         <image name="delete.gif" width="600" height="196"/>
+        <namedColor name="TextColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="TintColor">
             <color red="0.93333333333333335" green="0.18823529411764706" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -10,12 +10,14 @@ import UIKit
 import Toaster
 import MBProgressHUD
 import FirebaseAnalytics
+import SkyFloatingLabelTextField
 
 final class CreateAliasViewController: UIViewController {
     @IBOutlet private weak var rootStackView: UIStackView!
     @IBOutlet private weak var prefixTextField: UITextField!
     @IBOutlet private weak var suffixView: UIView!
     @IBOutlet private weak var suffixLabel: UILabel!
+    @IBOutlet private weak var noteTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var hintLabel: UILabel!
     @IBOutlet private weak var warningLabel: UILabel!
     @IBOutlet private weak var createButton: UIButton!
@@ -99,7 +101,7 @@ final class CreateAliasViewController: UIViewController {
         }
     }
     
-    private func createAlias(note: String?) {
+    private func createAlias() {
         guard let apiKey = SLKeychainService.getApiKey(), let suffix = userOptions?.suffixes[selectedSuffixIndex] else {
             Toast.displayErrorRetrieveingApiKey()
             return
@@ -107,14 +109,14 @@ final class CreateAliasViewController: UIViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.createNewAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: note) { [weak self] (newlyCreatedAlias, error) in
+        SLApiService.createNewAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: noteTextField.text) { [weak self] (newlyCreatedAlias, error) in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
             if let error = error {
                 Toast.displayError(error)
-                if let _ = note {
+                if let _ = self.noteTextField.text {
                     Analytics.logEvent("create_alias_with_note_error", parameters: error.toParameter())
                 } else {
                     Analytics.logEvent("create_alias_without_note_error", parameters: error.toParameter())
@@ -123,7 +125,7 @@ final class CreateAliasViewController: UIViewController {
             } else if let newlyCreatedAlias = newlyCreatedAlias{
                 self.createdAlias?(newlyCreatedAlias)
                 
-                if let _ = note {
+                if let _ = self.noteTextField.text {
                     Analytics.logEvent("create_alias_with_note_success", parameters: nil)
                 } else {
                     Analytics.logEvent("create_alias_without_note_success", parameters: nil)
@@ -139,25 +141,7 @@ final class CreateAliasViewController: UIViewController {
     }
     
     @IBAction private func createButtonTapped() {
-        showAddNoteAlert()
-    }
-    
-    private func showAddNoteAlert() {
-        let alert = UIAlertController(title: "Add some note for this alias", message: "This is optional and can be modified at anytime later.", preferredStyle: .alert)
-    
-        let noteTextView = alert.addTextView()
-        
-        let createAction = UIAlertAction(title: "Create", style: .default) { [unowned self] _ in
-            self.createAlias(note: noteTextView.text)
-        }
-        alert.addAction(createAction)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        
-        present(alert, animated: true) {
-            noteTextView.becomeFirstResponder()
-        }
+        createAlias()
     }
     
     @IBAction private func prefixTextFieldEditingChanged() {
@@ -193,7 +177,7 @@ extension CreateAliasViewController: SuffixListViewControllerDelegate {
 // MARK: - UITextFieldDelegate
 extension CreateAliasViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        showAddNoteAlert()
+        createAlias()
         return true
     }
 }
