@@ -15,6 +15,7 @@ class ShareViewController: UIViewController {
     @IBOutlet private weak var prefixTextField: UITextField!
     @IBOutlet private weak var suffixView: UIView!
     @IBOutlet private weak var suffixLabel: UILabel!
+    @IBOutlet private weak var noteTextField: UITextField!
     @IBOutlet private weak var hintLabel: UILabel!
     @IBOutlet private weak var warningLabel: UILabel!
     @IBOutlet private weak var createButton: UIButton!
@@ -62,6 +63,8 @@ class ShareViewController: UIViewController {
     }
     
     private func setUpUI() {
+        view.tintColor = SLColor.tintColor
+        
         rootStackView.isHidden = true
         prefixTextField.textColor = SLColor.textColor
         prefixTextField.delegate = self
@@ -153,7 +156,7 @@ extension ShareViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.createNewAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix) { [weak self] (newlyCreatedAlias, error) in
+        SLApiService.createNewAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: noteTextField.text) { [weak self] (newlyCreatedAlias, error) in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)

@@ -435,7 +435,6 @@ extension SLApiService {
         }
     }
     
-    
     static func randomAlias(apiKey: String, randomMode: RandomMode, completion: @escaping (_ newlyCreatedAlias: Alias?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         

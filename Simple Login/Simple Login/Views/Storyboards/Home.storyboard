@@ -764,7 +764,7 @@
                                 </items>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="nQg-Q1-ocf">
-                                <rect key="frame" x="20" y="76" width="374" height="585"/>
+                                <rect key="frame" x="20" y="76" width="374" height="1114"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To delete an item, simply swipe to left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ZQ-F6-fdk">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
@@ -773,16 +773,16 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="delete.gif" translatesAutoresizingMaskIntoConstraints="NO" id="VNi-5L-qWk" customClass="GIFImageView" customModule="Gifu">
-                                        <rect key="frame" x="0.0" y="25.5" width="374" height="196"/>
+                                        <rect key="frame" x="0.0" y="25.5" width="374" height="392"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake your phone to random an alias" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4L-vJ-umM">
-                                        <rect key="frame" x="0.0" y="226.5" width="374" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="422.5" width="374" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ShakePhone" translatesAutoresizingMaskIntoConstraints="NO" id="TDL-hA-gdc">
-                                        <rect key="frame" x="0.0" y="252" width="374" height="333"/>
+                                        <rect key="frame" x="0.0" y="448" width="374" height="666"/>
                                         <color key="tintColor" name="TintColor"/>
                                     </imageView>
                                 </subviews>

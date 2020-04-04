@@ -41,9 +41,13 @@ final class SLApiService {
         }
     }
     
-    static func createNewAlias(apiKey: String, prefix: String, suffix: String, completion: @escaping (_ newlyCreatedAlias: String?, _ error: SLError?) -> Void) {
+    static func createNewAlias(apiKey: String, prefix: String, suffix: String, note: String?, completion: @escaping (_ newlyCreatedAlias: String?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
-        let parameters = ["alias_prefix" : prefix, "alias_suffix" : suffix]
+        var parameters = ["alias_prefix" : prefix, "alias_suffix" : suffix]
+        
+        if let note = note {
+            parameters["note"] = note
+        }
         
         AF.request("\(BASE_URL)/api/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
@@ -62,10 +66,8 @@ final class SLApiService {
                 do {
                     let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
                     
-                    if let newlyCreatedAlias = jsonDictionary?["alias"] as? String {
-                        completion(newlyCreatedAlias, nil)
-                    } else {
-                        completion(nil, SLError.failToParseObject(objectName: "newly created alias"))
+                    if let jsonDictionary = jsonDictionary, let alias = jsonDictionary["email"] as? String {
+                        completion(alias, nil)
                     }
                     
                 } catch {
@@ -74,6 +76,8 @@ final class SLApiService {
                 
             case 401: completion(nil, SLError.invalidApiKey)
             case 409: completion(nil, SLError.duplicatedAlias)
+            case 500: completion(nil, SLError.internalServerError)
+            case 502: completion(nil, SLError.badGateway)
             default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
             }
         }
