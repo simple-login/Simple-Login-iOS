@@ -88,7 +88,7 @@
                     <navigationItem key="navigationItem" id="Bkv-TN-Uzz">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="nt8-vm-ZTf">
-                            <rect key="frame" x="36" y="5.5" width="203" height="33"/>
+                            <rect key="frame" x="15" y="5.5" width="203" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="All"/>
@@ -103,11 +103,6 @@
                             <barButtonItem systemItem="add" id="veA-Kg-fpm">
                                 <connections>
                                     <segue destination="2Fg-pV-p2H" kind="presentation" identifier="showCreateAlias" id="IHl-4e-YY7"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Item" image="ShuffleIcon" id="kR6-uB-jBh" userLabel="Shuffle">
-                                <connections>
-                                    <action selector="shuffleButtonTapped" destination="k2o-CK-HuA" id="dr6-nF-CrK"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="search" id="6W9-LP-dF2">
@@ -726,7 +721,6 @@
     <resources>
         <image name="DownArrow" width="18" height="18"/>
         <image name="IcebergIcon" width="682.5" height="682.5"/>
-        <image name="ShuffleIcon" width="26.5" height="22"/>
         <image name="UserIcon" width="170.5" height="170.5"/>
         <image name="VioletBackground" width="300" height="168.5"/>
         <namedColor name="TintColor">

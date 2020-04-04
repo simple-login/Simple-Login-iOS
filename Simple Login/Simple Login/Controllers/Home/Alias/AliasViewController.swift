@@ -348,9 +348,15 @@ extension AliasViewController {
     }
 }
 
-// MARK: - Button actions
+// MARK: - Random alias
 extension AliasViewController {
-    @IBAction private func shuffleButtonTapped() {
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if (motion == .motionShake) {
+            presentRandomAliasAlert()
+        }
+    }
+    
+    private func presentRandomAliasAlert() {
         let alert = UIAlertController(title: "New email alias", message: "Randomly create an alias", preferredStyle: .actionSheet)
         
         let byWordAction = UIAlertAction(title: "By random words", style: .default) { [unowned self] (_) in
