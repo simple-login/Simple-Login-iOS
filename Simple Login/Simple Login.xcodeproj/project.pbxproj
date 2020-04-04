@@ -55,6 +55,7 @@
 		C06BD31F23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */; };
 		C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07245EF241E294B00074360 /* AliasSearchViewController.swift */; };
 		C072CC1F2438A35F00DC4915 /* Faq.plist in Resources */ = {isa = PBXBuildFile; fileRef = C072CC1E2438A35F00DC4915 /* Faq.plist */; };
+		C072CC212438E47800DC4915 /* InstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C072CC202438E47800DC4915 /* InstructionViewController.swift */; };
 		C0747EDF23CCA6F5008035E9 /* CreateContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EDE23CCA6F5008035E9 /* CreateContactViewController.swift */; };
 		C0747EE223CCDE63008035E9 /* AliasActivityTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE123CCDE63008035E9 /* AliasActivityTableHeaderView.swift */; };
 		C0747EE423CCDE7C008035E9 /* AliasActivityTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0747EE323CCDE7C008035E9 /* AliasActivityTableHeaderView.xib */; };
@@ -107,6 +108,7 @@
 		C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B76DEE23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift */; };
 		C0B76DF123D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */; };
 		C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */; };
+		C0C053222438E8A60080AD4D /* delete.gif in Resources */ = {isa = PBXBuildFile; fileRef = C0C053212438E8A60080AD4D /* delete.gif */; };
 		C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3AFD23E98A5700887264 /* UserLogin.swift */; };
 		C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3B0423E9A7A300887264 /* SLOAuth.swift */; };
 		C0D0500E23FED25D00B13221 /* UIViewController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience.swift */; };
@@ -243,6 +245,7 @@
 		C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePasswordTableViewCell.xib; sourceTree = "<group>"; };
 		C07245EF241E294B00074360 /* AliasSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasSearchViewController.swift; sourceTree = "<group>"; };
 		C072CC1E2438A35F00DC4915 /* Faq.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Faq.plist; sourceTree = "<group>"; };
+		C072CC202438E47800DC4915 /* InstructionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionViewController.swift; sourceTree = "<group>"; };
 		C0747EDE23CCA6F5008035E9 /* CreateContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewController.swift; sourceTree = "<group>"; };
 		C0747EE123CCDE63008035E9 /* AliasActivityTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityTableHeaderView.swift; sourceTree = "<group>"; };
 		C0747EE323CCDE7C008035E9 /* AliasActivityTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasActivityTableHeaderView.xib; sourceTree = "<group>"; };
@@ -293,6 +296,7 @@
 		C0B76DEE23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAndMembershipTableViewCell.swift; sourceTree = "<group>"; };
 		C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileAndMembershipTableViewCell.xib; sourceTree = "<group>"; };
 		C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toaster+Convenience.swift"; sourceTree = "<group>"; };
+		C0C053212438E8A60080AD4D /* delete.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = delete.gif; sourceTree = "<group>"; };
 		C0CA3AFD23E98A5700887264 /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
 		C0CA3B0423E9A7A300887264 /* SLOAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLOAuth.swift; sourceTree = "<group>"; };
 		C0D0500D23FED25D00B13221 /* UIViewController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience.swift"; sourceTree = "<group>"; };
@@ -412,6 +416,7 @@
 			children = (
 				C0F5701E241D362D00BCC84B /* GoogleService-Info.plist */,
 				C027A2772405386900BD19C9 /* superman.gif */,
+				C0C053212438E8A60080AD4D /* delete.gif */,
 				C072CC1E2438A35F00DC4915 /* Faq.plist */,
 			);
 			path = Ressources;
@@ -1006,6 +1011,7 @@
 			children = (
 				C05CD30523CA0419007F1C9E /* AliasViewController.swift */,
 				C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */,
+				C072CC202438E47800DC4915 /* InstructionViewController.swift */,
 				C08A202523CC774800CB8D2F /* Contact */,
 				C07245EE241E292F00074360 /* Search */,
 				C069397723D3956A008AE6C1 /* Create */,
@@ -1148,6 +1154,7 @@
 				C0D6A28423D07AB000EF21B8 /* TermsAndPrivacyTableViewCell.xib in Resources */,
 				C0D87CC02423ABFE00BCF5AB /* ContactTableHeaderView.xib in Resources */,
 				C0B76DEB23D0DCEB003AAB7E /* Settings.storyboard in Resources */,
+				C0C053222438E8A60080AD4D /* delete.gif in Resources */,
 				C09ABE1223D3BA9600D5B731 /* CustomDomainTableViewCell.xib in Resources */,
 				C0D6A28F23D0A93800EF21B8 /* StepTableViewCell.xib in Resources */,
 				C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */,
@@ -1373,6 +1380,7 @@
 				C00BC55A23FDA10900E66FFE /* BaseUrlStatic.swift in Sources */,
 				C05FB6422422C76B000A4740 /* ForgotPasswordViewController.swift in Sources */,
 				C032D6ED2419830300C06EB7 /* UIAlertController+Convenience.swift in Sources */,
+				C072CC212438E47800DC4915 /* InstructionViewController.swift in Sources */,
 				C0D0699C24067AC700EBAC10 /* DirectoryViewController.swift in Sources */,
 				C069397923D395A1008AE6C1 /* SuffixListViewController.swift in Sources */,
 				C0D6A28823D0A6A500EF21B8 /* HowItWorksViewController.swift in Sources */,

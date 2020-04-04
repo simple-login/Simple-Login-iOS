@@ -109,6 +109,11 @@ final class AliasViewController: BaseViewController {
             createAliasViewController.createdAlias = { [unowned self] alias in
                 self.finalizeAliasCreation(alias)
             }
+            createAliasViewController.didDisappear = { [unowned self] in
+                if (!UserDefaults.shownInstruction()) {
+                    self.performSegue(withIdentifier: "showInstruction", sender: nil)
+                }
+            }
             
         case let aliasSearchNavigationController as AliasSearchNavigationController:
             guard let aliasSearchViewController = aliasSearchNavigationController.viewControllers[0] as? AliasSearchViewController else { return }

@@ -41,6 +41,7 @@ final class CreateAliasViewController: UIViewController {
     }
     
     var createdAlias: ((_ alias: Alias) -> Void)?
+    var didDisappear: (() -> Void)?
     
     deinit {
         print("CreateAliasViewController is deallocated")
@@ -53,6 +54,11 @@ final class CreateAliasViewController: UIViewController {
         setUpUI()
         fetchUserOptions()
         Analytics.logEvent("open_create_alias_view_controller", parameters: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        didDisappear?()
     }
     
     private func setUpUI() {

@@ -13,7 +13,7 @@ fileprivate let defaults = UserDefaults()
 extension UserDefaults {
     // MARK: - Init default values
     static func registerDefaultValues() {
-        defaults.register(defaults: [isFirstRunKey : true])
+        defaults.register(defaults: [isFirstRunKey : true, shownInstructionKey : false])
     }
     
     // MARK: - First run
@@ -25,5 +25,16 @@ extension UserDefaults {
     
     static func firstRunComplete() {
         defaults.set(false, forKey: isFirstRunKey)
+    }
+    
+    // MARK: - Show instruction
+    private static let shownInstructionKey = "ShownInstructionKey"
+    
+    static func shownInstruction() -> Bool {
+        return defaults.bool(forKey: shownInstructionKey)
+    }
+    
+    static func showInstructionComplete() {
+        defaults.set(true, forKey: shownInstructionKey)
     }
 }
