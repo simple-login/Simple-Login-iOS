@@ -16,6 +16,7 @@ target 'Simple Login' do
   pod 'Toaster'
   pod 'MarqueeLabel'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
   pod 'Gifu'
   pod 'Differ'
 end
