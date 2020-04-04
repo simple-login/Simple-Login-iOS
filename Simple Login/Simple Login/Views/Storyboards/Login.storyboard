@@ -18,13 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pup-H7-VKn">
-                                <rect key="frame" x="57" y="139.5" width="300" height="617"/>
+                                <rect key="frame" x="57" y="281" width="300" height="334"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LongLogo" translatesAutoresizingMaskIntoConstraints="NO" id="laP-0h-Fsk">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="102"/>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cUp-c4-0nO" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="0.0" y="112" width="300" height="39.5"/>
+                                        <rect key="frame" x="0.0" y="112" width="300" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
                                         <userDefinedRuntimeAttributes>
@@ -53,7 +53,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Pbb-im-ZEh" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="0.0" y="161.5" width="300" height="39"/>
+                                        <rect key="frame" x="0.0" y="161" width="300" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES" textContentType="password"/>
                                         <userDefinedRuntimeAttributes>
@@ -81,7 +81,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xrj-4t-axY">
-                                        <rect key="frame" x="0.0" y="210.5" width="300" height="33"/>
+                                        <rect key="frame" x="0.0" y="210" width="300" height="33"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <state key="normal" title="SIGN IN">
                                             <color key="titleColor" name="TintColor"/>
@@ -91,7 +91,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="x3v-sO-Y0B">
-                                        <rect key="frame" x="0.0" y="253.5" width="300" height="30"/>
+                                        <rect key="frame" x="0.0" y="253" width="300" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVX-rL-el2">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
@@ -114,14 +114,14 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4t-79-tXy">
-                                        <rect key="frame" x="0.0" y="293.5" width="300" height="1"/>
+                                        <rect key="frame" x="0.0" y="293" width="300" height="1"/>
                                         <color key="backgroundColor" name="SeparatorColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="y7P-j7-U8c"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFD-Lp-bC3">
-                                        <rect key="frame" x="0.0" y="304.5" width="300" height="30"/>
+                                        <rect key="frame" x="0.0" y="304" width="300" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="SIGN IN WITH API KEY">
                                             <color key="titleColor" name="TintColor"/>
@@ -130,93 +130,6 @@
                                             <action selector="signInWithApiKeyButtonTapped" destination="97x-xh-V5v" eventType="touchUpInside" id="aRe-OW-uMS"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or with social login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbv-qM-wuw">
-                                        <rect key="frame" x="0.0" y="344.5" width="300" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" name="TitleColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ch-J0-0eU" customClass="RippleView" customModule="SimpleLogin" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="375" width="300" height="74"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d0w-Yz-LZw">
-                                                <rect key="frame" x="5" y="5" width="290" height="64"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="github" translatesAutoresizingMaskIntoConstraints="NO" id="i1f-qH-KOe">
-                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
-                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Github" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbR-hA-qW9">
-                                                        <rect key="frame" x="74" y="0.0" width="216" height="64"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" name="GithubColor"/>
-                                        <constraints>
-                                            <constraint firstItem="d0w-Yz-LZw" firstAttribute="leading" secondItem="2Ch-J0-0eU" secondAttribute="leading" constant="5" id="GJe-cH-gTb"/>
-                                            <constraint firstAttribute="bottom" secondItem="d0w-Yz-LZw" secondAttribute="bottom" constant="5" id="SgH-60-CNY"/>
-                                            <constraint firstItem="d0w-Yz-LZw" firstAttribute="top" secondItem="2Ch-J0-0eU" secondAttribute="top" constant="5" id="ZI9-0f-eYE"/>
-                                            <constraint firstAttribute="trailing" secondItem="d0w-Yz-LZw" secondAttribute="trailing" constant="5" id="kwQ-No-iNK"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l5F-Wb-es6" customClass="RippleView" customModule="SimpleLogin" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="459" width="300" height="74"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QFH-Ip-aPF">
-                                                <rect key="frame" x="5" y="5" width="290" height="64"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="google" translatesAutoresizingMaskIntoConstraints="NO" id="IOF-xU-hl3">
-                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
-                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Google" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pA-hL-zKD">
-                                                        <rect key="frame" x="74" y="0.0" width="216" height="64"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" name="GoogleColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="QFH-Ip-aPF" secondAttribute="bottom" constant="5" id="9c4-C3-um5"/>
-                                            <constraint firstItem="QFH-Ip-aPF" firstAttribute="top" secondItem="l5F-Wb-es6" secondAttribute="top" constant="5" id="Cpb-p7-HrX"/>
-                                            <constraint firstAttribute="trailing" secondItem="QFH-Ip-aPF" secondAttribute="trailing" constant="5" id="awk-Qr-W51"/>
-                                            <constraint firstItem="QFH-Ip-aPF" firstAttribute="leading" secondItem="l5F-Wb-es6" secondAttribute="leading" constant="5" id="u4L-R2-cak"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgD-3x-gdL" customClass="RippleView" customModule="SimpleLogin" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="543" width="300" height="74"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zqU-nR-coe">
-                                                <rect key="frame" x="5" y="5" width="290" height="64"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="facebook" translatesAutoresizingMaskIntoConstraints="NO" id="HJX-fz-Vvi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
-                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Facebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCD-BE-F2b">
-                                                        <rect key="frame" x="74" y="0.0" width="216" height="64"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" name="FacebookColor"/>
-                                        <constraints>
-                                            <constraint firstItem="zqU-nR-coe" firstAttribute="top" secondItem="vgD-3x-gdL" secondAttribute="top" constant="5" id="Kjt-m2-91N"/>
-                                            <constraint firstItem="zqU-nR-coe" firstAttribute="leading" secondItem="vgD-3x-gdL" secondAttribute="leading" constant="5" id="kpQ-wH-7Gv"/>
-                                            <constraint firstAttribute="trailing" secondItem="zqU-nR-coe" secondAttribute="trailing" constant="5" id="n0b-xF-ThJ"/>
-                                            <constraint firstAttribute="bottom" secondItem="zqU-nR-coe" secondAttribute="bottom" constant="5" id="sFs-Tg-U3i"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="EfX-Va-diJ"/>
@@ -259,16 +172,9 @@
                     <navigationItem key="navigationItem" id="UMx-TW-h0o"/>
                     <connections>
                         <outlet property="emailTextField" destination="cUp-c4-0nO" id="MNe-uv-H2C"/>
-                        <outlet property="facebookView" destination="vgD-3x-gdL" id="SYR-zE-Cau"/>
-                        <outlet property="githubView" destination="2Ch-J0-0eU" id="3wF-2V-mS8"/>
-                        <outlet property="googleView" destination="l5F-Wb-es6" id="yFe-Yk-8kG"/>
                         <outlet property="loginButton" destination="Xrj-4t-axY" id="Pex-Qr-jlW"/>
                         <outlet property="passwordTextField" destination="Pbb-im-ZEh" id="5v3-Km-ML0"/>
-                        <outlet property="socialLoginLabel" destination="pbv-qM-wuw" id="okK-pg-JYM"/>
                         <outlet property="versionLabel" destination="liq-7l-pbr" id="coj-Jj-DLG"/>
-                        <outletCollection property="socialLoginViews" destination="l5F-Wb-es6" collectionClass="NSMutableArray" id="Spq-Nn-J4g"/>
-                        <outletCollection property="socialLoginViews" destination="2Ch-J0-0eU" collectionClass="NSMutableArray" id="D5f-mp-3og"/>
-                        <outletCollection property="socialLoginViews" destination="vgD-3x-gdL" collectionClass="NSMutableArray" id="w2W-Yz-SmP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIA-Fa-XcA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -824,18 +730,6 @@
         <image name="DeleteLeftFillIcon" width="32" height="27"/>
         <image name="InfoStrokeIcon" width="24" height="24"/>
         <image name="LongLogo" width="333" height="51"/>
-        <image name="facebook" width="32" height="32"/>
-        <image name="github" width="32" height="32"/>
-        <image name="google" width="32" height="32"/>
-        <namedColor name="FacebookColor">
-            <color red="0.17647058823529413" green="0.2627450980392157" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="GithubColor">
-            <color red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="GoogleColor">
-            <color red="0.75686274509803919" green="0.20000000000000001" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="NegativeColor">
             <color red="1" green="0.23100000619888306" blue="0.18799999356269836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

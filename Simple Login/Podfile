@@ -14,13 +14,10 @@ target 'Simple Login' do
   pod 'SideMenu', '~> 6.0'
   pod 'SkyFloatingLabelTextField', '~> 3.0'
   pod 'Toaster'
-  pod 'MaterialComponents/Ripple'
   pod 'MarqueeLabel'
   pod 'Firebase/Analytics'
   pod 'Gifu'
   pod 'Differ'
-  pod 'FacebookLogin'
-  pod 'GoogleSignIn'
 end
 
 target 'Share Extension' do

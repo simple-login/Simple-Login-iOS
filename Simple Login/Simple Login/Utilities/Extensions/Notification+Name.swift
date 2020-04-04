@@ -10,5 +10,4 @@ import Foundation
 
 extension Notification.Name {
     static let applicationDidBecomeActive = Notification.Name("applicationDidBecomeActive")
-    static let didSignInWithGoogle = Notification.Name("didSignInWithGoogle")
 }

@@ -15,7 +15,6 @@
 		C00BC55B23FDA12000E66FFE /* BaseUrlStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BC55923FDA10900E66FFE /* BaseUrlStatic.swift */; };
 		C00D74E923E8ACE400BE48F0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D74E823E8ACE400BE48F0 /* LoginViewController.swift */; };
 		C00D74EB23E8AD0300BE48F0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C00D74EA23E8AD0300BE48F0 /* Login.storyboard */; };
-		C00D74ED23E8C2CC00BE48F0 /* RippleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D74EC23E8C2CC00BE48F0 /* RippleView.swift */; };
 		C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C00B123D25C390036B905 /* Storyboarded.swift */; };
 		C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02646FE23D0F4F600E9932B /* AvatarImageView.swift */; };
 		C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */; };
@@ -201,7 +200,6 @@
 		C00BC55923FDA10900E66FFE /* BaseUrlStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUrlStatic.swift; sourceTree = "<group>"; };
 		C00D74E823E8ACE400BE48F0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C00D74EA23E8AD0300BE48F0 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		C00D74EC23E8C2CC00BE48F0 /* RippleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleView.swift; sourceTree = "<group>"; };
 		C01C00B123D25C390036B905 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		C02646FE23D0F4F600E9932B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
@@ -792,7 +790,6 @@
 			children = (
 				C0D6A28523D09EC800EF21B8 /* BorderedShadowedView.swift */,
 				C02646FE23D0F4F600E9932B /* AvatarImageView.swift */,
-				C00D74EC23E8C2CC00BE48F0 /* RippleView.swift */,
 				C0B1DE4323C90D53003EED3B /* Cells, Headers & Footers */,
 				C0B1DE3A23C8AD6D003EED3B /* Storyboards */,
 			);
@@ -1006,9 +1003,9 @@
 			children = (
 				C05CD30523CA0419007F1C9E /* AliasViewController.swift */,
 				C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */,
+				C08A202523CC774800CB8D2F /* Contact */,
 				C07245EE241E292F00074360 /* Search */,
 				C069397723D3956A008AE6C1 /* Create */,
-				C08A202523CC774800CB8D2F /* Contact */,
 			);
 			path = Alias;
 			sourceTree = "<group>";
@@ -1082,7 +1079,6 @@
 				C097A9E123C7987F00EC1EFE /* Resources */,
 				5CD82E415A486CFF9D844F00 /* [CP] Embed Pods Frameworks */,
 				C042C26323EF3A570045A04D /* Embed App Extensions */,
-				273963AE674172256A977D25 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1236,23 +1232,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		273963AE674172256A977D25 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Simple Login/Pods-Simple Login-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Simple Login/Pods-Simple Login-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Simple Login/Pods-Simple Login-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5CD82E415A486CFF9D844F00 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1324,7 +1303,6 @@
 				C05CD30A23CA0473007F1C9E /* CustomDomainViewController.swift in Sources */,
 				C0D6A28D23D0A8EC00EF21B8 /* Step.swift in Sources */,
 				C027A27E2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift in Sources */,
-				C00D74ED23E8C2CC00BE48F0 /* RippleView.swift in Sources */,
 				C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */,
 				C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */,
 				C05CD31523CA33C2007F1C9E /* Alias.swift in Sources */,

@@ -8,23 +8,14 @@
 
 import UIKit
 import SkyFloatingLabelTextField
-import MaterialComponents.MaterialRipple
 import MBProgressHUD
 import Toaster
-import FacebookLogin
-import GoogleSignIn
 import FirebaseAnalytics
 
 final class LoginViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var loginButton: UIButton!
-    
-    @IBOutlet private weak var socialLoginLabel: UILabel!
-    @IBOutlet private weak var githubView: RippleView!
-    @IBOutlet private weak var googleView: RippleView!
-    @IBOutlet private weak var facebookView: RippleView!
-    @IBOutlet private var socialLoginViews: [RippleView]!
     
     @IBOutlet private weak var versionLabel: UILabel!
     
@@ -36,36 +27,12 @@ final class LoginViewController: UIViewController, Storyboarded {
 
     deinit {
         print("LoginViewController is deallocated")
-        NotificationCenter.default.removeObserver(self, name: .didSignInWithGoogle, object: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
-        hideSocialLogins()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(didSignInWithGoogle), name: .didSignInWithGoogle, object: nil)
-        
         Analytics.logEvent("open_login_view_controller", parameters: nil)
-    }
-    
-    private func hideSocialLogins() {
-        socialLoginLabel.isHidden = true
-        
-        githubView.isHidden = true
-        githubView.didTap = { [unowned self] in
-            self.oauthWithGithub()
-        }
-        
-        googleView.isHidden = true
-        googleView.didTap = { [unowned self] in
-            self.oauthWithGoogle()
-        }
-        
-        facebookView.isHidden = true
-        facebookView.didTap = { [unowned self] in
-            self.oauthWithFacebook()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,8 +46,6 @@ final class LoginViewController: UIViewController, Storyboarded {
     }
     
     private func setUpUI() {
-        socialLoginViews.forEach({$0.layer.cornerRadius = 4})
-        
         loginButton.setTitleColor(SLColor.tintColor, for: .normal)
         loginButton.setTitleColor(SLColor.tintColor.withAlphaComponent(0.3), for: .disabled)
         
@@ -163,12 +128,6 @@ final class LoginViewController: UIViewController, Storyboarded {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
-    }
-    
-    @objc private func didSignInWithGoogle(_ notification: Notification) {
-        if let accessToken = notification.object as? String {
-            socialLogin(social: .google, accessToken: accessToken)
-        }
     }
     
     @IBAction private func aboutUsButtonTapped() {
@@ -262,52 +221,6 @@ extension LoginViewController {
                 Toast.displayLongly(message: "Check your inbox for verification code")
                 Analytics.logEvent("sign_up_success", parameters: nil)
                 self.verify(mode: .accountActivation(email: email, password: password))
-            }
-        }
-    }
-}
-
-// MARK: - OAuth
-extension LoginViewController {
-    private func socialLogin(social: SLOAuthService, accessToken: String) {
-        MBProgressHUD.showAdded(to: view, animated: true)
-        
-        SLApiService.socialLogin(service: social, accessToken: accessToken) { [weak self] (userLogin, error) in
-            guard let self = self else { return }
-            
-            MBProgressHUD.hide(for: self.view, animated: true)
-            self.finalizeLoginApiCall(userLogin: userLogin, error: error)
-        }
-    }
-    
-    private func oauthWithGithub() {
-
-    }
-    
-    private func oauthWithGoogle() {
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-        GIDSignIn.sharedInstance()?.signIn()
-    }
-    
-    private func oauthWithFacebook() {
-        let loginManager = LoginManager()
-        loginManager.logIn(permissions: ["email"], from: self) { [weak self] (result, error) in
-            guard let self = self else { return }
-            if let error = error {
-                Toast.displayError(error.localizedDescription)
-            } else if let result = result {
-                if result.isCancelled {
-                    Toast.displayShortly(message: "Log in with Facebook cancelled")
-                    Analytics.logEvent("log_in_with_facebook_cancelled", parameters: nil)
-                } else {
-                    if let accessToken = result.token {
-                        self.socialLogin(social: .facebook, accessToken: accessToken.tokenString)
-                        Analytics.logEvent("log_in_with_facebook_success", parameters: nil)
-                    } else {
-                        Toast.displayShortly(message: "Facebook access token is null")
-                        Analytics.logEvent("log_in_with_facebook_access_token_null", parameters: nil)
-                    }
-                }
             }
         }
     }
