@@ -90,6 +90,7 @@
 		C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */; };
 		C09ABE1023D3B8B200D5B731 /* CustomDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */; };
 		C09ABE1223D3BA9600D5B731 /* CustomDomainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */; };
+		C09DB81E2439EF16002A9973 /* How.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09DB81D2439EF16002A9973 /* How.swift */; };
 		C0A726FA23EC131900A62A22 /* LoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A726F923EC131900A62A22 /* LoadingFooterView.swift */; };
 		C0A726FC23EC135000A62A22 /* LoadingFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0A726FB23EC135000A62A22 /* LoadingFooterView.xib */; };
 		C0A726FE23EC6D3E00A62A22 /* AliasActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */; };
@@ -278,6 +279,7 @@
 		C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CustomDomain.storyboard; sourceTree = "<group>"; };
 		C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainTableViewCell.swift; sourceTree = "<group>"; };
 		C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomDomainTableViewCell.xib; sourceTree = "<group>"; };
+		C09DB81D2439EF16002A9973 /* How.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = How.swift; sourceTree = "<group>"; };
 		C0A726F923EC131900A62A22 /* LoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooterView.swift; sourceTree = "<group>"; };
 		C0A726FB23EC135000A62A22 /* LoadingFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingFooterView.xib; sourceTree = "<group>"; };
 		C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivity.swift; sourceTree = "<group>"; };
@@ -790,6 +792,7 @@
 				C05049BB23CE016600AEF20B /* SLColor.swift */,
 				C0D6A28C23D0A8EC00EF21B8 /* Step.swift */,
 				C0D6A29223D0ABDC00EF21B8 /* Faq.swift */,
+				C09DB81D2439EF16002A9973 /* How.swift */,
 				C04007AF23EE1DFB005AD66B /* RandomMode.swift */,
 			);
 			path = Models;
@@ -1388,6 +1391,7 @@
 				C091480023CFB46300D56CDC /* WebViewController.swift in Sources */,
 				C0D0500E23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */,
 				C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */,
+				C09DB81E2439EF16002A9973 /* How.swift in Sources */,
 				C0D6A27823D077E800EF21B8 /* TeamAndContactTableViewCell.swift in Sources */,
 				C00BC55A23FDA10900E66FFE /* BaseUrlStatic.swift in Sources */,
 				C05FB6422422C76B000A4740 /* ForgotPasswordViewController.swift in Sources */,

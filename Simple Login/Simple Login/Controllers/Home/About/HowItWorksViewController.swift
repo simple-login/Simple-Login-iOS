@@ -12,6 +12,8 @@ import FirebaseAnalytics
 final class HowItWorksViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     
+    private var hows: [How] = []
+    
     deinit {
         print("HowItWorksViewController is deallocated")
     }
@@ -19,6 +21,7 @@ final class HowItWorksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        initHows()
         Analytics.logEvent("open_how_it_works_view_controller", parameters: nil)
     }
     
@@ -26,7 +29,14 @@ final class HowItWorksViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = .clear
-        StepTableViewCell.register(with: tableView)
+        FaqTableViewCell.register(with: tableView)
+    }
+    
+    private func initHows() {
+        let how1 = How(title: "1. Sign up and start creating aliases", description: "The next time a website asks for your email address, just create a new alias instead of using your real email.")
+        let how2 = How(title: "2. Receive emails safely", description: "All emails sent to an alias are forwarded to your \"real\" email address without the sender knowing anything.")
+        let how3 = How(title: "3. Create aliases without leaving the browser", description: "Quickly manage aliases with our browser extension and mobile apps.")
+        hows.append(contentsOf: [how1, how2, how3])
     }
 }
 
@@ -41,9 +51,8 @@ extension HowItWorksViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = StepTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-        let step = Step.allCases[indexPath.row]
-        cell.bind(with: step)
+        let cell = FaqTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+        cell.bind(with: hows[indexPath.row])
         return cell
     }
 }

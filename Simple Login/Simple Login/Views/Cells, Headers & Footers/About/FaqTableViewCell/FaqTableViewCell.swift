@@ -21,4 +21,9 @@ final class FaqTableViewCell: UITableViewCell, RegisterableCell {
         questionLabel.text = faq.question
         answerLabel.text = faq.answer
     }
+    
+    func bind(with how: How) {
+        questionLabel.text = how.title
+        answerLabel.text = how.description
+    }
 }

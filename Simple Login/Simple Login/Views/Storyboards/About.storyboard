@@ -140,7 +140,7 @@
             </objects>
             <point key="canvasLocation" x="901" y="3797"/>
         </scene>
-        <!--How it works-->
+        <!--The journey to the sane inbox-->
         <scene sceneID="3i0-zK-D3f">
             <objects>
                 <viewController id="s54-In-N1T" customClass="HowItWorksViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
@@ -167,7 +167,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="H5b-pz-VDL"/>
                     </view>
-                    <navigationItem key="navigationItem" title="How it works" id="Mf7-v8-BWD"/>
+                    <navigationItem key="navigationItem" title="The journey to the sane inbox" id="Mf7-v8-BWD"/>
                     <connections>
                         <outlet property="tableView" destination="Jby-vO-c4M" id="Dkf-yN-9en"/>
                     </connections>
