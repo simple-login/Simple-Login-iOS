@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="StepTableViewCell" rowHeight="259" id="kTq-SO-zRP" customClass="StepTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WhatTableViewCell" rowHeight="259" id="kTq-SO-zRP" customClass="WhatTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="431" height="259"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kTq-SO-zRP" id="yNO-3p-vCx">
@@ -23,17 +23,17 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6iE-k1-hoz">
                                 <rect key="frame" x="10" y="10" width="391" height="229"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Step A" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rE5-vB-94l">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A. Replace email by alias everywhere" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rE5-vB-94l">
                                         <rect key="frame" x="0.0" y="0.0" width="391" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="textColor" name="TextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" ambiguous="YES" image="StepA" translatesAutoresizingMaskIntoConstraints="NO" id="lqN-1Q-xR4">
-                                        <rect key="frame" x="0.0" y="23" width="391" height="201"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="WhatA" translatesAutoresizingMaskIntoConstraints="NO" id="lqN-1Q-xR4">
+                                        <rect key="frame" x="0.0" y="23" width="391" height="165"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" ambiguous="YES" text="Step description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcP-xl-hys">
-                                        <rect key="frame" x="0.0" y="229" width="391" height="0.0"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Subscribe to mailing lists, create new online accounts with email alias." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcP-xl-hys">
+                                        <rect key="frame" x="0.0" y="193" width="391" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" name="TitleColor"/>
                                         <nil key="highlightedColor"/>
@@ -60,15 +60,15 @@
             </tableViewCellContentView>
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <connections>
-                <outlet property="stepDescriptionLabel" destination="tcP-xl-hys" id="E2T-U1-Vg2"/>
-                <outlet property="stepImageView" destination="lqN-1Q-xR4" id="8Yi-Kx-hER"/>
-                <outlet property="stepTitleLabel" destination="rE5-vB-94l" id="hZn-O6-i3x"/>
+                <outlet property="whatDescriptionLabel" destination="tcP-xl-hys" id="6I0-rL-zjC"/>
+                <outlet property="whatImageView" destination="lqN-1Q-xR4" id="Er0-BB-iX6"/>
+                <outlet property="whatTitleLabel" destination="rE5-vB-94l" id="PrD-YW-O44"/>
             </connections>
             <point key="canvasLocation" x="107.97101449275362" y="60.602678571428569"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="StepA" width="558" height="153"/>
+        <image name="WhatA" width="555" height="234"/>
         <namedColor name="TextColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

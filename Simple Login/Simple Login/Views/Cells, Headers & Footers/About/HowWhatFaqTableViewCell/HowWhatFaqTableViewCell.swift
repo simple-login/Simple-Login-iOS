@@ -1,5 +1,5 @@
 //
-//  HowAndFaqTableViewCell.swift
+//  HowWhatFaqTableViewCell.swift
 //  Simple Login
 //
 //  Created by Thanh-Nhon Nguyen on 16/01/2020.
@@ -8,11 +8,13 @@
 
 import UIKit
 
-final class HowAndFaqTableViewCell: UITableViewCell, RegisterableCell {
+final class HowWhatFaqTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var howLabel: UILabel!
+    @IBOutlet private weak var whatLabel: UILabel!
     @IBOutlet private weak var faqLabel: UILabel!
     
     var didTapHowItWorksLabel: (() -> Void)?
+    var didTapWhatLabel: (() -> Void)?
     var didTapFaqLabel: (() -> Void)?
     
     override func awakeFromNib() {
@@ -22,6 +24,10 @@ final class HowAndFaqTableViewCell: UITableViewCell, RegisterableCell {
         howLabel.isUserInteractionEnabled = true
         howLabel.addGestureRecognizer(tapHow)
         
+        let tapWhat = UITapGestureRecognizer(target: self, action: #selector(whatLabelTapped))
+        whatLabel.isUserInteractionEnabled = true
+        whatLabel.addGestureRecognizer(tapWhat)
+        
         let tapFaq = UITapGestureRecognizer(target: self, action: #selector(faqLabelTapped))
         faqLabel.isUserInteractionEnabled = true
         faqLabel.addGestureRecognizer(tapFaq)
@@ -29,6 +35,10 @@ final class HowAndFaqTableViewCell: UITableViewCell, RegisterableCell {
     
     @objc private func howItWorksLabelTapped() {
         didTapHowItWorksLabel?()
+    }
+    
+    @objc private func whatLabelTapped() {
+        didTapWhatLabel?()
     }
     
     @objc private func faqLabelTapped() {

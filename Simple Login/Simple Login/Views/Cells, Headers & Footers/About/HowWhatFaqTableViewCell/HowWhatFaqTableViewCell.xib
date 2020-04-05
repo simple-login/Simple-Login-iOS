@@ -10,15 +10,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HowAndFaqTableViewCell" rowHeight="137" id="bMC-jz-MFj" customClass="HowAndFaqTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="428" height="137"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HowWhatFaqTableViewCell" rowHeight="168" id="bMC-jz-MFj" customClass="HowWhatFaqTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="428" height="168"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bMC-jz-MFj" id="udg-6k-l97">
-                <rect key="frame" x="0.0" y="0.0" width="428" height="137"/>
+                <rect key="frame" x="0.0" y="0.0" width="428" height="168"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qTf-zG-kNa" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
-                        <rect key="frame" x="8" y="4" width="412" height="129"/>
+                        <rect key="frame" x="8" y="4" width="412" height="160"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How it works" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jck-NS-yJs">
                                 <rect key="frame" x="16" y="16" width="380" height="17"/>
@@ -33,8 +33,21 @@
                                     <constraint firstAttribute="height" constant="1" id="jmz-Qv-mNa"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What you can do with aliases" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ba-XE-Dnm">
+                                <rect key="frame" x="16" y="66" width="380" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <color key="textColor" name="ClickableTitleColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7So-Qw-fv2" userLabel="SeparatorView">
+                                <rect key="frame" x="0.0" y="99" width="412" height="1"/>
+                                <color key="backgroundColor" name="SeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="aQf-CJ-AxF"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Frequently asked questions" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XpH-9c-CBU">
-                                <rect key="frame" x="16" y="66" width="380" height="47"/>
+                                <rect key="frame" x="16" y="116" width="380" height="28"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <color key="textColor" name="ClickableTitleColor"/>
                                 <nil key="highlightedColor"/>
@@ -48,10 +61,16 @@
                             <constraint firstAttribute="trailing" secondItem="YUr-JT-P5S" secondAttribute="trailing" id="6HK-Hu-EM1"/>
                             <constraint firstItem="jck-NS-yJs" firstAttribute="leading" secondItem="qTf-zG-kNa" secondAttribute="leading" constant="16" id="6cg-BP-mYT"/>
                             <constraint firstAttribute="trailing" secondItem="jck-NS-yJs" secondAttribute="trailing" constant="16" id="CdB-OF-UG9"/>
+                            <constraint firstItem="XpH-9c-CBU" firstAttribute="top" secondItem="7So-Qw-fv2" secondAttribute="bottom" constant="16" id="D7M-lt-41y"/>
+                            <constraint firstItem="5ba-XE-Dnm" firstAttribute="leading" secondItem="qTf-zG-kNa" secondAttribute="leading" constant="16" id="H7D-Cc-ohP"/>
+                            <constraint firstItem="7So-Qw-fv2" firstAttribute="leading" secondItem="qTf-zG-kNa" secondAttribute="leading" id="TP7-IN-z21"/>
                             <constraint firstItem="YUr-JT-P5S" firstAttribute="leading" secondItem="qTf-zG-kNa" secondAttribute="leading" id="VmB-NL-mjt"/>
                             <constraint firstItem="YUr-JT-P5S" firstAttribute="top" secondItem="jck-NS-yJs" secondAttribute="bottom" constant="16" id="Y1R-pW-ug3"/>
+                            <constraint firstItem="7So-Qw-fv2" firstAttribute="top" secondItem="5ba-XE-Dnm" secondAttribute="bottom" constant="16" id="a0I-f4-3sG"/>
+                            <constraint firstItem="5ba-XE-Dnm" firstAttribute="top" secondItem="YUr-JT-P5S" secondAttribute="bottom" constant="16" id="dMW-wq-PSX"/>
+                            <constraint firstAttribute="trailing" secondItem="5ba-XE-Dnm" secondAttribute="trailing" constant="16" id="emB-5B-kKX"/>
                             <constraint firstItem="XpH-9c-CBU" firstAttribute="leading" secondItem="qTf-zG-kNa" secondAttribute="leading" constant="16" id="ghc-FQ-DGG"/>
-                            <constraint firstItem="XpH-9c-CBU" firstAttribute="top" secondItem="YUr-JT-P5S" secondAttribute="bottom" constant="16" id="jLc-v9-pgs"/>
+                            <constraint firstAttribute="trailing" secondItem="7So-Qw-fv2" secondAttribute="trailing" id="ynk-cA-jkd"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -67,8 +86,9 @@
             <connections>
                 <outlet property="faqLabel" destination="XpH-9c-CBU" id="Er1-ee-YfJ"/>
                 <outlet property="howLabel" destination="jck-NS-yJs" id="E91-Gd-tyw"/>
+                <outlet property="whatLabel" destination="5ba-XE-Dnm" id="Sip-aW-gcv"/>
             </connections>
-            <point key="canvasLocation" x="184.05797101449278" y="134.93303571428569"/>
+            <point key="canvasLocation" x="184.05797101449278" y="142.63392857142856"/>
         </tableViewCell>
     </objects>
     <resources>
