@@ -24,6 +24,7 @@ extension UIViewController {
         
         let openEmaiAction = UIAlertAction(title: "Begin composing with default email", style: .default) { (_) in
             let mailComposerVC = MFMailComposeViewController()
+            mailComposerVC.view.tintColor = SLColor.tintColor
             
             guard let _ = mailComposerVC.view else {
                 return
