@@ -183,8 +183,8 @@ extension SettingsViewController: UITableViewDataSource {
                 self.showAlertModifyProfile()
             }
             
-            cell.didTapUpgradeDowngradeLabel = { [unowned self] in
-                Toast.displayShortly(message: "upgrade/downgrade")
+            cell.didTapUpgradeLabel = { [unowned self] in
+                Toast.displayShortly(message: "upgrade")
             }
             
             return cell

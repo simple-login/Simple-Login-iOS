@@ -60,10 +60,16 @@
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V7h-RI-rJZ">
                                 <rect key="frame" x="16" y="93" width="669" height="49"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Freemium Membership" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bJ-2D-kx6">
-                                        <rect key="frame" x="0.0" y="0.0" width="669" height="49"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Freemium Membership" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bJ-2D-kx6">
+                                        <rect key="frame" x="0.0" y="0.0" width="604.5" height="49"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" name="TitleColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UPGRADE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1as-Q8-rcE">
+                                        <rect key="frame" x="604.5" y="0.0" width="64.5" height="49"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -102,6 +108,7 @@
                 <outlet property="emailLabel" destination="ABl-ug-Iin" id="nAd-6y-ezq"/>
                 <outlet property="membershipLabel" destination="6bJ-2D-kx6" id="ZOL-5k-PMx"/>
                 <outlet property="modifyLabel" destination="E4Y-pP-XbB" id="qp0-G9-5Kh"/>
+                <outlet property="upgradeLabel" destination="1as-Q8-rcE" id="1Xg-af-XoU"/>
                 <outlet property="usernameLabel" destination="ijH-Lj-OUz" id="ZWb-gY-7dT"/>
             </connections>
             <point key="canvasLocation" x="377.536231884058" y="134.59821428571428"/>
