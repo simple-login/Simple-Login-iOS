@@ -26,6 +26,7 @@ final class IapViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchProducts()
+        //fetchReceipt()
     }
     
     @IBAction private func monthlyButtonTapped() {
@@ -47,7 +48,48 @@ final class IapViewController: UIViewController, Storyboarded {
     }
     
     private func buy(_ product: SKProduct) {
-        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        SwiftyStoreKit.purchaseProduct(product.productIdentifier) { [weak self] (result) in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            switch result {
+            case .success(let purchase):
+                Toast.displayShortly(message: "Purchase successful")
+                
+            case .error(let error):
+                switch error.code {
+                case .unknown:
+                    Toast.displayShortly(message: "Unknown error")
+                    
+                case .clientInvalid:
+                    Toast.displayShortly(message: "Invalid client")
+                    
+                case .paymentCancelled: break
+                    
+                case .paymentInvalid:
+                    Toast.displayShortly(message: "Invalid payment")
+                    
+                case .paymentNotAllowed:
+                    Toast.displayShortly(message: "Payment not allowed")
+                    
+                case .storeProductNotAvailable:
+                    Toast.displayShortly(message: "Product is not available")
+                    
+                case .cloudServicePermissionDenied:
+                    Toast.displayShortly(message: "Cloud service permission denied")
+                    
+                case .cloudServiceNetworkConnectionFailed:
+                    Toast.displayShortly(message: "Cloud service network connection failed")
+                    
+                case .cloudServiceRevoked:
+                    Toast.displayShortly(message: "Cloud service revoked")
+                    
+                default:
+                    Toast.displayShortly(message: "Error: \((error as NSError).localizedDescription)")
+                }
+            }
+        }
     }
     
     private func fetchProducts() {
@@ -81,5 +123,18 @@ final class IapViewController: UIViewController, Storyboarded {
         
         monthlyButton.setTitle("\(productMonthly.regularPrice ?? "") (monthly)", for: .normal)
         yearlyButton.setTitle("\(productYearly.regularPrice ?? "") (yearly)", for: .normal)
+    }
+    
+    private func fetchReceipt() {
+        SwiftyStoreKit.fetchReceipt(forceRefresh: true) { result in
+            switch result {
+            case .success(let receiptData):
+                let encryptedReceipt = receiptData.base64EncodedString(options: [])
+                Toast.displayShortly(message: "Fetch receipt success:\n\(encryptedReceipt)")
+                UIPasteboard.general.string = encryptedReceipt
+            case .error(let error):
+                Toast.displayShortly(message: "Fetch receipt failed: \(error)")
+            }
+        }
     }
 }

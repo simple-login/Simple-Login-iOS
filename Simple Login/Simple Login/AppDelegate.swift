@@ -9,6 +9,7 @@
 import UIKit
 import Toaster
 import Firebase
+import SwiftyStoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,9 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setUpUI()
+        setUpStoreKit()
         FirebaseApp.configure()
         UserDefaults.registerDefaultValues()
         return true
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        NotificationCenter.default.post(name: .applicationDidBecomeActive, object: nil)
     }
     
     private func setUpUI () {
@@ -30,7 +36,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ToastView.appearance().textColor = SLColor.menuBackgroundColor
     }
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        NotificationCenter.default.post(name: .applicationDidBecomeActive, object: nil)
+    private func setUpStoreKit() {
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                    // Unlock content
+                case .failed, .purchasing, .deferred:
+                    break // do nothing
+                @unknown default: break
+                }
+            }
+        }
     }
 }
