@@ -19,6 +19,7 @@ target 'Simple Login' do
   pod 'Firebase/Crashlytics'
   pod 'Gifu'
   pod 'Differ'
+  pod 'SwiftyStoreKit'
 end
 
 target 'Share Extension' do

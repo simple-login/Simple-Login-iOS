@@ -87,6 +87,7 @@ PODS:
   - PromisesObjC (1.2.8)
   - SideMenu (6.4.7)
   - SkyFloatingLabelTextField (3.8.0)
+  - SwiftyStoreKit (0.15.0)
   - Toaster (2.2.0)
 
 DEPENDENCIES:
@@ -100,6 +101,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 1.2.0)
   - SideMenu (~> 6.0)
   - SkyFloatingLabelTextField (~> 3.0)
+  - SwiftyStoreKit
   - Toaster
 
 SPEC REPOS:
@@ -127,6 +129,7 @@ SPEC REPOS:
     - PromisesObjC
     - SideMenu
     - SkyFloatingLabelTextField
+    - SwiftyStoreKit
     - Toaster
 
 SPEC CHECKSUMS:
@@ -153,8 +156,9 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SideMenu: 928a015669c3afc201e1fe3a87f1b0bc8993a664
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
+  SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: b68936bc61c8aa2b761e18eab20fa81a4d045905
+PODFILE CHECKSUM: 3cd8be312e50330695cc2a7b4179693bfadd8c89
 
 COCOAPODS: 1.8.3
