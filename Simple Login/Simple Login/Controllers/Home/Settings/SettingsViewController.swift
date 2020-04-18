@@ -184,7 +184,7 @@ extension SettingsViewController: UITableViewDataSource {
             }
             
             cell.didTapUpgradeLabel = { [unowned self] in
-                Toast.displayShortly(message: "upgrade")
+                self.performSegue(withIdentifier: "showIAP", sender: nil)
             }
             
             return cell

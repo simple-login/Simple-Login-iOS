@@ -40,6 +40,7 @@
                     <connections>
                         <outlet property="tableView" destination="w1p-GC-84b" id="WL3-wv-Lhu"/>
                         <segue destination="dCX-cK-aAs" kind="show" identifier="showDeletedAliases" id="dox-OC-sBP"/>
+                        <segue destination="vah-tb-UWx" kind="show" identifier="showIAP" id="ntF-6i-2PK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NO3-Le-RK7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -131,6 +132,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wbh-L0-syl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1203" y="2772"/>
+        </scene>
+        <!--Iap View Controller-->
+        <scene sceneID="3Zt-rx-KLu">
+            <objects>
+                <viewController storyboardIdentifier="IapViewController" id="vah-tb-UWx" customClass="IapViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gvN-a0-eTP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2Tb-ol-NKk">
+                                <rect key="frame" x="184" y="418" width="46" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JcL-zN-pvK">
+                                        <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="monthlyButtonTapped" destination="vah-tb-UWx" eventType="touchUpInside" id="fDo-Ax-ml2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NjU-fz-9Gk">
+                                        <rect key="frame" x="0.0" y="30" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="yearlyButtonTapped" destination="vah-tb-UWx" eventType="touchUpInside" id="p4H-IR-ktx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="2Tb-ol-NKk" firstAttribute="centerY" secondItem="gvN-a0-eTP" secondAttribute="centerY" id="rsQ-Ov-1uV"/>
+                            <constraint firstItem="2Tb-ol-NKk" firstAttribute="centerX" secondItem="gvN-a0-eTP" secondAttribute="centerX" id="wgA-Db-xaa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Y3c-kR-PBz"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="jJy-cD-EWs"/>
+                    <connections>
+                        <outlet property="monthlyButton" destination="JcL-zN-pvK" id="XkM-44-DWr"/>
+                        <outlet property="yearlyButton" destination="NjU-fz-9Gk" id="CGS-0B-xYj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gds-rA-OiO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="206" y="3525"/>
         </scene>
     </scenes>
     <resources>

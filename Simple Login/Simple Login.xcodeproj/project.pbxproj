@@ -15,6 +15,8 @@
 		C00BC55B23FDA12000E66FFE /* BaseUrlStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BC55923FDA10900E66FFE /* BaseUrlStatic.swift */; };
 		C00D74E923E8ACE400BE48F0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D74E823E8ACE400BE48F0 /* LoginViewController.swift */; };
 		C00D74EB23E8AD0300BE48F0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C00D74EA23E8AD0300BE48F0 /* Login.storyboard */; };
+		C0121C99244B48D20082F08A /* IapProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0121C98244B48D20082F08A /* IapProduct.swift */; };
+		C0121C9B244B53460082F08A /* SKProduct+RegularPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0121C9A244B53460082F08A /* SKProduct+RegularPrice.swift */; };
 		C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C00B123D25C390036B905 /* Storyboarded.swift */; };
 		C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02646FE23D0F4F600E9932B /* AvatarImageView.swift */; };
 		C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */; };
@@ -28,6 +30,7 @@
 		C027A28424054F8D00BD19C9 /* UserDefaults+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28324054F8D00BD19C9 /* UserDefaults+Convenience.swift */; };
 		C032D6ED2419830300C06EB7 /* UIAlertController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */; };
 		C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D2D5F23D4AF300057F44F /* CustomDomain.swift */; };
+		C03F2F55244B45C000CEA316 /* IapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F2F54244B45C000CEA316 /* IapViewController.swift */; };
 		C04007B023EE1DFB005AD66B /* RandomMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04007AF23EE1DFB005AD66B /* RandomMode.swift */; };
 		C042C25B23EF3A570045A04D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C042C25A23EF3A570045A04D /* ShareViewController.swift */; };
 		C042C25E23EF3A570045A04D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C042C25C23EF3A570045A04D /* MainInterface.storyboard */; };
@@ -206,6 +209,8 @@
 		C00BC55923FDA10900E66FFE /* BaseUrlStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUrlStatic.swift; sourceTree = "<group>"; };
 		C00D74E823E8ACE400BE48F0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C00D74EA23E8AD0300BE48F0 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		C0121C98244B48D20082F08A /* IapProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IapProduct.swift; sourceTree = "<group>"; };
+		C0121C9A244B53460082F08A /* SKProduct+RegularPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKProduct+RegularPrice.swift"; sourceTree = "<group>"; };
 		C01C00B123D25C390036B905 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		C02646FE23D0F4F600E9932B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
@@ -220,6 +225,7 @@
 		C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Convenience.swift"; sourceTree = "<group>"; };
 		C0373A8823EF55160044507C /* SimpleLogin Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SimpleLogin Share Extension.entitlements"; sourceTree = "<group>"; };
 		C03D2D5F23D4AF300057F44F /* CustomDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomain.swift; sourceTree = "<group>"; };
+		C03F2F54244B45C000CEA316 /* IapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IapViewController.swift; sourceTree = "<group>"; };
 		C04007AF23EE1DFB005AD66B /* RandomMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMode.swift; sourceTree = "<group>"; };
 		C042C25823EF3A570045A04D /* SimpleLogin Share Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SimpleLogin Share Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C042C25A23EF3A570045A04D /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -529,6 +535,7 @@
 				C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */,
 				C027A28324054F8D00BD19C9 /* UserDefaults+Convenience.swift */,
 				C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */,
+				C0121C9A244B53460082F08A /* SKProduct+RegularPrice.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -797,6 +804,7 @@
 				C0D6A29223D0ABDC00EF21B8 /* Faq.swift */,
 				C09DB81D2439EF16002A9973 /* How.swift */,
 				C04007AF23EE1DFB005AD66B /* RandomMode.swift */,
+				C0121C98244B48D20082F08A /* IapProduct.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1001,6 +1009,7 @@
 			children = (
 				C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */,
 				C0D069B12406CE4300EBAC10 /* DeletedAliasesViewController.swift */,
+				C03F2F54244B45C000CEA316 /* IapViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1316,11 +1325,13 @@
 				C0747EE623CCF4BE008035E9 /* AliasActivityViewController.swift in Sources */,
 				C0F84B2023D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift in Sources */,
 				C09147FD23CF860B00D56CDC /* BaseTableViewController.swift in Sources */,
+				C0121C9B244B53460082F08A /* SKProduct+RegularPrice.swift in Sources */,
 				C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */,
 				C05CD30623CA0419007F1C9E /* AliasViewController.swift in Sources */,
 				C0D6A29323D0ABDC00EF21B8 /* Faq.swift in Sources */,
 				C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */,
 				C0D069A62406AF5600EBAC10 /* DomainCatchAllTableViewCell.swift in Sources */,
+				C03F2F55244B45C000CEA316 /* IapViewController.swift in Sources */,
 				C05CD31323CA2A23007F1C9E /* UIView+Layout.swift in Sources */,
 				C09DB8202439F341002A9973 /* WhatYouCanDoViewController.swift in Sources */,
 				C0D069A12406A94000EBAC10 /* DeleteDomainTableViewCell.swift in Sources */,
@@ -1338,6 +1349,7 @@
 				C05049BC23CE016600AEF20B /* SLColor.swift in Sources */,
 				C09ABE1023D3B8B200D5B731 /* CustomDomainTableViewCell.swift in Sources */,
 				C06BD31823D0F9330056A9B3 /* MfaTableViewCell.swift in Sources */,
+				C0121C99244B48D20082F08A /* IapProduct.swift in Sources */,
 				C04DA67A24227F8900130095 /* AliasSearchNavigationController.swift in Sources */,
 				C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */,
 				C05CD30E23CA054B007F1C9E /* AboutViewController.swift in Sources */,
