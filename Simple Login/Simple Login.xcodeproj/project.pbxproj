@@ -101,7 +101,7 @@
 		C0A726FE23EC6D3E00A62A22 /* AliasActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */; };
 		C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3223C8AC72003EED3B /* SLApiService.swift */; };
 		C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3423C8AC8A003EED3B /* SLError.swift */; };
-		C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */; };
+		C0B1DE3723C8ACA4003EED3B /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3623C8ACA4003EED3B /* UserInfo.swift */; };
 		C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3823C8AD22003EED3B /* UserOptions.swift */; };
 		C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */; };
 		C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */; };
@@ -295,7 +295,7 @@
 		C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivity.swift; sourceTree = "<group>"; };
 		C0B1DE3223C8AC72003EED3B /* SLApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLApiService.swift; sourceTree = "<group>"; };
 		C0B1DE3423C8AC8A003EED3B /* SLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLError.swift; sourceTree = "<group>"; };
-		C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseInfo.swift; sourceTree = "<group>"; };
+		C0B1DE3623C8ACA4003EED3B /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C0B1DE3823C8AD22003EED3B /* UserOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOptions.swift; sourceTree = "<group>"; };
 		C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		C0B1DE3D23C8B2A5003EED3B /* SimpleLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleLogin.entitlements; sourceTree = "<group>"; };
@@ -792,7 +792,7 @@
 				C0CA3B0423E9A7A300887264 /* SLOAuth.swift */,
 				C0B1DE3423C8AC8A003EED3B /* SLError.swift */,
 				C0CA3AFD23E98A5700887264 /* UserLogin.swift */,
-				C0B1DE3623C8ACA4003EED3B /* UseInfo.swift */,
+				C0B1DE3623C8ACA4003EED3B /* UserInfo.swift */,
 				C0B1DE3823C8AD22003EED3B /* UserOptions.swift */,
 				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
 				C05CD31423CA33C2007F1C9E /* Alias.swift */,
@@ -1321,7 +1321,7 @@
 				C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */,
 				C027A280240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift in Sources */,
 				C0B1DE4223C90D2C003EED3B /* RegisterableCell.swift in Sources */,
-				C0B1DE3723C8ACA4003EED3B /* UseInfo.swift in Sources */,
+				C0B1DE3723C8ACA4003EED3B /* UserInfo.swift in Sources */,
 				C0D9B66123CBC0AA009A6699 /* CreateAliasViewController.swift in Sources */,
 				C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */,
 				C08A202423CC6CA300CB8D2F /* ContactViewController.swift in Sources */,

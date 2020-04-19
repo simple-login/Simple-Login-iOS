@@ -17,6 +17,7 @@ final class IapViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var monthlyButton: UIButton!
     @IBOutlet private weak var yearlyButton: UIButton!
     @IBOutlet private weak var enterpriseButton: UIButton!
+    @IBOutlet private weak var restoreButton: UIButton!
     
     private var productMonthly: SKProduct?
     private var productYearly: SKProduct?
@@ -44,30 +45,14 @@ final class IapViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         setUpUI()
         fetchProducts()
-        //fetchReceipt()
     }
-//
-//    @IBAction private func monthlyButtonTapped() {
-//        guard let productMonthly = productMonthly else {
-//            Toast.displayShortly(message: "Unknown product")
-//            return
-//        }
-//
-//        buy(productMonthly)
-//    }
-//
-//    @IBAction private func yearlyButtonTapped() {
-//        guard let productYearly = productYearly else {
-//            Toast.displayShortly(message: "Unknown product")
-//            return
-//        }
-//
-//        buy(productYearly)
-//    }
     
     private func setUpUI() {
         enterpriseButton.layer.borderWidth = 2
         enterpriseButton.layer.borderColor = SLColor.tintColor.cgColor
+        
+        restoreButton.layer.borderWidth = 2
+        restoreButton.layer.borderColor = SLColor.tintColor.cgColor
     }
     
     private func buy(_ product: SKProduct) {
@@ -77,8 +62,7 @@ final class IapViewController: UIViewController, Storyboarded {
             MBProgressHUD.hide(for: self.view, animated: true)
             
             switch result {
-            case .success(let purchase):
-                Toast.displayShortly(message: "Purchase successful")
+            case .success(_): self.fetchAndSendReceiptToServer()
                 
             case .error(let error):
                 switch error.code {
@@ -151,15 +135,33 @@ final class IapViewController: UIViewController, Storyboarded {
         yearlyButton.setTitle("Yearly subscription \(productYearly.regularPrice ?? "")/year", for: .normal)
     }
     
-    private func fetchReceipt() {
-        SwiftyStoreKit.fetchReceipt(forceRefresh: true) { result in
+    private func fetchAndSendReceiptToServer() {
+        guard let apiKey = SLKeychainService.getApiKey() else {
+            Toast.displayErrorRetrieveingApiKey()
+            return
+        }
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SwiftyStoreKit.fetchReceipt(forceRefresh: true) { [weak self ] result in
+            guard let self = self else { return }
             switch result {
             case .success(let receiptData):
                 let encryptedReceipt = receiptData.base64EncodedString(options: [])
-                Toast.displayShortly(message: "Fetch receipt success:\n\(encryptedReceipt)")
-                UIPasteboard.general.string = encryptedReceipt
+                SLApiService.processPayment(apiKey: apiKey, receiptData: encryptedReceipt) { [weak self] (error) in
+                    guard let self = self else { return }
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    
+                    if let error = error {
+                        Toast.displayError(error)
+                    } else {
+                        self.alertPaymentSuccessful()
+                    }
+                }
+                
             case .error(let error):
-                Toast.displayShortly(message: "Fetch receipt failed: \(error)")
+                MBProgressHUD.hide(for: self.view, animated: true)
+                Toast.displayLongly(message: "Fetch receipt failed: \(error). Please contact us for further assistance.")
             }
         }
     }
@@ -177,6 +179,17 @@ final class IapViewController: UIViewController, Storyboarded {
         default: return
         }
     }
+    
+    private func alertPaymentSuccessful() {
+        let alert = UIAlertController(title: "Thank you for using our service", message: "The app will be refreshed shortly.", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Got it", style: .default) { _ in
+            NotificationCenter.default.post(name: .purchaseSuccessfully, object: nil)
+        }
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - IBActions
@@ -190,11 +203,26 @@ extension IapViewController {
     }
     
     @IBAction private func upgradeButtonTapped() {
+        let _product: SKProduct?
+        switch selectedIapProduct {
+        case .monthly: _product = productMonthly
+        case .yearly: _product = productYearly
+        }
         
+        guard let product = _product else {
+            Toast.displayShortly(message: "Error: product is null")
+            return
+        }
+        
+        buy(product)
     }
     
     @IBAction private func enterpriseButtonTapped() {
         performSegue(withIdentifier: "showEnterprise", sender: nil)
+    }
+    
+    @IBAction private func restoreButtonTapped() {
+        fetchAndSendReceiptToServer()
     }
     
     @IBAction private func termsButtonTapped() {

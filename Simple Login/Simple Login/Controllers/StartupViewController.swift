@@ -12,9 +12,15 @@ import MBProgressHUD
 import FirebaseAnalytics
 
 final class StartupViewController: UIViewController {
+    private var homeNavigationController: HomeNavigationController?
     
     deinit {
         print("StartupViewController is deallocated")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseSuccessfully), name: .purchaseSuccessfully, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,6 +86,8 @@ final class StartupViewController: UIViewController {
         homeNavigationController.userInfo = userInfo
         homeNavigationController.modalPresentationStyle = .fullScreen
         
+        self.homeNavigationController = homeNavigationController
+        
         present(homeNavigationController, animated: true)
     }
     
@@ -98,5 +106,9 @@ final class StartupViewController: UIViewController {
         alert.addAction(retryAction)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    @objc private func handlePurchaseSuccessfully() {
+        homeNavigationController?.dismiss(animated: true, completion: nil)
     }
 }

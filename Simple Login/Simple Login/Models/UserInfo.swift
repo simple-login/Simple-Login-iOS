@@ -8,10 +8,10 @@
 
 import UIKit
 
-struct UserInfo {
+class UserInfo {
     let name: String
     let email: String
-    let isPremium: Bool
+    private(set) var isPremium: Bool
     let inTrial: Bool
     
     init(fromData data: Data) throws {
@@ -32,5 +32,9 @@ struct UserInfo {
         } else {
             throw SLError.failToParseObject(objectName: "UserInfo")
         }
+    }
+    
+    func setIsPremium(_ isPremium: Bool) {
+        self.isPremium = isPremium
     }
 }

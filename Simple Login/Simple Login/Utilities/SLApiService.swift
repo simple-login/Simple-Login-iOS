@@ -726,3 +726,27 @@ extension SLApiService {
         }
     }
 }
+
+// MARK: - IAP
+extension SLApiService {
+    static func processPayment(apiKey: String, receiptData: String, completion: @escaping (_ error: SLError?) -> Void) {
+        let headers: HTTPHeaders = ["Authentication": apiKey]
+        let parameters = ["receipt_data": receiptData]
+        
+        AF.request("\(BASE_URL)/api/apple/process_payment", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
+            
+            guard let statusCode = response.response?.statusCode else {
+                completion(SLError.unknownError(description: "error code unknown"))
+                return
+            }
+            
+            switch statusCode {
+            case 200: completion(nil)
+            case 401: completion(SLError.invalidApiKey)
+            case 500: completion(SLError.internalServerError)
+            case 502: completion(SLError.badGateway)
+            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            }
+        }
+    }
+}
