@@ -17,6 +17,7 @@
 		C00D74EB23E8AD0300BE48F0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C00D74EA23E8AD0300BE48F0 /* Login.storyboard */; };
 		C0121C99244B48D20082F08A /* IapProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0121C98244B48D20082F08A /* IapProduct.swift */; };
 		C0121C9B244B53460082F08A /* SKProduct+RegularPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0121C9A244B53460082F08A /* SKProduct+RegularPrice.swift */; };
+		C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */; };
 		C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C00B123D25C390036B905 /* Storyboarded.swift */; };
 		C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02646FE23D0F4F600E9932B /* AvatarImageView.swift */; };
 		C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */; };
@@ -211,6 +212,7 @@
 		C00D74EA23E8AD0300BE48F0 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C0121C98244B48D20082F08A /* IapProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IapProduct.swift; sourceTree = "<group>"; };
 		C0121C9A244B53460082F08A /* SKProduct+RegularPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKProduct+RegularPrice.swift"; sourceTree = "<group>"; };
+		C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterpriseViewController.swift; sourceTree = "<group>"; };
 		C01C00B123D25C390036B905 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		C02646FE23D0F4F600E9932B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
@@ -1010,6 +1012,7 @@
 				C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */,
 				C0D069B12406CE4300EBAC10 /* DeletedAliasesViewController.swift */,
 				C03F2F54244B45C000CEA316 /* IapViewController.swift */,
+				C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1391,6 +1394,7 @@
 				C027A27C24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift in Sources */,
 				C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */,
 				C027A2752405368700BD19C9 /* WalkthroughWelcomeViewController.swift in Sources */,
+				C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */,
 				C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */,
 				C00D74E923E8ACE400BE48F0 /* LoginViewController.swift in Sources */,
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,

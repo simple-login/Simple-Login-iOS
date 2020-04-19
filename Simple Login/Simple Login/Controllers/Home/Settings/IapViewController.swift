@@ -194,7 +194,7 @@ extension IapViewController {
     }
     
     @IBAction private func enterpriseButtonTapped() {
-        
+        performSegue(withIdentifier: "showEnterprise", sender: nil)
     }
     
     @IBAction private func termsButtonTapped() {
