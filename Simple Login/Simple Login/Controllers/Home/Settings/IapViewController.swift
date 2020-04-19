@@ -120,9 +120,9 @@ final class IapViewController: UIViewController, Storyboarded {
             Toast.displayShortly(message: "Error retrieving products")
             return
         }
-        
-        monthlyButton.setTitle("\(productMonthly.regularPrice ?? "") (monthly)", for: .normal)
-        yearlyButton.setTitle("\(productYearly.regularPrice ?? "") (yearly)", for: .normal)
+//
+//        monthlyButton.setTitle("\(productMonthly.regularPrice ?? "") (monthly)", for: .normal)
+//        yearlyButton.setTitle("\(productYearly.regularPrice ?? "") (yearly)", for: .normal)
     }
     
     private func fetchReceipt() {

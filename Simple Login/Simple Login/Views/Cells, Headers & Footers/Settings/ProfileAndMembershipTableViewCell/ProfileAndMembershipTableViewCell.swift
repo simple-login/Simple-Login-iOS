@@ -48,7 +48,7 @@ final class ProfileAndMembershipTableViewCell: UITableViewCell, RegisterableCell
         if userInfo.inTrial {
             membershipLabel.text = "Premium trial membership"
             membershipLabel.textColor = .systemBlue
-            upgradeLabel.isHidden = true
+            upgradeLabel.isHidden = false
         } else if userInfo.isPremium {
             membershipLabel.text = "Premium membership"
             membershipLabel.textColor = SLColor.premiumColor
@@ -58,8 +58,5 @@ final class ProfileAndMembershipTableViewCell: UITableViewCell, RegisterableCell
             membershipLabel.textColor = SLColor.titleColor
             upgradeLabel.isHidden = false
         }
-        
-        // TODO: To be deleted
-        upgradeLabel.isHidden = false
     }
 }
