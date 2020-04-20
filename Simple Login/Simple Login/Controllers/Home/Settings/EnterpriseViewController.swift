@@ -8,10 +8,16 @@
 
 import UIKit
 import MessageUI
+import FirebaseAnalytics
 
 final class EnterpriseViewController: UIViewController {
     deinit {
         print("EnterpriseViewController is deallocated")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        Analytics.logEvent("open_enterprise_view_controller", parameters: nil)
     }
     
     @IBAction private func closeButtonTapped() {

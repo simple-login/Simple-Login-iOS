@@ -11,6 +11,7 @@ import Toaster
 import MBProgressHUD
 import StoreKit
 import SwiftyStoreKit
+import FirebaseAnalytics
 
 final class IapViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var rootScrollView: UIScrollView!
@@ -45,6 +46,7 @@ final class IapViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         setUpUI()
         fetchProducts()
+        Analytics.logEvent("open_iap_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -62,9 +64,12 @@ final class IapViewController: UIViewController, Storyboarded {
             MBProgressHUD.hide(for: self.view, animated: true)
             
             switch result {
-            case .success(_): self.fetchAndSendReceiptToServer()
+            case .success(_):
+                Analytics.logEvent("purchase_success", parameters: nil)
+                self.fetchAndSendReceiptToServer()
                 
             case .error(let error):
+                Analytics.logEvent("purchase_error", parameters: nil)
                 switch error.code {
                 case .unknown:
                     Toast.displayShortly(message: "Unknown error")
@@ -109,6 +114,7 @@ final class IapViewController: UIViewController, Storyboarded {
             self.rootScrollView.isHidden = false
             
             if let error = results.error {
+                Analytics.logEvent("fetch_product_error", parameters: ["error": error.localizedDescription])
                 Toast.displayError(error.localizedDescription)
                 return
             }
@@ -154,14 +160,17 @@ final class IapViewController: UIViewController, Storyboarded {
                     
                     if let error = error {
                         Toast.displayError(error)
+                        Analytics.logEvent("process_payment_error", parameters: nil)
                     } else {
                         self.alertPaymentSuccessful()
+                        Analytics.logEvent("process_payment_success", parameters: nil)
                     }
                 }
                 
             case .error(let error):
                 MBProgressHUD.hide(for: self.view, animated: true)
                 Toast.displayLongly(message: "Fetch receipt failed: \(error). Please contact us for further assistance.")
+                Analytics.logEvent("fetch_receipt_error", parameters: nil)
             }
         }
     }
@@ -196,10 +205,12 @@ final class IapViewController: UIViewController, Storyboarded {
 extension IapViewController {
     @IBAction private func yearlyButtonTapped() {
         selectedIapProduct = .yearly
+        Analytics.logEvent("iap_select_yearly", parameters: nil)
     }
     
     @IBAction private func monthlyButtonTapped() {
         selectedIapProduct = .monthly
+        Analytics.logEvent("iap_select_monthly", parameters: nil)
     }
     
     @IBAction private func upgradeButtonTapped() {
@@ -211,6 +222,7 @@ extension IapViewController {
         
         guard let product = _product else {
             Toast.displayShortly(message: "Error: product is null")
+            Analytics.logEvent("iap_product_null", parameters: nil)
             return
         }
         
@@ -223,13 +235,16 @@ extension IapViewController {
     
     @IBAction private func restoreButtonTapped() {
         fetchAndSendReceiptToServer()
+        Analytics.logEvent("iap_restore", parameters: nil)
     }
     
     @IBAction private func termsButtonTapped() {
         performSegue(withIdentifier: "showTerms", sender: nil)
+        Analytics.logEvent("iap_view_terms", parameters: nil)
     }
     
     @IBAction private func privacyButtonTapped() {
         performSegue(withIdentifier: "showPrivacy", sender: nil)
+        Analytics.logEvent("iap_view_privacy", parameters: nil)
     }
 }
