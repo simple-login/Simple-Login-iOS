@@ -23,7 +23,11 @@ final class AliasActivity {
     }()
     
     init(fromDictionary dictionary: [String : Any]) throws {
-        let actionString = dictionary["action"] as? String
+        var actionString = dictionary["action"] as? String
+        if actionString == "blocked" {
+            actionString = "block"
+        }
+        
         let action = Action(rawValue: actionString ?? "")
         
         let reverseAlias = dictionary["reverse_alias"] as? String

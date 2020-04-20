@@ -291,7 +291,7 @@ extension SLApiService {
         }
         
         
-        AF.request("\(BASE_URL)/api/aliases?page_id=\(page)", method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
+        AF.request("\(BASE_URL)/api/v2/aliases?page_id=\(page)", method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
                 completion(nil, SLError.unknownError(description: "error code unknown"))

@@ -16,6 +16,7 @@ final class Alias: Equatable {
     let blockCount: Int
     let replyCount: Int
     let forwardCount: Int
+    let latestActivity: LatestActivity?
     private(set) var note: String?
     private(set) var enabled: Bool
     
@@ -57,6 +58,15 @@ final class Alias: Equatable {
         return "Created \(value) \(unit) ago"
     }()
     
+    lazy var latestActivityString: String? = {
+        guard let latestActivity = latestActivity else {
+            return nil
+        }
+        
+        let (value, unit) =  Date.init(timeIntervalSince1970: latestActivity.timestamp).distanceFromNow()
+        return "\(latestActivity.contact.email) • \(value) \(unit) ago"
+    }()
+    
     init(fromDictionary dictionary: [String : Any]) throws {
         let id = dictionary["id"] as? Int
         let email = dictionary["email"] as? String
@@ -67,6 +77,13 @@ final class Alias: Equatable {
         let replyCount = dictionary["nb_reply"] as? Int
         let enabled = dictionary["enabled"] as? Bool
         let note = dictionary["note"] as? String
+        let latestActivityDictionary = dictionary["latest_activity"] as? [String: Any]
+        
+        if let latestActivityDictionary = latestActivityDictionary {
+            self.latestActivity = try LatestActivity(fromDictionary: latestActivityDictionary)
+        } else {
+            self.latestActivity = nil
+        }
         
         if let id = id, let email = email, let creationDate = creationDate, let creationTimestamp = creationTimestamp, let blockCount = blockCount, let forwardCount = forwardCount, let replyCount = replyCount, let enabled = enabled {
             self.id = id

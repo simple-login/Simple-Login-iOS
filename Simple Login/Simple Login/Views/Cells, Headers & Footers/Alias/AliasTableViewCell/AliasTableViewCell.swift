@@ -67,7 +67,18 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         
         enabledSwitch.isOn = alias.enabled
         countLabel.attributedText = alias.countAttributedString
-        creationLabel.text = alias.creationString
+        
+        if let latestActivity = alias.latestActivity, let latestActivityString = alias.latestActivityString {
+            switch latestActivity.action {
+            case .block, .bounced: clockImageView.image = UIImage(named: "ClockIcon")
+            case .forward: clockImageView.image = UIImage(named: "PaperPlaneIcon")
+            case .reply: clockImageView.image = UIImage(named: "ReplyIcon")
+            }
+            creationLabel.text = latestActivityString
+        } else {
+            clockImageView.image = UIImage(named: "ClockIcon")
+            creationLabel.text = alias.creationString
+        }
         
         if alias.enabled {
             rootView.backgroundColor = SLColor.frontBackgroundColor

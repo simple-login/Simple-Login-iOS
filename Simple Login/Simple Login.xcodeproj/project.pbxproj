@@ -113,6 +113,8 @@
 		C0B76DEB23D0DCEB003AAB7E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B76DEA23D0DCEB003AAB7E /* Settings.storyboard */; };
 		C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B76DEE23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift */; };
 		C0B76DF123D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */; };
+		C0BD47CD244DAB43006473B5 /* LatestActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD47CC244DAB43006473B5 /* LatestActivity.swift */; };
+		C0BD47CF244DAB6F006473B5 /* ContactLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD47CE244DAB6F006473B5 /* ContactLite.swift */; };
 		C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */; };
 		C0C053222438E8A60080AD4D /* delete.gif in Resources */ = {isa = PBXBuildFile; fileRef = C0C053212438E8A60080AD4D /* delete.gif */; };
 		C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3AFD23E98A5700887264 /* UserLogin.swift */; };
@@ -308,6 +310,8 @@
 		C0B76DEA23D0DCEB003AAB7E /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		C0B76DEE23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAndMembershipTableViewCell.swift; sourceTree = "<group>"; };
 		C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileAndMembershipTableViewCell.xib; sourceTree = "<group>"; };
+		C0BD47CC244DAB43006473B5 /* LatestActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestActivity.swift; sourceTree = "<group>"; };
+		C0BD47CE244DAB6F006473B5 /* ContactLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLite.swift; sourceTree = "<group>"; };
 		C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toaster+Convenience.swift"; sourceTree = "<group>"; };
 		C0C053212438E8A60080AD4D /* delete.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = delete.gif; sourceTree = "<group>"; };
 		C0CA3AFD23E98A5700887264 /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
@@ -798,7 +802,9 @@
 				C05CD31423CA33C2007F1C9E /* Alias.swift */,
 				C0D069B32406CFDE00EBAC10 /* DeletedAlias.swift */,
 				C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */,
+				C0BD47CC244DAB43006473B5 /* LatestActivity.swift */,
 				C0F57020241D398D00BCC84B /* Contact.swift */,
+				C0BD47CE244DAB6F006473B5 /* ContactLite.swift */,
 				C0D069AA2406BE7800EBAC10 /* Directory.swift */,
 				C03D2D5F23D4AF300057F44F /* CustomDomain.swift */,
 				C05049BB23CE016600AEF20B /* SLColor.swift */,
@@ -1317,6 +1323,7 @@
 				C0D2F950240B0A2700CCE6BD /* SignUpViewController.swift in Sources */,
 				C07B41F623EAEDCD002E6223 /* VerificationViewController.swift in Sources */,
 				C0B1DE4623C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift in Sources */,
+				C0BD47CF244DAB6F006473B5 /* ContactLite.swift in Sources */,
 				C0747EDF23CCA6F5008035E9 /* CreateContactViewController.swift in Sources */,
 				C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */,
 				C027A280240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift in Sources */,
@@ -1419,6 +1426,7 @@
 				C072CC212438E47800DC4915 /* InstructionViewController.swift in Sources */,
 				C0D0699C24067AC700EBAC10 /* DirectoryViewController.swift in Sources */,
 				C069397923D395A1008AE6C1 /* SuffixListViewController.swift in Sources */,
+				C0BD47CD244DAB43006473B5 /* LatestActivity.swift in Sources */,
 				C0D6A28823D0A6A500EF21B8 /* HowItWorksViewController.swift in Sources */,
 				C0D6A29123D0AB6800EF21B8 /* FaqViewController.swift in Sources */,
 			);
