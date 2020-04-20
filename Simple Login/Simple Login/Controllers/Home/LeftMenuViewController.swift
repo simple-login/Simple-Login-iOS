@@ -94,7 +94,7 @@ final class LeftMenuViewController: UIViewController {
         
         if userInfo.inTrial {
             statusLabel.text = "Premium trial"
-            statusLabel.textColor = .systemBlue
+            statusLabel.textColor = .systemTeal
         } else if userInfo.isPremium {
             statusLabel.text = "Premium"
             statusLabel.textColor = SLColor.premiumColor
