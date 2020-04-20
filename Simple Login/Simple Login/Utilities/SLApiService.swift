@@ -154,7 +154,7 @@ final class SLApiService {
     static func fetchUserOptions(apiKey: String, completion: @escaping (_ userOptions: UserOptions?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
-        AF.request("\(BASE_URL)/api/v2/alias/options", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+        AF.request("\(BASE_URL)/api/v3/alias/options", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let data = response.data else {
                 completion(nil, SLError.noData)

@@ -10,7 +10,6 @@ import Foundation
 
 struct UserOptions {
     let canCreate: Bool
-    let existing: [String]
     let prefixSuggestion: String
     let suffixes: [String]
     
@@ -32,16 +31,13 @@ struct UserOptions {
         }
         
         let canCreate = jsonDictionary["can_create"] as? Bool
-        let existing = jsonDictionary["existing"] as? [String]
         let prefixSuggestion = jsonDictionary["prefix_suggestion"] as? String
         let suffixes = jsonDictionary["suffixes"] as? [String]
         
         if let canCreate = canCreate,
-            let existing = existing,
             let prefixSuggestion = prefixSuggestion,
             let suffixes = suffixes {
             self.canCreate = canCreate
-            self.existing = existing
             self.prefixSuggestion = prefixSuggestion
             self.suffixes = suffixes
         } else {
