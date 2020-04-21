@@ -11,7 +11,7 @@ end
 
 target 'Simple Login' do
   common_pods
-  pod 'SideMenu', '~> 6.0'
+  pod 'SideMenu', '~> 6.4.8'
   pod 'SkyFloatingLabelTextField', '~> 3.0'
   pod 'Toaster'
   pod 'MarqueeLabel'

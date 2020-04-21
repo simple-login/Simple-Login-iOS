@@ -85,7 +85,7 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
-  - SideMenu (6.4.7)
+  - SideMenu (6.4.8)
   - SkyFloatingLabelTextField (3.8.0)
   - SwiftyStoreKit (0.15.0)
   - Toaster (2.2.0)
@@ -99,7 +99,7 @@ DEPENDENCIES:
   - KeychainAccess
   - MarqueeLabel
   - MBProgressHUD (~> 1.2.0)
-  - SideMenu (~> 6.0)
+  - SideMenu (~> 6.4.8)
   - SkyFloatingLabelTextField (~> 3.0)
   - SwiftyStoreKit
   - Toaster
@@ -154,11 +154,11 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
-  SideMenu: 928a015669c3afc201e1fe3a87f1b0bc8993a664
+  SideMenu: 4a891be552d30bb6fa87ad404d62e485f8450c34
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: 3cd8be312e50330695cc2a7b4179693bfadd8c89
+PODFILE CHECKSUM: d10d07181937d40b78451ed2f86336c28f11e020
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.9.1
