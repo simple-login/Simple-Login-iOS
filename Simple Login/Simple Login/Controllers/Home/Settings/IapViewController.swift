@@ -149,7 +149,7 @@ final class IapViewController: UIViewController, Storyboarded {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SwiftyStoreKit.fetchReceipt(forceRefresh: true) { [weak self ] result in
+        SwiftyStoreKit.fetchReceipt(forceRefresh: false) { [weak self ] result in
             guard let self = self else { return }
             switch result {
             case .success(let receiptData):
