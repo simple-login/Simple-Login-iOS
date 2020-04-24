@@ -338,7 +338,7 @@ extension SLApiService {
         }
     }
     
-    static func fetchAliasActivities(apiKey: String, aliasId: Int, page: Int, completion: @escaping (_ activities: [AliasActivity]?, _ error: SLError?) -> Void) {
+    static func fetchAliasActivities(apiKey: String, aliasId: Alias.Identifier, page: Int, completion: @escaping (_ activities: [AliasActivity]?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/aliases/\(aliasId)/activities?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
@@ -476,7 +476,7 @@ extension SLApiService {
         }
     }
     
-    static func toggleAlias(apiKey: String, id: Int, completion: @escaping (_ enabled: Bool?, _ error: SLError?) -> Void) {
+    static func toggleAlias(apiKey: String, id: Alias.Identifier, completion: @escaping (_ enabled: Bool?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/aliases/\(id)/toggle", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
@@ -514,7 +514,7 @@ extension SLApiService {
         }
     }
     
-    static func deleteAlias(apiKey: String, id: Int, completion: @escaping (_ error: SLError?) -> Void) {
+    static func deleteAlias(apiKey: String, id: Alias.Identifier, completion: @escaping (_ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/aliases/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
@@ -552,7 +552,7 @@ extension SLApiService {
         }
     }
     
-    static func updateAliasNote(apiKey: String, id: Int, note: String?, completion: @escaping (_ error: SLError?) -> Void) {
+    static func updateAliasNote(apiKey: String, id: Alias.Identifier, note: String?, completion: @escaping (_ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/aliases/\(id)", method: .put, parameters: ["note": note ?? ""], encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
@@ -572,7 +572,7 @@ extension SLApiService {
         }
     }
     
-    static func getAlias(apiKey: String, id: Int, completion: @escaping (_ alias: Alias?, _ error: SLError?) -> Void) {
+    static func getAlias(apiKey: String, id: Alias.Identifier, completion: @escaping (_ alias: Alias?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/aliases/\(id)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
@@ -616,7 +616,7 @@ extension SLApiService {
 
 // MARK: - Contact
 extension SLApiService {
-    static func fetchContacts(apiKey: String, aliasId: Int, page: Int, completion: @escaping (_ contacts: [Contact]?, _ error: SLError?) -> Void) {
+    static func fetchContacts(apiKey: String, aliasId: Alias.Identifier, page: Int, completion: @escaping (_ contacts: [Contact]?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/aliases/\(aliasId)/contacts?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
@@ -666,7 +666,7 @@ extension SLApiService {
         }
     }
     
-    static func createContact(apiKey: String, aliasId: Int, email: String, completion: @escaping (_ error: SLError?) -> Void) {
+    static func createContact(apiKey: String, aliasId: Alias.Identifier, email: String, completion: @escaping (_ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         let parameters = ["contact" : email]
         

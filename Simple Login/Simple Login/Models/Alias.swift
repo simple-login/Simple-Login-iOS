@@ -9,7 +9,9 @@
 import UIKit
 
 final class Alias: Equatable {
-    let id: Int
+    typealias Identifier = Int
+    
+    let id: Identifier
     let email: String
     let creationDate: String
     let creationTimestamp: TimeInterval
