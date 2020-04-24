@@ -11,18 +11,18 @@ import Alamofire
 
 // MARK: Login
 final class SLApiService {
-    static func login(email: String, password: String, completion: @escaping (_ userLogin: UserLogin?, _ error: SLError?) -> Void) {
+    static func login(email: String, password: String, completion: @escaping (Result<UserLogin, SLError>) -> Void) {
         let parameters = ["email" : email, "password" : password, "device" : UIDevice.current.name]
         
         AF.request("\(BASE_URL)/api/auth/login", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
             
             guard let data = response.data else {
-                completion(nil, SLError.noData)
+                completion(.failure(.noData))
                 return
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(.failure(.unknownError(description: "error code unknown")))
                 return
             }
             
@@ -30,47 +30,15 @@ final class SLApiService {
             case 200:
                 do {
                     let userLogin = try UserLogin(fromData: data)
-                    completion(userLogin, nil)
+                    completion(.success(userLogin))
                 } catch let error {
-                    completion(nil, error as? SLError)
+                    completion(.failure(error as! SLError))
                 }
                 
-            case 400: completion(nil, SLError.emailOrPasswordIncorrect)
-            case 500: completion(nil, SLError.internalServerError)
-            case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
-            }
-        }
-    }
-    
-    static func socialLogin(service: SLOAuthService, accessToken: String, completion: @escaping (_ userLogin: UserLogin?, _ error: SLError?) -> Void) {
-        let parameters = ["\(service.rawValue)_token" : accessToken, "device" : UIDevice.current.name]
-        
-        AF.request("\(BASE_URL)/api/auth/\(service.rawValue)", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
-            
-            guard let data = response.data else {
-                completion(nil, SLError.noData)
-                return
-            }
-            
-            guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
-                return
-            }
-            
-            switch statusCode {
-            case 200:
-                do {
-                    let userLogin = try UserLogin(fromData: data)
-                    completion(userLogin, nil)
-                } catch let error {
-                    completion(nil, error as? SLError)
-                }
-                
-            case 400: completion(nil, SLError.emailOrPasswordIncorrect)
-            case 500: completion(nil, SLError.internalServerError)
-            case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            case 400: completion(.failure(.emailOrPasswordIncorrect))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownError(description: "error code \(statusCode)")))
             }
         }
     }

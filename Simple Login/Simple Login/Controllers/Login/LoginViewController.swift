@@ -65,14 +65,34 @@ final class LoginViewController: UIViewController, Storyboarded {
         
         MBProgressHUD.showAdded(to: view, animated: true)
     
-        SLApiService.login(email: email, password: password) { [weak self] (userLogin, error) in
+        SLApiService.login(email: email, password: password) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
-            self.finalizeLoginApiCall(userLogin: userLogin, error: error)
+            
+            switch result {
+            case .success(let userLogin):
+                if userLogin.isMfaEnabled {
+                    if let mfaKey = userLogin.mfaKey {
+                        self.verify(mode: .otp(mfaKey: mfaKey))
+                    } else {
+                        Toast.displayLongly(message: "MFA key is null")
+                    }
+                    
+                } else {
+                    if let apiKey = userLogin.apiKey {
+                        self.finalizeLogin(apiKey: apiKey)
+                    } else {
+                        Toast.displayShortly(message: "API key is null")
+                    }
+                }
+                Analytics.logEvent("log_in_with_email_password_success", parameters: nil)
+                
+            case .failure(let error):
+                Toast.displayShortly(message: error.description)
+                Analytics.logEvent("log_in_with_email_password_error", parameters: nil)
+            }
         }
-        
-        Analytics.logEvent("log_in_with_email_password", parameters: nil)
     }
     
     private func verifyEmailAddress() {
@@ -168,28 +188,6 @@ final class LoginViewController: UIViewController, Storyboarded {
         }
         
         navigationController?.dismiss(animated: true, completion: nil)
-    }
-    
-    private func finalizeLoginApiCall(userLogin: UserLogin?, error: SLError?) {
-        if let userLogin = userLogin {
-            if userLogin.isMfaEnabled {
-                if let mfaKey = userLogin.mfaKey {
-                    self.verify(mode: .otp(mfaKey: mfaKey))
-                } else {
-                    Toast.displayLongly(message: "MFA key is null")
-                }
-                
-            } else {
-                if let apiKey = userLogin.apiKey {
-                    self.finalizeLogin(apiKey: apiKey)
-                } else {
-                    Toast.displayShortly(message: "API key is null")
-                }
-            }
-            
-        } else if let error = error {
-            Toast.displayShortly(message: error.description)
-        }
     }
 }
 
