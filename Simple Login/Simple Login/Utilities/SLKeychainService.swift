@@ -13,11 +13,11 @@ final class SLKeychainService {
     private static let keychainService = Keychain(service: "975H7B86B7.io.simplelogin.ios-app.shared")
     private static let API_KEY = "API_KEY"
     
-    static func setApiKey(_ apiKey: String) throws {
+    static func setApiKey(_ apiKey: ApiKey) throws {
         try keychainService.set(apiKey, key: API_KEY)
     }
     
-    static func getApiKey() -> String? {
+    static func getApiKey() -> ApiKey? {
         do {
             return try keychainService.getString(API_KEY)
         } catch {

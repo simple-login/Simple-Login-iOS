@@ -43,40 +43,34 @@ final class SLApiService {
         }
     }
     
-    static func verifyMFA(mfaKey: String, mfaToken: String, completion: @escaping (_ apiKey: String?, _ error: SLError?) -> Void) {
+    static func verifyMFA(mfaKey: String, mfaToken: String, completion: @escaping (Result<ApiKey, SLError>) -> Void) {
         let parameters = ["mfa_token" : mfaToken, "mfa_key" : mfaKey, "device" : UIDevice.current.name]
         
         AF.request("\(BASE_URL)/api/auth/mfa", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
             
             guard let data = response.data else {
-                completion(nil, SLError.noData)
+                completion(.failure(.noData))
                 return
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(.failure(.unknownError(description: "error code unknown")))
                 return
             }
             
             switch statusCode {
             case 200:
-                do {
-                    guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
-                        let apiKey = jsonDictionary["api_key"] as? String else {
-                            completion(nil, SLError.failToSerializeJSONData)
-                            return
-                    }
-                    
-                    completion(apiKey, nil)
-                    
-                } catch let error {
-                    completion(nil, error as? SLError)
+                guard let jsonDictionary = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiKey = jsonDictionary["api_key"] as? String else {
+                        completion(.failure(.failToSerializeJSONData))
+                        return
                 }
+                completion(.success(apiKey))
                 
-            case 400: completion(nil, SLError.wrongTotpToken)
-            case 500: completion(nil, SLError.internalServerError)
-            case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            case 400: completion(.failure(.wrongTotpToken))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownError(description: "error code \(statusCode)")))
             }
         }
     }

@@ -180,7 +180,7 @@ final class LoginViewController: UIViewController, Storyboarded {
         present(verificationNavigationController, animated: true, completion: nil)
     }
     
-    private func finalizeLogin(apiKey: String) {
+    private func finalizeLogin(apiKey: ApiKey) {
         do {
             try SLKeychainService.setApiKey(apiKey)
         } catch {

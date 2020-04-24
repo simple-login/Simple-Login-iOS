@@ -41,7 +41,7 @@ final class VerificationViewController: UIViewController, Storyboarded {
     
     @IBOutlet private var buttons: [UIButton]!
     
-    var otpVerificationSuccesful: ((_ apiKey: String) -> Void)?
+    var otpVerificationSuccesful: ((_ apiKey: ApiKey) -> Void)?
     var accountVerificationSuccesful: (() -> Void)?
     
     var mode: VerificationMode!
@@ -100,19 +100,21 @@ final class VerificationViewController: UIViewController, Storyboarded {
         
         switch mode {
         case .otp(let mfaKey):
-            SLApiService.verifyMFA(mfaKey: mfaKey, mfaToken: code) { [weak self] (apiKey, error) in
+            SLApiService.verifyMFA(mfaKey: mfaKey, mfaToken: code) { [weak self] result in
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
-                if let error = error {
-                    self.showErrorLabel(true, errorMessage: error.description)
-                    self.reset()
-                    Analytics.logEvent("verification_mfa_error", parameters: error.toParameter())
-                } else if let apiKey = apiKey {
+                switch result {
+                case .success(let apiKey):
                     self.dismiss(animated: true) {
                         self.otpVerificationSuccesful?(apiKey)
                         Analytics.logEvent("verification_mfa_success", parameters: nil)
                     }
+                    
+                case .failure(let error):
+                    self.showErrorLabel(true, errorMessage: error.description)
+                    self.reset()
+                    Analytics.logEvent("verification_mfa_error", parameters: error.toParameter())
                 }
             }
             
