@@ -22,7 +22,7 @@ final class SLApiService {
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(.failure(.unknownError(description: "error code unknown")))
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
@@ -38,7 +38,7 @@ final class SLApiService {
             case 400: completion(.failure(.emailOrPasswordIncorrect))
             case 500: completion(.failure(.internalServerError))
             case 502: completion(.failure(.badGateway))
-            default: completion(.failure(.unknownError(description: "error code \(statusCode)")))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }
@@ -54,23 +54,29 @@ final class SLApiService {
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(.failure(.unknownError(description: "error code unknown")))
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
             switch statusCode {
             case 200:
-                guard let jsonDictionary = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
-                    let apiKey = jsonDictionary["api_key"] as? String else {
+                do {
+                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                    
+                    if let apiKey = jsonDictionary?["api_key"] as? String {
+                        completion(.success(apiKey))
+                    } else {
                         completion(.failure(.failToSerializeJSONData))
-                        return
+                    }
+                    
+                } catch {
+                    completion(.failure(.unknownError(description: error.localizedDescription)))
                 }
-                completion(.success(apiKey))
                 
             case 400: completion(.failure(.wrongTotpToken))
             case 500: completion(.failure(.internalServerError))
             case 502: completion(.failure(.badGateway))
-            default: completion(.failure(.unknownError(description: "error code \(statusCode)")))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }
@@ -81,18 +87,18 @@ final class SLApiService {
         }
     }
     
-    static func fetchUserInfo(_ apiKey: String, completion: @escaping (_ userInfo: UserInfo?, _ error: SLError?) -> Void) {
+    static func fetchUserInfo(apiKey: ApiKey, completion: @escaping (Result<UserInfo, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/user_info", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let data = response.data else {
-                completion(nil, SLError.noData)
+                completion(.failure(.noData))
                 return
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
@@ -100,15 +106,17 @@ final class SLApiService {
             case 200:
                 do {
                     let userInfo = try UserInfo(fromData: data)
-                    completion(userInfo, nil)
-                } catch let error {
-                    completion(nil, error as? SLError)
+                    completion(.success(userInfo))
+                } catch let error as SLError {
+                    completion(.failure(error))
+                } catch {
+                    completion(.failure(.unknownError(description: error.localizedDescription)))
                 }
                 
-            case 401: completion(nil, SLError.invalidApiKey)
-            case 500: completion(nil, SLError.internalServerError)
-            case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            case 401: completion(.failure(.invalidApiKey))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }

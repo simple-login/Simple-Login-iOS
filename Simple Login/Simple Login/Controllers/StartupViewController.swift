@@ -54,12 +54,16 @@ final class StartupViewController: UIViewController {
         hud.label.text = "Connecting to server..."
         hud.offset = CGPoint(x: 0.0, y: MBProgressMaxOffset)
         
-        SLApiService.fetchUserInfo(apiKey, completion: { [weak self] (userInfo, error) in
+        SLApiService.fetchUserInfo(apiKey: apiKey, completion: { [weak self] result in
             guard let self = self else { return }
             
             hud.hide(animated: true)
             
-            if let error = error {
+            switch result {
+            case .success(let userInfo):
+                self.presentHomeNavigationController(userInfo)
+                
+            case .failure(let error):
                 Analytics.logEvent("start_up_error", parameters: error.toParameter())
                 switch error {
                 case .noData, .internalServerError:
@@ -69,9 +73,6 @@ final class StartupViewController: UIViewController {
                     Toast.displayLongly(message: "Error occured: \(error.description)")
                     self.presentLoginViewController()
                 }
-                
-            } else if let userInfo = userInfo {
-                self.presentHomeNavigationController(userInfo)
             }
         })
     }

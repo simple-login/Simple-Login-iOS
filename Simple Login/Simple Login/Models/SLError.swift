@@ -22,7 +22,9 @@ enum SLError: Error, CustomStringConvertible {
     case badGateway
     case wrongTotpToken
     case wrongVerificationCode
+    case unknownResponseStatusCode
     case badRequest(description: String)
+    case unknownErrorWithStatusCode(statusCode: Int)
     case unknownError(description: String)
     
     var description: String {
@@ -40,7 +42,9 @@ enum SLError: Error, CustomStringConvertible {
         case .badGateway: return "Bad gateway error"
         case .wrongTotpToken: return "Wrong TOTP token"
         case .wrongVerificationCode: return "Wrong verification code"
+        case .unknownResponseStatusCode: return "Unknown response status code"
         case .badRequest(let description): return "Bad request: \(description)"
+        case .unknownErrorWithStatusCode(let statusCode): return "Unknown error with status code \(statusCode)"
         case .unknownError(let description): return "Unknown error: \(description)"
         }
     }

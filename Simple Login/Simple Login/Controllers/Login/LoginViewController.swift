@@ -124,16 +124,18 @@ final class LoginViewController: UIViewController, Storyboarded {
             
             MBProgressHUD.showAdded(to: self.view, animated: true)
             
-            SLApiService.fetchUserInfo(enteredApiKey) { [weak self] (userInfo, error) in
+            SLApiService.fetchUserInfo(apiKey: enteredApiKey) { [weak self] result in
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
-                if let error = error {
-                    Toast.displayError(error)
-                    Analytics.logEvent("log_in_with_api_key_error", parameters: error.toParameter())
-                } else if let _ = userInfo {
+                switch result {
+                case .success(_):
                     self.finalizeLogin(apiKey: enteredApiKey)
                     Analytics.logEvent("log_in_with_api_key_success", parameters: nil)
+                    
+                case .failure(let error):
+                    Toast.displayError(error)
+                    Analytics.logEvent("log_in_with_api_key_error", parameters: error.toParameter())
                 }
             }
         }
