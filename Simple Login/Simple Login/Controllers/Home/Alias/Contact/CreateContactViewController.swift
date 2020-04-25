@@ -69,21 +69,22 @@ final class CreateContactViewController: UIViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.createContact(apiKey: apiKey, aliasId: alias.id, email: email) { [weak self] (error) in
+        SLApiService.createContact(apiKey: apiKey, aliasId: alias.id, email: email) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let error = error {
-                Toast.displayError(error)
-                Analytics.logEvent("create_contact_create_error", parameters: error.toParameter())
-                
-            } else {
+            switch result {
+            case .success(_):
                 Toast.displayShortly(message: "Created contact \(email)")
                 Analytics.logEvent("create_contact_create_success", parameters: nil)
                 self.dismiss(animated: true) {
                     self.didCreateContact?()
                 }
+                
+            case .failure(let error):
+                Toast.displayError(error)
+                Analytics.logEvent("create_contact_create_error", parameters: error.toParameter())
             }
         }
     }

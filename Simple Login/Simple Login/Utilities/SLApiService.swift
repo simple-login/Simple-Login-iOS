@@ -638,24 +638,24 @@ extension SLApiService {
         }
     }
     
-    static func createContact(apiKey: String, aliasId: Alias.Identifier, email: String, completion: @escaping (_ error: SLError?) -> Void) {
+    static func createContact(apiKey: ApiKey, aliasId: Alias.Identifier, email: String, completion: @escaping (Result<Any?, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         let parameters = ["contact" : email]
         
         AF.request("\(BASE_URL)/api/aliases/\(aliasId)/contacts", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownResponseStatusCode)
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
             switch statusCode {
-            case 201: completion(nil)
-            case 401: completion(SLError.invalidApiKey)
-            case 409: completion(SLError.duplicatedContact)
-            case 500: completion(SLError.internalServerError)
-            case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
+            case 201: completion(.success(nil))
+            case 401: completion(.failure(.invalidApiKey))
+            case 409: completion(.failure(.duplicatedContact))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }
