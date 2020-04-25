@@ -134,12 +134,13 @@ extension AliasSearchViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] (enabled, error) in
+        SLApiService.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let enabled = enabled {
+            switch result {
+            case .success(let enabled):
                 alias.setEnabled(enabled)
                 self.toggledAlias?(alias)
                 
@@ -149,7 +150,7 @@ extension AliasSearchViewController {
                     Analytics.logEvent("alias_search_disabled_an_alias", parameters: nil)
                 }
                 
-            } else if let error = error {
+            case .failure(let error):
                 Toast.displayError(error)
                 Analytics.logEvent("alias_search_toggle_error", parameters: error.toParameter())
             }

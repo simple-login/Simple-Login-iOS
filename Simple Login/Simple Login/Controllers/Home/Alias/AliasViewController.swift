@@ -233,12 +233,13 @@ extension AliasViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] (enabled, error) in
+        SLApiService.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let enabled = enabled {
+            switch result {
+            case .success(let enabled):
                 alias.setEnabled(enabled)
                 
                 if enabled {
@@ -264,7 +265,7 @@ extension AliasViewController {
                     self.tableView.reloadData()
                 }
                 
-            } else if let error = error {
+            case .failure(let error):
                 Toast.displayError(error)
                 // reload data to switch alias to initial state when request to server fails
                 self.tableView.reloadData()
