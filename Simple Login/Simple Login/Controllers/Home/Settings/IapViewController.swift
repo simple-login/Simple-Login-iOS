@@ -154,16 +154,18 @@ final class IapViewController: UIViewController, Storyboarded {
             switch result {
             case .success(let receiptData):
                 let encryptedReceipt = receiptData.base64EncodedString(options: [])
-                SLApiService.processPayment(apiKey: apiKey, receiptData: encryptedReceipt) { [weak self] (error) in
+                SLApiService.processPayment(apiKey: apiKey, receiptData: encryptedReceipt) { [weak self] result in
                     guard let self = self else { return }
                     MBProgressHUD.hide(for: self.view, animated: true)
                     
-                    if let error = error {
-                        Toast.displayError(error)
-                        Analytics.logEvent("process_payment_error", parameters: nil)
-                    } else {
+                    switch result {
+                    case .success(_):
                         self.alertPaymentSuccessful()
                         Analytics.logEvent("process_payment_success", parameters: nil)
+                        
+                    case .failure(let error):
+                        Toast.displayError(error)
+                        Analytics.logEvent("process_payment_error", parameters: nil)
                     }
                 }
                 
