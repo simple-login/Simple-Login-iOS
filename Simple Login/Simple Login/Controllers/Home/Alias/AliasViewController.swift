@@ -391,21 +391,13 @@ extension AliasViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.randomAlias(apiKey: apiKey, randomMode: mode) { [weak self] (newlyCreatedAlias, error) in
+        SLApiService.randomAlias(apiKey: apiKey, randomMode: mode) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let error = error {
-                Toast.displayError(error)
-                switch mode {
-                case .uuid:
-                    Analytics.logEvent("alias_random_by_uuid_error", parameters: nil)
-                case .word:
-                    Analytics.logEvent("alias_random_by_word_error", parameters: nil)
-                }
-                
-            } else if let newlyCreatedAlias = newlyCreatedAlias {
+            switch result {
+            case .success(let newlyCreatedAlias):
                 self.finalizeAliasCreation(newlyCreatedAlias)
                 
                 switch mode {
@@ -413,6 +405,15 @@ extension AliasViewController {
                     Analytics.logEvent("alias_random_by_uuid_success", parameters: nil)
                 case .word:
                     Analytics.logEvent("alias_random_by_word_success", parameters: nil)
+                }
+                
+            case .failure(let error):
+                Toast.displayError(error)
+                switch mode {
+                case .uuid:
+                    Analytics.logEvent("alias_random_by_uuid_error", parameters: nil)
+                case .word:
+                    Analytics.logEvent("alias_random_by_word_error", parameters: nil)
                 }
             }
         }
