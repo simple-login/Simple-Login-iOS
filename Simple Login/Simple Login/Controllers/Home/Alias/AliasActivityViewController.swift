@@ -88,13 +88,13 @@ final class AliasActivityViewController: UIViewController {
         
         let pageToFetch = refreshControl.isRefreshing ? 0 : fetchedPage + 1
         
-        SLApiService.fetchAliasActivities(apiKey: apiKey, aliasId: alias.id, page: pageToFetch) { [weak self] (activities, error) in
+        SLApiService.fetchAliasActivities(apiKey: apiKey, aliasId: alias.id, page: pageToFetch) { [weak self] result in
             guard let self = self else { return }
             
             self.isFetching = false
             
-            if let activities = activities {
-                
+            switch result {
+            case .success(let activities):
                 if activities.count == 0 {
                     self.moreToLoad = false
                 } else {
@@ -117,12 +117,11 @@ final class AliasActivityViewController: UIViewController {
                 self.tableView.reloadData()
                 Analytics.logEvent("alias_activity_fetch_success", parameters: nil)
                 
-            } else if let error = error {
+            case .failure(let error):
                 self.refreshControl.endRefreshing()
                 Toast.displayError(error)
                 Analytics.logEvent("alias_activity_fetch_error", parameters: error.toParameter())
             }
-            
         }
     }
     
