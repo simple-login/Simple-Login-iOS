@@ -299,14 +299,12 @@ extension AliasViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.deleteAlias(apiKey: apiKey, id: alias.id) { [weak self] (error) in
+        SLApiService.deleteAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let error = error {
-                Toast.displayError(error)
-                Analytics.logEvent("alias_list_delete_error", parameters: nil)
-            } else {
+            switch result {
+            case .success(_):
                 self.tableView.performBatchUpdates({
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
                     
@@ -331,6 +329,10 @@ extension AliasViewController {
                 }
                 
                 Analytics.logEvent("alias_list_delete_success", parameters: nil)
+                
+            case .failure(let error):
+                Toast.displayError(error)
+                Analytics.logEvent("alias_list_delete_error", parameters: nil)
             }
         }
     }
