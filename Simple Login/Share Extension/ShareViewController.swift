@@ -132,19 +132,20 @@ extension ShareViewController {
             return
         }
         
-        SLApiService.fetchUserOptions(apiKey: apiKey, hostname: url.host ?? "") { [weak self] (userOptions, error) in
+        SLApiService.fetchUserOptions(apiKey: apiKey, hostname: url.host ?? "") { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let error = error {
+            switch result {
+            case .success(let userOptions):
+                self.rootStackView.isHidden = false
+                self.userOptions = userOptions
+                
+            case .failure(let error):
                 self.alertError(error) {
                     self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
                 }
-                
-            } else if let userOptions = userOptions {
-                self.rootStackView.isHidden = false
-                self.userOptions = userOptions
             }
         }
     }
@@ -156,24 +157,25 @@ extension ShareViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.createNewAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: noteTextField.text) { [weak self] (newlyCreatedAlias, error) in
+        SLApiService.createAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: noteTextField.text) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let error = error {
-                self.alertError(error) {
-                    self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-                }
-                
-            } else if let newlyCreatedAlias = newlyCreatedAlias {
+            switch result {
+            case .success(let newlyCreatedAlias):
                 let alert = UIAlertController(title: "You are all set!", message: "\"\(newlyCreatedAlias)\"\nis created and ready to use", preferredStyle: .alert)
                 let closeAction = UIAlertAction(title: "Copy & Close", style: .default) { (_) in
-                    UIPasteboard.general.string = newlyCreatedAlias
+                    UIPasteboard.general.string = newlyCreatedAlias.email
                     self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
                 }
                 alert.addAction(closeAction)
                 self.present(alert, animated: true, completion: nil)
+                
+            case .failure(let error):
+                self.alertError(error) {
+                    self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                }
             }
         }
     }
