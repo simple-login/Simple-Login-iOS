@@ -25,7 +25,7 @@ enum SLError: Error, CustomStringConvertible {
     case unknownResponseStatusCode
     case badRequest(description: String)
     case unknownErrorWithStatusCode(statusCode: Int)
-    case unknownError(description: String)
+    case unknownError(error: Error)
     
     var description: String {
         switch self {
@@ -45,7 +45,7 @@ enum SLError: Error, CustomStringConvertible {
         case .unknownResponseStatusCode: return "Unknown response status code"
         case .badRequest(let description): return "Bad request: \(description)"
         case .unknownErrorWithStatusCode(let statusCode): return "Unknown error with status code \(statusCode)"
-        case .unknownError(let description): return "Unknown error: \(description)"
+        case .unknownError(let error): return "Unknown error: \(error.localizedDescription)"
         }
     }
     

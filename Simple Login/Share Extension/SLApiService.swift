@@ -15,7 +15,7 @@ final class SLApiService {
     static func fetchUserOptions(apiKey: String, hostname: String, completion: @escaping (_ userOptions: UserOptions?, _ error: SLError?) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
-        AF.request("\(BASE_URL)/api/v2/alias/options?hostname=\(hostname)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+        AF.request("\(BASE_URL)/api/v3/alias/options?hostname=\(hostname)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let data = response.data else {
                 completion(nil, SLError.noData)
@@ -23,7 +23,7 @@ final class SLApiService {
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(nil, SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -36,7 +36,7 @@ final class SLApiService {
                     completion(nil, error as? SLError)
                 }
             case 401: completion(nil, SLError.invalidApiKey)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -52,7 +52,7 @@ final class SLApiService {
         AF.request("\(BASE_URL)/api/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(nil, SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -78,7 +78,7 @@ final class SLApiService {
             case 409: completion(nil, SLError.duplicatedAlias)
             case 500: completion(nil, SLError.internalServerError)
             case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }

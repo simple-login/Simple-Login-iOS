@@ -87,16 +87,18 @@ final class CreateAliasViewController: UIViewController {
         MBProgressHUD.showAdded(to: view, animated: true)
         rootStackView.isHidden = true
         
-        SLApiService.fetchUserOptions(apiKey: apiKey) { [weak self] (userOptions, error) in
+        SLApiService.fetchUserOptions(apiKey: apiKey) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let error = error {
-                Toast.displayError(error)
-            } else if let userOptions = userOptions {
+            switch result {
+            case .success(let userOptions):
                 self.rootStackView.isHidden = false
                 self.userOptions = userOptions
+                
+            case .failure(let error):
+                Toast.displayError(error)
             }
         }
     }

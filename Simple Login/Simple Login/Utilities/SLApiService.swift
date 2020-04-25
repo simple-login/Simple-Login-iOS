@@ -70,7 +70,7 @@ final class SLApiService {
                     }
                     
                 } catch {
-                    completion(.failure(.unknownError(description: error.localizedDescription)))
+                    completion(.failure(.unknownError(error: error)))
                 }
                 
             case 400: completion(.failure(.wrongTotpToken))
@@ -110,7 +110,7 @@ final class SLApiService {
                 } catch let error as SLError {
                     completion(.failure(error))
                 } catch {
-                    completion(.failure(.unknownError(description: error.localizedDescription)))
+                    completion(.failure(.unknownError(error: error)))
                 }
                 
             case 401: completion(.failure(.invalidApiKey))
@@ -121,18 +121,18 @@ final class SLApiService {
         }
     }
     
-    static func fetchUserOptions(apiKey: String, completion: @escaping (_ userOptions: UserOptions?, _ error: SLError?) -> Void) {
+    static func fetchUserOptions(apiKey: ApiKey, completion: @escaping (Result<UserOptions, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/v3/alias/options", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let data = response.data else {
-                completion(nil, SLError.noData)
+                completion(.failure(.noData))
                 return
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
@@ -140,14 +140,17 @@ final class SLApiService {
             case 200:
                 do {
                     let userOptions = try UserOptions(fromData: data)
-                    completion(userOptions, nil)
-                } catch let error {
-                    completion(nil, error as? SLError)
+                    completion(.success(userOptions))
+                } catch let error as SLError {
+                    completion(.failure(error))
+                } catch {
+                    completion(.failure(.unknownError(error: error)))
                 }
-            case 401: completion(nil, SLError.invalidApiKey)
-            case 500: completion(nil, SLError.internalServerError)
-            case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+                
+            case 401: completion(.failure(.invalidApiKey))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }
@@ -166,7 +169,7 @@ extension SLApiService {
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownError(description: "error code unknown"))
+                completion(SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -188,7 +191,7 @@ extension SLApiService {
                 }
             case 500: completion(SLError.internalServerError)
             case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -204,7 +207,7 @@ extension SLApiService {
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownError(description: "error code unknown"))
+                completion(SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -215,7 +218,7 @@ extension SLApiService {
             case 410: completion(SLError.reactivationNeeded)
             case 500: completion(SLError.internalServerError)
             case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -231,7 +234,7 @@ extension SLApiService {
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownError(description: "error code unknown"))
+                completion(SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -239,7 +242,7 @@ extension SLApiService {
             case 200: completion(nil)
             case 500: completion(SLError.internalServerError)
             case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -264,7 +267,7 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/v2/aliases?page_id=\(page)", method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(nil, SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -303,7 +306,7 @@ extension SLApiService {
             case 401: completion(nil, SLError.invalidApiKey)
             case 500: completion(nil, SLError.internalServerError)
             case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -314,7 +317,7 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/aliases/\(aliasId)/activities?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(nil, SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -353,7 +356,7 @@ extension SLApiService {
             case 401: completion(nil, SLError.invalidApiKey)
             case 500: completion(nil, SLError.internalServerError)
             case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -369,7 +372,7 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(nil, SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -400,7 +403,7 @@ extension SLApiService {
             case 409: completion(nil, SLError.duplicatedAlias)
             case 500: completion(nil, SLError.internalServerError)
             case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -411,7 +414,7 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/alias/random/new?mode=\(randomMode.rawValue)", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(nil, SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -441,7 +444,7 @@ extension SLApiService {
             case 401: completion(nil, SLError.invalidApiKey)
             case 500: completion(nil, SLError.internalServerError)
             case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -452,7 +455,7 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/aliases/\(id)/toggle", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(nil, SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -479,7 +482,7 @@ extension SLApiService {
             case 401: completion(nil, SLError.invalidApiKey)
             case 500: completion(nil, SLError.internalServerError)
             case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -490,7 +493,7 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/aliases/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownError(description: "error code unknown"))
+                completion(SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -517,7 +520,7 @@ extension SLApiService {
             case 401: completion(SLError.invalidApiKey)
             case 500: completion(SLError.internalServerError)
             case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -528,7 +531,7 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/aliases/\(id)", method: .put, parameters: ["note": note ?? ""], encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownError(description: "error code unknown"))
+                completion(SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -537,7 +540,7 @@ extension SLApiService {
             case 401: completion(SLError.invalidApiKey)
             case 500: completion(SLError.internalServerError)
             case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -548,7 +551,7 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/aliases/\(id)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(nil, SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -578,7 +581,7 @@ extension SLApiService {
             case 401: completion(nil, SLError.invalidApiKey)
             case 500: completion(nil, SLError.internalServerError)
             case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -592,7 +595,7 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/aliases/\(aliasId)/contacts?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownError(description: "error code unknown"))
+                completion(nil, SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -631,7 +634,7 @@ extension SLApiService {
             case 401: completion(nil, SLError.invalidApiKey)
             case 500: completion(nil, SLError.internalServerError)
             case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -643,7 +646,7 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/aliases/\(aliasId)/contacts", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownError(description: "error code unknown"))
+                completion(SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -653,7 +656,7 @@ extension SLApiService {
             case 409: completion(SLError.duplicatedContact)
             case 500: completion(SLError.internalServerError)
             case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -664,7 +667,7 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/contacts/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownError(description: "error code unknown"))
+                completion(SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -691,7 +694,7 @@ extension SLApiService {
             case 401: completion(SLError.invalidApiKey)
             case 500: completion(SLError.internalServerError)
             case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
@@ -706,7 +709,7 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/apple/process_payment", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownError(description: "error code unknown"))
+                completion(SLError.unknownResponseStatusCode)
                 return
             }
             
@@ -715,7 +718,7 @@ extension SLApiService {
             case 401: completion(SLError.invalidApiKey)
             case 500: completion(SLError.internalServerError)
             case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownError(description: "error code \(statusCode)"))
+            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
             }
         }
     }
