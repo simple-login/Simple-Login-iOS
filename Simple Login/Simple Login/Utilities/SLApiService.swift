@@ -588,20 +588,20 @@ extension SLApiService {
 
 // MARK: - Contact
 extension SLApiService {
-    static func fetchContacts(apiKey: String, aliasId: Alias.Identifier, page: Int, completion: @escaping (_ contacts: [Contact]?, _ error: SLError?) -> Void) {
+    static func fetchContacts(apiKey: ApiKey, aliasId: Alias.Identifier, page: Int, completion: @escaping (Result<[Contact], SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/aliases/\(aliasId)/contacts?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownResponseStatusCode)
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
             switch statusCode {
             case 200:
                 guard let data = response.data else {
-                    completion(nil, SLError.noData)
+                    completion(.failure(.noData))
                     return
                 }
                 
@@ -614,26 +614,26 @@ extension SLApiService {
                             do {
                                 try contacts.append(Contact(fromDictionary: dictionary))
                             } catch let error as SLError {
-                                completion(nil, error)
+                                completion(.failure(error))
                                 return
                             }
                         }
                         
-                        completion(contacts, nil)
+                        completion(.success(contacts))
                         
                     } else {
-                        completion(nil, SLError.failToSerializeJSONData)
+                        completion(.failure(.failToSerializeJSONData))
                     }
                     
                 } catch {
-                    completion(nil, SLError.failToSerializeJSONData)
+                    completion(.failure(.failToSerializeJSONData))
                 }
                 
-            case 400: completion(nil, SLError.badRequest(description: "page_id must be provided in request query."))
-            case 401: completion(nil, SLError.invalidApiKey)
-            case 500: completion(nil, SLError.internalServerError)
-            case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
+            case 400: completion(.failure(.badRequest(description: "page_id must be provided in request query.")))
+            case 401: completion(.failure(.invalidApiKey))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }

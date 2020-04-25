@@ -76,13 +76,13 @@ final class ContactViewController: UIViewController {
         
         let pageToFetch = refreshControl.isRefreshing ? 0 : fetchedPage + 1
         
-        SLApiService.fetchContacts(apiKey: apiKey, aliasId: alias.id, page: pageToFetch) { [weak self] (contacts, error) in
+        SLApiService.fetchContacts(apiKey: apiKey, aliasId: alias.id, page: pageToFetch) { [weak self] result in
             guard let self = self else { return }
             
             self.isFetching = false
             
-            if let contacts = contacts {
-                
+            switch result {
+            case .success(let contacts):
                 if contacts.count == 0 {
                     self.moreToLoad = false
                 } else {
@@ -105,7 +105,7 @@ final class ContactViewController: UIViewController {
                 self.tableView.reloadData()
                 Analytics.logEvent("contact_fetch_success", parameters: nil)
                 
-            } else if let error = error {
+            case .failure(let error):
                 self.refreshControl.endRefreshing()
                 Toast.displayError(error)
                 Analytics.logEvent("contact_fetch_error", parameters: error.toParameter())
