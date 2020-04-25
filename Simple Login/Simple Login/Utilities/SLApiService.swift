@@ -544,20 +544,20 @@ extension SLApiService {
         }
     }
     
-    static func getAlias(apiKey: String, id: Alias.Identifier, completion: @escaping (_ alias: Alias?, _ error: SLError?) -> Void) {
+    static func getAlias(apiKey: ApiKey, id: Alias.Identifier, completion: @escaping (Result<Alias, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/aliases/\(id)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownResponseStatusCode)
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
             switch statusCode {
             case 200:
                 guard let data = response.data else {
-                    completion(nil, SLError.noData)
+                    completion(.failure(.noData))
                     return
                 }
                 
@@ -567,20 +567,20 @@ extension SLApiService {
                     if let jsonDictionary = jsonDictionary {
                         do {
                             let alias = try Alias(fromDictionary: jsonDictionary)
-                            completion(alias, nil)
+                            completion(.success(alias))
                         } catch let error as SLError {
-                            completion(nil, error)
+                            completion(.failure(error))
                         }
                     }
                     
                 } catch {
-                    completion(nil, SLError.failToSerializeJSONData)
+                    completion(.failure(.failToSerializeJSONData))
                 }
                 
-            case 401: completion(nil, SLError.invalidApiKey)
-            case 500: completion(nil, SLError.internalServerError)
-            case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
+            case 401: completion(.failure(.invalidApiKey))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }

@@ -131,14 +131,17 @@ final class AliasActivityViewController: UIViewController {
             return
         }
         
-        SLApiService.getAlias(apiKey: apiKey, id: alias.id) { [weak self] (alias, error) in
+        SLApiService.getAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
             guard let self = self else { return }
-            if let error = error {
-                Toast.displayError(error)
-            } else if let alias = alias {
+            
+            switch result {
+            case .success(let alias):
                 self.alias = alias
                 self.didUpdateAlias?(alias)
                 self.tableView.reloadData()
+                
+            case .failure(let error):
+                Toast.displayError(error)
             }
         }
     }
