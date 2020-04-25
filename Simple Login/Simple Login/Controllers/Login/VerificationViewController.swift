@@ -119,11 +119,18 @@ final class VerificationViewController: UIViewController, Storyboarded {
             }
             
         case .accountActivation(let email, _):
-            SLApiService.verifyEmail(email: email, code: code) { [weak self] (error) in
+            SLApiService.verifyEmail(email: email, code: code) { [weak self] result in
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
-                if let error = error {
+                switch result {
+                case .success(_):
+                    self.dismiss(animated: true) {
+                        self.accountVerificationSuccesful?()
+                        Analytics.logEvent("verification_account_activation_success", parameters: nil)
+                    }
+                    
+                case .failure(let error):
                     switch error {
                     case .reactivationNeeded: self.showReactivateAlert(email: email)
                         
@@ -133,11 +140,6 @@ final class VerificationViewController: UIViewController, Storyboarded {
                     
                     self.reset()
                     Analytics.logEvent("verification_account_activation_error", parameters: error.toParameter())
-                } else {
-                    self.dismiss(animated: true) {
-                        self.accountVerificationSuccesful?()
-                        Analytics.logEvent("verification_account_activation_success", parameters: nil)
-                    }
                 }
             }
             

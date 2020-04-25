@@ -196,29 +196,28 @@ extension SLApiService {
         }
     }
     
-    static func verifyEmail(email: String, code: String, completion: @escaping (_ error: SLError?) -> Void) {
+    static func verifyEmail(email: String, code: String, completion: @escaping (Result<Any?, SLError>) -> Void) {
         let parameters = ["email" : email, "code" : code]
         
         AF.request("\(BASE_URL)/api/auth/activate", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
             
             guard let _ = response.data else {
-                completion(SLError.noData)
+                completion(.failure(.noData))
                 return
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownResponseStatusCode)
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
             switch statusCode {
-            case 200: completion(nil)
-                
-            case 400: completion(SLError.wrongVerificationCode)
-            case 410: completion(SLError.reactivationNeeded)
-            case 500: completion(SLError.internalServerError)
-            case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
+            case 200: completion(.success(nil))
+            case 400: completion(.failure(.wrongVerificationCode))
+            case 410: completion(.failure(.reactivationNeeded))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }
