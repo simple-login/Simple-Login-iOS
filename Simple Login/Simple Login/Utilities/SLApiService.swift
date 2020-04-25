@@ -524,22 +524,22 @@ extension SLApiService {
         }
     }
     
-    static func updateAliasNote(apiKey: String, id: Alias.Identifier, note: String?, completion: @escaping (_ error: SLError?) -> Void) {
+    static func updateAliasNote(apiKey: ApiKey, id: Alias.Identifier, note: String?, completion: @escaping (Result<Any?, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/aliases/\(id)", method: .put, parameters: ["note": note ?? ""], encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownResponseStatusCode)
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
             switch statusCode {
-            case 200: completion(nil)
-            case 401: completion(SLError.invalidApiKey)
-            case 500: completion(SLError.internalServerError)
-            case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
+            case 200: completion(.success(nil))
+            case 401: completion(.failure(.invalidApiKey))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }

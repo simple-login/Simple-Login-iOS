@@ -178,19 +178,20 @@ extension AliasActivityViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.updateAliasNote(apiKey: apiKey, id: alias.id, note: note) { [weak self] error in
+        SLApiService.updateAliasNote(apiKey: apiKey, id: alias.id, note: note) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let error = error {
-                Toast.displayError(error)
-                Analytics.logEvent("alias_activity_edit_note_error", parameters: error.toParameter())
-                
-            } else {
+            switch result {
+            case .success(_):
                 self.alias.setNote(note)
                 self.tableView.reloadData()
                 self.didUpdateNote?()
                 Analytics.logEvent("alias_activity_edit_note_success", parameters: nil)
+                
+            case .failure(let error):
+                Toast.displayError(error)
+                Analytics.logEvent("alias_activity_edit_note_error", parameters: error.toParameter())
             }
         }
     }
