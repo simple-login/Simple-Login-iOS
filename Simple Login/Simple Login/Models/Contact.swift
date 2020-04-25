@@ -9,7 +9,9 @@
 import Foundation
 
 final class Contact {
-    let id: Int
+    typealias Identifier = Int
+    
+    let id: Identifier
     let email: String
     let reverseAlias: String
     let creationDate: String

@@ -149,16 +149,13 @@ final class ContactViewController: UIViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.deleteContact(apiKey: apiKey, id: contact.id) { [weak self] (error) in
+        SLApiService.deleteContact(apiKey: apiKey, id: contact.id) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let error = error {
-                Toast.displayError(error)
-                Analytics.logEvent("contact_delete_error", parameters: error.toParameter())
-                
-            } else {
+            switch result {
+            case .success(_):
                 self.tableView.performBatchUpdates({
                     self.contacts.removeAll { $0.id == contact.id }
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
@@ -167,6 +164,10 @@ final class ContactViewController: UIViewController {
                     Toast.displayShortly(message: "Deleted contact \"\(contact.email)\"")
                     Analytics.logEvent("contact_delete_success", parameters: nil)
                 }
+                
+            case .failure(let error):
+                Toast.displayError(error)
+                Analytics.logEvent("contact_delete_error", parameters: error.toParameter())
             }
         }
     }

@@ -660,20 +660,20 @@ extension SLApiService {
         }
     }
     
-    static func deleteContact(apiKey: String, id: Int, completion: @escaping (_ error: SLError?) -> Void) {
+    static func deleteContact(apiKey: ApiKey, id: Contact.Identifier, completion: @escaping (Result<Any?, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         AF.request("\(BASE_URL)/api/contacts/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownResponseStatusCode)
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
             switch statusCode {
             case 200:
                 guard let data = response.data else {
-                    completion(SLError.noData)
+                    completion(.failure(.noData))
                     return
                 }
                 
@@ -681,19 +681,19 @@ extension SLApiService {
                     let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
                     
                     if let deleted = jsonDictionary?["deleted"] as? Bool {
-                        deleted ? completion(nil) : completion(SLError.failToDelete(objectName: "Contact"))
+                        deleted ? completion(.success(nil)) : completion(.failure(.failToDelete(objectName: "Contact")))
                     } else {
-                        completion(SLError.failToParseObject(objectName: "delete contact"))
+                        completion(.failure(.failToParseObject(objectName: "delete contact")))
                     }
                     
                 } catch {
-                    completion(SLError.failToSerializeJSONData)
+                    completion(.failure(.failToSerializeJSONData))
                 }
                 
-            case 401: completion(SLError.invalidApiKey)
-            case 500: completion(SLError.internalServerError)
-            case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
+            case 401: completion(.failure(.invalidApiKey))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }
