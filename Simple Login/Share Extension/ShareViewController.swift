@@ -164,7 +164,7 @@ extension ShareViewController {
             
             switch result {
             case .success(let newlyCreatedAlias):
-                let alert = UIAlertController(title: "You are all set!", message: "\"\(newlyCreatedAlias)\"\nis created and ready to use", preferredStyle: .alert)
+                let alert = UIAlertController(title: "You are all set!", message: "\"\(newlyCreatedAlias.email)\"\nis created and ready to use", preferredStyle: .alert)
                 let closeAction = UIAlertAction(title: "Copy & Close", style: .default) { (_) in
                     UIPasteboard.general.string = newlyCreatedAlias.email
                     self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
