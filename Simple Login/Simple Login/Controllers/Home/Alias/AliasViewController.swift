@@ -160,13 +160,13 @@ final class AliasViewController: BaseViewController {
         
         let pageToFetch = refreshControl.isRefreshing ? 0 : fetchedPage + 1
         
-        SLApiService.fetchAliases(apiKey: apiKey, page: pageToFetch) { [weak self] (aliases, error) in
+        SLApiService.fetchAliases(apiKey: apiKey, page: pageToFetch) { [weak self] result in
             guard let self = self else { return }
             
             self.isFetching = false
             
-            if let aliases = aliases {
-                
+            switch result {
+            case .success(let aliases):
                 if aliases.count == 0 {
                     self.moreToLoad = false
                 } else {
@@ -192,7 +192,7 @@ final class AliasViewController: BaseViewController {
                 self.noAlias = self.aliases.count == 0
                 self.tableView.reloadData()
                 
-            } else if let error = error {
+            case .failure(let error):
                 self.refreshControl.endRefreshing()
                 Toast.displayError(error)
                 Analytics.logEvent("alias_list_fetch_error", parameters: error.toParameter())

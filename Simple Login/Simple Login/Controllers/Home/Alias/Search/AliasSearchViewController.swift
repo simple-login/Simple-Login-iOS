@@ -83,12 +83,13 @@ final class AliasSearchViewController: UIViewController {
         MBProgressHUD.showAdded(to: view, animated: true)
         isFetching = true
         
-        SLApiService.fetchAliases(apiKey: apiKey, page: fetchedPage + 1, searchTerm: self.searchTerm ?? "") { [weak self] (aliases, error) in
+        SLApiService.fetchAliases(apiKey: apiKey, page: fetchedPage + 1, searchTerm: self.searchTerm ?? "") { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             self.isFetching = false
             
-            if let aliases = aliases {
+            switch result {
+            case .success(let aliases):
                 if aliases.count == 0 {
                     self.moreToLoad = false
                 } else {
@@ -100,7 +101,7 @@ final class AliasSearchViewController: UIViewController {
                 self.tableView.reloadData()
                 Analytics.logEvent("alias_search_success", parameters: nil)
                 
-            } else if let error = error {
+            case .failure(let error):
                 Toast.displayError(error)
                 Analytics.logEvent("alias_search_error", parameters: error.toParameter())
             }

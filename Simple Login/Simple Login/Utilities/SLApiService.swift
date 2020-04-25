@@ -249,7 +249,7 @@ extension SLApiService {
 
 // MARK: - Alias
 extension SLApiService {
-    static func fetchAliases(apiKey: String, page: Int, searchTerm: String? = nil, completion: @escaping (_ aliases: [Alias]?, _ error: SLError?) -> Void) {
+    static func fetchAliases(apiKey: ApiKey, page: Int, searchTerm: String? = nil, completion: @escaping (Result<[Alias], SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
         let method: HTTPMethod
@@ -266,14 +266,14 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/v2/aliases?page_id=\(page)", method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownResponseStatusCode)
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
             switch statusCode {
             case 200:
                 guard let data = response.data else {
-                    completion(nil, SLError.noData)
+                    completion(.failure(.noData))
                     return
                 }
                 
@@ -286,26 +286,26 @@ extension SLApiService {
                             do {
                                 try aliases.append(Alias(fromDictionary: dictionary))
                             } catch let error as SLError {
-                                completion(nil, error)
+                                completion(.failure(error))
                                 return
                             }
                         }
                         
-                        completion(aliases, nil)
+                        completion(.success(aliases))
                         
                     } else {
-                        completion(nil, SLError.failToSerializeJSONData)
+                        completion(.failure(.failToSerializeJSONData))
                     }
                     
                 } catch {
-                    completion(nil, SLError.failToSerializeJSONData)
+                    completion(.failure(.failToSerializeJSONData))
                 }
                 
-            case 400: completion(nil, SLError.badRequest(description: "page_id must be provided in request query."))
-            case 401: completion(nil, SLError.invalidApiKey)
-            case 500: completion(nil, SLError.internalServerError)
-            case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
+            case 400: completion(.failure(.badRequest(description: "page_id must be provided in request query.")))
+            case 401: completion(.failure(.invalidApiKey))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }
