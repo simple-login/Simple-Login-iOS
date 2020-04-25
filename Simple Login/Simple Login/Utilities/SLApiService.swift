@@ -222,26 +222,26 @@ extension SLApiService {
         }
     }
     
-    static func reactivate(email: String, completion: @escaping (_ error: SLError?) -> Void) {
+    static func reactivate(email: String, completion: @escaping (Result<Any?, SLError>) -> Void) {
         let parameters = ["email" : email]
         
         AF.request("\(BASE_URL)/api/auth/reactivate", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
             
             guard let _ = response.data else {
-                completion(SLError.noData)
+                completion(.failure(.noData))
                 return
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownResponseStatusCode)
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
             switch statusCode {
-            case 200: completion(nil)
-            case 500: completion(SLError.internalServerError)
-            case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
+            case 200: completion(.success(nil))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }

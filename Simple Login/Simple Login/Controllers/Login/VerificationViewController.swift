@@ -176,15 +176,17 @@ final class VerificationViewController: UIViewController, Storyboarded {
     private func reactivate(email: String) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.reactivate(email: email) { [weak self] (error) in
+        SLApiService.reactivate(email: email) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let error = error {
-                self.showErrorLabel(true, errorMessage: error.description)
-            } else {
+            switch result {
+            case .success(_):
                 Toast.displayLongly(message: "Check your inbox for new activation code")
+                
+            case .failure(let error):
+                self.showErrorLabel(true, errorMessage: error.description)
             }
         }
     }
