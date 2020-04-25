@@ -111,20 +111,13 @@ final class CreateAliasViewController: UIViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.createNewAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: noteTextField.text) { [weak self] (newlyCreatedAlias, error) in
+        SLApiService.createAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: noteTextField.text) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let error = error {
-                Toast.displayError(error)
-                if let _ = self.noteTextField.text {
-                    Analytics.logEvent("create_alias_with_note_error", parameters: error.toParameter())
-                } else {
-                    Analytics.logEvent("create_alias_without_note_error", parameters: error.toParameter())
-                }
-                
-            } else if let newlyCreatedAlias = newlyCreatedAlias{
+            switch result {
+            case .success(let newlyCreatedAlias):
                 self.createdAlias?(newlyCreatedAlias)
                 
                 if let _ = self.noteTextField.text {
@@ -134,6 +127,14 @@ final class CreateAliasViewController: UIViewController {
                 }
                 
                 self.dismiss(animated: true, completion: nil)
+                
+            case .failure(let error):
+                Toast.displayError(error)
+                if let _ = self.noteTextField.text {
+                    Analytics.logEvent("create_alias_with_note_error", parameters: error.toParameter())
+                } else {
+                    Analytics.logEvent("create_alias_without_note_error", parameters: error.toParameter())
+                }
             }
         }
     }

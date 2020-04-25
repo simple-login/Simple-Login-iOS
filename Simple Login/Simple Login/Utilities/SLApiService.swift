@@ -360,7 +360,7 @@ extension SLApiService {
         }
     }
     
-    static func createNewAlias(apiKey: String, prefix: String, suffix: String, note: String?, completion: @escaping (_ newlyCreatedAlias: Alias?, _ error: SLError?) -> Void) {
+    static func createAlias(apiKey: ApiKey, prefix: String, suffix: String, note: String?, completion: @escaping (Result<Alias, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         var parameters = ["alias_prefix" : prefix, "alias_suffix" : suffix]
         
@@ -371,14 +371,14 @@ extension SLApiService {
         AF.request("\(BASE_URL)/api/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
             
             guard let statusCode = response.response?.statusCode else {
-                completion(nil, SLError.unknownResponseStatusCode)
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
             switch statusCode {
             case 201:
                 guard let data = response.data else {
-                    completion(nil, SLError.noData)
+                    completion(.failure(.noData))
                     return
                 }
                 
@@ -388,21 +388,21 @@ extension SLApiService {
                     if let jsonDictionary = jsonDictionary {
                         do {
                             let alias = try Alias(fromDictionary: jsonDictionary)
-                            completion(alias, nil)
+                            completion(.success(alias))
                         } catch let error as SLError {
-                            completion(nil, error)
+                            completion(.failure(error))
                         }
                     }
                     
                 } catch {
-                    completion(nil, SLError.failToSerializeJSONData)
+                    completion(.failure(.failToSerializeJSONData))
                 }
                 
-            case 401: completion(nil, SLError.invalidApiKey)
-            case 409: completion(nil, SLError.duplicatedAlias)
-            case 500: completion(nil, SLError.internalServerError)
-            case 502: completion(nil, SLError.badGateway)
-            default: completion(nil, SLError.unknownErrorWithStatusCode(statusCode: statusCode))
+            case 401: completion(.failure(.invalidApiKey))
+            case 409: completion(.failure(.duplicatedAlias))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }
