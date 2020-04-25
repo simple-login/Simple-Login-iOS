@@ -158,40 +158,40 @@ final class SLApiService {
 
 // MARK: - Sign Up
 extension SLApiService {
-    static func signUp(email: String, password: String, completion: @escaping (_ error: SLError?) -> Void) {
+    static func signUp(email: String, password: String, completion: @escaping (Result<Any?, SLError>) -> Void) {
         let parameters = ["email" : email, "password" : password]
         
         AF.request("\(BASE_URL)/api/auth/register", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
             
             guard let data = response.data else {
-                completion(SLError.noData)
+                completion(.failure(.noData))
                 return
             }
             
             guard let statusCode = response.response?.statusCode else {
-                completion(SLError.unknownResponseStatusCode)
+                completion(.failure(.unknownResponseStatusCode))
                 return
             }
             
             switch statusCode {
-            case 200: completion(nil)
+            case 200: completion(.success(nil))
                 
             case 400:
                 do {
                     let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
                     
                     if let error = jsonDictionary?["error"] as? String {
-                        completion(SLError.badRequest(description: error))
+                        completion(.failure(.badRequest(description: error)))
                     } else {
-                        completion(SLError.failToSerializeJSONData)
+                        completion(.failure(.failToSerializeJSONData))
                     }
                     
                 } catch {
-                    completion(SLError.failToSerializeJSONData)
+                    completion(.failure(.failToSerializeJSONData))
                 }
-            case 500: completion(SLError.internalServerError)
-            case 502: completion(SLError.badGateway)
-            default: completion(SLError.unknownErrorWithStatusCode(statusCode: statusCode))
+            case 500: completion(.failure(.internalServerError))
+            case 502: completion(.failure(.badGateway))
+            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
             }
         }
     }

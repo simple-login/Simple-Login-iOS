@@ -209,18 +209,20 @@ extension LoginViewController {
     private func signUp(email: String, password: String) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.signUp(email: email, password: password) { [weak self] (error) in
+        SLApiService.signUp(email: email, password: password) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            if let error = error {
-                Toast.displayError(error)
-                Analytics.logEvent("sign_up_error", parameters: error.toParameter())
-            } else {
+            switch result {
+            case .success(_):
                 Toast.displayLongly(message: "Check your inbox for verification code")
                 Analytics.logEvent("sign_up_success", parameters: nil)
                 self.verify(mode: .accountActivation(email: email, password: password))
+                
+            case .failure(let error):
+                Toast.displayError(error)
+                Analytics.logEvent("sign_up_error", parameters: error.toParameter())
             }
         }
     }
