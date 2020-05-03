@@ -152,8 +152,8 @@
 		C0D2F950240B0A2700CCE6BD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2F94F240B0A2700CCE6BD /* SignUpViewController.swift */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
-		C0D6A27323D0759800EF21B8 /* HowWhatFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowWhatFaqTableViewCell.swift */; };
-		C0D6A27523D0767000EF21B8 /* HowWhatFaqTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A27423D0767000EF21B8 /* HowWhatFaqTableViewCell.xib */; };
+		C0D6A27323D0759800EF21B8 /* HowSecurityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowSecurityTableViewCell.swift */; };
+		C0D6A27523D0767000EF21B8 /* HowSecurityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A27423D0767000EF21B8 /* HowSecurityTableViewCell.xib */; };
 		C0D6A27823D077E800EF21B8 /* TeamAndContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27723D077E800EF21B8 /* TeamAndContactTableViewCell.swift */; };
 		C0D6A27A23D078AB00EF21B8 /* TeamAndContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A27923D078AB00EF21B8 /* TeamAndContactTableViewCell.xib */; };
 		C0D6A27D23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27C23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift */; };
@@ -352,8 +352,8 @@
 		C0D2F94F240B0A2700CCE6BD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
-		C0D6A27223D0759800EF21B8 /* HowWhatFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowWhatFaqTableViewCell.swift; sourceTree = "<group>"; };
-		C0D6A27423D0767000EF21B8 /* HowWhatFaqTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HowWhatFaqTableViewCell.xib; sourceTree = "<group>"; };
+		C0D6A27223D0759800EF21B8 /* HowSecurityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowSecurityTableViewCell.swift; sourceTree = "<group>"; };
+		C0D6A27423D0767000EF21B8 /* HowSecurityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HowSecurityTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27723D077E800EF21B8 /* TeamAndContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamAndContactTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A27923D078AB00EF21B8 /* TeamAndContactTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeamAndContactTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27C23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricingAndBlogTableViewCell.swift; sourceTree = "<group>"; };
@@ -967,7 +967,7 @@
 			isa = PBXGroup;
 			children = (
 				C0D6A26C23D072E700EF21B8 /* GeneralInfoTableViewCell */,
-				C0D6A27123D0758100EF21B8 /* HowWhatFaqTableViewCell */,
+				C0D6A27123D0758100EF21B8 /* HowSecurityTableViewCell */,
 				C0D6A27623D077D600EF21B8 /* TeamAndContactTableViewCell */,
 				C0D6A27B23D078FE00EF21B8 /* PricingAndBlogTableViewCell */,
 				C0D6A28023D07A0400EF21B8 /* TermsAndPrivacyTableViewCell */,
@@ -986,13 +986,13 @@
 			path = GeneralInfoTableViewCell;
 			sourceTree = "<group>";
 		};
-		C0D6A27123D0758100EF21B8 /* HowWhatFaqTableViewCell */ = {
+		C0D6A27123D0758100EF21B8 /* HowSecurityTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				C0D6A27223D0759800EF21B8 /* HowWhatFaqTableViewCell.swift */,
-				C0D6A27423D0767000EF21B8 /* HowWhatFaqTableViewCell.xib */,
+				C0D6A27223D0759800EF21B8 /* HowSecurityTableViewCell.swift */,
+				C0D6A27423D0767000EF21B8 /* HowSecurityTableViewCell.xib */,
 			);
-			path = HowWhatFaqTableViewCell;
+			path = HowSecurityTableViewCell;
 			sourceTree = "<group>";
 		};
 		C0D6A27623D077D600EF21B8 /* TeamAndContactTableViewCell */ = {
@@ -1224,7 +1224,7 @@
 				C0956A4D23D109FB000CEBDD /* ExportDataTableViewCell.xib in Resources */,
 				C027A2782405386900BD19C9 /* superman.gif in Resources */,
 				C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */,
-				C0D6A27523D0767000EF21B8 /* HowWhatFaqTableViewCell.xib in Resources */,
+				C0D6A27523D0767000EF21B8 /* HowSecurityTableViewCell.xib in Resources */,
 				C0D069B02406BFE000EBAC10 /* DirectoryTableViewCell.xib in Resources */,
 				C00D74EB23E8AD0300BE48F0 /* Login.storyboard in Resources */,
 				C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */,
@@ -1405,7 +1405,7 @@
 				C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */,
 				C0956A4623D105B7000CEBDD /* NotificationTableViewCell.swift in Sources */,
 				C0D069B22406CE4300EBAC10 /* DeletedAliasesViewController.swift in Sources */,
-				C0D6A27323D0759800EF21B8 /* HowWhatFaqTableViewCell.swift in Sources */,
+				C0D6A27323D0759800EF21B8 /* HowSecurityTableViewCell.swift in Sources */,
 				C06BD31D23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift in Sources */,
 				C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */,
 				C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */,

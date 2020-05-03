@@ -30,7 +30,7 @@ final class AboutViewController: BaseViewController {
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = .clear
         GeneralInfoTableViewCell.register(with: tableView)
-        HowWhatFaqTableViewCell.register(with: tableView)
+        HowSecurityTableViewCell.register(with: tableView)
         TeamAndContactTableViewCell.register(with: tableView)
         PricingAndBlogTableViewCell.register(with: tableView)
         TermsAndPrivacyTableViewCell.register(with: tableView)
@@ -52,6 +52,7 @@ final class AboutViewController: BaseViewController {
             case "showBlog": webViewController.module = .blog
             case "showTerms": webViewController.module = .terms
             case "showPrivacy": webViewController.module = .privacy
+            case "showSecurity": webViewController.module = .security
             default: return
             }
             
@@ -88,18 +89,14 @@ extension AboutViewController: UITableViewDataSource {
         case 0: return GeneralInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             
         case 1:
-            let cell = HowWhatFaqTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            let cell = HowSecurityTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             
             cell.didTapHowItWorksLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showHow", sender: nil)
             }
             
-            cell.didTapWhatLabel = { [unowned self] in
-                self.performSegue(withIdentifier: "showWhat", sender: nil)
-            }
-            
-            cell.didTapFaqLabel = { [unowned self] in
-                self.performSegue(withIdentifier: "showFaq", sender: nil)
+            cell.didTapSecurityLabel = { [unowned self] in
+                self.performSegue(withIdentifier: "showSecurity", sender: nil)
             }
             
             return cell

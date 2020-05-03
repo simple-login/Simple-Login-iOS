@@ -13,7 +13,7 @@ final class WebViewController: UIViewController {
     @IBOutlet private weak var webView: WKWebView!
     
     enum Module {
-        case team, pricing, blog, terms, privacy
+        case team, pricing, blog, terms, privacy, security
         
         var urlString: String {
             switch self {
@@ -22,6 +22,7 @@ final class WebViewController: UIViewController {
             case .blog: return "\(BASE_WEBSITE_URL)/blog"
             case .terms: return "\(BASE_WEBSITE_URL)/terms"
             case .privacy: return "\(BASE_WEBSITE_URL)/privacy"
+            case .security: return "\(BASE_WEBSITE_URL)/security"
             }
         }
     }
