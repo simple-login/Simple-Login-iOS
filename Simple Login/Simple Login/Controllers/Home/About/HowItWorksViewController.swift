@@ -35,7 +35,7 @@ final class HowItWorksViewController: UIViewController {
     private func initHows() {
         let how1 = How(title: "1. Sign up and start creating aliases", description: "The next time a website asks for your email address, just create a new alias instead of using your real email.")
         let how2 = How(title: "2. Receive emails safely", description: "All emails sent to an alias are forwarded to your \"real\" email address without the sender knowing anything.")
-        let how3 = How(title: "3. Create aliases without leaving the browser", description: "Quickly manage aliases with our browser extension and mobile apps.")
+        let how3 = How(title: "3. Create aliases without leaving the browser", description: "On your desktop, you can install our browser extension to manage and quickly create aliases on the fly.\n\nOn your smartphone with SimpleLogin installed, whenever you need to register to a website, simply \"share\" the website you are visiting with SimpleLogin to quickly create an alias.")
         hows.append(contentsOf: [how1, how2, how3])
     }
 }
