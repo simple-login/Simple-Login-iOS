@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setUpUI()
         setUpStoreKit()
+        askForReview()
         FirebaseApp.configure()
         UserDefaults.registerDefaultValues()
         return true
@@ -49,6 +50,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     break // do nothing
                 @unknown default: break
                 }
+            }
+        }
+    }
+    
+    private func askForReview() {
+        defer {
+            UserDefaults.increaseNumberOfSessions()
+        }
+        
+        let numberOfSessions = UserDefaults.numberOfSessions()
+        if (numberOfSessions % 20 == 0) && !UserDefaults.didMakeAReview() {
+            // Continously ask for review after every 20 usages
+            // Prompt 15 seconds after app launch
+            DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+                NotificationCenter.default.post(name: .askForReview, object: nil)
             }
         }
     }

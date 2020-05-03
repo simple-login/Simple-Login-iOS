@@ -27,6 +27,8 @@
 		C0121C9B244B53460082F08A /* SKProduct+RegularPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0121C9A244B53460082F08A /* SKProduct+RegularPrice.swift */; };
 		C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */; };
 		C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C00B123D25C390036B905 /* Storyboarded.swift */; };
+		C0222396245F3DFC003157B9 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0222395245F3DFC003157B9 /* UserDefaults+Extensions.swift */; };
+		C0222398245F3E9D003157B9 /* NSNotification+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0222397245F3E9D003157B9 /* NSNotification+Extensions.swift */; };
 		C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02646FE23D0F4F600E9932B /* AvatarImageView.swift */; };
 		C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */; };
 		C027A26F24051D9700BD19C9 /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C027A26E24051D9700BD19C9 /* Walkthrough.storyboard */; };
@@ -227,6 +229,8 @@
 		C0121C9A244B53460082F08A /* SKProduct+RegularPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKProduct+RegularPrice.swift"; sourceTree = "<group>"; };
 		C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterpriseViewController.swift; sourceTree = "<group>"; };
 		C01C00B123D25C390036B905 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
+		C0222395245F3DFC003157B9 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
+		C0222397245F3E9D003157B9 /* NSNotification+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Extensions.swift"; sourceTree = "<group>"; };
 		C02646FE23D0F4F600E9932B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		C027A26E24051D9700BD19C9 /* Walkthrough.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
@@ -520,6 +524,8 @@
 				C0016DC224548ED200513D64 /* Statics+Shared.swift */,
 				C00BC55923FDA10900E66FFE /* BaseUrlStatic.swift */,
 				C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */,
+				C0222395245F3DFC003157B9 /* UserDefaults+Extensions.swift */,
+				C0222397245F3E9D003157B9 /* NSNotification+Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1392,6 +1398,7 @@
 				C04DA67A24227F8900130095 /* AliasSearchNavigationController.swift in Sources */,
 				C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */,
 				C05CD30E23CA054B007F1C9E /* AboutViewController.swift in Sources */,
+				C0222396245F3DFC003157B9 /* UserDefaults+Extensions.swift in Sources */,
 				C0DF1BD224391E2700BA0742 /* UIViewController+Convenience.swift in Sources */,
 				C0016DC324548ED200513D64 /* Statics+Shared.swift in Sources */,
 				C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */,
@@ -1423,6 +1430,7 @@
 				C0D87CBE2423ABE300BCF5AB /* ContactTableHeaderView.swift in Sources */,
 				C0AACB5E245389FD0016355D /* ApiKey.swift in Sources */,
 				C08A202A23CC95DF00CB8D2F /* ContactTableViewCell.swift in Sources */,
+				C0222398245F3E9D003157B9 /* NSNotification+Extensions.swift in Sources */,
 				C0D6A29623D0ACDF00EF21B8 /* FaqTableViewCell.swift in Sources */,
 				C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */,
 				C0D069B82406D09200EBAC10 /* ListDeletedAliasesTableViewCell.swift in Sources */,

@@ -32,6 +32,7 @@ final class HomeNavigationController: UINavigationController, Storyboarded {
     
     deinit {
         print("HomeNavigationController is deallocated")
+        NotificationCenter.default.removeObserver(self, name: .askForReview, object: nil)
     }
     
     override func viewDidLoad() {
@@ -41,6 +42,11 @@ final class HomeNavigationController: UINavigationController, Storyboarded {
         aliasViewController = viewControllers[0] as? AliasViewController
         aliasViewController?.didTapLeftBarButtonItem = { [unowned self] in
             self.toggleLeftMenu()
+        }
+        
+        // Listen to askForReview notification
+        NotificationCenter.default.addObserver(forName: .askForReview, object: nil, queue: nil) { [unowned self] _ in
+            self.gentlyAskForReview()
         }
     }
     
@@ -97,6 +103,27 @@ final class HomeNavigationController: UINavigationController, Storyboarded {
             
         default: return
         }
+    }
+    
+    private func gentlyAskForReview() {
+        let alert = UIAlertController(title: "Hey", message: "It seems that you are enjoying the application, it's great! Please take a minute to leave a review on App Store.", preferredStyle: .alert)
+        
+        let okayAction = UIAlertAction(title: "Okay, take me to App Store!", style: .default) { (action) in
+            let appStoreURLString = "https://itunes.apple.com/app/id1494359858?action=write-review"
+            UIApplication.shared.open(URL(string: appStoreURLString)!, options: [:]) { (finished) in
+                Analytics.logEvent("made_a_review", parameters: nil)
+            }
+            
+            UserDefaults.setDidMakeAReview()
+        }
+        alert.addAction(okayAction)
+        
+        let cancelAction = UIAlertAction(title: "Remind me later", style: .cancel) { (action) in
+            Analytics.logEvent("review_later", parameters: nil)
+        }
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 
