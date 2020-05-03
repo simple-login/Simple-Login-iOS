@@ -96,9 +96,11 @@ final class AliasViewController: BaseViewController {
         case let aliasActivityViewController as AliasActivityViewController:
             guard let alias = sender as? Alias else { return }
             aliasActivityViewController.alias = alias
+            
             aliasActivityViewController.didUpdateNote = { [unowned self] in
                 self.tableView.reloadData()
             }
+            
             aliasActivityViewController.didUpdateAlias = { [unowned self] updatedAlias in
                 if let index = self.aliases.firstIndex(where: {$0.id == updatedAlias.id}) {
                     self.aliases[index] = updatedAlias
@@ -106,9 +108,15 @@ final class AliasViewController: BaseViewController {
             }
             
         case let createAliasViewController as CreateAliasViewController:
+            createAliasViewController.showPremiumFeatures = { [unowned self] in
+                let iapViewController = IapViewController.instantiate(storyboardName: "Settings")
+                self.navigationController?.pushViewController(iapViewController, animated: true)
+            }
+            
             createAliasViewController.createdAlias = { [unowned self] alias in
                 self.finalizeAliasCreation(alias)
             }
+            
             createAliasViewController.didDisappear = { [unowned self] in
                 if (!UserDefaults.shownInstruction()) {
                     self.performSegue(withIdentifier: "showInstruction", sender: nil)

@@ -33,6 +33,7 @@ final class CreateAliasViewController: UIViewController {
     private var userOptions: UserOptions? {
         didSet {
             suffixLabel.text = userOptions?.suffixes[0]
+            alertUpgradeIfApplicable()
         }
     }
     
@@ -42,6 +43,7 @@ final class CreateAliasViewController: UIViewController {
         }
     }
     
+    var showPremiumFeatures: (() -> Void)?
     var createdAlias: ((_ alias: Alias) -> Void)?
     var didDisappear: (() -> Void)?
     
@@ -166,6 +168,28 @@ final class CreateAliasViewController: UIViewController {
             
         default: return
         }
+    }
+    
+    private func alertUpgradeIfApplicable() {
+        guard let userOptions = userOptions, !userOptions.canCreate else { return }
+        
+        let alert = UIAlertController(title: "Upgrade needed", message: "You have reached the limit. Please upgrade to premium for unlimited aliases and more useful features.", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Show me premium features", style: .default) { [unowned self] _ in
+            self.dismiss(animated: true) {
+                self.showPremiumFeatures?()
+            }
+            Analytics.logEvent("alias_create_show_iap", parameters: nil)
+        }
+        alert.addAction(okAction)
+        
+        let cancelAction = UIAlertAction(title: "Not right now", style: .cancel) { [unowned self] _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+        Analytics.logEvent("alias_create_reached_limit", parameters: nil)
     }
 }
 

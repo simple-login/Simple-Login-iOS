@@ -31,6 +31,7 @@ class ShareViewController: UIViewController {
         didSet {
             prefixTextField.text = userOptions?.prefixSuggestion
             suffixLabel.text = userOptions?.suffixes[0]
+            alertUpgradeIfApplicable()
         }
     }
     
@@ -121,6 +122,20 @@ class ShareViewController: UIViewController {
             
         default: return
         }
+    }
+    
+    private func alertUpgradeIfApplicable() {
+        guard let userOptions = userOptions, !userOptions.canCreate else { return }
+        
+        let alert = UIAlertController(title: "Upgrade needed", message: "Open SimpleLogin app ➝ Settings ➝ Upgrade", preferredStyle: .alert)
+        
+        let closeAction = UIAlertAction(title: "Close", style: .cancel) { [unowned self] _ in
+            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+        }
+        alert.addAction(closeAction)
+        
+        alert.view.tintColor = SLColor.tintColor
+        present(alert, animated: true, completion: nil)
     }
 }
 
