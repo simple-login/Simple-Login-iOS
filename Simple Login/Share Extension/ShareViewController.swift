@@ -96,7 +96,7 @@ class ShareViewController: UIViewController {
     }
     
     @IBAction private func cancelButtonTapped() {
-        dismiss(animated: true, completion: nil)
+        extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
     }
     
     @IBAction private func createButtonTapped() {
