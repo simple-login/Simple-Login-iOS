@@ -9,7 +9,7 @@ SimpleLogin is an open source solution to protect your email inbox. This reposit
 - Website: [https://simplelogin.io/](https://simplelogin.io/)
 - Back-end: [https://github.com/simple-login/app](https://github.com/simple-login/app)
 - App Store: [https://apps.apple.com/us/app/simplelogin-anti-spam/id1494359858](https://apps.apple.com/us/app/simplelogin-anti-spam/id1494359858)
-- Play Store: coming soon.
+- Play Store: [https://play.google.com/store/apps/details?id=io.simplelogin.android](https://play.google.com/store/apps/details?id=io.simplelogin.android)
 
 ## Screenshots
 |<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/SL/01-Homepage.png" width="180" />|<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/SL/02-Create.png" width="180" />|<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/SL/03-Activity.png" width="180" />|<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/SL/04-Contact.png" width="180" />|
