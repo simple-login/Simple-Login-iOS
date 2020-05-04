@@ -10,6 +10,7 @@ import UIKit
 import MBProgressHUD
 import Toaster
 import FirebaseAnalytics
+import MaterialComponents.MaterialSnackbar
 
 extension VerificationViewController {
     enum VerificationMode {
@@ -77,17 +78,25 @@ final class VerificationViewController: UIViewController, Storyboarded {
         guard let copiedText = UIPasteboard.general.string,
             copiedText.count == 6,
             let _ = Int(copiedText) else { return }
-        
-        showErrorLabel(false)
-        
-        firstNumberLabel.text = String(copiedText[0])
-        secondNumberLabel.text = String(copiedText[1])
-        thirdNumberLabel.text = String(copiedText[2])
-        fourthNumberLabel.text = String(copiedText[3])
-        fifthNumberLabel.text = String(copiedText[4])
-        sixthNumberLabel.text = String(copiedText[5])
-        
-        verify(code: copiedText)
+    
+        let message = MDCSnackbarMessage()
+        message.text = "\"\(copiedText)\" is found from the clipboard"
+        let action = MDCSnackbarMessageAction()
+        action.handler = { [unowned self] () in
+            self.showErrorLabel(false)
+            
+            self.firstNumberLabel.text = String(copiedText[0])
+            self.secondNumberLabel.text = String(copiedText[1])
+            self.thirdNumberLabel.text = String(copiedText[2])
+            self.fourthNumberLabel.text = String(copiedText[3])
+            self.fifthNumberLabel.text = String(copiedText[4])
+            self.sixthNumberLabel.text = String(copiedText[5])
+            
+            self.verify(code: copiedText)
+        }
+        action.title = "Paste & Verify"
+        message.action = action
+        MDCSnackbarManager.show(message)
     }
     
     @IBAction private func closeButtonTapped() {

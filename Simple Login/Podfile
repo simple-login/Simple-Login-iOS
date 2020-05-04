@@ -20,6 +20,7 @@ target 'Simple Login' do
   pod 'Gifu'
   pod 'Differ'
   pod 'SwiftyStoreKit'
+  pod 'MaterialComponents/Snackbar'
 end
 
 target 'Share Extension' do

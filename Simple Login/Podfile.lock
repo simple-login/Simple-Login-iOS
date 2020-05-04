@@ -78,7 +78,68 @@ PODS:
     - GoogleUtilities/Logger
   - KeychainAccess (4.1.0)
   - MarqueeLabel (4.0.1)
+  - MaterialComponents/AnimationTiming (109.0.0)
+  - MaterialComponents/Availability (109.0.0)
+  - MaterialComponents/Buttons (109.0.0):
+    - MaterialComponents/Elevation
+    - MaterialComponents/Ink
+    - MaterialComponents/private/Math
+    - MaterialComponents/Ripple
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Shapes
+    - MaterialComponents/Typography
+    - MDFInternationalization
+    - MDFTextAccessibility
+  - MaterialComponents/Elevation (109.0.0):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/Ink (109.0.0):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/OverlayWindow (109.0.0):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Application
+  - MaterialComponents/private/Application (109.0.0)
+  - MaterialComponents/private/Color (109.0.0):
+    - MaterialComponents/Availability
+  - MaterialComponents/private/KeyboardWatcher (109.0.0):
+    - MaterialComponents/private/Application
+  - MaterialComponents/private/Math (109.0.0)
+  - MaterialComponents/private/Overlay (109.0.0)
+  - MaterialComponents/Ripple (109.0.0):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/ShadowElevations (109.0.0)
+  - MaterialComponents/ShadowLayer (109.0.0):
+    - MaterialComponents/ShadowElevations
+  - MaterialComponents/Shapes (109.0.0):
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowLayer
+  - MaterialComponents/Snackbar (109.0.0):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/Availability
+    - MaterialComponents/Buttons
+    - MaterialComponents/Elevation
+    - MaterialComponents/OverlayWindow
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/KeyboardWatcher
+    - MaterialComponents/private/Math
+    - MaterialComponents/private/Overlay
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+  - MaterialComponents/Typography (109.0.0):
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/Math
   - MBProgressHUD (1.2.0)
+  - MDFInternationalization (2.0.0)
+  - MDFTextAccessibility (2.0.0)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -98,6 +159,7 @@ DEPENDENCIES:
   - Gifu
   - KeychainAccess
   - MarqueeLabel
+  - MaterialComponents/Snackbar
   - MBProgressHUD (~> 1.2.0)
   - SideMenu (~> 6.4.8)
   - SkyFloatingLabelTextField (~> 3.0)
@@ -124,7 +186,10 @@ SPEC REPOS:
     - GoogleUtilities
     - KeychainAccess
     - MarqueeLabel
+    - MaterialComponents
     - MBProgressHUD
+    - MDFInternationalization
+    - MDFTextAccessibility
     - nanopb
     - PromisesObjC
     - SideMenu
@@ -151,7 +216,10 @@ SPEC CHECKSUMS:
   GoogleUtilities: f8de7ddf8c706f58e9b405d53e38bbdaa2731e5a
   KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
   MarqueeLabel: d24e821159667c93064ea3042ccf1875ca94db6b
+  MaterialComponents: efea7f96438838624ea3a4fcc881bfd6b3b0bb7b
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
+  MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SideMenu: 4a891be552d30bb6fa87ad404d62e485f8450c34
@@ -159,6 +227,6 @@ SPEC CHECKSUMS:
   SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: d10d07181937d40b78451ed2f86336c28f11e020
+PODFILE CHECKSUM: 8427a7d4d64e59159b850c483e6b04a4c653c5f7
 
 COCOAPODS: 1.9.1
