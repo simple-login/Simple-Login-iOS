@@ -100,6 +100,7 @@
                         <segue destination="kFL-c1-mRp" kind="show" identifier="showPrivacy" id="doU-sV-rkU"/>
                         <segue destination="kzQ-Ab-4CF" kind="show" identifier="showWhat" id="5Ln-px-O5x"/>
                         <segue destination="kFL-c1-mRp" kind="show" identifier="showSecurity" id="tER-yS-E2t"/>
+                        <segue destination="kFL-c1-mRp" kind="show" identifier="showHelp" id="h6f-zH-K3A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBw-ky-Dgc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -216,7 +217,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tER-yS-E2t"/>
+        <segue reference="h6f-zH-K3A"/>
     </inferredMetricsTieBreakers>
     <resources>
         <namedColor name="BackBackgroundColor">

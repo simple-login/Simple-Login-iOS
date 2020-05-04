@@ -28,6 +28,8 @@
 		C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */; };
 		C01ABA69246068340075DCC9 /* WhatAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ABA68246068340075DCC9 /* WhatAndFaqTableViewCell.swift */; };
 		C01ABA6B246068B20075DCC9 /* WhatAndFaqTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */; };
+		C01ABA6E24606F320075DCC9 /* HelpAndRoadmapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ABA6D24606F320075DCC9 /* HelpAndRoadmapTableViewCell.swift */; };
+		C01ABA7024606F860075DCC9 /* HelpAndRoadmapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01ABA6F24606F860075DCC9 /* HelpAndRoadmapTableViewCell.xib */; };
 		C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C00B123D25C390036B905 /* Storyboarded.swift */; };
 		C0222396245F3DFC003157B9 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0222395245F3DFC003157B9 /* UserDefaults+Extensions.swift */; };
 		C0222398245F3E9D003157B9 /* NSNotification+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0222397245F3E9D003157B9 /* NSNotification+Extensions.swift */; };
@@ -232,6 +234,8 @@
 		C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterpriseViewController.swift; sourceTree = "<group>"; };
 		C01ABA68246068340075DCC9 /* WhatAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatAndFaqTableViewCell.swift; sourceTree = "<group>"; };
 		C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatAndFaqTableViewCell.xib; sourceTree = "<group>"; };
+		C01ABA6D24606F320075DCC9 /* HelpAndRoadmapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndRoadmapTableViewCell.swift; sourceTree = "<group>"; };
+		C01ABA6F24606F860075DCC9 /* HelpAndRoadmapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpAndRoadmapTableViewCell.xib; sourceTree = "<group>"; };
 		C01C00B123D25C390036B905 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		C0222395245F3DFC003157B9 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		C0222397245F3E9D003157B9 /* NSNotification+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Extensions.swift"; sourceTree = "<group>"; };
@@ -465,6 +469,15 @@
 				C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */,
 			);
 			path = WhatAndFaqTableViewCell;
+			sourceTree = "<group>";
+		};
+		C01ABA6C24606F190075DCC9 /* HelpAndRoadmapTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C01ABA6D24606F320075DCC9 /* HelpAndRoadmapTableViewCell.swift */,
+				C01ABA6F24606F860075DCC9 /* HelpAndRoadmapTableViewCell.xib */,
+			);
+			path = HelpAndRoadmapTableViewCell;
 			sourceTree = "<group>";
 		};
 		C027A2762405385800BD19C9 /* Ressources */ = {
@@ -984,6 +997,7 @@
 				C01ABA67246068230075DCC9 /* WhatAndFaqTableViewCell */,
 				C0D6A27623D077D600EF21B8 /* TeamAndContactTableViewCell */,
 				C0D6A27B23D078FE00EF21B8 /* PricingAndBlogTableViewCell */,
+				C01ABA6C24606F190075DCC9 /* HelpAndRoadmapTableViewCell */,
 				C0D6A28023D07A0400EF21B8 /* TermsAndPrivacyTableViewCell */,
 				C0D6A28923D0A87500EF21B8 /* WhatTableViewCell */,
 				C0D6A29423D0ACD100EF21B8 /* FaqTableViewCell */,
@@ -1262,6 +1276,7 @@
 				C0D6A27F23D079C200EF21B8 /* PricingAndBlogTableViewCell.xib in Resources */,
 				C072CC1F2438A35F00DC4915 /* Faq.plist in Resources */,
 				C0956A5223D10C71000CEBDD /* DeleteAccountTableViewCell.xib in Resources */,
+				C01ABA7024606F860075DCC9 /* HelpAndRoadmapTableViewCell.xib in Resources */,
 				C0D6A27A23D078AB00EF21B8 /* TeamAndContactTableViewCell.xib in Resources */,
 				C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */,
 				C06BD31F23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib in Resources */,
@@ -1439,6 +1454,7 @@
 				C0F84B2323D4BAA200E0852C /* DomainInfoTableViewCell.swift in Sources */,
 				C0D6A28623D09EC800EF21B8 /* BorderedShadowedView.swift in Sources */,
 				C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */,
+				C01ABA6E24606F320075DCC9 /* HelpAndRoadmapTableViewCell.swift in Sources */,
 				C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */,
 				C0D0699E24067D1400EBAC10 /* DirectoryExplanationViewController.swift in Sources */,
 				C0D6A28223D07A1500EF21B8 /* TermsAndPrivacyTableViewCell.swift in Sources */,

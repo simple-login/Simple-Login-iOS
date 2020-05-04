@@ -34,6 +34,7 @@ final class AboutViewController: BaseViewController {
         WhatAndFaqTableViewCell.register(with: tableView)
         TeamAndContactTableViewCell.register(with: tableView)
         PricingAndBlogTableViewCell.register(with: tableView)
+        HelpAndRoadmapTableViewCell.register(with: tableView)
         TermsAndPrivacyTableViewCell.register(with: tableView)
     }
     
@@ -54,6 +55,7 @@ final class AboutViewController: BaseViewController {
             case "showTerms": webViewController.module = .terms
             case "showPrivacy": webViewController.module = .privacy
             case "showSecurity": webViewController.module = .security
+            case "showHelp": webViewController.module = .help
             default: return
             }
             
@@ -82,7 +84,7 @@ extension AboutViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 7
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -107,10 +109,12 @@ extension AboutViewController: UITableViewDataSource {
             
             cell.didTapWhatLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showWhat", sender: nil)
+                Analytics.logEvent("about_view_what", parameters: nil)
             }
             
             cell.didTapFaqLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showFaq", sender: nil)
+                Analytics.logEvent("about_view_faq", parameters: nil)
             }
             
             return cell
@@ -146,6 +150,22 @@ extension AboutViewController: UITableViewDataSource {
             return cell
             
         case 5:
+            let cell = HelpAndRoadmapTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapHelpLabel = { [unowned self] in
+                self.performSegue(withIdentifier: "showHelp", sender: nil)
+                Analytics.logEvent("about_view_help", parameters: nil)
+            }
+            
+            cell.didTapRoadmapLabel = {
+                guard let url = URL(string: "https://trello.com/b/4d6A69I4/open-roadmap") else { return }
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                Analytics.logEvent("about_view_roadmap", parameters: nil)
+            }
+            
+            return cell
+            
+        case 6:
             let cell = TermsAndPrivacyTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             
             cell.didTapTermsLabel = { [unowned self] in
