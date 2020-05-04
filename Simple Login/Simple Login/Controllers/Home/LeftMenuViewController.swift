@@ -14,6 +14,7 @@ protocol LeftMenuViewControllerDelegate {
     func didSelectCustomDomain()
     func didSelectSettings()
     func didSelectAbout()
+    func didSelectRateUs()
     func didSelectSignOut()
 }
 
@@ -27,7 +28,7 @@ final class LeftMenuViewController: UIViewController {
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
     
-    private let options: [[LeftMenuOption]] = [[.alias], [.separator],  [.settings, .about], [.separator], [.signOut]]
+    private let options: [[LeftMenuOption]] = [[.alias], [.separator],  [.settings, .about], [.separator], [.rateUs, .signOut]]
     
     var userInfo: UserInfo?
     var delegate: LeftMenuViewControllerDelegate?
@@ -138,6 +139,7 @@ extension LeftMenuViewController: UITableViewDelegate {
         case .customDomains: delegate?.didSelectCustomDomain()
         case .settings: delegate?.didSelectSettings()
         case .about: delegate?.didSelectAbout()
+        case .rateUs: delegate?.didSelectRateUs()
         case .signOut: delegate?.didSelectSignOut()
         case .separator: return
         }

@@ -109,12 +109,9 @@ final class HomeNavigationController: UINavigationController, Storyboarded {
         let alert = UIAlertController(title: "Hey", message: "It seems that you are enjoying the application, it's great! Please take a minute to leave a review on App Store.", preferredStyle: .alert)
         
         let okayAction = UIAlertAction(title: "Okay, take me to App Store!", style: .default) { (action) in
-            let appStoreURLString = "https://itunes.apple.com/app/id1494359858?action=write-review"
-            UIApplication.shared.open(URL(string: appStoreURLString)!, options: [:]) { (finished) in
-                Analytics.logEvent("made_a_review", parameters: nil)
-            }
-            
+            self.openAppStore()
             UserDefaults.setDidMakeAReview()
+            Analytics.logEvent("made_a_review_from_alert", parameters: nil)
         }
         alert.addAction(okayAction)
         
@@ -124,6 +121,11 @@ final class HomeNavigationController: UINavigationController, Storyboarded {
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func openAppStore() {
+        guard let url = URL(string: "https://itunes.apple.com/app/id1494359858?action=write-review") else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
 
@@ -203,6 +205,11 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
         viewControllers = [aboutViewController]
         dismissLeftMenu()
+    }
+    
+    func didSelectRateUs() {
+        openAppStore()
+        Analytics.logEvent("made_a_review_from_left_menu", parameters: nil)
     }
     
     func didSelectSignOut() {
