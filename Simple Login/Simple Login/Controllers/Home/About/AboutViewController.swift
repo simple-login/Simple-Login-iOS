@@ -31,6 +31,7 @@ final class AboutViewController: BaseViewController {
         tableView.separatorColor = .clear
         GeneralInfoTableViewCell.register(with: tableView)
         HowAndSecurityTableViewCell.register(with: tableView)
+        WhatAndFaqTableViewCell.register(with: tableView)
         TeamAndContactTableViewCell.register(with: tableView)
         PricingAndBlogTableViewCell.register(with: tableView)
         TermsAndPrivacyTableViewCell.register(with: tableView)
@@ -81,7 +82,7 @@ extension AboutViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -102,6 +103,19 @@ extension AboutViewController: UITableViewDataSource {
             return cell
             
         case 2:
+            let cell = WhatAndFaqTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            
+            cell.didTapWhatLabel = { [unowned self] in
+                self.performSegue(withIdentifier: "showWhat", sender: nil)
+            }
+            
+            cell.didTapFaqLabel = { [unowned self] in
+                self.performSegue(withIdentifier: "showFaq", sender: nil)
+            }
+            
+            return cell
+            
+        case 3:
             let cell = TeamAndContactTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             
             cell.didTapTeamLabel = { [unowned self] in
@@ -116,7 +130,7 @@ extension AboutViewController: UITableViewDataSource {
             
             return cell
             
-        case 3:
+        case 4:
             let cell = PricingAndBlogTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             
             cell.didTapPricingLabel = { [unowned self] in
@@ -131,7 +145,7 @@ extension AboutViewController: UITableViewDataSource {
             
             return cell
             
-        case 4:
+        case 5:
             let cell = TermsAndPrivacyTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             
             cell.didTapTermsLabel = { [unowned self] in

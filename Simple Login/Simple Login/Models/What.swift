@@ -37,18 +37,16 @@ enum What: CaseIterable {
             Later on, simply block an alias if it's too spammy.
             """
         case .b: return """
-            Not only an alias can receive emails, it can send emails too.
-
-            Just hit "Reply" whenever you need to reply to a forwarded email.
-
-            The reply will come from the alias and your personal email address is never revealed.
+            Just hit "Reply" whenever you need to reply to a forwarded email: the reply will come from the alias and your personal mailbox stays hidden.
+            
+            You can also send emails to any email address from your alias.
             """
         case .c: return """
             Use alias as your business email.
-
-            Save $6/month (GSuite starts at $6/month per user) for each business email created with SimpleLogin.
-
-            By the way our company emails are actually aliases 🤫.
+            
+            Save $6/month for each business email created with SimpleLogin.
+            
+            By the way your company emails are actually aliases.
             """
         }
     }

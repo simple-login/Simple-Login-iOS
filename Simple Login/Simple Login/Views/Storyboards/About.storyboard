@@ -109,7 +109,7 @@
         <!--Frequently Asked Questions-->
         <scene sceneID="WId-Ff-dW1">
             <objects>
-                <viewController id="LJY-CD-sfd" customClass="FaqViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FaqViewController" id="LJY-CD-sfd" customClass="FaqViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1bY-nC-v32">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
