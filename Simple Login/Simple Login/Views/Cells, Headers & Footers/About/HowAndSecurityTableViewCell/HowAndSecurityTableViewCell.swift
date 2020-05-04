@@ -1,5 +1,5 @@
 //
-//  HowSecurityTableViewCell.swift
+//  HowAndSecurityTableViewCell.swift
 //  Simple Login
 //
 //  Created by Thanh-Nhon Nguyen on 16/01/2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HowSecurityTableViewCell: UITableViewCell, RegisterableCell {
+final class HowAndSecurityTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var howLabel: UILabel!
     @IBOutlet private weak var securityLabel: UILabel!
     

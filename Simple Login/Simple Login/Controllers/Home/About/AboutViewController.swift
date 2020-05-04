@@ -30,7 +30,7 @@ final class AboutViewController: BaseViewController {
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = .clear
         GeneralInfoTableViewCell.register(with: tableView)
-        HowSecurityTableViewCell.register(with: tableView)
+        HowAndSecurityTableViewCell.register(with: tableView)
         TeamAndContactTableViewCell.register(with: tableView)
         PricingAndBlogTableViewCell.register(with: tableView)
         TermsAndPrivacyTableViewCell.register(with: tableView)
@@ -89,7 +89,7 @@ extension AboutViewController: UITableViewDataSource {
         case 0: return GeneralInfoTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             
         case 1:
-            let cell = HowSecurityTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            let cell = HowAndSecurityTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
             
             cell.didTapHowItWorksLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showHow", sender: nil)
