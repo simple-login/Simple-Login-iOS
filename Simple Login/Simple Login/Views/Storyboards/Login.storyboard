@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,13 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pup-H7-VKn">
-                                <rect key="frame" x="57" y="281" width="300" height="334"/>
+                                <rect key="frame" x="57" y="306.5" width="300" height="283"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LongLogo" translatesAutoresizingMaskIntoConstraints="NO" id="laP-0h-Fsk">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="102"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="51"/>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cUp-c4-0nO" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="0.0" y="112" width="300" height="39"/>
+                                        <rect key="frame" x="0.0" y="61" width="300" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
                                         <userDefinedRuntimeAttributes>
@@ -53,7 +53,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Pbb-im-ZEh" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="0.0" y="161" width="300" height="39"/>
+                                        <rect key="frame" x="0.0" y="110" width="300" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES" textContentType="password"/>
                                         <userDefinedRuntimeAttributes>
@@ -81,7 +81,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xrj-4t-axY">
-                                        <rect key="frame" x="0.0" y="210" width="300" height="33"/>
+                                        <rect key="frame" x="0.0" y="159" width="300" height="33"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <state key="normal" title="SIGN IN">
                                             <color key="titleColor" name="TintColor"/>
@@ -91,7 +91,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="x3v-sO-Y0B">
-                                        <rect key="frame" x="0.0" y="253" width="300" height="30"/>
+                                        <rect key="frame" x="0.0" y="202" width="300" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVX-rL-el2">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
@@ -114,14 +114,14 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4t-79-tXy">
-                                        <rect key="frame" x="0.0" y="293" width="300" height="1"/>
+                                        <rect key="frame" x="0.0" y="242" width="300" height="1"/>
                                         <color key="backgroundColor" name="SeparatorColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="y7P-j7-U8c"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFD-Lp-bC3">
-                                        <rect key="frame" x="0.0" y="304" width="300" height="30"/>
+                                        <rect key="frame" x="0.0" y="253" width="300" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="SIGN IN WITH API KEY">
                                             <color key="titleColor" name="TintColor"/>
@@ -136,16 +136,16 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="azn-RU-MZF">
-                                <rect key="frame" x="20" y="794" width="374" height="48"/>
+                                <rect key="frame" x="20" y="818" width="374" height="24"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SimpleLogin vX.X" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liq-7l-pbr">
-                                        <rect key="frame" x="0.0" y="0.0" width="257" height="48"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="281" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" name="TitleColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJG-UT-fXS">
-                                        <rect key="frame" x="257" y="0.0" width="117" height="48"/>
+                                        <rect key="frame" x="281" y="0.0" width="93" height="24"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="tintColor" name="TintColor"/>
                                         <state key="normal" title=" About Us" image="InfoStrokeIcon">
@@ -192,7 +192,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="eXm-5t-9HF">
                                 <rect key="frame" x="57" y="179" width="300" height="538.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Hrk-SL-i1G">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Hrk-SL-i1G" customClass="ResponsiveStackView" customModule="SimpleLogin" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="48"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6t-Xf-pYk">
@@ -448,6 +448,7 @@
                         <outlet property="fourButton" destination="i8k-Vj-ilS" id="GXq-uL-XsP"/>
                         <outlet property="fourthNumberLabel" destination="ttm-8z-UGJ" id="MJH-vb-qid"/>
                         <outlet property="nineButton" destination="pUe-dp-57m" id="wCw-mV-6Pc"/>
+                        <outlet property="numberRootStackView" destination="Hrk-SL-i1G" id="Hsv-eN-W3q"/>
                         <outlet property="oneButton" destination="GOt-dU-Hn1" id="Nqp-Fv-9F3"/>
                         <outlet property="secondNumberLabel" destination="go8-d6-fAA" id="xDh-uD-m2r"/>
                         <outlet property="sevenButton" destination="pht-rF-hB3" id="NA7-TM-KMx"/>

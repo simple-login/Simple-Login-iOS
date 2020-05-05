@@ -12,6 +12,24 @@ import Toaster
 import FirebaseAnalytics
 import MaterialComponents.MaterialSnackbar
 
+/// This stackView's subclass is used for displaying tooltip (UIMenuController)
+/// canBecomeFirstResponder must always return true
+final class ResponsiveStackView: UIStackView {
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+}
+
+private extension UIPasteboard {
+    static func retrieveCopiedCode() -> String? {
+        guard let copiedText = UIPasteboard.general.string,
+        copiedText.count == 6,
+        let _ = Int(copiedText) else { return nil }
+        
+        return copiedText
+    }
+}
+
 extension VerificationViewController {
     enum VerificationMode {
         case otp(mfaKey: String), accountActivation(email: String, password: String)
@@ -19,6 +37,7 @@ extension VerificationViewController {
 }
 
 final class VerificationViewController: UIViewController, Storyboarded {
+    @IBOutlet private weak var numberRootStackView: ResponsiveStackView!
     @IBOutlet private weak var firstNumberLabel: UILabel!
     @IBOutlet private weak var secondNumberLabel: UILabel!
     @IBOutlet private weak var thirdNumberLabel: UILabel!
@@ -72,31 +91,53 @@ final class VerificationViewController: UIViewController, Storyboarded {
         case .accountActivation: title = "Enter activation code"
         case .none: title = nil
         }
+        
+        // Long press gesture to display "Paste" tooltip
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(numberRootStackViewLongPressed))
+        longPressGesture.minimumPressDuration = 0.3
+        numberRootStackView.isUserInteractionEnabled = true
+        numberRootStackView.addGestureRecognizer(longPressGesture)
     }
     
     @objc private func applicationDidBecomeActive() {
-        guard let copiedText = UIPasteboard.general.string,
-            copiedText.count == 6,
-            let _ = Int(copiedText) else { return }
+        guard let copiedCode = UIPasteboard.retrieveCopiedCode() else { return }
     
         let message = MDCSnackbarMessage()
-        message.text = "\"\(copiedText)\" is found from the clipboard"
+        message.text = "\"\(copiedCode)\" is found from the clipboard"
         let action = MDCSnackbarMessageAction()
         action.handler = { [unowned self] () in
-            self.showErrorLabel(false)
-            
-            self.firstNumberLabel.text = String(copiedText[0])
-            self.secondNumberLabel.text = String(copiedText[1])
-            self.thirdNumberLabel.text = String(copiedText[2])
-            self.fourthNumberLabel.text = String(copiedText[3])
-            self.fifthNumberLabel.text = String(copiedText[4])
-            self.sixthNumberLabel.text = String(copiedText[5])
-            
-            self.verify(code: copiedText)
+            self.pasteAndVerify()
         }
         action.title = "Paste & Verify"
         message.action = action
         MDCSnackbarManager.show(message)
+    }
+    
+    @objc
+    private func numberRootStackViewLongPressed(sender: UILongPressGestureRecognizer) {
+        guard let _ = UIPasteboard.retrieveCopiedCode(), sender.state == .began else { return }
+        
+        let pasteMenuItem = UIMenuItem(title: "Paste & verify", action: #selector(pasteAndVerify))
+        UIMenuController.shared.menuItems = [pasteMenuItem]
+        UIMenuController.shared.setTargetRect(numberRootStackView.frame, in: numberRootStackView.superview ?? view)
+        UIMenuController.shared.setMenuVisible(true, animated: true)
+        numberRootStackView.becomeFirstResponder()
+    }
+    
+    @objc
+    private func pasteAndVerify() {
+        guard let copiedCode = UIPasteboard.retrieveCopiedCode() else { return }
+        
+        showErrorLabel(false)
+        
+        firstNumberLabel.text = String(copiedCode[0])
+        secondNumberLabel.text = String(copiedCode[1])
+        thirdNumberLabel.text = String(copiedCode[2])
+        fourthNumberLabel.text = String(copiedCode[3])
+        fifthNumberLabel.text = String(copiedCode[4])
+        sixthNumberLabel.text = String(copiedCode[5])
+        
+        verify(code: copiedCode)
     }
     
     @IBAction private func closeButtonTapped() {
