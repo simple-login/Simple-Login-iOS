@@ -13,7 +13,9 @@ import MessageUI
 
 extension UIViewController {
     func presentReverseAliasAlert(from: String, to: String, reverseAlias: String, mailComposerVCDelegate: MFMailComposeViewControllerDelegate) {
-        let alert = UIAlertController(title: "Compose and send email", message: "From: \"\(from)\"\nTo: \"\(to)\"", preferredStyle: .actionSheet)
+        let style: UIAlertController.Style = UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+
+        let alert = UIAlertController(title: "Compose and send email", message: "From: \"\(from)\"\nTo: \"\(to)\"", preferredStyle: style)
         
         let copyAction = UIAlertAction(title: "Copy reverse-alias", style: .default) { (_) in
             UIPasteboard.general.string = reverseAlias
