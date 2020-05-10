@@ -1557,7 +1557,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.share-extension";
 				PRODUCT_NAME = "SimpleLogin Share Extension";
 				SKIP_INSTALL = YES;
@@ -1581,7 +1581,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.share-extension";
 				PRODUCT_NAME = "SimpleLogin Share Extension";
 				SKIP_INSTALL = YES;
@@ -1720,7 +1720,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = SimpleLogin;
 				SWIFT_VERSION = 5.0;
@@ -1744,7 +1744,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = SimpleLogin;
 				SWIFT_VERSION = 5.0;
