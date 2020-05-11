@@ -92,31 +92,32 @@ extension SLApiService {
         
         AF.request("\(BASE_URL)/api/user_info", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
             
-            guard let data = response.data else {
-                completion(.failure(.noData))
-                return
-            }
-            
-            guard let statusCode = response.response?.statusCode else {
-                completion(.failure(.unknownResponseStatusCode))
-                return
-            }
-            
-            switch statusCode {
-            case 200:
-                do {
-                    let userInfo = try UserInfo(fromData: data)
-                    completion(.success(userInfo))
-                } catch let error as SLError {
-                    completion(.failure(error))
-                } catch {
-                    completion(.failure(.unknownError(error: error)))
+            switch response.result {
+            case .success(let data):
+                switch response.response?.statusCode {
+                case 200:
+                    guard let data = data else {
+                        completion(.failure(.noData))
+                        return
+                    }
+                    
+                    do {
+                        let userInfo = try UserInfo(fromData: data)
+                        completion(.success(userInfo))
+                    } catch let error as SLError {
+                        completion(.failure(error))
+                    } catch {
+                        completion(.failure(.unknownError(error: error)))
+                    }
+                    
+                case 401: completion(.failure(.invalidApiKey))
+                case 500: completion(.failure(.internalServerError))
+                case 502: completion(.failure(.badGateway))
+                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: response.response?.statusCode ?? 0)))
                 }
                 
-            case 401: completion(.failure(.invalidApiKey))
-            case 500: completion(.failure(.internalServerError))
-            case 502: completion(.failure(.badGateway))
-            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
+            case .failure(let error):
+                completion(.failure(.alamofireError(error: error)))
             }
         }
     }

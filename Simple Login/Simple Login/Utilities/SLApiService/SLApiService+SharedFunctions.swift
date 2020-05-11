@@ -9,7 +9,13 @@
 import Foundation
 import Alamofire
 
-final class SLApiService {}
+final class SLApiService {
+    private(set) static var BASE_URL: String = "https://app.simplelogin.io"
+    
+    static func refreshBaseUrl() {
+        BASE_URL = UserDefaults.getApiUrl()
+    }
+}
 
 // Functions in this file are shared with the Share Extension
 extension SLApiService {

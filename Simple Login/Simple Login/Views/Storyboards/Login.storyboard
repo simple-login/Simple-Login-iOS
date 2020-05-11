@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pup-H7-VKn">
-                                <rect key="frame" x="57" y="306.5" width="300" height="283"/>
+                                <rect key="frame" x="57" y="282.5" width="300" height="331"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LongLogo" translatesAutoresizingMaskIntoConstraints="NO" id="laP-0h-Fsk">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="51"/>
@@ -81,8 +81,8 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xrj-4t-axY">
-                                        <rect key="frame" x="0.0" y="159" width="300" height="33"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="159" width="300" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="SIGN IN">
                                             <color key="titleColor" name="TintColor"/>
                                         </state>
@@ -91,7 +91,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="x3v-sO-Y0B">
-                                        <rect key="frame" x="0.0" y="202" width="300" height="30"/>
+                                        <rect key="frame" x="0.0" y="199" width="300" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVX-rL-el2">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
@@ -114,20 +114,37 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4t-79-tXy">
-                                        <rect key="frame" x="0.0" y="242" width="300" height="1"/>
+                                        <rect key="frame" x="0.0" y="239" width="300" height="1"/>
                                         <color key="backgroundColor" name="SeparatorColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="y7P-j7-U8c"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFD-Lp-bC3">
-                                        <rect key="frame" x="0.0" y="253" width="300" height="30"/>
+                                        <rect key="frame" x="0.0" y="250" width="300" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="SIGN IN WITH API KEY">
                                             <color key="titleColor" name="TintColor"/>
                                         </state>
                                         <connections>
                                             <action selector="signInWithApiKeyButtonTapped" destination="97x-xh-V5v" eventType="touchUpInside" id="aRe-OW-uMS"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Cd-FM-wLV">
+                                        <rect key="frame" x="0.0" y="290" width="300" height="1"/>
+                                        <color key="backgroundColor" name="SeparatorColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="bu4-br-JQ4"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHc-Tk-11d">
+                                        <rect key="frame" x="0.0" y="301" width="300" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="Change API URL">
+                                            <color key="titleColor" name="TintColor"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="8oi-O4-Hhw" kind="presentation" id="tzj-NA-JIq"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -514,17 +531,17 @@
                                 </items>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="t65-Al-sGp">
-                                <rect key="frame" x="57" y="143" width="300" height="256"/>
+                                <rect key="frame" x="32" y="153.5" width="350" height="235"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wwe-BZ-kuI">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="143.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="350" height="125.5"/>
                                         <string key="text">For security reason and to avoid database leak, all "forgot password" requests are taken into account silently without you being informed if a request is successful or not.  So make sure that you enter the correct email address.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Uha-G5-6aM" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="0.0" y="163.5" width="300" height="39.5"/>
+                                        <rect key="frame" x="0.0" y="145.5" width="350" height="39.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
                                         <userDefinedRuntimeAttributes>
@@ -552,9 +569,9 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NsT-XQ-Wb2">
-                                        <rect key="frame" x="0.0" y="223" width="300" height="33"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                        <state key="normal" title="Reset password">
+                                        <rect key="frame" x="0.0" y="205" width="350" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="RESET PASSWORD">
                                             <color key="titleColor" name="TintColor"/>
                                         </state>
                                         <connections>
@@ -563,7 +580,7 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="fma-HG-gyh"/>
+                                    <constraint firstAttribute="width" constant="350" id="fma-HG-gyh"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -587,6 +604,113 @@
             </objects>
             <point key="canvasLocation" x="925" y="-563"/>
         </scene>
+        <!--Change Api Url View Controller-->
+        <scene sceneID="MB5-Xq-YLe">
+            <objects>
+                <viewController storyboardIdentifier="ChangeApiUrlViewController" id="8oi-O4-Hhw" customClass="ChangeApiUrlViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tDC-Hd-tWu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQg-9c-W4R">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem title="Change API URL" id="3Dq-Ax-h1o">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Lk7-mQ-WF8">
+                                            <connections>
+                                                <action selector="cancelButtonTapped" destination="8oi-O4-Hhw" id="IsE-rI-agx"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QCA-SQ-FZg">
+                                <rect key="frame" x="32" y="154.5" width="350" height="233"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DO NOT change API URL unless you are hosting SimpleLogin with your own server." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ym-dg-cjj">
+                                        <rect key="frame" x="0.0" y="0.0" width="350" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" name="NegativeColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The default value is https://app.simplelogin.io" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4z0-dr-1m2">
+                                        <rect key="frame" x="0.0" y="56" width="350" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" name="TextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="q4r-op-gNR" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                        <rect key="frame" x="0.0" y="94" width="350" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Current API URL"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Current API URL"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="https://app.your-custom-domain.com"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" name="TitleColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                <color key="value" name="TintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" name="TextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbS-4k-siX">
+                                        <rect key="frame" x="0.0" y="153" width="350" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="APPLY CHANGE">
+                                            <color key="titleColor" name="TintColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="applyButtonTapped" destination="8oi-O4-Hhw" eventType="touchUpInside" id="wlV-0t-ugj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l93-uY-9cb">
+                                        <rect key="frame" x="0.0" y="203" width="350" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="Reset to default value">
+                                            <color key="titleColor" name="TintColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="resetButtonTapped" destination="8oi-O4-Hhw" eventType="touchUpInside" id="eic-sC-VsB"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="350" id="6xB-Wd-vns"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="PQg-9c-W4R" firstAttribute="leading" secondItem="r8z-qx-Y0d" secondAttribute="leading" id="VvZ-kS-glW"/>
+                            <constraint firstItem="QCA-SQ-FZg" firstAttribute="centerY" secondItem="tDC-Hd-tWu" secondAttribute="centerY" constant="-150" id="ZZU-et-kdu"/>
+                            <constraint firstItem="QCA-SQ-FZg" firstAttribute="centerX" secondItem="tDC-Hd-tWu" secondAttribute="centerX" id="otu-aZ-DcY"/>
+                            <constraint firstItem="PQg-9c-W4R" firstAttribute="top" secondItem="r8z-qx-Y0d" secondAttribute="top" id="p8u-gF-JBh"/>
+                            <constraint firstItem="PQg-9c-W4R" firstAttribute="trailing" secondItem="r8z-qx-Y0d" secondAttribute="trailing" id="tTg-Jp-jkL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="r8z-qx-Y0d"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LnI-oX-ydF"/>
+                    <connections>
+                        <outlet property="defaultLabel" destination="4z0-dr-1m2" id="DjI-5s-PXr"/>
+                        <outlet property="urlTextField" destination="q4r-op-gNR" id="NHx-Z5-hGx"/>
+                        <outlet property="warningLabel" destination="8ym-dg-cjj" id="4pR-11-M5X"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XFb-wd-9l1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1879.7101449275365" y="-563.16964285714278"/>
+        </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="uoj-N4-LWQ">
             <objects>
@@ -596,7 +720,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="heh-MJ-18G">
-                                <rect key="frame" x="57" y="188.5" width="300" height="165"/>
+                                <rect key="frame" x="57" y="190" width="300" height="162"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up for SimpleLogin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3LP-Rl-kSu">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="24"/>
@@ -661,9 +785,9 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SOB-bB-30e">
-                                        <rect key="frame" x="0.0" y="132" width="300" height="33"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                        <state key="normal" title="Sign Up">
+                                        <rect key="frame" x="0.0" y="132" width="300" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="SIGN UP">
                                             <color key="titleColor" name="TintColor"/>
                                         </state>
                                         <connections>

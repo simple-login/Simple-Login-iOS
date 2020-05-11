@@ -20,6 +20,7 @@ final class StartupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        SLApiService.refreshBaseUrl()
         NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseSuccessfully), name: .purchaseSuccessfully, object: nil)
     }
     

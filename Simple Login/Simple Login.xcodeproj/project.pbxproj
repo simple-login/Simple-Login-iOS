@@ -154,6 +154,9 @@
 		C0D069BF2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D069BE2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift */; };
 		C0D069C12406D20B00EBAC10 /* DeletedAliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D069C02406D20B00EBAC10 /* DeletedAliasTableViewCell.xib */; };
 		C0D2F950240B0A2700CCE6BD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2F94F240B0A2700CCE6BD /* SignUpViewController.swift */; };
+		C0D5D5332469EA4200B64B8B /* ChangeApiUrlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D5322469EA4200B64B8B /* ChangeApiUrlViewController.swift */; };
+		C0D5D5362469F38600B64B8B /* UserDefaults+SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D5352469F38600B64B8B /* UserDefaults+SharedFunctions.swift */; };
+		C0D5D5372469F3B100B64B8B /* UserDefaults+SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D5352469F38600B64B8B /* UserDefaults+SharedFunctions.swift */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
 		C0D6A27323D0759800EF21B8 /* HowAndSecurityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowAndSecurityTableViewCell.swift */; };
@@ -358,6 +361,8 @@
 		C0D069BE2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAliasTableViewCell.swift; sourceTree = "<group>"; };
 		C0D069C02406D20B00EBAC10 /* DeletedAliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeletedAliasTableViewCell.xib; sourceTree = "<group>"; };
 		C0D2F94F240B0A2700CCE6BD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		C0D5D5322469EA4200B64B8B /* ChangeApiUrlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeApiUrlViewController.swift; sourceTree = "<group>"; };
+		C0D5D5352469F38600B64B8B /* UserDefaults+SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+SharedFunctions.swift"; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27223D0759800EF21B8 /* HowAndSecurityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAndSecurityTableViewCell.swift; sourceTree = "<group>"; };
@@ -542,6 +547,7 @@
 		C052F0D023C7DC8F00EB5D98 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C0D5D5342469F37100B64B8B /* UserDefaults */,
 				C0016DBD24548D6300513D64 /* SLApiService */,
 				C05CD31123CA2A14007F1C9E /* Extensions */,
 				C0B1DE4023C90CFD003EED3B /* Protocols */,
@@ -578,6 +584,7 @@
 				C07B41F523EAEDCD002E6223 /* VerificationViewController.swift */,
 				C0D2F94F240B0A2700CCE6BD /* SignUpViewController.swift */,
 				C05FB6412422C76B000A4740 /* ForgotPasswordViewController.swift */,
+				C0D5D5322469EA4200B64B8B /* ChangeApiUrlViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -592,7 +599,6 @@
 				C0D9B66423CBC838009A6699 /* String+Utilities.swift */,
 				C07B41F723EB1BC4002E6223 /* Notification+Name.swift */,
 				C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */,
-				C027A28324054F8D00BD19C9 /* UserDefaults+Convenience.swift */,
 				C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */,
 				C0121C9A244B53460082F08A /* SKProduct+RegularPrice.swift */,
 			);
@@ -989,6 +995,15 @@
 			path = DeletedAliasTableViewCell;
 			sourceTree = "<group>";
 		};
+		C0D5D5342469F37100B64B8B /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				C027A28324054F8D00BD19C9 /* UserDefaults+Convenience.swift */,
+				C0D5D5352469F38600B64B8B /* UserDefaults+SharedFunctions.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
 		C0D6A26B23D072CE00EF21B8 /* About */ = {
 			isa = PBXGroup;
 			children = (
@@ -1362,6 +1377,7 @@
 			files = (
 				C00BC55B23FDA12000E66FFE /* BaseUrlStatic.swift in Sources */,
 				C081656323FDA992005B0ABD /* SuffixListViewController.swift in Sources */,
+				C0D5D5372469F3B100B64B8B /* UserDefaults+SharedFunctions.swift in Sources */,
 				C0016DC724548F0500513D64 /* ContactLite.swift in Sources */,
 				C0016DC424548ED700513D64 /* Statics+Shared.swift in Sources */,
 				C0016DC124548EA200513D64 /* Alias.swift in Sources */,
@@ -1412,6 +1428,7 @@
 				C09DB8202439F341002A9973 /* WhatYouCanDoViewController.swift in Sources */,
 				C0D069A12406A94000EBAC10 /* DeleteDomainTableViewCell.swift in Sources */,
 				C0956A5023D10C14000CEBDD /* DeleteAccountTableViewCell.swift in Sources */,
+				C0D5D5362469F38600B64B8B /* UserDefaults+SharedFunctions.swift in Sources */,
 				C05CD31023CA0ACB007F1C9E /* BaseViewController.swift in Sources */,
 				C0A726FE23EC6D3E00A62A22 /* AliasActivity.swift in Sources */,
 				C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */,
@@ -1452,6 +1469,7 @@
 				C0A726FA23EC131900A62A22 /* LoadingFooterView.swift in Sources */,
 				C0D6A27D23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift in Sources */,
 				C0F84B2323D4BAA200E0852C /* DomainInfoTableViewCell.swift in Sources */,
+				C0D5D5332469EA4200B64B8B /* ChangeApiUrlViewController.swift in Sources */,
 				C0D6A28623D09EC800EF21B8 /* BorderedShadowedView.swift in Sources */,
 				C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */,
 				C01ABA6E24606F320075DCC9 /* HelpAndRoadmapTableViewCell.swift in Sources */,

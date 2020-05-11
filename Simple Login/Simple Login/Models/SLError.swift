@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 enum SLError: Error, CustomStringConvertible {
     case noData
@@ -23,6 +24,7 @@ enum SLError: Error, CustomStringConvertible {
     case wrongTotpToken
     case wrongVerificationCode
     case unknownResponseStatusCode
+    case alamofireError(error: AFError)
     case badRequest(description: String)
     case unknownErrorWithStatusCode(statusCode: Int)
     case unknownError(error: Error)
@@ -43,6 +45,7 @@ enum SLError: Error, CustomStringConvertible {
         case .wrongTotpToken: return "Wrong TOTP token"
         case .wrongVerificationCode: return "Wrong verification code"
         case .unknownResponseStatusCode: return "Unknown response status code"
+        case .alamofireError(let error): return error.localizedDescription
         case .badRequest(let description): return "Bad request: \(description)"
         case .unknownErrorWithStatusCode(let statusCode): return "Unknown error with status code \(statusCode)"
         case .unknownError(let error): return "Unknown error: \(error.localizedDescription)"

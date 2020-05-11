@@ -28,7 +28,7 @@ extension UserDefaults {
     }
     
     // MARK: - Show instruction
-    private static let shownInstructionKey = "ShownInstructionKey"
+    private static let shownInstructionKey = "ShownInstruction"
     
     static func shownInstruction() -> Bool {
         return defaults.bool(forKey: shownInstructionKey)
