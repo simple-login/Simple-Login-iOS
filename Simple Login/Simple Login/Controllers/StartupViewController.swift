@@ -67,7 +67,7 @@ final class StartupViewController: UIViewController {
             case .failure(let error):
                 Analytics.logEvent("start_up_error", parameters: error.toParameter())
                 switch error {
-                case .noData, .internalServerError:
+                case .internalServerError:
                     self.presentRetryAlert(error: error)
                     
                 default:
