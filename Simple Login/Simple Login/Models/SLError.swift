@@ -13,7 +13,7 @@ enum SLError: Error, CustomStringConvertible {
     case failToSerializeJSONData
     case failedToSerializeJsonForObject(anyObject: Any)
     case failedToParse(anyObject: Any)
-    case failToDelete(objectName: String)
+    case failedToDelete(anyObject: Any)
     case emailOrPasswordIncorrect
     case invalidApiKey
     case duplicatedAlias
@@ -34,7 +34,7 @@ enum SLError: Error, CustomStringConvertible {
         case .failToSerializeJSONData: return "Failed to serialize JSON data"
         case .failedToSerializeJsonForObject(let anyObject): return "Failed to serialize JSON for object \(anyObject.self)"
         case .failedToParse(let anyObject): return "Failed to parse \(anyObject.self)"
-        case .failToDelete(let objectName): return "Failed to delete \(objectName)"
+        case .failedToDelete(let anyObject): return "Failed to delete \(anyObject.self)"
         case .emailOrPasswordIncorrect: return "Email or password incorrect"
         case .invalidApiKey: return "Invalid API key"
         case .duplicatedAlias: return "Alias is duplicated"

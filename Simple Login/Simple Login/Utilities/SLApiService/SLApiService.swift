@@ -387,16 +387,13 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                        let deleted = try Deleted(data: data)
+                        deleted.value ? completion(.success(nil)) : completion(.failure(.failedToDelete(anyObject: Alias.self)))
                         
-                        if let deleted = jsonDictionary?["deleted"] as? Bool {
-                            deleted ? completion(.success(nil)) : completion(.failure(.failToDelete(objectName: "Alias")))
-                        } else {
-                            completion(.failure(.failToSerializeJSONData))
-                        }
-                        
+                    } catch let slError as SLError {
+                        completion(.failure(slError))
                     } catch {
-                        completion(.failure(.failToSerializeJSONData))
+                        completion(.failure(.unknownError(error: error)))
                     }
                     
                 case 401: completion(.failure(.invalidApiKey))
@@ -554,16 +551,13 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                        let deleted = try Deleted(data: data)
+                        deleted.value ? completion(.success(nil)) : completion(.failure(.failedToDelete(anyObject: Contact.self)))
                         
-                        if let deleted = jsonDictionary?["deleted"] as? Bool {
-                            deleted ? completion(.success(nil)) : completion(.failure(.failToDelete(objectName: "Contact")))
-                        } else {
-                            completion(.failure(.failToSerializeJSONData))
-                        }
-                        
+                    } catch let slError as SLError {
+                        completion(.failure(slError))
                     } catch {
-                        completion(.failure(.failToSerializeJSONData))
+                        completion(.failure(.unknownError(error: error)))
                     }
                     
                 case 401: completion(.failure(.invalidApiKey))
