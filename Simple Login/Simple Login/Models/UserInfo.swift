@@ -14,7 +14,7 @@ class UserInfo {
     private(set) var isPremium: Bool
     let inTrial: Bool
     
-    init(fromData data: Data) throws {
+    init(data: Data) throws {
         guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
             throw SLError.failToSerializeJSONData
         }

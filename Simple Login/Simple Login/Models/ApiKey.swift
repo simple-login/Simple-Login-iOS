@@ -15,7 +15,7 @@ struct ApiKey {
         self.value = value
     }
     
-    init(fromData data: Data) throws {
+    init(data: Data) throws {
         guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
             throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
         }

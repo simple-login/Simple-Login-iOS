@@ -26,7 +26,7 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let userLogin = try UserLogin(fromData: data)
+                        let userLogin = try UserLogin(data: data)
                         completion(.success(userLogin))
                     } catch let slError as SLError {
                         completion(.failure(slError))
@@ -61,7 +61,7 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let apiKey = try ApiKey(fromData: data)
+                        let apiKey = try ApiKey(data: data)
                         completion(.success(apiKey))
                     } catch let slError as SLError {
                         completion(.failure(slError))
@@ -102,7 +102,7 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let userInfo = try UserInfo(fromData: data)
+                        let userInfo = try UserInfo(data: data)
                         completion(.success(userInfo))
                     } catch let error as SLError {
                         completion(.failure(error))
