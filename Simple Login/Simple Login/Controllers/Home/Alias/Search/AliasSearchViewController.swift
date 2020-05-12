@@ -127,10 +127,10 @@ extension AliasSearchViewController {
             
             switch result {
             case .success(let enabled):
-                alias.setEnabled(enabled)
+                alias.setEnabled(enabled.value)
                 self.toggledAlias?(alias)
                 
-                if enabled {
+                if enabled.value {
                     Analytics.logEvent("alias_search_enabled_an_alias", parameters: nil)
                 } else {
                     Analytics.logEvent("alias_search_disabled_an_alias", parameters: nil)

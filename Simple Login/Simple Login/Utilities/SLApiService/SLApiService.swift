@@ -333,7 +333,7 @@ extension SLApiService {
         }
     }
     
-    static func toggleAlias(apiKey: ApiKey, id: Alias.Identifier, completion: @escaping (Result<Bool, SLError>) -> Void) {
+    static func toggleAlias(apiKey: ApiKey, id: Alias.Identifier, completion: @escaping (Result<Enabled, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey.value]
         
         AF.request("\(BASE_URL)/api/aliases/\(id)/toggle", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
@@ -348,16 +348,12 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
-                        
-                        if let enabled = jsonDictionary?["enabled"] as? Bool {
-                            completion(.success(enabled))
-                        } else {
-                            completion(.failure(.failToSerializeJSONData))
-                        }
-                        
+                        let enabled = try Enabled(data: data)
+                        completion(.success(enabled))
+                    } catch let slError as SLError {
+                        completion(.failure(slError))
                     } catch {
-                        completion(.failure(.failToSerializeJSONData))
+                        completion(.failure(.unknownError(error: error)))
                     }
                     
                 case 401: completion(.failure(.invalidApiKey))
