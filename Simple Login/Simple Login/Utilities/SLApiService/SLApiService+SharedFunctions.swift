@@ -29,33 +29,34 @@ extension SLApiService {
             urlString = "\(BASE_URL)/api/v3/alias/options"
         }
         
-        AF.request(urlString, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+        AF.request(urlString, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
             
-            guard let data = response.data else {
-                completion(.failure(.noData))
-                return
-            }
-            
-            guard let statusCode = response.response?.statusCode else {
-                completion(.failure(.unknownResponseStatusCode))
-                return
-            }
-            
-            switch statusCode {
-            case 200:
-                do {
-                    let userOptions = try UserOptions(fromData: data)
-                    completion(.success(userOptions))
-                } catch let error as SLError {
-                    completion(.failure(error))
-                } catch {
-                    completion(.failure(.unknownError(error: error)))
+            switch response.result {
+            case .success(let data):
+                guard let statusCode = response.response?.statusCode else {
+                    completion(.failure(.unknownResponseStatusCode))
+                    return
                 }
                 
-            case 401: completion(.failure(.invalidApiKey))
-            case 500: completion(.failure(.internalServerError))
-            case 502: completion(.failure(.badGateway))
-            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
+                switch statusCode {
+                case 200:
+                    do {
+                        let userOptions = try UserOptions(fromData: data)
+                        completion(.success(userOptions))
+                    } catch let error as SLError {
+                        completion(.failure(error))
+                    } catch {
+                        completion(.failure(.unknownError(error: error)))
+                    }
+                    
+                case 401: completion(.failure(.invalidApiKey))
+                case 500: completion(.failure(.internalServerError))
+                case 502: completion(.failure(.badGateway))
+                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
+                }
+                
+            case .failure(let error):
+                completion(.failure(.alamofireError(error: error)))
             }
         }
     }
@@ -68,41 +69,42 @@ extension SLApiService {
             parameters["note"] = note
         }
         
-        AF.request("\(BASE_URL)/api/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
+        AF.request("\(BASE_URL)/api/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).responseData { response in
             
-            guard let statusCode = response.response?.statusCode else {
-                completion(.failure(.unknownResponseStatusCode))
-                return
-            }
-            
-            switch statusCode {
-            case 201:
-                guard let data = response.data else {
-                    completion(.failure(.noData))
+            switch response.result {
+            case .success(let data):
+                guard let statusCode = response.response?.statusCode else {
+                    completion(.failure(.unknownResponseStatusCode))
                     return
                 }
                 
-                do {
-                    let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
-                    
-                    if let jsonDictionary = jsonDictionary {
-                        do {
-                            let alias = try Alias(fromDictionary: jsonDictionary)
-                            completion(.success(alias))
-                        } catch let error as SLError {
-                            completion(.failure(error))
+                switch statusCode {
+                case 201:
+                    do {
+                        let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                        
+                        if let jsonDictionary = jsonDictionary {
+                            do {
+                                let alias = try Alias(fromDictionary: jsonDictionary)
+                                completion(.success(alias))
+                            } catch let error as SLError {
+                                completion(.failure(error))
+                            }
                         }
+                        
+                    } catch {
+                        completion(.failure(.failToSerializeJSONData))
                     }
                     
-                } catch {
-                    completion(.failure(.failToSerializeJSONData))
+                case 401: completion(.failure(.invalidApiKey))
+                case 409: completion(.failure(.duplicatedAlias))
+                case 500: completion(.failure(.internalServerError))
+                case 502: completion(.failure(.badGateway))
+                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
                 }
                 
-            case 401: completion(.failure(.invalidApiKey))
-            case 409: completion(.failure(.duplicatedAlias))
-            case 500: completion(.failure(.internalServerError))
-            case 502: completion(.failure(.badGateway))
-            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
+            case .failure(let error):
+                completion(.failure(.alamofireError(error: error)))
             }
         }
     }
