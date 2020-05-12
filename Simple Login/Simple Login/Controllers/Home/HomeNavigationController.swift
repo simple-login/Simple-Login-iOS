@@ -106,9 +106,9 @@ final class HomeNavigationController: UINavigationController, Storyboarded {
     }
     
     private func gentlyAskForReview() {
-        let alert = UIAlertController(title: "Hey", message: "It seems that you are enjoying the application, it's great! Please take a minute to leave a review on App Store.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Rate SimpleLogin", message: "If you find SimpleLogin useful, please take a moment to make a review on App Store.", preferredStyle: .alert)
         
-        let okayAction = UIAlertAction(title: "Okay, take me to App Store!", style: .default) { (action) in
+        let okayAction = UIAlertAction(title: "Take me to App Store", style: .default) { (action) in
             self.openAppStore()
             UserDefaults.setDidMakeAReview()
             Analytics.logEvent("made_a_review_from_alert", parameters: nil)
