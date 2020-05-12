@@ -28,8 +28,10 @@ extension SLApiService {
                     do {
                         let userLogin = try UserLogin(fromData: data)
                         completion(.success(userLogin))
+                    } catch let slError as SLError {
+                        completion(.failure(slError))
                     } catch let error {
-                        completion(.failure(error as! SLError))
+                        completion(.failure(.unknownError(error: error)))
                     }
                     
                 case 400: completion(.failure(.emailOrPasswordIncorrect))

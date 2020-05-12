@@ -16,7 +16,7 @@ struct UserLogin {
     
     init(fromData data: Data) throws {
         guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-            throw SLError.failToSerializeJSONData
+            throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
         }
         
         let apiKey = jsonDictionary["api_key"] as? String
