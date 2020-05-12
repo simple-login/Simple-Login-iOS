@@ -14,31 +14,32 @@ extension SLApiService {
     static func login(email: String, password: String, completion: @escaping (Result<UserLogin, SLError>) -> Void) {
         let parameters = ["email" : email, "password" : password, "device" : UIDevice.current.name]
         
-        AF.request("\(BASE_URL)/api/auth/login", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).response { response in
+        AF.request("\(BASE_URL)/api/auth/login", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil, interceptor: nil).responseData { response in
             
-            guard let data = response.data else {
-                completion(.failure(.noData))
-                return
-            }
-            
-            guard let statusCode = response.response?.statusCode else {
-                completion(.failure(.unknownResponseStatusCode))
-                return
-            }
-            
-            switch statusCode {
-            case 200:
-                do {
-                    let userLogin = try UserLogin(fromData: data)
-                    completion(.success(userLogin))
-                } catch let error {
-                    completion(.failure(error as! SLError))
+            switch response.result {
+            case .success(let data):
+                guard let statusCode = response.response?.statusCode else {
+                    completion(.failure(.unknownResponseStatusCode))
+                    return
                 }
                 
-            case 400: completion(.failure(.emailOrPasswordIncorrect))
-            case 500: completion(.failure(.internalServerError))
-            case 502: completion(.failure(.badGateway))
-            default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
+                switch statusCode {
+                case 200:
+                    do {
+                        let userLogin = try UserLogin(fromData: data)
+                        completion(.success(userLogin))
+                    } catch let error {
+                        completion(.failure(error as! SLError))
+                    }
+                    
+                case 400: completion(.failure(.emailOrPasswordIncorrect))
+                case 500: completion(.failure(.internalServerError))
+                case 502: completion(.failure(.badGateway))
+                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
+                }
+                
+            case .failure(let error):
+                completion(.failure(.alamofireError(error: error)))
             }
         }
     }
@@ -90,17 +91,17 @@ extension SLApiService {
     static func fetchUserInfo(apiKey: ApiKey, completion: @escaping (Result<UserInfo, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey]
         
-        AF.request("\(BASE_URL)/api/user_info", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response { response in
+        AF.request("\(BASE_URL)/api/user_info", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):
-                switch response.response?.statusCode {
+                guard let statusCode = response.response?.statusCode else {
+                    completion(.failure(.unknownResponseStatusCode))
+                    return
+                }
+                
+                switch statusCode {
                 case 200:
-                    guard let data = data else {
-                        completion(.failure(.noData))
-                        return
-                    }
-                    
                     do {
                         let userInfo = try UserInfo(fromData: data)
                         completion(.success(userInfo))
@@ -113,7 +114,7 @@ extension SLApiService {
                 case 401: completion(.failure(.invalidApiKey))
                 case 500: completion(.failure(.internalServerError))
                 case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: response.response?.statusCode ?? 0)))
+                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
                 }
                 
             case .failure(let error):
