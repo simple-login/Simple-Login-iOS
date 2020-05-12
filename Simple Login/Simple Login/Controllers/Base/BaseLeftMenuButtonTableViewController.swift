@@ -10,7 +10,7 @@ import UIKit
 
 class BaseLeftMenuButtonTableViewController: UITableViewController {
     deinit {
-        print("\(Self.self) is deallocated")
+        printIfDebug("\(Self.self) is decallocated")
     }
     
     var didTapLeftBarButtonItem: (() -> Void)?

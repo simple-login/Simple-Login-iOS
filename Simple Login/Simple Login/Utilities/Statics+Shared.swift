@@ -14,3 +14,9 @@ let preciseDateFormatter: DateFormatter = {
     dateFormatter.dateFormat = "d MMM yyyy 'at' HH:mm"
     return dateFormatter
 }()
+
+func printIfDebug(_ string: String) {
+    #if DEBUG
+    print(string)
+    #endif
+}
