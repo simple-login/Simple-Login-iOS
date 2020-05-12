@@ -46,7 +46,7 @@ enum SLError: Error, CustomStringConvertible {
         case .wrongVerificationCode: return "Wrong verification code"
         case .unknownResponseStatusCode: return "Unknown response status code"
         case .alamofireError(let error): return error.localizedDescription
-        case .badRequest(let description): return "Bad request: \(description)"
+        case .badRequest(let description): return description
         case .unknownErrorWithStatusCode(let statusCode): return "Unknown error with status code \(statusCode)"
         case .unknownError(let error): return "Unknown error: \(error.localizedDescription)"
         }

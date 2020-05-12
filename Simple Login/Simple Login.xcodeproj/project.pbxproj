@@ -183,6 +183,7 @@
 		C0D8C4AC246ADCB2008BB8D2 /* BaseLeftMenuButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8C4AB246ADCB2008BB8D2 /* BaseLeftMenuButtonViewController.swift */; };
 		C0D8C4B0246ADD26008BB8D2 /* BaseLeftMenuButtonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8C4AF246ADD26008BB8D2 /* BaseLeftMenuButtonTableViewController.swift */; };
 		C0D8C4B1246ADE91008BB8D2 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30F23CA0ACB007F1C9E /* BaseViewController.swift */; };
+		C0D8C4B3246AF132008BB8D2 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8C4B2246AF132008BB8D2 /* ErrorMessage.swift */; };
 		C0D9B66123CBC0AA009A6699 /* CreateAliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */; };
 		C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */; };
 		C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66423CBC838009A6699 /* String+Utilities.swift */; };
@@ -392,6 +393,7 @@
 		C0D8C4A9246ADC62008BB8D2 /* BaseApiKeyLeftMenuButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApiKeyLeftMenuButtonViewController.swift; sourceTree = "<group>"; };
 		C0D8C4AB246ADCB2008BB8D2 /* BaseLeftMenuButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLeftMenuButtonViewController.swift; sourceTree = "<group>"; };
 		C0D8C4AF246ADD26008BB8D2 /* BaseLeftMenuButtonTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLeftMenuButtonTableViewController.swift; sourceTree = "<group>"; };
+		C0D8C4B2246AF132008BB8D2 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasViewController.swift; sourceTree = "<group>"; };
 		C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelpers.swift; sourceTree = "<group>"; };
 		C0D9B66423CBC838009A6699 /* String+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
@@ -879,6 +881,7 @@
 				C04007AF23EE1DFB005AD66B /* RandomMode.swift */,
 				C0121C98244B48D20082F08A /* IapProduct.swift */,
 				C0AACB5D245389FD0016355D /* ApiKey.swift */,
+				C0D8C4B2246AF132008BB8D2 /* ErrorMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1520,6 +1523,7 @@
 				C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */,
 				C0D069B42406CFDE00EBAC10 /* DeletedAlias.swift in Sources */,
 				C0D069AE2406BFC800EBAC10 /* DirectoryTableViewCell.swift in Sources */,
+				C0D8C4B3246AF132008BB8D2 /* ErrorMessage.swift in Sources */,
 				C027A28424054F8D00BD19C9 /* UserDefaults+Convenience.swift in Sources */,
 				C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,

@@ -142,16 +142,12 @@ extension SLApiService {
                     
                 case 400:
                     do {
-                        let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
-                        
-                        if let error = jsonDictionary?["error"] as? String {
-                            completion(.failure(.badRequest(description: error)))
-                        } else {
-                            completion(.failure(.failToSerializeJSONData))
-                        }
-                        
+                        let errorMessage = try ErrorMessage(data: data)
+                        completion(.failure(.badRequest(description: errorMessage.value)))
+                    } catch let slError as SLError {
+                        completion(.failure(slError))
                     } catch {
-                        completion(.failure(.failToSerializeJSONData))
+                        completion(.failure(.unknownError(error: error)))
                     }
                     
                 case 500: completion(.failure(.internalServerError))
