@@ -9,13 +9,9 @@
 import UIKit
 import FirebaseAnalytics
 
-final class FaqViewController: UIViewController {
+final class FaqViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
-    
-    deinit {
-        print("FaqViewController is deallocated")
-    }
-    
+
     private var faqs: [Faq] = []
     
     override func viewDidLoad() {

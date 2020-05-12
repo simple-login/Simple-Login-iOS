@@ -12,7 +12,7 @@ import MBProgressHUD
 import Toaster
 import FirebaseAnalytics
 
-final class ForgotPasswordViewController: UIViewController {
+final class ForgotPasswordViewController: BaseViewController {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var resetButton: UIButton!
     
@@ -27,11 +27,7 @@ final class ForgotPasswordViewController: UIViewController {
             }
         }
     }
-    
-    deinit {
-        print("ForgotPasswordViewController")
-    }
-    
+
     override func viewDidLoad() {
         isValidEmailAddress = false
         emailTextField.becomeFirstResponder()

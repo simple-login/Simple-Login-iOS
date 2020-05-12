@@ -11,17 +11,14 @@ import Toaster
 import MBProgressHUD
 import FirebaseAnalytics
 
-final class StartupViewController: UIViewController {
+final class StartupViewController: BaseViewController {
     private var homeNavigationController: HomeNavigationController?
-    
-    deinit {
-        print("StartupViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         SLApiService.refreshBaseUrl()
         NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseSuccessfully), name: .purchaseSuccessfully, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleErrorRetrievingApiKeyFromKeychain), name: .errorRetrievingApiKeyFromKeychain, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -111,6 +108,11 @@ final class StartupViewController: UIViewController {
     }
     
     @objc private func handlePurchaseSuccessfully() {
+        homeNavigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func handleErrorRetrievingApiKeyFromKeychain() {
+        try? SLKeychainService.removeApiKey()
         homeNavigationController?.dismiss(animated: true, completion: nil)
     }
 }

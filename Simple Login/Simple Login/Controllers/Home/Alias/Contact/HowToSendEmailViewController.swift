@@ -9,11 +9,7 @@
 import UIKit
 import FirebaseAnalytics
 
-final class HowToSendEmailViewController: UIViewController {
-    deinit {
-        print("HowToSendEmailViewController is deallocated")
-    }
-    
+final class HowToSendEmailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Analytics.logEvent("open_how_to_send_email_view_controller", parameters: nil)

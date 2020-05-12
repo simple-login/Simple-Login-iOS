@@ -10,14 +10,10 @@ import UIKit
 import Toaster
 import FirebaseAnalytics
 
-final class SettingsViewController: BaseViewController {
+final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Storyboarded {
     @IBOutlet private weak var tableView: UITableView!
     
     var userInfo: UserInfo!
-    
-    deinit {
-        print("SettingsViewController is deallocated")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

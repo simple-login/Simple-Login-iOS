@@ -9,13 +9,9 @@
 import UIKit
 import Gifu
 
-final class InstructionViewController: UIViewController, Storyboarded {
+final class InstructionViewController: BaseViewController, Storyboarded {
     @IBOutlet private weak var deleteImageView: GIFImageView!
-    
-    deinit {
-        print("InstructionViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         deleteImageView.animate(withGIFNamed: "delete")

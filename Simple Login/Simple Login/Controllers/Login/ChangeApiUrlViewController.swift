@@ -10,14 +10,10 @@ import UIKit
 import SkyFloatingLabelTextField
 import Toaster
 
-final class ChangeApiUrlViewController: UIViewController {
+final class ChangeApiUrlViewController: BaseViewController {
     @IBOutlet private weak var warningLabel: UILabel!
     @IBOutlet private weak var defaultLabel: UILabel!
     @IBOutlet private weak var urlTextField: SkyFloatingLabelTextField!
-    
-    deinit {
-        print("ChangeApiUrlViewController is deallocated")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

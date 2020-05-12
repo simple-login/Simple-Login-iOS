@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-final class DeletedAliasesViewController: UIViewController, Storyboarded {
+final class DeletedAliasesViewController: BaseApiKeyViewController, Storyboarded {
     @IBOutlet private weak var tableView: UITableView!
     
     private let refreshControl = UIRefreshControl()
@@ -23,11 +23,7 @@ final class DeletedAliasesViewController: UIViewController, Storyboarded {
         
         return deletedAliases
     }()
-    
-    deinit {
-        print("DeletedAliasesViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()

@@ -11,7 +11,7 @@ import Toaster
 import MBProgressHUD
 import FirebaseAnalytics
 
-final class AliasSearchViewController: UIViewController {
+final class AliasSearchViewController: BaseApiKeyViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var messageLabel: UILabel!
     
@@ -30,11 +30,7 @@ final class AliasSearchViewController: UIViewController {
     
     var toggledAlias: ((_ alias: Alias) -> Void)?
     var deletedAlias: ((_ alias: Alias) -> Void)?
-    
-    deinit {
-        print("AliasSearchViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -63,11 +59,6 @@ final class AliasSearchViewController: UIViewController {
     }
     
     private func search(_ term: String? = nil) {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         if let term = term {
             self.searchTerm = term
             messageLabel.text = "No result found for \"\(term)\""
@@ -127,11 +118,6 @@ final class AliasSearchViewController: UIViewController {
 // MARK: - Actions
 extension AliasSearchViewController {
     private func toggle(alias: Alias) {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         MBProgressHUD.showAdded(to: view, animated: true)
         
         SLApiService.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
@@ -174,11 +160,6 @@ extension AliasSearchViewController {
     }
     
     private func delete(alias: Alias, at indexPath: IndexPath) {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         MBProgressHUD.showAdded(to: view, animated: true)
         
         SLApiService.deleteAlias(apiKey: apiKey, id: alias.id) { [weak self] result in

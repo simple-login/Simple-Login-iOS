@@ -1,15 +1,18 @@
 //
-//  BaseViewController.swift
+//  BaseLeftMenuButtonTableViewController.swift
 //  Simple Login
 //
-//  Created by Thanh-Nhon Nguyen on 11/01/2020.
+//  Created by Thanh-Nhon Nguyen on 12/05/2020.
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
 import UIKit
-import FirebaseAnalytics
 
-class BaseViewController: UIViewController, Storyboarded {
+class BaseLeftMenuButtonTableViewController: UITableViewController {
+    deinit {
+        print("\(Self.self) is deallocated")
+    }
+    
     var didTapLeftBarButtonItem: (() -> Void)?
     
     override func viewDidLoad() {
@@ -17,13 +20,12 @@ class BaseViewController: UIViewController, Storyboarded {
         addLeftBarButtonItem()
     }
     
-    func addLeftBarButtonItem() {
+    private func addLeftBarButtonItem() {
         let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "MenuIcon"), style: .plain, target: self, action: #selector(tappedLeftBarButtonItem))
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     @objc private func tappedLeftBarButtonItem() {
         didTapLeftBarButtonItem?()
-        Analytics.logEvent("reveal_left_menu", parameters: nil)
     }
 }

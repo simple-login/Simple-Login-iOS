@@ -18,7 +18,7 @@ protocol LeftMenuViewControllerDelegate {
     func didSelectSignOut()
 }
 
-final class LeftMenuViewController: UIViewController {
+final class LeftMenuViewController: BaseViewController {
     @IBOutlet private weak var topView: UIView!
     @IBOutlet private weak var topViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var shadowView: UIView!
@@ -32,10 +32,6 @@ final class LeftMenuViewController: UIViewController {
     
     var userInfo: UserInfo?
     var delegate: LeftMenuViewControllerDelegate?
-    
-    deinit {
-        print("LeftMenuViewController is deallocated")
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

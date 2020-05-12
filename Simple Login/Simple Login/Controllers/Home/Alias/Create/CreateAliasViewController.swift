@@ -12,7 +12,7 @@ import MBProgressHUD
 import FirebaseAnalytics
 import SkyFloatingLabelTextField
 
-final class CreateAliasViewController: UIViewController {
+final class CreateAliasViewController: BaseApiKeyViewController {
     @IBOutlet private weak var rootStackView: UIStackView!
     @IBOutlet private weak var prefixTextField: UITextField!
     @IBOutlet private weak var suffixView: UIView!
@@ -47,10 +47,6 @@ final class CreateAliasViewController: UIViewController {
     var createdAlias: ((_ alias: Alias) -> Void)?
     var didDisappear: (() -> Void)?
     
-    deinit {
-        print("CreateAliasViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         prefixTextField.becomeFirstResponder()
@@ -81,11 +77,6 @@ final class CreateAliasViewController: UIViewController {
     }
     
     private func fetchUserOptions() {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         MBProgressHUD.showAdded(to: view, animated: true)
         rootStackView.isHidden = true
         
@@ -106,8 +97,8 @@ final class CreateAliasViewController: UIViewController {
     }
     
     private func createAlias() {
-        guard let apiKey = SLKeychainService.getApiKey(), let suffix = userOptions?.suffixes[selectedSuffixIndex] else {
-            Toast.displayErrorRetrieveingApiKey()
+        guard let suffix = userOptions?.suffixes[selectedSuffixIndex] else {
+            Toast.displayShortly(message: "No suffix is selected")
             return
         }
         

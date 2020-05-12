@@ -1,14 +1,15 @@
 //
-//  BaseTableViewController.swift
+//  BaseApiKeyLeftMenuButtonViewController.swift
 //  Simple Login
 //
-//  Created by Thanh-Nhon Nguyen on 15/01/2020.
+//  Created by Thanh-Nhon Nguyen on 12/05/2020.
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
 import UIKit
+import FirebaseAnalytics
 
-class BaseTableViewController: UITableViewController {
+class BaseApiKeyLeftMenuButtonViewController: BaseApiKeyViewController {
     var didTapLeftBarButtonItem: (() -> Void)?
     
     override func viewDidLoad() {
@@ -23,5 +24,6 @@ class BaseTableViewController: UITableViewController {
     
     @objc private func tappedLeftBarButtonItem() {
         didTapLeftBarButtonItem?()
+        Analytics.logEvent("reveal_left_menu", parameters: nil)
     }
 }

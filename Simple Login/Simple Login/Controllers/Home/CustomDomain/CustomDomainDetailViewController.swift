@@ -8,15 +8,11 @@
 
 import UIKit
 
-final class CustomDomainDetailViewController: UIViewController {
+final class CustomDomainDetailViewController: BaseApiKeyViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     var customDomain: CustomDomain!
-    
-    deinit {
-        print("CustomDomainDetailViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()

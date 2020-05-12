@@ -12,7 +12,7 @@ import Toaster
 import MBProgressHUD
 import FirebaseAnalytics
 
-final class ContactViewController: UIViewController {
+final class ContactViewController: BaseApiKeyViewController {
     @IBOutlet private weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
     
@@ -29,11 +29,7 @@ final class ContactViewController: UIViewController {
     private var fetchedPage: Int = -1
     private var isFetching: Bool = false
     private var moreToLoad: Bool = true
-    
-    deinit {
-        print("ContactViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -61,11 +57,6 @@ final class ContactViewController: UIViewController {
     }
     
     private func fetchContacts() {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         if refreshControl.isRefreshing {
             moreToLoad = true
         }
@@ -142,11 +133,6 @@ final class ContactViewController: UIViewController {
     }
     
     private func delete(contact: Contact, indexPath: IndexPath) {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         MBProgressHUD.showAdded(to: view, animated: true)
         
         SLApiService.deleteContact(apiKey: apiKey, id: contact.id) { [weak self] result in

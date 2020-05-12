@@ -11,7 +11,7 @@ import Toaster
 import MBProgressHUD
 import FirebaseAnalytics
 
-final class CreateContactViewController: UIViewController {
+final class CreateContactViewController: BaseApiKeyViewController {
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var destinationEmailTextField: UITextField!
     @IBOutlet private weak var createButton: UIButton!
@@ -26,11 +26,7 @@ final class CreateContactViewController: UIViewController {
             createButton.isEnabled = isValidEmailAddress
         }
     }
-    
-    deinit {
-        print("CreateContactViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -62,11 +58,7 @@ final class CreateContactViewController: UIViewController {
     
     private func create(_ email: String) {
         destinationEmailTextField.resignFirstResponder()
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
+
         MBProgressHUD.showAdded(to: view, animated: true)
         
         SLApiService.createContact(apiKey: apiKey, aliasId: alias.id, email: email) { [weak self] result in

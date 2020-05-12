@@ -9,15 +9,11 @@
 import UIKit
 import FirebaseAnalytics
 
-final class HowItWorksViewController: UIViewController {
+final class HowItWorksViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     private var hows: [How] = []
-    
-    deinit {
-        print("HowItWorksViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()

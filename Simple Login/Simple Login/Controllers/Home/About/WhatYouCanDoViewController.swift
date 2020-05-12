@@ -9,13 +9,9 @@
 import UIKit
 import FirebaseAnalytics
 
-final class WhatYouCanDoViewController: UIViewController {
+final class WhatYouCanDoViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
-    
-    deinit {
-        print("WhatYouCanDoViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()

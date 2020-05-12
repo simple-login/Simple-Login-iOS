@@ -12,17 +12,13 @@ protocol SuffixListViewControllerDelegate {
     func didSelectSuffix(atIndex index: Int)
 }
 
-final class SuffixListViewController: UIViewController {
+final class SuffixListViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     var selectedSuffixIndex: Int!
     var suffixes: [String]!
     var delegate: SuffixListViewControllerDelegate?
-    
-    deinit {
-        print("SuffixListViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()

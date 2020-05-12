@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class DirectoryViewController: BaseViewController {
+final class DirectoryViewController: BaseApiKeyLeftMenuButtonViewController, Storyboarded {
     @IBOutlet private weak var tableView: UITableView!
     
     private let refreshControl = UIRefreshControl()
@@ -28,10 +28,6 @@ final class DirectoryViewController: BaseViewController {
         
         return directories
     }()
-    
-    deinit {
-        print("DirectoryViewController is deallocated")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

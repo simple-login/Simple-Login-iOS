@@ -8,12 +8,8 @@
 
 import UIKit
 
-final class CustomDomainViewController: BaseViewController {
+final class CustomDomainViewController: BaseApiKeyLeftMenuButtonViewController, Storyboarded {
     @IBOutlet private weak var tableView: UITableView!
-    
-    deinit {
-        print("CustomDomainViewController is deallocated")
-    }
     
     private lazy var customDomains: [CustomDomain] = {
         var customDomains: [CustomDomain] = []

@@ -13,7 +13,7 @@ import StoreKit
 import SwiftyStoreKit
 import FirebaseAnalytics
 
-final class IapViewController: UIViewController, Storyboarded {
+final class IapViewController: BaseApiKeyViewController, Storyboarded {
     @IBOutlet private weak var rootScrollView: UIScrollView!
     @IBOutlet private weak var monthlyButton: UIButton!
     @IBOutlet private weak var yearlyButton: UIButton!
@@ -37,11 +37,7 @@ final class IapViewController: UIViewController, Storyboarded {
             }
         }
     }
-    
-    deinit {
-        print("IapViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -142,11 +138,6 @@ final class IapViewController: UIViewController, Storyboarded {
     }
     
     private func fetchAndSendReceiptToServer() {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         MBProgressHUD.showAdded(to: view, animated: true)
         
         SwiftyStoreKit.fetchReceipt(forceRefresh: false) { [weak self ] result in
@@ -154,7 +145,7 @@ final class IapViewController: UIViewController, Storyboarded {
             switch result {
             case .success(let receiptData):
                 let encryptedReceipt = receiptData.base64EncodedString(options: [])
-                SLApiService.processPayment(apiKey: apiKey, receiptData: encryptedReceipt) { [weak self] processPaymentResult in
+                SLApiService.processPayment(apiKey: self.apiKey, receiptData: encryptedReceipt) { [weak self] processPaymentResult in
                     guard let self = self else { return }
                     MBProgressHUD.hide(for: self.view, animated: true)
                     

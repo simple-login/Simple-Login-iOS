@@ -12,7 +12,7 @@ import MBProgressHUD
 import FirebaseAnalytics
 import Differ
 
-final class AliasViewController: BaseViewController {
+final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storyboarded {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var segmentedControl: UISegmentedControl!
     private let refreshControl = UIRefreshControl()
@@ -60,10 +60,6 @@ final class AliasViewController: BaseViewController {
         didSet {
             tableView.isHidden = noAlias
         }
-    }
-    
-    deinit {
-        print("AliasViewController is deallocated")
     }
     
     override func viewDidLoad() {
@@ -153,11 +149,6 @@ final class AliasViewController: BaseViewController {
     }
     
     private func fetchAliases() {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         if refreshControl.isRefreshing {
             moreToLoad = true
         }
@@ -234,11 +225,6 @@ final class AliasViewController: BaseViewController {
 // MARK: - Toggle status
 extension AliasViewController {
     private func toggle(alias: Alias, at indexPath: IndexPath) {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         MBProgressHUD.showAdded(to: view, animated: true)
         
         SLApiService.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
@@ -300,11 +286,6 @@ extension AliasViewController {
     }
     
     private func delete(alias: Alias, at indexPath: IndexPath) {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         MBProgressHUD.showAdded(to: view, animated: true)
         
         SLApiService.deleteAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
@@ -395,11 +376,6 @@ extension AliasViewController {
     }
     
     private func randomAlias(mode: RandomMode) {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         MBProgressHUD.showAdded(to: view, animated: true)
         
         SLApiService.randomAlias(apiKey: apiKey, randomMode: mode) { [weak self] result in

@@ -10,7 +10,7 @@ import UIKit
 import SkyFloatingLabelTextField
 import FirebaseAnalytics
 
-final class SignUpViewController: UIViewController, Storyboarded {
+final class SignUpViewController: BaseViewController, Storyboarded {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var signUpButton: UIButton!
@@ -40,11 +40,7 @@ final class SignUpViewController: UIViewController, Storyboarded {
     }
     
     var signUp: ((_ email: String, _ password: String) -> Void)?
-    
-    deinit {
-        print("SignUpViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         isSignUpable = false

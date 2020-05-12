@@ -12,7 +12,7 @@ import MBProgressHUD
 import Toaster
 import FirebaseAnalytics
 
-final class LoginViewController: UIViewController, Storyboarded {
+final class LoginViewController: BaseViewController, Storyboarded {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var loginButton: UIButton!
@@ -25,10 +25,6 @@ final class LoginViewController: UIViewController, Storyboarded {
         }
     }
 
-    deinit {
-        print("LoginViewController is deallocated")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()

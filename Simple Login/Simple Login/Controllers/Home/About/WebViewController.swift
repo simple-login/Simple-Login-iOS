@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-final class WebViewController: UIViewController {
+final class WebViewController: BaseViewController {
     @IBOutlet private weak var webView: WKWebView!
     
     enum Module {
@@ -29,10 +29,6 @@ final class WebViewController: UIViewController {
     }
     
     var module: Module!
-    
-    deinit {
-        print("WebViewController is deallocated")
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

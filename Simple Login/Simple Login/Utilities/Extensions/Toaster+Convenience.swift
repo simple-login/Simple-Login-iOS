@@ -20,10 +20,6 @@ extension Toast {
         Toast(text: message, duration: Delay.long).show()
     }
     
-    class func displayErrorRetrieveingApiKey() {
-        Toast.displayShortly(message: "Error retrieving API key from keychain")
-    }
-    
     class func displayError(_ error: CustomStringConvertible) {
         Toast.displayShortly(message: "\(error.description)")
     }

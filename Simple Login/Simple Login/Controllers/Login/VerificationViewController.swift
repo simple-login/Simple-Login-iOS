@@ -36,7 +36,7 @@ extension VerificationViewController {
     }
 }
 
-final class VerificationViewController: UIViewController, Storyboarded {
+final class VerificationViewController: BaseViewController, Storyboarded {
     @IBOutlet private weak var numberRootStackView: ResponsiveStackView!
     @IBOutlet private weak var firstNumberLabel: UILabel!
     @IBOutlet private weak var secondNumberLabel: UILabel!
@@ -67,7 +67,6 @@ final class VerificationViewController: UIViewController, Storyboarded {
     var mode: VerificationMode!
     
     deinit {
-        print("VerificationViewController is deallocated")
         NotificationCenter.default.removeObserver(self, name: .applicationDidBecomeActive, object: nil)
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseWalkthroughStepViewController: UIViewController, Storyboarded {
+class BaseWalkthroughStepViewController: BaseViewController, Storyboarded {
     var index: Int {
         return 0
     }

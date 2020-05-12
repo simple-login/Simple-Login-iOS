@@ -13,7 +13,7 @@ import MBProgressHUD
 import FirebaseAnalytics
 import MessageUI
 
-final class AliasActivityViewController: UIViewController {
+final class AliasActivityViewController: BaseApiKeyViewController {
     @IBOutlet private weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
     
@@ -27,10 +27,6 @@ final class AliasActivityViewController: UIViewController {
     private var fetchedPage: Int = -1
     private var isFetching: Bool = false
     private var moreToLoad: Bool = true
-    
-    deinit {
-        print("AliasActivityViewController is deallocated")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,11 +69,6 @@ final class AliasActivityViewController: UIViewController {
     }
     
     private func fetchActivities() {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         if refreshControl.isRefreshing {
             moreToLoad = true
         }
@@ -126,11 +117,6 @@ final class AliasActivityViewController: UIViewController {
     }
     
     private func fetchAlias() {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         SLApiService.getAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
             guard let self = self else { return }
             
@@ -174,11 +160,6 @@ extension AliasActivityViewController {
     }
     
     private func updateNote(_ note: String?) {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         MBProgressHUD.showAdded(to: view, animated: true)
         
         SLApiService.updateAliasNote(apiKey: apiKey, id: alias.id, note: note) { [weak self] result in

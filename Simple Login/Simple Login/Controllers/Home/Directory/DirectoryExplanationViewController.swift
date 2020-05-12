@@ -10,7 +10,7 @@ import UIKit
 import Toaster
 import MBProgressHUD
 
-final class DirectoryExplanationViewController: UIViewController {
+final class DirectoryExplanationViewController: BaseApiKeyViewController {
     @IBOutlet private weak var rootStackView: UIStackView!
     @IBOutlet private weak var openingLabel: UILabel!
     @IBOutlet private weak var listLabel: UILabel!
@@ -19,11 +19,7 @@ final class DirectoryExplanationViewController: UIViewController {
     @IBOutlet private weak var informationLabel: UILabel!
     
     private var userOptions: UserOptions!
-    
-    deinit {
-        print("DirectoryExplanationViewController is deallocated")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchUserOptions()
@@ -34,11 +30,6 @@ final class DirectoryExplanationViewController: UIViewController {
     }
     
     private func fetchUserOptions() {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            Toast.displayErrorRetrieveingApiKey()
-            return
-        }
-        
         MBProgressHUD.showAdded(to: view, animated: true)
         rootStackView.isHidden = true
         

@@ -10,13 +10,9 @@ import UIKit
 import MessageUI
 import FirebaseAnalytics
 
-final class AboutViewController: BaseViewController {
+final class AboutViewController: BaseLeftMenuButtonViewController, Storyboarded {
     @IBOutlet private weak var tableView: UITableView!
-    
-    deinit {
-        print("AboutViewController is deallocated")
-    }
-    
+
     var openFromLoginViewController = false
     
     override func viewDidLoad() {
@@ -36,11 +32,10 @@ final class AboutViewController: BaseViewController {
         PricingAndBlogTableViewCell.register(with: tableView)
         HelpAndRoadmapTableViewCell.register(with: tableView)
         TermsAndPrivacyTableViewCell.register(with: tableView)
-    }
-    
-    override func addLeftBarButtonItem() {
-        if !openFromLoginViewController {
-            super.addLeftBarButtonItem()
+        
+        // Don't show hamburger button when this controller is open from LoginViewController
+        if openFromLoginViewController {
+            navigationItem.leftBarButtonItem = nil
         }
     }
     
