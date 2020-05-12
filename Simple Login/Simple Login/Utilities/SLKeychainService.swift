@@ -14,13 +14,13 @@ final class SLKeychainService {
     private static let API_KEY = "API_KEY"
     
     static func setApiKey(_ apiKey: ApiKey) throws {
-        try keychainService.set(apiKey, key: API_KEY)
+        try keychainService.set(apiKey.value, key: API_KEY)
     }
     
     static func getApiKey() -> ApiKey? {
-        do {
-            return try keychainService.getString(API_KEY)
-        } catch {
+        if let apiKeyValue = try? keychainService.getString(API_KEY) {
+            return ApiKey(value: apiKeyValue)
+        } else {
             return nil
         }
     }

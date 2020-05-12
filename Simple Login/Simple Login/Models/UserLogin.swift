@@ -9,7 +9,7 @@
 import Foundation
 
 struct UserLogin {
-    let apiKey: String?
+    let apiKey: ApiKey?
     let isMfaEnabled: Bool
     let mfaKey: String?
     let name: String?
@@ -19,13 +19,17 @@ struct UserLogin {
             throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
         }
         
-        let apiKey = jsonDictionary["api_key"] as? String
+        if let apiKeyValue = jsonDictionary["api_key"] as? String {
+            self.apiKey = ApiKey(value: apiKeyValue)
+        } else {
+            self.apiKey = nil
+        }
+        
         let isMfaEnabled = jsonDictionary["mfa_enabled"] as? Bool
         let mfaKey = jsonDictionary["mfa_key"] as? String
         let name = jsonDictionary["name"] as? String
         
         if let isMfaEnabled = isMfaEnabled {
-            self.apiKey = apiKey
             self.isMfaEnabled = isMfaEnabled
             self.mfaKey = mfaKey
             self.name = name

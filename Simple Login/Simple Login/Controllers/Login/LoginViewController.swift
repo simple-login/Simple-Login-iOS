@@ -120,17 +120,18 @@ final class LoginViewController: UIViewController, Storyboarded {
         }
         
         let setAction = UIAlertAction(title: "Set API key", style: .default) { [unowned self] (_) in
-            guard let enteredApiKey = alert.textFields?[0].text else { return }
+            guard let apiKeyValue = alert.textFields?[0].text else { return }
+            let apiKey = ApiKey(value: apiKeyValue)
             
             MBProgressHUD.showAdded(to: self.view, animated: true)
             
-            SLApiService.fetchUserInfo(apiKey: enteredApiKey) { [weak self] result in
+            SLApiService.fetchUserInfo(apiKey: apiKey) { [weak self] result in
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
                 switch result {
                 case .success(_):
-                    self.finalizeLogin(apiKey: enteredApiKey)
+                    self.finalizeLogin(apiKey: apiKey)
                     Analytics.logEvent("log_in_with_api_key_success", parameters: nil)
                     
                 case .failure(let error):
@@ -186,7 +187,7 @@ final class LoginViewController: UIViewController, Storyboarded {
         do {
             try SLKeychainService.setApiKey(apiKey)
         } catch {
-            Toast.displayShortly(message: "Error setting API key to keychain")
+            Toast.displayShortly(message: "Error setting API key to keychain.\n\(error.localizedDescription)")
         }
         
         navigationController?.dismiss(animated: true, completion: nil)

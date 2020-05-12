@@ -20,7 +20,7 @@ final class SLApiService {
 // Functions in this file are shared with the Share Extension
 extension SLApiService {
     static func fetchUserOptions(apiKey: ApiKey, hostname: String? = nil, completion: @escaping (Result<UserOptions, SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey]
+        let headers: HTTPHeaders = ["Authentication": apiKey.value]
         
         let urlString: String
         if let hostname = hostname {
@@ -62,7 +62,7 @@ extension SLApiService {
     }
     
     static func createAlias(apiKey: ApiKey, prefix: String, suffix: String, note: String?, completion: @escaping (Result<Alias, SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey]
+        let headers: HTTPHeaders = ["Authentication": apiKey.value]
         var parameters = ["alias_prefix" : prefix, "alias_suffix" : suffix]
         
         if let note = note {
