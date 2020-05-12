@@ -245,27 +245,12 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
-                        
-                        if let aliasDictionaries = jsonDictionary?["aliases"] as? [[String : Any]] {
-                            var aliases: [Alias] = []
-                            try aliasDictionaries.forEach { (dictionary) in
-                                do {
-                                    try aliases.append(Alias(fromDictionary: dictionary))
-                                } catch let error as SLError {
-                                    completion(.failure(error))
-                                    return
-                                }
-                            }
-                            
-                            completion(.success(aliases))
-                            
-                        } else {
-                            completion(.failure(.failToSerializeJSONData))
-                        }
-                        
+                        let aliases = try [Alias](data: data)
+                        completion(.success(aliases))
+                    } catch let slError as SLError {
+                        completion(.failure(slError))
                     } catch {
-                        completion(.failure(.failToSerializeJSONData))
+                        completion(.failure(.unknownError(error: error)))
                     }
                     
                 case 400: completion(.failure(.badRequest(description: "page_id must be provided in request query.")))
@@ -351,7 +336,7 @@ extension SLApiService {
                         
                         if let jsonDictionary = jsonDictionary {
                             do {
-                                let alias = try Alias(fromDictionary: jsonDictionary)
+                                let alias = try Alias(dictionary: jsonDictionary)
                                 completion(.success(alias))
                             } catch let error as SLError {
                                 completion(.failure(error))
@@ -493,19 +478,12 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
-                        
-                        if let jsonDictionary = jsonDictionary {
-                            do {
-                                let alias = try Alias(fromDictionary: jsonDictionary)
-                                completion(.success(alias))
-                            } catch let error as SLError {
-                                completion(.failure(error))
-                            }
-                        }
-                        
+                        let alias = try Alias(data: data)
+                        completion(.success(alias))
+                    } catch let slError as SLError {
+                        completion(.failure(slError))
                     } catch {
-                        completion(.failure(.failToSerializeJSONData))
+                        completion(.failure(.unknownError(error: error)))
                     }
                     
                 case 401: completion(.failure(.invalidApiKey))

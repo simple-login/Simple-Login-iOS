@@ -81,19 +81,12 @@ extension SLApiService {
                 switch statusCode {
                 case 201:
                     do {
-                        let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
-                        
-                        if let jsonDictionary = jsonDictionary {
-                            do {
-                                let alias = try Alias(fromDictionary: jsonDictionary)
-                                completion(.success(alias))
-                            } catch let error as SLError {
-                                completion(.failure(error))
-                            }
-                        }
-                        
+                        let alias = try Alias(data: data)
+                        completion(.success(alias))
+                    } catch let slError as SLError {
+                        completion(.failure(slError))
                     } catch {
-                        completion(.failure(.failToSerializeJSONData))
+                        completion(.failure(.unknownError(error: error)))
                     }
                     
                 case 401: completion(.failure(.invalidApiKey))

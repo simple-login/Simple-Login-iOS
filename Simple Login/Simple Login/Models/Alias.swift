@@ -69,7 +69,15 @@ final class Alias: Equatable {
         return "\(latestActivity.contact.email) • \(value) \(unit) ago"
     }()
     
-    init(fromDictionary dictionary: [String : Any]) throws {
+    convenience init(data: Data) throws {
+        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any] else {
+                throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
+        }
+        
+        try self.init(dictionary: jsonDictionary)
+    }
+    
+    init(dictionary: [String : Any]) throws {
         let id = dictionary["id"] as? Int
         let email = dictionary["email"] as? String
         let creationDate = dictionary["creation_date"] as? String
@@ -112,5 +120,21 @@ final class Alias: Equatable {
     
     static func ==(lhs: Alias, rhs: Alias) -> Bool {
         return lhs.id == rhs.id
+    }
+}
+
+extension Array where Element == Alias {
+    init(data: Data) throws {
+        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
+        let aliasDictionaries = jsonDictionary["aliases"] as? [[String : Any]] else {
+            throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
+        }
+        
+        var aliases: [Alias] = []
+        try aliasDictionaries.forEach { (dictionary) in
+            try aliases.append(Alias(dictionary: dictionary))
+        }
+        
+        self = aliases
     }
 }
