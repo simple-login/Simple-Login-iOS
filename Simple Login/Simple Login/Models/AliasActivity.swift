@@ -22,7 +22,7 @@ final class AliasActivity {
         return "\(preciseDateAndTime) (\(value) \(unit) ago)"
     }()
     
-    init(fromDictionary dictionary: [String : Any]) throws {
+    init(dictionary: [String : Any]) throws {
         var actionString = dictionary["action"] as? String
         if actionString == "blocked" {
             actionString = "block"
@@ -53,5 +53,21 @@ extension AliasActivity {
         case block = "block"
         case bounced = "bounced"
         case forward = "forward"
+    }
+}
+
+extension Array where Element == AliasActivity {
+    init(data: Data) throws {
+        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
+        let activityDictionaries = jsonDictionary["activities"] as? [[String : Any]] else {
+            throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
+        }
+        
+        var activities: [AliasActivity] = []
+        try activityDictionaries.forEach { (dictionary) in
+            try activities.append(AliasActivity(dictionary: dictionary))
+        }
+        
+        self = activities
     }
 }
