@@ -37,7 +37,7 @@ final class Contact {
         return "Last sent on \(preciseDateAndTime) (\(value) \(unit) ago)"
     }()
     
-    init(fromDictionary dictionary: [String : Any]) throws {
+    init(dictionary: [String : Any]) throws {
         let id = dictionary["id"] as? Int
         let email = dictionary["contact"] as? String
         let reverseAlias = dictionary["reverse_alias"] as? String
@@ -57,5 +57,21 @@ final class Contact {
         } else {
             throw SLError.failedToParse(anyObject: Self.self)
         }
+    }
+}
+
+extension Array where Element == Contact {
+    init(data: Data) throws {
+        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
+            let contactDictionaries = jsonDictionary["contacts"] as? [[String : Any]] else {
+                throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
+        }
+        
+        var contacts: [Contact] = []
+        try contactDictionaries.forEach { (dictionary) in
+            try contacts.append(Contact(dictionary: dictionary))
+        }
+        
+        self = contacts
     }
 }

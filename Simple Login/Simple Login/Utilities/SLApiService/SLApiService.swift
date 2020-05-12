@@ -494,27 +494,12 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
-                        
-                        if let contactDictionaries = jsonDictionary?["contacts"] as? [[String : Any]] {
-                            var contacts: [Contact] = []
-                            try contactDictionaries.forEach { (dictionary) in
-                                do {
-                                    try contacts.append(Contact(fromDictionary: dictionary))
-                                } catch let error as SLError {
-                                    completion(.failure(error))
-                                    return
-                                }
-                            }
-                            
-                            completion(.success(contacts))
-                            
-                        } else {
-                            completion(.failure(.failToSerializeJSONData))
-                        }
-                        
+                        let contacts = try [Contact](data: data)
+                        completion(.success(contacts))
+                    } catch let slError as SLError {
+                        completion(.failure(slError))
                     } catch {
-                        completion(.failure(.failToSerializeJSONData))
+                        completion(.failure(.unknownError(error: error)))
                     }
                     
                 case 400: completion(.failure(.badRequest(description: "page_id must be provided in request query.")))
