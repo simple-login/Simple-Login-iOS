@@ -10,7 +10,6 @@ import Foundation
 import Alamofire
 
 enum SLError: Error, CustomStringConvertible {
-    case failToSerializeJSONData
     case failedToSerializeJsonForObject(anyObject: Any)
     case failedToParse(anyObject: Any)
     case failedToDelete(anyObject: Any)
@@ -31,7 +30,6 @@ enum SLError: Error, CustomStringConvertible {
     
     var description: String {
         switch self {
-        case .failToSerializeJSONData: return "Failed to serialize JSON data"
         case .failedToSerializeJsonForObject(let anyObject): return "Failed to serialize JSON for object \(anyObject.self)"
         case .failedToParse(let anyObject): return "Failed to parse \(anyObject.self)"
         case .failedToDelete(let anyObject): return "Failed to delete \(anyObject.self)"

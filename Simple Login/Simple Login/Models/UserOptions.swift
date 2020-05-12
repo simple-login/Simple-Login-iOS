@@ -27,7 +27,7 @@ struct UserOptions {
     
     init(data: Data) throws {
         guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-            throw SLError.failToSerializeJSONData
+            throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
         }
         
         let canCreate = jsonDictionary["can_create"] as? Bool
