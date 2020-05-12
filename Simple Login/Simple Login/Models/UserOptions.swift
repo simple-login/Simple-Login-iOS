@@ -41,7 +41,7 @@ struct UserOptions {
             self.prefixSuggestion = prefixSuggestion
             self.suffixes = suffixes
         } else {
-            throw SLError.failToParseObject(objectName: "UserOptions")
+            throw SLError.failedToParse(anyObject: Self.self)
         }
     }
 }

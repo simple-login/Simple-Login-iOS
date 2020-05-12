@@ -98,7 +98,7 @@ final class Alias: Equatable {
             self.enabled = enabled
             self.note = note
         } else {
-            throw SLError.failToParseObject(objectName: "Alias")
+            throw SLError.failedToParse(anyObject: Self.self)
         }
     }
     

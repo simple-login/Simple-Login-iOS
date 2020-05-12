@@ -55,7 +55,7 @@ final class Contact {
             self.lastEmailSentDate = lastEmailSentDate
             self.lastEmailSentTimestamp = lastEmailSentTimestamp
         } else {
-            throw SLError.failToParseObject(objectName: "Contact")
+            throw SLError.failedToParse(anyObject: Self.self)
         }
     }
 }

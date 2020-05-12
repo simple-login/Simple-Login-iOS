@@ -11,7 +11,7 @@ import Alamofire
 
 enum SLError: Error, CustomStringConvertible {
     case failToSerializeJSONData
-    case failToParseObject(objectName: String)
+    case failedToParse(anyObject: Any)
     case failToDelete(objectName: String)
     case emailOrPasswordIncorrect
     case invalidApiKey
@@ -31,7 +31,7 @@ enum SLError: Error, CustomStringConvertible {
     var description: String {
         switch self {
         case .failToSerializeJSONData: return "Failed to serialize JSON data"
-        case .failToParseObject(let objectName): return "Failed to parse \(objectName)"
+        case .failedToParse(let anyObject): return "Failed to parse \(anyObject.self)"
         case .failToDelete(let objectName): return "Failed to delete \(objectName)"
         case .emailOrPasswordIncorrect: return "Email or password incorrect"
         case .invalidApiKey: return "Invalid API key"

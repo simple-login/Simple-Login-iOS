@@ -396,7 +396,7 @@ extension SLApiService {
                         if let enabled = jsonDictionary?["enabled"] as? Bool {
                             completion(.success(enabled))
                         } else {
-                            completion(.failure(.failToParseObject(objectName: "toggle alias status")))
+                            completion(.failure(.failToSerializeJSONData))
                         }
                         
                     } catch {
@@ -435,7 +435,7 @@ extension SLApiService {
                         if let deleted = jsonDictionary?["deleted"] as? Bool {
                             deleted ? completion(.success(nil)) : completion(.failure(.failToDelete(objectName: "Alias")))
                         } else {
-                            completion(.failure(.failToParseObject(objectName: "delete alias")))
+                            completion(.failure(.failToSerializeJSONData))
                         }
                         
                     } catch {
@@ -624,7 +624,7 @@ extension SLApiService {
                         if let deleted = jsonDictionary?["deleted"] as? Bool {
                             deleted ? completion(.success(nil)) : completion(.failure(.failToDelete(objectName: "Contact")))
                         } else {
-                            completion(.failure(.failToParseObject(objectName: "delete contact")))
+                            completion(.failure(.failToSerializeJSONData))
                         }
                         
                     } catch {

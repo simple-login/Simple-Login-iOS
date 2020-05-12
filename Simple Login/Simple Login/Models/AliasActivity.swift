@@ -42,7 +42,7 @@ final class AliasActivity {
             self.to = to
             self.timestamp = timestamp
         } else {
-            throw SLError.failToParseObject(objectName: "AliasActivity")
+            throw SLError.failedToParse(anyObject: Self.self)
         }
     }
 }

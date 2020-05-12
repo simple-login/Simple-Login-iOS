@@ -23,7 +23,7 @@ final class ContactLite {
             self.email = email
             self.reverseAlias = reverseAlias
         } else {
-            throw SLError.failToParseObject(objectName: "ContactLite")
+            throw SLError.failedToParse(anyObject: Self.self)
         }
     }
 }

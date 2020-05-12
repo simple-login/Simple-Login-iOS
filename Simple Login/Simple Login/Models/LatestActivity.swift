@@ -28,7 +28,7 @@ final class LatestActivity {
             self.contact = try ContactLite(fromDictionary: contactDictionary)
             self.timestamp = timestamp
         } else {
-            throw SLError.failToParseObject(objectName: "LatestActivity")
+            throw SLError.failedToParse(anyObject: Self.self)
         }
     }
 }

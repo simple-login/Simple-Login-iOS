@@ -30,7 +30,7 @@ class UserInfo {
             self.isPremium = isPremium
             self.inTrial = inTrial
         } else {
-            throw SLError.failToParseObject(objectName: "UserInfo")
+            throw SLError.failedToParse(anyObject: Self.self)
         }
     }
     
