@@ -189,6 +189,7 @@
 		C0D9B66123CBC0AA009A6699 /* CreateAliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */; };
 		C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */; };
 		C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66423CBC838009A6699 /* String+Utilities.swift */; };
+		C0D9BF86246D81D00009FB29 /* Sentry.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0D9BF85246D81D00009FB29 /* Sentry.plist */; };
 		C0DF1BD224391E2700BA0742 /* UIViewController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF1BD124391E2700BA0742 /* UIViewController+Convenience.swift */; };
 		C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */; };
 		C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */; };
@@ -400,6 +401,7 @@
 		C0D9B66023CBC0AA009A6699 /* CreateAliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasViewController.swift; sourceTree = "<group>"; };
 		C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelpers.swift; sourceTree = "<group>"; };
 		C0D9B66423CBC838009A6699 /* String+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
+		C0D9BF85246D81D00009FB29 /* Sentry.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Sentry.plist; sourceTree = "<group>"; };
 		C0DF1BD124391E2700BA0742 /* UIViewController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience.swift"; sourceTree = "<group>"; };
 		C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorTableViewCell.xib; sourceTree = "<group>"; };
@@ -502,6 +504,7 @@
 				C027A2772405386900BD19C9 /* superman.gif */,
 				C0C053212438E8A60080AD4D /* delete.gif */,
 				C072CC1E2438A35F00DC4915 /* Faq.plist */,
+				C0D9BF85246D81D00009FB29 /* Sentry.plist */,
 			);
 			path = Ressources;
 			sourceTree = "<group>";
@@ -1291,6 +1294,7 @@
 				C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */,
 				C0956A4D23D109FB000CEBDD /* ExportDataTableViewCell.xib in Resources */,
 				C027A2782405386900BD19C9 /* superman.gif in Resources */,
+				C0D9BF86246D81D00009FB29 /* Sentry.plist in Resources */,
 				C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */,
 				C0D6A27523D0767000EF21B8 /* HowAndSecurityTableViewCell.xib in Resources */,
 				C0D069B02406BFE000EBAC10 /* DirectoryTableViewCell.xib in Resources */,

@@ -19,6 +19,7 @@ target 'Simple Login' do
   pod 'Differ'
   pod 'SwiftyStoreKit'
   pod 'MaterialComponents/Snackbar'
+  pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '5.0.2'
 end
 
 target 'Share Extension' do
