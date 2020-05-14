@@ -10,7 +10,6 @@ import UIKit
 import MessageUI
 import Toaster
 import MBProgressHUD
-import FirebaseAnalytics
 
 final class ContactViewController: BaseApiKeyViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -34,7 +33,6 @@ final class ContactViewController: BaseApiKeyViewController {
         super.viewDidLoad()
         setUpUI()
         fetchContacts()
-        Analytics.logEvent("open_contact_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -53,7 +51,6 @@ final class ContactViewController: BaseApiKeyViewController {
     
     @objc private func refresh() {
         fetchContacts()
-        Analytics.logEvent("contact_refresh", parameters: nil)
     }
     
     private func fetchContacts() {
@@ -94,12 +91,10 @@ final class ContactViewController: BaseApiKeyViewController {
                 
                 self.noContact = self.contacts.count == 0
                 self.tableView.reloadData()
-                Analytics.logEvent("contact_fetch_success", parameters: nil)
                 
             case .failure(let error):
                 self.refreshControl.endRefreshing()
                 Toast.displayError(error)
-                Analytics.logEvent("contact_fetch_error", parameters: error.toParameter())
             }
         }
     }
@@ -148,12 +143,9 @@ final class ContactViewController: BaseApiKeyViewController {
                 }) { _ in
                     self.tableView.reloadData()
                     Toast.displayShortly(message: "Deleted contact \"\(contact.email)\"")
-                    Analytics.logEvent("contact_delete_success", parameters: nil)
                 }
                 
-            case .failure(let error):
-                Toast.displayError(error)
-                Analytics.logEvent("contact_delete_error", parameters: error.toParameter())
+            case .failure(let error): Toast.displayError(error)
             }
         }
     }
@@ -190,7 +182,6 @@ extension ContactViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         if moreToLoad {
             fetchContacts()
-            Analytics.logEvent("contact_fetch_more", parameters: nil)
         }
     }
     

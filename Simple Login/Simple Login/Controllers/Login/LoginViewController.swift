@@ -10,7 +10,6 @@ import UIKit
 import SkyFloatingLabelTextField
 import MBProgressHUD
 import Toaster
-import FirebaseAnalytics
 
 final class LoginViewController: BaseViewController, Storyboarded {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
@@ -28,7 +27,6 @@ final class LoginViewController: BaseViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
-        Analytics.logEvent("open_login_view_controller", parameters: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,11 +80,9 @@ final class LoginViewController: BaseViewController, Storyboarded {
                         Toast.displayShortly(message: "API key is null")
                     }
                 }
-                Analytics.logEvent("log_in_with_email_password_success", parameters: nil)
                 
             case .failure(let error):
                 Toast.displayShortly(message: error.description)
-                Analytics.logEvent("log_in_with_email_password_error", parameters: nil)
             }
         }
     }
@@ -126,13 +122,8 @@ final class LoginViewController: BaseViewController, Storyboarded {
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
                 switch result {
-                case .success(_):
-                    self.finalizeLogin(apiKey: apiKey)
-                    Analytics.logEvent("log_in_with_api_key_success", parameters: nil)
-                    
-                case .failure(let error):
-                    Toast.displayError(error)
-                    Analytics.logEvent("log_in_with_api_key_error", parameters: error.toParameter())
+                case .success(_): self.finalizeLogin(apiKey: apiKey)
+                case .failure(let error): Toast.displayError(error)
                 }
             }
         }
@@ -214,12 +205,10 @@ extension LoginViewController {
             switch result {
             case .success(_):
                 Toast.displayLongly(message: "Check your inbox for verification code")
-                Analytics.logEvent("sign_up_success", parameters: nil)
                 self.verify(mode: .accountActivation(email: email, password: password))
                 
             case .failure(let error):
                 Toast.displayError(error)
-                Analytics.logEvent("sign_up_error", parameters: error.toParameter())
             }
         }
     }

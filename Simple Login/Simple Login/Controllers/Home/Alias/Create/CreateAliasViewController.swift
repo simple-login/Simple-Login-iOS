@@ -9,7 +9,6 @@
 import UIKit
 import Toaster
 import MBProgressHUD
-import FirebaseAnalytics
 import SkyFloatingLabelTextField
 
 final class CreateAliasViewController: BaseApiKeyViewController {
@@ -53,7 +52,6 @@ final class CreateAliasViewController: BaseApiKeyViewController {
         isValidEmailPrefix = false
         setUpUI()
         fetchUserOptions()
-        Analytics.logEvent("open_create_alias_view_controller", parameters: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -112,22 +110,10 @@ final class CreateAliasViewController: BaseApiKeyViewController {
             switch result {
             case .success(let newlyCreatedAlias):
                 self.createdAlias?(newlyCreatedAlias)
-                
-                if let _ = self.noteTextField.text {
-                    Analytics.logEvent("create_alias_with_note_success", parameters: nil)
-                } else {
-                    Analytics.logEvent("create_alias_without_note_success", parameters: nil)
-                }
-                
                 self.dismiss(animated: true, completion: nil)
                 
             case .failure(let error):
                 Toast.displayError(error)
-                if let _ = self.noteTextField.text {
-                    Analytics.logEvent("create_alias_with_note_error", parameters: error.toParameter())
-                } else {
-                    Analytics.logEvent("create_alias_without_note_error", parameters: error.toParameter())
-                }
             }
         }
     }
@@ -155,7 +141,6 @@ final class CreateAliasViewController: BaseApiKeyViewController {
             suffixListViewController.selectedSuffixIndex = selectedSuffixIndex
             suffixListViewController.suffixes = userOptions?.suffixes
             suffixListViewController.delegate = self
-            Analytics.logEvent("alias_create_show_suffixes", parameters: nil)
             
         default: return
         }
@@ -170,7 +155,6 @@ final class CreateAliasViewController: BaseApiKeyViewController {
             self.dismiss(animated: true) {
                 self.showPremiumFeatures?()
             }
-            Analytics.logEvent("alias_create_show_iap", parameters: nil)
         }
         alert.addAction(okAction)
         
@@ -180,7 +164,6 @@ final class CreateAliasViewController: BaseApiKeyViewController {
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
-        Analytics.logEvent("alias_create_reached_limit", parameters: nil)
     }
 }
 
@@ -188,7 +171,6 @@ final class CreateAliasViewController: BaseApiKeyViewController {
 extension CreateAliasViewController: SuffixListViewControllerDelegate {
     func didSelectSuffix(atIndex index: Int) {
         selectedSuffixIndex = index
-        Analytics.logEvent("alias_create_select_suffix", parameters: nil)
     }
 }
 

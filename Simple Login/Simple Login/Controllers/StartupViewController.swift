@@ -9,7 +9,6 @@
 import UIKit
 import Toaster
 import MBProgressHUD
-import FirebaseAnalytics
 
 final class StartupViewController: BaseViewController {
     private var homeNavigationController: HomeNavigationController?
@@ -62,7 +61,6 @@ final class StartupViewController: BaseViewController {
                 self.presentHomeNavigationController(userInfo)
                 
             case .failure(let error):
-                Analytics.logEvent("start_up_error", parameters: error.toParameter())
                 switch error {
                 case .internalServerError:
                     self.presentRetryAlert(error: error)

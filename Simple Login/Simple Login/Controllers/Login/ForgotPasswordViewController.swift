@@ -10,7 +10,6 @@ import UIKit
 import SkyFloatingLabelTextField
 import MBProgressHUD
 import Toaster
-import FirebaseAnalytics
 
 final class ForgotPasswordViewController: BaseViewController {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
@@ -31,12 +30,10 @@ final class ForgotPasswordViewController: BaseViewController {
     override func viewDidLoad() {
         isValidEmailAddress = false
         emailTextField.becomeFirstResponder()
-        Analytics.logEvent("open_forgot_password_view_controller", parameters: nil)
     }
     
     @IBAction private func cancelButtonTapped() {
         dismiss(animated: true, completion: nil)
-        Analytics.logEvent("forgot_password_cancel", parameters: nil)
     }
     
     @IBAction private func emailTextFieldEditingChanged() {
@@ -58,6 +55,5 @@ final class ForgotPasswordViewController: BaseViewController {
             Toast.displayLongly(message: "We've sent reset password email to \"\(email)\"")
             self.dismiss(animated: true, completion: nil)
         }
-        Analytics.logEvent("forgot_password_success", parameters: nil)
     }
 }

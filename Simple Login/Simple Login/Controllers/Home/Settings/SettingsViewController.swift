@@ -8,7 +8,6 @@
 
 import UIKit
 import Toaster
-import FirebaseAnalytics
 
 final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Storyboarded {
     @IBOutlet private weak var tableView: UITableView!
@@ -18,7 +17,6 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
-        Analytics.logEvent("open_settings_view_controller", parameters: nil)
     }
     
     override func viewWillLayoutSubviews() {

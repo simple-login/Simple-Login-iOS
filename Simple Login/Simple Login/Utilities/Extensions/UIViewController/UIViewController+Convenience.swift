@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAnalytics
 import Toaster
 import MessageUI
 
@@ -20,7 +19,6 @@ extension UIViewController {
         let copyAction = UIAlertAction(title: "Copy reverse-alias", style: .default) { (_) in
             UIPasteboard.general.string = reverseAlias
             Toast.displayShortly(message: "Copied \(reverseAlias)")
-            Analytics.logEvent("copy_reverse_alias", parameters: nil)
         }
         alert.addAction(copyAction)
         
@@ -36,7 +34,6 @@ extension UIViewController {
             mailComposerVC.setToRecipients([reverseAlias])
             
             self.present(mailComposerVC, animated: true, completion: nil)
-            Analytics.logEvent("compose_email_to_reverse_alias", parameters: nil)
         }
         alert.addAction(openEmaiAction)
         

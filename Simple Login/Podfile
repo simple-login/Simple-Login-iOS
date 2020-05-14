@@ -15,8 +15,6 @@ target 'Simple Login' do
   pod 'SkyFloatingLabelTextField', '~> 3.0'
   pod 'Toaster'
   pod 'MarqueeLabel'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Crashlytics'
   pod 'Gifu'
   pod 'Differ'
   pod 'SwiftyStoreKit'

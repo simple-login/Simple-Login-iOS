@@ -9,7 +9,6 @@
 import UIKit
 import Toaster
 import MBProgressHUD
-import FirebaseAnalytics
 import Differ
 
 final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storyboarded {
@@ -66,7 +65,6 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
         super.viewDidLoad()
         setUpUI()
         fetchAliases()
-        Analytics.logEvent("open_alias_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -145,7 +143,6 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
     
     @objc private func refresh() {
         fetchAliases()
-        Analytics.logEvent("alias_list_refresh", parameters: nil)
     }
     
     private func fetchAliases() {
@@ -194,7 +191,6 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
             case .failure(let error):
                 self.refreshControl.endRefreshing()
                 Toast.displayError(error)
-                Analytics.logEvent("alias_list_fetch_error", parameters: error.toParameter())
             }
         }
     }
@@ -235,13 +231,7 @@ extension AliasViewController {
             switch result {
             case .success(let enabled):
                 alias.setEnabled(enabled.value)
-                
-                if enabled.value {
-                    Analytics.logEvent("alias_list_enabled_an_alias", parameters: nil)
-                } else {
-                    Analytics.logEvent("alias_list_disabled_an_alias", parameters: nil)
-                }
-                
+
                 self.tableView.performBatchUpdates({
                     switch self.currentAliasType {
                     case .all: return
@@ -263,7 +253,6 @@ extension AliasViewController {
                 Toast.displayError(error)
                 // reload data to switch alias to initial state when request to server fails
                 self.tableView.reloadData()
-                Analytics.logEvent("alias_list_toggle_error", parameters: error.toParameter())
             }
         }
     }
@@ -317,11 +306,7 @@ extension AliasViewController {
                     Toast.displayShortly(message: "Deleted alias \"\(alias.email)\"")
                 }
                 
-                Analytics.logEvent("alias_list_delete_success", parameters: nil)
-                
-            case .failure(let error):
-                Toast.displayError(error)
-                Analytics.logEvent("alias_list_delete_error", parameters: nil)
+            case .failure(let error): Toast.displayError(error)
             }
         }
     }
@@ -336,7 +321,6 @@ extension AliasViewController {
         case 2: currentAliasType = .inactive
         default: return
         }
-        Analytics.logEvent("alias_list_change_filter_mode", parameters: nil)
     }
     
     private func refilterAliasArrays() {
@@ -384,24 +368,8 @@ extension AliasViewController {
             MBProgressHUD.hide(for: self.view, animated: true)
             
             switch result {
-            case .success(let newlyCreatedAlias):
-                self.finalizeAliasCreation(newlyCreatedAlias)
-                
-                switch mode {
-                case .uuid:
-                    Analytics.logEvent("alias_random_by_uuid_success", parameters: nil)
-                case .word:
-                    Analytics.logEvent("alias_random_by_word_success", parameters: nil)
-                }
-                
-            case .failure(let error):
-                Toast.displayError(error)
-                switch mode {
-                case .uuid:
-                    Analytics.logEvent("alias_random_by_uuid_error", parameters: nil)
-                case .word:
-                    Analytics.logEvent("alias_random_by_word_error", parameters: nil)
-                }
+            case .success(let newlyCreatedAlias): self.finalizeAliasCreation(newlyCreatedAlias)
+            case .failure(let error): Toast.displayError(error)
             }
         }
     }
@@ -443,7 +411,6 @@ extension AliasViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         if moreToLoad {
             fetchAliases()
-            Analytics.logEvent("alias_list_fetch_more", parameters: nil)
         }
     }
     
@@ -496,17 +463,14 @@ extension AliasViewController: UITableViewDataSource {
         cell.didTapCopyButton = {
             UIPasteboard.general.string = alias.email
             Toast.displayShortly(message: "Copied \"\(alias.email)\"")
-            Analytics.logEvent("alias_list_copy", parameters: nil)
         }
         
         cell.didTapSendButton = { [unowned self] in
             self.performSegue(withIdentifier: "showContacts", sender: alias)
-            Analytics.logEvent("alias_list_view_contacts", parameters: nil)
         }
         
         cell.didTapRightArrowButton = { [unowned self] in
             self.performSegue(withIdentifier: "showActivities", sender: alias)
-            Analytics.logEvent("alias_list_view_activities", parameters: nil)
         }
         
         return cell

@@ -9,7 +9,6 @@
 import UIKit
 import SideMenu
 import Toaster
-import FirebaseAnalytics
 
 final class HomeNavigationController: UINavigationController, Storyboarded {
     private var aliasViewController: AliasViewController?
@@ -111,13 +110,10 @@ final class HomeNavigationController: UINavigationController, Storyboarded {
         let okayAction = UIAlertAction(title: "Take me to App Store", style: .default) { (action) in
             self.openAppStore()
             UserDefaults.setDidMakeAReview()
-            Analytics.logEvent("made_a_review_from_alert", parameters: nil)
         }
         alert.addAction(okayAction)
         
-        let cancelAction = UIAlertAction(title: "Remind me later", style: .cancel) { (action) in
-            Analytics.logEvent("review_later", parameters: nil)
-        }
+        let cancelAction = UIAlertAction(title: "Remind me later", style: .cancel)
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
@@ -209,7 +205,6 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
     func didSelectRateUs() {
         openAppStore()
-        Analytics.logEvent("made_a_review_from_left_menu", parameters: nil)
     }
     
     func didSelectSignOut() {
@@ -221,18 +216,14 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
                 SideMenuManager.default.leftMenuNavigationController?.dismiss(animated: true, completion: {
                     self.dismiss(animated: true, completion: nil)
                 })
-                Analytics.logEvent("sign_out_success", parameters: nil)
                 
             } catch {
                 Toast.displayShortly(message: "Error removing API key from keychain")
-                Analytics.logEvent("sign_out_error", parameters: nil)
             }
         }
         alert.addAction(okAction)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            Analytics.logEvent("sign_out_cancel", parameters: nil)
-        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alert.addAction(cancelAction)
         
         SideMenuManager.default.leftMenuNavigationController?.present(alert, animated: true, completion: nil)

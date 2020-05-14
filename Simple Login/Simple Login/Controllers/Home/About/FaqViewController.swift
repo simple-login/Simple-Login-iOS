@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAnalytics
 
 final class FaqViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
@@ -18,7 +17,6 @@ final class FaqViewController: BaseViewController {
         super.viewDidLoad()
         setUpUI()
         readFaqsFromPlist()
-        Analytics.logEvent("open_faq_view_controller", parameters: nil)
     }
     
     private func setUpUI() {

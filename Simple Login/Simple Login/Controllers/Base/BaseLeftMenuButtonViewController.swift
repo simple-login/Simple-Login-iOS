@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAnalytics
 
 class BaseLeftMenuButtonViewController: BaseViewController {
     var didTapLeftBarButtonItem: (() -> Void)?
@@ -24,6 +23,5 @@ class BaseLeftMenuButtonViewController: BaseViewController {
     
     @objc private func tappedLeftBarButtonItem() {
         didTapLeftBarButtonItem?()
-        Analytics.logEvent("reveal_left_menu", parameters: nil)
     }
 }

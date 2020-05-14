@@ -10,7 +10,6 @@ import UIKit
 import Toaster
 import MarqueeLabel
 import MBProgressHUD
-import FirebaseAnalytics
 import MessageUI
 
 final class AliasActivityViewController: BaseApiKeyViewController {
@@ -33,7 +32,6 @@ final class AliasActivityViewController: BaseApiKeyViewController {
         setUpUI()
         fetchActivities()
         fetchAlias()
-        Analytics.logEvent("open_alias_activity_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -65,7 +63,6 @@ final class AliasActivityViewController: BaseApiKeyViewController {
     @objc private func refresh() {
         fetchActivities()
         fetchAlias()
-        Analytics.logEvent("alias_activity_refresh", parameters: nil)
     }
     
     private func fetchActivities() {
@@ -106,12 +103,10 @@ final class AliasActivityViewController: BaseApiKeyViewController {
                 }
                 
                 self.tableView.reloadData()
-                Analytics.logEvent("alias_activity_fetch_success", parameters: nil)
                 
             case .failure(let error):
                 self.refreshControl.endRefreshing()
                 Toast.displayError(error)
-                Analytics.logEvent("alias_activity_fetch_error", parameters: error.toParameter())
             }
         }
     }
@@ -171,11 +166,9 @@ extension AliasActivityViewController {
                 self.alias.setNote(note)
                 self.tableView.reloadData()
                 self.didUpdateNote?()
-                Analytics.logEvent("alias_activity_edit_note_success", parameters: nil)
                 
             case .failure(let error):
                 Toast.displayError(error)
-                Analytics.logEvent("alias_activity_edit_note_error", parameters: error.toParameter())
             }
         }
     }
@@ -224,7 +217,6 @@ extension AliasActivityViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         if moreToLoad {
             fetchActivities()
-            Analytics.logEvent("alias_activity_fetch_more", parameters: nil)
         }
     }
 }

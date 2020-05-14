@@ -9,7 +9,6 @@
 import UIKit
 import MBProgressHUD
 import Toaster
-import FirebaseAnalytics
 import MaterialComponents.MaterialSnackbar
 
 /// This stackView's subclass is used for displaying tooltip (UIMenuController)
@@ -74,7 +73,6 @@ final class VerificationViewController: BaseViewController, Storyboarded {
         super.viewDidLoad()
         setUpUI()
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: .applicationDidBecomeActive, object: nil)
-        Analytics.logEvent("open_verification_view_controller", parameters: nil)
     }
     
     private func setUpUI() {
@@ -157,13 +155,11 @@ final class VerificationViewController: BaseViewController, Storyboarded {
                 case .success(let apiKey):
                     self.dismiss(animated: true) {
                         self.otpVerificationSuccesful?(apiKey)
-                        Analytics.logEvent("verification_mfa_success", parameters: nil)
                     }
                     
                 case .failure(let error):
                     self.showErrorLabel(true, errorMessage: error.description)
                     self.reset()
-                    Analytics.logEvent("verification_mfa_error", parameters: error.toParameter())
                 }
             }
             
@@ -176,7 +172,6 @@ final class VerificationViewController: BaseViewController, Storyboarded {
                 case .success(_):
                     self.dismiss(animated: true) {
                         self.accountVerificationSuccesful?()
-                        Analytics.logEvent("verification_account_activation_success", parameters: nil)
                     }
                     
                 case .failure(let error):
@@ -188,7 +183,6 @@ final class VerificationViewController: BaseViewController, Storyboarded {
                     }
                     
                     self.reset()
-                    Analytics.logEvent("verification_account_activation_error", parameters: error.toParameter())
                 }
             }
             

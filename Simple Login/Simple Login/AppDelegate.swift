@@ -8,7 +8,6 @@
 
 import UIKit
 import Toaster
-import Firebase
 import SwiftyStoreKit
 
 @UIApplicationMain
@@ -20,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setUpUI()
         setUpStoreKit()
         askForReview()
-        FirebaseApp.configure()
         UserDefaults.registerDefaultValues()
         return true
     }
