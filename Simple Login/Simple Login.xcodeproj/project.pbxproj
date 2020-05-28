@@ -83,6 +83,12 @@
 		C07B41F623EAEDCD002E6223 /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F523EAEDCD002E6223 /* VerificationViewController.swift */; };
 		C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F723EB1BC4002E6223 /* Notification+Name.swift */; };
 		C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */; };
+		C07F346424802DA900360BA3 /* Mailbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346324802DA900360BA3 /* Mailbox.swift */; };
+		C07F346624804EA400360BA3 /* Arrayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346524804EA400360BA3 /* Arrayable.swift */; };
+		C07F346924804F0800360BA3 /* MailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346824804F0800360BA3 /* MailboxViewController.swift */; };
+		C07F346B2480517200360BA3 /* Mailbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C07F346A2480517200360BA3 /* Mailbox.storyboard */; };
+		C07F346F248052AF00360BA3 /* MailboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346E248052AF00360BA3 /* MailboxTableViewCell.swift */; };
+		C07F3471248052C400360BA3 /* MailboxTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C07F3470248052C400360BA3 /* MailboxTableViewCell.xib */; };
 		C081656223FDA97E005B0ABD /* SLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05049BB23CE016600AEF20B /* SLColor.swift */; };
 		C081656323FDA992005B0ABD /* SuffixListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C069397823D395A1008AE6C1 /* SuffixListViewController.swift */; };
 		C081656523FDAA5F005B0ABD /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66423CBC838009A6699 /* String+Utilities.swift */; };
@@ -301,6 +307,12 @@
 		C07B41F523EAEDCD002E6223 /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
 		C07B41F723EB1BC4002E6223 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utitlities.swift"; sourceTree = "<group>"; };
+		C07F346324802DA900360BA3 /* Mailbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mailbox.swift; sourceTree = "<group>"; };
+		C07F346524804EA400360BA3 /* Arrayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrayable.swift; sourceTree = "<group>"; };
+		C07F346824804F0800360BA3 /* MailboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxViewController.swift; sourceTree = "<group>"; };
+		C07F346A2480517200360BA3 /* Mailbox.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Mailbox.storyboard; sourceTree = "<group>"; };
+		C07F346E248052AF00360BA3 /* MailboxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxTableViewCell.swift; sourceTree = "<group>"; };
+		C07F3470248052C400360BA3 /* MailboxTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MailboxTableViewCell.xib; sourceTree = "<group>"; };
 		C08A202323CC6CA300CB8D2F /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToSendEmailViewController.swift; sourceTree = "<group>"; };
 		C08A202923CC95DF00CB8D2F /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
@@ -581,6 +593,7 @@
 				C05CD30323CA0343007F1C9E /* HomeNavigationController.swift */,
 				C0B1DE3E23C8BC28003EED3B /* LeftMenuViewController.swift */,
 				C0D9B65F23CBC083009A6699 /* Alias */,
+				C07F346724804EEE00360BA3 /* Mailbox */,
 				C0D0699A240679B000EBAC10 /* Directory */,
 				C01A771323D3B58600E6BAA6 /* CustomDomain */,
 				C09147FE23CFB43300D56CDC /* About */,
@@ -679,6 +692,31 @@
 				C0747EEA23CCFB18008035E9 /* AliasActivityTableViewCell.xib */,
 			);
 			path = AliasActivityTableViewCell;
+			sourceTree = "<group>";
+		};
+		C07F346724804EEE00360BA3 /* Mailbox */ = {
+			isa = PBXGroup;
+			children = (
+				C07F346824804F0800360BA3 /* MailboxViewController.swift */,
+			);
+			path = Mailbox;
+			sourceTree = "<group>";
+		};
+		C07F346C2480529600360BA3 /* Mailbox */ = {
+			isa = PBXGroup;
+			children = (
+				C07F346D248052A600360BA3 /* MailboxTableViewCell */,
+			);
+			path = Mailbox;
+			sourceTree = "<group>";
+		};
+		C07F346D248052A600360BA3 /* MailboxTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C07F346E248052AF00360BA3 /* MailboxTableViewCell.swift */,
+				C07F3470248052C400360BA3 /* MailboxTableViewCell.xib */,
+			);
+			path = MailboxTableViewCell;
 			sourceTree = "<group>";
 		};
 		C08A202523CC774800CB8D2F /* Contact */ = {
@@ -809,6 +847,7 @@
 				C027A26E24051D9700BD19C9 /* Walkthrough.storyboard */,
 				C00D74EA23E8AD0300BE48F0 /* Login.storyboard */,
 				C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */,
+				C07F346A2480517200360BA3 /* Mailbox.storyboard */,
 				C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */,
 				C0D069982406798600EBAC10 /* Directory.storyboard */,
 				C09147FA23CF848100D56CDC /* About.storyboard */,
@@ -822,6 +861,7 @@
 			children = (
 				C0B1DE4123C90D2C003EED3B /* RegisterableCell.swift */,
 				C01C00B123D25C390036B905 /* Storyboarded.swift */,
+				C07F346524804EA400360BA3 /* Arrayable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -832,6 +872,7 @@
 				C0A726F723EC12FC00A62A22 /* Common */,
 				C05049BD23CE356900AEF20B /* LeftMenu */,
 				C05049BE23CE357A00AEF20B /* Alias */,
+				C07F346C2480529600360BA3 /* Mailbox */,
 				C0D069A92406BB7300EBAC10 /* Directory */,
 				C01A771223D3B56800E6BAA6 /* CustomDomain */,
 				C0B76DEC23D0DDF2003AAB7E /* Settings */,
@@ -888,6 +929,7 @@
 				C0D8C4B2246AF132008BB8D2 /* ErrorMessage.swift */,
 				C0D8C4B4246AF303008BB8D2 /* Deleted.swift */,
 				C0D8C4B6246AF4B6008BB8D2 /* Enabled.swift */,
+				C07F346324802DA900360BA3 /* Mailbox.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1300,6 +1342,7 @@
 				C0D069B02406BFE000EBAC10 /* DirectoryTableViewCell.xib in Resources */,
 				C00D74EB23E8AD0300BE48F0 /* Login.storyboard in Resources */,
 				C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */,
+				C07F3471248052C400360BA3 /* MailboxTableViewCell.xib in Resources */,
 				C0F84B2723D4BCCA00E0852C /* NotVerifiedDomainTableViewCell.xib in Resources */,
 				C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */,
 				C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */,
@@ -1316,6 +1359,7 @@
 				C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */,
 				C0D069C12406D20B00EBAC10 /* DeletedAliasTableViewCell.xib in Resources */,
 				C0D6A27F23D079C200EF21B8 /* PricingAndBlogTableViewCell.xib in Resources */,
+				C07F346B2480517200360BA3 /* Mailbox.storyboard in Resources */,
 				C072CC1F2438A35F00DC4915 /* Faq.plist in Resources */,
 				C0956A5223D10C71000CEBDD /* DeleteAccountTableViewCell.xib in Resources */,
 				C01ABA7024606F860075DCC9 /* HelpAndRoadmapTableViewCell.xib in Resources */,
@@ -1464,6 +1508,7 @@
 				C05CD30A23CA0473007F1C9E /* CustomDomainViewController.swift in Sources */,
 				C0D6A28D23D0A8EC00EF21B8 /* What.swift in Sources */,
 				C027A27E2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift in Sources */,
+				C07F346624804EA400360BA3 /* Arrayable.swift in Sources */,
 				C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */,
 				C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */,
 				C05CD31523CA33C2007F1C9E /* Alias.swift in Sources */,
@@ -1488,6 +1533,7 @@
 				C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */,
 				C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */,
 				C0016DBF24548D8500513D64 /* SLApiService+SharedFunctions.swift in Sources */,
+				C07F346924804F0800360BA3 /* MailboxViewController.swift in Sources */,
 				C0747EE223CCDE63008035E9 /* AliasActivityTableHeaderView.swift in Sources */,
 				C05CD31823CA3F0A007F1C9E /* AliasTableViewCell.swift in Sources */,
 				C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */,
@@ -1495,6 +1541,7 @@
 				C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */,
 				C0D8C4A8246ADA00008BB8D2 /* BaseApiKeyViewController.swift in Sources */,
 				C0747EE923CCFAFE008035E9 /* AliasActivityTableViewCell.swift in Sources */,
+				C07F346F248052AF00360BA3 /* MailboxTableViewCell.swift in Sources */,
 				C0D8C4B5246AF303008BB8D2 /* Deleted.swift in Sources */,
 				C027A27A24053AA800BD19C9 /* WalkthroughLastStepViewController.swift in Sources */,
 				C0D87CC22423C41800BCF5AB /* LoginNavigationViewController.swift in Sources */,
@@ -1545,6 +1592,7 @@
 				C0D6A27823D077E800EF21B8 /* TeamAndContactTableViewCell.swift in Sources */,
 				C00BC55A23FDA10900E66FFE /* BaseUrlStatic.swift in Sources */,
 				C05FB6422422C76B000A4740 /* ForgotPasswordViewController.swift in Sources */,
+				C07F346424802DA900360BA3 /* Mailbox.swift in Sources */,
 				C032D6ED2419830300C06EB7 /* UIAlertController+Convenience.swift in Sources */,
 				C072CC212438E47800DC4915 /* InstructionViewController.swift in Sources */,
 				C0D0699C24067AC700EBAC10 /* DirectoryViewController.swift in Sources */,

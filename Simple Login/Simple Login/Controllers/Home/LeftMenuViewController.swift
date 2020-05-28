@@ -10,6 +10,7 @@ import UIKit
 
 protocol LeftMenuViewControllerDelegate {
     func didSelectAlias()
+    func didSelectMailbox()
     func didSelectDirectory()
     func didSelectCustomDomain()
     func didSelectSettings()
@@ -28,7 +29,7 @@ final class LeftMenuViewController: BaseViewController {
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
     
-    private let options: [[LeftMenuOption]] = [[.alias], [.separator],  [.settings, .about], [.separator], [.rateUs, .signOut]]
+    private let options: [[LeftMenuOption]] = [[.alias, .mailbox], [.separator],  [.settings, .about], [.separator], [.rateUs, .signOut]]
     
     var userInfo: UserInfo?
     var delegate: LeftMenuViewControllerDelegate?
@@ -131,6 +132,7 @@ extension LeftMenuViewController: UITableViewDelegate {
         
         switch option {
         case .alias: delegate?.didSelectAlias()
+        case .mailbox: delegate?.didSelectMailbox()
         case .aliasDirectory: delegate?.didSelectDirectory()
         case .customDomains: delegate?.didSelectCustomDomain()
         case .settings: delegate?.didSelectSettings()

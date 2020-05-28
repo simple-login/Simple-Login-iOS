@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import Alamofire
 
 struct ApiKey {
     let value: String
-    
+
     init(value: String) {
         self.value = value
     }
@@ -27,5 +28,9 @@ struct ApiKey {
         } else {
             throw SLError.failedToParse(anyObject: Self.self)
         }
+    }
+    
+    func generateHeaders() -> HTTPHeaders {
+        return ["Authentication": value]
     }
 }

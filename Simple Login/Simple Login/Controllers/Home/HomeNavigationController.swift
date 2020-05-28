@@ -12,6 +12,7 @@ import Toaster
 
 final class HomeNavigationController: UINavigationController, Storyboarded {
     private var aliasViewController: AliasViewController?
+    private var mailboxViewController: MailboxViewController?
     private var directoryViewController: DirectoryViewController?
     private var customDomainViewController: CustomDomainViewController?
     private var settingsViewController: SettingsViewController?
@@ -52,6 +53,10 @@ final class HomeNavigationController: UINavigationController, Storyboarded {
     override func didReceiveMemoryWarning() {
         if viewControllers[0] != aliasViewController {
             aliasViewController = nil
+        }
+        
+        if viewControllers[0] != mailboxViewController {
+            mailboxViewController = nil
         }
         
         if viewControllers[0] != directoryViewController {
@@ -140,6 +145,20 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
         guard let aliasViewController = aliasViewController else { return }
         
         viewControllers = [aliasViewController]
+        dismissLeftMenu()
+    }
+    
+    func didSelectMailbox() {
+        if mailboxViewController == nil {
+            mailboxViewController = MailboxViewController.instantiate(storyboardName: "Mailbox")
+            
+            mailboxViewController?.didTapLeftBarButtonItem = { [unowned self] in
+                self.toggleLeftMenu()
+            }
+        }
+        
+        guard let mailboxViewController = mailboxViewController else { return }
+        viewControllers = [mailboxViewController]
         dismissLeftMenu()
     }
     

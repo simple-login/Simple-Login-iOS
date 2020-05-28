@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Mailboxes-->
+        <scene sceneID="L9W-f8-H3i">
+            <objects>
+                <viewController storyboardIdentifier="MailboxViewController" id="7i0-kg-A0I" customClass="MailboxViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BNR-sB-S7S">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bqE-p5-zIf">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="7i0-kg-A0I" id="ZCS-yo-Aps"/>
+                                    <outlet property="delegate" destination="7i0-kg-A0I" id="dtb-UH-87g"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="bqE-p5-zIf" firstAttribute="top" secondItem="Air-mS-b5B" secondAttribute="top" id="9nl-Y0-1aV"/>
+                            <constraint firstAttribute="trailing" secondItem="bqE-p5-zIf" secondAttribute="trailing" id="Dlw-vI-dBn"/>
+                            <constraint firstItem="bqE-p5-zIf" firstAttribute="leading" secondItem="BNR-sB-S7S" secondAttribute="leading" id="ITc-WV-3cO"/>
+                            <constraint firstAttribute="bottom" secondItem="bqE-p5-zIf" secondAttribute="bottom" id="mjd-Be-na4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Air-mS-b5B"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Mailboxes" id="LDD-aL-aqm"/>
+                    <connections>
+                        <outlet property="tableView" destination="bqE-p5-zIf" id="IRW-6s-epa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sCR-0K-eNb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="950.72463768115949" y="-29.464285714285712"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="9z4-md-mkX">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QS1-Ci-vEs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fQY-jO-Y0p">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="7i0-kg-A0I" kind="relationship" relationship="rootViewController" id="noj-EU-AAQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wfw-JS-7aH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="40.579710144927539" y="-29.464285714285712"/>
+        </scene>
+    </scenes>
+</document>
