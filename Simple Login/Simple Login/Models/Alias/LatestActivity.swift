@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class LatestActivity {
+struct LatestActivity {
     let action: AliasActivity.Action
     let contact: ContactLite
     let timestamp: TimeInterval

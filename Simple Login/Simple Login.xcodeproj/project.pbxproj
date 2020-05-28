@@ -90,6 +90,8 @@
 		C07F346F248052AF00360BA3 /* MailboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346E248052AF00360BA3 /* MailboxTableViewCell.swift */; };
 		C07F3471248052C400360BA3 /* MailboxTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C07F3470248052C400360BA3 /* MailboxTableViewCell.xib */; };
 		C07F34722480594300360BA3 /* Arrayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346524804EA400360BA3 /* Arrayable.swift */; };
+		C07F347524805FF600360BA3 /* AliasMailbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F347424805FF600360BA3 /* AliasMailbox.swift */; };
+		C07F3476248061BC00360BA3 /* AliasMailbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F347424805FF600360BA3 /* AliasMailbox.swift */; };
 		C081656223FDA97E005B0ABD /* SLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05049BB23CE016600AEF20B /* SLColor.swift */; };
 		C081656323FDA992005B0ABD /* SuffixListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C069397823D395A1008AE6C1 /* SuffixListViewController.swift */; };
 		C081656523FDAA5F005B0ABD /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66423CBC838009A6699 /* String+Utilities.swift */; };
@@ -314,6 +316,7 @@
 		C07F346A2480517200360BA3 /* Mailbox.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Mailbox.storyboard; sourceTree = "<group>"; };
 		C07F346E248052AF00360BA3 /* MailboxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxTableViewCell.swift; sourceTree = "<group>"; };
 		C07F3470248052C400360BA3 /* MailboxTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MailboxTableViewCell.xib; sourceTree = "<group>"; };
+		C07F347424805FF600360BA3 /* AliasMailbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasMailbox.swift; sourceTree = "<group>"; };
 		C08A202323CC6CA300CB8D2F /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		C08A202623CC776600CB8D2F /* HowToSendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToSendEmailViewController.swift; sourceTree = "<group>"; };
 		C08A202923CC95DF00CB8D2F /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
@@ -727,6 +730,7 @@
 				C0D069B32406CFDE00EBAC10 /* DeletedAlias.swift */,
 				C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */,
 				C0BD47CC244DAB43006473B5 /* LatestActivity.swift */,
+				C07F347424805FF600360BA3 /* AliasMailbox.swift */,
 			);
 			path = Alias;
 			sourceTree = "<group>";
@@ -1466,6 +1470,7 @@
 				C00BC55823FDA0DC00E66FFE /* SLError.swift in Sources */,
 				C0016DC024548D8700513D64 /* SLApiService+SharedFunctions.swift in Sources */,
 				C00BC54A23FD95E100E66FFE /* SLKeychainService.swift in Sources */,
+				C07F3476248061BC00360BA3 /* AliasMailbox.swift in Sources */,
 				C0D0500F23FED26900B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */,
 				C0016DC624548EFD00513D64 /* LatestActivity.swift in Sources */,
 				C081656223FDA97E005B0ABD /* SLColor.swift in Sources */,
@@ -1532,6 +1537,7 @@
 				C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */,
 				C05CD30E23CA054B007F1C9E /* AboutViewController.swift in Sources */,
 				C0222396245F3DFC003157B9 /* UserDefaults+Extensions.swift in Sources */,
+				C07F347524805FF600360BA3 /* AliasMailbox.swift in Sources */,
 				C0DF1BD224391E2700BA0742 /* UIViewController+Convenience.swift in Sources */,
 				C0016DC324548ED200513D64 /* Statics+Shared.swift in Sources */,
 				C0B6108B23C7A46700D34B8C /* StartupViewController.swift in Sources */,

@@ -20,6 +20,8 @@ final class Alias: Equatable, Arrayable {
     let replyCount: Int
     let forwardCount: Int
     let latestActivity: LatestActivity?
+    private(set) var mailboxes: [AliasMailbox]
+    private(set) var name: String?
     private(set) var note: String?
     private(set) var enabled: Bool
     
@@ -89,6 +91,7 @@ final class Alias: Equatable, Arrayable {
         let enabled = dictionary["enabled"] as? Bool
         let note = dictionary["note"] as? String
         let latestActivityDictionary = dictionary["latest_activity"] as? [String: Any]
+        let mailboxesDictionaries = dictionary["mailboxes"] as? [[String: Any]]
         
         if let latestActivityDictionary = latestActivityDictionary {
             self.latestActivity = try LatestActivity(fromDictionary: latestActivityDictionary)
@@ -96,7 +99,7 @@ final class Alias: Equatable, Arrayable {
             self.latestActivity = nil
         }
         
-        if let id = id, let email = email, let creationDate = creationDate, let creationTimestamp = creationTimestamp, let blockCount = blockCount, let forwardCount = forwardCount, let replyCount = replyCount, let enabled = enabled {
+        if let id = id, let email = email, let creationDate = creationDate, let creationTimestamp = creationTimestamp, let blockCount = blockCount, let forwardCount = forwardCount, let replyCount = replyCount, let enabled = enabled, let mailboxesDictionaries = mailboxesDictionaries {
             self.id = id
             self.email = email
             self.creationDate = creationDate
@@ -106,6 +109,8 @@ final class Alias: Equatable, Arrayable {
             self.replyCount = replyCount
             self.enabled = enabled
             self.note = note
+            self.mailboxes = try [AliasMailbox](from: mailboxesDictionaries)
+            self.name = dictionary["name"] as? String
         } else {
             throw SLError.failedToParse(anyObject: Self.self)
         }
