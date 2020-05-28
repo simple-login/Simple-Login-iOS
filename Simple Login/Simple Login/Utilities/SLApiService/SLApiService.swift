@@ -88,9 +88,7 @@ extension SLApiService {
     }
     
     static func fetchUserInfo(apiKey: ApiKey, completion: @escaping (Result<UserInfo, SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey.value]
-        
-        AF.request("\(BASE_URL)/api/user_info", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
+        AF.request("\(BASE_URL)/api/user_info", method: .get, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):
@@ -217,8 +215,6 @@ extension SLApiService {
 // MARK: - Alias
 extension SLApiService {
     static func fetchAliases(apiKey: ApiKey, page: Int, searchTerm: String? = nil, completion: @escaping (Result<[Alias], SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey.value]
-        
         let method: HTTPMethod
         let parameters: [String: Any]?
         if let searchTerm = searchTerm {
@@ -229,7 +225,7 @@ extension SLApiService {
             method = .get
         }
         
-        AF.request("\(BASE_URL)/api/v2/aliases?page_id=\(page)", method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).responseData { response in
+        AF.request("\(BASE_URL)/api/v2/aliases?page_id=\(page)", method: method, parameters: parameters, encoding: JSONEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):
@@ -263,9 +259,8 @@ extension SLApiService {
     }
     
     static func fetchAliasActivities(apiKey: ApiKey, aliasId: Alias.Identifier, page: Int, completion: @escaping (Result<[AliasActivity], SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey.value]
         
-        AF.request("\(BASE_URL)/api/aliases/\(aliasId)/activities?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
+        AF.request("\(BASE_URL)/api/aliases/\(aliasId)/activities?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):
@@ -299,9 +294,8 @@ extension SLApiService {
     }
     
     static func randomAlias(apiKey: ApiKey, randomMode: RandomMode, completion: @escaping (Result<Alias, SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey.value]
         
-        AF.request("\(BASE_URL)/api/alias/random/new?mode=\(randomMode.rawValue)", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
+        AF.request("\(BASE_URL)/api/alias/random/new?mode=\(randomMode.rawValue)", method: .post, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):
@@ -334,9 +328,8 @@ extension SLApiService {
     }
     
     static func toggleAlias(apiKey: ApiKey, id: Alias.Identifier, completion: @escaping (Result<Enabled, SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey.value]
-        
-        AF.request("\(BASE_URL)/api/aliases/\(id)/toggle", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
+
+        AF.request("\(BASE_URL)/api/aliases/\(id)/toggle", method: .post, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):
@@ -369,9 +362,8 @@ extension SLApiService {
     }
     
     static func deleteAlias(apiKey: ApiKey, id: Alias.Identifier, completion: @escaping (Result<Any?, SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey.value]
-        
-        AF.request("\(BASE_URL)/api/aliases/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
+   
+        AF.request("\(BASE_URL)/api/aliases/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):
@@ -405,9 +397,8 @@ extension SLApiService {
     }
     
     static func updateAliasNote(apiKey: ApiKey, id: Alias.Identifier, note: String?, completion: @escaping (Result<Any?, SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey.value]
-        
-        AF.request("\(BASE_URL)/api/aliases/\(id)", method: .put, parameters: ["note": note ?? ""], encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
+   
+        AF.request("\(BASE_URL)/api/aliases/\(id)", method: .put, parameters: ["note": note ?? ""], encoding: JSONEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).response { response in
             
             switch response.result {
             case .success(_):
@@ -431,9 +422,8 @@ extension SLApiService {
     }
     
     static func getAlias(apiKey: ApiKey, id: Alias.Identifier, completion: @escaping (Result<Alias, SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey.value]
-        
-        AF.request("\(BASE_URL)/api/aliases/\(id)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
+
+        AF.request("\(BASE_URL)/api/aliases/\(id)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):
@@ -469,9 +459,8 @@ extension SLApiService {
 // MARK: - Contact
 extension SLApiService {
     static func fetchContacts(apiKey: ApiKey, aliasId: Alias.Identifier, page: Int, completion: @escaping (Result<[Contact], SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey.value]
-        
-        AF.request("\(BASE_URL)/api/aliases/\(aliasId)/contacts?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
+  
+        AF.request("\(BASE_URL)/api/aliases/\(aliasId)/contacts?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):
@@ -505,10 +494,9 @@ extension SLApiService {
     }
     
     static func createContact(apiKey: ApiKey, aliasId: Alias.Identifier, email: String, completion: @escaping (Result<Any?, SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey.value]
         let parameters = ["contact" : email]
         
-        AF.request("\(BASE_URL)/api/aliases/\(aliasId)/contacts", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
+        AF.request("\(BASE_URL)/api/aliases/\(aliasId)/contacts", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).response { response in
             
             switch response.result {
             case .success(_):
@@ -533,9 +521,8 @@ extension SLApiService {
     }
     
     static func deleteContact(apiKey: ApiKey, id: Contact.Identifier, completion: @escaping (Result<Any?, SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey.value]
         
-        AF.request("\(BASE_URL)/api/contacts/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
+        AF.request("\(BASE_URL)/api/contacts/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):
@@ -572,10 +559,9 @@ extension SLApiService {
 // MARK: - IAP
 extension SLApiService {
     static func processPayment(apiKey: ApiKey, receiptData: String, completion: @escaping (Result<Any?, SLError>) -> Void) {
-        let headers: HTTPHeaders = ["Authentication": apiKey.value]
         let parameters = ["receipt_data": receiptData]
         
-        AF.request("\(BASE_URL)/api/apple/process_payment", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).response { response in
+        AF.request("\(BASE_URL)/api/apple/process_payment", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).response { response in
             
             switch response.result {
             case .success(_):
@@ -602,7 +588,7 @@ extension SLApiService {
 // MARK: - Mailbox
 extension SLApiService {
     static func fetchMailboxes(apiKey: ApiKey, completion: @escaping (Result<[Mailbox], SLError>) -> Void) {
-        AF.request("\(BASE_URL)/api/mailboxes", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: apiKey.generateHeaders(), interceptor: nil).responseData { response in
+        AF.request("\(BASE_URL)/api/mailboxes", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):

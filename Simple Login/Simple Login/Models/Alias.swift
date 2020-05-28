@@ -8,7 +8,8 @@
 
 import UIKit
 
-final class Alias: Equatable {
+final class Alias: Equatable, Arrayable {
+    static var jsonRootKey = "aliases"
     typealias Identifier = Int
     
     let id: Identifier
@@ -120,21 +121,5 @@ final class Alias: Equatable {
     
     static func ==(lhs: Alias, rhs: Alias) -> Bool {
         return lhs.id == rhs.id
-    }
-}
-
-extension Array where Element == Alias {
-    init(data: Data) throws {
-        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
-        let aliasDictionaries = jsonDictionary["aliases"] as? [[String : Any]] else {
-            throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
-        }
-        
-        var aliases: [Alias] = []
-        try aliasDictionaries.forEach { (dictionary) in
-            try aliases.append(Alias(dictionary: dictionary))
-        }
-        
-        self = aliases
     }
 }

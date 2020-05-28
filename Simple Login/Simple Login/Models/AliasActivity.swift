@@ -8,7 +8,9 @@
 
 import Foundation
 
-final class AliasActivity {
+final class AliasActivity: Arrayable {
+    static var jsonRootKey = "activities"
+    
     let action: Action
     let reverseAlias: String
     let from: String
@@ -34,7 +36,7 @@ final class AliasActivity {
         let from = dictionary["from"] as? String
         let to = dictionary["to"] as? String
         let timestamp = dictionary["timestamp"] as? TimeInterval
-  
+        
         if let action = action, let reverseAlias = reverseAlias, let from = from, let to = to, let timestamp = timestamp {
             self.action = action
             self.reverseAlias = reverseAlias
@@ -53,21 +55,5 @@ extension AliasActivity {
         case block = "block"
         case bounced = "bounced"
         case forward = "forward"
-    }
-}
-
-extension Array where Element == AliasActivity {
-    init(data: Data) throws {
-        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
-        let activityDictionaries = jsonDictionary["activities"] as? [[String : Any]] else {
-            throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
-        }
-        
-        var activities: [AliasActivity] = []
-        try activityDictionaries.forEach { (dictionary) in
-            try activities.append(AliasActivity(dictionary: dictionary))
-        }
-        
-        self = activities
     }
 }

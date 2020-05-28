@@ -8,7 +8,8 @@
 
 import Foundation
 
-final class Contact {
+final class Contact: Arrayable {
+    static var jsonRootKey = "contacts"
     typealias Identifier = Int
     
     let id: Identifier
@@ -57,21 +58,5 @@ final class Contact {
         } else {
             throw SLError.failedToParse(anyObject: Self.self)
         }
-    }
-}
-
-extension Array where Element == Contact {
-    init(data: Data) throws {
-        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
-            let contactDictionaries = jsonDictionary["contacts"] as? [[String : Any]] else {
-                throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
-        }
-        
-        var contacts: [Contact] = []
-        try contactDictionaries.forEach { (dictionary) in
-            try contacts.append(Contact(dictionary: dictionary))
-        }
-        
-        self = contacts
     }
 }

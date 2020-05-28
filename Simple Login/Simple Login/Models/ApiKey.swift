@@ -30,7 +30,7 @@ struct ApiKey {
         }
     }
     
-    func generateHeaders() -> HTTPHeaders {
+    func toHeaders() -> HTTPHeaders {
         return ["Authentication": value]
     }
 }
