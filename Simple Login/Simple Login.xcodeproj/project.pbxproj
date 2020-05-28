@@ -720,6 +720,17 @@
 			path = MailboxTableViewCell;
 			sourceTree = "<group>";
 		};
+		C07F347324805FA700360BA3 /* Alias */ = {
+			isa = PBXGroup;
+			children = (
+				C05CD31423CA33C2007F1C9E /* Alias.swift */,
+				C0D069B32406CFDE00EBAC10 /* DeletedAlias.swift */,
+				C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */,
+				C0BD47CC244DAB43006473B5 /* LatestActivity.swift */,
+			);
+			path = Alias;
+			sourceTree = "<group>";
+		};
 		C08A202523CC774800CB8D2F /* Contact */ = {
 			isa = PBXGroup;
 			children = (
@@ -906,16 +917,13 @@
 		C0B6108823C7A43D00D34B8C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C07F347324805FA700360BA3 /* Alias */,
 				C0CA3B0423E9A7A300887264 /* SLOAuth.swift */,
 				C0B1DE3423C8AC8A003EED3B /* SLError.swift */,
 				C0CA3AFD23E98A5700887264 /* UserLogin.swift */,
 				C0B1DE3623C8ACA4003EED3B /* UserInfo.swift */,
 				C0B1DE3823C8AD22003EED3B /* UserOptions.swift */,
 				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
-				C05CD31423CA33C2007F1C9E /* Alias.swift */,
-				C0D069B32406CFDE00EBAC10 /* DeletedAlias.swift */,
-				C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */,
-				C0BD47CC244DAB43006473B5 /* LatestActivity.swift */,
 				C0F57020241D398D00BCC84B /* Contact.swift */,
 				C0BD47CE244DAB6F006473B5 /* ContactLite.swift */,
 				C0D069AA2406BE7800EBAC10 /* Directory.swift */,
