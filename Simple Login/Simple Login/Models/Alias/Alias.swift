@@ -25,6 +25,22 @@ final class Alias: Equatable, Arrayable {
     private(set) var note: String?
     private(set) var enabled: Bool
     
+    lazy var mailboxesAttributedString: NSAttributedString = {
+        let string = mailboxes.map({ $0.email }).joined(separator: " & ")
+        let attributedString = NSMutableAttributedString(string: string)
+        attributedString.addAttributes([
+            .foregroundColor: SLColor.titleColor,
+            .font: UIFont.systemFont(ofSize: 12, weight: .medium)], range: NSRange(string.startIndex..., in: string))
+        
+        let matchRanges = RegexHelpers.matchRanges(of: "&", inString: string)
+        matchRanges.forEach { (range) in
+            attributedString.addAttributes([
+                .foregroundColor: SLColor.textColor], range: range)
+        }
+        
+        return attributedString
+    }()
+    
     lazy var creationTimestampString: String = {
         let date = Date(timeIntervalSince1970: creationTimestamp)
         let preciseDateAndTime = preciseDateFormatter.string(from: date)
@@ -34,7 +50,7 @@ final class Alias: Equatable, Arrayable {
     
     lazy var countAttributedString: NSAttributedString = {
         var plainString = ""
-        plainString += " \(forwardCount) "
+        plainString += "\(forwardCount) "
         plainString += forwardCount > 1 ? "forwards," : "forward,"
         
         plainString += " \(blockCount) "
@@ -51,8 +67,8 @@ final class Alias: Equatable, Arrayable {
         let matchRanges = RegexHelpers.matchRanges(of: "[0-9]{1,}", inString: plainString)
         matchRanges.forEach { (range) in
             attributedString.addAttributes([
-            .foregroundColor: SLColor.textColor,
-            .font: UIFont.systemFont(ofSize: 13, weight: .medium)], range: range)
+                .foregroundColor: SLColor.textColor,
+                .font: UIFont.systemFont(ofSize: 13, weight: .medium)], range: range)
         }
         
         return attributedString
@@ -74,7 +90,7 @@ final class Alias: Equatable, Arrayable {
     
     convenience init(data: Data) throws {
         guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any] else {
-                throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
+            throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
         }
         
         try self.init(dictionary: jsonDictionary)

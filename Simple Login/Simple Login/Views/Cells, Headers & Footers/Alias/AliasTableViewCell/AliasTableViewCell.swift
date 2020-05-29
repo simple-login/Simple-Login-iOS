@@ -11,16 +11,21 @@ import Toaster
 
 final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var rootView: BorderedShadowedView!
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var clockImageView: UIImageView!
+    @IBOutlet private weak var emailLabel: UILabel!
     @IBOutlet private weak var creationLabel: UILabel!
-    @IBOutlet private weak var waveImageView: UIImageView!
     @IBOutlet private weak var countLabel: UILabel!
+    @IBOutlet private weak var mailboxesLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var noteLabel: UILabel!
     @IBOutlet private weak var enabledSwitch: UISwitch!
     @IBOutlet private weak var copyButton: UIButton!
     @IBOutlet private weak var sendButton: UIButton!
     @IBOutlet private weak var rightArrowButton: UIButton!
+    
+    @IBOutlet private weak var activityImageView: UIImageView!
+    @IBOutlet private weak var nameStackView: UIStackView!
+    
+    @IBOutlet private var iconImageViews: [UIImageView]!
     
     weak var alias: Alias?
     
@@ -43,40 +48,41 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         sendButton.tintColor = SLColor.tintColor
         sendButton.setTitleColor(SLColor.tintColor, for: .normal)
         
-        nameLabel.textColor = SLColor.textColor
+        emailLabel.textColor = SLColor.textColor
         noteLabel.textColor = SLColor.textColor
         
-        clockImageView.tintColor = SLColor.titleColor
         creationLabel.textColor = SLColor.titleColor
-        
-        waveImageView.tintColor = SLColor.titleColor
+        mailboxesLabel.textColor = SLColor.titleColor
+        nameLabel.textColor = SLColor.titleColor
         
         rightArrowButton.tintColor = SLColor.titleColor
+        
+        iconImageViews.forEach({ $0.tintColor = SLColor.titleColor })
     }
     
     func bind(with alias: Alias) {
         self.alias = alias
-        nameLabel.text = alias.email
+        emailLabel.text = alias.email
+        mailboxesLabel.attributedText = alias.mailboxesAttributedString
         
-        if let note = alias.note {
-            noteLabel.text = note
-            noteLabel.isHidden = false
-        } else {
-            noteLabel.isHidden = true
-        }
+        nameStackView.isHidden = alias.name == nil
+        nameLabel.text = alias.name
+        
+        noteLabel.isHidden = alias.note == nil
+        noteLabel.text = alias.note
         
         enabledSwitch.isOn = alias.enabled
         countLabel.attributedText = alias.countAttributedString
         
         if let latestActivity = alias.latestActivity, let latestActivityString = alias.latestActivityString {
             switch latestActivity.action {
-            case .block, .bounced: clockImageView.image = UIImage(named: "ClockIcon")
-            case .forward: clockImageView.image = UIImage(named: "PaperPlaneIcon")
-            case .reply: clockImageView.image = UIImage(named: "ReplyIcon")
+            case .block, .bounced: activityImageView.image = UIImage(named: "ClockIcon")
+            case .forward: activityImageView.image = UIImage(named: "PaperPlaneIcon")
+            case .reply: activityImageView.image = UIImage(named: "ReplyIcon")
             }
             creationLabel.text = latestActivityString
         } else {
-            clockImageView.image = UIImage(named: "ClockIcon")
+            activityImageView.image = UIImage(named: "ClockIcon")
             creationLabel.text = alias.creationString
         }
         
