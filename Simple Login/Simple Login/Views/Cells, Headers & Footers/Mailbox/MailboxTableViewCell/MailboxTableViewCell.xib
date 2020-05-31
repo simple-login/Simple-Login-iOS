@@ -84,7 +84,7 @@
                 <outlet property="clockImageView" destination="V4j-Bt-gS7" id="b4S-wv-QnA"/>
                 <outlet property="creationDateLabel" destination="8XZ-0C-eEa" id="LUj-wJ-JLy"/>
                 <outlet property="emailLabel" destination="xp0-l4-8Gr" id="5Ur-Bm-jCn"/>
-                <outlet property="numOfAliasesLabel" destination="OgI-pg-Ey1" id="Tay-fC-cov"/>
+                <outlet property="numOfAliasLabel" destination="OgI-pg-Ey1" id="Tay-fC-cov"/>
                 <outlet property="waveImageView" destination="jVN-1O-m0q" id="d47-Je-aQa"/>
             </connections>
             <point key="canvasLocation" x="21.014492753623191" y="110.49107142857143"/>

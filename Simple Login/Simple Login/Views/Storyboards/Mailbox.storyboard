@@ -18,14 +18,14 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bqE-p5-zIf">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="7i0-kg-A0I" id="ZCS-yo-Aps"/>
                                     <outlet property="delegate" destination="7i0-kg-A0I" id="dtb-UH-87g"/>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="bqE-p5-zIf" firstAttribute="top" secondItem="Air-mS-b5B" secondAttribute="top" id="9nl-Y0-1aV"/>
                             <constraint firstAttribute="trailing" secondItem="bqE-p5-zIf" secondAttribute="trailing" id="Dlw-vI-dBn"/>

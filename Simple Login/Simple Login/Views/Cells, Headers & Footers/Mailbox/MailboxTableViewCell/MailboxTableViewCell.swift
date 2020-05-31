@@ -14,7 +14,7 @@ final class MailboxTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var clockImageView: UIImageView!
     @IBOutlet private weak var creationDateLabel: UILabel!
     @IBOutlet private weak var waveImageView: UIImageView!
-    @IBOutlet private weak var numOfAliasesLabel: UILabel!
+    @IBOutlet private weak var numOfAliasLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,10 +24,12 @@ final class MailboxTableViewCell: UITableViewCell, RegisterableCell {
         clockImageView.tintColor = SLColor.titleColor
         waveImageView.tintColor = SLColor.titleColor
         creationDateLabel.textColor = SLColor.titleColor
-        numOfAliasesLabel.textColor = SLColor.titleColor
+        numOfAliasLabel.textColor = SLColor.titleColor
     }
     
     func bind(with mailbox: Mailbox) {
-        self.emailLabel.text = mailbox.email
+        emailLabel.text = mailbox.email
+        creationDateLabel.text = mailbox.creationString
+        numOfAliasLabel.attributedText = mailbox.numOfAliasAttributedString
     }
 }

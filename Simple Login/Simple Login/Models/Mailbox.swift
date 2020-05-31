@@ -7,24 +7,52 @@
 //
 
 import Foundation
+import UIKit
 
-struct Mailbox {
+final class Mailbox: Arrayable {
+    static var jsonRootKey = "mailboxes"
+    
     let id: Int
     let email: String
     let isDefault: Bool
-}
+    let numOfAlias: Int
+    let creationTimestamp: TimeInterval
+    
+    lazy var creationString: String = {
+        let (value, unit) =  Date.init(timeIntervalSince1970: creationTimestamp).distanceFromNow()
+        return "Created \(value) \(unit) ago"
+    }()
+    
+    lazy var numOfAliasAttributedString: NSAttributedString = {
+        let plainString = "\(numOfAlias) \(numOfAlias > 1 ? "aliases" : "alias")"
+        let attributedString = NSMutableAttributedString(string: plainString)
 
-extension Mailbox: Arrayable {
-    static var jsonRootKey = "mailboxes"
+        attributedString.addAttributes([
+            .foregroundColor: SLColor.titleColor,
+            .font: UIFont.systemFont(ofSize: 12, weight: .medium)], range: NSRange(plainString.startIndex..., in: plainString))
+        
+        if let numOfAliasRange = plainString.range(of: "\(numOfAlias)") {
+            attributedString.addAttributes([
+            .foregroundColor: SLColor.textColor,
+            .font: UIFont.systemFont(ofSize: 13, weight: .medium)], range: NSRange(numOfAliasRange, in: plainString))
+        }
+        
+        return attributedString
+    }()
+    
     init(dictionary: [String: Any]) throws {
         guard let id = dictionary["id"] as? Int,
-        let email = dictionary["email"] as? String,
-            let isDefault = dictionary["default"] as? Bool else {
+            let email = dictionary["email"] as? String,
+            let isDefault = dictionary["default"] as? Bool,
+            let  numOfAlias = dictionary["nb_alias"] as? Int,
+            let creationTimestamp = dictionary["creation_timestamp"] as? TimeInterval else {
                 throw SLError.failedToParse(anyObject: Self.self)
         }
         
         self.id = id
         self.email = email
         self.isDefault = isDefault
+        self.numOfAlias = numOfAlias
+        self.creationTimestamp = creationTimestamp
     }
 }
