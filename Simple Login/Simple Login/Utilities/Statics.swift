@@ -7,18 +7,5 @@
 //
 
 import Foundation
-import UIKit
-
-let BASE_WEBSITE_URL = "https://simplelogin.io"
-
-let CORNER_RADIUS: CGFloat = 2.0
-
-var hasTopNotch: Bool {
-    if #available(iOS 13.0,  *) {
-        return UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0 > 20
-    } else{
-        return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
-    }
-}
 
 let versionString = (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? ""

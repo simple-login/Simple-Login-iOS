@@ -16,7 +16,7 @@ final class SLApiService {
     private(set) var baseUrl: String = "https://app.simplelogin.io"
     
     func refreshBaseUrl() {
-        baseUrl = UserDefaults.getApiUrl()
+        baseUrl = Settings.shared.apiUrl
     }
 }
 

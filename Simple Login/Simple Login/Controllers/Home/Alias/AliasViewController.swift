@@ -112,7 +112,7 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
             }
             
             createAliasViewController.didDisappear = { [unowned self] in
-                if (!UserDefaults.shownInstruction()) {
+                if (!Settings.shared.showedDeleteAndRandomAliasInstruction) {
                     self.performSegue(withIdentifier: "showInstruction", sender: nil)
                 }
             }

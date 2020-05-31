@@ -42,7 +42,6 @@
 		C027A27C24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27B24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift */; };
 		C027A27E2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27D2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift */; };
 		C027A280240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27F240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift */; };
-		C027A28424054F8D00BD19C9 /* UserDefaults+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A28324054F8D00BD19C9 /* UserDefaults+Convenience.swift */; };
 		C032D6ED2419830300C06EB7 /* UIAlertController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */; };
 		C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D2D5F23D4AF300057F44F /* CustomDomain.swift */; };
 		C03F2F55244B45C000CEA316 /* IapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F2F54244B45C000CEA316 /* IapViewController.swift */; };
@@ -66,6 +65,10 @@
 		C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31923CA4040007F1C9E /* Date+Distance.swift */; };
 		C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */; };
 		C05FB6422422C76B000A4740 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05FB6412422C76B000A4740 /* ForgotPasswordViewController.swift */; };
+		C067EDC02483F58E00A89C75 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = C067EDBF2483F58E00A89C75 /* UserDefault.swift */; };
+		C067EDC32483F90700A89C75 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = C067EDBF2483F58E00A89C75 /* UserDefault.swift */; };
+		C067EDC42483F90700A89C75 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C067EDC12483F67E00A89C75 /* Settings.swift */; };
+		C067EDC52483FA8500A89C75 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C067EDC12483F67E00A89C75 /* Settings.swift */; };
 		C069397923D395A1008AE6C1 /* SuffixListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C069397823D395A1008AE6C1 /* SuffixListViewController.swift */; };
 		C06BD31823D0F9330056A9B3 /* MfaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BD31723D0F9330056A9B3 /* MfaTableViewCell.swift */; };
 		C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */; };
@@ -163,8 +166,6 @@
 		C0D069C12406D20B00EBAC10 /* DeletedAliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D069C02406D20B00EBAC10 /* DeletedAliasTableViewCell.xib */; };
 		C0D2F950240B0A2700CCE6BD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2F94F240B0A2700CCE6BD /* SignUpViewController.swift */; };
 		C0D5D5332469EA4200B64B8B /* ChangeApiUrlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D5322469EA4200B64B8B /* ChangeApiUrlViewController.swift */; };
-		C0D5D5362469F38600B64B8B /* UserDefaults+SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D5352469F38600B64B8B /* UserDefaults+SharedFunctions.swift */; };
-		C0D5D5372469F3B100B64B8B /* UserDefaults+SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D5352469F38600B64B8B /* UserDefaults+SharedFunctions.swift */; };
 		C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */; };
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
 		C0D6A27323D0759800EF21B8 /* HowAndSecurityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowAndSecurityTableViewCell.swift */; };
@@ -267,7 +268,6 @@
 		C027A27B24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWalkthroughStepViewController.swift; sourceTree = "<group>"; };
 		C027A27D2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughNoExtraMailViewController.swift; sourceTree = "<group>"; };
 		C027A27F240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughNoMoreSpamViewController.swift; sourceTree = "<group>"; };
-		C027A28324054F8D00BD19C9 /* UserDefaults+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Convenience.swift"; sourceTree = "<group>"; };
 		C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Convenience.swift"; sourceTree = "<group>"; };
 		C0373A8823EF55160044507C /* SimpleLogin Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SimpleLogin Share Extension.entitlements"; sourceTree = "<group>"; };
 		C03D2D5F23D4AF300057F44F /* CustomDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomain.swift; sourceTree = "<group>"; };
@@ -293,6 +293,8 @@
 		C05CD31923CA4040007F1C9E /* Date+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Distance.swift"; sourceTree = "<group>"; };
 		C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasTableViewCell.xib; sourceTree = "<group>"; };
 		C05FB6412422C76B000A4740 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		C067EDBF2483F58E00A89C75 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
+		C067EDC12483F67E00A89C75 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C069397823D395A1008AE6C1 /* SuffixListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuffixListViewController.swift; sourceTree = "<group>"; };
 		C06BD31723D0F9330056A9B3 /* MfaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MfaTableViewCell.swift; sourceTree = "<group>"; };
 		C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MfaTableViewCell.xib; sourceTree = "<group>"; };
@@ -384,7 +386,6 @@
 		C0D069C02406D20B00EBAC10 /* DeletedAliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeletedAliasTableViewCell.xib; sourceTree = "<group>"; };
 		C0D2F94F240B0A2700CCE6BD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C0D5D5322469EA4200B64B8B /* ChangeApiUrlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeApiUrlViewController.swift; sourceTree = "<group>"; };
-		C0D5D5352469F38600B64B8B /* UserDefaults+SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+SharedFunctions.swift"; sourceTree = "<group>"; };
 		C0D6A26D23D0730700EF21B8 /* GeneralInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27223D0759800EF21B8 /* HowAndSecurityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAndSecurityTableViewCell.swift; sourceTree = "<group>"; };
@@ -576,7 +577,7 @@
 		C052F0D023C7DC8F00EB5D98 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				C0D5D5342469F37100B64B8B /* UserDefaults */,
+				C0D5D5342469F37100B64B8B /* Settings */,
 				C0016DBD24548D6300513D64 /* SLApiService */,
 				C05CD31123CA2A14007F1C9E /* Extensions */,
 				C0B1DE4023C90CFD003EED3B /* Protocols */,
@@ -1065,13 +1066,13 @@
 			path = DeletedAliasTableViewCell;
 			sourceTree = "<group>";
 		};
-		C0D5D5342469F37100B64B8B /* UserDefaults */ = {
+		C0D5D5342469F37100B64B8B /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				C027A28324054F8D00BD19C9 /* UserDefaults+Convenience.swift */,
-				C0D5D5352469F38600B64B8B /* UserDefaults+SharedFunctions.swift */,
+				C067EDBF2483F58E00A89C75 /* UserDefault.swift */,
+				C067EDC12483F67E00A89C75 /* Settings.swift */,
 			);
-			path = UserDefaults;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		C0D6A26B23D072CE00EF21B8 /* About */ = {
@@ -1461,19 +1462,20 @@
 			files = (
 				C00BC55B23FDA12000E66FFE /* BaseUrlStatic.swift in Sources */,
 				C081656323FDA992005B0ABD /* SuffixListViewController.swift in Sources */,
-				C0D5D5372469F3B100B64B8B /* UserDefaults+SharedFunctions.swift in Sources */,
 				C0016DC724548F0500513D64 /* ContactLite.swift in Sources */,
 				C0016DC424548ED700513D64 /* Statics+Shared.swift in Sources */,
 				C0D8C4B1246ADE91008BB8D2 /* BaseViewController.swift in Sources */,
 				C0016DC124548EA200513D64 /* Alias.swift in Sources */,
 				C0016DC524548EEF00513D64 /* Date+Distance.swift in Sources */,
 				C00BC55823FDA0DC00E66FFE /* SLError.swift in Sources */,
+				C067EDC42483F90700A89C75 /* Settings.swift in Sources */,
 				C0016DC024548D8700513D64 /* SLApiService+SharedFunctions.swift in Sources */,
 				C00BC54A23FD95E100E66FFE /* SLKeychainService.swift in Sources */,
 				C07F3476248061BC00360BA3 /* AliasMailbox.swift in Sources */,
 				C0D0500F23FED26900B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */,
 				C0016DC624548EFD00513D64 /* LatestActivity.swift in Sources */,
 				C081656223FDA97E005B0ABD /* SLColor.swift in Sources */,
+				C067EDC32483F90700A89C75 /* UserDefault.swift in Sources */,
 				C07F34722480594300360BA3 /* Arrayable.swift in Sources */,
 				C042C25B23EF3A570045A04D /* ShareViewController.swift in Sources */,
 				C081656523FDAA5F005B0ABD /* String+Utilities.swift in Sources */,
@@ -1490,6 +1492,7 @@
 			files = (
 				C0D2F950240B0A2700CCE6BD /* SignUpViewController.swift in Sources */,
 				C07B41F623EAEDCD002E6223 /* VerificationViewController.swift in Sources */,
+				C067EDC02483F58E00A89C75 /* UserDefault.swift in Sources */,
 				C0B1DE4623C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift in Sources */,
 				C0BD47CF244DAB6F006473B5 /* ContactLite.swift in Sources */,
 				C01ABA69246068340075DCC9 /* WhatAndFaqTableViewCell.swift in Sources */,
@@ -1514,7 +1517,6 @@
 				C09DB8202439F341002A9973 /* WhatYouCanDoViewController.swift in Sources */,
 				C0D069A12406A94000EBAC10 /* DeleteDomainTableViewCell.swift in Sources */,
 				C0956A5023D10C14000CEBDD /* DeleteAccountTableViewCell.swift in Sources */,
-				C0D5D5362469F38600B64B8B /* UserDefaults+SharedFunctions.swift in Sources */,
 				C05CD31023CA0ACB007F1C9E /* BaseViewController.swift in Sources */,
 				C0A726FE23EC6D3E00A62A22 /* AliasActivity.swift in Sources */,
 				C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */,
@@ -1578,6 +1580,7 @@
 				C0222398245F3E9D003157B9 /* NSNotification+Extensions.swift in Sources */,
 				C0D6A29623D0ACDF00EF21B8 /* FaqTableViewCell.swift in Sources */,
 				C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */,
+				C067EDC52483FA8500A89C75 /* Settings.swift in Sources */,
 				C0D069B82406D09200EBAC10 /* ListDeletedAliasesTableViewCell.swift in Sources */,
 				C0D069AB2406BE7800EBAC10 /* Directory.swift in Sources */,
 				C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */,
@@ -1595,7 +1598,6 @@
 				C0D069B42406CFDE00EBAC10 /* DeletedAlias.swift in Sources */,
 				C0D069AE2406BFC800EBAC10 /* DirectoryTableViewCell.swift in Sources */,
 				C0D8C4B3246AF132008BB8D2 /* ErrorMessage.swift in Sources */,
-				C027A28424054F8D00BD19C9 /* UserDefaults+Convenience.swift in Sources */,
 				C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
 				C0D069BF2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift in Sources */,

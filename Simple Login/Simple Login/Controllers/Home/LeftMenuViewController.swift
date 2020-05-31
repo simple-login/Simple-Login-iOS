@@ -33,6 +33,14 @@ final class LeftMenuViewController: BaseViewController {
     
     var userInfo: UserInfo?
     var delegate: LeftMenuViewControllerDelegate?
+    
+    private var hasTopNotch: Bool {
+        if #available(iOS 13.0,  *) {
+            return UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0 > 20
+        } else{
+            return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

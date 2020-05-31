@@ -19,7 +19,7 @@ final class InstructionViewController: BaseViewController, Storyboarded {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UserDefaults.showInstructionComplete()
+        Settings.shared.showedDeleteAndRandomAliasInstruction = true
     }
     
     @IBAction private func gotItButtonTapped() {

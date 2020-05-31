@@ -12,18 +12,20 @@ import WebKit
 final class WebViewController: BaseViewController {
     @IBOutlet private weak var webView: WKWebView!
     
+    private static let baseWebsiteUrl = "https://simplelogin.io"
+    
     enum Module {
         case team, pricing, blog, terms, privacy, security, help
         
         var urlString: String {
             switch self {
-            case .team: return "\(BASE_WEBSITE_URL)/about"
-            case .pricing: return "\(BASE_WEBSITE_URL)/pricing"
-            case .blog: return "\(BASE_WEBSITE_URL)/blog"
-            case .terms: return "\(BASE_WEBSITE_URL)/terms"
-            case .privacy: return "\(BASE_WEBSITE_URL)/privacy"
-            case .security: return "\(BASE_WEBSITE_URL)/security"
-            case .help: return "\(BASE_WEBSITE_URL)/help"
+            case .team: return "\(baseWebsiteUrl)/about"
+            case .pricing: return "\(baseWebsiteUrl)/pricing"
+            case .blog: return "\(baseWebsiteUrl)/blog"
+            case .terms: return "\(baseWebsiteUrl)/terms"
+            case .privacy: return "\(baseWebsiteUrl)/privacy"
+            case .security: return "\(baseWebsiteUrl)/security"
+            case .help: return "\(baseWebsiteUrl)/help"
             }
         }
     }

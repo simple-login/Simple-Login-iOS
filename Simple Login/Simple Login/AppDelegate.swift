@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setUpSentry()
         setUpStoreKit()
         askForReview()
-        UserDefaults.registerDefaultValues()
         return true
     }
     

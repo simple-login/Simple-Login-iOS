@@ -11,7 +11,7 @@ import UIKit
 class BorderedShadowedView: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        layer.cornerRadius = CORNER_RADIUS
+        layer.cornerRadius = 2.0
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
         layer.borderWidth = 0.5

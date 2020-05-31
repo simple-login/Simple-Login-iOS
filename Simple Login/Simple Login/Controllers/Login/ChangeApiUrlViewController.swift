@@ -18,7 +18,7 @@ final class ChangeApiUrlViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
-        urlTextField.text = UserDefaults.getApiUrl()
+        urlTextField.text = Settings.shared.apiUrl
     }
     
     private func setUpUI() {
@@ -58,18 +58,16 @@ final class ChangeApiUrlViewController: BaseViewController {
             Toast.displayShortly(message: "API URL is empty")
             return
         }
-        UserDefaults.setApiUrl(apiUrl)
-        SLApiService.shared.refreshBaseUrl()
+        Settings.shared.apiUrl = apiUrl
         dismiss(animated: true) {
             Toast.displayShortly(message: "Changed API URL to: \(apiUrl)")
         }
     }
     
     @IBAction private func resetButtonTapped() {
-        UserDefaults.resetApiUrl()
-        SLApiService.shared.refreshBaseUrl()
+        Settings.shared.resetApiUrl()
         dismiss(animated: true) {
-            Toast.displayShortly(message: "Reset API URL to: \(UserDefaults.getApiUrl())")
+            Toast.displayShortly(message: "Reset API URL to: \(Settings.shared.apiUrl)")
         }
     }
 }
