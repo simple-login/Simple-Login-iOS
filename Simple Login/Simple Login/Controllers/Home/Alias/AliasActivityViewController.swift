@@ -76,7 +76,7 @@ final class AliasActivityViewController: BaseApiKeyViewController {
         
         let pageToFetch = refreshControl.isRefreshing ? 0 : fetchedPage + 1
         
-        SLApiService.fetchAliasActivities(apiKey: apiKey, aliasId: alias.id, page: pageToFetch) { [weak self] result in
+        SLApiService.shared.fetchAliasActivities(apiKey: apiKey, aliasId: alias.id, page: pageToFetch) { [weak self] result in
             guard let self = self else { return }
             
             self.isFetching = false
@@ -112,7 +112,7 @@ final class AliasActivityViewController: BaseApiKeyViewController {
     }
     
     private func fetchAlias() {
-        SLApiService.getAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
+        SLApiService.shared.getAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
@@ -157,7 +157,7 @@ extension AliasActivityViewController {
     private func updateNote(_ note: String?) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.updateAliasNote(apiKey: apiKey, id: alias.id, note: note) { [weak self] result in
+        SLApiService.shared.updateAliasNote(apiKey: apiKey, id: alias.id, note: note) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             

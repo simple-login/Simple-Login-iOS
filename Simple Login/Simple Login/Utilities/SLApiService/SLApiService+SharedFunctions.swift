@@ -10,23 +10,26 @@ import Foundation
 import Alamofire
 
 final class SLApiService {
-    private(set) static var BASE_URL: String = "https://app.simplelogin.io"
+    private init() {}
+    static let shared = SLApiService()
     
-    static func refreshBaseUrl() {
-        BASE_URL = UserDefaults.getApiUrl()
+    private(set) var baseUrl: String = "https://app.simplelogin.io"
+    
+    func refreshBaseUrl() {
+        baseUrl = UserDefaults.getApiUrl()
     }
 }
 
 // Functions in this file are shared with the Share Extension
 extension SLApiService {
-    static func fetchUserOptions(apiKey: ApiKey, hostname: String? = nil, completion: @escaping (Result<UserOptions, SLError>) -> Void) {
+    func fetchUserOptions(apiKey: ApiKey, hostname: String? = nil, completion: @escaping (Result<UserOptions, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey.value]
         
         let urlString: String
         if let hostname = hostname {
-            urlString = "\(BASE_URL)/api/v3/alias/options?hostname=\(hostname)"
+            urlString = "\(baseUrl)/api/v3/alias/options?hostname=\(hostname)"
         } else {
-            urlString = "\(BASE_URL)/api/v3/alias/options"
+            urlString = "\(baseUrl)/api/v3/alias/options"
         }
         
         AF.request(urlString, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
@@ -61,7 +64,7 @@ extension SLApiService {
         }
     }
     
-    static func createAlias(apiKey: ApiKey, prefix: String, suffix: String, note: String?, completion: @escaping (Result<Alias, SLError>) -> Void) {
+    func createAlias(apiKey: ApiKey, prefix: String, suffix: String, note: String?, completion: @escaping (Result<Alias, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey.value]
         var parameters = ["alias_prefix" : prefix, "alias_suffix" : suffix]
         
@@ -69,7 +72,7 @@ extension SLApiService {
             parameters["note"] = note
         }
         
-        AF.request("\(BASE_URL)/api/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).responseData { response in
+        AF.request("\(baseUrl)/api/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):

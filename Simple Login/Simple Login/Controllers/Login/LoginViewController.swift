@@ -59,7 +59,7 @@ final class LoginViewController: BaseViewController, Storyboarded {
         
         MBProgressHUD.showAdded(to: view, animated: true)
     
-        SLApiService.login(email: email, password: password) { [weak self] result in
+        SLApiService.shared.login(email: email, password: password) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
@@ -117,7 +117,7 @@ final class LoginViewController: BaseViewController, Storyboarded {
             
             MBProgressHUD.showAdded(to: self.view, animated: true)
             
-            SLApiService.fetchUserInfo(apiKey: apiKey) { [weak self] result in
+            SLApiService.shared.fetchUserInfo(apiKey: apiKey) { [weak self] result in
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
@@ -197,7 +197,7 @@ extension LoginViewController {
     private func signUp(email: String, password: String) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.signUp(email: email, password: password) { [weak self] result in
+        SLApiService.shared.signUp(email: email, password: password) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)

@@ -147,7 +147,7 @@ extension ShareViewController {
             return
         }
         
-        SLApiService.fetchUserOptions(apiKey: apiKey, hostname: url.host ?? "") { [weak self] result in
+        SLApiService.shared.fetchUserOptions(apiKey: apiKey, hostname: url.host ?? "") { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
@@ -172,7 +172,7 @@ extension ShareViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.createAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: noteTextField.text) { [weak self] result in
+        SLApiService.shared.createAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: noteTextField.text) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)

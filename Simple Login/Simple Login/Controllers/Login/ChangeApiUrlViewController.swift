@@ -59,7 +59,7 @@ final class ChangeApiUrlViewController: BaseViewController {
             return
         }
         UserDefaults.setApiUrl(apiUrl)
-        SLApiService.refreshBaseUrl()
+        SLApiService.shared.refreshBaseUrl()
         dismiss(animated: true) {
             Toast.displayShortly(message: "Changed API URL to: \(apiUrl)")
         }
@@ -67,7 +67,7 @@ final class ChangeApiUrlViewController: BaseViewController {
     
     @IBAction private func resetButtonTapped() {
         UserDefaults.resetApiUrl()
-        SLApiService.refreshBaseUrl()
+        SLApiService.shared.refreshBaseUrl()
         dismiss(animated: true) {
             Toast.displayShortly(message: "Reset API URL to: \(UserDefaults.getApiUrl())")
         }

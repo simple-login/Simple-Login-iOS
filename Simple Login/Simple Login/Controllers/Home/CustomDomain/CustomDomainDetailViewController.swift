@@ -83,7 +83,7 @@ extension CustomDomainDetailViewController: UITableViewDataSource {
                 let cell = NotVerifiedDomainTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
                 
                 cell.didTapVerifyButton = { [unowned self] in
-                    if let url = URL(string: "\(SLApiService.BASE_URL)/dashboard/domains/\(self.customDomain.id)/dns") {
+                    if let url = URL(string: "\(SLApiService.shared.baseUrl)/dashboard/domains/\(self.customDomain.id)/dns") {
                         UIApplication.shared.open(url)
                     }
                 }

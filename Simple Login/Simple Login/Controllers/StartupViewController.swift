@@ -15,7 +15,7 @@ final class StartupViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        SLApiService.refreshBaseUrl()
+        SLApiService.shared.refreshBaseUrl()
         NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseSuccessfully), name: .purchaseSuccessfully, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleErrorRetrievingApiKeyFromKeychain), name: .errorRetrievingApiKeyFromKeychain, object: nil)
     }
@@ -51,7 +51,7 @@ final class StartupViewController: BaseViewController {
         hud.label.text = "Connecting to server..."
         hud.offset = CGPoint(x: 0.0, y: MBProgressMaxOffset)
         
-        SLApiService.fetchUserInfo(apiKey: apiKey, completion: { [weak self] result in
+        SLApiService.shared.fetchUserInfo(apiKey: apiKey, completion: { [weak self] result in
             guard let self = self else { return }
             
             hud.hide(animated: true)

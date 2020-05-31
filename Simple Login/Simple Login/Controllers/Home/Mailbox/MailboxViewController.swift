@@ -35,7 +35,7 @@ final class MailboxViewController: BaseApiKeyLeftMenuButtonViewController, Story
     }
     
     @objc private func fetchMailboxes() {
-        SLApiService.fetchMailboxes(apiKey: apiKey) { [weak self] result in
+        SLApiService.shared.fetchMailboxes(apiKey: apiKey) { [weak self] result in
             guard let self = self else { return }
             
             switch result {

@@ -140,7 +140,7 @@ final class IapViewController: BaseApiKeyViewController, Storyboarded {
             switch result {
             case .success(let receiptData):
                 let encryptedReceipt = receiptData.base64EncodedString(options: [])
-                SLApiService.processPayment(apiKey: self.apiKey, receiptData: encryptedReceipt) { [weak self] processPaymentResult in
+                SLApiService.shared.processPayment(apiKey: self.apiKey, receiptData: encryptedReceipt) { [weak self] processPaymentResult in
                     guard let self = self else { return }
                     MBProgressHUD.hide(for: self.view, animated: true)
                     

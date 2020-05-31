@@ -147,7 +147,7 @@ final class VerificationViewController: BaseViewController, Storyboarded {
         
         switch mode {
         case .otp(let mfaKey):
-            SLApiService.verifyMFA(mfaKey: mfaKey, mfaToken: code) { [weak self] result in
+            SLApiService.shared.verifyMFA(mfaKey: mfaKey, mfaToken: code) { [weak self] result in
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
@@ -164,7 +164,7 @@ final class VerificationViewController: BaseViewController, Storyboarded {
             }
             
         case .accountActivation(let email, _):
-            SLApiService.verifyEmail(email: email, code: code) { [weak self] result in
+            SLApiService.shared.verifyEmail(email: email, code: code) { [weak self] result in
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
@@ -219,7 +219,7 @@ final class VerificationViewController: BaseViewController, Storyboarded {
     private func reactivate(email: String) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.reactivate(email: email) { [weak self] result in
+        SLApiService.shared.reactivate(email: email) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)

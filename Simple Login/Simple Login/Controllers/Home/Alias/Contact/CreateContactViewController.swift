@@ -59,7 +59,7 @@ final class CreateContactViewController: BaseApiKeyViewController {
 
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.createContact(apiKey: apiKey, aliasId: alias.id, email: email) { [weak self] result in
+        SLApiService.shared.createContact(apiKey: apiKey, aliasId: alias.id, email: email) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)

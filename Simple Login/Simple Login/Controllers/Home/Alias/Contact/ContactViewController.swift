@@ -64,7 +64,7 @@ final class ContactViewController: BaseApiKeyViewController {
         
         let pageToFetch = refreshControl.isRefreshing ? 0 : fetchedPage + 1
         
-        SLApiService.fetchContacts(apiKey: apiKey, aliasId: alias.id, page: pageToFetch) { [weak self] result in
+        SLApiService.shared.fetchContacts(apiKey: apiKey, aliasId: alias.id, page: pageToFetch) { [weak self] result in
             guard let self = self else { return }
             
             self.isFetching = false
@@ -130,7 +130,7 @@ final class ContactViewController: BaseApiKeyViewController {
     private func delete(contact: Contact, indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.deleteContact(apiKey: apiKey, id: contact.id) { [weak self] result in
+        SLApiService.shared.deleteContact(apiKey: apiKey, id: contact.id) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)

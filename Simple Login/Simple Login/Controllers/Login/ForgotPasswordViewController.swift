@@ -49,7 +49,7 @@ final class ForgotPasswordViewController: BaseViewController {
     @IBAction private func resetButtonTapped() {
         guard let email = emailTextField?.text, email.isValidEmail() else { return }
         MBProgressHUD.showAdded(to: view, animated: true)
-        SLApiService.forgotPassword(email: email) { [weak self] in
+        SLApiService.shared.forgotPassword(email: email) { [weak self] in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             Toast.displayLongly(message: "We've sent reset password email to \"\(email)\"")

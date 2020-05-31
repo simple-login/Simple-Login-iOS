@@ -71,7 +71,7 @@ final class AliasSearchViewController: BaseApiKeyViewController {
         MBProgressHUD.showAdded(to: view, animated: true)
         isFetching = true
         
-        SLApiService.fetchAliases(apiKey: apiKey, page: fetchedPage + 1, searchTerm: self.searchTerm ?? "") { [weak self] result in
+        SLApiService.shared.fetchAliases(apiKey: apiKey, page: fetchedPage + 1, searchTerm: self.searchTerm ?? "") { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             self.isFetching = false
@@ -115,7 +115,7 @@ extension AliasSearchViewController {
     private func toggle(alias: Alias) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
+        SLApiService.shared.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
@@ -150,7 +150,7 @@ extension AliasSearchViewController {
     private func delete(alias: Alias, at indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.deleteAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
+        SLApiService.shared.deleteAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             

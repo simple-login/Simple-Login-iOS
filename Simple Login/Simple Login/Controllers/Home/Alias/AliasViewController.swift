@@ -156,7 +156,7 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
         
         let pageToFetch = refreshControl.isRefreshing ? 0 : fetchedPage + 1
         
-        SLApiService.fetchAliases(apiKey: apiKey, page: pageToFetch) { [weak self] result in
+        SLApiService.shared.fetchAliases(apiKey: apiKey, page: pageToFetch) { [weak self] result in
             guard let self = self else { return }
             
             self.isFetching = false
@@ -223,7 +223,7 @@ extension AliasViewController {
     private func toggle(alias: Alias, at indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
+        SLApiService.shared.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
@@ -277,7 +277,7 @@ extension AliasViewController {
     private func delete(alias: Alias, at indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.deleteAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
+        SLApiService.shared.deleteAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
             guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
@@ -362,7 +362,7 @@ extension AliasViewController {
     private func randomAlias(mode: RandomMode) {
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.randomAlias(apiKey: apiKey, randomMode: mode) { [weak self] result in
+        SLApiService.shared.randomAlias(apiKey: apiKey, randomMode: mode) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
