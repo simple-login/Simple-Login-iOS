@@ -37,11 +37,20 @@
                                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Created 3 day agos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8XZ-0C-eEa">
-                                                <rect key="frame" x="22" y="0.0" width="379" height="24.5"/>
+                                                <rect key="frame" x="22" y="0.0" width="270" height="24.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sE7-nT-Rfk">
+                                                <rect key="frame" x="296" y="0.0" width="105" height="24.5"/>
+                                                <color key="backgroundColor" name="TintColor"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                                <state key="normal" title="Default Mailbox">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Ygc-Tc-B4g">
@@ -83,6 +92,7 @@
             <connections>
                 <outlet property="clockImageView" destination="V4j-Bt-gS7" id="b4S-wv-QnA"/>
                 <outlet property="creationDateLabel" destination="8XZ-0C-eEa" id="LUj-wJ-JLy"/>
+                <outlet property="defaultButton" destination="sE7-nT-Rfk" id="uAt-YC-k2D"/>
                 <outlet property="emailLabel" destination="xp0-l4-8Gr" id="5Ur-Bm-jCn"/>
                 <outlet property="numOfAliasLabel" destination="OgI-pg-Ey1" id="Tay-fC-cov"/>
                 <outlet property="waveImageView" destination="jVN-1O-m0q" id="d47-Je-aQa"/>
@@ -95,6 +105,9 @@
         <image name="WaveIcon" width="17" height="17"/>
         <namedColor name="FrontBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="TintColor">
+            <color red="0.93333333333333335" green="0.18823529411764706" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

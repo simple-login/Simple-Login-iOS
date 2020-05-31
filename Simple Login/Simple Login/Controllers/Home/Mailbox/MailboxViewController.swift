@@ -61,6 +61,20 @@ extension MailboxViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        guard !mailboxes[indexPath.row].isDefault else { return nil }
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] (_, indexPath) in
+            
+        }
+        
+        let setAsDefaultAction = UITableViewRowAction(style: .normal, title: "Set as default") { [unowned self] (_, indexPath) in
+            
+        }
+        
+        return [deleteAction, setAsDefaultAction]
+    }
 }
 
 // MARK: - UITableViewDataSource
