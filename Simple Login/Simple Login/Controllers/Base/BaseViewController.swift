@@ -10,6 +10,6 @@ import UIKit
 
 class BaseViewController: UIViewController {
     deinit {
-        printIfDebug("\(Self.self) is decallocated")
+        printIfDebug("\(Self.self) is deallocated")
     }
 }

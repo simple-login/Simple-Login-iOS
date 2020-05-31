@@ -35,11 +35,18 @@
                         <viewLayoutGuide key="safeArea" id="Air-mS-b5B"/>
                     </view>
                     <navigationItem key="navigationItem" title="Mailboxes" id="LDD-aL-aqm">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="GVT-AD-pXE">
-                            <connections>
-                                <action selector="alertCreateMailbox" destination="7i0-kg-A0I" id="7mG-ZG-Hby"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="💡How to" id="zMi-s7-oSk">
+                                <connections>
+                                    <segue destination="qIM-Eq-kKI" kind="presentation" id="We9-mF-wva"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="GVT-AD-pXE">
+                                <connections>
+                                    <action selector="alertCreateMailbox" destination="7i0-kg-A0I" id="7mG-ZG-Hby"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="bqE-p5-zIf" id="IRW-6s-epa"/>
@@ -48,6 +55,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sCR-0K-eNb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="950.72463768115949" y="-29.464285714285712"/>
+        </scene>
+        <!--How To Use Mailboxes View Controller-->
+        <scene sceneID="kbA-ge-CvI">
+            <objects>
+                <viewController storyboardIdentifier="HowToUseMailboxesViewController" id="qIM-Eq-kKI" customClass="HowToUseMailboxesViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tK6-S3-meM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pH-y7-klY">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem title="How to use mailboxes" id="Ma5-52-F8K">
+                                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="Xxy-Ly-yFK">
+                                            <connections>
+                                                <action selector="doneButtonTapped" destination="qIM-Eq-kKI" id="Fpj-lk-3cW"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbd-I7-9Mx">
+                                <rect key="frame" x="20" y="295.5" width="374" height="251"/>
+                                <mutableString key="text">A mailbox is just another personal email address. When creating a new alias, you could choose the mailbox that owns this alias, i.e:
+- all emails sent to this alias will be forwarded to this mailbox
+- from this mailbox, you can reply/send emails from the alias.
+
+When you signed up, a mailbox is automatically created with the provided email.
+
+A mailbox doesn't have to be your email: it can be your friend's email if you want to create aliases for your buddy.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="gbd-I7-9Mx" firstAttribute="leading" secondItem="mo1-Zh-Nm2" secondAttribute="leading" constant="20" id="0ls-rf-LDc"/>
+                            <constraint firstItem="3pH-y7-klY" firstAttribute="leading" secondItem="mo1-Zh-Nm2" secondAttribute="leading" id="8qB-I8-NqM"/>
+                            <constraint firstItem="3pH-y7-klY" firstAttribute="top" secondItem="mo1-Zh-Nm2" secondAttribute="top" id="KiQ-ED-mrV"/>
+                            <constraint firstItem="gbd-I7-9Mx" firstAttribute="centerY" secondItem="tK6-S3-meM" secondAttribute="centerY" id="Y6U-f6-EsA"/>
+                            <constraint firstItem="gbd-I7-9Mx" firstAttribute="centerX" secondItem="tK6-S3-meM" secondAttribute="centerX" id="ZbF-EG-j4U"/>
+                            <constraint firstAttribute="trailing" secondItem="3pH-y7-klY" secondAttribute="trailing" id="deI-j0-czi"/>
+                            <constraint firstItem="mo1-Zh-Nm2" firstAttribute="trailing" secondItem="gbd-I7-9Mx" secondAttribute="trailing" constant="20" id="mT1-zS-YcE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="mo1-Zh-Nm2"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H4o-ku-yun" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1859" y="-29"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9z4-md-mkX">

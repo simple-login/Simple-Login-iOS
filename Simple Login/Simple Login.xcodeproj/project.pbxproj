@@ -69,6 +69,7 @@
 		C067EDC32483F90700A89C75 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = C067EDBF2483F58E00A89C75 /* UserDefault.swift */; };
 		C067EDC42483F90700A89C75 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C067EDC12483F67E00A89C75 /* Settings.swift */; };
 		C067EDC52483FA8500A89C75 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C067EDC12483F67E00A89C75 /* Settings.swift */; };
+		C067EDC7248408ED00A89C75 /* HowToUseMailboxesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C067EDC6248408ED00A89C75 /* HowToUseMailboxesViewController.swift */; };
 		C069397923D395A1008AE6C1 /* SuffixListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C069397823D395A1008AE6C1 /* SuffixListViewController.swift */; };
 		C06BD31823D0F9330056A9B3 /* MfaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BD31723D0F9330056A9B3 /* MfaTableViewCell.swift */; };
 		C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */; };
@@ -295,6 +296,7 @@
 		C05FB6412422C76B000A4740 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		C067EDBF2483F58E00A89C75 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		C067EDC12483F67E00A89C75 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		C067EDC6248408ED00A89C75 /* HowToUseMailboxesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUseMailboxesViewController.swift; sourceTree = "<group>"; };
 		C069397823D395A1008AE6C1 /* SuffixListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuffixListViewController.swift; sourceTree = "<group>"; };
 		C06BD31723D0F9330056A9B3 /* MfaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MfaTableViewCell.swift; sourceTree = "<group>"; };
 		C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MfaTableViewCell.xib; sourceTree = "<group>"; };
@@ -703,6 +705,7 @@
 			isa = PBXGroup;
 			children = (
 				C07F346824804F0800360BA3 /* MailboxViewController.swift */,
+				C067EDC6248408ED00A89C75 /* HowToUseMailboxesViewController.swift */,
 			);
 			path = Mailbox;
 			sourceTree = "<group>";
@@ -1595,6 +1598,7 @@
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
 				C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */,
 				C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */,
+				C067EDC7248408ED00A89C75 /* HowToUseMailboxesViewController.swift in Sources */,
 				C0D069B42406CFDE00EBAC10 /* DeletedAlias.swift in Sources */,
 				C0D069AE2406BFC800EBAC10 /* DirectoryTableViewCell.swift in Sources */,
 				C0D8C4B3246AF132008BB8D2 /* ErrorMessage.swift in Sources */,
