@@ -10,8 +10,12 @@ import UIKit
 
 final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
     @IBOutlet private weak var creationDateLabel: UILabel!
+    @IBOutlet private weak var mailboxesLabel: UILabel!
+    @IBOutlet private weak var editMailboxesButton: UIButton!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var editNameButton: UIButton!
     @IBOutlet private weak var noteLabel: UILabel!
-    @IBOutlet private weak var editButton: UIButton!
+    @IBOutlet private weak var editNoteButton: UIButton!
     @IBOutlet private weak var handledCountLabel: UILabel!
     @IBOutlet private weak var forwardedCountLabel: UILabel!
     @IBOutlet private weak var repliedCountLabel: UILabel!
@@ -21,9 +25,11 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
     @IBOutlet private var rootViews: [UIView]!
     @IBOutlet private var countLabels: [UILabel]!
     @IBOutlet private var titleLabels: [UILabel]!
-    @IBOutlet private var imageViews: [UIImageView]!
+    @IBOutlet private var countImageViews: [UIImageView]!
     
-    var didTapEditButton: (() -> Void)?
+    var didTapEditNoteButton: (() -> Void)?
+    var didTapEditMailboxesButton: (() -> Void)?
+    var didTapEditNameButton: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,7 +40,7 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
         })
         blockedRootView.backgroundColor = UIColor.systemRed.withAlphaComponent(0.7)
         
-        imageViews.forEach({
+        countImageViews.forEach({
             $0.backgroundColor = .clear
             $0.tintColor = UIColor.white.withAlphaComponent(0.2)
         })
@@ -49,16 +55,26 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
     
     func bind(with alias: Alias) {
         creationDateLabel.text = alias.creationTimestampString
+        mailboxesLabel.attributedText = alias.mailboxesAttributedString
         
+        if let name = alias.name {
+            nameLabel.text = name
+            nameLabel.font = UIFont.systemFont(ofSize: 14)
+            editNameButton.setTitle("Edit name", for: .normal)
+        } else {
+            nameLabel.text = "<No display name yet>"
+            nameLabel.font = UIFont.italicSystemFont(ofSize: 14)
+            editNameButton.setTitle("Add name", for: .normal)
+        }
         
         if let note = alias.note, note != "" {
             noteLabel.text = note
             noteLabel.font = UIFont.systemFont(ofSize: 14)
-            editButton.setTitle("Edit note", for: .normal)
+            editNoteButton.setTitle("Edit note", for: .normal)
         } else {
-            noteLabel.text = "Add some note for this alias"
+            noteLabel.text = "<No note yet>"
             noteLabel.font = UIFont.italicSystemFont(ofSize: 14)
-            editButton.setTitle("Add note", for: .normal)
+            editNoteButton.setTitle("Add note", for: .normal)
         }
 
         handledCountLabel.text = "\(alias.replyCount + alias.forwardCount + alias.blockCount)"
@@ -67,7 +83,15 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
         blockedCountLabel.text = "\(alias.blockCount)"
     }
     
-    @IBAction private func editButtonTapped() {
-        didTapEditButton?()
+    @IBAction private func editNoteButtonTapped() {
+        didTapEditNoteButton?()
+    }
+    
+    @IBAction private func editMailboxesButtonTapped() {
+        didTapEditMailboxesButton?()
+    }
+    
+    @IBAction private func editNameButtonTapped() {
+        didTapEditNameButton?()
     }
 }

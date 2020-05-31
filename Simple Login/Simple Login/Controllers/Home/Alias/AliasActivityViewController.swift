@@ -193,7 +193,7 @@ extension AliasActivityViewController: UITableViewDelegate {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AliasActivityTableHeaderView") as? AliasActivityTableHeaderView
         header?.bind(with: alias)
         
-        header?.didTapEditButton = { [unowned self] in
+        header?.didTapEditNoteButton = { [unowned self] in
             self.presentAlertEditNotes()
         }
         

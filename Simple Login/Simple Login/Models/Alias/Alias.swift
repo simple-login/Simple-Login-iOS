@@ -29,8 +29,7 @@ final class Alias: Equatable, Arrayable {
         let string = mailboxes.map({ $0.email }).joined(separator: " & ")
         let attributedString = NSMutableAttributedString(string: string)
         attributedString.addAttributes([
-            .foregroundColor: SLColor.titleColor,
-            .font: UIFont.systemFont(ofSize: 12, weight: .medium)], range: NSRange(string.startIndex..., in: string))
+            .foregroundColor: SLColor.titleColor], range: NSRange(string.startIndex..., in: string))
         
         let matchRanges = RegexHelpers.matchRanges(of: "&", inString: string)
         matchRanges.forEach { (range) in
