@@ -21,7 +21,7 @@ extension Toast {
     }
     
     class func displayError(_ error: CustomStringConvertible) {
-        Toast.displayShortly(message: "\(error.description)")
+        Toast.displayLongly(message: "\(error.description)")
     }
     
     class func displayUpToDate() {

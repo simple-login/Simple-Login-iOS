@@ -34,7 +34,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Air-mS-b5B"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Mailboxes" id="LDD-aL-aqm"/>
+                    <navigationItem key="navigationItem" title="Mailboxes" id="LDD-aL-aqm">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="GVT-AD-pXE">
+                            <connections>
+                                <action selector="alertCreateMailbox" destination="7i0-kg-A0I" id="7mG-ZG-Hby"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="bqE-p5-zIf" id="IRW-6s-epa"/>
                     </connections>

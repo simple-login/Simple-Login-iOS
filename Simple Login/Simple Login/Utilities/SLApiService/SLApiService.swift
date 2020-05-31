@@ -619,4 +619,40 @@ extension SLApiService {
             }
         }
     }
+    
+    func createMailbox(apikey: ApiKey, email: String, completion: @escaping (Result<Any?, SLError>) -> Void) {
+        let parameters = ["email" : email]
+        
+        AF.request("\(baseUrl)/api/mailboxes", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: apikey.toHeaders(), interceptor: nil).responseData { response in
+            
+            switch response.result {
+            case .success(let data):
+                guard let statusCode = response.response?.statusCode else {
+                    completion(.failure(.unknownResponseStatusCode))
+                    return
+                }
+                
+                switch statusCode {
+                case 201: completion(.success(nil))
+                    
+                case 400:
+                    do {
+                        let errorMessage = try ErrorMessage(data: data)
+                        completion(.failure(.badRequest(description: errorMessage.value)))
+                    } catch let slError as SLError {
+                        completion(.failure(slError))
+                    } catch {
+                        completion(.failure(.unknownError(error: error)))
+                    }
+                    
+                case 500: completion(.failure(.internalServerError))
+                case 502: completion(.failure(.badGateway))
+                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
+                }
+                
+            case .failure(let error):
+                completion(.failure(.alamofireError(error: error)))
+            }
+        }
+    }
 }

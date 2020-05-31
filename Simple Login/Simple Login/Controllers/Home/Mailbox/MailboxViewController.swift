@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MBProgressHUD
 import Toaster
 
 final class MailboxViewController: BaseApiKeyLeftMenuButtonViewController, Storyboarded {
@@ -51,6 +52,40 @@ final class MailboxViewController: BaseApiKeyLeftMenuButtonViewController, Story
             case .failure(let error):
                 self.refreshControl.endRefreshing()
                 Toast.displayError(error)
+            }
+        }
+    }
+    
+    @IBAction private func alertCreateMailbox() {
+        let alert = UIAlertController(title: "New mailbox", message: "A verification email will be sent to this email address", preferredStyle: .alert)
+        alert.addTextField { textField in
+            textField.placeholder = "my-another-email@example.com"
+            textField.keyboardType = .emailAddress
+        }
+        
+        let createAction = UIAlertAction(title: "Create", style: .default) { _ in
+            if let email = alert.textFields?[0].text {
+                self.createMailbox(email)
+            }
+        }
+        alert.addAction(createAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func createMailbox(_ email: String) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.shared.createMailbox(apikey: apiKey, email: email) { [weak self] result in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            switch result {
+            case .success(_): Toast.displayLongly(message: "You are going to receive a confirmation email for \"\(email)\"")
+            case .failure(let error): Toast.displayError(error)
             }
         }
     }
