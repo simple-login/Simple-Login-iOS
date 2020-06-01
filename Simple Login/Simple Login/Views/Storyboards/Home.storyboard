@@ -579,20 +579,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5Pj-dE-iZ6">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="786"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="JEk-T1-Xnd" id="uUM-cu-Fln"/>
                                     <outlet property="delegate" destination="JEk-T1-Xnd" id="Rqk-df-n7O"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KLw-tn-t8S">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem title="Select suffix" id="F1l-0n-61M">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Zbu-4G-gtz">
+                                            <connections>
+                                                <action selector="cancelButtonTapped" destination="JEk-T1-Xnd" id="vn7-iP-ie9"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="KLw-tn-t8S" firstAttribute="leading" secondItem="n9t-5j-4Sg" secondAttribute="leading" id="2jJ-GL-g0k"/>
+                            <constraint firstItem="KLw-tn-t8S" firstAttribute="top" secondItem="n9t-5j-4Sg" secondAttribute="top" id="4qE-1O-mXx"/>
+                            <constraint firstAttribute="trailing" secondItem="KLw-tn-t8S" secondAttribute="trailing" id="7Y9-R4-xHf"/>
+                            <constraint firstItem="5Pj-dE-iZ6" firstAttribute="top" secondItem="KLw-tn-t8S" secondAttribute="bottom" id="9OQ-w8-PJ6"/>
+                            <constraint firstAttribute="bottom" secondItem="5Pj-dE-iZ6" secondAttribute="bottom" id="Bzv-0X-aia"/>
                             <constraint firstItem="uZd-Lj-Tw9" firstAttribute="trailing" secondItem="5Pj-dE-iZ6" secondAttribute="trailing" id="TQZ-hh-TkK"/>
-                            <constraint firstItem="uZd-Lj-Tw9" firstAttribute="bottom" secondItem="5Pj-dE-iZ6" secondAttribute="bottom" id="cTr-22-rl8"/>
                             <constraint firstItem="5Pj-dE-iZ6" firstAttribute="leading" secondItem="uZd-Lj-Tw9" secondAttribute="leading" id="ucA-Hc-c0y"/>
-                            <constraint firstItem="5Pj-dE-iZ6" firstAttribute="top" secondItem="uZd-Lj-Tw9" secondAttribute="top" id="z6C-Fb-6ko"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uZd-Lj-Tw9"/>
                     </view>
@@ -602,7 +617,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRF-3e-zNN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2223" y="-563"/>
+            <point key="canvasLocation" x="2221.739130434783" y="-563.16964285714278"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="K83-TJ-wII">

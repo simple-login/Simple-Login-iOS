@@ -29,6 +29,10 @@ final class SuffixListViewController: BaseViewController {
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
+    
+    @IBAction private func cancelButtonTapped() {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - UITableViewDelegate

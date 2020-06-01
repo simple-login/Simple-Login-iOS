@@ -26,6 +26,8 @@ final class SelectMailboxesViewController: BaseApiKeyViewController, Storyboarde
     }
     
     private func setUpUI() {
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
