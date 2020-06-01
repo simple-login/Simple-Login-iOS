@@ -328,7 +328,7 @@ extension SLApiService {
     }
     
     func toggleAlias(apiKey: ApiKey, id: Alias.Identifier, completion: @escaping (Result<Enabled, SLError>) -> Void) {
-
+        
         AF.request("\(baseUrl)/api/aliases/\(id)/toggle", method: .post, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
@@ -362,42 +362,11 @@ extension SLApiService {
     }
     
     func deleteAlias(apiKey: ApiKey, id: Alias.Identifier, completion: @escaping (Result<Any?, SLError>) -> Void) {
-   
-        AF.request("\(baseUrl)/api/aliases/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
-            
-            switch response.result {
-            case .success(let data):
-                guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(.unknownResponseStatusCode))
-                    return
-                }
-                
-                switch statusCode {
-                case 200:
-                    do {
-                        let deleted = try Deleted(data: data)
-                        deleted.value ? completion(.success(nil)) : completion(.failure(.failedToDelete(anyObject: Alias.self)))
-                        
-                    } catch let slError as SLError {
-                        completion(.failure(slError))
-                    } catch {
-                        completion(.failure(.unknownError(error: error)))
-                    }
-                    
-                case 401: completion(.failure(.invalidApiKey))
-                case 500: completion(.failure(.internalServerError))
-                case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                }
-                
-            case .failure(let error):
-                completion(.failure(.alamofireError(error: error)))
-            }
-        }
+        delete(apiKey: apiKey, requestUrlString: "\(baseUrl)/api/aliases/\(id)", completion: completion)
     }
     
     func updateAliasNote(apiKey: ApiKey, id: Alias.Identifier, note: String?, completion: @escaping (Result<Any?, SLError>) -> Void) {
-   
+        
         AF.request("\(baseUrl)/api/aliases/\(id)", method: .put, parameters: ["note": note as Any], encoding: JSONEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).response { response in
             
             switch response.result {
@@ -422,7 +391,7 @@ extension SLApiService {
     }
     
     func getAlias(apiKey: ApiKey, id: Alias.Identifier, completion: @escaping (Result<Alias, SLError>) -> Void) {
-
+        
         AF.request("\(baseUrl)/api/aliases/\(id)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
@@ -456,60 +425,60 @@ extension SLApiService {
     }
     
     func updateAliasName(apiKey: ApiKey, id: Alias.Identifier, name: String?, completion: @escaping (Result<Any?, SLError>) -> Void) {
-    
+        
         AF.request("\(baseUrl)/api/aliases/\(id)", method: .put, parameters: ["name": name as Any], encoding: JSONEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).response { response in
-             
-             switch response.result {
-             case .success(_):
-                 guard let statusCode = response.response?.statusCode else {
-                     completion(.failure(.unknownResponseStatusCode))
-                     return
-                 }
-                 
-                 switch statusCode {
-                 case 200: completion(.success(nil))
-                 case 401: completion(.failure(.invalidApiKey))
-                 case 500: completion(.failure(.internalServerError))
-                 case 502: completion(.failure(.badGateway))
-                 default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                 }
-                 
-             case .failure(let error):
-                 completion(.failure(.alamofireError(error: error)))
-             }
-         }
-     }
+            
+            switch response.result {
+            case .success(_):
+                guard let statusCode = response.response?.statusCode else {
+                    completion(.failure(.unknownResponseStatusCode))
+                    return
+                }
+                
+                switch statusCode {
+                case 200: completion(.success(nil))
+                case 401: completion(.failure(.invalidApiKey))
+                case 500: completion(.failure(.internalServerError))
+                case 502: completion(.failure(.badGateway))
+                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
+                }
+                
+            case .failure(let error):
+                completion(.failure(.alamofireError(error: error)))
+            }
+        }
+    }
     
     func updateAliasMailboxes(apiKey: ApiKey, id: Alias.Identifier, mailboxIds: [Int], completion: @escaping (Result<Any?, SLError>) -> Void) {
-    
+        
         AF.request("\(baseUrl)/api/aliases/\(id)", method: .put, parameters: ["mailbox_ids": mailboxIds], encoding: JSONEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).response { response in
-             
-             switch response.result {
-             case .success(_):
-                 guard let statusCode = response.response?.statusCode else {
-                     completion(.failure(.unknownResponseStatusCode))
-                     return
-                 }
-                 
-                 switch statusCode {
-                 case 200: completion(.success(nil))
-                 case 401: completion(.failure(.invalidApiKey))
-                 case 500: completion(.failure(.internalServerError))
-                 case 502: completion(.failure(.badGateway))
-                 default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                 }
-                 
-             case .failure(let error):
-                 completion(.failure(.alamofireError(error: error)))
-             }
-         }
-     }
+            
+            switch response.result {
+            case .success(_):
+                guard let statusCode = response.response?.statusCode else {
+                    completion(.failure(.unknownResponseStatusCode))
+                    return
+                }
+                
+                switch statusCode {
+                case 200: completion(.success(nil))
+                case 401: completion(.failure(.invalidApiKey))
+                case 500: completion(.failure(.internalServerError))
+                case 502: completion(.failure(.badGateway))
+                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
+                }
+                
+            case .failure(let error):
+                completion(.failure(.alamofireError(error: error)))
+            }
+        }
+    }
 }
 
 // MARK: - Contact
 extension SLApiService {
     func fetchContacts(apiKey: ApiKey, aliasId: Alias.Identifier, page: Int, completion: @escaping (Result<[Contact], SLError>) -> Void) {
-  
+        
         AF.request("\(baseUrl)/api/aliases/\(aliasId)/contacts?page_id=\(page)", method: .get, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
             
             switch response.result {
@@ -571,38 +540,7 @@ extension SLApiService {
     }
     
     func deleteContact(apiKey: ApiKey, id: Contact.Identifier, completion: @escaping (Result<Any?, SLError>) -> Void) {
-        
-        AF.request("\(baseUrl)/api/contacts/\(id)", method: .delete, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
-            
-            switch response.result {
-            case .success(let data):
-                guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(.unknownResponseStatusCode))
-                    return
-                }
-                
-                switch statusCode {
-                case 200:
-                    do {
-                        let deleted = try Deleted(data: data)
-                        deleted.value ? completion(.success(nil)) : completion(.failure(.failedToDelete(anyObject: Contact.self)))
-                        
-                    } catch let slError as SLError {
-                        completion(.failure(slError))
-                    } catch {
-                        completion(.failure(.unknownError(error: error)))
-                    }
-                    
-                case 401: completion(.failure(.invalidApiKey))
-                case 500: completion(.failure(.internalServerError))
-                case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                }
-                
-            case .failure(let error):
-                completion(.failure(.alamofireError(error: error)))
-            }
-        }
+        delete(apiKey: apiKey, requestUrlString: "\(baseUrl)/api/contacts/\(id)", completion: completion)
     }
 }
 
@@ -695,6 +633,48 @@ extension SLApiService {
                         completion(.failure(.unknownError(error: error)))
                     }
                     
+                case 500: completion(.failure(.internalServerError))
+                case 502: completion(.failure(.badGateway))
+                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
+                }
+                
+            case .failure(let error):
+                completion(.failure(.alamofireError(error: error)))
+            }
+        }
+    }
+    
+    func deleteMailbox(apiKey: ApiKey, id: Int, completion: @escaping (Result<Any?, SLError>) -> Void) {
+        delete(apiKey: apiKey, requestUrlString: "\(baseUrl)/api/mailboxes/\(id)", completion: completion)
+    }
+}
+
+// MARK: Delete
+extension SLApiService {
+    private func delete(apiKey: ApiKey, requestUrlString: String, completion: @escaping (Result<Any?, SLError>) -> Void) {
+        
+        AF.request(requestUrlString, method: .delete, parameters: nil, encoding: URLEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
+            
+            switch response.result {
+            case .success(let data):
+                guard let statusCode = response.response?.statusCode else {
+                    completion(.failure(.unknownResponseStatusCode))
+                    return
+                }
+                
+                switch statusCode {
+                case 200:
+                    do {
+                        let deleted = try Deleted(data: data)
+                        deleted.value ? completion(.success(nil)) : completion(.failure(.failedToDelete(anyObject: Alias.self)))
+                        
+                    } catch let slError as SLError {
+                        completion(.failure(slError))
+                    } catch {
+                        completion(.failure(.unknownError(error: error)))
+                    }
+                    
+                case 401: completion(.failure(.invalidApiKey))
                 case 500: completion(.failure(.internalServerError))
                 case 502: completion(.failure(.badGateway))
                 default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))

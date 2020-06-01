@@ -91,6 +91,45 @@ final class MailboxViewController: BaseApiKeyLeftMenuButtonViewController, Story
     }
 }
 
+// MARK: - Delete mailbox
+extension MailboxViewController {
+    private func presentDeleteConfirmationAlert(_ mailbox: Mailbox, at indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Confirm deletion", message: "You are about to delete mailbox \"\(mailbox.email)\". Please confirm.", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
+            self.delete(mailbox: mailbox, at: indexPath)
+        }
+        alert.addAction(deleteAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func delete(mailbox: Mailbox, at indexPath: IndexPath) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.shared.deleteMailbox(apiKey: apiKey, id: mailbox.id) { [weak self] result in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            switch result {
+            case .success(_):
+                self.tableView.performBatchUpdates({
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    self.mailboxes.removeAll(where: {$0.id == mailbox.id})
+                }) { _ in
+                    Toast.displayShortly(message: "Deleted \"\(mailbox.email)\"")
+                }
+                
+            case .failure(let error):
+                Toast.displayError(error)
+            }
+        }
+    }
+}
+
 // MARK: - UITableViewDelegate
 extension MailboxViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -98,10 +137,11 @@ extension MailboxViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        guard !mailboxes[indexPath.row].isDefault else { return nil }
+        let mailbox = mailboxes[indexPath.row]
+        guard !mailbox.isDefault else { return nil }
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] (_, indexPath) in
-            
+            self.presentDeleteConfirmationAlert(mailbox, at: indexPath)
         }
         
         let setAsDefaultAction = UITableViewRowAction(style: .normal, title: "Set as default") { [unowned self] (_, indexPath) in

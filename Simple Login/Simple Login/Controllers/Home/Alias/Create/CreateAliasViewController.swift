@@ -31,14 +31,14 @@ final class CreateAliasViewController: BaseApiKeyViewController {
     
     private var userOptions: UserOptions? {
         didSet {
-            suffixLabel.text = userOptions?.suffixes[0]
+            suffixLabel.text = userOptions?.suffixes[0].value[0]
             alertUpgradeIfApplicable()
         }
     }
     
     private var selectedSuffixIndex = 0 {
         didSet {
-            suffixLabel.text = userOptions?.suffixes[selectedSuffixIndex]
+            suffixLabel.text = userOptions?.suffixes[selectedSuffixIndex].value[0]
         }
     }
     
@@ -102,7 +102,9 @@ final class CreateAliasViewController: BaseApiKeyViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        SLApiService.shared.createAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: noteTextField.text) { [weak self] result in
+        let note = noteTextField.text != "" ? noteTextField.text : nil
+        
+        SLApiService.shared.createAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: note) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
@@ -113,7 +115,9 @@ final class CreateAliasViewController: BaseApiKeyViewController {
                 self.dismiss(animated: true, completion: nil)
                 
             case .failure(let error):
-                Toast.displayError(error)
+                self.dismiss(animated: true) {
+                    Toast.displayError(error)
+                }
             }
         }
     }

@@ -27,9 +27,9 @@ extension SLApiService {
         
         let urlString: String
         if let hostname = hostname {
-            urlString = "\(baseUrl)/api/v3/alias/options?hostname=\(hostname)"
+            urlString = "\(baseUrl)/api/v4/alias/options?hostname=\(hostname)"
         } else {
-            urlString = "\(baseUrl)/api/v3/alias/options"
+            urlString = "\(baseUrl)/api/v4/alias/options"
         }
         
         AF.request(urlString, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
@@ -64,15 +64,15 @@ extension SLApiService {
         }
     }
     
-    func createAlias(apiKey: ApiKey, prefix: String, suffix: String, note: String?, completion: @escaping (Result<Alias, SLError>) -> Void) {
+    func createAlias(apiKey: ApiKey, prefix: String, suffix: Suffix, note: String?, completion: @escaping (Result<Alias, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey.value]
-        var parameters = ["alias_prefix" : prefix, "alias_suffix" : suffix]
+        var parameters: [String : Any] = ["alias_prefix" : prefix, "signed_suffix" : suffix.value[1]]
         
         if let note = note {
             parameters["note"] = note
         }
         
-        AF.request("\(baseUrl)/api/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).responseData { response in
+        AF.request("\(baseUrl)/api/v2/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).responseData { response in
             
             switch response.result {
             case .success(let data):
@@ -86,6 +86,16 @@ extension SLApiService {
                     do {
                         let alias = try Alias(data: data)
                         completion(.success(alias))
+                    } catch let slError as SLError {
+                        completion(.failure(slError))
+                    } catch {
+                        completion(.failure(.unknownError(error: error)))
+                    }
+                    
+                case 400, 405:
+                    do {
+                        let errorMessage = try ErrorMessage(data: data)
+                        completion(.failure(.badRequest(description: errorMessage.value)))
                     } catch let slError as SLError {
                         completion(.failure(slError))
                     } catch {

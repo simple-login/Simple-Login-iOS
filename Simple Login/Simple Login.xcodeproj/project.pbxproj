@@ -43,6 +43,7 @@
 		C027A27E2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27D2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift */; };
 		C027A280240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27F240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift */; };
 		C02B8FDF2484E86300AA3AEF /* SelectMailboxesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B8FDE2484E86300AA3AEF /* SelectMailboxesViewController.swift */; };
+		C02B8FE02484FAB000AA3AEF /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8C4B2246AF132008BB8D2 /* ErrorMessage.swift */; };
 		C032D6ED2419830300C06EB7 /* UIAlertController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */; };
 		C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D2D5F23D4AF300057F44F /* CustomDomain.swift */; };
 		C03F2F55244B45C000CEA316 /* IapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F2F54244B45C000CEA316 /* IapViewController.swift */; };
@@ -1470,6 +1471,7 @@
 				C081656323FDA992005B0ABD /* SuffixListViewController.swift in Sources */,
 				C0016DC724548F0500513D64 /* ContactLite.swift in Sources */,
 				C0016DC424548ED700513D64 /* Statics+Shared.swift in Sources */,
+				C02B8FE02484FAB000AA3AEF /* ErrorMessage.swift in Sources */,
 				C0D8C4B1246ADE91008BB8D2 /* BaseViewController.swift in Sources */,
 				C0016DC124548EA200513D64 /* Alias.swift in Sources */,
 				C0016DC524548EEF00513D64 /* Date+Distance.swift in Sources */,

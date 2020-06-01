@@ -16,7 +16,7 @@ final class SuffixListViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     var selectedSuffixIndex: Int!
-    var suffixes: [String]!
+    var suffixes: [Suffix]!
     var delegate: SuffixListViewControllerDelegate?
 
     override func viewDidLoad() {
@@ -53,7 +53,7 @@ extension SuffixListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let suffix = suffixes[indexPath.row]
-        cell.textLabel?.text = suffix
+        cell.textLabel?.text = suffix.value[0]
         
         if indexPath.row == selectedSuffixIndex {
             cell.accessoryType = .checkmark
