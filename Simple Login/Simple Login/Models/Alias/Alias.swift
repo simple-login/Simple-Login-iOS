@@ -139,6 +139,10 @@ final class Alias: Equatable, Arrayable {
         self.note = note
     }
     
+    func setName(_ name: String?) {
+        self.name = name
+    }
+    
     static func ==(lhs: Alias, rhs: Alias) -> Bool {
         return lhs.id == rhs.id
     }

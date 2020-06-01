@@ -62,17 +62,17 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
             nameLabel.font = UIFont.systemFont(ofSize: 14)
             editNameButton.setTitle("Edit name", for: .normal)
         } else {
-            nameLabel.text = "<No display name yet>"
+            nameLabel.text = "<No display name>"
             nameLabel.font = UIFont.italicSystemFont(ofSize: 14)
             editNameButton.setTitle("Add name", for: .normal)
         }
         
-        if let note = alias.note, note != "" {
+        if let note = alias.note {
             noteLabel.text = note
             noteLabel.font = UIFont.systemFont(ofSize: 14)
             editNoteButton.setTitle("Edit note", for: .normal)
         } else {
-            noteLabel.text = "<No note yet>"
+            noteLabel.text = "<No note>"
             noteLabel.font = UIFont.italicSystemFont(ofSize: 14)
             editNoteButton.setTitle("Add note", for: .normal)
         }

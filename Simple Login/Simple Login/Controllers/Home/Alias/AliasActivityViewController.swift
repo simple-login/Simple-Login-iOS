@@ -19,8 +19,7 @@ final class AliasActivityViewController: BaseApiKeyViewController {
     var alias: Alias!
     
     var didUpdateAlias: ((_ alias: Alias) -> Void)?
-    var didUpdateNote: (() -> Void)?
-    
+
     private var activities: [AliasActivity] = []
     
     private var fetchedPage: Int = -1
@@ -128,11 +127,60 @@ final class AliasActivityViewController: BaseApiKeyViewController {
     }
 }
 
+// MARK: - Edit name
+extension AliasActivityViewController {
+    private func presentEditNameAlert() {
+        let title: String
+        if let _ = alias.name {
+            title = "Edit name for alias"
+        } else {
+            title = "Add name for alias"
+        }
+        
+        let alert = UIAlertController(title: title, message: alias.email, preferredStyle: .alert)
+        alert.addTextField { [unowned self] textField in
+            textField.clearButtonMode = .always
+            textField.placeholder = "John Doe"
+            textField.text = self.alias.name
+        }
+        
+        let updateAction = UIAlertAction(title: "Save", style: .default) { [unowned self] _ in
+            let name = alert.textFields?[0].text
+            self.updateName(name != "" ? name : nil)
+        }
+        alert.addAction(updateAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func updateName(_ name: String?) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.shared.updateAliasName(apiKey: apiKey, id: alias.id, name: name) { [weak self] result in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            switch result {
+            case .success(_):
+                self.alias.setName(name)
+                self.tableView.reloadData()
+                self.didUpdateAlias?(self.alias)
+                
+            case .failure(let error):
+                Toast.displayError(error)
+            }
+        }
+    }
+}
+
 // MARK: - Edit notes
 extension AliasActivityViewController {
-    private func presentAlertEditNotes() {
+    private func presentEditNoteAlert() {
         let title: String
-        if let note = alias.note, note != "" {
+        if let _ = alias.note {
             title = "Edit note for alias"
         } else {
             title = "Add note for alias"
@@ -143,7 +191,8 @@ extension AliasActivityViewController {
         let textView = alert.addTextView(initialText: alias.note)
         
         let updateAction = UIAlertAction(title: "Save", style: .default) { [unowned self] _ in
-            self.updateNote(textView.text)
+            let note = textView.text
+            self.updateNote(note != "" ? note : nil)
         }
         alert.addAction(updateAction)
         
@@ -165,7 +214,7 @@ extension AliasActivityViewController {
             case .success(_):
                 self.alias.setNote(note)
                 self.tableView.reloadData()
-                self.didUpdateNote?()
+                self.didUpdateAlias?(self.alias)
                 
             case .failure(let error):
                 Toast.displayError(error)
@@ -194,7 +243,11 @@ extension AliasActivityViewController: UITableViewDelegate {
         header?.bind(with: alias)
         
         header?.didTapEditNoteButton = { [unowned self] in
-            self.presentAlertEditNotes()
+            self.presentEditNoteAlert()
+        }
+        
+        header?.didTapEditNameButton = { [unowned self] in
+            self.presentEditNameAlert()
         }
         
         return header

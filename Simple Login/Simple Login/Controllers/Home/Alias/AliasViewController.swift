@@ -91,14 +91,8 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
             guard let alias = sender as? Alias else { return }
             aliasActivityViewController.alias = alias
             
-            aliasActivityViewController.didUpdateNote = { [unowned self] in
-                self.tableView.reloadData()
-            }
-            
             aliasActivityViewController.didUpdateAlias = { [unowned self] updatedAlias in
-                if let index = self.aliases.firstIndex(where: {$0.id == updatedAlias.id}) {
-                    self.aliases[index] = updatedAlias
-                }
+                self.updateAlias(updatedAlias)
             }
             
         case let createAliasViewController as CreateAliasViewController:
@@ -215,6 +209,14 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
         }
         
         Toast.displayShortly(message: "Created \(alias.email)")
+    }
+    
+    private func updateAlias(_ updatedAlias: Alias) {
+        if let index = aliases.firstIndex(where: {$0.id == updatedAlias.id}) {
+            aliases[index] = updatedAlias
+            refilterAliasArrays()
+            tableView.reloadData()
+        }
     }
 }
 
