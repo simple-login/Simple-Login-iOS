@@ -42,6 +42,7 @@
 		C027A27C24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27B24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift */; };
 		C027A27E2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27D2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift */; };
 		C027A280240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27F240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift */; };
+		C02B8FDF2484E86300AA3AEF /* SelectMailboxesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B8FDE2484E86300AA3AEF /* SelectMailboxesViewController.swift */; };
 		C032D6ED2419830300C06EB7 /* UIAlertController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */; };
 		C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D2D5F23D4AF300057F44F /* CustomDomain.swift */; };
 		C03F2F55244B45C000CEA316 /* IapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F2F54244B45C000CEA316 /* IapViewController.swift */; };
@@ -269,6 +270,7 @@
 		C027A27B24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWalkthroughStepViewController.swift; sourceTree = "<group>"; };
 		C027A27D2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughNoExtraMailViewController.swift; sourceTree = "<group>"; };
 		C027A27F240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughNoMoreSpamViewController.swift; sourceTree = "<group>"; };
+		C02B8FDE2484E86300AA3AEF /* SelectMailboxesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMailboxesViewController.swift; sourceTree = "<group>"; };
 		C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Convenience.swift"; sourceTree = "<group>"; };
 		C0373A8823EF55160044507C /* SimpleLogin Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SimpleLogin Share Extension.entitlements"; sourceTree = "<group>"; };
 		C03D2D5F23D4AF300057F44F /* CustomDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomain.swift; sourceTree = "<group>"; };
@@ -1194,6 +1196,7 @@
 			children = (
 				C05CD30523CA0419007F1C9E /* AliasViewController.swift */,
 				C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */,
+				C02B8FDE2484E86300AA3AEF /* SelectMailboxesViewController.swift */,
 				C072CC202438E47800DC4915 /* InstructionViewController.swift */,
 				C08A202523CC774800CB8D2F /* Contact */,
 				C07245EE241E292F00074360 /* Search */,
@@ -1508,6 +1511,7 @@
 				C0D6A26E23D0730700EF21B8 /* GeneralInfoTableViewCell.swift in Sources */,
 				C08A202423CC6CA300CB8D2F /* ContactViewController.swift in Sources */,
 				C0747EE623CCF4BE008035E9 /* AliasActivityViewController.swift in Sources */,
+				C02B8FDF2484E86300AA3AEF /* SelectMailboxesViewController.swift in Sources */,
 				C0F84B2023D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift in Sources */,
 				C0121C9B244B53460082F08A /* SKProduct+RegularPrice.swift in Sources */,
 				C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */,

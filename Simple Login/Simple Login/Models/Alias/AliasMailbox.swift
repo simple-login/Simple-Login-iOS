@@ -21,6 +21,11 @@ struct AliasMailbox {
         self.id = id
         self.email = email
     }
+    
+    init(id: Int, email: String) {
+        self.id = id
+        self.email = email
+    }
 }
 
 extension Array where Element == AliasMailbox {

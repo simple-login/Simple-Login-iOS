@@ -55,7 +55,7 @@ final class AliasActivityTableHeaderView: UITableViewHeaderFooterView {
     
     func bind(with alias: Alias) {
         creationDateLabel.text = alias.creationTimestampString
-        mailboxesLabel.attributedText = alias.mailboxesAttributedString
+        mailboxesLabel.attributedText = alias.generateMailboxesAttributedString()
         
         if let name = alias.name {
             nameLabel.text = name

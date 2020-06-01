@@ -127,6 +127,41 @@ final class AliasActivityViewController: BaseApiKeyViewController {
     }
 }
 
+
+// MARK: Edit mailboxes
+extension AliasActivityViewController {
+    private func presentSelectMailboxesViewController() {
+        let selectMailboxesViewController = SelectMailboxesViewController.instantiate(storyboardName: "Mailbox")
+        
+        selectMailboxesViewController.selectedIds = alias.mailboxes.map({ $0.id })
+        
+        selectMailboxesViewController.didSelectMailboxes = { [unowned self] selectedMailboxes in
+            self.updateMailboxes(selectedMailboxes)
+        }
+        
+        present(selectMailboxesViewController, animated: true, completion: nil)
+    }
+    
+    private func updateMailboxes(_ mailboxes: [AliasMailbox]) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.shared.updateAliasMailboxes(apiKey: apiKey, id: alias.id, mailboxIds: mailboxes.map({$0.id})) { [weak self] result in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            switch result {
+            case .success(_):
+                self.alias.setMailboxes(mailboxes)
+                self.tableView.reloadData()
+                self.didUpdateAlias?(self.alias)
+                
+            case .failure(let error):
+                Toast.displayError(error)
+            }
+        }
+    }
+}
+
 // MARK: - Edit name
 extension AliasActivityViewController {
     private func presentEditNameAlert() {
@@ -241,6 +276,10 @@ extension AliasActivityViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AliasActivityTableHeaderView") as? AliasActivityTableHeaderView
         header?.bind(with: alias)
+        
+        header?.didTapEditMailboxesButton = { [unowned self] in
+            self.presentSelectMailboxesViewController()
+        }
         
         header?.didTapEditNoteButton = { [unowned self] in
             self.presentEditNoteAlert()

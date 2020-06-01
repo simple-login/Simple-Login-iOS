@@ -479,6 +479,31 @@ extension SLApiService {
              }
          }
      }
+    
+    func updateAliasMailboxes(apiKey: ApiKey, id: Alias.Identifier, mailboxIds: [Int], completion: @escaping (Result<Any?, SLError>) -> Void) {
+    
+        AF.request("\(baseUrl)/api/aliases/\(id)", method: .put, parameters: ["mailbox_ids": mailboxIds], encoding: JSONEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).response { response in
+             
+             switch response.result {
+             case .success(_):
+                 guard let statusCode = response.response?.statusCode else {
+                     completion(.failure(.unknownResponseStatusCode))
+                     return
+                 }
+                 
+                 switch statusCode {
+                 case 200: completion(.success(nil))
+                 case 401: completion(.failure(.invalidApiKey))
+                 case 500: completion(.failure(.internalServerError))
+                 case 502: completion(.failure(.badGateway))
+                 default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
+                 }
+                 
+             case .failure(let error):
+                 completion(.failure(.alamofireError(error: error)))
+             }
+         }
+     }
 }
 
 // MARK: - Contact

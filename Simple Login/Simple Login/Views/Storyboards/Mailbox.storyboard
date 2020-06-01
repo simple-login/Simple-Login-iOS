@@ -56,6 +56,60 @@
             </objects>
             <point key="canvasLocation" x="950.72463768115949" y="-29.464285714285712"/>
         </scene>
+        <!--Select Mailboxes View Controller-->
+        <scene sceneID="c8b-Gs-Rb9">
+            <objects>
+                <viewController storyboardIdentifier="SelectMailboxesViewController" id="lFc-42-rr5" customClass="SelectMailboxesViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RoC-Fl-ccs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ub2-OZ-YpS">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="Select mailboxes" id="Kqi-HX-oaP">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2Vu-eh-Z8T">
+                                            <connections>
+                                                <action selector="cancelButtonTapped" destination="lFc-42-rr5" id="GN7-XD-0FQ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="sDd-Vi-BJu">
+                                            <connections>
+                                                <action selector="saveButtonTapped" destination="lFc-42-rr5" id="DH7-Yc-cMO"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VQb-vw-LIb">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="lFc-42-rr5" id="Bak-08-9d0"/>
+                                    <outlet property="delegate" destination="lFc-42-rr5" id="APr-y7-roK"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="VQb-vw-LIb" secondAttribute="bottom" id="3Hl-Lj-PBF"/>
+                            <constraint firstAttribute="trailing" secondItem="VQb-vw-LIb" secondAttribute="trailing" id="5Fd-OM-eCO"/>
+                            <constraint firstItem="Ub2-OZ-YpS" firstAttribute="leading" secondItem="Zhk-OX-dXB" secondAttribute="leading" id="pcc-ov-Fxh"/>
+                            <constraint firstAttribute="trailing" secondItem="Ub2-OZ-YpS" secondAttribute="trailing" id="raV-wI-KYr"/>
+                            <constraint firstItem="Ub2-OZ-YpS" firstAttribute="top" secondItem="Zhk-OX-dXB" secondAttribute="top" id="ubk-1F-O9r"/>
+                            <constraint firstItem="VQb-vw-LIb" firstAttribute="leading" secondItem="RoC-Fl-ccs" secondAttribute="leading" id="wyh-fz-Rkd"/>
+                            <constraint firstItem="VQb-vw-LIb" firstAttribute="top" secondItem="Ub2-OZ-YpS" secondAttribute="bottom" id="yM6-TS-1EY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Zhk-OX-dXB"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="VQb-vw-LIb" id="2Cr-Hi-5ku"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="69d-nv-SpF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="68" y="681"/>
+        </scene>
         <!--How To Use Mailboxes View Controller-->
         <scene sceneID="kbA-ge-CvI">
             <objects>
@@ -78,13 +132,13 @@
                             </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbd-I7-9Mx">
                                 <rect key="frame" x="20" y="295.5" width="374" height="251"/>
-                                <mutableString key="text">A mailbox is just another personal email address. When creating a new alias, you could choose the mailbox that owns this alias, i.e:
+                                <string key="text">A mailbox is just another personal email address. When creating a new alias, you could choose the mailbox that owns this alias, i.e:
 - all emails sent to this alias will be forwarded to this mailbox
 - from this mailbox, you can reply/send emails from the alias.
 
 When you signed up, a mailbox is automatically created with the provided email.
 
-A mailbox doesn't have to be your email: it can be your friend's email if you want to create aliases for your buddy.</mutableString>
+A mailbox doesn't have to be your email: it can be your friend's email if you want to create aliases for your buddy.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
