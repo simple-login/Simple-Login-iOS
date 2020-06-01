@@ -708,6 +708,7 @@
 			isa = PBXGroup;
 			children = (
 				C07F346824804F0800360BA3 /* MailboxViewController.swift */,
+				C02B8FDE2484E86300AA3AEF /* SelectMailboxesViewController.swift */,
 				C067EDC6248408ED00A89C75 /* HowToUseMailboxesViewController.swift */,
 			);
 			path = Mailbox;
@@ -1197,7 +1198,6 @@
 			children = (
 				C05CD30523CA0419007F1C9E /* AliasViewController.swift */,
 				C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */,
-				C02B8FDE2484E86300AA3AEF /* SelectMailboxesViewController.swift */,
 				C072CC202438E47800DC4915 /* InstructionViewController.swift */,
 				C08A202523CC774800CB8D2F /* Contact */,
 				C07245EE241E292F00074360 /* Search */,
