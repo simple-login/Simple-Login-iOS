@@ -14,7 +14,7 @@ final class Mailbox: Arrayable {
     
     let id: Int
     let email: String
-    let isDefault: Bool
+    private(set) var isDefault: Bool
     let numOfAlias: Int
     let creationTimestamp: TimeInterval
     
@@ -54,5 +54,9 @@ final class Mailbox: Arrayable {
         self.isDefault = isDefault
         self.numOfAlias = numOfAlias
         self.creationTimestamp = creationTimestamp
+    }
+    
+    func setIsDefault(_ isDefault: Bool) {
+        self.isDefault = isDefault
     }
 }

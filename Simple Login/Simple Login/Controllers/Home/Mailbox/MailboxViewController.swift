@@ -91,10 +91,52 @@ final class MailboxViewController: BaseApiKeyLeftMenuButtonViewController, Story
     }
 }
 
+// MARK: - Make default mailbox
+extension MailboxViewController {
+    private func presentMakeDefaultConfirmationAlert(_ mailbox: Mailbox) {
+        let alert = UIAlertController(title: "Please confirm", message: "Make \"\(mailbox.email)\" default mailbox?", preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { [unowned self] _ in
+            self.makeDefault(mailboxId: mailbox.id)
+        }
+        alert.addAction(confirmAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func makeDefault(mailboxId: Int) {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        
+        SLApiService.shared.makeDefaultMailbox(apikey: apiKey, id: mailboxId) { [weak self] result in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            switch result {
+            case .success(_):
+                self.mailboxes.forEach { mailbox in
+                    if mailbox.id == mailboxId {
+                        mailbox.setIsDefault(true)
+                    } else if mailbox.isDefault {
+                        mailbox.setIsDefault(false)
+                    }
+                }
+                
+                self.tableView.reloadData()
+                
+            case .failure(let error):
+                Toast.displayError(error)
+            }
+        }
+    }
+}
+
 // MARK: - Delete mailbox
 extension MailboxViewController {
     private func presentDeleteConfirmationAlert(_ mailbox: Mailbox, at indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Confirm deletion", message: "You are about to delete mailbox \"\(mailbox.email)\". Please confirm.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete \"\(mailbox.email)\"", message: "🛑 All aliases associated with this mailbox will also be deleted. This operation is irreversible. Please confirm.", preferredStyle: .alert)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
             self.delete(mailbox: mailbox, at: indexPath)
@@ -145,7 +187,7 @@ extension MailboxViewController: UITableViewDelegate {
         }
         
         let setAsDefaultAction = UITableViewRowAction(style: .normal, title: "Set as default") { [unowned self] (_, indexPath) in
-            
+            self.presentMakeDefaultConfirmationAlert(mailbox)
         }
         
         return [deleteAction, setAsDefaultAction]
