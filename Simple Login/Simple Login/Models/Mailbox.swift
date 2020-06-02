@@ -59,4 +59,8 @@ final class Mailbox: Arrayable {
     func setIsDefault(_ isDefault: Bool) {
         self.isDefault = isDefault
     }
+    
+    func toAliasMailbox() -> AliasMailbox {
+        return AliasMailbox(id: id, email: email)
+    }
 }

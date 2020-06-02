@@ -20,6 +20,7 @@ class BaseApiKeyViewController: BaseViewController {
         if let apiKey = SLKeychainService.getApiKey() {
             self.apiKey = apiKey
         } else {
+            #if HOSTAPP
             let alert = UIAlertController(title: "API key unknown", message: "Can not read API key from Keychain.", preferredStyle: .alert)
             
             // Send a notification to StartupViewController to dismiss HomeNavigationController
@@ -29,6 +30,16 @@ class BaseApiKeyViewController: BaseViewController {
             alert.addAction(closeAction)
             
             present(alert, animated: true, completion: nil)
+            #else
+            let alert = UIAlertController(title: "Sign-in required", message: "You have to sign in before using this feature", preferredStyle: .alert)
+            
+            let closeAction = UIAlertAction(title: "Close", style: .cancel) { (_) in
+                self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            }
+            
+            alert.addAction(closeAction)
+            present(alert, animated: true, completion: nil)
+            #endif
         }
     }
 }

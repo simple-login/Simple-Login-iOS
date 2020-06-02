@@ -8,7 +8,9 @@
 
 import UIKit
 import MBProgressHUD
+#if HOSTAPP
 import Toaster
+#endif
 
 final class SelectMailboxesViewController: BaseApiKeyViewController, Storyboarded {
     @IBOutlet private weak var tableView: UITableView!
@@ -39,7 +41,7 @@ final class SelectMailboxesViewController: BaseApiKeyViewController, Storyboarde
         let selectedMailboxes = mailboxes.filter({selectedIds.contains($0.id)})
         
         dismiss(animated: true) { [unowned self] in
-            self.didSelectMailboxes?(selectedMailboxes.map({AliasMailbox(id: $0.id, email: $0.email)}))
+            self.didSelectMailboxes?(selectedMailboxes.map({$0.toAliasMailbox()}))
         }
     }
     
@@ -57,10 +59,21 @@ final class SelectMailboxesViewController: BaseApiKeyViewController, Storyboarde
                 
             case .failure(let error):
                 self.dismiss(animated: true) {
-                    Toast.displayError(error)
+                    self.displayError(error)
                 }
             }
         }
+    }
+    
+    private func displayError(_ error: SLError) {
+        #if HOSTAPP
+        Toast.displayError(error)
+        #else
+        let alert = UIAlertController(title: "Error occured", message: error.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+        alert.addAction(closeAction)
+        present(alert, animated: true, completion: nil)
+        #endif
     }
 }
 

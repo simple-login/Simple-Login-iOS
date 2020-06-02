@@ -445,8 +445,8 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="IBO-J0-78q">
-                                <rect key="frame" x="20" y="106" width="374" height="259.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IBO-J0-78q">
+                                <rect key="frame" x="20" y="76" width="374" height="298.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Dg-qx-suq">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="32"/>
@@ -489,32 +489,73 @@
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9hH-kX-gXG" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="0.0" y="52" width="374" height="39"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⚠️ Only lowercase letters, numbers, dashes (-) and underscores (_) are currently supported." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gr2-qq-e0j">
+                                        <rect key="frame" x="0.0" y="40" width="374" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
+                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qaG-KN-c4D">
+                                        <rect key="frame" x="0.0" y="79.5" width="374" height="1"/>
+                                        <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="mGY-qw-DfK"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VsP-0b-wL1">
+                                        <rect key="frame" x="0.0" y="88.5" width="374" height="16"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="251" text="MAILBOXES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dib-f6-Z7e">
+                                                <rect key="frame" x="0.0" y="0.0" width="76.5" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                <color key="textColor" name="TintColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="The mailboxes that own this alias" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5W-ha-lca">
+                                                <rect key="frame" x="84.5" y="0.0" width="289.5" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" name="TitleColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="email1@example.com &amp; email2@example.com" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3Y-vL-nEd">
+                                        <rect key="frame" x="0.0" y="112.5" width="374" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" name="TextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yxv-jV-pZj">
+                                        <rect key="frame" x="0.0" y="138.5" width="374" height="1"/>
+                                        <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="NF6-Gl-oeL"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mvh-qO-qRr">
+                                        <rect key="frame" x="0.0" y="147.5" width="374" height="16"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="251" text="NOTE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mf7-UH-IGp">
+                                                <rect key="frame" x="0.0" y="0.0" width="36" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                <color key="textColor" name="TintColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Anything to remind you (optional)" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hL6-Wa-L8N">
+                                                <rect key="frame" x="44" y="0.0" width="330" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" name="TitleColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ex: For tech newsletters, online shopping, hot deals..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9hH-kX-gXG">
+                                        <rect key="frame" x="0.0" y="171.5" width="374" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                                <color key="value" name="TextColor"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                                <color key="value" name="TintColor"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                                <color key="value" name="TitleColor"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
-                                                <color key="value" name="TintColor"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
-                                                <color key="value" name="TintColor"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Alias note (optional)"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Alias note"/>
-                                        </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHM-Lr-YH4">
-                                        <rect key="frame" x="0.0" y="111" width="374" height="30"/>
+                                        <rect key="frame" x="0.0" y="213.5" width="374" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="CREATE"/>
                                         <connections>
@@ -522,16 +563,10 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vi-Kq-3lb">
-                                        <rect key="frame" x="0.0" y="161" width="374" height="47"/>
+                                        <rect key="frame" x="0.0" y="251.5" width="374" height="47"/>
                                         <string key="text">💡Hint: To make it easy to remember for later use, it is a good practice to use the name of the website/service that you plan to register with alias.</string>
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⚠️ Only letters, numbers, dash (-) &amp; underscore (_) are allowed." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gr2-qq-e0j">
-                                        <rect key="frame" x="0.0" y="228" width="374" height="31.5"/>
-                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
-                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" name="TitleColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -545,19 +580,23 @@
                             <constraint firstItem="IBO-J0-78q" firstAttribute="leading" secondItem="KLn-M2-BjT" secondAttribute="leading" constant="20" id="avO-N0-Mip"/>
                             <constraint firstAttribute="trailing" secondItem="ZCw-BY-78C" secondAttribute="trailing" symbolic="YES" id="cp6-0A-ybD"/>
                             <constraint firstItem="IBO-J0-78q" firstAttribute="centerX" secondItem="IgZ-eO-zk7" secondAttribute="centerX" id="uta-ye-ucL"/>
-                            <constraint firstItem="IBO-J0-78q" firstAttribute="top" secondItem="ZCw-BY-78C" secondAttribute="bottom" constant="50" id="x5S-NS-EKg"/>
+                            <constraint firstItem="IBO-J0-78q" firstAttribute="top" secondItem="ZCw-BY-78C" secondAttribute="bottom" constant="20" id="x5S-NS-EKg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KLn-M2-BjT"/>
                     </view>
                     <connections>
                         <outlet property="createButton" destination="zHM-Lr-YH4" id="0Sg-ll-W6l"/>
                         <outlet property="hintLabel" destination="6vi-Kq-3lb" id="jYy-Xv-fC0"/>
+                        <outlet property="mailboxesLabel" destination="C3Y-vL-nEd" id="hg9-ie-Ybq"/>
                         <outlet property="noteTextField" destination="9hH-kX-gXG" id="4MP-Wz-T9z"/>
                         <outlet property="prefixTextField" destination="GOg-ha-Q5h" id="pm3-Qu-omE"/>
                         <outlet property="rootStackView" destination="IBO-J0-78q" id="qpx-Zp-Wa6"/>
                         <outlet property="suffixLabel" destination="QHo-7x-cNL" id="dvj-pW-aPd"/>
                         <outlet property="suffixView" destination="aZw-vW-Oc0" id="0NB-91-SSN"/>
                         <outlet property="warningLabel" destination="Gr2-qq-e0j" id="Yno-sK-GWx"/>
+                        <outletCollection property="mailboxRelatedLabels" destination="Dib-f6-Z7e" collectionClass="NSMutableArray" id="0oT-Bu-UGV"/>
+                        <outletCollection property="mailboxRelatedLabels" destination="d5W-ha-lca" collectionClass="NSMutableArray" id="GkL-MW-B3H"/>
+                        <outletCollection property="mailboxRelatedLabels" destination="C3Y-vL-nEd" collectionClass="NSMutableArray" id="cWv-1G-AgU"/>
                         <segue destination="JEk-T1-Xnd" kind="popoverPresentation" identifier="showSuffixes" popoverAnchorView="IgZ-eO-zk7" id="1t1-lH-oQu">
                             <popoverArrowDirection key="popoverArrowDirection"/>
                             <popoverPassthroughViews>

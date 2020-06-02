@@ -145,6 +145,10 @@
 		C0B76DF123D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */; };
 		C0BD47CD244DAB43006473B5 /* LatestActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD47CC244DAB43006473B5 /* LatestActivity.swift */; };
 		C0BD47CF244DAB6F006473B5 /* ContactLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD47CE244DAB6F006473B5 /* ContactLite.swift */; };
+		C0BE30B42486570A0096BCF5 /* SelectMailboxesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B8FDE2484E86300AA3AEF /* SelectMailboxesViewController.swift */; };
+		C0BE30B52486587B0096BCF5 /* BaseApiKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8C4A7246ADA00008BB8D2 /* BaseApiKeyViewController.swift */; };
+		C0BE30B6248658D80096BCF5 /* Mailbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346324802DA900360BA3 /* Mailbox.swift */; };
+		C0BE30B7248658ED0096BCF5 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C00B123D25C390036B905 /* Storyboarded.swift */; };
 		C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */; };
 		C0C053222438E8A60080AD4D /* delete.gif in Resources */ = {isa = PBXBuildFile; fileRef = C0C053212438E8A60080AD4D /* delete.gif */; };
 		C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3AFD23E98A5700887264 /* UserLogin.swift */; };
@@ -1483,14 +1487,18 @@
 				C0D0500F23FED26900B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */,
 				C0016DC624548EFD00513D64 /* LatestActivity.swift in Sources */,
 				C081656223FDA97E005B0ABD /* SLColor.swift in Sources */,
+				C0BE30B6248658D80096BCF5 /* Mailbox.swift in Sources */,
+				C0BE30B52486587B0096BCF5 /* BaseApiKeyViewController.swift in Sources */,
 				C067EDC32483F90700A89C75 /* UserDefault.swift in Sources */,
 				C07F34722480594300360BA3 /* Arrayable.swift in Sources */,
 				C042C25B23EF3A570045A04D /* ShareViewController.swift in Sources */,
 				C081656523FDAA5F005B0ABD /* String+Utilities.swift in Sources */,
 				C00BC55723FDA0D900E66FFE /* UserOptions.swift in Sources */,
+				C0BE30B42486570A0096BCF5 /* SelectMailboxesViewController.swift in Sources */,
 				C0016DC824548F8A00513D64 /* AliasActivity.swift in Sources */,
 				C0AACB5F24538A200016355D /* ApiKey.swift in Sources */,
 				C081656623FDAA6B005B0ABD /* RegexHelpers.swift in Sources */,
+				C0BE30B7248658ED0096BCF5 /* Storyboarded.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1849,6 +1857,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.4;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D HOSTAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = SimpleLogin;
 				SWIFT_VERSION = 5.0;
@@ -1873,6 +1882,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.4;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D HOSTAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = SimpleLogin;
 				SWIFT_VERSION = 5.0;

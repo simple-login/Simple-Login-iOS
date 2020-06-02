@@ -9,17 +9,19 @@
 import UIKit
 import Toaster
 import MBProgressHUD
-import SkyFloatingLabelTextField
 
 final class CreateAliasViewController: BaseApiKeyViewController {
     @IBOutlet private weak var rootStackView: UIStackView!
     @IBOutlet private weak var prefixTextField: UITextField!
     @IBOutlet private weak var suffixView: UIView!
     @IBOutlet private weak var suffixLabel: UILabel!
-    @IBOutlet private weak var noteTextField: SkyFloatingLabelTextField!
+    @IBOutlet private weak var mailboxesLabel: UILabel!
+    @IBOutlet private weak var noteTextField: UITextField!
     @IBOutlet private weak var hintLabel: UILabel!
     @IBOutlet private weak var warningLabel: UILabel!
     @IBOutlet private weak var createButton: UIButton!
+    
+    @IBOutlet private var mailboxRelatedLabels: [UILabel]!
     
     private var isValidEmailPrefix: Bool = false {
         didSet {
@@ -42,6 +44,22 @@ final class CreateAliasViewController: BaseApiKeyViewController {
         }
     }
     
+    private var selectedMailboxes: [AliasMailbox] = [] {
+        didSet {
+            mailboxesLabel.text = selectedMailboxes.map({$0.email}).joined(separator: " & ")
+        }
+    }
+    
+    private var mailboxes: [Mailbox] = [] {
+        didSet {
+            mailboxes.forEach { mailbox in
+                if mailbox.isDefault {
+                    selectedMailboxes = [mailbox.toAliasMailbox()]
+                }
+            }
+        }
+    }
+    
     var showPremiumFeatures: (() -> Void)?
     var createdAlias: ((_ alias: Alias) -> Void)?
     var didDisappear: (() -> Void)?
@@ -51,7 +69,7 @@ final class CreateAliasViewController: BaseApiKeyViewController {
         prefixTextField.becomeFirstResponder()
         isValidEmailPrefix = false
         setUpUI()
-        fetchUserOptions()
+        fetchUserOptionsAndMailboxes()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -68,28 +86,62 @@ final class CreateAliasViewController: BaseApiKeyViewController {
         suffixView.isUserInteractionEnabled = true
         suffixView.addGestureRecognizer(tap)
         
+        warningLabel.textColor = SLColor.negativeColor
+        
+        // Mailbox related labels
+        mailboxRelatedLabels.forEach { label in
+            let tap = UITapGestureRecognizer(target: self, action: #selector(presentSelectMailboxesViewController))
+            label.isUserInteractionEnabled = true
+            label.addGestureRecognizer(tap)
+        }
+        mailboxesLabel.text = nil
+        
         createButton.setTitleColor(SLColor.tintColor, for: .normal)
         
         hintLabel.textColor = SLColor.secondaryTitleColor
-        warningLabel.textColor = SLColor.negativeColor
     }
     
-    private func fetchUserOptions() {
+    private func fetchUserOptionsAndMailboxes() {
         MBProgressHUD.showAdded(to: view, animated: true)
         rootStackView.isHidden = true
         
-        SLApiService.shared.fetchUserOptions(apiKey: apiKey) { [weak self] result in
-            guard let self = self else { return }
+        let fetchGroup = DispatchGroup()
+        var storedError: SLError?
+        var fetchedMailboxes: [Mailbox]?
+        var fetchedUserOptions: UserOptions?
+        
+        fetchGroup.enter()
+        SLApiService.shared.fetchMailboxes(apiKey: apiKey) { result in
+            switch result {
+            case .success(let mailboxes): fetchedMailboxes = mailboxes
+            case .failure(let error): storedError = error
+            }
             
+            fetchGroup.leave()
+        }
+        
+        fetchGroup.enter()
+        SLApiService.shared.fetchUserOptions(apiKey: apiKey) { result in
+            switch result {
+            case .success(let userOptions): fetchedUserOptions = userOptions
+            case .failure(let error): storedError = error
+            }
+            
+            fetchGroup.leave()
+        }
+        
+        fetchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+            guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            switch result {
-            case .success(let userOptions):
+            if let error = storedError {
+                self.dismiss(animated: true) {
+                    Toast.displayError(error)
+                }
+            } else if let fetchedUserOptions = fetchedUserOptions, let fetchedMailboxes = fetchedMailboxes {
                 self.rootStackView.isHidden = false
-                self.userOptions = userOptions
-                
-            case .failure(let error):
-                Toast.displayError(error)
+                self.userOptions = fetchedUserOptions
+                self.mailboxes = fetchedMailboxes
             }
         }
     }
@@ -103,8 +155,9 @@ final class CreateAliasViewController: BaseApiKeyViewController {
         MBProgressHUD.showAdded(to: view, animated: true)
         
         let note = noteTextField.text != "" ? noteTextField.text : nil
+        let mailboxIds = selectedMailboxes.map({$0.id})
         
-        SLApiService.shared.createAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: note) { [weak self] result in
+        SLApiService.shared.createAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, mailboxIds: mailboxIds, note: note) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
@@ -168,6 +221,17 @@ final class CreateAliasViewController: BaseApiKeyViewController {
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    @objc private func presentSelectMailboxesViewController() {
+        let selectMailboxesViewController = SelectMailboxesViewController.instantiate(storyboardName: "Mailbox")
+        selectMailboxesViewController.selectedIds = selectedMailboxes.map({$0.id})
+        
+        selectMailboxesViewController.didSelectMailboxes = { [unowned self] selectedMailboxes in
+            self.selectedMailboxes = selectedMailboxes
+        }
+        
+        present(selectMailboxesViewController, animated: true, completion: nil)
     }
 }
 

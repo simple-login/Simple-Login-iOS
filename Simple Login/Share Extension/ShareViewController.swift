@@ -10,15 +10,18 @@ import UIKit
 import Social
 import MBProgressHUD
 
-class ShareViewController: UIViewController {
+class ShareViewController: BaseApiKeyViewController {
     @IBOutlet private weak var rootStackView: UIStackView!
     @IBOutlet private weak var prefixTextField: UITextField!
     @IBOutlet private weak var suffixView: UIView!
     @IBOutlet private weak var suffixLabel: UILabel!
+    @IBOutlet private weak var mailboxesLabel: UILabel!
     @IBOutlet private weak var noteTextField: UITextField!
     @IBOutlet private weak var hintLabel: UILabel!
     @IBOutlet private weak var warningLabel: UILabel!
     @IBOutlet private weak var createButton: UIButton!
+    
+    @IBOutlet private var mailboxRelatedLabels: [UILabel]!
     
     private var isValidEmailPrefix: Bool = false {
         didSet {
@@ -41,26 +44,27 @@ class ShareViewController: UIViewController {
         }
     }
     
-    deinit {
-        print("ShareViewController is deallocated")
+    private var selectedMailboxes: [AliasMailbox] = [] {
+        didSet {
+            mailboxesLabel.text = selectedMailboxes.map({$0.email}).joined(separator: " & ")
+        }
+    }
+    
+    private var mailboxes: [Mailbox] = [] {
+        didSet {
+            mailboxes.forEach { mailbox in
+                if mailbox.isDefault {
+                    selectedMailboxes = [mailbox.toAliasMailbox()]
+                }
+            }
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        SLApiService.shared.refreshBaseUrl()
         setUpUI()
-        
-        if let _ = SLKeychainService.getApiKey() {
-            extractUrlString()
-        } else {
-            let alert = UIAlertController(title: "Sign-in required", message: "You have to sign in before using this feature", preferredStyle: .alert)
-            
-            let closeAction = UIAlertAction(title: "Close", style: .cancel) { (_) in
-                self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-            }
-            
-            alert.addAction(closeAction)
-            present(alert, animated: true, completion: nil)
-        }
+        extractUrlString()
     }
     
     private func setUpUI() {
@@ -75,10 +79,19 @@ class ShareViewController: UIViewController {
         suffixView.isUserInteractionEnabled = true
         suffixView.addGestureRecognizer(tap)
         
+        warningLabel.textColor = SLColor.negativeColor
+        
+        // Mailbox related labels
+        mailboxRelatedLabels.forEach { label in
+            let tap = UITapGestureRecognizer(target: self, action: #selector(presentSelectMailboxesViewController))
+            label.isUserInteractionEnabled = true
+            label.addGestureRecognizer(tap)
+        }
+        mailboxesLabel.text = nil
+        
         createButton.setTitleColor(SLColor.tintColor, for: .normal)
         
         hintLabel.textColor = SLColor.secondaryTitleColor
-        warningLabel.textColor = SLColor.negativeColor
     }
     
     private func extractUrlString() {
@@ -88,7 +101,7 @@ class ShareViewController: UIViewController {
                 for itemProvider in attachments {
                     itemProvider.loadItem(forTypeIdentifier: "public.url", options: nil) { (object, error) in
                         if let url = object as? URL {
-                            self.fetchUserOptions(url: url)
+                            self.fetchUserOptionsAndMailboxes(url: url)
                         }
                     }
                 }
@@ -119,6 +132,15 @@ class ShareViewController: UIViewController {
             suffixListViewController.selectedSuffixIndex = selectedSuffixIndex
             suffixListViewController.suffixes = userOptions?.suffixes
             suffixListViewController.delegate = self
+            suffixListViewController.view.tintColor = SLColor.tintColor
+            
+        case let selectMailboxesViewController as SelectMailboxesViewController:
+            selectMailboxesViewController.view.tintColor = SLColor.tintColor
+            selectMailboxesViewController.selectedIds = selectedMailboxes.map({$0.id})
+            
+            selectMailboxesViewController.didSelectMailboxes = { [unowned self] selectedMailboxes in
+                self.selectedMailboxes = selectedMailboxes
+            }
             
         default: return
         }
@@ -137,30 +159,54 @@ class ShareViewController: UIViewController {
         alert.view.tintColor = SLColor.tintColor
         present(alert, animated: true, completion: nil)
     }
+    
+    @objc private func presentSelectMailboxesViewController() {
+        performSegue(withIdentifier: "showMailboxes", sender: nil)
+    }
 }
 
 // MARK: - API calls
 extension ShareViewController {
-    private func fetchUserOptions(url: URL) {
-        guard let apiKey = SLKeychainService.getApiKey() else {
-            MBProgressHUD.hide(for: view, animated: true)
-            return
+    private func fetchUserOptionsAndMailboxes(url: URL) {
+        rootStackView.isHidden = true
+        
+        let fetchGroup = DispatchGroup()
+        var storedError: SLError?
+        var fetchedMailboxes: [Mailbox]?
+        var fetchedUserOptions: UserOptions?
+        
+        fetchGroup.enter()
+        SLApiService.shared.fetchMailboxes(apiKey: apiKey) { result in
+            switch result {
+            case .success(let mailboxes): fetchedMailboxes = mailboxes
+            case .failure(let error): storedError = error
+            }
+            
+            fetchGroup.leave()
         }
         
-        SLApiService.shared.fetchUserOptions(apiKey: apiKey, hostname: url.host ?? "") { [weak self] result in
-            guard let self = self else { return }
+        fetchGroup.enter()
+        SLApiService.shared.fetchUserOptions(apiKey: apiKey) { result in
+            switch result {
+            case .success(let userOptions): fetchedUserOptions = userOptions
+            case .failure(let error): storedError = error
+            }
             
+            fetchGroup.leave()
+        }
+        
+        fetchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+            guard let self = self else { return }
             MBProgressHUD.hide(for: self.view, animated: true)
             
-            switch result {
-            case .success(let userOptions):
-                self.rootStackView.isHidden = false
-                self.userOptions = userOptions
-                
-            case .failure(let error):
+            if let error = storedError {
                 self.alertError(error) {
                     self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
                 }
+            } else if let fetchedUserOptions = fetchedUserOptions, let fetchedMailboxes = fetchedMailboxes {
+                self.rootStackView.isHidden = false
+                self.userOptions = fetchedUserOptions
+                self.mailboxes = fetchedMailboxes
             }
         }
     }
@@ -173,8 +219,9 @@ extension ShareViewController {
         MBProgressHUD.showAdded(to: view, animated: true)
         
         let note = noteTextField.text != "" ? noteTextField.text : nil
+        let mailboxIds = selectedMailboxes.map({$0.id})
         
-        SLApiService.shared.createAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, note: note) { [weak self] result in
+        SLApiService.shared.createAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, mailboxIds: mailboxIds, note: note) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)
