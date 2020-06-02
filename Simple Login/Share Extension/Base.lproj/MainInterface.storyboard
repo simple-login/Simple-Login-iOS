@@ -107,7 +107,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="email1@example.com &amp; email2@example.com" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xPI-Zw-uIb">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="email1@example.com &amp; email2@example.com" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xPI-Zw-uIb">
                                         <rect key="frame" x="0.0" y="112.5" width="374" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" name="TextColor"/>
@@ -250,7 +250,7 @@
         <!--Select Mailboxes View Controller-->
         <scene sceneID="6SW-UZ-v43">
             <objects>
-                <viewController storyboardIdentifier="SelectMailboxesViewController" id="eTb-OE-tdM" customClass="SelectMailboxesViewController" customModule="SimpleLogin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectMailboxesViewController" id="eTb-OE-tdM" customClass="SelectMailboxesViewController" customModule="SimpleLogin_Share_Extension" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3e5-Ov-W5b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

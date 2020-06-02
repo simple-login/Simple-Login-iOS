@@ -63,7 +63,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
     func bind(with alias: Alias) {
         self.alias = alias
         emailLabel.text = alias.email
-        mailboxesLabel.attributedText = alias.generateMailboxesAttributedString()
+        mailboxesLabel.attributedText = alias.mailboxes.toAttributedString()
         
         nameStackView.isHidden = alias.name == nil
         nameLabel.text = alias.name

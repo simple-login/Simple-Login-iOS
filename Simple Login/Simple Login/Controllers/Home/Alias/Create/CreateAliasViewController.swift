@@ -46,7 +46,7 @@ final class CreateAliasViewController: BaseApiKeyViewController {
     
     private var selectedMailboxes: [AliasMailbox] = [] {
         didSet {
-            mailboxesLabel.text = selectedMailboxes.map({$0.email}).joined(separator: " & ")
+            mailboxesLabel.attributedText = selectedMailboxes.toAttributedString(fontSize: 14)
         }
     }
     

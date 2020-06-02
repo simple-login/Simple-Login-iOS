@@ -6,7 +6,7 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct AliasMailbox {
     let id: Int
@@ -38,5 +38,25 @@ extension Array where Element == AliasMailbox {
         }
         
         self = mailboxes
+    }
+    
+    func toAttributedString(fontSize: CGFloat = 12) -> NSAttributedString {
+        let string = map({$0.email}).joined(separator: " & ")
+        let attributedString = NSMutableAttributedString(string: string)
+        attributedString.addAttributes([
+            .foregroundColor: SLColor.tintColor,
+            .font: UIFont.systemFont(ofSize: fontSize)
+        ],range: NSRange(string.startIndex..., in: string))
+        
+        forEach({ mailbox in
+            if let range = string.range(of: mailbox.email) {
+                attributedString.addAttributes([
+                    .foregroundColor: SLColor.textColor,
+                    .font: UIFont.systemFont(ofSize: fontSize, weight: .medium)
+                ],range: NSRange(range, in: string))
+            }
+        })
+        
+        return attributedString
     }
 }

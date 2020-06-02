@@ -72,23 +72,6 @@ final class Alias: Equatable, Arrayable {
         return "\(latestActivity.contact.email) • \(value) \(unit) ago"
     }()
     
-    // Don't declare as lazy var because it can be changed when updating alias
-    // and lazy var won't reflect the change as it is generated only 1 time
-    func generateMailboxesAttributedString() -> NSAttributedString {
-        let string = mailboxes.map({ $0.email }).joined(separator: " & ")
-        let attributedString = NSMutableAttributedString(string: string)
-        attributedString.addAttributes([
-            .foregroundColor: SLColor.titleColor], range: NSRange(string.startIndex..., in: string))
-        
-        let matchRanges = RegexHelpers.matchRanges(of: "&", inString: string)
-        matchRanges.forEach { (range) in
-            attributedString.addAttributes([
-                .foregroundColor: SLColor.textColor], range: range)
-        }
-        
-        return attributedString
-    }
-    
     convenience init(data: Data) throws {
         guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any] else {
             throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
