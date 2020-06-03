@@ -34,7 +34,7 @@
                                 </items>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mcL-rf-bxo">
-                                <rect key="frame" x="20" y="108" width="374" height="298.5"/>
+                                <rect key="frame" x="20" y="108" width="374" height="373.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lly-jr-Ak6">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="32"/>
@@ -99,7 +99,7 @@
                                                 <color key="textColor" name="TintColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="The mailboxes that own this alias" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0O6-SQ-24K">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="The mailboxes that own this alias" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0O6-SQ-24K">
                                                 <rect key="frame" x="84.5" y="0.0" width="289.5" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" name="TitleColor"/>
@@ -113,15 +113,44 @@
                                         <color key="textColor" name="TextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvU-Xm-D5q">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zPP-jZ-QBJ">
                                         <rect key="frame" x="0.0" y="138.5" width="374" height="1"/>
+                                        <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="95i-Or-rWI"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="r8S-Wc-pcL">
+                                        <rect key="frame" x="0.0" y="147.5" width="374" height="16"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="251" text="NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E5y-c6-8qO">
+                                                <rect key="frame" x="0.0" y="0.0" width="38.5" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                <color key="textColor" name="TintColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Display name when sending &amp; replying (optional)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFB-hy-EZ4">
+                                                <rect key="frame" x="46.5" y="0.0" width="327.5" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" name="TitleColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ex: John Doe" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4dA-x0-EUR">
+                                        <rect key="frame" x="0.0" y="171.5" width="374" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvU-Xm-D5q">
+                                        <rect key="frame" x="0.0" y="213.5" width="374" height="1"/>
                                         <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="r6h-vS-q5H"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1sX-zL-PXI">
-                                        <rect key="frame" x="0.0" y="147.5" width="374" height="16"/>
+                                        <rect key="frame" x="0.0" y="222.5" width="374" height="16"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="251" text="NOTE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dA-bE-XJJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="36" height="16"/>
@@ -129,7 +158,7 @@
                                                 <color key="textColor" name="TintColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Anything to remind you (optional)" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWL-GP-efL">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Anything to remind you (optional)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWL-GP-efL">
                                                 <rect key="frame" x="44" y="0.0" width="330" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" name="TitleColor"/>
@@ -138,12 +167,12 @@
                                         </subviews>
                                     </stackView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ex: For tech newsletters, online shopping, hot deals..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UZx-Oi-WGs">
-                                        <rect key="frame" x="0.0" y="171.5" width="374" height="34"/>
+                                        <rect key="frame" x="0.0" y="246.5" width="374" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2k-HM-rr0">
-                                        <rect key="frame" x="0.0" y="213.5" width="374" height="30"/>
+                                        <rect key="frame" x="0.0" y="288.5" width="374" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="CREATE &amp; COPY"/>
                                         <connections>
@@ -151,7 +180,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cf-aH-Jai">
-                                        <rect key="frame" x="0.0" y="251.5" width="374" height="47"/>
+                                        <rect key="frame" x="0.0" y="326.5" width="374" height="47"/>
                                         <string key="text">💡Hint: To make it easy to remember for later use, it is a good practice to use the name of the website/service that you plan to register with alias.</string>
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -180,6 +209,7 @@
                         <outlet property="createButton" destination="P2k-HM-rr0" id="Sk5-Cj-gCT"/>
                         <outlet property="hintLabel" destination="6cf-aH-Jai" id="VLp-d6-aMa"/>
                         <outlet property="mailboxesLabel" destination="xPI-Zw-uIb" id="AD0-oh-Pny"/>
+                        <outlet property="nameTextField" destination="4dA-x0-EUR" id="Xbi-iH-K6B"/>
                         <outlet property="noteTextField" destination="UZx-Oi-WGs" id="X8J-W0-cy1"/>
                         <outlet property="prefixTextField" destination="VNo-BI-POR" id="DDT-b8-XfI"/>
                         <outlet property="rootStackView" destination="mcL-rf-bxo" id="zzy-sd-glh"/>

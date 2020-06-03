@@ -16,6 +16,7 @@ final class CreateAliasViewController: BaseApiKeyViewController {
     @IBOutlet private weak var suffixView: UIView!
     @IBOutlet private weak var suffixLabel: UILabel!
     @IBOutlet private weak var mailboxesLabel: UILabel!
+    @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var noteTextField: UITextField!
     @IBOutlet private weak var hintLabel: UILabel!
     @IBOutlet private weak var warningLabel: UILabel!
@@ -75,6 +76,11 @@ final class CreateAliasViewController: BaseApiKeyViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         didDisappear?()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // Hide keyboard on background tap
+        view.endEditing(true)
     }
     
     private func setUpUI() {
@@ -154,10 +160,11 @@ final class CreateAliasViewController: BaseApiKeyViewController {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
+        let name = nameTextField.text != "" ? nameTextField.text : nil
         let note = noteTextField.text != "" ? noteTextField.text : nil
         let mailboxIds = selectedMailboxes.map({$0.id})
         
-        SLApiService.shared.createAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, mailboxIds: mailboxIds, note: note) { [weak self] result in
+        SLApiService.shared.createAlias(apiKey: apiKey, prefix: prefixTextField.text ?? "", suffix: suffix, mailboxIds: mailboxIds, name: name, note: note) { [weak self] result in
             guard let self = self else { return }
             
             MBProgressHUD.hide(for: self.view, animated: true)

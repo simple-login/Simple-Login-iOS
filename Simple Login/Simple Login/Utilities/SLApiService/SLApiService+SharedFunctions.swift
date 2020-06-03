@@ -64,13 +64,12 @@ extension SLApiService {
         }
     }
     
-    func createAlias(apiKey: ApiKey, prefix: String, suffix: Suffix, mailboxIds: [Int], note: String?, completion: @escaping (Result<Alias, SLError>) -> Void) {
+    func createAlias(apiKey: ApiKey, prefix: String, suffix: Suffix, mailboxIds: [Int], name: String?, note: String?, completion: @escaping (Result<Alias, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey.value]
         var parameters: [String : Any] = ["alias_prefix" : prefix, "signed_suffix" : suffix.value[1], "mailbox_ids": mailboxIds]
         
-        if let note = note {
-            parameters["note"] = note
-        }
+        if let name = name { parameters["name"] = name }
+        if let note = note { parameters["note"] = note }
         
         AF.request("\(baseUrl)/api/v3/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).responseData { response in
             
