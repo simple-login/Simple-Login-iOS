@@ -107,7 +107,7 @@ final class VerificationViewController: BaseViewController, Storyboarded {
         }
         action.title = "Paste & Verify"
         message.action = action
-        MDCSnackbarManager.show(message)
+        MDCSnackbarManager.default.show(message)
     }
     
     @objc

@@ -1,53 +1,57 @@
 PODS:
-  - Alamofire (5.0.0-rc.3)
+  - Alamofire (5.0.5)
   - Differ (1.4.5)
-  - Gifu (3.2.0)
-  - KeychainAccess (4.1.0)
-  - MarqueeLabel (4.0.1)
-  - MaterialComponents/AnimationTiming (109.0.0)
-  - MaterialComponents/Availability (109.0.0)
-  - MaterialComponents/Buttons (109.0.0):
+  - Gifu (3.3)
+  - KeychainAccess (4.2.1)
+  - MarqueeLabel (4.0.5)
+  - MaterialComponents/AnimationTiming (118.1.0)
+  - MaterialComponents/Availability (118.1.0)
+  - MaterialComponents/Buttons (118.1.0):
     - MaterialComponents/Elevation
     - MaterialComponents/Ink
     - MaterialComponents/private/Math
     - MaterialComponents/Ripple
     - MaterialComponents/ShadowElevations
     - MaterialComponents/ShadowLayer
+    - MaterialComponents/ShapeLibrary
     - MaterialComponents/Shapes
     - MaterialComponents/Typography
     - MDFInternationalization
     - MDFTextAccessibility
-  - MaterialComponents/Elevation (109.0.0):
+  - MaterialComponents/Elevation (118.1.0):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/Ink (109.0.0):
+  - MaterialComponents/Ink (118.1.0):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/OverlayWindow (109.0.0):
+  - MaterialComponents/OverlayWindow (118.1.0):
     - MaterialComponents/Availability
     - MaterialComponents/private/Application
-  - MaterialComponents/private/Application (109.0.0)
-  - MaterialComponents/private/Color (109.0.0):
+  - MaterialComponents/private/Application (118.1.0)
+  - MaterialComponents/private/Color (118.1.0):
     - MaterialComponents/Availability
-  - MaterialComponents/private/KeyboardWatcher (109.0.0):
+  - MaterialComponents/private/KeyboardWatcher (118.1.0):
     - MaterialComponents/private/Application
-  - MaterialComponents/private/Math (109.0.0)
-  - MaterialComponents/private/Overlay (109.0.0)
-  - MaterialComponents/Ripple (109.0.0):
+  - MaterialComponents/private/Math (118.1.0)
+  - MaterialComponents/private/Overlay (118.1.0)
+  - MaterialComponents/Ripple (118.1.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/ShadowElevations (109.0.0)
-  - MaterialComponents/ShadowLayer (109.0.0):
+  - MaterialComponents/ShadowElevations (118.1.0)
+  - MaterialComponents/ShadowLayer (118.1.0):
     - MaterialComponents/ShadowElevations
-  - MaterialComponents/Shapes (109.0.0):
+  - MaterialComponents/ShapeLibrary (118.1.0):
+    - MaterialComponents/private/Math
+    - MaterialComponents/Shapes
+  - MaterialComponents/Shapes (118.1.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
     - MaterialComponents/ShadowLayer
-  - MaterialComponents/Snackbar (109.0.0):
+  - MaterialComponents/Snackbar (118.1.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Availability
     - MaterialComponents/Buttons
@@ -60,18 +64,19 @@ PODS:
     - MaterialComponents/ShadowElevations
     - MaterialComponents/ShadowLayer
     - MaterialComponents/Typography
-  - MaterialComponents/Typography (109.0.0):
+  - MaterialComponents/Typography (118.1.0):
     - MaterialComponents/private/Application
     - MaterialComponents/private/Math
+    - MDFTextAccessibility
   - MBProgressHUD (1.2.0)
   - MDFInternationalization (2.0.0)
   - MDFTextAccessibility (2.0.0)
   - Sentry (5.0.2):
     - Sentry/Core (= 5.0.2)
   - Sentry/Core (5.0.2)
-  - SideMenu (6.4.8)
+  - SideMenu (6.4.9)
   - SkyFloatingLabelTextField (3.8.0)
-  - SwiftyStoreKit (0.15.0)
+  - SwiftyStoreKit (0.16.1)
   - Toaster (2.2.0)
 
 DEPENDENCIES:
@@ -115,19 +120,19 @@ CHECKOUT OPTIONS:
     :tag: 5.0.2
 
 SPEC CHECKSUMS:
-  Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
+  Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   Differ: 3b6bd78e2b20cc795d9a86f7641d087524e4273e
-  Gifu: 7bcb6427457d85e0b4dff5a84ec5947ac19a93ea
-  KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
-  MarqueeLabel: d24e821159667c93064ea3042ccf1875ca94db6b
-  MaterialComponents: efea7f96438838624ea3a4fcc881bfd6b3b0bb7b
+  Gifu: 97c2a3c3865fbc834ab13f797e2e8e7729a1853c
+  KeychainAccess: 9b07f665298d13c3a85881bd3171f6f49b8151c1
+  MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
+  MaterialComponents: e4a7c8b5eabe7856ef58f632fb5800a229bda5be
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   Sentry: 5cec6146fff65c11080f78e8128582727c076e12
-  SideMenu: 4a891be552d30bb6fa87ad404d62e485f8450c34
+  SideMenu: 8ef57a3cfc024a2d3fc1c036c7fe98537baec9e0
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
-  SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
+  SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
 PODFILE CHECKSUM: 3e54118be16a851559d8549cbc724de1b0ffe7bf
