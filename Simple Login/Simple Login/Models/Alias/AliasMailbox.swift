@@ -28,6 +28,12 @@ struct AliasMailbox {
     }
 }
 
+extension AliasMailbox: Comparable {
+    static func < (lhs: Self, rhs: Self) -> Bool {
+        return lhs.email < rhs.email
+    }
+}
+
 extension Array where Element == AliasMailbox {
     init(from dictionaries: [[String: Any]]) throws {
         var mailboxes: [AliasMailbox] = []
@@ -41,14 +47,15 @@ extension Array where Element == AliasMailbox {
     }
     
     func toAttributedString(fontSize: CGFloat = 12) -> NSAttributedString {
-        let string = map({$0.email}).joined(separator: " & ")
+        let sortedArray = sorted()
+        let string = sortedArray.map({$0.email}).joined(separator: " & ")
         let attributedString = NSMutableAttributedString(string: string)
         attributedString.addAttributes([
             .foregroundColor: SLColor.tintColor,
             .font: UIFont.systemFont(ofSize: fontSize)
         ],range: NSRange(string.startIndex..., in: string))
         
-        forEach({ mailbox in
+        sortedArray.forEach({ mailbox in
             if let range = string.range(of: mailbox.email) {
                 attributedString.addAttributes([
                     .foregroundColor: SLColor.textColor,
