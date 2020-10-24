@@ -224,6 +224,7 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
     
     func didSelectRateUs() {
         openAppStore()
+        UserDefaults.setDidMakeAReview()
     }
     
     func didSelectSignOut() {

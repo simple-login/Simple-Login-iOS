@@ -29,7 +29,13 @@ final class LeftMenuViewController: BaseViewController {
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
     
-    private let options: [[LeftMenuOption]] = [[.alias, .mailbox], [.separator],  [.settings, .about], [.separator], [.rateUs, .signOut]]
+    private var options: [[LeftMenuOption]] {
+        let options: [[LeftMenuOption]] = [[.alias, .mailbox], [.separator],  [.settings, .about], [.separator]]
+        if UserDefaults.didMakeAReview() {
+            return options + [[.signOut]]
+        }
+        return options + [[.rateUs, .signOut]]
+    }
     
     var userInfo: UserInfo?
     var delegate: LeftMenuViewControllerDelegate?
