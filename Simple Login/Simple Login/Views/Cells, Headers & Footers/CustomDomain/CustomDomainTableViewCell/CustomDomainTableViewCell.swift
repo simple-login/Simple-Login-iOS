@@ -15,7 +15,7 @@ final class CustomDomainTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var creationDateLabel: UILabel!
     @IBOutlet private weak var countLabel: UILabel!
     @IBOutlet private weak var rightArrowButton: UIButton!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = UITableViewCell.SelectionStyle.none
@@ -23,18 +23,19 @@ final class CustomDomainTableViewCell: UITableViewCell, RegisterableCell {
         contentView.backgroundColor = .clear
 
         domainNameLabel.textColor = SLColor.textColor
-        
+
         clockImageView.tintColor = SLColor.titleColor
         creationDateLabel.textColor = SLColor.titleColor
-        
+
         rightArrowButton.tintColor = SLColor.titleColor
     }
-    
+
     func bind(with customDomain: CustomDomain) {
         domainNameLabel.text = customDomain.name
         creationDateLabel.text = customDomain.creationTimestampString
         countLabel.attributedText = customDomain.countAttributedString
-        
-        rootView.backgroundColor = customDomain.isVerified ? SLColor.premiumColor.withAlphaComponent(0.2) : SLColor.negativeColor.withAlphaComponent(0.2)
+
+        rootView.backgroundColor = customDomain.isVerified ?
+            SLColor.premiumColor.withAlphaComponent(0.2) : SLColor.negativeColor.withAlphaComponent(0.2)
     }
 }

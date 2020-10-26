@@ -6,15 +6,17 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
+// swiftlint:disable cyclomatic_complexity
 final class SLApiService {
     private init() {}
+
     static let shared = SLApiService()
-    
+
     private(set) var baseUrl: String = "https://app.simplelogin.io"
-    
+
     func refreshBaseUrl() {
         baseUrl = Settings.shared.apiUrl
     }
@@ -22,25 +24,31 @@ final class SLApiService {
 
 // Functions in this file are shared with the Share Extension
 extension SLApiService {
-    func fetchUserOptions(apiKey: ApiKey, hostname: String? = nil, completion: @escaping (Result<UserOptions, SLError>) -> Void) {
+    func fetchUserOptions(apiKey: ApiKey,
+                          hostname: String? = nil,
+                          completion: @escaping (Result<UserOptions, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey.value]
-        
+
         let urlString: String
         if let hostname = hostname {
             urlString = "\(baseUrl)/api/v4/alias/options?hostname=\(hostname)"
         } else {
             urlString = "\(baseUrl)/api/v4/alias/options"
         }
-        
-        AF.request(urlString, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).responseData { response in
-            
+
+        AF.request(urlString,
+                   method: .get,
+                   parameters: nil,
+                   encoding: URLEncoding.default,
+                   headers: headers,
+                   interceptor: nil).responseData { response in
             switch response.result {
             case .success(let data):
                 guard let statusCode = response.response?.statusCode else {
                     completion(.failure(.unknownResponseStatusCode))
                     return
                 }
-                
+
                 switch statusCode {
                 case 200:
                     do {
@@ -51,35 +59,51 @@ extension SLApiService {
                     } catch {
                         completion(.failure(.unknownError(error: error)))
                     }
-                    
+
                 case 401: completion(.failure(.invalidApiKey))
                 case 500: completion(.failure(.internalServerError))
                 case 502: completion(.failure(.badGateway))
                 default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
                 }
-                
+
             case .failure(let error):
                 completion(.failure(.alamofireError(error: error)))
             }
         }
     }
-    
-    func createAlias(apiKey: ApiKey, prefix: String, suffix: Suffix, mailboxIds: [Int], name: String?, note: String?, completion: @escaping (Result<Alias, SLError>) -> Void) {
+
+    // swiftlint:disable:next function_parameter_count
+    func createAlias(apiKey: ApiKey,
+                     prefix: String,
+                     suffix: Suffix,
+                     mailboxIds: [Int],
+                     name: String?,
+                     note: String?,
+                     completion: @escaping (Result<Alias, SLError>) -> Void) {
         let headers: HTTPHeaders = ["Authentication": apiKey.value]
-        var parameters: [String : Any] = ["alias_prefix" : prefix, "signed_suffix" : suffix.value[1], "mailbox_ids": mailboxIds]
-        
+        var parameters: [String: Any] =
+            [
+                "alias_prefix": prefix,
+                "signed_suffix": suffix.value[1],
+                "mailbox_ids": mailboxIds
+            ]
+
         if let name = name { parameters["name"] = name }
         if let note = note { parameters["note"] = note }
-        
-        AF.request("\(baseUrl)/api/v3/alias/custom/new", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: nil).responseData { response in
-            
+
+        AF.request("\(baseUrl)/api/v3/alias/custom/new",
+                   method: .post,
+                   parameters: parameters,
+                   encoding: JSONEncoding.default,
+                   headers: headers,
+                   interceptor: nil).responseData { response in
             switch response.result {
             case .success(let data):
                 guard let statusCode = response.response?.statusCode else {
                     completion(.failure(.unknownResponseStatusCode))
                     return
                 }
-                
+
                 switch statusCode {
                 case 201:
                     do {
@@ -90,7 +114,7 @@ extension SLApiService {
                     } catch {
                         completion(.failure(.unknownError(error: error)))
                     }
-                    
+
                 case 400, 405:
                     do {
                         let errorMessage = try ErrorMessage(data: data)
@@ -100,30 +124,34 @@ extension SLApiService {
                     } catch {
                         completion(.failure(.unknownError(error: error)))
                     }
-                    
+
                 case 401: completion(.failure(.invalidApiKey))
                 case 409: completion(.failure(.duplicatedAlias))
                 case 500: completion(.failure(.internalServerError))
                 case 502: completion(.failure(.badGateway))
                 default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
                 }
-                
+
             case .failure(let error):
                 completion(.failure(.alamofireError(error: error)))
             }
         }
     }
-    
+
     func fetchMailboxes(apiKey: ApiKey, completion: @escaping (Result<[Mailbox], SLError>) -> Void) {
-        AF.request("\(baseUrl)/api/mailboxes", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: apiKey.toHeaders(), interceptor: nil).responseData { response in
-            
+        AF.request("\(baseUrl)/api/mailboxes",
+                   method: .get,
+                   parameters: nil,
+                   encoding: JSONEncoding.default,
+                   headers: apiKey.toHeaders(),
+                   interceptor: nil).responseData { response in
             switch response.result {
             case .success(let data):
                 guard let statusCode = response.response?.statusCode else {
                     completion(.failure(.unknownResponseStatusCode))
                     return
                 }
-                
+
                 switch statusCode {
                 case 200:
                     do {
@@ -134,13 +162,13 @@ extension SLApiService {
                     } catch {
                         completion(.failure(.unknownError(error: error)))
                     }
-                    
+
                 case 401: completion(.failure(.invalidApiKey))
                 case 500: completion(.failure(.internalServerError))
                 case 502: completion(.failure(.badGateway))
                 default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
                 }
-                
+
             case .failure(let error):
                 completion(.failure(.alamofireError(error: error)))
             }

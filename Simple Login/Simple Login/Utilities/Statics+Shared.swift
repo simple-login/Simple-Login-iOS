@@ -9,7 +9,7 @@
 import Foundation
 
 // Shared with Share Extension
-let preciseDateFormatter: DateFormatter = {
+let kPreciseDateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "d MMM yyyy 'at' HH:mm"
     return dateFormatter

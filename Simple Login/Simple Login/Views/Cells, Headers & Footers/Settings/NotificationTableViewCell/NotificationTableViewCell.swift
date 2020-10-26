@@ -10,12 +10,12 @@ import UIKit
 
 final class NotificationTableViewCell: UITableViewCell, RegisterableCell {
     var didSwitch: ((_ isOn: Bool) -> Void)?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
     }
-    
+
     @IBAction private func switchValueChanged(_ sender: UISwitch) {
         didSwitch?(sender.isOn)
     }

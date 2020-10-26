@@ -11,27 +11,29 @@ import UIKit
 final class TeamAndContactTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var teamLabel: UILabel!
     @IBOutlet private weak var contactLabel: UILabel!
-    
+
     var didTapTeamLabel: (() -> Void)?
     var didTapContactLabel: (() -> Void)?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         let tapTeam = UITapGestureRecognizer(target: self, action: #selector(teamLabelTapped))
         teamLabel.isUserInteractionEnabled = true
         teamLabel.addGestureRecognizer(tapTeam)
-        
+
         let tapContact = UITapGestureRecognizer(target: self, action: #selector(contactLabelTapped))
         contactLabel.isUserInteractionEnabled = true
         contactLabel.addGestureRecognizer(tapContact)
     }
-    
-    @objc private func teamLabelTapped() {
+
+    @objc
+    private func teamLabelTapped() {
         didTapTeamLabel?()
     }
-    
-    @objc private func contactLabelTapped() {
+
+    @objc
+    private func contactLabelTapped() {
         didTapContactLabel?()
     }
 }

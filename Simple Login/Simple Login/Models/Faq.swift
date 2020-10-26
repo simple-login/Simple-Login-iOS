@@ -8,6 +8,7 @@
 
 import Foundation
 
+// swiftlint:disable:next type_name
 struct Faq {
     let question: String
     let answer: String

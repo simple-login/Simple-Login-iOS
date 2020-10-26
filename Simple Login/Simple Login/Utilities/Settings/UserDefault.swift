@@ -9,24 +9,22 @@
 import Foundation
 
 private extension UserDefaults {
-    static let shared = {
-        return UserDefaults(suiteName: "group.io.simplelogin.ios-app")
-    }()
+    static let shared = UserDefaults(suiteName: "group.io.simplelogin.ios-app")
 }
 
 @propertyWrapper
 struct UserDefault<T> {
     let key: String
     let defaultValue: T
-    
+
     init(_ key: String, defaultValue: T) {
         self.key = key
         self.defaultValue = defaultValue
     }
-    
+
     var wrappedValue: T {
         get {
-            return UserDefaults.shared?.object(forKey: key) as? T ?? defaultValue
+            UserDefaults.shared?.object(forKey: key) as? T ?? defaultValue
         }
         set {
             UserDefaults.shared?.set(newValue, forKey: key)

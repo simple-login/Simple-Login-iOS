@@ -15,7 +15,7 @@ final class WhatYouCanDoViewController: BaseViewController {
         super.viewDidLoad()
         setUpUI()
     }
-    
+
     private func setUpUI() {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
@@ -26,18 +26,15 @@ final class WhatYouCanDoViewController: BaseViewController {
 
 // MARK: - UITableViewDataSource
 extension WhatYouCanDoViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
+    func numberOfSections(in tableView: UITableView) -> Int { 1 }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return What.allCases.count
+        What.allCases.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = WhatTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.bind(with: What.allCases[indexPath.row])
         return cell
     }
 }
-

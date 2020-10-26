@@ -11,11 +11,16 @@ import UIKit
 final class GeneralInfoTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var versionLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-        versionLabel.text = version != nil ? "SimpleLogin v\(version!)" : "SimpleLogin"
+
+        let versionString: String
+        if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+            versionString = "SimpleLogin v\(version)"
+        } else {
+            versionString = "SimpleLogin"
+        }
+        versionLabel.text = versionString
     }
 }

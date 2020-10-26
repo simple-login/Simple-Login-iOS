@@ -11,17 +11,17 @@ import UIKit
 final class FaqTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var questionLabel: UILabel!
     @IBOutlet private weak var answerLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
     }
-    
+
     func bind(with faq: Faq) {
         questionLabel.text = faq.question
         answerLabel.text = faq.answer
     }
-    
+
     func bind(with how: How) {
         questionLabel.text = how.title
         answerLabel.text = how.description

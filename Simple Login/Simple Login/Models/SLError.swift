@@ -6,8 +6,8 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
 enum SLError: Error, CustomStringConvertible {
     case failedToSerializeJsonForObject(anyObject: Any)
@@ -27,10 +27,11 @@ enum SLError: Error, CustomStringConvertible {
     case badRequest(description: String)
     case unknownErrorWithStatusCode(statusCode: Int)
     case unknownError(error: Error)
-    
+
     var description: String {
         switch self {
-        case .failedToSerializeJsonForObject(let anyObject): return "Failed to serialize JSON for object \(anyObject.self)"
+        case .failedToSerializeJsonForObject(let anyObject):
+            return "Failed to serialize JSON for object \(anyObject.self)"
         case .failedToParse(let anyObject): return "Failed to parse \(anyObject.self)"
         case .failedToDelete(let anyObject): return "Failed to delete \(anyObject.self)"
         case .emailOrPasswordIncorrect: return "Email or password incorrect"
@@ -45,12 +46,11 @@ enum SLError: Error, CustomStringConvertible {
         case .unknownResponseStatusCode: return "Unknown response status code"
         case .alamofireError(let error): return error.localizedDescription
         case .badRequest(let description): return description
-        case .unknownErrorWithStatusCode(let statusCode): return "Unknown error with status code \(statusCode)"
+        case .unknownErrorWithStatusCode(let statusCode):
+            return "Unknown error with status code \(statusCode)"
         case .unknownError(let error): return "Unknown error: \(error.localizedDescription)"
         }
     }
-    
-    func toParameter() -> [String: Any] {
-        return ["error": description]
-    }
+
+    func toParameter() -> [String: Any] { ["error": description] }
 }

@@ -16,7 +16,7 @@ final class MailboxTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var creationDateLabel: UILabel!
     @IBOutlet private weak var waveImageView: UIImageView!
     @IBOutlet private weak var numOfAliasLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = UITableViewCell.SelectionStyle.none
@@ -28,7 +28,7 @@ final class MailboxTableViewCell: UITableViewCell, RegisterableCell {
         creationDateLabel.textColor = SLColor.titleColor
         numOfAliasLabel.textColor = SLColor.titleColor
     }
-    
+
     func bind(with mailbox: Mailbox) {
         emailLabel.text = mailbox.email
         defaultButton.isHidden = !mailbox.isDefault

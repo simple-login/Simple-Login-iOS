@@ -10,18 +10,22 @@ import UIKit
 
 class BaseLeftMenuButtonViewController: BaseViewController {
     var didTapLeftBarButtonItem: (() -> Void)?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addLeftBarButtonItem()
     }
-    
+
     private func addLeftBarButtonItem() {
-        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "MenuIcon"), style: .plain, target: self, action: #selector(tappedLeftBarButtonItem))
+        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "MenuIcon"),
+                                                style: .plain,
+                                                target: self,
+                                                action: #selector(tappedLeftBarButtonItem))
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }
-    
-    @objc private func tappedLeftBarButtonItem() {
+
+    @objc
+    private func tappedLeftBarButtonItem() {
         didTapLeftBarButtonItem?()
     }
 }

@@ -13,18 +13,18 @@ final class DirectoryTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var countLabel: UILabel!
     @IBOutlet private weak var clockImageView: UIImageView!
     @IBOutlet private weak var creationLabel: UILabel!
-    
+
     var didTapDelete: (() -> Void)?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
     }
-    
+
     @IBAction private func deleteButtonTapped() {
         didTapDelete?()
     }
-    
+
     func bind(with directory: Directory) {
         nameLabel.text = directory.name
         countLabel.attributedText = directory.countAttributedString

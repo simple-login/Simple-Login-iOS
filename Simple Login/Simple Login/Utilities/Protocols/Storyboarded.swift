@@ -17,6 +17,7 @@ extension Storyboarded where Self: UIViewController {
     static func instantiate(storyboardName: String) -> Self {
         let storyboardId = String(describing: self)
         let storyboard = UIStoryboard(name: storyboardName, bundle: Bundle.main)
+        // swiftlint:disable:next force_cast
         return storyboard.instantiateViewController(withIdentifier: storyboardId) as! Self
     }
 }

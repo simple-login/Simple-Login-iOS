@@ -9,14 +9,14 @@
 import Foundation
 import KeychainAccess
 
-final class SLKeychainService {
+enum SLKeychainService {
     private static let keychainService = Keychain(service: "975H7B86B7.io.simplelogin.ios-app.shared")
     private static let API_KEY = "API_KEY"
-    
+
     static func setApiKey(_ apiKey: ApiKey) throws {
         try keychainService.set(apiKey.value, key: API_KEY)
     }
-    
+
     static func getApiKey() -> ApiKey? {
         if let apiKeyValue = try? keychainService.getString(API_KEY) {
             return ApiKey(value: apiKeyValue)
@@ -24,7 +24,7 @@ final class SLKeychainService {
             return nil
         }
     }
-    
+
     static func removeApiKey() throws {
         try keychainService.remove(API_KEY)
     }

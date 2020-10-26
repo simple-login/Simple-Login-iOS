@@ -11,12 +11,12 @@ import WebKit
 
 final class WebViewController: BaseViewController {
     @IBOutlet private weak var webView: WKWebView!
-    
+
     private static let baseWebsiteUrl = "https://simplelogin.io"
-    
+
     enum Module {
         case team, pricing, blog, terms, privacy, security, help
-        
+
         var urlString: String {
             switch self {
             case .team: return "\(baseWebsiteUrl)/about"
@@ -29,12 +29,12 @@ final class WebViewController: BaseViewController {
             }
         }
     }
-    
+
     var module: Module!
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         if let url = URL(string: module.urlString) {
             webView.load(URLRequest(url: url))
             webView.navigationDelegate = self

@@ -10,7 +10,7 @@ import Foundation
 
 enum LeftMenuOption: CustomStringConvertible {
     case separator, alias, mailbox, aliasDirectory, customDomains, settings, about, rateUs, signOut
-    
+
     var description: String {
         switch self {
         case .separator: return ""
@@ -24,7 +24,7 @@ enum LeftMenuOption: CustomStringConvertible {
         case .signOut: return "Sign Out"
         }
     }
-    
+
     var iconName: String {
         switch self {
         case .separator: return ""

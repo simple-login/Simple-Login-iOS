@@ -8,6 +8,7 @@
 
 import Foundation
 
+// swiftlint:disable:next type_name
 struct How {
     let title: String
     let description: String

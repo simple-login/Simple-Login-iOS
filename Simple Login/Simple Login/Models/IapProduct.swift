@@ -10,7 +10,7 @@ import Foundation
 
 enum IapProduct {
     case monthly, yearly
-    
+
     var productId: String {
         switch self {
         case .monthly: return "io.simplelogin.ios_app.subscription.premium.monthly"

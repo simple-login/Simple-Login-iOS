@@ -6,27 +6,25 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
-import UIKit
 import Gifu
+import UIKit
 
 final class WalkthroughLastStepViewController: BaseWalkthroughStepViewController {
     @IBOutlet private weak var imageView: GIFImageView!
 
-    override var index: Int {
-        return 3
-    }
-    
+    override var index: Int { 3 }
+
     var didTapGetStartedButton: (() -> Void)?
-    
+
     deinit {
         print("WalkthroughLastStepViewController is deallocated")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.animate(withGIFNamed: "superman")
     }
-    
+
     @IBAction private func getStartedButtonTapped() {
         didTapGetStartedButton?()
     }

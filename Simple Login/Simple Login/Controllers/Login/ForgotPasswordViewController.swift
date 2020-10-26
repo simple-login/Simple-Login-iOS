@@ -6,15 +6,15 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
-import UIKit
-import SkyFloatingLabelTextField
 import MBProgressHUD
+import SkyFloatingLabelTextField
 import Toaster
+import UIKit
 
 final class ForgotPasswordViewController: BaseViewController {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var resetButton: UIButton!
-    
+
     private var isValidEmailAddress: Bool = false {
         didSet {
             if isValidEmailAddress {
@@ -28,14 +28,15 @@ final class ForgotPasswordViewController: BaseViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         isValidEmailAddress = false
         emailTextField.becomeFirstResponder()
     }
-    
+
     @IBAction private func cancelButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction private func emailTextFieldEditingChanged() {
         if emailTextField.text?.isValidEmail() ?? false {
             emailTextField.errorMessage = nil
@@ -45,7 +46,7 @@ final class ForgotPasswordViewController: BaseViewController {
             isValidEmailAddress = false
         }
     }
-    
+
     @IBAction private func resetButtonTapped() {
         guard let email = emailTextField?.text, email.isValidEmail() else { return }
         MBProgressHUD.showAdded(to: view, animated: true)

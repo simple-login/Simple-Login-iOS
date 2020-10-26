@@ -10,13 +10,14 @@ import Foundation
 
 struct Deleted {
     let value: Bool
-    
+
     init(data: Data) throws {
-        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
+        // swiftlint:disable:next line_length
+        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
             let deleted = jsonDictionary["deleted"] as? Bool else {
                 throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
         }
-        
+
         self.value = deleted
     }
 }

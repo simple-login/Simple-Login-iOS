@@ -8,9 +8,10 @@
 
 import Foundation
 
+// swiftlint:disable identifier_name
 enum What: CaseIterable {
     case a, b, c
-    
+
     var title: String {
         switch self {
         case .a: return "A. Replace email by alias everywhere"
@@ -18,7 +19,7 @@ enum What: CaseIterable {
         case .c: return "C. Run your business with alias"
         }
     }
-    
+
     var imageName: String {
         switch self {
         case .a: return "WhatA"
@@ -26,7 +27,8 @@ enum What: CaseIterable {
         case .c: return "WhatC"
         }
     }
-    
+
+    // swiftlint:disable line_length
     var description: String {
         switch self {
         case .a: return """
@@ -36,18 +38,21 @@ enum What: CaseIterable {
 
             Later on, simply block an alias if it's too spammy.
             """
+
         case .b: return """
             Just hit "Reply" whenever you need to reply to a forwarded email: the reply will come from the alias and your personal mailbox stays hidden.
-            
+
             You can also send emails to any email address from your alias.
             """
+
         case .c: return """
             Use alias as your business email.
-            
+
             Save $6/month for each business email created with SimpleLogin.
-            
+
             By the way your company emails are actually aliases.
             """
         }
     }
+    // swiftlint:enable line_length
 }

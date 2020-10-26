@@ -13,38 +13,40 @@ extension Date {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.minute, .hour, .day, .year], from: self, to: dateNow)
 
+        // swiftlint:disable force_unwrapping
         let year = components.year!
         let day = components.day!
         let hour = components.hour!
         let minute = components.minute!
-        
-        let week = (year * 365 + day)/7
-        let month = (year * 365 + day)/30
-        
+        // swiftlint:enable force_unwrapping
+
+        let week = (year * 365 + day) / 7
+        let month = (year * 365 + day) / 30
+
         if month == 1 {
             return (month, "month")
         } else if month > 1 {
             return (month, "months")
         }
-        
+
         if week == 1 {
             return (week, "week")
         } else if week > 1 {
             return (week, "weeks")
         }
-        
+
         if day == 1 {
             return (day, "day")
         } else if day > 1 {
             return (day, "days")
         }
-        
+
         if hour == 1 {
             return (hour, "hour")
         } else if hour > 1 {
             return (hour, "hours")
         }
-    
+
         if minute <= 1 {
             return (minute, "minute")
         } else {

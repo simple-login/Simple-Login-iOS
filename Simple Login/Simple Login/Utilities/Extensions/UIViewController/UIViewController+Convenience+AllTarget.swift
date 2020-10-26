@@ -10,8 +10,10 @@ import UIKit
 
 extension UIViewController {
     func alertError(_ error: SLError, closeActionHandler: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: "Error occured", message: error.description, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close", style: .default) { (_) in
+        let alert = UIAlertController(title: "Error occured",
+                                      message: error.description,
+                                      preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close", style: .default) { _ in
             closeActionHandler?()
         }
         alert.addAction(closeAction)

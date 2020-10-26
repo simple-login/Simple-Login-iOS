@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LeftMenuViewControllerDelegate {
+protocol LeftMenuViewControllerDelegate: class {
     func didSelectAlias()
     func didSelectMailbox()
     func didSelectDirectory()
@@ -28,22 +28,22 @@ final class LeftMenuViewController: BaseViewController {
     @IBOutlet private weak var emailLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
-    
+
     private var options: [[LeftMenuOption]] {
-        let options: [[LeftMenuOption]] = [[.alias, .mailbox], [.separator],  [.settings, .about], [.separator]]
+        let options: [[LeftMenuOption]] = [[.alias, .mailbox], [.separator], [.settings, .about], [.separator]]
         if UserDefaults.didMakeAReview() {
             return options + [[.signOut]]
         }
         return options + [[.rateUs, .signOut]]
     }
-    
+
     var userInfo: UserInfo?
-    var delegate: LeftMenuViewControllerDelegate?
-    
+    weak var delegate: LeftMenuViewControllerDelegate?
+
     private var hasTopNotch: Bool {
-        if #available(iOS 13.0,  *) {
-            return UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0 > 20
-        } else{
+        if #available(iOS 13.0, *) {
+            return UIApplication.shared.windows.first { $0.isKeyWindow }?.safeAreaInsets.top ?? 0 > 20
+        } else {
             return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
         }
     }
@@ -52,7 +52,7 @@ final class LeftMenuViewController: BaseViewController {
         super.viewDidLoad()
         setUpUI()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         bindUserInfo()
@@ -60,10 +60,10 @@ final class LeftMenuViewController: BaseViewController {
 
     private func setUpUI() {
         view.backgroundColor = SLColor.menuBackgroundColor
-        
+
         // topView
         topViewHeightConstraint.constant = hasTopNotch ? 150 : 120
-        
+
         // shadowView
         let gradient = CAGradientLayer()
         gradient.colors = [SLColor.shadowColor.cgColor, UIColor.clear.cgColor]
@@ -74,36 +74,37 @@ final class LeftMenuViewController: BaseViewController {
         shadowView.layer.insertSublayer(gradient, at: 0)
         shadowView.alpha = 0
         shadowView.backgroundColor = SLColor.shadowColor
-        
+
         // tableView
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorColor = .clear
         tableView.backgroundColor = .clear
-        
-        let footerView = UIView(frame: .init(origin: .zero, size: .init(width: tableView.bounds.width, height: 44)))
+
+        let footerView =
+            UIView(frame: .init(origin: .zero, size: .init(width: tableView.bounds.width, height: 44)))
         let simpleLoginLabel = UILabel(frame: .zero)
-        simpleLoginLabel.text = "SimpleLogin v\(versionString)"
+        simpleLoginLabel.text = "SimpleLogin v\(kVersionString)"
         simpleLoginLabel.textColor = .lightGray
         simpleLoginLabel.font = UIFont.systemFont(ofSize: 11, weight: .medium)
         footerView.addSubview(simpleLoginLabel)
         simpleLoginLabel.fillSuperview(padding: UIEdgeInsets(top: 0, left: 20, bottom: 10, right: 20))
-        
+
         tableView.tableFooterView = footerView
-        
+
         LeftMenuOptionTableViewCell.register(with: tableView)
         SeparatorTableViewCell.register(with: tableView)
     }
-    
+
     private func bindUserInfo() {
         guard let userInfo = userInfo else {
             usernameLabel.text = nil
             statusLabel.text = nil
             return
         }
-        
+
         usernameLabel.text = userInfo.name
         emailLabel.text = userInfo.email
-        
+
         if userInfo.inTrial {
             statusLabel.text = "Premium trial"
             statusLabel.textColor = .systemTeal
@@ -119,21 +120,19 @@ final class LeftMenuViewController: BaseViewController {
 
 // MARK: - UITableViewDataSource
 extension LeftMenuViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return options.count
-    }
-    
+    func numberOfSections(in tableView: UITableView) -> Int { options.count }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return options[section].count
+        options[section].count
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let option = options[indexPath.section][indexPath.row]
-        
+
         if option != .separator {
             return UITableView.automaticDimension
         }
-        
+
         return 1 // separator cell
     }
 }
@@ -143,7 +142,7 @@ extension LeftMenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let option = options[indexPath.section][indexPath.row]
-        
+
         switch option {
         case .alias: delegate?.didSelectAlias()
         case .mailbox: delegate?.didSelectMailbox()
@@ -156,17 +155,17 @@ extension LeftMenuViewController: UITableViewDelegate {
         case .separator: return
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let option = options[indexPath.section][indexPath.row]
-        
+
         if option != .separator {
             let cell = LeftMenuOptionTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-            
+
             cell.bind(with: option)
             return cell
         }
-        
+
         return SeparatorTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
     }
 }

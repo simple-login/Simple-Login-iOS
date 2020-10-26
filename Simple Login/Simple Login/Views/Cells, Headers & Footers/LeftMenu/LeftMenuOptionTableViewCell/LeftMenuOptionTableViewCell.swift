@@ -11,12 +11,12 @@ import UIKit
 final class LeftMenuOptionTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var iconImageView: UIImageView!
     @IBOutlet private weak var optionTitleLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         optionTitleLabel.textColor = SLColor.titleColor
     }
-    
+
     func bind(with leftMenuOption: LeftMenuOption) {
         iconImageView.image = UIImage(named: leftMenuOption.iconName)
         optionTitleLabel.text = leftMenuOption.description

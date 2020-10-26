@@ -12,23 +12,24 @@ final class FaqViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
 
     private var faqs: [Faq] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
         readFaqsFromPlist()
     }
-    
+
     private func setUpUI() {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = .clear
         FaqTableViewCell.register(with: tableView)
     }
-    
+
     private func readFaqsFromPlist() {
-        if let url = Bundle.main.url(forResource: "Faq", withExtension: "plist"), let faqArray = NSArray(contentsOf: url) as? [[String: String]] {
-            faqArray.forEach { (faqDictionary) in
+        if let url = Bundle.main.url(forResource: "Faq", withExtension: "plist"),
+           let faqArray = NSArray(contentsOf: url) as? [[String: String]] {
+            faqArray.forEach { faqDictionary in
                 if let question = faqDictionary["question"], let answer = faqDictionary["answer"] {
                     let faq = Faq(question: question, answer: answer)
                     faqs.append(faq)
@@ -40,14 +41,12 @@ final class FaqViewController: BaseViewController {
 
 // MARK: - FaqViewController
 extension FaqViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
+    func numberOfSections(in tableView: UITableView) -> Int { 1 }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return faqs.count
+        faqs.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = FaqTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.bind(with: faqs[indexPath.row])

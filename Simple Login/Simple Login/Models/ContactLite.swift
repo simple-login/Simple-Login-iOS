@@ -12,12 +12,12 @@ final class ContactLite {
     let email: String
     let name: String?
     let reverseAlias: String
-    
-    init(fromDictionary dictionary: [String : Any]) throws {
+
+    init(fromDictionary dictionary: [String: Any]) throws {
         let email = dictionary["email"] as? String
         let name = dictionary["name"] as? String
         let reverseAlias = dictionary["reverse_alias"] as? String
-        
+
         self.name = name
         if let email = email, let reverseAlias = reverseAlias {
             self.email = email

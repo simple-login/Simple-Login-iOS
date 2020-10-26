@@ -10,11 +10,11 @@ import UIKit
 
 final class LoadingFooterView: UITableViewHeaderFooterView {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
+
     func animate() {
         activityIndicator.startAnimating()
     }

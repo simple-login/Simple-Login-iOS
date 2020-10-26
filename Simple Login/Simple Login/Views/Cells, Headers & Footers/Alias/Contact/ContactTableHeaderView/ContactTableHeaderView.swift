@@ -6,19 +6,19 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
-import UIKit
 import MarqueeLabel
+import UIKit
 
 final class ContactTableHeaderView: UITableViewHeaderFooterView {
     @IBOutlet private weak var rootView: UIView!
     @IBOutlet private weak var emailLabel: MarqueeLabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         rootView.backgroundColor = .lightGray
         emailLabel.type = .leftRight
     }
-    
+
     func bind(with email: String) {
         emailLabel.text = email
         emailLabel.triggerScrollStart()

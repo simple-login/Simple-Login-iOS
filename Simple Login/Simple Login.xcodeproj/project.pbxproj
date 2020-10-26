@@ -32,7 +32,6 @@
 		C01ABA7024606F860075DCC9 /* HelpAndRoadmapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01ABA6F24606F860075DCC9 /* HelpAndRoadmapTableViewCell.xib */; };
 		C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C00B123D25C390036B905 /* Storyboarded.swift */; };
 		C0222396245F3DFC003157B9 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0222395245F3DFC003157B9 /* UserDefaults+Extensions.swift */; };
-		C0222398245F3E9D003157B9 /* NSNotification+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0222397245F3E9D003157B9 /* NSNotification+Extensions.swift */; };
 		C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02646FE23D0F4F600E9932B /* AvatarImageView.swift */; };
 		C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */; };
 		C027A26F24051D9700BD19C9 /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C027A26E24051D9700BD19C9 /* Walkthrough.storyboard */; };
@@ -149,10 +148,9 @@
 		C0BE30B52486587B0096BCF5 /* BaseApiKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8C4A7246ADA00008BB8D2 /* BaseApiKeyViewController.swift */; };
 		C0BE30B6248658D80096BCF5 /* Mailbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346324802DA900360BA3 /* Mailbox.swift */; };
 		C0BE30B7248658ED0096BCF5 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C00B123D25C390036B905 /* Storyboarded.swift */; };
-		C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */; };
+		C0BE665923CA7AC100602FB7 /* Toast+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toast+Convenience.swift */; };
 		C0C053222438E8A60080AD4D /* delete.gif in Resources */ = {isa = PBXBuildFile; fileRef = C0C053212438E8A60080AD4D /* delete.gif */; };
 		C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3AFD23E98A5700887264 /* UserLogin.swift */; };
-		C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3B0423E9A7A300887264 /* SLOAuth.swift */; };
 		C0D0500E23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D0500F23FED26900B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D069992406798600EBAC10 /* Directory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0D069982406798600EBAC10 /* Directory.storyboard */; };
@@ -265,7 +263,6 @@
 		C01ABA6F24606F860075DCC9 /* HelpAndRoadmapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpAndRoadmapTableViewCell.xib; sourceTree = "<group>"; };
 		C01C00B123D25C390036B905 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		C0222395245F3DFC003157B9 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
-		C0222397245F3E9D003157B9 /* NSNotification+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Extensions.swift"; sourceTree = "<group>"; };
 		C02646FE23D0F4F600E9932B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		C027A26E24051D9700BD19C9 /* Walkthrough.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
@@ -372,10 +369,9 @@
 		C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileAndMembershipTableViewCell.xib; sourceTree = "<group>"; };
 		C0BD47CC244DAB43006473B5 /* LatestActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestActivity.swift; sourceTree = "<group>"; };
 		C0BD47CE244DAB6F006473B5 /* ContactLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLite.swift; sourceTree = "<group>"; };
-		C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toaster+Convenience.swift"; sourceTree = "<group>"; };
+		C0BE665823CA7AC100602FB7 /* Toast+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toast+Convenience.swift"; sourceTree = "<group>"; };
 		C0C053212438E8A60080AD4D /* delete.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = delete.gif; sourceTree = "<group>"; };
 		C0CA3AFD23E98A5700887264 /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
-		C0CA3B0423E9A7A300887264 /* SLOAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLOAuth.swift; sourceTree = "<group>"; };
 		C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience+AllTarget.swift"; sourceTree = "<group>"; };
 		C0D069982406798600EBAC10 /* Directory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Directory.storyboard; sourceTree = "<group>"; };
 		C0D0699B24067AC700EBAC10 /* DirectoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
@@ -595,8 +591,6 @@
 				C0016DC224548ED200513D64 /* Statics+Shared.swift */,
 				C00BC55923FDA10900E66FFE /* BaseUrlStatic.swift */,
 				C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */,
-				C0222395245F3DFC003157B9 /* UserDefaults+Extensions.swift */,
-				C0222397245F3E9D003157B9 /* NSNotification+Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -635,12 +629,13 @@
 				C0DF1BD024391DEE00BA0742 /* UIViewController */,
 				C05CD31223CA2A23007F1C9E /* UIView+Layout.swift */,
 				C05CD31923CA4040007F1C9E /* Date+Distance.swift */,
-				C0BE665823CA7AC100602FB7 /* Toaster+Convenience.swift */,
+				C0BE665823CA7AC100602FB7 /* Toast+Convenience.swift */,
 				C0D9B66423CBC838009A6699 /* String+Utilities.swift */,
 				C07B41F723EB1BC4002E6223 /* Notification+Name.swift */,
 				C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */,
 				C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */,
 				C0121C9A244B53460082F08A /* SKProduct+RegularPrice.swift */,
+				C0222395245F3DFC003157B9 /* UserDefaults+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -934,7 +929,6 @@
 			isa = PBXGroup;
 			children = (
 				C07F347324805FA700360BA3 /* Alias */,
-				C0CA3B0423E9A7A300887264 /* SLOAuth.swift */,
 				C0B1DE3423C8AC8A003EED3B /* SLError.swift */,
 				C0CA3AFD23E98A5700887264 /* UserLogin.swift */,
 				C0B1DE3623C8ACA4003EED3B /* UserInfo.swift */,
@@ -1288,6 +1282,7 @@
 				C097A9E123C7987F00EC1EFE /* Resources */,
 				5CD82E415A486CFF9D844F00 /* [CP] Embed Pods Frameworks */,
 				C042C26323EF3A570045A04D /* Embed App Extensions */,
+				C060FD3F2546D4A400694601 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1464,6 +1459,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Simple Login/Pods-Simple Login-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C060FD3F2546D4A400694601 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint --config \"$SRCROOT/.swiftlint.yml\"\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1594,7 +1606,6 @@
 				C0D87CBE2423ABE300BCF5AB /* ContactTableHeaderView.swift in Sources */,
 				C0AACB5E245389FD0016355D /* ApiKey.swift in Sources */,
 				C08A202A23CC95DF00CB8D2F /* ContactTableViewCell.swift in Sources */,
-				C0222398245F3E9D003157B9 /* NSNotification+Extensions.swift in Sources */,
 				C0D6A29623D0ACDF00EF21B8 /* FaqTableViewCell.swift in Sources */,
 				C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */,
 				C067EDC52483FA8500A89C75 /* Settings.swift in Sources */,
@@ -1610,13 +1621,12 @@
 				C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */,
 				C00D74E923E8ACE400BE48F0 /* LoginViewController.swift in Sources */,
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
-				C0BE665923CA7AC100602FB7 /* Toaster+Convenience.swift in Sources */,
+				C0BE665923CA7AC100602FB7 /* Toast+Convenience.swift in Sources */,
 				C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */,
 				C067EDC7248408ED00A89C75 /* HowToUseMailboxesViewController.swift in Sources */,
 				C0D069B42406CFDE00EBAC10 /* DeletedAlias.swift in Sources */,
 				C0D069AE2406BFC800EBAC10 /* DirectoryTableViewCell.swift in Sources */,
 				C0D8C4B3246AF132008BB8D2 /* ErrorMessage.swift in Sources */,
-				C0CA3B0523E9A7A300887264 /* SLOAuth.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
 				C0D069BF2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift in Sources */,
 				C0F57021241D398D00BCC84B /* Contact.swift in Sources */,

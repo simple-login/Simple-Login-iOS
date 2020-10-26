@@ -8,7 +8,8 @@
 
 import UIKit
 
-struct SLColor {
+enum SLColor {
+    // swiftlint:disable force_unwrapping
     static let textColor = UIColor(named: "TextColor")!
     static let titleColor = UIColor(named: "TitleColor")!
     static let clickableTitleColor = UIColor(named: "ClickableTitleColor")!
@@ -22,4 +23,5 @@ struct SLColor {
     static let separatorColor = UIColor(named: "SeparatorColor")!
     static let borderColor = UIColor(named: "BorderColor")!
     static let negativeColor = UIColor(named: "NegativeColor")!
+    // swiftlint:enable force_unwrapping
 }

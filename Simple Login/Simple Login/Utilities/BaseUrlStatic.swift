@@ -8,4 +8,4 @@
 
 import Foundation
 
-let ALIAS_PREFIX_MAX_LENGTH = 100
+let kAliasPrefixMaxLength = 100

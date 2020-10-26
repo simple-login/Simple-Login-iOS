@@ -11,12 +11,12 @@ import UIKit
 final class DeletedAliasTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var deletionDateLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = UITableViewCell.SelectionStyle.none
     }
-    
+
     func bind(with deletedAlias: DeletedAlias) {
         nameLabel.text = deletedAlias.email
         deletionDateLabel.text = deletedAlias.deletionTimestampString

@@ -12,12 +12,12 @@ final class WhatTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var whatTitleLabel: UILabel!
     @IBOutlet private weak var whatImageView: UIImageView!
     @IBOutlet private weak var whatDescriptionLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
     }
-    
+
     func bind(with what: What) {
         whatTitleLabel.text = what.title
         whatImageView.image = UIImage(named: what.imageName)

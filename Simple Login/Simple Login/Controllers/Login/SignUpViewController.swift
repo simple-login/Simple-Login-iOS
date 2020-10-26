@@ -6,26 +6,26 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
-import UIKit
 import SkyFloatingLabelTextField
+import UIKit
 
 final class SignUpViewController: BaseViewController, Storyboarded {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var signUpButton: UIButton!
-    
+
     private var isValidEmailAddress: Bool = false {
         didSet {
             isSignUpable = isValidEmailAddress && isValidPassword
         }
     }
-    
+
     private var isValidPassword: Bool = false {
         didSet {
             isSignUpable = isValidEmailAddress && isValidPassword
         }
     }
-    
+
     private var isSignUpable: Bool = false {
         didSet {
             if isSignUpable {
@@ -37,18 +37,18 @@ final class SignUpViewController: BaseViewController, Storyboarded {
             }
         }
     }
-    
+
     var signUp: ((_ email: String, _ password: String) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         isSignUpable = false
     }
-    
+
     @IBAction private func cancelButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction private func emailTextFieldEditingChanged() {
         guard let email = emailTextField.text, email.contains("@") else {
             emailTextField.errorMessage = nil
@@ -56,7 +56,7 @@ final class SignUpViewController: BaseViewController, Storyboarded {
         }
         verifyEmailAddress()
     }
-    
+
     private func verifyEmailAddress() {
         if emailTextField.text?.isValidEmail() ?? false {
             emailTextField.errorMessage = nil
@@ -66,7 +66,7 @@ final class SignUpViewController: BaseViewController, Storyboarded {
             isValidEmailAddress = false
         }
     }
-    
+
     @IBAction private func passwordTextFieldEditingChanged() {
         if passwordTextField.text?.count ?? 0 >= 8 {
             passwordTextField.errorMessage = nil
@@ -76,10 +76,10 @@ final class SignUpViewController: BaseViewController, Storyboarded {
             isValidPassword = false
         }
     }
-    
+
     @IBAction private func signUpButtonTapped() {
         guard isSignUpable, let email = emailTextField.text, let password = passwordTextField.text else { return }
-        
+
         dismiss(animated: true) {
             self.signUp?(email, password)
         }

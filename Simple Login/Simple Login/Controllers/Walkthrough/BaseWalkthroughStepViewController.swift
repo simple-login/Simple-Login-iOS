@@ -9,7 +9,5 @@
 import UIKit
 
 class BaseWalkthroughStepViewController: BaseViewController, Storyboarded {
-    var index: Int {
-        return 0
-    }
+    var index: Int { 0 }
 }

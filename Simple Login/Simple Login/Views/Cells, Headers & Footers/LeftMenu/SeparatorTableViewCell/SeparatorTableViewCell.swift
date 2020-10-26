@@ -9,7 +9,6 @@
 import UIKit
 
 final class SeparatorTableViewCell: UITableViewCell, RegisterableCell {
-
     override func awakeFromNib() {
         super.awakeFromNib()
         contentView.backgroundColor = SLColor.separatorColor

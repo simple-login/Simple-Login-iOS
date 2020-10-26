@@ -9,5 +9,4 @@
 import UIKit
 
 final class LoginNavigationViewController: UINavigationController, Storyboarded {
-    
 }

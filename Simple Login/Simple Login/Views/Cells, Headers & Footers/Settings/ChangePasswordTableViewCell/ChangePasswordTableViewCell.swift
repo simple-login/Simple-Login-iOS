@@ -10,19 +10,20 @@ import UIKit
 
 final class ChangePasswordTableViewCell: UITableViewCell, RegisterableCell {
     @IBOutlet private weak var rootView: BorderedShadowedView!
-    
+
     var didTapRootView: (() -> Void)?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-        
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(rootViewTapped))
         rootView.isUserInteractionEnabled = true
         rootView.addGestureRecognizer(tap)
     }
-    
-    @objc private func rootViewTapped() {
+
+    @objc
+    private func rootViewTapped() {
         didTapRootView?()
     }
 }

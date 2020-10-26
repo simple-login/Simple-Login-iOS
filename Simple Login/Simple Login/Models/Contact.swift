@@ -10,8 +10,9 @@ import Foundation
 
 final class Contact: Arrayable {
     static var jsonRootKey = "contacts"
+
     typealias Identifier = Int
-    
+
     let id: Identifier
     let email: String
     let reverseAlias: String
@@ -19,26 +20,26 @@ final class Contact: Arrayable {
     let creationTimestamp: TimeInterval
     let lastEmailSentDate: String?
     let lastEmailSentTimestamp: TimeInterval?
-    
+
     lazy var creationTimestampString: String = {
         let date = Date(timeIntervalSince1970: creationTimestamp)
-        let preciseDateAndTime = preciseDateFormatter.string(from: date)
-        let (value, unit) =  date.distanceFromNow()
+        let preciseDateAndTime = kPreciseDateFormatter.string(from: date)
+        let (value, unit) = date.distanceFromNow()
         return "Created on \(preciseDateAndTime) (\(value) \(unit) ago)"
     }()
-    
+
     lazy var lastEmailSentTimestampString: String? = {
         guard let lastEmailSentTimestamp = lastEmailSentTimestamp else {
             return nil
         }
-        
+
         let date = Date(timeIntervalSince1970: lastEmailSentTimestamp)
-        let preciseDateAndTime = preciseDateFormatter.string(from: date)
-        let (value, unit) =  date.distanceFromNow()
+        let preciseDateAndTime = kPreciseDateFormatter.string(from: date)
+        let (value, unit) = date.distanceFromNow()
         return "Last sent on \(preciseDateAndTime) (\(value) \(unit) ago)"
     }()
-    
-    init(dictionary: [String : Any]) throws {
+
+    init(dictionary: [String: Any]) throws {
         let id = dictionary["id"] as? Int
         let email = dictionary["contact"] as? String
         let reverseAlias = dictionary["reverse_alias"] as? String
@@ -46,8 +47,12 @@ final class Contact: Arrayable {
         let creationTimestamp = dictionary["creation_timestamp"] as? TimeInterval
         let lastEmailSentDate = dictionary["last_email_sent_date"] as? String
         let lastEmailSentTimestamp = dictionary["last_email_sent_timestamp"] as? TimeInterval
-        
-        if let id = id, let email = email, let creationDate = creationDate, let creationTimestamp = creationTimestamp, let reverseAlias = reverseAlias {
+
+        if let id = id,
+           let email = email,
+           let creationDate = creationDate,
+           let creationTimestamp = creationTimestamp,
+           let reverseAlias = reverseAlias {
             self.id = id
             self.email = email
             self.reverseAlias = reverseAlias

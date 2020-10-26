@@ -9,5 +9,4 @@
 import UIKit
 
 final class AliasSearchNavigationController: UINavigationController {
-    
 }

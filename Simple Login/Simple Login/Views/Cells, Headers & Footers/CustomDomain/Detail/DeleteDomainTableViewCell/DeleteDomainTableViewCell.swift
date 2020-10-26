@@ -10,7 +10,7 @@ import UIKit
 
 final class DeleteDomainTableViewCell: UITableViewCell, RegisterableCell {
     var didTapDeleteButton: (() -> Void)?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none

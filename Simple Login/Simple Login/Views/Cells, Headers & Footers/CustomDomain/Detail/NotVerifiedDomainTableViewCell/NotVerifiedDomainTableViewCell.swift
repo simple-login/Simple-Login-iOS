@@ -9,9 +9,8 @@
 import UIKit
 
 final class NotVerifiedDomainTableViewCell: UITableViewCell, RegisterableCell {
-    
     var didTapVerifyButton: (() -> Void)?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
@@ -21,4 +20,3 @@ final class NotVerifiedDomainTableViewCell: UITableViewCell, RegisterableCell {
         didTapVerifyButton?()
     }
 }
-

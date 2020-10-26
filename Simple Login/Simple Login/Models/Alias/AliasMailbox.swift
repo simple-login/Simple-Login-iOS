@@ -11,17 +11,17 @@ import UIKit
 struct AliasMailbox {
     let id: Int
     let email: String
-    
+
     init(from dictionary: [String: Any]) throws {
         guard let id = dictionary["id"] as? Int,
             let email = dictionary["email"] as? String else {
                 throw SLError.failedToParse(anyObject: Self.self)
         }
-        
+
         self.id = id
         self.email = email
     }
-    
+
     init(id: Int, email: String) {
         self.id = id
         self.email = email
@@ -29,41 +29,39 @@ struct AliasMailbox {
 }
 
 extension AliasMailbox: Comparable {
-    static func < (lhs: Self, rhs: Self) -> Bool {
-        return lhs.email < rhs.email
-    }
+    static func < (lhs: Self, rhs: Self) -> Bool { lhs.email < rhs.email }
 }
 
 extension Array where Element == AliasMailbox {
     init(from dictionaries: [[String: Any]]) throws {
         var mailboxes: [AliasMailbox] = []
-        
+
         try dictionaries.forEach { dictionary in
             let mailbox = try AliasMailbox(from: dictionary)
             mailboxes.append(mailbox)
         }
-        
+
         self = mailboxes
     }
-    
+
     func toAttributedString(fontSize: CGFloat = 12) -> NSAttributedString {
         let sortedArray = sorted()
-        let string = sortedArray.map({$0.email}).joined(separator: " & ")
+        let string = sortedArray.map { $0.email }.joined(separator: " & ")
         let attributedString = NSMutableAttributedString(string: string)
-        attributedString.addAttributes([
-            .foregroundColor: SLColor.tintColor,
-            .font: UIFont.systemFont(ofSize: fontSize)
-        ],range: NSRange(string.startIndex..., in: string))
-        
-        sortedArray.forEach({ mailbox in
+        attributedString.addAttributes(
+            [.foregroundColor: SLColor.tintColor, .font: UIFont.systemFont(ofSize: fontSize)],
+            range: NSRange(string.startIndex..., in: string))
+
+        sortedArray.forEach { mailbox in
             if let range = string.range(of: mailbox.email) {
-                attributedString.addAttributes([
-                    .foregroundColor: SLColor.textColor,
-                    .font: UIFont.systemFont(ofSize: fontSize, weight: .medium)
-                ],range: NSRange(range, in: string))
+                // swiftlint:disable line_length
+                attributedString.addAttributes(
+                    [.foregroundColor: SLColor.textColor, .font: UIFont.systemFont(ofSize: fontSize, weight: .medium)],
+                    range: NSRange(range, in: string))
+                // swiftline:enable line_length
             }
-        })
-        
+        }
+
         return attributedString
     }
 }

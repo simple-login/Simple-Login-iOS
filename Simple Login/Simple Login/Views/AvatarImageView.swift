@@ -9,22 +9,21 @@
 import UIKit
 
 class AvatarImageView: UIImageView {
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpUI()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpUI()
     }
-    
+
     private func setUpUI() {
         layer.cornerRadius = bounds.width / 2
         layer.borderWidth = 2
