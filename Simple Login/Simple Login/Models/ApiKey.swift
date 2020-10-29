@@ -9,26 +9,21 @@
 import Alamofire
 import Foundation
 
-struct ApiKey {
+struct ApiKey: Decodable {
     let value: String
 
     init(value: String) {
         self.value = value
     }
 
-    init(data: Data) throws {
-        // swiftlint:disable:next line_length
-        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-            throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
-        }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        self.value = try container.decode(String.self, forKey: .apiKey)
+    }
 
-        let value = jsonDictionary["api_key"] as? String
-
-        if let value = value {
-            self.value = value
-        } else {
-            throw SLError.failedToParse(anyObject: Self.self)
-        }
+    // swiftlint:disable:next type_name
+    enum Key: String, CodingKey {
+        case apiKey = "api_key"
     }
 
     func toHeaders() -> HTTPHeaders { ["Authentication": value] }

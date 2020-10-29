@@ -8,34 +8,30 @@
 
 import Foundation
 
-struct UserLogin {
-    let apiKey: ApiKey?
+struct UserLogin: Decodable {
+    let apiKey: ApiKey
+    let email: String
     let isMfaEnabled: Bool
     let mfaKey: String?
-    let name: String?
+    let name: String
 
-    init(data: Data) throws {
-        // swiftlint:disable:next line_length
-        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-            throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
-        }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
 
-        if let apiKeyValue = jsonDictionary["api_key"] as? String {
-            self.apiKey = ApiKey(value: apiKeyValue)
-        } else {
-            self.apiKey = nil
-        }
+        let apiKeyString = try container.decode(String.self, forKey: .apiKey)
+        self.apiKey = ApiKey(value: apiKeyString)
+        self.email = try container.decode(String.self, forKey: .email)
+        self.isMfaEnabled = try container.decode(Bool.self, forKey: .isMfaEnabled)
+        self.mfaKey = try container.decode(String?.self, forKey: .mfaKey)
+        self.name = try container.decode(String.self, forKey: .name)
+    }
 
-        let isMfaEnabled = jsonDictionary["mfa_enabled"] as? Bool
-        let mfaKey = jsonDictionary["mfa_key"] as? String
-        let name = jsonDictionary["name"] as? String
-
-        if let isMfaEnabled = isMfaEnabled {
-            self.isMfaEnabled = isMfaEnabled
-            self.mfaKey = mfaKey
-            self.name = name
-        } else {
-            throw SLError.failedToParse(anyObject: Self.self)
-        }
+    // swiftlint:disable:next type_name
+    enum Key: String, CodingKey {
+        case apiKey = "api_key"
+        case email = "email"
+        case isMfaEnabled = "mfa_enabled"
+        case mfaKey = "mfa_key"
+        case name = "name"
     }
 }

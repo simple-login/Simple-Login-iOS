@@ -30,7 +30,7 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let userLogin = try UserLogin(data: data)
+                        let userLogin = try JSONDecoder().decode(UserLogin.self, from: data)
                         completion(.success(userLogin))
                     } catch let slError as SLError {
                         completion(.failure(slError))
@@ -69,7 +69,7 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let apiKey = try ApiKey(data: data)
+                        let apiKey = try JSONDecoder().decode(ApiKey.self, from: data)
                         completion(.success(apiKey))
                     } catch let slError as SLError {
                         completion(.failure(slError))

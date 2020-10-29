@@ -15,7 +15,7 @@ import Foundation
 protocol NetworkEngine {
     typealias Handler = (Data?, URLResponse?, Error?) -> Void
 
-    func performRequest(for url: URLRequest, completionHandler: @escaping Handler)
+    func performRequest(for urlRequest: URLRequest, completionHandler: @escaping Handler)
 }
 
 extension URLSession: NetworkEngine {

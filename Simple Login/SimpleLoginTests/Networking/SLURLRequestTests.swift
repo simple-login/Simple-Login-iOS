@@ -50,7 +50,7 @@ class SLURLRequestTests: XCTestCase {
 
         // when
         let loginRequest =
-            try SLURLRequest.loginRequest(from: baseUrl, email: email, password: password, deviceName: device)
+            SLURLRequest.loginRequest(from: baseUrl, email: email, password: password, deviceName: device)
 
         // then
         XCTAssertEqual(loginRequest, expectedUrlRequest)

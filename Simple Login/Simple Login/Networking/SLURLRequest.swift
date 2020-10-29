@@ -12,14 +12,15 @@ enum SLURLRequest {
     static func loginRequest(from baseUrl: URL,
                              email: String,
                              password: String,
-                             deviceName: String) throws -> URLRequest {
-        guard let loginUrl = baseUrl.componentsFor(endpoint: .login).url else {
-            throw SLError.failedToGenerateUrlForSLEndpoint(baseUrl: baseUrl, endpoint: .login)
+                             deviceName: String) -> URLRequest? {
+        guard let loginUrl = baseUrl.componentsFor(endpoint: .login).url,
+              var request = try? URLRequest(url: loginUrl, method: .post) else {
+            return nil
         }
-        var request = try URLRequest(url: loginUrl, method: .post)
 
         let requestDict = ["email": email, "password": password, "device": deviceName]
-        let requestData = try JSONEncoder().encode(requestDict)
+
+        guard let requestData = try? JSONEncoder().encode(requestDict) else { return  nil }
 
         request.httpBody = requestData
         return request

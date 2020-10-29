@@ -52,6 +52,10 @@
 		C03AE37C254B2C9000C798EE /* SLURLRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE37B254B2C9000C798EE /* SLURLRequestTests.swift */; };
 		C03AE38C254B38C600C798EE /* SLEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE38B254B38C600C798EE /* SLEndpoint.swift */; };
 		C03AE39E254B3ACE00C798EE /* SLEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE38B254B38C600C798EE /* SLEndpoint.swift */; };
+		C03AE3A8254B55D000C798EE /* POST_login_Response.json in Resources */ = {isa = PBXBuildFile; fileRef = C03AE3A7254B55D000C798EE /* POST_login_Response.json */; };
+		C03AE3B0254B55DF00C798EE /* POST_login_MissingValueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C03AE3AF254B55DF00C798EE /* POST_login_MissingValueResponse.json */; };
+		C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE3B9254B56E100C798EE /* Data+fromJsonFile.swift */; };
+		C03AE3E8254B5A4500C798EE /* SLClientTests+loginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE3E7254B5A4500C798EE /* SLClientTests+loginTests.swift */; };
 		C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D2D5F23D4AF300057F44F /* CustomDomain.swift */; };
 		C03F2F55244B45C000CEA316 /* IapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F2F54244B45C000CEA316 /* IapViewController.swift */; };
 		C04007B023EE1DFB005AD66B /* RandomMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04007AF23EE1DFB005AD66B /* RandomMode.swift */; };
@@ -301,6 +305,10 @@
 		C03AE376254B2C0200C798EE /* SLURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLURLRequest.swift; sourceTree = "<group>"; };
 		C03AE37B254B2C9000C798EE /* SLURLRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLURLRequestTests.swift; sourceTree = "<group>"; };
 		C03AE38B254B38C600C798EE /* SLEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLEndpoint.swift; sourceTree = "<group>"; };
+		C03AE3A7254B55D000C798EE /* POST_login_Response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = POST_login_Response.json; sourceTree = "<group>"; };
+		C03AE3AF254B55DF00C798EE /* POST_login_MissingValueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = POST_login_MissingValueResponse.json; sourceTree = "<group>"; };
+		C03AE3B9254B56E100C798EE /* Data+fromJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+fromJsonFile.swift"; sourceTree = "<group>"; };
+		C03AE3E7254B5A4500C798EE /* SLClientTests+loginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SLClientTests+loginTests.swift"; sourceTree = "<group>"; };
 		C03D2D5F23D4AF300057F44F /* CustomDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomain.swift; sourceTree = "<group>"; };
 		C03F2F54244B45C000CEA316 /* IapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IapViewController.swift; sourceTree = "<group>"; };
 		C04007AF23EE1DFB005AD66B /* RandomMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMode.swift; sourceTree = "<group>"; };
@@ -583,6 +591,7 @@
 			isa = PBXGroup;
 			children = (
 				C03AE306254B06D200C798EE /* Networking */,
+				C03AE3B7254B56AB00C798EE /* Test Types */,
 				C03AE2F7254B06BA00C798EE /* Info.plist */,
 			);
 			path = SimpleLoginTests;
@@ -591,10 +600,45 @@
 		C03AE306254B06D200C798EE /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				C03AE31F254B0B8E00C798EE /* SLClientTests.swift */,
 				C03AE37B254B2C9000C798EE /* SLURLRequestTests.swift */,
+				C03AE3A5254B553D00C798EE /* SLClientTests */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		C03AE3A5254B553D00C798EE /* SLClientTests */ = {
+			isa = PBXGroup;
+			children = (
+				C03AE31F254B0B8E00C798EE /* SLClientTests.swift */,
+				C03AE3A6254B559300C798EE /* Login */,
+			);
+			path = SLClientTests;
+			sourceTree = "<group>";
+		};
+		C03AE3A6254B559300C798EE /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C03AE3A7254B55D000C798EE /* POST_login_Response.json */,
+				C03AE3AF254B55DF00C798EE /* POST_login_MissingValueResponse.json */,
+				C03AE3E7254B5A4500C798EE /* SLClientTests+loginTests.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		C03AE3B7254B56AB00C798EE /* Test Types */ = {
+			isa = PBXGroup;
+			children = (
+				C03AE3B8254B56B500C798EE /* Extensions */,
+			);
+			path = "Test Types";
+			sourceTree = "<group>";
+		};
+		C03AE3B8254B56B500C798EE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C03AE3B9254B56E100C798EE /* Data+fromJsonFile.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C042C25923EF3A570045A04D /* Share Extension */ = {
@@ -1431,6 +1475,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C03AE3A8254B55D000C798EE /* POST_login_Response.json in Resources */,
+				C03AE3B0254B55DF00C798EE /* POST_login_MissingValueResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1625,6 +1671,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C03AE37C254B2C9000C798EE /* SLURLRequestTests.swift in Sources */,
+				C03AE3E8254B5A4500C798EE /* SLClientTests+loginTests.swift in Sources */,
+				C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */,
 				C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
