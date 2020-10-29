@@ -22,6 +22,10 @@ target 'Simple Login' do
   pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '5.0.2'
 end
 
+target 'SimpleLoginTests' do
+  pod 'Alamofire', '~> 5.0.0-rc.3'
+end
+
 target 'Share Extension' do
   common_pods
 end

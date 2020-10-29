@@ -20,6 +20,7 @@ enum SLError: Error, CustomStringConvertible {
     case reactivationNeeded
     case internalServerError
     case badGateway
+    case badUrlString(urlString: String)
     case wrongTotpToken
     case wrongVerificationCode
     case unknownResponseStatusCode
@@ -41,6 +42,7 @@ enum SLError: Error, CustomStringConvertible {
         case .reactivationNeeded: return "Reactivation needed"
         case .internalServerError: return "Internal server error"
         case .badGateway: return "Bad gateway error"
+        case .badUrlString(let urlString): return "Bad url string (\(urlString)"
         case .wrongTotpToken: return "Wrong TOTP token"
         case .wrongVerificationCode: return "Wrong verification code"
         case .unknownResponseStatusCode: return "Unknown response status code"
@@ -53,4 +55,45 @@ enum SLError: Error, CustomStringConvertible {
     }
 
     func toParameter() -> [String: Any] { ["error": description] }
+}
+
+extension SLError: Equatable {
+    static func == (lhs: SLError, rhs: SLError) -> Bool {
+        switch (lhs, rhs) {
+        case let (.failedToSerializeJsonForObject(lhsObject), .failedToSerializeJsonForObject(rhsObject)),
+             let (.failedToParse(lhsObject), .failedToParse(rhsObject)),
+             let (.failedToDelete(lhsObject), .failedToDelete(rhsObject)):
+            return String(describing: type(of: lhsObject)) == String(describing: type(of: rhsObject))
+
+        case (.emailOrPasswordIncorrect, .emailOrPasswordIncorrect),
+             (.invalidApiKey, .invalidApiKey),
+             (.duplicatedAlias, .duplicatedAlias),
+             (.reactivationNeeded, .reactivationNeeded),
+             (.internalServerError, .internalServerError),
+             (.badGateway, .badGateway):
+            return true
+
+        case let (.badUrlString(lhsUrlString), .badUrlString(rhsIUrlString)):
+            return lhsUrlString == rhsIUrlString
+
+        case (.wrongTotpToken, .wrongTotpToken),
+             (.wrongVerificationCode, .wrongVerificationCode),
+             (.unknownResponseStatusCode, .unknownResponseStatusCode):
+            return true
+
+        case let (.alamofireError(lhsError), .alamofireError(rhsError)):
+            return lhsError.localizedDescription == rhsError.localizedDescription
+
+        case let (.badRequest(lhsDescription), .badRequest(rhsDescription)):
+            return lhsDescription == rhsDescription
+
+        case let (.unknownErrorWithStatusCode(lhsStatusCode), .unknownErrorWithStatusCode(rhsStatusCode)):
+            return lhsStatusCode == rhsStatusCode
+
+        case let (.unknownError(lhsError), .unknownError(rhsError)):
+            return lhsError.localizedDescription == rhsError.localizedDescription
+
+        default: return false
+        }
+    }
 }

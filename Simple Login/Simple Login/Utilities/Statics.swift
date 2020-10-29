@@ -9,3 +9,4 @@
 import Foundation
 
 let kVersionString = (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? ""
+let kDefaultBaseUrlString = "https://app.simplelogin.io"
