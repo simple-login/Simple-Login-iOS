@@ -45,10 +45,13 @@
 		C02B8FDF2484E86300AA3AEF /* SelectMailboxesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B8FDE2484E86300AA3AEF /* SelectMailboxesViewController.swift */; };
 		C02B8FE02484FAB000AA3AEF /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8C4B2246AF132008BB8D2 /* ErrorMessage.swift */; };
 		C032D6ED2419830300C06EB7 /* UIAlertController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */; };
-		C03AE30B254B07B500C798EE /* SLNonAuthorizedClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE30A254B07B500C798EE /* SLNonAuthorizedClient.swift */; };
 		C03AE313254B08DB00C798EE /* NetworkEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE312254B08DB00C798EE /* NetworkEngine.swift */; };
 		C03AE318254B0AAB00C798EE /* SLClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE317254B0AAB00C798EE /* SLClient.swift */; };
 		C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE31F254B0B8E00C798EE /* SLClientTests.swift */; };
+		C03AE377254B2C0200C798EE /* SLURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE376254B2C0200C798EE /* SLURLRequest.swift */; };
+		C03AE37C254B2C9000C798EE /* SLURLRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE37B254B2C9000C798EE /* SLURLRequestTests.swift */; };
+		C03AE38C254B38C600C798EE /* SLEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE38B254B38C600C798EE /* SLEndpoint.swift */; };
+		C03AE39E254B3ACE00C798EE /* SLEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE38B254B38C600C798EE /* SLEndpoint.swift */; };
 		C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D2D5F23D4AF300057F44F /* CustomDomain.swift */; };
 		C03F2F55244B45C000CEA316 /* IapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F2F54244B45C000CEA316 /* IapViewController.swift */; };
 		C04007B023EE1DFB005AD66B /* RandomMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04007AF23EE1DFB005AD66B /* RandomMode.swift */; };
@@ -292,10 +295,12 @@
 		C0373A8823EF55160044507C /* SimpleLogin Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SimpleLogin Share Extension.entitlements"; sourceTree = "<group>"; };
 		C03AE2F3254B06BA00C798EE /* SimpleLoginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleLoginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03AE2F7254B06BA00C798EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C03AE30A254B07B500C798EE /* SLNonAuthorizedClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLNonAuthorizedClient.swift; sourceTree = "<group>"; };
 		C03AE312254B08DB00C798EE /* NetworkEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEngine.swift; sourceTree = "<group>"; };
 		C03AE317254B0AAB00C798EE /* SLClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLClient.swift; sourceTree = "<group>"; };
 		C03AE31F254B0B8E00C798EE /* SLClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLClientTests.swift; sourceTree = "<group>"; };
+		C03AE376254B2C0200C798EE /* SLURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLURLRequest.swift; sourceTree = "<group>"; };
+		C03AE37B254B2C9000C798EE /* SLURLRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLURLRequestTests.swift; sourceTree = "<group>"; };
+		C03AE38B254B38C600C798EE /* SLEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLEndpoint.swift; sourceTree = "<group>"; };
 		C03D2D5F23D4AF300057F44F /* CustomDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomain.swift; sourceTree = "<group>"; };
 		C03F2F54244B45C000CEA316 /* IapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IapViewController.swift; sourceTree = "<group>"; };
 		C04007AF23EE1DFB005AD66B /* RandomMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMode.swift; sourceTree = "<group>"; };
@@ -567,8 +572,9 @@
 			isa = PBXGroup;
 			children = (
 				C03AE312254B08DB00C798EE /* NetworkEngine.swift */,
+				C03AE376254B2C0200C798EE /* SLURLRequest.swift */,
+				C03AE38B254B38C600C798EE /* SLEndpoint.swift */,
 				C03AE317254B0AAB00C798EE /* SLClient.swift */,
-				C03AE30A254B07B500C798EE /* SLNonAuthorizedClient.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -586,6 +592,7 @@
 			isa = PBXGroup;
 			children = (
 				C03AE31F254B0B8E00C798EE /* SLClientTests.swift */,
+				C03AE37B254B2C9000C798EE /* SLURLRequestTests.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1617,6 +1624,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C03AE37C254B2C9000C798EE /* SLURLRequestTests.swift in Sources */,
 				C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1632,6 +1640,7 @@
 				C02B8FE02484FAB000AA3AEF /* ErrorMessage.swift in Sources */,
 				C0D8C4B1246ADE91008BB8D2 /* BaseViewController.swift in Sources */,
 				C0016DC124548EA200513D64 /* Alias.swift in Sources */,
+				C03AE39E254B3ACE00C798EE /* SLEndpoint.swift in Sources */,
 				C0016DC524548EEF00513D64 /* Date+Distance.swift in Sources */,
 				C00BC55823FDA0DC00E66FFE /* SLError.swift in Sources */,
 				C067EDC42483F90700A89C75 /* Settings.swift in Sources */,
@@ -1731,16 +1740,17 @@
 				C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */,
 				C0D8C4A8246ADA00008BB8D2 /* BaseApiKeyViewController.swift in Sources */,
 				C0747EE923CCFAFE008035E9 /* AliasActivityTableViewCell.swift in Sources */,
-				C03AE30B254B07B500C798EE /* SLNonAuthorizedClient.swift in Sources */,
 				C07F346F248052AF00360BA3 /* MailboxTableViewCell.swift in Sources */,
 				C0D8C4B5246AF303008BB8D2 /* Deleted.swift in Sources */,
 				C027A27A24053AA800BD19C9 /* WalkthroughLastStepViewController.swift in Sources */,
+				C03AE38C254B38C600C798EE /* SLEndpoint.swift in Sources */,
 				C0D87CC22423C41800BCF5AB /* LoginNavigationViewController.swift in Sources */,
 				C0A726FA23EC131900A62A22 /* LoadingFooterView.swift in Sources */,
 				C0D6A27D23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift in Sources */,
 				C0F84B2323D4BAA200E0852C /* DomainInfoTableViewCell.swift in Sources */,
 				C0D5D5332469EA4200B64B8B /* ChangeApiUrlViewController.swift in Sources */,
 				C0D6A28623D09EC800EF21B8 /* BorderedShadowedView.swift in Sources */,
+				C03AE377254B2C0200C798EE /* SLURLRequest.swift in Sources */,
 				C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */,
 				C01ABA6E24606F320075DCC9 /* HelpAndRoadmapTableViewCell.swift in Sources */,
 				C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */,

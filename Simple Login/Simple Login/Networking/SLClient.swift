@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- A client that communicates with SimpleLogin server. To be subclassed.
+ A client that communicates with SimpleLogin server.
  */
 class SLClient {
     let engine: NetworkEngine
