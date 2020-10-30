@@ -8,16 +8,16 @@
 
 import Foundation
 
-struct ErrorMessage {
+struct ErrorMessage: Decodable {
     let value: String
 
-    init(data: Data) throws {
-        // swiftlint:disable:next line_length
-        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
-            let error = jsonDictionary["error"] as? String else {
-                throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
-        }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        self.value = try container.decode(String.self, forKey: .error)
+    }
 
-        self.value = error
+    // swiftlint:disable:next type_name
+    enum Key: String, CodingKey {
+        case error = "error"
     }
 }

@@ -83,7 +83,7 @@ extension SLApiService {
 
                 case 400:
                     do {
-                        let errorMessage = try ErrorMessage(data: data)
+                        let errorMessage = try JSONDecoder().decode(ErrorMessage.self, from: data)
                         completion(.failure(.badRequest(description: errorMessage.value)))
                     } catch let slError as SLError {
                         completion(.failure(slError))
@@ -599,7 +599,7 @@ extension SLApiService {
 
                 case 400:
                     do {
-                        let errorMessage = try ErrorMessage(data: data)
+                        let errorMessage = try JSONDecoder().decode(ErrorMessage.self, from: data)
                         completion(.failure(.badRequest(description: errorMessage.value)))
                     } catch let slError as SLError {
                         completion(.failure(slError))
@@ -642,7 +642,7 @@ extension SLApiService {
 
                 case 400:
                     do {
-                        let errorMessage = try ErrorMessage(data: data)
+                        let errorMessage = try JSONDecoder().decode(ErrorMessage.self, from: data)
                         completion(.failure(.badRequest(description: errorMessage.value)))
                     } catch let slError as SLError {
                         completion(.failure(slError))

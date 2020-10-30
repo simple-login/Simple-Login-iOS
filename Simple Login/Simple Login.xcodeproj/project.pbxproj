@@ -229,6 +229,8 @@
 		C0EBF991254C77B8002FF72C /* UserInfo_Valid.json in Resources */ = {isa = PBXBuildFile; fileRef = C0EBF990254C77B8002FF72C /* UserInfo_Valid.json */; };
 		C0EBF9B0254C7C22002FF72C /* SLClientTests+fetchUserInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EBF9AF254C7C22002FF72C /* SLClientTests+fetchUserInfoTests.swift */; };
 		C0EBF9B8254C9D2C002FF72C /* UserInfo_MissingValue.json in Resources */ = {isa = PBXBuildFile; fileRef = C0EBF9B7254C9D2C002FF72C /* UserInfo_MissingValue.json */; };
+		C0EBF9D1254CA76C002FF72C /* ErrorMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */; };
+		C0EBF9D6254CA7DB002FF72C /* ErrorMessage.json in Resources */ = {isa = PBXBuildFile; fileRef = C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */; };
 		C0F57021241D398D00BCC84B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F57020241D398D00BCC84B /* Contact.swift */; };
 		C0F84B1C23D4B6F300E0852C /* CustomDomainDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */; };
 		C0F84B2023D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B1F23D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift */; };
@@ -479,6 +481,8 @@
 		C0EBF990254C77B8002FF72C /* UserInfo_Valid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UserInfo_Valid.json; sourceTree = "<group>"; };
 		C0EBF9AF254C7C22002FF72C /* SLClientTests+fetchUserInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SLClientTests+fetchUserInfoTests.swift"; sourceTree = "<group>"; };
 		C0EBF9B7254C9D2C002FF72C /* UserInfo_MissingValue.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UserInfo_MissingValue.json; sourceTree = "<group>"; };
+		C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageTests.swift; sourceTree = "<group>"; };
+		C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ErrorMessage.json; sourceTree = "<group>"; };
 		C0F57020241D398D00BCC84B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainDetailViewController.swift; sourceTree = "<group>"; };
 		C0F84B1F23D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotVerifiedDomainTableViewCell.swift; sourceTree = "<group>"; };
@@ -1354,6 +1358,7 @@
 				C0EBF968254C503C002FF72C /* DummyData.json */,
 				C0EBF974254C6B45002FF72C /* UserLogin */,
 				C0EBF98F254C779D002FF72C /* UserInfo */,
+				C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1373,6 +1378,7 @@
 			children = (
 				C0EBF979254C6D62002FF72C /* UserLoginTests.swift */,
 				C0EBF98A254C7762002FF72C /* UserInfoTests.swift */,
+				C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1536,6 +1542,7 @@
 			files = (
 				C0EBF969254C503C002FF72C /* DummyData.json in Resources */,
 				C03AE3A8254B55D000C798EE /* UserLogin_Valid.json in Resources */,
+				C0EBF9D6254CA7DB002FF72C /* ErrorMessage.json in Resources */,
 				C03AE3B0254B55DF00C798EE /* UserLogin_MissingValue.json in Resources */,
 				C0EBF9B8254C9D2C002FF72C /* UserInfo_MissingValue.json in Resources */,
 				C0EBF991254C77B8002FF72C /* UserInfo_Valid.json in Resources */,
@@ -1737,6 +1744,7 @@
 				C0EBF9B0254C7C22002FF72C /* SLClientTests+fetchUserInfoTests.swift in Sources */,
 				C03AE37C254B2C9000C798EE /* SLURLRequestTests.swift in Sources */,
 				C0EBF95C254C4BCF002FF72C /* NetworkEngineMock.swift in Sources */,
+				C0EBF9D1254CA76C002FF72C /* ErrorMessageTests.swift in Sources */,
 				C03AE3E8254B5A4500C798EE /* SLClientTests+loginTests.swift in Sources */,
 				C0EBF98B254C7762002FF72C /* UserInfoTests.swift in Sources */,
 				C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */,
