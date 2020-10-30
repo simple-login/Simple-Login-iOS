@@ -8,34 +8,29 @@
 
 import UIKit
 
-class UserInfo {
+struct UserInfo: Decodable {
     let name: String
     let email: String
-    private(set) var isPremium: Bool
+    let profilePictureUrl: String?
+    let isPremium: Bool
     let inTrial: Bool
 
-    init(data: Data) throws {
-        // swiftlint:disable:next line_length
-        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-            throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
-        }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
 
-        let name = jsonDictionary["name"] as? String
-        let email = jsonDictionary["email"] as? String
-        let isPremium = jsonDictionary["is_premium"] as? Bool
-        let inTrial = jsonDictionary["in_trial"] as? Bool
-
-        if let name = name, let email = email, let isPremium = isPremium, let inTrial = inTrial {
-            self.name = name
-            self.email = email
-            self.isPremium = isPremium
-            self.inTrial = inTrial
-        } else {
-            throw SLError.failedToParse(anyObject: Self.self)
-        }
+        self.name = try container.decode(String.self, forKey: .name)
+        self.email = try container.decode(String.self, forKey: .email)
+        self.profilePictureUrl = try container.decode(String?.self, forKey: .profilePictureUrl)
+        self.isPremium = try container.decode(Bool.self, forKey: .isPremium)
+        self.inTrial = try container.decode(Bool.self, forKey: .inTrial)
     }
 
-    func setIsPremium(_ isPremium: Bool) {
-        self.isPremium = isPremium
+    // swiftlint:disable:next type_name
+    enum Key: String, CodingKey {
+        case name = "name"
+        case email = "email"
+        case profilePictureUrl = "profile_picture_url"
+        case isPremium = "is_premium"
+        case inTrial = "in_trial"
     }
 }

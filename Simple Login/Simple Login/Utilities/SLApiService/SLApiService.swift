@@ -76,7 +76,7 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let userInfo = try UserInfo(data: data)
+                        let userInfo = try JSONDecoder().decode(UserInfo.self, from: data)
                         completion(.success(userInfo))
                     } catch let error as SLError {
                         completion(.failure(error))
