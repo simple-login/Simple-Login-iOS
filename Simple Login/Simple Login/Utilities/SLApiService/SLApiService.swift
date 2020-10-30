@@ -60,41 +60,6 @@ extension SLApiService {
             completion()
         }
     }
-
-    func fetchUserInfo(apiKey: ApiKey, completion: @escaping (Result<UserInfo, SLError>) -> Void) {
-        AF.request("\(baseUrl)/api/user_info",
-                   method: .get,
-                   encoding: URLEncoding.default,
-                   headers: apiKey.toHeaders()).responseData { response in
-            switch response.result {
-            case .success(let data):
-                guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(.unknownResponseStatusCode))
-                    return
-                }
-
-                switch statusCode {
-                case 200:
-                    do {
-                        let userInfo = try JSONDecoder().decode(UserInfo.self, from: data)
-                        completion(.success(userInfo))
-                    } catch let error as SLError {
-                        completion(.failure(error))
-                    } catch {
-                        completion(.failure(.unknownError(error: error)))
-                    }
-
-                case 401: completion(.failure(.invalidApiKey))
-                case 500: completion(.failure(.internalServerError))
-                case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                }
-
-            case .failure(let error):
-                completion(.failure(.alamofireError(error: error)))
-            }
-        }
-    }
 }
 
 // MARK: - Sign Up

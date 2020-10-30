@@ -59,7 +59,7 @@ final class LoginViewController: BaseViewController, Storyboarded {
 
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        try! SLClient().login(email: email,
+        SLClient.shared.login(email: email,
                               password: password,
                               deviceName: UIDevice.current.name) { [weak self] result in
             DispatchQueue.main.async {
@@ -120,13 +120,15 @@ final class LoginViewController: BaseViewController, Storyboarded {
 
             MBProgressHUD.showAdded(to: self.view, animated: true)
 
-            SLApiService.shared.fetchUserInfo(apiKey: apiKey) { [weak self] result in
-                guard let self = self else { return }
-                MBProgressHUD.hide(for: self.view, animated: true)
+            SLClient.shared.fetchUserInfo(apiKey: apiKey) { [weak self] result in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    MBProgressHUD.hide(for: self.view, animated: true)
 
-                switch result {
-                case .success: self.finalizeLogin(apiKey: apiKey)
-                case .failure(let error): Toast.displayError(error)
+                    switch result {
+                    case .success: self.finalizeLogin(apiKey: apiKey)
+                    case .failure(let error): Toast.displayError(error)
+                    }
                 }
             }
         }

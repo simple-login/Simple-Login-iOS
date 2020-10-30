@@ -57,23 +57,25 @@ final class StartupViewController: BaseViewController {
         hud.label.text = "Connecting to server..."
         hud.offset = CGPoint(x: 0.0, y: MBProgressMaxOffset)
 
-        SLApiService.shared.fetchUserInfo(apiKey: apiKey) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.fetchUserInfo(apiKey: apiKey) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            hud.hide(animated: true)
+                hud.hide(animated: true)
 
-            switch result {
-            case .success(let userInfo):
-                self.presentHomeNavigationController(userInfo)
+                switch result {
+                case .success(let userInfo):
+                    self.presentHomeNavigationController(userInfo)
 
-            case .failure(let error):
-                switch error {
-                case .internalServerError:
-                    self.presentRetryAlert(error: error)
+                case .failure(let error):
+                    switch error {
+                    case .internalServerError:
+                        self.presentRetryAlert(error: error)
 
-                default:
-                    Toast.displayLongly(message: "Error occured: \(error.description)")
-                    self.presentLoginViewController()
+                    default:
+                        Toast.displayLongly(message: "Error occured: \(error.description)")
+                        self.presentLoginViewController()
+                    }
                 }
             }
         }

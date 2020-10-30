@@ -29,7 +29,7 @@ class SLClientLoginTests: XCTestCase {
     func testLoginSuccessWithStatusCode200() throws {
         // given
         let data = try XCTUnwrap(Data.fromJson(fileName: "UserLogin_Valid"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200)
+        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
 
         // when
         let result = try whenLoginWith(engine: engine)
@@ -42,7 +42,7 @@ class SLClientLoginTests: XCTestCase {
     func testLoginFailureWithStatusCode200() throws {
         // given
         let data = try XCTUnwrap(Data.fromJson(fileName: "UserLogin_MissingValue"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200)
+        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
 
         // when
         let result = try whenLoginWith(engine: engine)
@@ -55,7 +55,7 @@ class SLClientLoginTests: XCTestCase {
     func testLoginFailureWithStatusCode400() throws {
         // given
         let data = try XCTUnwrap(Data.fromJson(fileName: "EmailOrPasswordIncorrect"))
-        let engine = NetworkEngineMock(data: data, statusCode: 400)
+        let engine = NetworkEngineMock(data: data, statusCode: 400, error: nil)
 
         // when
         let result = try whenLoginWith(engine: engine)
@@ -67,8 +67,7 @@ class SLClientLoginTests: XCTestCase {
 
     func testLoginFailureWithStatusCode500() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "DummyData"))
-        let engine = NetworkEngineMock(data: data, statusCode: 500)
+        let engine = try NetworkEngineMock.givenEngineWithDummyDataAndStatusCode(500)
 
         // when
         let result = try whenLoginWith(engine: engine)
@@ -80,8 +79,7 @@ class SLClientLoginTests: XCTestCase {
 
     func testLoginFailureWithStatusCode502() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "DummyData"))
-        let engine = NetworkEngineMock(data: data, statusCode: 502)
+        let engine = try NetworkEngineMock.givenEngineWithDummyDataAndStatusCode(502)
 
         // when
         let result = try whenLoginWith(engine: engine)

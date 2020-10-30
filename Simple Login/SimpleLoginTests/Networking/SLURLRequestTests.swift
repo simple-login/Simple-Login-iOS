@@ -56,4 +56,20 @@ class SLURLRequestTests: XCTestCase {
         // then
         XCTAssertEqual(loginRequest, expectedUrlRequest)
     }
+
+    func testCorrectlyGenerateFetchUserInfoRequest() throws {
+        // given
+        let apiKeyString = "sample api key string"
+        let apiKey = ApiKey(value: apiKeyString)
+
+        let components = urlComponentsFor(endpoint: .userInfo)
+        let url = try XCTUnwrap(components.url)
+        let expectedUrlRequest = try XCTUnwrap(URLRequest(url: url, method: .get, headers: apiKey.toHeaders()))
+
+        // when
+        let fetchUserInfoRequest = SLURLRequest.fetchUserInfoRequest(from: baseUrl, apiKey: apiKey)
+
+        // then
+        XCTAssertEqual(fetchUserInfoRequest, expectedUrlRequest)
+    }
 }

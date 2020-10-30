@@ -26,4 +26,16 @@ enum SLURLRequest {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
+
+    static func fetchUserInfoRequest(from baseUrl: URL,
+                                     apiKey: ApiKey) -> URLRequest? {
+        guard let fetchUserInfoUrl = baseUrl.componentsFor(endpoint: .userInfo).url,
+              let request = try? URLRequest(url: fetchUserInfoUrl,
+                                            method: .get,
+                                            headers: apiKey.toHeaders()) else {
+            return nil
+        }
+
+        return request
+    }
 }

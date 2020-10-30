@@ -10,6 +10,7 @@ import Foundation
 
 enum SLEndpoint: String {
     case login = "/api/auth/login"
+    case userInfo = "/api/user_info"
 }
 
 extension URL {
