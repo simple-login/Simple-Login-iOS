@@ -13,43 +13,6 @@ import Foundation
 // swiftlint:disable cyclomatic_complexity
 // MARK: Login
 extension SLApiService {
-    func login(email: String, password: String, completion: @escaping (Result<UserLogin, SLError>) -> Void) {
-        let parameters = ["email": email, "password": password, "device": UIDevice.current.name]
-
-        AF.request("\(baseUrl)/api/auth/login",
-                   method: .post,
-                   parameters: parameters,
-                   encoding: JSONEncoding.default).responseData { response in
-            switch response.result {
-            case .success(let data):
-                guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(.unknownResponseStatusCode))
-                    return
-                }
-
-                switch statusCode {
-                case 200:
-                    do {
-                        let userLogin = try JSONDecoder().decode(UserLogin.self, from: data)
-                        completion(.success(userLogin))
-                    } catch let slError as SLError {
-                        completion(.failure(slError))
-                    } catch {
-                        completion(.failure(.unknownError(error: error)))
-                    }
-
-                case 400: completion(.failure(.emailOrPasswordIncorrect))
-                case 500: completion(.failure(.internalServerError))
-                case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                }
-
-            case .failure(let error):
-                completion(.failure(.alamofireError(error: error)))
-            }
-        }
-    }
-
     func verifyMFA(mfaKey: String,
                    mfaToken: String,
                    completion: @escaping (Result<ApiKey, SLError>) -> Void) {

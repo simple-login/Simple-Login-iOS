@@ -59,25 +59,29 @@ final class LoginViewController: BaseViewController, Storyboarded {
 
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.login(email: email, password: password) { [weak self] result in
-            guard let self = self else { return }
+        try! SLClient().login(email: email,
+                              password: password,
+                              deviceName: UIDevice.current.name) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            MBProgressHUD.hide(for: self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success(let userLogin):
-                if userLogin.isMfaEnabled {
-                    if let mfaKey = userLogin.mfaKey {
-                        self.verify(mode: .otp(mfaKey: mfaKey))
+                switch result {
+                case .success(let userLogin):
+                    if userLogin.isMfaEnabled {
+                        if let mfaKey = userLogin.mfaKey {
+                            self.verify(mode: .otp(mfaKey: mfaKey))
+                        } else {
+                            Toast.displayLongly(message: "MFA key is null")
+                        }
                     } else {
-                        Toast.displayLongly(message: "MFA key is null")
+                        self.finalizeLogin(apiKey: userLogin.apiKey)
                     }
-                } else {
-                    self.finalizeLogin(apiKey: userLogin.apiKey)
-                }
 
-            case .failure(let error):
-                Toast.displayShortly(message: error.description)
+                case .failure(let error):
+                    Toast.displayShortly(message: error.description)
+                }
             }
         }
     }

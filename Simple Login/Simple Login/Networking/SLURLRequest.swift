@@ -23,6 +23,7 @@ enum SLURLRequest {
         guard let requestData = try? JSONEncoder().encode(requestDict) else { return  nil }
 
         request.httpBody = requestData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
 }
