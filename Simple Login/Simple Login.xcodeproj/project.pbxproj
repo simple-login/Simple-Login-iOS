@@ -52,8 +52,8 @@
 		C03AE37C254B2C9000C798EE /* SLURLRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE37B254B2C9000C798EE /* SLURLRequestTests.swift */; };
 		C03AE38C254B38C600C798EE /* SLEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE38B254B38C600C798EE /* SLEndpoint.swift */; };
 		C03AE39E254B3ACE00C798EE /* SLEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE38B254B38C600C798EE /* SLEndpoint.swift */; };
-		C03AE3A8254B55D000C798EE /* POST_login_Response.json in Resources */ = {isa = PBXBuildFile; fileRef = C03AE3A7254B55D000C798EE /* POST_login_Response.json */; };
-		C03AE3B0254B55DF00C798EE /* POST_login_MissingValueResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = C03AE3AF254B55DF00C798EE /* POST_login_MissingValueResponse.json */; };
+		C03AE3A8254B55D000C798EE /* UserLogin_Valid.json in Resources */ = {isa = PBXBuildFile; fileRef = C03AE3A7254B55D000C798EE /* UserLogin_Valid.json */; };
+		C03AE3B0254B55DF00C798EE /* UserLogin_MissingValue.json in Resources */ = {isa = PBXBuildFile; fileRef = C03AE3AF254B55DF00C798EE /* UserLogin_MissingValue.json */; };
 		C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE3B9254B56E100C798EE /* Data+fromJsonFile.swift */; };
 		C03AE3E8254B5A4500C798EE /* SLClientTests+loginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE3E7254B5A4500C798EE /* SLClientTests+loginTests.swift */; };
 		C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D2D5F23D4AF300057F44F /* CustomDomain.swift */; };
@@ -221,7 +221,7 @@
 		C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */; };
 		C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */; };
 		C0EBF95C254C4BCF002FF72C /* NetworkEngineMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EBF95B254C4BCF002FF72C /* NetworkEngineMock.swift */; };
-		C0EBF961254C4FB0002FF72C /* POST_login_EmailOrPasswordIncorrect.json in Resources */ = {isa = PBXBuildFile; fileRef = C0EBF960254C4FB0002FF72C /* POST_login_EmailOrPasswordIncorrect.json */; };
+		C0EBF961254C4FB0002FF72C /* EmailOrPasswordIncorrect.json in Resources */ = {isa = PBXBuildFile; fileRef = C0EBF960254C4FB0002FF72C /* EmailOrPasswordIncorrect.json */; };
 		C0EBF969254C503C002FF72C /* DummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = C0EBF968254C503C002FF72C /* DummyData.json */; };
 		C0F57021241D398D00BCC84B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F57020241D398D00BCC84B /* Contact.swift */; };
 		C0F84B1C23D4B6F300E0852C /* CustomDomainDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */; };
@@ -308,8 +308,8 @@
 		C03AE376254B2C0200C798EE /* SLURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLURLRequest.swift; sourceTree = "<group>"; };
 		C03AE37B254B2C9000C798EE /* SLURLRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLURLRequestTests.swift; sourceTree = "<group>"; };
 		C03AE38B254B38C600C798EE /* SLEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLEndpoint.swift; sourceTree = "<group>"; };
-		C03AE3A7254B55D000C798EE /* POST_login_Response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = POST_login_Response.json; sourceTree = "<group>"; };
-		C03AE3AF254B55DF00C798EE /* POST_login_MissingValueResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = POST_login_MissingValueResponse.json; sourceTree = "<group>"; };
+		C03AE3A7254B55D000C798EE /* UserLogin_Valid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UserLogin_Valid.json; sourceTree = "<group>"; };
+		C03AE3AF254B55DF00C798EE /* UserLogin_MissingValue.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UserLogin_MissingValue.json; sourceTree = "<group>"; };
 		C03AE3B9254B56E100C798EE /* Data+fromJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+fromJsonFile.swift"; sourceTree = "<group>"; };
 		C03AE3E7254B5A4500C798EE /* SLClientTests+loginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SLClientTests+loginTests.swift"; sourceTree = "<group>"; };
 		C03D2D5F23D4AF300057F44F /* CustomDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomain.swift; sourceTree = "<group>"; };
@@ -465,7 +465,7 @@
 		C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorTableViewCell.xib; sourceTree = "<group>"; };
 		C0EBF95B254C4BCF002FF72C /* NetworkEngineMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEngineMock.swift; sourceTree = "<group>"; };
-		C0EBF960254C4FB0002FF72C /* POST_login_EmailOrPasswordIncorrect.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = POST_login_EmailOrPasswordIncorrect.json; sourceTree = "<group>"; };
+		C0EBF960254C4FB0002FF72C /* EmailOrPasswordIncorrect.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EmailOrPasswordIncorrect.json; sourceTree = "<group>"; };
 		C0EBF968254C503C002FF72C /* DummyData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DummyData.json; sourceTree = "<group>"; };
 		C0F57020241D398D00BCC84B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainDetailViewController.swift; sourceTree = "<group>"; };
@@ -596,6 +596,7 @@
 		C03AE2F4254B06BA00C798EE /* SimpleLoginTests */ = {
 			isa = PBXGroup;
 			children = (
+				C0EBF973254C6B2C002FF72C /* Data */,
 				C03AE306254B06D200C798EE /* Networking */,
 				C03AE3B7254B56AB00C798EE /* Test Types */,
 				C03AE2F7254B06BA00C798EE /* Info.plist */,
@@ -606,7 +607,6 @@
 		C03AE306254B06D200C798EE /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				C0EBF968254C503C002FF72C /* DummyData.json */,
 				C03AE37B254B2C9000C798EE /* SLURLRequestTests.swift */,
 				C03AE3A5254B553D00C798EE /* SLClientTests */,
 			);
@@ -626,9 +626,6 @@
 		C03AE3A6254B559300C798EE /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				C03AE3A7254B55D000C798EE /* POST_login_Response.json */,
-				C03AE3AF254B55DF00C798EE /* POST_login_MissingValueResponse.json */,
-				C0EBF960254C4FB0002FF72C /* POST_login_EmailOrPasswordIncorrect.json */,
 				C03AE3E7254B5A4500C798EE /* SLClientTests+loginTests.swift */,
 			);
 			path = Login;
@@ -1344,6 +1341,25 @@
 			path = SeparatorTableViewCell;
 			sourceTree = "<group>";
 		};
+		C0EBF973254C6B2C002FF72C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C0EBF968254C503C002FF72C /* DummyData.json */,
+				C0EBF974254C6B45002FF72C /* UserLogin */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		C0EBF974254C6B45002FF72C /* UserLogin */ = {
+			isa = PBXGroup;
+			children = (
+				C03AE3A7254B55D000C798EE /* UserLogin_Valid.json */,
+				C03AE3AF254B55DF00C798EE /* UserLogin_MissingValue.json */,
+				C0EBF960254C4FB0002FF72C /* EmailOrPasswordIncorrect.json */,
+			);
+			path = UserLogin;
+			sourceTree = "<group>";
+		};
 		C0F84B1D23D4B9CC00E0852C /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1485,9 +1501,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0EBF969254C503C002FF72C /* DummyData.json in Resources */,
-				C03AE3A8254B55D000C798EE /* POST_login_Response.json in Resources */,
-				C03AE3B0254B55DF00C798EE /* POST_login_MissingValueResponse.json in Resources */,
-				C0EBF961254C4FB0002FF72C /* POST_login_EmailOrPasswordIncorrect.json in Resources */,
+				C03AE3A8254B55D000C798EE /* UserLogin_Valid.json in Resources */,
+				C03AE3B0254B55DF00C798EE /* UserLogin_MissingValue.json in Resources */,
+				C0EBF961254C4FB0002FF72C /* EmailOrPasswordIncorrect.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

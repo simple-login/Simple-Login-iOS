@@ -47,6 +47,7 @@ class SLURLRequestTests: XCTestCase {
         let url = try XCTUnwrap(components.url)
         var expectedUrlRequest = try XCTUnwrap(URLRequest(url: url, method: .post))
         expectedUrlRequest.httpBody = requestData
+        expectedUrlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         // when
         let loginRequest =

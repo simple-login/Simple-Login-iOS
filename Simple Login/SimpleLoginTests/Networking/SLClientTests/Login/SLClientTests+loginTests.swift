@@ -28,7 +28,7 @@ class SLClientLoginTests: XCTestCase {
 
     func testLoginSuccessWithStatusCode200() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "POST_login_Response"))
+        let data = try XCTUnwrap(Data.fromJson(fileName: "UserLogin_Valid"))
         let engine = NetworkEngineMock(data: data, statusCode: 200)
 
         // when
@@ -41,7 +41,7 @@ class SLClientLoginTests: XCTestCase {
 
     func testLoginFailureWithStatusCode200() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "POST_login_MissingValueResponse"))
+        let data = try XCTUnwrap(Data.fromJson(fileName: "UserLogin_MissingValue"))
         let engine = NetworkEngineMock(data: data, statusCode: 200)
 
         // when
@@ -54,7 +54,7 @@ class SLClientLoginTests: XCTestCase {
 
     func testLoginFailureWithStatusCode400() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "POST_login_EmailOrPasswordIncorrect"))
+        let data = try XCTUnwrap(Data.fromJson(fileName: "EmailOrPasswordIncorrect"))
         let engine = NetworkEngineMock(data: data, statusCode: 400)
 
         // when
