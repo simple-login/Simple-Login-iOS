@@ -61,6 +61,10 @@ extension SLClient {
             } catch {
                 completion(.failure(.unknownError(error: error)))
             }
+
+        case 400: completion(.failure(.emailOrPasswordIncorrect))
+        case 500: completion(.failure(.internalServerError))
+        case 502: completion(.failure(.badGateway))
         default: completion(.failure(.unknownErrorWithStatusCode(statusCode: response.statusCode)))
         }
     }

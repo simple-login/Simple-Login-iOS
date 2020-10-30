@@ -221,6 +221,8 @@
 		C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */; };
 		C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */; };
 		C0EBF95C254C4BCF002FF72C /* NetworkEngineMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EBF95B254C4BCF002FF72C /* NetworkEngineMock.swift */; };
+		C0EBF961254C4FB0002FF72C /* POST_login_EmailOrPasswordIncorrect.json in Resources */ = {isa = PBXBuildFile; fileRef = C0EBF960254C4FB0002FF72C /* POST_login_EmailOrPasswordIncorrect.json */; };
+		C0EBF969254C503C002FF72C /* DummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = C0EBF968254C503C002FF72C /* DummyData.json */; };
 		C0F57021241D398D00BCC84B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F57020241D398D00BCC84B /* Contact.swift */; };
 		C0F84B1C23D4B6F300E0852C /* CustomDomainDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */; };
 		C0F84B2023D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B1F23D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift */; };
@@ -463,6 +465,8 @@
 		C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorTableViewCell.xib; sourceTree = "<group>"; };
 		C0EBF95B254C4BCF002FF72C /* NetworkEngineMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEngineMock.swift; sourceTree = "<group>"; };
+		C0EBF960254C4FB0002FF72C /* POST_login_EmailOrPasswordIncorrect.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = POST_login_EmailOrPasswordIncorrect.json; sourceTree = "<group>"; };
+		C0EBF968254C503C002FF72C /* DummyData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DummyData.json; sourceTree = "<group>"; };
 		C0F57020241D398D00BCC84B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainDetailViewController.swift; sourceTree = "<group>"; };
 		C0F84B1F23D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotVerifiedDomainTableViewCell.swift; sourceTree = "<group>"; };
@@ -602,6 +606,7 @@
 		C03AE306254B06D200C798EE /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				C0EBF968254C503C002FF72C /* DummyData.json */,
 				C03AE37B254B2C9000C798EE /* SLURLRequestTests.swift */,
 				C03AE3A5254B553D00C798EE /* SLClientTests */,
 			);
@@ -623,6 +628,7 @@
 			children = (
 				C03AE3A7254B55D000C798EE /* POST_login_Response.json */,
 				C03AE3AF254B55DF00C798EE /* POST_login_MissingValueResponse.json */,
+				C0EBF960254C4FB0002FF72C /* POST_login_EmailOrPasswordIncorrect.json */,
 				C03AE3E7254B5A4500C798EE /* SLClientTests+loginTests.swift */,
 			);
 			path = Login;
@@ -1478,8 +1484,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0EBF969254C503C002FF72C /* DummyData.json in Resources */,
 				C03AE3A8254B55D000C798EE /* POST_login_Response.json in Resources */,
 				C03AE3B0254B55DF00C798EE /* POST_login_MissingValueResponse.json in Resources */,
+				C0EBF961254C4FB0002FF72C /* POST_login_EmailOrPasswordIncorrect.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

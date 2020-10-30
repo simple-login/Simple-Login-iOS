@@ -10,26 +10,33 @@ import Foundation
 @testable import SimpleLogin
 import XCTest
 
-extension SLClientTests {
-    func testLoginSuccessWithStatusCode200() throws {
-        // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "POST_login_Response"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200)
-
-        // when
+class SLClientLoginTests: XCTestCase {
+    func whenLoginWith(engine: NetworkEngine) throws -> (userLogin: UserLogin?, error: SLError?) {
         var storedUserLogin: UserLogin?
         var storedError: SLError?
 
-        let sut = try SLClient(engine: engine)
-        sut.login(email: "", password: "", deviceName: "") { result in
+        let client = try SLClient(engine: engine)
+        client.login(email: "", password: "", deviceName: "") { result in
             switch result {
             case .success(let userLogin): storedUserLogin = userLogin
             case .failure(let error): storedError = error
             }
         }
 
-        XCTAssertNotNil(storedUserLogin)
-        XCTAssertNil(storedError)
+        return (storedUserLogin, storedError)
+    }
+
+    func testLoginSuccessWithStatusCode200() throws {
+        // given
+        let data = try XCTUnwrap(Data.fromJson(fileName: "POST_login_Response"))
+        let engine = NetworkEngineMock(data: data, statusCode: 200)
+
+        // when
+        let result = try whenLoginWith(engine: engine)
+
+        // then
+        XCTAssertNotNil(result.userLogin)
+        XCTAssertNil(result.error)
     }
 
     func testLoginFailureWithStatusCode200() throws {
@@ -38,18 +45,49 @@ extension SLClientTests {
         let engine = NetworkEngineMock(data: data, statusCode: 200)
 
         // when
-        var storedUserLogin: UserLogin?
-        var storedError: SLError?
+        let result = try whenLoginWith(engine: engine)
 
-        let sut = try SLClient(engine: engine)
-        sut.login(email: "", password: "", deviceName: "") { result in
-            switch result {
-            case .success(let userLogin): storedUserLogin = userLogin
-            case .failure(let error): storedError = error
-            }
-        }
+        // then
+        XCTAssertNotNil(result.error)
+        XCTAssertNil(result.userLogin)
+    }
 
-        XCTAssertNotNil(storedError)
-        XCTAssertNil(storedUserLogin)
+    func testLoginFailureWithStatusCode400() throws {
+        // given
+        let data = try XCTUnwrap(Data.fromJson(fileName: "POST_login_EmailOrPasswordIncorrect"))
+        let engine = NetworkEngineMock(data: data, statusCode: 400)
+
+        // when
+        let result = try whenLoginWith(engine: engine)
+
+        // then
+        XCTAssertNil(result.userLogin)
+        XCTAssertEqual(result.error, SLError.emailOrPasswordIncorrect)
+    }
+
+    func testLoginFailureWithStatusCode500() throws {
+        // given
+        let data = try XCTUnwrap(Data.fromJson(fileName: "DummyData"))
+        let engine = NetworkEngineMock(data: data, statusCode: 500)
+
+        // when
+        let result = try whenLoginWith(engine: engine)
+
+        // then
+        XCTAssertNil(result.userLogin)
+        XCTAssertEqual(result.error, SLError.internalServerError)
+    }
+
+    func testLoginFailureWithStatusCode502() throws {
+        // given
+        let data = try XCTUnwrap(Data.fromJson(fileName: "DummyData"))
+        let engine = NetworkEngineMock(data: data, statusCode: 502)
+
+        // when
+        let result = try whenLoginWith(engine: engine)
+
+        // then
+        XCTAssertNil(result.userLogin)
+        XCTAssertEqual(result.error, SLError.badGateway)
     }
 }
