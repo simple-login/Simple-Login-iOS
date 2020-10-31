@@ -8,22 +8,29 @@
 
 import Foundation
 
-final class ContactLite {
+struct ContactLite: Decodable {
     let email: String
     let name: String?
     let reverseAlias: String
 
-    init(fromDictionary dictionary: [String: Any]) throws {
-        let email = dictionary["email"] as? String
-        let name = dictionary["name"] as? String
-        let reverseAlias = dictionary["reverse_alias"] as? String
+    // swiftlint:disable:next type_name
+    enum Key: String, CodingKey {
+        case email = "email"
+        case name = "name"
+        case reverseAlias = "reverse_alias"
+    }
 
-        self.name = name
-        if let email = email, let reverseAlias = reverseAlias {
-            self.email = email
-            self.reverseAlias = reverseAlias
-        } else {
-            throw SLError.failedToParse(anyObject: Self.self)
-        }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+
+        self.email = try container.decode(String.self, forKey: .email)
+        self.name = try container.decode(String?.self, forKey: .name)
+        self.reverseAlias = try container.decode(String.self, forKey: .reverseAlias)
+    }
+}
+
+extension ContactLite: Equatable {
+    static func == (lhs: ContactLite, rhs: ContactLite) -> Bool {
+        lhs.email == rhs.email && lhs.name == rhs.name && lhs.reverseAlias == rhs.reverseAlias
     }
 }

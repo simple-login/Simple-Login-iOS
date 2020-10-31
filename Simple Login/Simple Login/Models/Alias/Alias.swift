@@ -8,9 +8,7 @@
 
 import UIKit
 
-final class Alias: Equatable, Arrayable {
-    static var jsonRootKey = "aliases"
-
+final class Alias: Decodable {
     typealias Identifier = Int
 
     let id: Identifier
@@ -21,6 +19,8 @@ final class Alias: Equatable, Arrayable {
     let replyCount: Int
     let forwardCount: Int
     let latestActivity: LatestActivity?
+    let isPgpSupported: Bool
+    let isPgpDisabled: Bool
     private(set) var mailboxes: [AliasMailbox]
     private(set) var name: String?
     private(set) var note: String?
@@ -76,59 +76,50 @@ final class Alias: Equatable, Arrayable {
         return "\(latestActivity.contact.email) • \(value) \(unit) ago"
     }()
 
-    convenience init(data: Data) throws {
-        // swiftlint:disable:next line_length
-        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-            throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
-        }
-
-        try self.init(dictionary: jsonDictionary)
+    // swiftlint:disable:next type_name
+    enum Key: String, CodingKey {
+        case id = "id"
+        case email = "email"
+        case creationDate = "creation_date"
+        case creationTimestamp = "creation_timestamp"
+        case blockCount = "nb_block"
+        case replyCount = "nb_reply"
+        case forwardCount = "nb_forward"
+        case latestActivity = "latest_activity"
+        case isPgpSupported = "support_pgp"
+        case isPgpDisabled = "disable_pgp"
+        case mailboxes = "mailboxes"
+        case name = "name"
+        case note = "note"
+        case enabled = "enabled"
     }
 
-    init(dictionary: [String: Any]) throws {
-        let id = dictionary["id"] as? Int
-        let email = dictionary["email"] as? String
-        let creationDate = dictionary["creation_date"] as? String
-        let creationTimestamp = dictionary["creation_timestamp"] as? TimeInterval
-        let blockCount = dictionary["nb_block"] as? Int
-        let forwardCount = dictionary["nb_forward"] as? Int
-        let replyCount = dictionary["nb_reply"] as? Int
-        let enabled = dictionary["enabled"] as? Bool
-        let note = dictionary["note"] as? String
-        let latestActivityDictionary = dictionary["latest_activity"] as? [String: Any]
-        let mailboxesDictionaries = dictionary["mailboxes"] as? [[String: Any]]
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
 
-        if let latestActivityDictionary = latestActivityDictionary {
-            self.latestActivity = try LatestActivity(fromDictionary: latestActivityDictionary)
-        } else {
-            self.latestActivity = nil
-        }
-
-        if let id = id,
-           let email = email,
-           let creationDate = creationDate,
-           let creationTimestamp = creationTimestamp,
-           let blockCount = blockCount,
-           let forwardCount = forwardCount,
-           let replyCount = replyCount,
-           let enabled = enabled,
-           let mailboxesDictionaries = mailboxesDictionaries {
-            self.id = id
-            self.email = email
-            self.creationDate = creationDate
-            self.creationTimestamp = creationTimestamp
-            self.blockCount = blockCount
-            self.forwardCount = forwardCount
-            self.replyCount = replyCount
-            self.enabled = enabled
-            self.note = note
-            self.mailboxes = try [AliasMailbox](from: mailboxesDictionaries)
-            self.name = dictionary["name"] as? String
-        } else {
-            throw SLError.failedToParse(anyObject: Self.self)
-        }
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.email = try container.decode(String.self, forKey: .email)
+        self.creationDate = try container.decode(String.self, forKey: .creationDate)
+        self.creationTimestamp = try container.decode(TimeInterval.self, forKey: .creationTimestamp)
+        self.blockCount = try container.decode(Int.self, forKey: .blockCount)
+        self.replyCount = try container.decode(Int.self, forKey: .replyCount)
+        self.forwardCount = try container.decode(Int.self, forKey: .forwardCount)
+        self.latestActivity = try container.decode(LatestActivity?.self, forKey: .latestActivity)
+        self.isPgpSupported = try container.decode(Bool.self, forKey: .isPgpSupported)
+        self.isPgpDisabled = try container.decode(Bool.self, forKey: .isPgpDisabled)
+        self.mailboxes = try container.decode([AliasMailbox].self, forKey: .mailboxes)
+        self.name = try container.decode(String?.self, forKey: .name)
+        self.note = try container.decode(String?.self, forKey: .note)
+        self.enabled = try container.decode(Bool.self, forKey: .enabled)
     }
+}
 
+extension Alias: Equatable {
+    static func == (lhs: Alias, rhs: Alias) -> Bool { lhs.id == rhs.id }
+}
+
+// MARK: - Setters
+extension Alias {
     func setEnabled(_ enabled: Bool) {
         self.enabled = enabled
     }
@@ -144,6 +135,4 @@ final class Alias: Equatable, Arrayable {
     func setName(_ name: String?) {
         self.name = name
     }
-
-    static func == (lhs: Alias, rhs: Alias) -> Bool { lhs.id == rhs.id }
 }

@@ -26,6 +26,18 @@ class SLClientLoginTests: XCTestCase {
         return (storedUserLogin, storedError)
     }
 
+    func testLoginFailureWithUnknownError() throws {
+        // given
+        let (engine, expectedError) = NetworkEngineMock.givenEngineWithUnknownError()
+
+        // when
+        let result = try whenLoginWith(engine: engine)
+
+        // then
+        XCTAssertNil(result.userLogin)
+        XCTAssertEqual(result.error, expectedError)
+    }
+
     func testLoginSuccessWithStatusCode200() throws {
         // given
         let data = try XCTUnwrap(Data.fromJson(fileName: "UserLogin_Valid"))
@@ -89,5 +101,18 @@ class SLClientLoginTests: XCTestCase {
         // then
         XCTAssertNil(result.userLogin)
         XCTAssertEqual(result.error, SLError.badGateway)
+    }
+
+    func testLoginFailureWithUnknownErrorWithStatusCode() throws {
+        // given
+        let (engine, expectedError) =
+            try NetworkEngineMock.givenEngineWithUnknownErrorWithStatusCode()
+
+        // when
+        let result = try whenLoginWith(engine: engine)
+
+        // then
+        XCTAssertNil(result.userLogin)
+        XCTAssertEqual(result.error, expectedError)
     }
 }

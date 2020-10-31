@@ -1,0 +1,9 @@
+{
+    "action":"forward",
+    "contact": {
+        "email":"john.doe@example.com",
+        "name":"John Doe",
+        "reverse_alias":"\"John Doe\" <reply+jimaarmdpiiodtxsl@example.com>"
+    },
+    "timestamp":1598738032
+}

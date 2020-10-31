@@ -63,7 +63,7 @@ final class SLClient {
                 completion(.failure(error as? SLError ?? .unknownError(error: error)))
             }
 
-        case 400:
+        case 400, 404:
             do {
                 let errorMessage = try JSONDecoder().decode(ErrorMessage.self, from: data)
                 completion(.failure(.badRequest(description: errorMessage.value)))
@@ -95,5 +95,16 @@ extension SLClient {
     func fetchUserInfo(apiKey: ApiKey, completion: @escaping (Result<UserInfo, SLError>) -> Void) {
         let userInfoEndpoint = SLEndpoint.userInfo(baseUrl: baseUrl, apiKey: apiKey)
         makeCall(to: userInfoEndpoint, expectedObjectType: UserInfo.self, completion: completion)
+    }
+
+    func fetchAliases(apiKey: ApiKey,
+                      page: Int,
+                      searchTerm: String? = nil,
+                      completion: @escaping (Result<AliasArray, SLError>) -> Void) {
+        let aliasesEndpoint = SLEndpoint.aliases(baseUrl: baseUrl,
+                                                 apiKey: apiKey,
+                                                 page: page,
+                                                 searchTerm: searchTerm)
+        makeCall(to: aliasesEndpoint, expectedObjectType: AliasArray.self, completion: completion)
     }
 }

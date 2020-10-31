@@ -8,19 +8,9 @@
 
 import UIKit
 
-struct AliasMailbox {
+struct AliasMailbox: Decodable {
     let id: Int
     let email: String
-
-    init(from dictionary: [String: Any]) throws {
-        guard let id = dictionary["id"] as? Int,
-            let email = dictionary["email"] as? String else {
-                throw SLError.failedToParse(anyObject: Self.self)
-        }
-
-        self.id = id
-        self.email = email
-    }
 
     init(id: Int, email: String) {
         self.id = id
@@ -33,17 +23,6 @@ extension AliasMailbox: Comparable {
 }
 
 extension Array where Element == AliasMailbox {
-    init(from dictionaries: [[String: Any]]) throws {
-        var mailboxes: [AliasMailbox] = []
-
-        try dictionaries.forEach { dictionary in
-            let mailbox = try AliasMailbox(from: dictionary)
-            mailboxes.append(mailbox)
-        }
-
-        self = mailboxes
-    }
-
     func toAttributedString(fontSize: CGFloat = 12) -> NSAttributedString {
         let sortedArray = sorted()
         let string = sortedArray.map { $0.email }.joined(separator: " & ")

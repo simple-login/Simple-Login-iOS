@@ -107,7 +107,7 @@ extension SLApiService {
                 switch statusCode {
                 case 201:
                     do {
-                        let alias = try Alias(data: data)
+                        let alias = try JSONDecoder().decode(Alias.self, from: data)
                         completion(.success(alias))
                     } catch let slError as SLError {
                         completion(.failure(slError))

@@ -161,57 +161,6 @@ extension SLApiService {
 
 // MARK: - Alias
 extension SLApiService {
-    func fetchAliases(apiKey: ApiKey,
-                      page: Int,
-                      searchTerm: String? = nil,
-                      completion: @escaping (Result<[Alias], SLError>) -> Void) {
-        let method: Alamofire.HTTPMethod
-        let parameters: [String: Any]?
-        if let searchTerm = searchTerm {
-            parameters = ["query": searchTerm]
-            method = .post
-        } else {
-            parameters = nil
-            method = .get
-        }
-
-        AF.request("\(baseUrl)/api/v2/aliases?page_id=\(page)",
-                   method: method,
-                   parameters: parameters,
-                   encoding: JSONEncoding.default,
-                   headers: apiKey.toHeaders()).responseData { response in
-            switch response.result {
-            case .success(let data):
-                guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(.unknownResponseStatusCode))
-                    return
-                }
-
-                switch statusCode {
-                case 200:
-                    do {
-                        let aliases = try [Alias](data: data)
-                        completion(.success(aliases))
-                    } catch let slError as SLError {
-                        completion(.failure(slError))
-                    } catch {
-                        completion(.failure(.unknownError(error: error)))
-                    }
-
-                case 400:
-                    completion(.failure(.badRequest(description: "page_id must be provided in request query.")))
-                case 401: completion(.failure(.invalidApiKey))
-                case 500: completion(.failure(.internalServerError))
-                case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                }
-
-            case .failure(let error):
-                completion(.failure(.alamofireError(error: error)))
-            }
-        }
-    }
-
     func fetchAliasActivities(apiKey: ApiKey,
                               aliasId: Alias.Identifier,
                               page: Int,
@@ -270,7 +219,7 @@ extension SLApiService {
                 switch statusCode {
                 case 201:
                     do {
-                        let alias = try Alias(data: data)
+                        let alias = try JSONDecoder().decode(Alias.self, from: data)
                         completion(.success(alias))
                     } catch let slError as SLError {
                         completion(.failure(slError))
@@ -380,7 +329,7 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let alias = try Alias(data: data)
+                        let alias = try JSONDecoder().decode(Alias.self, from: data)
                         completion(.success(alias))
                     } catch let slError as SLError {
                         completion(.failure(slError))

@@ -61,6 +61,19 @@
 		C042C25E23EF3A570045A04D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C042C25C23EF3A570045A04D /* MainInterface.storyboard */; };
 		C042C26223EF3A570045A04D /* SimpleLogin Share Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C042C25823EF3A570045A04D /* SimpleLogin Share Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C0475C4D254D992B0018F081 /* SLEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475C4C254D992B0018F081 /* SLEndpointTests.swift */; };
+		C0475C5B254DF9C80018F081 /* AliasArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475C5A254DF9C80018F081 /* AliasArray.swift */; };
+		C0475C64254DFAF80018F081 /* AliasMailbox.json in Resources */ = {isa = PBXBuildFile; fileRef = C0475C63254DFAF80018F081 /* AliasMailbox.json */; };
+		C0475C78254DFB4A0018F081 /* AliasMailboxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475C77254DFB4A0018F081 /* AliasMailboxTests.swift */; };
+		C0475C80254DFDEA0018F081 /* ContactLiteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475C7F254DFDEA0018F081 /* ContactLiteTests.swift */; };
+		C0475C8B254E000B0018F081 /* ContactLite.json in Resources */ = {isa = PBXBuildFile; fileRef = C0475C8A254E000B0018F081 /* ContactLite.json */; };
+		C0475CA4254E01F90018F081 /* LatestActivity.json in Resources */ = {isa = PBXBuildFile; fileRef = C0475CA3254E01F90018F081 /* LatestActivity.json */; };
+		C0475CA9254E023D0018F081 /* LatestActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475CA8254E023D0018F081 /* LatestActivityTests.swift */; };
+		C0475CAE254E05C60018F081 /* Alias.json in Resources */ = {isa = PBXBuildFile; fileRef = C0475CAD254E05C60018F081 /* Alias.json */; };
+		C0475CB5254E0C7E0018F081 /* AliasArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475C5A254DF9C80018F081 /* AliasArray.swift */; };
+		C0475CCE254E0E010018F081 /* AliasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475CCD254E0E010018F081 /* AliasTests.swift */; };
+		C0475CD6254E13A20018F081 /* AliasArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C0475CD5254E13A20018F081 /* AliasArray.json */; };
+		C0475CE1254E13E50018F081 /* AliasArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475CE0254E13E50018F081 /* AliasArrayTests.swift */; };
+		C0475CE6254E15B10018F081 /* SLClientTests+fetchAliasesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475CE5254E15B10018F081 /* SLClientTests+fetchAliasesTests.swift */; };
 		C04DA67A24227F8900130095 /* AliasSearchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04DA67924227F8900130095 /* AliasSearchNavigationController.swift */; };
 		C05049BC23CE016600AEF20B /* SLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05049BB23CE016600AEF20B /* SLColor.swift */; };
 		C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */; };
@@ -324,6 +337,18 @@
 		C042C25D23EF3A570045A04D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		C042C25F23EF3A570045A04D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0475C4C254D992B0018F081 /* SLEndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLEndpointTests.swift; sourceTree = "<group>"; };
+		C0475C5A254DF9C80018F081 /* AliasArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasArray.swift; sourceTree = "<group>"; };
+		C0475C63254DFAF80018F081 /* AliasMailbox.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AliasMailbox.json; sourceTree = "<group>"; };
+		C0475C77254DFB4A0018F081 /* AliasMailboxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasMailboxTests.swift; sourceTree = "<group>"; };
+		C0475C7F254DFDEA0018F081 /* ContactLiteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLiteTests.swift; sourceTree = "<group>"; };
+		C0475C8A254E000B0018F081 /* ContactLite.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ContactLite.json; sourceTree = "<group>"; };
+		C0475CA3254E01F90018F081 /* LatestActivity.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LatestActivity.json; sourceTree = "<group>"; };
+		C0475CA8254E023D0018F081 /* LatestActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestActivityTests.swift; sourceTree = "<group>"; };
+		C0475CAD254E05C60018F081 /* Alias.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Alias.json; sourceTree = "<group>"; };
+		C0475CCD254E0E010018F081 /* AliasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTests.swift; sourceTree = "<group>"; };
+		C0475CD5254E13A20018F081 /* AliasArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AliasArray.json; sourceTree = "<group>"; };
+		C0475CE0254E13E50018F081 /* AliasArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasArrayTests.swift; sourceTree = "<group>"; };
+		C0475CE5254E15B10018F081 /* SLClientTests+fetchAliasesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SLClientTests+fetchAliasesTests.swift"; sourceTree = "<group>"; };
 		C04DA67924227F8900130095 /* AliasSearchNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasSearchNavigationController.swift; sourceTree = "<group>"; };
 		C05049BB23CE016600AEF20B /* SLColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLColor.swift; sourceTree = "<group>"; };
 		C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLKeychainService.swift; sourceTree = "<group>"; };
@@ -632,6 +657,7 @@
 				C03AE31F254B0B8E00C798EE /* SLClientTests.swift */,
 				C03AE3E7254B5A4500C798EE /* SLClientTests+loginTests.swift */,
 				C0EBF9AF254C7C22002FF72C /* SLClientTests+fetchUserInfoTests.swift */,
+				C0475CE5254E15B10018F081 /* SLClientTests+fetchAliasesTests.swift */,
 			);
 			path = SLClientTests;
 			sourceTree = "<group>";
@@ -662,6 +688,28 @@
 				C042C25F23EF3A570045A04D /* Info.plist */,
 			);
 			path = "Share Extension";
+			sourceTree = "<group>";
+		};
+		C0475C62254DFAD90018F081 /* Alias */ = {
+			isa = PBXGroup;
+			children = (
+				C0475CAD254E05C60018F081 /* Alias.json */,
+				C0475CD5254E13A20018F081 /* AliasArray.json */,
+				C0475C63254DFAF80018F081 /* AliasMailbox.json */,
+				C0475CA3254E01F90018F081 /* LatestActivity.json */,
+			);
+			path = Alias;
+			sourceTree = "<group>";
+		};
+		C0475C76254DFB3F0018F081 /* Alias */ = {
+			isa = PBXGroup;
+			children = (
+				C0475CCD254E0E010018F081 /* AliasTests.swift */,
+				C0475C77254DFB4A0018F081 /* AliasMailboxTests.swift */,
+				C0475CA8254E023D0018F081 /* LatestActivityTests.swift */,
+				C0475CE0254E13E50018F081 /* AliasArrayTests.swift */,
+			);
+			path = Alias;
 			sourceTree = "<group>";
 		};
 		C05049BD23CE356900AEF20B /* LeftMenu */ = {
@@ -855,6 +903,7 @@
 		C07F347324805FA700360BA3 /* Alias */ = {
 			isa = PBXGroup;
 			children = (
+				C0475C5A254DF9C80018F081 /* AliasArray.swift */,
 				C05CD31423CA33C2007F1C9E /* Alias.swift */,
 				C0D069B32406CFDE00EBAC10 /* DeletedAlias.swift */,
 				C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */,
@@ -1350,10 +1399,12 @@
 		C0EBF973254C6B2C002FF72C /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				C0475C62254DFAD90018F081 /* Alias */,
+				C0475C8A254E000B0018F081 /* ContactLite.json */,
 				C0EBF968254C503C002FF72C /* DummyData.json */,
+				C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */,
 				C0EBF974254C6B45002FF72C /* UserLogin */,
 				C0EBF98F254C779D002FF72C /* UserInfo */,
-				C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1370,9 +1421,11 @@
 		C0EBF978254C6D4F002FF72C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C0475C76254DFB3F0018F081 /* Alias */,
 				C0EBF979254C6D62002FF72C /* UserLoginTests.swift */,
 				C0EBF98A254C7762002FF72C /* UserInfoTests.swift */,
 				C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */,
+				C0475C7F254DFDEA0018F081 /* ContactLiteTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1536,9 +1589,14 @@
 			files = (
 				C0EBF969254C503C002FF72C /* DummyData.json in Resources */,
 				C03AE3A8254B55D000C798EE /* UserLogin_Valid.json in Resources */,
+				C0475C8B254E000B0018F081 /* ContactLite.json in Resources */,
+				C0475C64254DFAF80018F081 /* AliasMailbox.json in Resources */,
 				C0EBF9D6254CA7DB002FF72C /* ErrorMessage.json in Resources */,
 				C03AE3B0254B55DF00C798EE /* UserLogin_MissingValue.json in Resources */,
+				C0475CA4254E01F90018F081 /* LatestActivity.json in Resources */,
+				C0475CD6254E13A20018F081 /* AliasArray.json in Resources */,
 				C0EBF9B8254C9D2C002FF72C /* UserInfo_MissingValue.json in Resources */,
+				C0475CAE254E05C60018F081 /* Alias.json in Resources */,
 				C0EBF991254C77B8002FF72C /* UserInfo_Valid.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1734,11 +1792,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0475C4D254D992B0018F081 /* SLEndpointTests.swift in Sources */,
+				C0475C78254DFB4A0018F081 /* AliasMailboxTests.swift in Sources */,
+				C0475C80254DFDEA0018F081 /* ContactLiteTests.swift in Sources */,
 				C0EBF97A254C6D62002FF72C /* UserLoginTests.swift in Sources */,
 				C0EBF9B0254C7C22002FF72C /* SLClientTests+fetchUserInfoTests.swift in Sources */,
+				C0475CA9254E023D0018F081 /* LatestActivityTests.swift in Sources */,
+				C0475CCE254E0E010018F081 /* AliasTests.swift in Sources */,
+				C0475CE1254E13E50018F081 /* AliasArrayTests.swift in Sources */,
 				C0EBF95C254C4BCF002FF72C /* NetworkEngineMock.swift in Sources */,
 				C0EBF9D1254CA76C002FF72C /* ErrorMessageTests.swift in Sources */,
 				C03AE3E8254B5A4500C798EE /* SLClientTests+loginTests.swift in Sources */,
+				C0475CE6254E15B10018F081 /* SLClientTests+fetchAliasesTests.swift in Sources */,
 				C0EBF98B254C7762002FF72C /* UserInfoTests.swift in Sources */,
 				C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */,
 				C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */,
@@ -1776,6 +1840,7 @@
 				C00BC55723FDA0D900E66FFE /* UserOptions.swift in Sources */,
 				C0BE30B42486570A0096BCF5 /* SelectMailboxesViewController.swift in Sources */,
 				C0016DC824548F8A00513D64 /* AliasActivity.swift in Sources */,
+				C0475CB5254E0C7E0018F081 /* AliasArray.swift in Sources */,
 				C0AACB5F24538A200016355D /* ApiKey.swift in Sources */,
 				C081656623FDAA6B005B0ABD /* RegexHelpers.swift in Sources */,
 				C0BE30B7248658ED0096BCF5 /* Storyboarded.swift in Sources */,
@@ -1888,6 +1953,7 @@
 				C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */,
 				C027A2752405368700BD19C9 /* WalkthroughWelcomeViewController.swift in Sources */,
 				C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */,
+				C0475C5B254DF9C80018F081 /* AliasArray.swift in Sources */,
 				C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */,
 				C00D74E923E8ACE400BE48F0 /* LoginViewController.swift in Sources */,
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,

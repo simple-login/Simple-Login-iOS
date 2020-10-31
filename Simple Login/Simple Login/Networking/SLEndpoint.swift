@@ -9,11 +9,12 @@
 import Foundation
 
 extension URL {
-    func componentsFor(path: String) -> URLComponents {
+    func componentsFor(path: String, queryItems: [URLQueryItem]? = nil) -> URLComponents {
         var components = URLComponents()
         components.scheme = scheme
         components.host = host
         components.path = path
+        components.queryItems = queryItems
 
         return components
     }
@@ -46,7 +47,7 @@ enum SLEndpoint {
         switch self {
         case .login: return "/api/auth/login"
         case .userInfo: return "/api/user_info"
-        case .aliases(_, _, let page, _): return "/api/v2/aliases?page_id=\(page)"
+        case .aliases: return "/api/v2/aliases"
         }
     }
 
@@ -87,7 +88,8 @@ extension SLEndpoint {
     }
 
     private func aliasesRequest(baseUrl: URL, apiKey: ApiKey, page: Int, searchTerm: String?) -> URLRequest? {
-        guard let url = baseUrl.componentsFor(path: path).url else { return nil }
+        let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
+        guard let url = baseUrl.componentsFor(path: path, queryItems: [queryItem]).url else { return nil }
 
         var request = URLRequest(url: url)
 

@@ -71,27 +71,27 @@ final class AliasSearchViewController: BaseApiKeyViewController {
         MBProgressHUD.showAdded(to: view, animated: true)
         isFetching = true
 
-        SLApiService.shared.fetchAliases(apiKey: apiKey,
-                                         page: fetchedPage + 1,
-                                         searchTerm: self.searchTerm ?? "") { [weak self] result in
-            guard let self = self else { return }
-            MBProgressHUD.hide(for: self.view, animated: true)
-            self.isFetching = false
+        SLClient.shared.fetchAliases(apiKey: apiKey, page: fetchedPage + 1, searchTerm: self.searchTerm ?? "") { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
+                self.isFetching = false
 
-            switch result {
-            case .success(let aliases):
-                if aliases.isEmpty {
-                    self.moreToLoad = false
-                } else {
-                    self.fetchedPage += 1
-                    self.aliases.append(contentsOf: aliases)
+                switch result {
+                case .success(let aliasArray):
+                    if aliasArray.aliases.isEmpty {
+                        self.moreToLoad = false
+                    } else {
+                        self.fetchedPage += 1
+                        self.aliases.append(contentsOf: aliasArray.aliases)
+                    }
+
+                    self.noAlias = self.aliases.isEmpty
+                    self.tableView.reloadData()
+
+                case .failure(let error):
+                    Toast.displayError(error)
                 }
-
-                self.noAlias = self.aliases.isEmpty
-                self.tableView.reloadData()
-
-            case .failure(let error):
-                Toast.displayError(error)
             }
         }
     }

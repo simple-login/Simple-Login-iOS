@@ -54,7 +54,7 @@ final class AliasActivity: Arrayable {
 }
 
 extension AliasActivity {
-    enum Action: String {
+    enum Action: String, Decodable {
         case reply = "reply"
         case block = "block"
         case bounced = "bounced"

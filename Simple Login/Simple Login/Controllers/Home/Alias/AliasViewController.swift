@@ -161,41 +161,43 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
 
         let pageToFetch = refreshControl.isRefreshing ? 0 : fetchedPage + 1
 
-        SLApiService.shared.fetchAliases(apiKey: apiKey, page: pageToFetch) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.fetchAliases(apiKey: apiKey, page: pageToFetch) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            self.isFetching = false
+                self.isFetching = false
 
-            switch result {
-            case .success(let aliases):
-                if aliases.isEmpty {
-                    self.moreToLoad = false
-                } else {
-                    if self.refreshControl.isRefreshing {
-                        self.fetchedPage = 0
-                        self.aliases.removeAll()
+                switch result {
+                case .success(let aliasArray):
+                    if aliasArray.aliases.isEmpty {
+                        self.moreToLoad = false
                     } else {
-                        self.fetchedPage += 1
+                        if self.refreshControl.isRefreshing {
+                            self.fetchedPage = 0
+                            self.aliases.removeAll()
+                        } else {
+                            self.fetchedPage += 1
+                        }
+
+                        // Remove duplicated aliases before appending to current array
+                        let aliasesToAppend = aliasArray.aliases.filter { !self.aliases.contains($0) }
+
+                        self.aliases.append(contentsOf: aliasesToAppend)
+                        self.refilterAliasArrays()
                     }
 
-                    // Remove duplicated aliases before appending to current array
-                    let aliasesToAppend = aliases.filter { !self.aliases.contains($0) }
+                    if self.refreshControl.isRefreshing {
+                        self.refreshControl.endRefreshing()
+                        Toast.displayUpToDate()
+                    }
 
-                    self.aliases.append(contentsOf: aliasesToAppend)
-                    self.refilterAliasArrays()
-                }
+                    self.noAlias = self.isEditing
+                    self.tableView.reloadData()
 
-                if self.refreshControl.isRefreshing {
+                case .failure(let error):
                     self.refreshControl.endRefreshing()
-                    Toast.displayUpToDate()
+                    Toast.displayError(error)
                 }
-
-                self.noAlias = self.isEditing
-                self.tableView.reloadData()
-
-            case .failure(let error):
-                self.refreshControl.endRefreshing()
-                Toast.displayError(error)
             }
         }
     }

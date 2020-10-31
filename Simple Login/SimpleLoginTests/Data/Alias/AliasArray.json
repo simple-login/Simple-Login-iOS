@@ -1,0 +1,102 @@
+{
+    "aliases": [{
+        "creation_date": "2020-07-25 16:27:41+00:00",
+        "creation_timestamp": 1595694561,
+        "disable_pgp": false,
+        "email": "john.doe@example.com",
+        "enabled": true,
+        "id": 7979,
+        "latest_activity": {
+            "action": "forward",
+            "contact": {
+                "email": "jane.doe@example.com",
+                "name": "Jane Doe",
+                "reverse_alias": "\"Jane Doe\" <reply+cgglbdfhkdsdasiektsds@example.com>"
+            },
+            "timestamp": 1605169115
+        },
+        "mailbox": {
+            "email": "email@example.com",
+            "id": 165
+        },
+        "mailboxes": [
+            {
+                "email": "ntnhon.cs@gmail.com",
+                "id": 175
+            }
+        ],
+        "name": null,
+        "nb_block": 0,
+        "nb_forward": 55,
+        "nb_reply": 0,
+        "note": null,
+        "support_pgp": false
+    },
+    {
+        "creation_date": "2020-07-25 16:27:41+00:00",
+        "creation_timestamp": 1595694561,
+        "disable_pgp": false,
+        "email": "john.doe@example.com",
+        "enabled": true,
+        "id": 7979,
+        "latest_activity": {
+            "action": "forward",
+            "contact": {
+                "email": "jane.doe@example.com",
+                "name": "Jane Doe",
+                "reverse_alias": "\"Jane Doe\" <reply+cgglbdfhkdsdasiektsds@example.com>"
+            },
+            "timestamp": 1605169115
+        },
+        "mailbox": {
+            "email": "email@example.com",
+            "id": 165
+        },
+        "mailboxes": [
+            {
+                "email": "ntnhon.cs@gmail.com",
+                "id": 175
+            }
+        ],
+        "name": null,
+        "nb_block": 0,
+        "nb_forward": 55,
+        "nb_reply": 0,
+        "note": null,
+        "support_pgp": false
+    },
+    {
+        "creation_date": "2020-07-25 16:27:41+00:00",
+        "creation_timestamp": 1595694561,
+        "disable_pgp": false,
+        "email": "john.doe@example.com",
+        "enabled": true,
+        "id": 7979,
+        "latest_activity": {
+            "action": "forward",
+            "contact": {
+                "email": "jane.doe@example.com",
+                "name": "Jane Doe",
+                "reverse_alias": "\"Jane Doe\" <reply+cgglbdfhkdsdasiektsds@example.com>"
+            },
+            "timestamp": 1605169115
+        },
+        "mailbox": {
+            "email": "email@example.com",
+            "id": 165
+        },
+        "mailboxes": [
+            {
+                "email": "ntnhon.cs@gmail.com",
+                "id": 175
+            }
+        ],
+        "name": null,
+        "nb_block": 0,
+        "nb_forward": 55,
+        "nb_reply": 0,
+        "note": null,
+        "support_pgp": false
+    }
+]
+}

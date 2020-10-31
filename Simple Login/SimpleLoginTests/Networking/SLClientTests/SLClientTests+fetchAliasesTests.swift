@@ -1,28 +1,28 @@
 //
-//  SLClientTests+fetchUserInfoTests.swift
+//  SLClientTests+fetchAliasesTests.swift
 //  SimpleLoginTests
 //
-//  Created by Thanh-Nhon Nguyen on 30/10/2020.
+//  Created by Thanh-Nhon Nguyen on 31/10/2020.
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
 @testable import SimpleLogin
 import XCTest
 
-class SLClientFetchUserInfoTests: XCTestCase {
-    func whenFetchingUserInfoWith(engine: NetworkEngine) throws -> (userInfo: UserInfo?, error: SLError?) {
-        var storedUserInfo: UserInfo?
+class SLClientFetchAliasesTests: XCTestCase {
+    func whenFetchingAliasesWith(engine: NetworkEngine) throws -> (aliasArray: AliasArray?, error: SLError?) {
+        var storedAliasArray: AliasArray?
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.fetchUserInfo(apiKey: ApiKey(value: "")) { result in
+        client.fetchAliases(apiKey: ApiKey(value: ""), page: 10, searchTerm: nil) { result in
             switch result {
-            case .success(let userInfo): storedUserInfo = userInfo
+            case .success(let aliasArray): storedAliasArray = aliasArray
             case .failure(let error): storedError = error
             }
         }
 
-        return (storedUserInfo, storedError)
+        return (storedAliasArray, storedError)
     }
 
     func testFetchUserInfoFailureWithUnknownError() throws {
@@ -30,10 +30,10 @@ class SLClientFetchUserInfoTests: XCTestCase {
         let (engine, expectedError) = NetworkEngineMock.givenEngineWithUnknownError()
 
         // when
-        let result = try whenFetchingUserInfoWith(engine: engine)
+        let result = try whenFetchingAliasesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.userInfo)
+        XCTAssertNil(result.aliasArray)
         XCTAssertEqual(result.error, expectedError)
     }
 
@@ -42,37 +42,24 @@ class SLClientFetchUserInfoTests: XCTestCase {
         let engine = NetworkEngineMock(data: nil, statusCode: nil, error: nil)
 
         // when
-        let result = try whenFetchingUserInfoWith(engine: engine)
+        let result = try whenFetchingAliasesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.userInfo)
+        XCTAssertNil(result.aliasArray)
         XCTAssertEqual(result.error, SLError.unknownResponseStatusCode)
     }
 
     func testFetchUserInfoSuccessWithStatusCode200() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "UserInfo_Valid"))
+        let data = try XCTUnwrap(Data.fromJson(fileName: "AliasArray"))
         let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
 
         // when
-        let result = try whenFetchingUserInfoWith(engine: engine)
+        let result = try whenFetchingAliasesWith(engine: engine)
 
         // then
-        XCTAssertNotNil(result.userInfo)
+        XCTAssertNotNil(result.aliasArray)
         XCTAssertNil(result.error)
-    }
-
-    func testFetchUserInfoFailureWithStatusCode200() throws {
-        // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "UserInfo_MissingValue"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
-
-        // when
-        let result = try whenFetchingUserInfoWith(engine: engine)
-
-        // then
-        XCTAssertNil(result.userInfo)
-        XCTAssertNotNil(result.error)
     }
 
     func testUserInfoFailureWithStatusCode400() throws {
@@ -83,10 +70,10 @@ class SLClientFetchUserInfoTests: XCTestCase {
         let engine = NetworkEngineMock(data: data, statusCode: 400, error: nil)
 
         // when
-        let result = try whenFetchingUserInfoWith(engine: engine)
+        let result = try whenFetchingAliasesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.userInfo)
+        XCTAssertNil(result.aliasArray)
         XCTAssertEqual(result.error, expectedError)
     }
 
@@ -95,10 +82,10 @@ class SLClientFetchUserInfoTests: XCTestCase {
         let engine = try NetworkEngineMock.givenEngineWithDummyDataAndStatusCode(401)
 
         // when
-        let result = try whenFetchingUserInfoWith(engine: engine)
+        let result = try whenFetchingAliasesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.userInfo)
+        XCTAssertNil(result.aliasArray)
         XCTAssertEqual(result.error, SLError.invalidApiKey)
     }
 
@@ -107,10 +94,10 @@ class SLClientFetchUserInfoTests: XCTestCase {
         let engine = try NetworkEngineMock.givenEngineWithDummyDataAndStatusCode(500)
 
         // when
-        let result = try whenFetchingUserInfoWith(engine: engine)
+        let result = try whenFetchingAliasesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.userInfo)
+        XCTAssertNil(result.aliasArray)
         XCTAssertEqual(result.error, SLError.internalServerError)
     }
 
@@ -119,10 +106,10 @@ class SLClientFetchUserInfoTests: XCTestCase {
         let engine = try NetworkEngineMock.givenEngineWithDummyDataAndStatusCode(502)
 
         // when
-        let result = try whenFetchingUserInfoWith(engine: engine)
+        let result = try whenFetchingAliasesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.userInfo)
+        XCTAssertNil(result.aliasArray)
         XCTAssertEqual(result.error, SLError.badGateway)
     }
 
@@ -132,10 +119,10 @@ class SLClientFetchUserInfoTests: XCTestCase {
             try NetworkEngineMock.givenEngineWithUnknownErrorWithStatusCode()
 
         // when
-        let result = try whenFetchingUserInfoWith(engine: engine)
+        let result = try whenFetchingAliasesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.userInfo)
+        XCTAssertNil(result.aliasArray)
         XCTAssertEqual(result.error, expectedError)
     }
 }
