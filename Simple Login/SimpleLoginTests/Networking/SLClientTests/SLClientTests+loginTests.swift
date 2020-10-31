@@ -54,7 +54,9 @@ class SLClientLoginTests: XCTestCase {
 
     func testLoginFailureWithStatusCode400() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "EmailOrPasswordIncorrect"))
+        let data = try XCTUnwrap(Data.fromJson(fileName: "ErrorMessage"))
+        let errorMessage = try JSONDecoder().decode(ErrorMessage.self, from: data)
+        let expectedError = SLError.badRequest(description: errorMessage.value)
         let engine = NetworkEngineMock(data: data, statusCode: 400, error: nil)
 
         // when
@@ -62,7 +64,7 @@ class SLClientLoginTests: XCTestCase {
 
         // then
         XCTAssertNil(result.userLogin)
-        XCTAssertEqual(result.error, SLError.emailOrPasswordIncorrect)
+        XCTAssertEqual(result.error, expectedError)
     }
 
     func testLoginFailureWithStatusCode500() throws {

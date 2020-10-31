@@ -165,7 +165,7 @@ extension SLApiService {
                       page: Int,
                       searchTerm: String? = nil,
                       completion: @escaping (Result<[Alias], SLError>) -> Void) {
-        let method: HTTPMethod
+        let method: Alamofire.HTTPMethod
         let parameters: [String: Any]?
         if let searchTerm = searchTerm {
             parameters = ["query": searchTerm]

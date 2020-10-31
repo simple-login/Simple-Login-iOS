@@ -31,86 +31,69 @@ final class SLClient {
             throw SLError.badUrlString(urlString: baseUrlString)
         }
     }
-}
 
-// MARK: - Login
-extension SLClient {
-    func login(email: String,
-               password: String,
-               deviceName: String,
-               completion: @escaping (Result<UserLogin, SLError>) -> Void) {
-        guard let urlRequest = SLURLRequest.loginRequest(from: baseUrl,
-                                                         email: email,
-                                                         password: password,
-                                                         deviceName: deviceName) else {
-            completion(.failure(.failedToGenerateUrlRequest(endpoint: .login)))
+    private func makeCall<T: Decodable>(to endpoint: SLEndpoint,
+                                        expectedObjectType: T.Type,
+                                        completion: @escaping (Result<T, SLError>) -> Void) {
+        guard let urlRequest = endpoint.urlRequest else {
+            completion(.failure(.failedToGenerateUrlRequest(endpoint: endpoint)))
             return
         }
+
         engine.performRequest(for: urlRequest) { [weak self] data, response, error in
             if let error = error {
                 completion(.failure(.unknownError(error: error)))
             } else if let data = data, let response = response as? HTTPURLResponse {
-                self?.finalizeLogin(data: data, response: response, completion: completion)
+                self?.handle(data: data, response: response, completion: completion)
             } else {
                 completion(.failure(.unknownResponseStatusCode))
             }
         }
     }
 
-    private func finalizeLogin(data: Data,
-                               response: HTTPURLResponse,
-                               completion: @escaping (Result<UserLogin, SLError>) -> Void) {
+    private func handle<T: Decodable>(data: Data,
+                                      response: HTTPURLResponse,
+                                      completion: @escaping (Result<T, SLError>) -> Void) {
         switch response.statusCode {
         case 200:
             do {
-                let userLogin = try JSONDecoder().decode(UserLogin.self, from: data)
-                completion(.success(userLogin))
+                let object = try JSONDecoder().decode(T.self, from: data)
+                completion(.success(object))
             } catch {
                 completion(.failure(error as? SLError ?? .unknownError(error: error)))
             }
 
-        case 400: completion(.failure(.emailOrPasswordIncorrect))
-        case 500: completion(.failure(.internalServerError))
-        case 502: completion(.failure(.badGateway))
-        default: completion(.failure(.unknownErrorWithStatusCode(statusCode: response.statusCode)))
-        }
-    }
-}
-
-// MARK: - Fetch UserInfo
-extension SLClient {
-    func fetchUserInfo(apiKey: ApiKey, completion: @escaping (Result<UserInfo, SLError>) -> Void) {
-        guard let urlRequest = SLURLRequest.fetchUserInfoRequest(from: baseUrl, apiKey: apiKey) else {
-            completion(.failure(.failedToGenerateUrlRequest(endpoint: .userInfo)))
-            return
-        }
-        engine.performRequest(for: urlRequest) { [weak self] data, response, error in
-            if let error = error {
-                completion(.failure(.unknownError(error: error)))
-            } else if let data = data, let response = response as? HTTPURLResponse {
-                self?.finalizeFetchingUserInfo(data: data, response: response, completion: completion)
-            } else {
-                completion(.failure(.unknownResponseStatusCode))
-            }
-        }
-    }
-
-    private func finalizeFetchingUserInfo(data: Data,
-                                          response: HTTPURLResponse,
-                                          completion: @escaping (Result<UserInfo, SLError>) -> Void) {
-        switch response.statusCode {
-        case 200:
+        case 400:
             do {
-                let userInfo = try JSONDecoder().decode(UserInfo.self, from: data)
-                completion(.success(userInfo))
+                let errorMessage = try JSONDecoder().decode(ErrorMessage.self, from: data)
+                completion(.failure(.badRequest(description: errorMessage.value)))
             } catch {
-                completion(.failure(error as? SLError ?? .unknownError(error: error)))
+                completion(.failure(.unknownErrorWithStatusCode(statusCode: response.statusCode)))
             }
 
         case 401: completion(.failure(.invalidApiKey))
         case 500: completion(.failure(.internalServerError))
         case 502: completion(.failure(.badGateway))
+
         default: completion(.failure(.unknownErrorWithStatusCode(statusCode: response.statusCode)))
         }
+    }
+}
+
+extension SLClient {
+    func login(email: String,
+               password: String,
+               deviceName: String,
+               completion: @escaping (Result<UserLogin, SLError>) -> Void) {
+        let loginEndpoint = SLEndpoint.login(baseUrl: baseUrl,
+                                             email: email,
+                                             password: password,
+                                             deviceName: deviceName)
+        makeCall(to: loginEndpoint, expectedObjectType: UserLogin.self, completion: completion)
+    }
+
+    func fetchUserInfo(apiKey: ApiKey, completion: @escaping (Result<UserInfo, SLError>) -> Void) {
+        let userInfoEndpoint = SLEndpoint.userInfo(baseUrl: baseUrl, apiKey: apiKey)
+        makeCall(to: userInfoEndpoint, expectedObjectType: UserInfo.self, completion: completion)
     }
 }

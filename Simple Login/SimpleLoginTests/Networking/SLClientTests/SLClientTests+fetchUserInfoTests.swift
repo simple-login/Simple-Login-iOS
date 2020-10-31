@@ -77,6 +77,21 @@ class SLClientFetchUserInfoTests: XCTestCase {
         XCTAssertNotNil(result.error)
     }
 
+    func testUserInfoFailureWithStatusCode400() throws {
+        // given
+        let data = try XCTUnwrap(Data.fromJson(fileName: "ErrorMessage"))
+        let errorMessage = try JSONDecoder().decode(ErrorMessage.self, from: data)
+        let expectedError = SLError.badRequest(description: errorMessage.value)
+        let engine = NetworkEngineMock(data: data, statusCode: 400, error: nil)
+
+        // when
+        let result = try whenFetchingUserInfoWith(engine: engine)
+
+        // then
+        XCTAssertNil(result.userInfo)
+        XCTAssertEqual(result.error, expectedError)
+    }
+
     func testFetchUserInfoFailureWithStatusCode401() throws {
         // given
         let engine = try NetworkEngineMock.givenEngineWithDummyDataAndStatusCode(401)
