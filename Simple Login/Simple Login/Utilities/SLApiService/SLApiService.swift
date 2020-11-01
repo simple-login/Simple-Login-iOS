@@ -388,8 +388,8 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let contacts = try [Contact](data: data)
-                        completion(.success(contacts))
+                        let contactArray = try JSONDecoder().decode(ContactArray.self, from: data)
+                        completion(.success(contactArray.contacts))
                     } catch let slError as SLError {
                         completion(.failure(slError))
                     } catch {

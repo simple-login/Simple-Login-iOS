@@ -8,9 +8,7 @@
 
 import Foundation
 
-final class Contact: Arrayable {
-    static var jsonRootKey = "contacts"
-
+final class Contact: Decodable {
     typealias Identifier = Int
 
     let id: Identifier
@@ -21,6 +19,7 @@ final class Contact: Arrayable {
     let lastEmailSentDate: String?
     let lastEmailSentTimestamp: TimeInterval?
 
+    // TODO: to be removed
     lazy var creationTimestampString: String = {
         let date = Date(timeIntervalSince1970: creationTimestamp)
         let preciseDateAndTime = kPreciseDateFormatter.string(from: date)
@@ -28,6 +27,7 @@ final class Contact: Arrayable {
         return "Created on \(preciseDateAndTime) (\(value) \(unit) ago)"
     }()
 
+    // TODO: to be removed
     lazy var lastEmailSentTimestampString: String? = {
         guard let lastEmailSentTimestamp = lastEmailSentTimestamp else {
             return nil
@@ -39,29 +39,26 @@ final class Contact: Arrayable {
         return "Last sent on \(preciseDateAndTime) (\(value) \(unit) ago)"
     }()
 
-    init(dictionary: [String: Any]) throws {
-        let id = dictionary["id"] as? Int
-        let email = dictionary["contact"] as? String
-        let reverseAlias = dictionary["reverse_alias"] as? String
-        let creationDate = dictionary["creation_date"] as? String
-        let creationTimestamp = dictionary["creation_timestamp"] as? TimeInterval
-        let lastEmailSentDate = dictionary["last_email_sent_date"] as? String
-        let lastEmailSentTimestamp = dictionary["last_email_sent_timestamp"] as? TimeInterval
+    // swiftlint:disable:next type_name
+    private enum Key: String, CodingKey {
+        case id = "id"
+        case email = "contact"
+        case reverseAlias = "reverse_alias"
+        case creationDate = "creation_date"
+        case creationTimestamp = "creation_timestamp"
+        case lastEmailSentDate = "last_email_sent_date"
+        case lastEmailSentTimestamp = "last_email_sent_timestamp"
+    }
 
-        if let id = id,
-           let email = email,
-           let creationDate = creationDate,
-           let creationTimestamp = creationTimestamp,
-           let reverseAlias = reverseAlias {
-            self.id = id
-            self.email = email
-            self.reverseAlias = reverseAlias
-            self.creationDate = creationDate
-            self.creationTimestamp = creationTimestamp
-            self.lastEmailSentDate = lastEmailSentDate
-            self.lastEmailSentTimestamp = lastEmailSentTimestamp
-        } else {
-            throw SLError.failedToParse(anyObject: Self.self)
-        }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.email = try container.decode(String.self, forKey: .email)
+        self.reverseAlias = try container.decode(String.self, forKey: .reverseAlias)
+        self.creationDate = try container.decode(String.self, forKey: .creationDate)
+        self.creationTimestamp = try container.decode(TimeInterval.self, forKey: .creationTimestamp)
+        self.lastEmailSentDate = try container.decode(String?.self, forKey: .lastEmailSentDate)
+        self.lastEmailSentTimestamp = try container.decode(TimeInterval?.self, forKey: .lastEmailSentTimestamp)
     }
 }

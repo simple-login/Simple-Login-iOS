@@ -28,6 +28,11 @@
 		C013BB2D254EFB8B004B7FE5 /* MailboxArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044FC3E254EF92F0047F859 /* MailboxArray.swift */; };
 		C013BB32254EFBF0004B7FE5 /* MailboxArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB31254EFBF0004B7FE5 /* MailboxArrayTests.swift */; };
 		C013BB3A254F022F004B7FE5 /* SLClientTests+fetchMailboxesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB39254F022F004B7FE5 /* SLClientTests+fetchMailboxesTests.swift */; };
+		C013BB3F254F1665004B7FE5 /* Contact.json in Resources */ = {isa = PBXBuildFile; fileRef = C013BB3E254F1665004B7FE5 /* Contact.json */; };
+		C013BB47254F16CD004B7FE5 /* ContactTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB46254F16CD004B7FE5 /* ContactTests.swift */; };
+		C013BB5A254F351F004B7FE5 /* ContactArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C013BB59254F351F004B7FE5 /* ContactArray.json */; };
+		C013BB5F254F354A004B7FE5 /* ContactArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB5E254F354A004B7FE5 /* ContactArray.swift */; };
+		C013BB6A254F3892004B7FE5 /* ContactArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */; };
 		C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */; };
 		C01ABA69246068340075DCC9 /* WhatAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ABA68246068340075DCC9 /* WhatAndFaqTableViewCell.swift */; };
 		C01ABA6B246068B20075DCC9 /* WhatAndFaqTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */; };
@@ -130,12 +135,10 @@
 		C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F723EB1BC4002E6223 /* Notification+Name.swift */; };
 		C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */; };
 		C07F346424802DA900360BA3 /* Mailbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346324802DA900360BA3 /* Mailbox.swift */; };
-		C07F346624804EA400360BA3 /* Arrayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346524804EA400360BA3 /* Arrayable.swift */; };
 		C07F346924804F0800360BA3 /* MailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346824804F0800360BA3 /* MailboxViewController.swift */; };
 		C07F346B2480517200360BA3 /* Mailbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C07F346A2480517200360BA3 /* Mailbox.storyboard */; };
 		C07F346F248052AF00360BA3 /* MailboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346E248052AF00360BA3 /* MailboxTableViewCell.swift */; };
 		C07F3471248052C400360BA3 /* MailboxTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C07F3470248052C400360BA3 /* MailboxTableViewCell.xib */; };
-		C07F34722480594300360BA3 /* Arrayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F346524804EA400360BA3 /* Arrayable.swift */; };
 		C07F347524805FF600360BA3 /* AliasMailbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F347424805FF600360BA3 /* AliasMailbox.swift */; };
 		C07F3476248061BC00360BA3 /* AliasMailbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07F347424805FF600360BA3 /* AliasMailbox.swift */; };
 		C081656223FDA97E005B0ABD /* SLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05049BB23CE016600AEF20B /* SLColor.swift */; };
@@ -319,6 +322,11 @@
 		C013BB25254EF9B9004B7FE5 /* MailboxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxTests.swift; sourceTree = "<group>"; };
 		C013BB31254EFBF0004B7FE5 /* MailboxArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxArrayTests.swift; sourceTree = "<group>"; };
 		C013BB39254F022F004B7FE5 /* SLClientTests+fetchMailboxesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SLClientTests+fetchMailboxesTests.swift"; sourceTree = "<group>"; };
+		C013BB3E254F1665004B7FE5 /* Contact.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Contact.json; sourceTree = "<group>"; };
+		C013BB46254F16CD004B7FE5 /* ContactTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTests.swift; sourceTree = "<group>"; };
+		C013BB59254F351F004B7FE5 /* ContactArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ContactArray.json; sourceTree = "<group>"; };
+		C013BB5E254F354A004B7FE5 /* ContactArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactArray.swift; sourceTree = "<group>"; };
+		C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactArrayTests.swift; sourceTree = "<group>"; };
 		C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterpriseViewController.swift; sourceTree = "<group>"; };
 		C01ABA68246068340075DCC9 /* WhatAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatAndFaqTableViewCell.swift; sourceTree = "<group>"; };
 		C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatAndFaqTableViewCell.xib; sourceTree = "<group>"; };
@@ -417,7 +425,6 @@
 		C07B41F723EB1BC4002E6223 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utitlities.swift"; sourceTree = "<group>"; };
 		C07F346324802DA900360BA3 /* Mailbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mailbox.swift; sourceTree = "<group>"; };
-		C07F346524804EA400360BA3 /* Arrayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrayable.swift; sourceTree = "<group>"; };
 		C07F346824804F0800360BA3 /* MailboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxViewController.swift; sourceTree = "<group>"; };
 		C07F346A2480517200360BA3 /* Mailbox.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Mailbox.storyboard; sourceTree = "<group>"; };
 		C07F346E248052AF00360BA3 /* MailboxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxTableViewCell.swift; sourceTree = "<group>"; };
@@ -1096,7 +1103,6 @@
 			children = (
 				C0B1DE4123C90D2C003EED3B /* RegisterableCell.swift */,
 				C01C00B123D25C390036B905 /* Storyboarded.swift */,
-				C07F346524804EA400360BA3 /* Arrayable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1143,6 +1149,7 @@
 				C07F347324805FA700360BA3 /* Alias */,
 				C0AACB5D245389FD0016355D /* ApiKey.swift */,
 				C0F57020241D398D00BCC84B /* Contact.swift */,
+				C013BB5E254F354A004B7FE5 /* ContactArray.swift */,
 				C0BD47CE244DAB6F006473B5 /* ContactLite.swift */,
 				C03D2D5F23D4AF300057F44F /* CustomDomain.swift */,
 				C0D8C4B4246AF303008BB8D2 /* Deleted.swift */,
@@ -1440,6 +1447,8 @@
 			children = (
 				C0475C62254DFAD90018F081 /* Alias */,
 				C044FBD6254EBC3F0047F859 /* ApiKey.json */,
+				C013BB3E254F1665004B7FE5 /* Contact.json */,
+				C013BB59254F351F004B7FE5 /* ContactArray.json */,
 				C0475C8A254E000B0018F081 /* ContactLite.json */,
 				C0EBF968254C503C002FF72C /* DummyData.json */,
 				C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */,
@@ -1465,6 +1474,8 @@
 			children = (
 				C0475C76254DFB3F0018F081 /* Alias */,
 				C044FBD1254EBB1A0047F859 /* ApiKeyTests.swift */,
+				C013BB46254F16CD004B7FE5 /* ContactTests.swift */,
+				C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */,
 				C0475C7F254DFDEA0018F081 /* ContactLiteTests.swift */,
 				C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */,
 				C013BB25254EF9B9004B7FE5 /* MailboxTests.swift */,
@@ -1638,9 +1649,11 @@
 				C0475C8B254E000B0018F081 /* ContactLite.json in Resources */,
 				C044FC47254EF9550047F859 /* MailboxArray.json in Resources */,
 				C0475C64254DFAF80018F081 /* AliasMailbox.json in Resources */,
+				C013BB5A254F351F004B7FE5 /* ContactArray.json in Resources */,
 				C0EBF9D6254CA7DB002FF72C /* ErrorMessage.json in Resources */,
 				C044FC14254ECDE60047F859 /* AliasActivityArray.json in Resources */,
 				C044FBD7254EBC3F0047F859 /* ApiKey.json in Resources */,
+				C013BB3F254F1665004B7FE5 /* Contact.json in Resources */,
 				C03AE3B0254B55DF00C798EE /* UserLogin_MissingValue.json in Resources */,
 				C0475CA4254E01F90018F081 /* LatestActivity.json in Resources */,
 				C0475CD6254E13A20018F081 /* AliasArray.json in Resources */,
@@ -1849,6 +1862,7 @@
 				C0EBF9B0254C7C22002FF72C /* SLClientTests+fetchUserInfoTests.swift in Sources */,
 				C0475CA9254E023D0018F081 /* LatestActivityTests.swift in Sources */,
 				C013BB3A254F022F004B7FE5 /* SLClientTests+fetchMailboxesTests.swift in Sources */,
+				C013BB6A254F3892004B7FE5 /* ContactArrayTests.swift in Sources */,
 				C0475CCE254E0E010018F081 /* AliasTests.swift in Sources */,
 				C0475CE1254E13E50018F081 /* AliasArrayTests.swift in Sources */,
 				C0EBF95C254C4BCF002FF72C /* NetworkEngineMock.swift in Sources */,
@@ -1861,6 +1875,7 @@
 				C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */,
 				C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */,
 				C044FC1F254ECE310047F859 /* AliasActivityArrayTests.swift in Sources */,
+				C013BB47254F16CD004B7FE5 /* ContactTests.swift in Sources */,
 				C0EBF983254C6F56002FF72C /* DecodableTestCase.swift in Sources */,
 				C013BB32254EFBF0004B7FE5 /* MailboxArrayTests.swift in Sources */,
 				C044FBF9254EC4A40047F859 /* AliasActivityTests.swift in Sources */,
@@ -1893,7 +1908,6 @@
 				C0BE30B6248658D80096BCF5 /* Mailbox.swift in Sources */,
 				C0BE30B52486587B0096BCF5 /* BaseApiKeyViewController.swift in Sources */,
 				C067EDC32483F90700A89C75 /* UserDefault.swift in Sources */,
-				C07F34722480594300360BA3 /* Arrayable.swift in Sources */,
 				C042C25B23EF3A570045A04D /* ShareViewController.swift in Sources */,
 				C081656523FDAA5F005B0ABD /* String+Utilities.swift in Sources */,
 				C00BC55723FDA0D900E66FFE /* UserOptions.swift in Sources */,
@@ -1948,7 +1962,6 @@
 				C05CD30A23CA0473007F1C9E /* CustomDomainViewController.swift in Sources */,
 				C0D6A28D23D0A8EC00EF21B8 /* What.swift in Sources */,
 				C027A27E2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift in Sources */,
-				C07F346624804EA400360BA3 /* Arrayable.swift in Sources */,
 				C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */,
 				C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */,
 				C05CD31523CA33C2007F1C9E /* Alias.swift in Sources */,
@@ -1983,6 +1996,7 @@
 				C0D8C4A8246ADA00008BB8D2 /* BaseApiKeyViewController.swift in Sources */,
 				C0747EE923CCFAFE008035E9 /* AliasActivityTableViewCell.swift in Sources */,
 				C07F346F248052AF00360BA3 /* MailboxTableViewCell.swift in Sources */,
+				C013BB5F254F354A004B7FE5 /* ContactArray.swift in Sources */,
 				C0D8C4B5246AF303008BB8D2 /* Deleted.swift in Sources */,
 				C027A27A24053AA800BD19C9 /* WalkthroughLastStepViewController.swift in Sources */,
 				C03AE38C254B38C600C798EE /* SLEndpoint.swift in Sources */,
