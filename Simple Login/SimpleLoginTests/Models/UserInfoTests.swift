@@ -16,7 +16,7 @@ class UserInfoTests: XCTestCase, DecodableTestCase {
     override func setUp() {
         super.setUp()
         // swiftlint:disable:next force_try
-        try! givenSutFromJson(fileName: "UserInfo_Valid")
+        try! givenSutFromJson(fileName: "UserInfo")
     }
 
     override func tearDown() {

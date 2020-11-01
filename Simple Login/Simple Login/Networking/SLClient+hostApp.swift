@@ -7,6 +7,10 @@
 //
 
 extension SLClient {
+    func dummyLogin(completion: @escaping (Result<UserLogin, SLError>) -> Void) {
+        makeCall(to: .dummyLogin, expectedObjectType: UserLogin.self, completion: completion)
+    }
+
     func login(email: String,
                password: String,
                deviceName: String,

@@ -45,6 +45,7 @@ enum SLEndpoint {
     case aliasActivities(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
     case contacts(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
+    case dummyLogin
 
     var path: String {
         switch self {
@@ -56,6 +57,7 @@ enum SLEndpoint {
         case .mailboxes: return "/api/mailboxes"
         case let .contacts(_, _, aliasId, _):
             return "/api/aliases/\(aliasId)/contacts"
+        case .dummyLogin: return "/dummy/login"
         }
     }
 
@@ -78,6 +80,8 @@ enum SLEndpoint {
 
         case let .contacts(baseUrl, apiKey, aliasId, page):
             return contactsRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, page: page)
+
+        case .dummyLogin: return nil
         }
     }
 }

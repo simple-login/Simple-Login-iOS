@@ -66,6 +66,9 @@ extension SLError: Equatable {
              let (.failedToDelete(lhsObject), .failedToDelete(rhsObject)):
             return String(describing: type(of: lhsObject)) == String(describing: type(of: rhsObject))
 
+        case let (.failedToGenerateUrlRequest(lhsEndpoint), .failedToGenerateUrlRequest(rhsEndpoint)):
+            return lhsEndpoint.path == rhsEndpoint.path
+
         case (.invalidApiKey, .invalidApiKey),
              (.duplicatedAlias, .duplicatedAlias),
              (.reactivationNeeded, .reactivationNeeded),

@@ -16,7 +16,7 @@ class UserLoginTests: XCTestCase, DecodableTestCase {
     override func setUp() {
         super.setUp()
         // swiftlint:disable:next force_try
-        try! givenSutFromJson(fileName: "UserLogin_Valid")
+        try! givenSutFromJson(fileName: "UserLogin")
     }
 
     override func tearDown() {
