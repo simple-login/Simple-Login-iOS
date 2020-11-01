@@ -9,9 +9,7 @@
 import Foundation
 import UIKit
 
-final class Mailbox: Arrayable {
-    static var jsonRootKey = "mailboxes"
-
+final class Mailbox: Decodable {
     let id: Int
     let email: String
     private(set) var isDefault: Bool
@@ -40,20 +38,23 @@ final class Mailbox: Arrayable {
         return attributedString
     }()
 
-    init(dictionary: [String: Any]) throws {
-        guard let id = dictionary["id"] as? Int,
-            let email = dictionary["email"] as? String,
-            let isDefault = dictionary["default"] as? Bool,
-            let  numOfAlias = dictionary["nb_alias"] as? Int,
-            let creationTimestamp = dictionary["creation_timestamp"] as? TimeInterval else {
-                throw SLError.failedToParse(anyObject: Self.self)
-        }
+    // swiftlint:disable:next type_name
+    private enum Key: String, CodingKey {
+        case id = "id"
+        case email = "email"
+        case isDefault = "default"
+        case numOfAlias = "nb_alias"
+        case creationTimestamp = "creation_timestamp"
+    }
 
-        self.id = id
-        self.email = email
-        self.isDefault = isDefault
-        self.numOfAlias = numOfAlias
-        self.creationTimestamp = creationTimestamp
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.email = try container.decode(String.self, forKey: .email)
+        self.isDefault = try container.decode(Bool.self, forKey: .isDefault)
+        self.numOfAlias = try container.decode(Int.self, forKey: .numOfAlias)
+        self.creationTimestamp = try container.decode(TimeInterval.self, forKey: .creationTimestamp)
     }
 
     func setIsDefault(_ isDefault: Bool) {

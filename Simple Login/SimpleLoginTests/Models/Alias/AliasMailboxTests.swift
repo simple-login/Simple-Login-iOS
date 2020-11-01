@@ -36,4 +36,24 @@ class AliasMailboxTests: XCTestCase, DecodableTestCase {
     func testDecodeEmail() {
         XCTAssertEqual(sut.email, dictionary["email"] as? String)
     }
+
+    func testInit() {
+        // given
+        let expectedId = 290
+        let expectedEmail = "john.doe@example.com"
+
+        // when
+        let aliasMailbox = AliasMailbox(id: expectedId, email: expectedEmail)
+
+        // then
+        XCTAssertEqual(aliasMailbox.id, expectedId)
+        XCTAssertEqual(aliasMailbox.email, expectedEmail)
+    }
+
+    func testComparable() {
+        let smallerAliasMailbox = AliasMailbox(id: 1_000, email: "jane.doe@example.com")
+        let biggerAliasMailbox = AliasMailbox(id: 999, email: "john.doe@example.com")
+
+        XCTAssertTrue(smallerAliasMailbox < biggerAliasMailbox)
+    }
 }

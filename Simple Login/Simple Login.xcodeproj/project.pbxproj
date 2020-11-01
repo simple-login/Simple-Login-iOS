@@ -24,6 +24,9 @@
 		C00D74EB23E8AD0300BE48F0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C00D74EA23E8AD0300BE48F0 /* Login.storyboard */; };
 		C0121C99244B48D20082F08A /* IapProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0121C98244B48D20082F08A /* IapProduct.swift */; };
 		C0121C9B244B53460082F08A /* SKProduct+RegularPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0121C9A244B53460082F08A /* SKProduct+RegularPrice.swift */; };
+		C013BB26254EF9B9004B7FE5 /* MailboxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB25254EF9B9004B7FE5 /* MailboxTests.swift */; };
+		C013BB2D254EFB8B004B7FE5 /* MailboxArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044FC3E254EF92F0047F859 /* MailboxArray.swift */; };
+		C013BB32254EFBF0004B7FE5 /* MailboxArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB31254EFBF0004B7FE5 /* MailboxArrayTests.swift */; };
 		C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */; };
 		C01ABA69246068340075DCC9 /* WhatAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ABA68246068340075DCC9 /* WhatAndFaqTableViewCell.swift */; };
 		C01ABA6B246068B20075DCC9 /* WhatAndFaqTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */; };
@@ -70,6 +73,9 @@
 		C044FC14254ECDE60047F859 /* AliasActivityArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C044FC13254ECDE60047F859 /* AliasActivityArray.json */; };
 		C044FC1F254ECE310047F859 /* AliasActivityArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044FC1E254ECE310047F859 /* AliasActivityArrayTests.swift */; };
 		C044FC2A254EEF950047F859 /* SLClientTests+fetchAliasActivitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044FC29254EEF950047F859 /* SLClientTests+fetchAliasActivitiesTests.swift */; };
+		C044FC3A254EF89C0047F859 /* Mailbox.json in Resources */ = {isa = PBXBuildFile; fileRef = C044FC39254EF89C0047F859 /* Mailbox.json */; };
+		C044FC3F254EF92F0047F859 /* MailboxArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044FC3E254EF92F0047F859 /* MailboxArray.swift */; };
+		C044FC47254EF9550047F859 /* MailboxArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C044FC46254EF9550047F859 /* MailboxArray.json */; };
 		C0475C4D254D992B0018F081 /* SLEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475C4C254D992B0018F081 /* SLEndpointTests.swift */; };
 		C0475C5B254DF9C80018F081 /* AliasArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475C5A254DF9C80018F081 /* AliasArray.swift */; };
 		C0475C64254DFAF80018F081 /* AliasMailbox.json in Resources */ = {isa = PBXBuildFile; fileRef = C0475C63254DFAF80018F081 /* AliasMailbox.json */; };
@@ -309,6 +315,8 @@
 		C00D74EA23E8AD0300BE48F0 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C0121C98244B48D20082F08A /* IapProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IapProduct.swift; sourceTree = "<group>"; };
 		C0121C9A244B53460082F08A /* SKProduct+RegularPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKProduct+RegularPrice.swift"; sourceTree = "<group>"; };
+		C013BB25254EF9B9004B7FE5 /* MailboxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxTests.swift; sourceTree = "<group>"; };
+		C013BB31254EFBF0004B7FE5 /* MailboxArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxArrayTests.swift; sourceTree = "<group>"; };
 		C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterpriseViewController.swift; sourceTree = "<group>"; };
 		C01ABA68246068340075DCC9 /* WhatAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatAndFaqTableViewCell.swift; sourceTree = "<group>"; };
 		C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatAndFaqTableViewCell.xib; sourceTree = "<group>"; };
@@ -354,6 +362,9 @@
 		C044FC13254ECDE60047F859 /* AliasActivityArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AliasActivityArray.json; sourceTree = "<group>"; };
 		C044FC1E254ECE310047F859 /* AliasActivityArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityArrayTests.swift; sourceTree = "<group>"; };
 		C044FC29254EEF950047F859 /* SLClientTests+fetchAliasActivitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SLClientTests+fetchAliasActivitiesTests.swift"; sourceTree = "<group>"; };
+		C044FC39254EF89C0047F859 /* Mailbox.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Mailbox.json; sourceTree = "<group>"; };
+		C044FC3E254EF92F0047F859 /* MailboxArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxArray.swift; sourceTree = "<group>"; };
+		C044FC46254EF9550047F859 /* MailboxArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MailboxArray.json; sourceTree = "<group>"; };
 		C0475C4C254D992B0018F081 /* SLEndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLEndpointTests.swift; sourceTree = "<group>"; };
 		C0475C5A254DF9C80018F081 /* AliasArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasArray.swift; sourceTree = "<group>"; };
 		C0475C63254DFAF80018F081 /* AliasMailbox.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AliasMailbox.json; sourceTree = "<group>"; };
@@ -1140,6 +1151,7 @@
 				C0121C98244B48D20082F08A /* IapProduct.swift */,
 				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
 				C07F346324802DA900360BA3 /* Mailbox.swift */,
+				C044FC3E254EF92F0047F859 /* MailboxArray.swift */,
 				C04007AF23EE1DFB005AD66B /* RandomMode.swift */,
 				C05049BB23CE016600AEF20B /* SLColor.swift */,
 				C0B1DE3423C8AC8A003EED3B /* SLError.swift */,
@@ -1430,6 +1442,8 @@
 				C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */,
 				C0EBF974254C6B45002FF72C /* UserLogin */,
 				C0EBF98F254C779D002FF72C /* UserInfo */,
+				C044FC39254EF89C0047F859 /* Mailbox.json */,
+				C044FC46254EF9550047F859 /* MailboxArray.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1450,6 +1464,8 @@
 				C044FBD1254EBB1A0047F859 /* ApiKeyTests.swift */,
 				C0475C7F254DFDEA0018F081 /* ContactLiteTests.swift */,
 				C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */,
+				C013BB25254EF9B9004B7FE5 /* MailboxTests.swift */,
+				C013BB31254EFBF0004B7FE5 /* MailboxArrayTests.swift */,
 				C0EBF98A254C7762002FF72C /* UserInfoTests.swift */,
 				C0EBF979254C6D62002FF72C /* UserLoginTests.swift */,
 			);
@@ -1614,8 +1630,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0EBF969254C503C002FF72C /* DummyData.json in Resources */,
+				C044FC3A254EF89C0047F859 /* Mailbox.json in Resources */,
 				C03AE3A8254B55D000C798EE /* UserLogin_Valid.json in Resources */,
 				C0475C8B254E000B0018F081 /* ContactLite.json in Resources */,
+				C044FC47254EF9550047F859 /* MailboxArray.json in Resources */,
 				C0475C64254DFAF80018F081 /* AliasMailbox.json in Resources */,
 				C0EBF9D6254CA7DB002FF72C /* ErrorMessage.json in Resources */,
 				C044FC14254ECDE60047F859 /* AliasActivityArray.json in Resources */,
@@ -1832,6 +1850,7 @@
 				C0EBF95C254C4BCF002FF72C /* NetworkEngineMock.swift in Sources */,
 				C0EBF9D1254CA76C002FF72C /* ErrorMessageTests.swift in Sources */,
 				C03AE3E8254B5A4500C798EE /* SLClientTests+loginTests.swift in Sources */,
+				C013BB26254EF9B9004B7FE5 /* MailboxTests.swift in Sources */,
 				C0475CE6254E15B10018F081 /* SLClientTests+fetchAliasesTests.swift in Sources */,
 				C044FBD2254EBB1A0047F859 /* ApiKeyTests.swift in Sources */,
 				C0EBF98B254C7762002FF72C /* UserInfoTests.swift in Sources */,
@@ -1839,6 +1858,7 @@
 				C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */,
 				C044FC1F254ECE310047F859 /* AliasActivityArrayTests.swift in Sources */,
 				C0EBF983254C6F56002FF72C /* DecodableTestCase.swift in Sources */,
+				C013BB32254EFBF0004B7FE5 /* MailboxArrayTests.swift in Sources */,
 				C044FBF9254EC4A40047F859 /* AliasActivityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1849,6 +1869,7 @@
 			files = (
 				C00BC55B23FDA12000E66FFE /* BaseUrlStatic.swift in Sources */,
 				C081656323FDA992005B0ABD /* SuffixListViewController.swift in Sources */,
+				C013BB2D254EFB8B004B7FE5 /* MailboxArray.swift in Sources */,
 				C0016DC724548F0500513D64 /* ContactLite.swift in Sources */,
 				C044FBEF254EC1000047F859 /* Statics.swift in Sources */,
 				C02B8FE02484FAB000AA3AEF /* ErrorMessage.swift in Sources */,
@@ -1948,6 +1969,7 @@
 				C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */,
 				C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */,
 				C0016DBF24548D8500513D64 /* SLApiService+SharedFunctions.swift in Sources */,
+				C044FC3F254EF92F0047F859 /* MailboxArray.swift in Sources */,
 				C07F346924804F0800360BA3 /* MailboxViewController.swift in Sources */,
 				C0747EE223CCDE63008035E9 /* AliasActivityTableHeaderView.swift in Sources */,
 				C05CD31823CA3F0A007F1C9E /* AliasTableViewCell.swift in Sources */,

@@ -1,0 +1,23 @@
+{
+    "mailboxes": [{
+        "creation_timestamp": 1591717007,
+        "default": true,
+        "email": "john.doe@example.com",
+        "id": 56,
+        "nb_alias": 87
+    },
+    {
+        "creation_timestamp": 1591717007,
+        "default": true,
+        "email": "john.doe@example.com",
+        "id": 56,
+        "nb_alias": 87
+    },
+    {
+        "creation_timestamp": 1591717007,
+        "default": true,
+        "email": "john.doe@example.com",
+        "id": 56,
+        "nb_alias": 87
+    }]
+}

@@ -155,8 +155,8 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let mailboxes = try [Mailbox](data: data)
-                        completion(.success(mailboxes))
+                        let mailboxArray = try JSONDecoder().decode(MailboxArray.self, from: data)
+                        completion(.success(mailboxArray.mailboxes))
                     } catch let slError as SLError {
                         completion(.failure(slError))
                     } catch {
