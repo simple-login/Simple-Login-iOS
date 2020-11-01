@@ -100,25 +100,6 @@ extension SLClientTests {
         XCTAssertEqual(result.error, expectedError)
     }
 
-    func testLoginFailureWithBadUrlRequestError() throws {
-        // given
-        let engine = NetworkEngineMock(data: nil, statusCode: 0, error: nil)
-
-        // when
-        var storedError: SLError?
-
-        let client = try SLClient(engine: engine)
-        client.dummyLogin { result in
-            switch result {
-            case .failure(let error): storedError = error
-            default: break
-            }
-        }
-
-        // then
-        XCTAssertEqual(storedError, SLError.failedToGenerateUrlRequest(endpoint: .dummyLogin))
-    }
-
     func testLoginSuccessWithStatusCode200() throws {
         // given
         let data = try XCTUnwrap(Data.fromJson(fileName: "UserLogin"))

@@ -44,12 +44,7 @@ extension SLClient {
     func makeCall<T: Decodable>(to endpoint: SLEndpoint,
                                 expectedObjectType: T.Type,
                                 completion: @escaping (Result<T, SLError>) -> Void) {
-        guard let urlRequest = endpoint.urlRequest else {
-            completion(.failure(.failedToGenerateUrlRequest(endpoint: endpoint)))
-            return
-        }
-
-        engine.performRequest(for: urlRequest) { [weak self] data, response, error in
+        engine.performRequest(for: endpoint.urlRequest) { [weak self] data, response, error in
             if let error = error {
                 completion(.failure(.unknownError(error: error)))
             } else if let data = data, let response = response as? HTTPURLResponse {

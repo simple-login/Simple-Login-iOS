@@ -48,7 +48,7 @@ class SLEndpointTests: XCTestCase {
                                                          "password": password,
                                                          "device": deviceName])
 
-        let expectedUrl = baseUrl.componentsFor(path: "/api/auth/login").url
+        let expectedUrl = baseUrl.append(path: "/api/auth/login")
 
         // when
         let loginEndpoint = SLEndpoint.login(baseUrl: baseUrl,
@@ -67,7 +67,7 @@ class SLEndpointTests: XCTestCase {
     func testCorrectlyGenerateUserInfoRequest() throws {
         // given
         let apiKey = givenApiKey()
-        let expectedUrl = baseUrl.componentsFor(path: "/api/user_info").url
+        let expectedUrl = baseUrl.append(path: "/api/user_info")
 
         // when
         let userInfoEndpoint = SLEndpoint.userInfo(baseUrl: baseUrl, apiKey: apiKey)
@@ -83,8 +83,9 @@ class SLEndpointTests: XCTestCase {
         // given
         let apiKey = givenApiKey()
         let page = 25
-        let expectedUrl = baseUrl.componentsFor(path: "/api/v2/aliases",
-                                                queryItems: [URLQueryItem(name: "page_id", value: "\(page)")]).url
+        let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
+        let expectedUrl = baseUrl.append(path: "/api/v2/aliases",
+                                         queryItems: [queryItem])
 
         // when
         let aliasesEndpoint = SLEndpoint.aliases(baseUrl: baseUrl, apiKey: apiKey, page: page, searchTerm: nil)
@@ -104,8 +105,9 @@ class SLEndpointTests: XCTestCase {
         let searchTerm = "john doe"
         let expectedHttpBody = try JSONEncoder().encode(["query": searchTerm])
 
-        let expectedUrl = baseUrl.componentsFor(path: "/api/v2/aliases",
-                                                queryItems: [URLQueryItem(name: "page_id", value: "\(page)")]).url
+        let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
+        let expectedUrl = baseUrl.append(path: "/api/v2/aliases",
+                                         queryItems: [queryItem])
 
         // when
         let aliasesEndpoint = SLEndpoint.aliases(baseUrl: baseUrl,
@@ -128,9 +130,10 @@ class SLEndpointTests: XCTestCase {
         let aliasId = 2_769
         let page = 23
 
+        let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
         let expectedUrl =
-            baseUrl.componentsFor(path: "/api/aliases/\(aliasId)/activities",
-                                  queryItems: [URLQueryItem(name: "page_id", value: "\(page)")]).url
+            baseUrl.append(path: "/api/aliases/\(aliasId)/activities",
+                           queryItems: [queryItem])
 
         // when
         let aliasAtivitiesEndpoint = SLEndpoint.aliasActivities(baseUrl: baseUrl,
@@ -149,7 +152,7 @@ class SLEndpointTests: XCTestCase {
         // given
         let apiKey = givenApiKey()
 
-        let expectedUrl = baseUrl.componentsFor(path: "/api/mailboxes").url
+        let expectedUrl = baseUrl.append(path: "/api/mailboxes")
 
         // when
         let mailboxesEndpoint = SLEndpoint.mailboxes(baseUrl: baseUrl, apiKey: apiKey)
@@ -169,7 +172,8 @@ class SLEndpointTests: XCTestCase {
         let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
 
         let expectedUrl =
-            baseUrl.componentsFor(path: "/api/aliases/\(aliasId)/contacts", queryItems: [queryItem]).url
+            baseUrl.append(path: "/api/aliases/\(aliasId)/contacts",
+                           queryItems: [queryItem])
 
         // when
         let contactsEndpoint = SLEndpoint.contacts(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, page: page)

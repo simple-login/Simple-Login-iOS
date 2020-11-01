@@ -9,14 +9,16 @@
 import Foundation
 
 extension URL {
-    func componentsFor(path: String, queryItems: [URLQueryItem]? = nil) -> URLComponents {
+    func append(path: String, queryItems: [URLQueryItem]? = nil) -> URL {
         var components = URLComponents()
         components.scheme = scheme
         components.host = host
         components.path = path
         components.queryItems = queryItems
 
-        return components
+        // Safely force unwrap because constructing a new url based on another url's elements (scheme, host) always succeed
+        // swiftlint:disable:next force_unwrapping
+        return components.url!
     }
 }
 
@@ -42,7 +44,6 @@ enum SLEndpoint {
     case aliases(baseUrl: URL, apiKey: ApiKey, page: Int, searchTerm: String?)
     case aliasActivities(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
     case contacts(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
-    case dummyLogin
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
     case userInfo(baseUrl: URL, apiKey: ApiKey)
@@ -54,14 +55,13 @@ enum SLEndpoint {
             return "/api/aliases/\(aliasId)/activities"
         case let .contacts(_, _, aliasId, _):
             return "/api/aliases/\(aliasId)/contacts"
-        case .dummyLogin: return "/dummy/login"
         case .login: return "/api/auth/login"
         case .mailboxes: return "/api/mailboxes"
         case .userInfo: return "/api/user_info"
         }
     }
 
-    var urlRequest: URLRequest? {
+    var urlRequest: URLRequest {
         switch self {
         case let .aliases(baseUrl, apiKey, page, searchTerm):
             return aliasesRequest(baseUrl: baseUrl, apiKey: apiKey, page: page, searchTerm: searchTerm)
@@ -71,8 +71,6 @@ enum SLEndpoint {
 
         case let .contacts(baseUrl, apiKey, aliasId, page):
             return contactsRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, page: page)
-
-        case .dummyLogin: return nil
 
         case let .login(baseUrl, email, password, deviceName):
             return loginRequest(baseUrl: baseUrl, email: email, password: password, deviceName: deviceName)
@@ -87,9 +85,9 @@ enum SLEndpoint {
 }
 
 extension SLEndpoint {
-    private func aliasesRequest(baseUrl: URL, apiKey: ApiKey, page: Int, searchTerm: String?) -> URLRequest? {
+    private func aliasesRequest(baseUrl: URL, apiKey: ApiKey, page: Int, searchTerm: String?) -> URLRequest {
         let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
-        guard let url = baseUrl.componentsFor(path: path, queryItems: [queryItem]).url else { return nil }
+        let url = baseUrl.append(path: path, queryItems: [queryItem])
 
         var request = URLRequest(url: url)
 
@@ -105,9 +103,9 @@ extension SLEndpoint {
         return request
     }
 
-    private func aliasActivitiesRequest(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int) -> URLRequest? {
+    private func aliasActivitiesRequest(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int) -> URLRequest {
         let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
-        guard let url = baseUrl.componentsFor(path: path, queryItems: [queryItem]).url else { return nil }
+        let url = baseUrl.append(path: path, queryItems: [queryItem])
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get
@@ -116,11 +114,9 @@ extension SLEndpoint {
         return request
     }
 
-    private func contactsRequest(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int) -> URLRequest? {
+    private func contactsRequest(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int) -> URLRequest {
         let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
-        guard let url = baseUrl.componentsFor(path: path, queryItems: [queryItem]).url else {
-            return nil
-        }
+        let url = baseUrl.append(path: path, queryItems: [queryItem])
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get
@@ -129,8 +125,8 @@ extension SLEndpoint {
         return request
     }
 
-    private func loginRequest(baseUrl: URL, email: String, password: String, deviceName: String) -> URLRequest? {
-        guard let url = baseUrl.componentsFor(path: path).url else { return nil }
+    private func loginRequest(baseUrl: URL, email: String, password: String, deviceName: String) -> URLRequest {
+        let url = baseUrl.append(path: path)
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.post
@@ -141,8 +137,8 @@ extension SLEndpoint {
         return request
     }
 
-    private func mailboxesRequest(baseUrl: URL, apiKey: ApiKey) -> URLRequest? {
-        guard let url = baseUrl.componentsFor(path: path).url else { return  nil }
+    private func mailboxesRequest(baseUrl: URL, apiKey: ApiKey) -> URLRequest {
+        let url = baseUrl.append(path: path)
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get
@@ -151,8 +147,8 @@ extension SLEndpoint {
         return request
     }
 
-    private func userInfoRequest(baseUrl: URL, apiKey: ApiKey) -> URLRequest? {
-        guard let url = baseUrl.componentsFor(path: path).url else { return nil }
+    private func userInfoRequest(baseUrl: URL, apiKey: ApiKey) -> URLRequest {
+        let url = baseUrl.append(path: path)
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get

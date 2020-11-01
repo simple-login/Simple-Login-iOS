@@ -13,7 +13,6 @@ enum SLError: Error, CustomStringConvertible {
     case failedToSerializeJsonForObject(anyObject: Any)
     case failedToParse(anyObject: Any)
     case failedToDelete(anyObject: Any)
-    case failedToGenerateUrlRequest(endpoint: SLEndpoint)
     case invalidApiKey
     case duplicatedAlias
     case duplicatedContact
@@ -35,8 +34,6 @@ enum SLError: Error, CustomStringConvertible {
             return "Failed to serialize JSON for object \(anyObject.self)"
         case .failedToParse(let anyObject): return "Failed to parse \(anyObject.self)"
         case .failedToDelete(let anyObject): return "Failed to delete \(anyObject.self)"
-        case .failedToGenerateUrlRequest(let endpoint):
-            return "Failed to generate url request for endpoint \(endpoint.path)"
         case .invalidApiKey: return "Invalid API key"
         case .duplicatedAlias: return "Alias is duplicated"
         case .duplicatedContact: return "Contact already created"
@@ -63,9 +60,6 @@ extension SLError: Equatable {
              let (.failedToParse(lhsObject), .failedToParse(rhsObject)),
              let (.failedToDelete(lhsObject), .failedToDelete(rhsObject)):
             return String(describing: type(of: lhsObject)) == String(describing: type(of: rhsObject))
-
-        case let (.failedToGenerateUrlRequest(lhsEndpoint), .failedToGenerateUrlRequest(rhsEndpoint)):
-            return lhsEndpoint.path == rhsEndpoint.path
 
         case (.invalidApiKey, .invalidApiKey),
              (.duplicatedAlias, .duplicatedAlias),
