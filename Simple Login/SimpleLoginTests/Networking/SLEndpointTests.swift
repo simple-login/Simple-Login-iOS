@@ -30,6 +30,14 @@ class SLEndpointTests: XCTestCase {
         ApiKey(value: "an api key")
     }
 
+    func assertProperlyAttachedApiKey(_ urlRequest: URLRequest, apiKey: ApiKey) {
+        XCTAssertEqual(urlRequest.allHTTPHeaderFields?["Authentication"], apiKey.value)
+    }
+
+    func assertProperlySetJsonContentType(_ urlRequest: URLRequest) {
+        XCTAssertEqual(urlRequest.allHTTPHeaderFields?["Content-Type"], "application/json")
+    }
+
     func testCorrectlyGenerateLoginRequest() throws {
         // given
         let email = "john.doe@example.com"
@@ -52,7 +60,7 @@ class SLEndpointTests: XCTestCase {
         // then
         XCTAssertEqual(loginRequest.url, expectedUrl)
         XCTAssertEqual(loginRequest.httpMethod, HTTPMethod.post)
-        XCTAssertEqual(loginRequest.allHTTPHeaderFields?["Content-Type"], "application/json")
+        assertProperlySetJsonContentType(loginRequest)
         XCTAssertEqual(loginRequest.httpBody, expectedHttpBody)
     }
 
@@ -68,7 +76,7 @@ class SLEndpointTests: XCTestCase {
         // then
         XCTAssertEqual(userInfoRequest.url, expectedUrl)
         XCTAssertEqual(userInfoRequest.httpMethod, HTTPMethod.get)
-        XCTAssertEqual(userInfoRequest.allHTTPHeaderFields?["Authentication"], apiKey.value)
+        assertProperlyAttachedApiKey(userInfoRequest, apiKey: apiKey)
     }
 
     func testWithoutSearchTermCorrectlyGenerateAliasesRequest() throws {
@@ -85,7 +93,7 @@ class SLEndpointTests: XCTestCase {
         // then
         XCTAssertEqual(aliasesRequest.url, expectedUrl)
         XCTAssertEqual(aliasesRequest.httpMethod, HTTPMethod.get)
-        XCTAssertEqual(aliasesRequest.allHTTPHeaderFields?["Authentication"], apiKey.value)
+        assertProperlyAttachedApiKey(aliasesRequest, apiKey: apiKey)
         XCTAssertNil(aliasesRequest.allHTTPHeaderFields?["Content-Type"])
     }
 
@@ -109,8 +117,31 @@ class SLEndpointTests: XCTestCase {
         // then
         XCTAssertEqual(aliasesRequest.url, expectedUrl)
         XCTAssertEqual(aliasesRequest.httpMethod, HTTPMethod.post)
-        XCTAssertEqual(aliasesRequest.allHTTPHeaderFields?["Authentication"], apiKey.value)
-        XCTAssertEqual(aliasesRequest.allHTTPHeaderFields?["Content-Type"], "application/json")
+        assertProperlyAttachedApiKey(aliasesRequest, apiKey: apiKey)
+        assertProperlySetJsonContentType(aliasesRequest)
         XCTAssertEqual(aliasesRequest.httpBody, expectedHttpBody)
+    }
+
+    func testCorrectlyGenerateAliasActivitiesRequest() throws {
+        // given
+        let apiKey = givenApiKey()
+        let aliasId = 2_769
+        let page = 23
+
+        let expectedUrl =
+            baseUrl.componentsFor(path: "/api/aliases/\(aliasId)/activities",
+                                  queryItems: [URLQueryItem(name: "page_id", value: "\(page)")]).url
+
+        // when
+        let aliasAtivitiesEndpoint = SLEndpoint.aliasActivities(baseUrl: baseUrl,
+                                                                apiKey: apiKey,
+                                                                aliasId: aliasId,
+                                                                page: page)
+        let aliasActivitiesRequest = try XCTUnwrap(aliasAtivitiesEndpoint.urlRequest)
+
+        // then
+        XCTAssertEqual(aliasActivitiesRequest.url, expectedUrl)
+        XCTAssertEqual(aliasActivitiesRequest.httpMethod, HTTPMethod.get)
+        assertProperlyAttachedApiKey(aliasActivitiesRequest, apiKey: apiKey)
     }
 }

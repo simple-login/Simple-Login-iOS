@@ -33,4 +33,15 @@ extension SLClient {
                                                  searchTerm: searchTerm)
         makeCall(to: aliasesEndpoint, expectedObjectType: AliasArray.self, completion: completion)
     }
+
+    func fetchAliasActivities(apiKey: ApiKey,
+                              aliasId: Int,
+                              page: Int,
+                              completion: @escaping (Result<AliasActivityArray, SLError>) -> Void) {
+        let aliasActivitiesEndpoint = SLEndpoint.aliasActivities(baseUrl: baseUrl,
+                                                                 apiKey: apiKey,
+                                                                 aliasId: aliasId,
+                                                                 page: page)
+        makeCall(to: aliasActivitiesEndpoint, expectedObjectType: AliasActivityArray.self, completion: completion)
+    }
 }

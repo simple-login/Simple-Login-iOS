@@ -69,6 +69,7 @@
 		C044FC09254ECB840047F859 /* AliasActivityArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044FC08254ECB840047F859 /* AliasActivityArray.swift */; };
 		C044FC14254ECDE60047F859 /* AliasActivityArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C044FC13254ECDE60047F859 /* AliasActivityArray.json */; };
 		C044FC1F254ECE310047F859 /* AliasActivityArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044FC1E254ECE310047F859 /* AliasActivityArrayTests.swift */; };
+		C044FC2A254EEF950047F859 /* SLClientTests+fetchAliasActivitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044FC29254EEF950047F859 /* SLClientTests+fetchAliasActivitiesTests.swift */; };
 		C0475C4D254D992B0018F081 /* SLEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475C4C254D992B0018F081 /* SLEndpointTests.swift */; };
 		C0475C5B254DF9C80018F081 /* AliasArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475C5A254DF9C80018F081 /* AliasArray.swift */; };
 		C0475C64254DFAF80018F081 /* AliasMailbox.json in Resources */ = {isa = PBXBuildFile; fileRef = C0475C63254DFAF80018F081 /* AliasMailbox.json */; };
@@ -352,6 +353,7 @@
 		C044FC08254ECB840047F859 /* AliasActivityArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityArray.swift; sourceTree = "<group>"; };
 		C044FC13254ECDE60047F859 /* AliasActivityArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AliasActivityArray.json; sourceTree = "<group>"; };
 		C044FC1E254ECE310047F859 /* AliasActivityArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityArrayTests.swift; sourceTree = "<group>"; };
+		C044FC29254EEF950047F859 /* SLClientTests+fetchAliasActivitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SLClientTests+fetchAliasActivitiesTests.swift"; sourceTree = "<group>"; };
 		C0475C4C254D992B0018F081 /* SLEndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLEndpointTests.swift; sourceTree = "<group>"; };
 		C0475C5A254DF9C80018F081 /* AliasArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasArray.swift; sourceTree = "<group>"; };
 		C0475C63254DFAF80018F081 /* AliasMailbox.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AliasMailbox.json; sourceTree = "<group>"; };
@@ -639,9 +641,9 @@
 			isa = PBXGroup;
 			children = (
 				C03AE312254B08DB00C798EE /* NetworkEngine.swift */,
-				C03AE38B254B38C600C798EE /* SLEndpoint.swift */,
 				C03AE317254B0AAB00C798EE /* SLClient.swift */,
 				C044FBF3254EC1440047F859 /* SLClient+hostApp.swift */,
+				C03AE38B254B38C600C798EE /* SLEndpoint.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -675,6 +677,7 @@
 				C03AE3E7254B5A4500C798EE /* SLClientTests+loginTests.swift */,
 				C0EBF9AF254C7C22002FF72C /* SLClientTests+fetchUserInfoTests.swift */,
 				C0475CE5254E15B10018F081 /* SLClientTests+fetchAliasesTests.swift */,
+				C044FC29254EEF950047F859 /* SLClientTests+fetchAliasActivitiesTests.swift */,
 			);
 			path = SLClientTests;
 			sourceTree = "<group>";
@@ -1817,6 +1820,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C044FC2A254EEF950047F859 /* SLClientTests+fetchAliasActivitiesTests.swift in Sources */,
 				C0475C4D254D992B0018F081 /* SLEndpointTests.swift in Sources */,
 				C0475C78254DFB4A0018F081 /* AliasMailboxTests.swift in Sources */,
 				C0475C80254DFDEA0018F081 /* ContactLiteTests.swift in Sources */,

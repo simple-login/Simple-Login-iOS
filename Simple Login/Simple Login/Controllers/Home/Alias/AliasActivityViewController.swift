@@ -80,38 +80,40 @@ final class AliasActivityViewController: BaseApiKeyViewController {
 
         let pageToFetch = refreshControl.isRefreshing ? 0 : fetchedPage + 1
 
-        SLApiService.shared.fetchAliasActivities(apiKey: apiKey,
-                                                 aliasId: alias.id,
-                                                 page: pageToFetch) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.fetchAliasActivities(apiKey: apiKey,
+                                             aliasId: alias.id,
+                                             page: pageToFetch) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            self.isFetching = false
+                self.isFetching = false
 
-            switch result {
-            case .success(let activities):
-                if activities.isEmpty {
-                    self.moreToLoad = false
-                } else {
-                    if self.refreshControl.isRefreshing {
-                        self.fetchedPage = 0
-                        self.activities.removeAll()
+                switch result {
+                case .success(let aliasActivityArray):
+                    if aliasActivityArray.activities.isEmpty {
+                        self.moreToLoad = false
                     } else {
-                        self.fetchedPage += 1
+                        if self.refreshControl.isRefreshing {
+                            self.fetchedPage = 0
+                            self.activities.removeAll()
+                        } else {
+                            self.fetchedPage += 1
+                        }
+
+                        self.activities.append(contentsOf: aliasActivityArray.activities)
                     }
 
-                    self.activities.append(contentsOf: activities)
-                }
+                    if self.refreshControl.isRefreshing {
+                        self.refreshControl.endRefreshing()
+                        Toast.displayUpToDate()
+                    }
 
-                if self.refreshControl.isRefreshing {
+                    self.tableView.reloadData()
+
+                case .failure(let error):
                     self.refreshControl.endRefreshing()
-                    Toast.displayUpToDate()
+                    Toast.displayError(error)
                 }
-
-                self.tableView.reloadData()
-
-            case .failure(let error):
-                self.refreshControl.endRefreshing()
-                Toast.displayError(error)
             }
         }
     }

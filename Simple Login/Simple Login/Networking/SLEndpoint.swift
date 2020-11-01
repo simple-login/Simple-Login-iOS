@@ -42,12 +42,15 @@ enum SLEndpoint {
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case userInfo(baseUrl: URL, apiKey: ApiKey)
     case aliases(baseUrl: URL, apiKey: ApiKey, page: Int, searchTerm: String?)
+    case aliasActivities(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
 
     var path: String {
         switch self {
         case .login: return "/api/auth/login"
         case .userInfo: return "/api/user_info"
         case .aliases: return "/api/v2/aliases"
+        case let .aliasActivities(_, _, aliasId, _):
+            return "/api/aliases/\(aliasId)/activities"
         }
     }
 
@@ -61,6 +64,9 @@ enum SLEndpoint {
 
         case let .aliases(baseUrl, apiKey, page, searchTerm):
             return aliasesRequest(baseUrl: baseUrl, apiKey: apiKey, page: page, searchTerm: searchTerm)
+
+        case let .aliasActivities(baseUrl, apiKey, aliasId, page):
+            return aliasActivitiesRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, page: page)
         }
     }
 }
@@ -100,6 +106,17 @@ extension SLEndpoint {
             request.httpMethod = HTTPMethod.get
         }
 
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func aliasActivitiesRequest(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int) -> URLRequest? {
+        let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
+        guard let url = baseUrl.componentsFor(path: path, queryItems: [queryItem]).url else { return nil }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.get
         request.addApiKeyToHeaders(apiKey)
 
         return request

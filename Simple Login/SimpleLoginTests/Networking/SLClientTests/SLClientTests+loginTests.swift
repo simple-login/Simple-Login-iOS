@@ -66,10 +66,8 @@ class SLClientLoginTests: XCTestCase {
 
     func testLoginFailureWithStatusCode400() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "ErrorMessage"))
-        let errorMessage = try JSONDecoder().decode(ErrorMessage.self, from: data)
-        let expectedError = SLError.badRequest(description: errorMessage.value)
-        let engine = NetworkEngineMock(data: data, statusCode: 400, error: nil)
+        let (engine, expectedError) =
+            try NetworkEngineMock.givenEngineWithSpecificError(statusCode: 400)
 
         // when
         let result = try whenLoginWith(engine: engine)
