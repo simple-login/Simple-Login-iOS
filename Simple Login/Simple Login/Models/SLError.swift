@@ -54,8 +54,6 @@ enum SLError: Error, CustomStringConvertible {
         case .unknownError(let error): return "Unknown error: \(error.localizedDescription)"
         }
     }
-
-    func toParameter() -> [String: Any] { ["error": description] }
 }
 
 extension SLError: Equatable {

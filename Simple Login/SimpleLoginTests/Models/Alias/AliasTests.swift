@@ -92,4 +92,51 @@ class AliasTests: XCTestCase, DecodableTestCase {
     func testDecodeEnabled() {
         XCTAssertEqual(sut.enabled, dictionary["enabled"] as? Bool)
     }
+
+    // MARK: - Setter tests
+    func testSetEnabled() {
+        // given
+        let expectedEnabled = !sut.enabled
+
+        // when
+        sut.setEnabled(expectedEnabled)
+
+        // then
+        XCTAssertEqual(sut.enabled, expectedEnabled)
+    }
+
+    func testSetMailboxes() {
+        // given
+        let mailbox1 = AliasMailbox(id: 0, email: "john.doe@example.com")
+        let mailbox2 = AliasMailbox(id: 1, email: "jane.doe@example.com")
+        let expectedMailboxes = [mailbox1, mailbox2]
+
+        // when
+        sut.setMailboxes(expectedMailboxes)
+
+        // then
+        XCTAssertEqual(sut.mailboxes, expectedMailboxes)
+    }
+
+    func testSetNote() {
+        // given
+        let expectedNote = "whatever note"
+
+        // when
+        sut.setNote(expectedNote)
+
+        // then
+        XCTAssertEqual(sut.note, expectedNote)
+    }
+
+    func testSetName() {
+        // given
+        let expectedName = "John Wick"
+
+        // when
+        sut.setName(expectedName)
+
+        // then
+        XCTAssertEqual(sut.name, expectedName)
+    }
 }
