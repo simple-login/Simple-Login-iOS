@@ -69,39 +69,39 @@ final class ContactViewController: BaseApiKeyViewController {
 
         let pageToFetch = refreshControl.isRefreshing ? 0 : fetchedPage + 1
 
-        SLApiService.shared.fetchContacts(apiKey: apiKey,
-                                          aliasId: alias.id,
-                                          page: pageToFetch) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.fetchContacts(apiKey: apiKey, aliasId: alias.id, page: pageToFetch) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            self.isFetching = false
+                self.isFetching = false
 
-            switch result {
-            case .success(let contacts):
-                if contacts.isEmpty {
-                    self.moreToLoad = false
-                } else {
-                    if self.refreshControl.isRefreshing {
-                        self.fetchedPage = 0
-                        self.contacts.removeAll()
+                switch result {
+                case .success(let contactArray):
+                    if contactArray.contacts.isEmpty {
+                        self.moreToLoad = false
                     } else {
-                        self.fetchedPage += 1
+                        if self.refreshControl.isRefreshing {
+                            self.fetchedPage = 0
+                            self.contacts.removeAll()
+                        } else {
+                            self.fetchedPage += 1
+                        }
+
+                        self.contacts.append(contentsOf: contactArray.contacts)
                     }
 
-                    self.contacts.append(contentsOf: contacts)
-                }
+                    if self.refreshControl.isRefreshing {
+                        self.refreshControl.endRefreshing()
+                        Toast.displayUpToDate()
+                    }
 
-                if self.refreshControl.isRefreshing {
+                    self.noContact = self.contacts.isEmpty
+                    self.tableView.reloadData()
+
+                case .failure(let error):
                     self.refreshControl.endRefreshing()
-                    Toast.displayUpToDate()
+                    Toast.displayError(error)
                 }
-
-                self.noContact = self.contacts.isEmpty
-                self.tableView.reloadData()
-
-            case .failure(let error):
-                self.refreshControl.endRefreshing()
-                Toast.displayError(error)
             }
         }
     }

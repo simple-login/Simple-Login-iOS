@@ -10,7 +10,8 @@
 import XCTest
 
 class SLClientFetchMailboxesTests: XCTestCase {
-    func whenFetchingMailboxesWith(engine: NetworkEngine) throws -> (mailboxArray: MailboxArray?, error: SLError?) {
+    func whenFetchingMailboxesWith(engine: NetworkEngine) throws
+    -> (mailboxArray: MailboxArray?, error: SLError?) {
         var storedMailboxArray: MailboxArray?
         var storedError: SLError?
 

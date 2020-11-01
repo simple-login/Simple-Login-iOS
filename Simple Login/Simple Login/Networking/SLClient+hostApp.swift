@@ -44,4 +44,15 @@ extension SLClient {
                                                                  page: page)
         makeCall(to: aliasActivitiesEndpoint, expectedObjectType: AliasActivityArray.self, completion: completion)
     }
+
+    func fetchContacts(apiKey: ApiKey,
+                       aliasId: Int,
+                       page: Int,
+                       completion: @escaping (Result<ContactArray, SLError>) -> Void) {
+        let contactsEndpoint = SLEndpoint.contacts(baseUrl: baseUrl,
+                                                   apiKey: apiKey,
+                                                   aliasId: aliasId,
+                                                   page: page)
+        makeCall(to: contactsEndpoint, expectedObjectType: ContactArray.self, completion: completion)
+    }
 }

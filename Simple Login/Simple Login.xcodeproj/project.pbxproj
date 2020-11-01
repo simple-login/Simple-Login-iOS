@@ -33,6 +33,7 @@
 		C013BB5A254F351F004B7FE5 /* ContactArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C013BB59254F351F004B7FE5 /* ContactArray.json */; };
 		C013BB5F254F354A004B7FE5 /* ContactArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB5E254F354A004B7FE5 /* ContactArray.swift */; };
 		C013BB6A254F3892004B7FE5 /* ContactArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */; };
+		C013BB75254F3EBF004B7FE5 /* SLClientTests+fetchContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB74254F3EBF004B7FE5 /* SLClientTests+fetchContactsTests.swift */; };
 		C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */; };
 		C01ABA69246068340075DCC9 /* WhatAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ABA68246068340075DCC9 /* WhatAndFaqTableViewCell.swift */; };
 		C01ABA6B246068B20075DCC9 /* WhatAndFaqTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */; };
@@ -327,6 +328,7 @@
 		C013BB59254F351F004B7FE5 /* ContactArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ContactArray.json; sourceTree = "<group>"; };
 		C013BB5E254F354A004B7FE5 /* ContactArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactArray.swift; sourceTree = "<group>"; };
 		C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactArrayTests.swift; sourceTree = "<group>"; };
+		C013BB74254F3EBF004B7FE5 /* SLClientTests+fetchContactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SLClientTests+fetchContactsTests.swift"; sourceTree = "<group>"; };
 		C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterpriseViewController.swift; sourceTree = "<group>"; };
 		C01ABA68246068340075DCC9 /* WhatAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatAndFaqTableViewCell.swift; sourceTree = "<group>"; };
 		C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatAndFaqTableViewCell.xib; sourceTree = "<group>"; };
@@ -699,6 +701,7 @@
 				C0475CE5254E15B10018F081 /* SLClientTests+fetchAliasesTests.swift */,
 				C044FC29254EEF950047F859 /* SLClientTests+fetchAliasActivitiesTests.swift */,
 				C013BB39254F022F004B7FE5 /* SLClientTests+fetchMailboxesTests.swift */,
+				C013BB74254F3EBF004B7FE5 /* SLClientTests+fetchContactsTests.swift */,
 			);
 			path = SLClientTests;
 			sourceTree = "<group>";
@@ -1873,6 +1876,7 @@
 				C044FBD2254EBB1A0047F859 /* ApiKeyTests.swift in Sources */,
 				C0EBF98B254C7762002FF72C /* UserInfoTests.swift in Sources */,
 				C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */,
+				C013BB75254F3EBF004B7FE5 /* SLClientTests+fetchContactsTests.swift in Sources */,
 				C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */,
 				C044FC1F254ECE310047F859 /* AliasActivityArrayTests.swift in Sources */,
 				C013BB47254F16CD004B7FE5 /* ContactTests.swift in Sources */,

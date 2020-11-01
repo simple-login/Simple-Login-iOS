@@ -370,46 +370,6 @@ extension SLApiService {
 
 // MARK: - Contact
 extension SLApiService {
-    func fetchContacts(apiKey: ApiKey,
-                       aliasId: Alias.Identifier,
-                       page: Int,
-                       completion: @escaping (Result<[Contact], SLError>) -> Void) {
-        AF.request("\(baseUrl)/api/aliases/\(aliasId)/contacts?page_id=\(page)",
-                   method: .get,
-                   encoding: URLEncoding.default,
-                   headers: apiKey.toHeaders()).responseData { response in
-            switch response.result {
-            case .success(let data):
-                guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(.unknownResponseStatusCode))
-                    return
-                }
-
-                switch statusCode {
-                case 200:
-                    do {
-                        let contactArray = try JSONDecoder().decode(ContactArray.self, from: data)
-                        completion(.success(contactArray.contacts))
-                    } catch let slError as SLError {
-                        completion(.failure(slError))
-                    } catch {
-                        completion(.failure(.unknownError(error: error)))
-                    }
-
-                case 400:
-                    completion(.failure(.badRequest(description: "page_id must be provided in request query.")))
-                case 401: completion(.failure(.invalidApiKey))
-                case 500: completion(.failure(.internalServerError))
-                case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                }
-
-            case .failure(let error):
-                completion(.failure(.alamofireError(error: error)))
-            }
-        }
-    }
-
     func createContact(apiKey: ApiKey,
                        aliasId: Alias.Identifier,
                        email: String,

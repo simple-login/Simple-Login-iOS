@@ -160,4 +160,24 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(mailboxesRequest.httpMethod, HTTPMethod.get)
         assertProperlyAttachedApiKey(mailboxesRequest, apiKey: apiKey)
     }
+
+    func testCorrectlyGenerateContactsRequest() throws {
+        // given
+        let apiKey = givenApiKey()
+        let aliasId = 572
+        let page = 10
+        let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
+
+        let expectedUrl =
+            baseUrl.componentsFor(path: "/api/aliases/\(aliasId)/contacts", queryItems: [queryItem]).url
+
+        // when
+        let contactsEndpoint = SLEndpoint.contacts(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, page: page)
+        let contactsRequest = try XCTUnwrap(contactsEndpoint.urlRequest)
+
+        // then
+        XCTAssertEqual(contactsRequest.url, expectedUrl)
+        XCTAssertEqual(contactsRequest.httpMethod, HTTPMethod.get)
+        assertProperlyAttachedApiKey(contactsRequest, apiKey: apiKey)
+    }
 }

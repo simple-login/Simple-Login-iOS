@@ -44,6 +44,7 @@ enum SLEndpoint {
     case aliases(baseUrl: URL, apiKey: ApiKey, page: Int, searchTerm: String?)
     case aliasActivities(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
+    case contacts(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
 
     var path: String {
         switch self {
@@ -53,6 +54,8 @@ enum SLEndpoint {
         case let .aliasActivities(_, _, aliasId, _):
             return "/api/aliases/\(aliasId)/activities"
         case .mailboxes: return "/api/mailboxes"
+        case let .contacts(_, _, aliasId, _):
+            return "/api/aliases/\(aliasId)/contacts"
         }
     }
 
@@ -72,6 +75,9 @@ enum SLEndpoint {
 
         case let .mailboxes(baseUrl, apiKey):
             return mailboxesRequest(baseUrl: baseUrl, apiKey: apiKey)
+
+        case let .contacts(baseUrl, apiKey, aliasId, page):
+            return contactsRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, page: page)
         }
     }
 }
@@ -129,6 +135,19 @@ extension SLEndpoint {
 
     private func mailboxesRequest(baseUrl: URL, apiKey: ApiKey) -> URLRequest? {
         guard let url = baseUrl.componentsFor(path: path).url else { return  nil }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.get
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func contactsRequest(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int) -> URLRequest? {
+        let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
+        guard let url = baseUrl.componentsFor(path: path, queryItems: [queryItem]).url else {
+            return nil
+        }
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get
