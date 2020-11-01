@@ -20,9 +20,9 @@ final class SLClient {
     }()
 
     let engine: NetworkEngine
-    let baseUrl: URL
+    private(set) var baseUrl: URL
 
-    init(engine: NetworkEngine = URLSession.shared, baseUrlString: String = kDefaultBaseUrlString) throws {
+    init(engine: NetworkEngine = URLSession.shared, baseUrlString: String = Settings.shared.apiUrl) throws {
         self.engine = engine
 
         if let baseUrl = URL(string: baseUrlString) {
@@ -32,9 +32,15 @@ final class SLClient {
         }
     }
 
-    private func makeCall<T: Decodable>(to endpoint: SLEndpoint,
-                                        expectedObjectType: T.Type,
-                                        completion: @escaping (Result<T, SLError>) -> Void) {
+    func updateBaseUrlString(_ string: String) {
+        if let baseUrl = URL(string: string) {
+            self.baseUrl = baseUrl
+        }
+    }
+
+    func makeCall<T: Decodable>(to endpoint: SLEndpoint,
+                                expectedObjectType: T.Type,
+                                completion: @escaping (Result<T, SLError>) -> Void) {
         guard let urlRequest = endpoint.urlRequest else {
             completion(.failure(.failedToGenerateUrlRequest(endpoint: endpoint)))
             return
@@ -77,34 +83,5 @@ final class SLClient {
 
         default: completion(.failure(.unknownErrorWithStatusCode(statusCode: response.statusCode)))
         }
-    }
-}
-
-extension SLClient {
-    func login(email: String,
-               password: String,
-               deviceName: String,
-               completion: @escaping (Result<UserLogin, SLError>) -> Void) {
-        let loginEndpoint = SLEndpoint.login(baseUrl: baseUrl,
-                                             email: email,
-                                             password: password,
-                                             deviceName: deviceName)
-        makeCall(to: loginEndpoint, expectedObjectType: UserLogin.self, completion: completion)
-    }
-
-    func fetchUserInfo(apiKey: ApiKey, completion: @escaping (Result<UserInfo, SLError>) -> Void) {
-        let userInfoEndpoint = SLEndpoint.userInfo(baseUrl: baseUrl, apiKey: apiKey)
-        makeCall(to: userInfoEndpoint, expectedObjectType: UserInfo.self, completion: completion)
-    }
-
-    func fetchAliases(apiKey: ApiKey,
-                      page: Int,
-                      searchTerm: String? = nil,
-                      completion: @escaping (Result<AliasArray, SLError>) -> Void) {
-        let aliasesEndpoint = SLEndpoint.aliases(baseUrl: baseUrl,
-                                                 apiKey: apiKey,
-                                                 page: page,
-                                                 searchTerm: searchTerm)
-        makeCall(to: aliasesEndpoint, expectedObjectType: AliasArray.self, completion: completion)
     }
 }

@@ -26,5 +26,6 @@ struct ApiKey: Decodable {
         case apiKey = "api_key"
     }
 
+    // TODO: to be removed
     func toHeaders() -> HTTPHeaders { ["Authentication": value] }
 }

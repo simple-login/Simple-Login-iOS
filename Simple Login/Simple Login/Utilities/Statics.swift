@@ -9,4 +9,15 @@
 import Foundation
 
 let kVersionString = (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? ""
-let kDefaultBaseUrlString = "https://app.simplelogin.io"
+
+let kPreciseDateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "d MMM yyyy 'at' HH:mm"
+    return dateFormatter
+}()
+
+func printIfDebug(_ string: String) {
+    #if DEBUG
+    print(string)
+    #endif
+}

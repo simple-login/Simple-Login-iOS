@@ -75,7 +75,8 @@ class SLEndpointTests: XCTestCase {
         // given
         let apiKey = givenApiKey()
         let page = 25
-        let expectedUrl = baseUrl.componentsFor(path: "/api/v2/aliases?page_id=\(page)").url
+        let expectedUrl = baseUrl.componentsFor(path: "/api/v2/aliases",
+                                                queryItems: [URLQueryItem(name: "page_id", value: "\(page)")]).url
 
         // when
         let aliasesEndpoint = SLEndpoint.aliases(baseUrl: baseUrl, apiKey: apiKey, page: page, searchTerm: nil)
@@ -95,7 +96,8 @@ class SLEndpointTests: XCTestCase {
         let searchTerm = "john doe"
         let expectedHttpBody = try JSONEncoder().encode(["query": searchTerm])
 
-        let expectedUrl = baseUrl.componentsFor(path: "/api/v2/aliases?page_id=\(page)").url
+        let expectedUrl = baseUrl.componentsFor(path: "/api/v2/aliases",
+                                                queryItems: [URLQueryItem(name: "page_id", value: "\(page)")]).url
 
         // when
         let aliasesEndpoint = SLEndpoint.aliases(baseUrl: baseUrl,

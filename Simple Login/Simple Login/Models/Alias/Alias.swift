@@ -104,7 +104,14 @@ final class Alias: Decodable {
         self.blockCount = try container.decode(Int.self, forKey: .blockCount)
         self.replyCount = try container.decode(Int.self, forKey: .replyCount)
         self.forwardCount = try container.decode(Int.self, forKey: .forwardCount)
-        self.latestActivity = try container.decode(LatestActivity?.self, forKey: .latestActivity)
+
+        do {
+            let latestActivity = try container.decode(LatestActivity.self, forKey: .latestActivity)
+            self.latestActivity = latestActivity
+        } catch {
+            self.latestActivity = nil
+        }
+
         self.isPgpSupported = try container.decode(Bool.self, forKey: .isPgpSupported)
         self.isPgpDisabled = try container.decode(Bool.self, forKey: .isPgpDisabled)
         self.mailboxes = try container.decode([AliasMailbox].self, forKey: .mailboxes)

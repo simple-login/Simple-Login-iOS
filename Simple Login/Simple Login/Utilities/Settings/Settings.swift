@@ -21,6 +21,7 @@ final class Settings {
     var apiUrl: String {
         didSet {
             SLApiService.shared.refreshBaseUrl()
+            SLClient.shared.updateBaseUrlString(apiUrl)
         }
     }
 
