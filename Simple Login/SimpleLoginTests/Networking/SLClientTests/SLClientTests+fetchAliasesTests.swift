@@ -79,14 +79,15 @@ class SLClientFetchAliasesTests: XCTestCase {
 
     func testFetchUserInfoFailureWithStatusCode401() throws {
         // given
-        let engine = try NetworkEngineMock.givenEngineWithDummyDataAndStatusCode(401)
+        let (engine, expectedError) =
+            try NetworkEngineMock.givenEngineWithSpecificError(statusCode: 401)
 
         // when
         let result = try whenFetchingAliasesWith(engine: engine)
 
         // then
         XCTAssertNil(result.aliasArray)
-        XCTAssertEqual(result.error, SLError.invalidApiKey)
+        XCTAssertEqual(result.error, expectedError)
     }
 
     func testFetchUserInfoFailureWithStatusCode500() throws {

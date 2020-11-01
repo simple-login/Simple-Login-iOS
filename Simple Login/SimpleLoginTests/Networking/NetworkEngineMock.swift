@@ -52,4 +52,14 @@ final class NetworkEngineMock: NetworkEngine {
 
         return (engine, slError)
     }
+
+    static func givenEngineWithSpecificError(statusCode: Int) throws
+    -> (engine: NetworkEngineMock, error: SLError) {
+        let data = try XCTUnwrap(Data.fromJson(fileName: "ErrorMessage"))
+        let errorMessage = try JSONDecoder().decode(ErrorMessage.self, from: data)
+        let error = SLError.badRequest(description: errorMessage.value)
+        let engine = NetworkEngineMock(data: data, statusCode: statusCode, error: nil)
+
+        return (engine, error)
+    }
 }
