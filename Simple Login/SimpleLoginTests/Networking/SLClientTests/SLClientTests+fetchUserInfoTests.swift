@@ -75,7 +75,7 @@ class SLClientFetchUserInfoTests: XCTestCase {
         XCTAssertNotNil(result.error)
     }
 
-    func testUserInfoFailureWithStatusCode400() throws {
+    func testFetchUserInfoFailureWithStatusCode400() throws {
         // given
         let (engine, expectedError) =
             try NetworkEngineMock.givenEngineWithSpecificError(statusCode: 400)

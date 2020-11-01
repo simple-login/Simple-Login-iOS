@@ -84,3 +84,10 @@ final class SLClient {
         }
     }
 }
+
+extension SLClient {
+    func fetchMailboxes(apiKey: ApiKey, completion: @escaping (Result<MailboxArray, SLError>) -> Void) {
+        let mailboxesEndpoint = SLEndpoint.mailboxes(baseUrl: baseUrl, apiKey: apiKey)
+        makeCall(to: mailboxesEndpoint, expectedObjectType: MailboxArray.self, completion: completion)
+    }
+}

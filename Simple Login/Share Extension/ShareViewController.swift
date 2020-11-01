@@ -186,9 +186,10 @@ extension ShareViewController {
         var fetchedUserOptions: UserOptions?
 
         fetchGroup.enter()
-        SLApiService.shared.fetchMailboxes(apiKey: apiKey) { result in
+
+        SLClient.shared.fetchMailboxes(apiKey: apiKey) { result in
             switch result {
-            case .success(let mailboxes): fetchedMailboxes = mailboxes
+            case .success(let mailboxArray): fetchedMailboxes = mailboxArray.mailboxes
             case .failure(let error): storedError = error
             }
 

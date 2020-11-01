@@ -1,127 +1,127 @@
 //
-//  SLClientTests+fetchAliasesTests.swift
+//  SLClientTests+fetchMailboxesTests.swift
 //  SimpleLoginTests
 //
-//  Created by Thanh-Nhon Nguyen on 31/10/2020.
+//  Created by Thanh-Nhon Nguyen on 01/11/2020.
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
 @testable import SimpleLogin
 import XCTest
 
-class SLClientFetchAliasesTests: XCTestCase {
-    func whenFetchingAliasesWith(engine: NetworkEngine) throws -> (aliasArray: AliasArray?, error: SLError?) {
-        var storedAliasArray: AliasArray?
+class SLClientFetchMailboxesTests: XCTestCase {
+    func whenFetchingMailboxesWith(engine: NetworkEngine) throws -> (mailboxArray: MailboxArray?, error: SLError?) {
+        var storedMailboxArray: MailboxArray?
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.fetchAliases(apiKey: ApiKey(value: ""), page: 10, searchTerm: nil) { result in
+        client.fetchMailboxes(apiKey: ApiKey(value: "")) { result in
             switch result {
-            case .success(let aliasArray): storedAliasArray = aliasArray
+            case .success(let mailboxArray): storedMailboxArray = mailboxArray
             case .failure(let error): storedError = error
             }
         }
 
-        return (storedAliasArray, storedError)
+        return (storedMailboxArray, storedError)
     }
 
-    func testFetchAliasesFailureWithUnknownError() throws {
+    func testFetchMailboxesFailureWithUnknownError() throws {
         // given
         let (engine, expectedError) = NetworkEngineMock.givenEngineWithUnknownError()
 
         // when
-        let result = try whenFetchingAliasesWith(engine: engine)
+        let result = try whenFetchingMailboxesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.aliasArray)
+        XCTAssertNil(result.mailboxArray)
         XCTAssertEqual(result.error, expectedError)
     }
 
-    func testFetchAliasesFailureWithUnknownResponseStatusCode() throws {
+    func testFetchMailboxesFailureWithUnknownResponseStatusCode() throws {
         // given
         let engine = NetworkEngineMock(data: nil, statusCode: nil, error: nil)
 
         // when
-        let result = try whenFetchingAliasesWith(engine: engine)
+        let result = try whenFetchingMailboxesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.aliasArray)
+        XCTAssertNil(result.mailboxArray)
         XCTAssertEqual(result.error, SLError.unknownResponseStatusCode)
     }
 
-    func testFetchAliasesSuccessWithStatusCode200() throws {
+    func testFetchMailboxesSuccessWithStatusCode200() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "AliasArray"))
+        let data = try XCTUnwrap(Data.fromJson(fileName: "MailboxArray"))
         let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
 
         // when
-        let result = try whenFetchingAliasesWith(engine: engine)
+        let result = try whenFetchingMailboxesWith(engine: engine)
 
         // then
-        XCTAssertNotNil(result.aliasArray)
+        XCTAssertNotNil(result.mailboxArray)
         XCTAssertNil(result.error)
     }
 
-    func testFetchAliasesFailureWithStatusCode400() throws {
+    func testFetchMailboxesFailureWithStatusCode400() throws {
         // given
         let (engine, expectedError) =
             try NetworkEngineMock.givenEngineWithSpecificError(statusCode: 400)
 
         // when
-        let result = try whenFetchingAliasesWith(engine: engine)
+        let result = try whenFetchingMailboxesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.aliasArray)
+        XCTAssertNil(result.mailboxArray)
         XCTAssertEqual(result.error, expectedError)
     }
 
-    func testFetchAliasesFailureWithStatusCode401() throws {
+    func testFetchMailboxesFailureWithStatusCode401() throws {
         // given
         let (engine, expectedError) =
             try NetworkEngineMock.givenEngineWithSpecificError(statusCode: 401)
 
         // when
-        let result = try whenFetchingAliasesWith(engine: engine)
+        let result = try whenFetchingMailboxesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.aliasArray)
+        XCTAssertNil(result.mailboxArray)
         XCTAssertEqual(result.error, expectedError)
     }
 
-    func testFetchAliasesFailureWithStatusCode500() throws {
+    func testFetchMailboxesFailureWithStatusCode500() throws {
         // given
         let engine = try NetworkEngineMock.givenEngineWithDummyDataAndStatusCode(500)
 
         // when
-        let result = try whenFetchingAliasesWith(engine: engine)
+        let result = try whenFetchingMailboxesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.aliasArray)
+        XCTAssertNil(result.mailboxArray)
         XCTAssertEqual(result.error, SLError.internalServerError)
     }
 
-    func testFetchAliasesFailureWithStatusCode502() throws {
+    func testFetchMailboxesFailureWithStatusCode502() throws {
         // given
         let engine = try NetworkEngineMock.givenEngineWithDummyDataAndStatusCode(502)
 
         // when
-        let result = try whenFetchingAliasesWith(engine: engine)
+        let result = try whenFetchingMailboxesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.aliasArray)
+        XCTAssertNil(result.mailboxArray)
         XCTAssertEqual(result.error, SLError.badGateway)
     }
 
-    func testFetchAliasesFailureWithUnknownErrorWithStatusCode() throws {
+    func testFetchMailboxesWithUnknownErrorWithStatusCode() throws {
         // given
         let (engine, expectedError) =
             try NetworkEngineMock.givenEngineWithUnknownErrorWithStatusCode()
 
         // when
-        let result = try whenFetchingAliasesWith(engine: engine)
+        let result = try whenFetchingMailboxesWith(engine: engine)
 
         // then
-        XCTAssertNil(result.aliasArray)
+        XCTAssertNil(result.mailboxArray)
         XCTAssertEqual(result.error, expectedError)
     }
 }

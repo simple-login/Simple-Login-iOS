@@ -37,22 +37,24 @@ final class MailboxViewController: BaseApiKeyLeftMenuButtonViewController, Story
 
     @objc
     private func fetchMailboxes() {
-        SLApiService.shared.fetchMailboxes(apiKey: apiKey) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.fetchMailboxes(apiKey: apiKey) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            switch result {
-            case .success(let mailboxes):
-                self.mailboxes = mailboxes
-                self.tableView.reloadData()
+                switch result {
+                case .success(let mailboxArray):
+                    self.mailboxes = mailboxArray.mailboxes
+                    self.tableView.reloadData()
 
-                if self.refreshControl.isRefreshing {
+                    if self.refreshControl.isRefreshing {
+                        self.refreshControl.endRefreshing()
+                        Toast.displayUpToDate()
+                    }
+
+                case .failure(let error):
                     self.refreshControl.endRefreshing()
-                    Toast.displayUpToDate()
+                    Toast.displayError(error)
                 }
-
-            case .failure(let error):
-                self.refreshControl.endRefreshing()
-                Toast.displayError(error)
             }
         }
     }

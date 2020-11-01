@@ -16,11 +16,13 @@ final class Mailbox: Decodable {
     let numOfAlias: Int
     let creationTimestamp: TimeInterval
 
+    // TODO: to be removed
     lazy var creationString: String = {
         let (value, unit) = Date(timeIntervalSince1970: creationTimestamp).distanceFromNow()
         return "Created \(value) \(unit) ago"
     }()
 
+    // TODO: to be removed
     lazy var numOfAliasAttributedString: NSAttributedString = {
         let plainString = "\(numOfAlias) \(numOfAlias > 1 ? "aliases" : "alias")"
         let attributedString = NSMutableAttributedString(string: plainString)

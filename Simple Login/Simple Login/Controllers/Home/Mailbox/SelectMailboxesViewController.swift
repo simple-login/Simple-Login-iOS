@@ -48,18 +48,20 @@ final class SelectMailboxesViewController: BaseApiKeyViewController, Storyboarde
     private func fetchMailboxes() {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.fetchMailboxes(apiKey: apiKey) { [weak self] result in
-            guard let self = self else { return }
-            MBProgressHUD.hide(for: self.view, animated: true)
+        SLClient.shared.fetchMailboxes(apiKey: apiKey) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success(let mailboxes):
-                self.mailboxes = mailboxes
-                self.tableView.reloadData()
+                switch result {
+                case .success(let mailboxArray):
+                    self.mailboxes = mailboxArray.mailboxes
+                    self.tableView.reloadData()
 
-            case .failure(let error):
-                self.dismiss(animated: true) {
-                    self.displayError(error)
+                case .failure(let error):
+                    self.dismiss(animated: true) {
+                        self.displayError(error)
+                    }
                 }
             }
         }

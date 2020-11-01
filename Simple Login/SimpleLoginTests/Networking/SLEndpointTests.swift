@@ -144,4 +144,20 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(aliasActivitiesRequest.httpMethod, HTTPMethod.get)
         assertProperlyAttachedApiKey(aliasActivitiesRequest, apiKey: apiKey)
     }
+
+    func testCorrectlyGenerateMailboxesRequest() throws {
+        // given
+        let apiKey = givenApiKey()
+
+        let expectedUrl = baseUrl.componentsFor(path: "/api/mailboxes").url
+
+        // when
+        let mailboxesEndpoint = SLEndpoint.mailboxes(baseUrl: baseUrl, apiKey: apiKey)
+        let mailboxesRequest = try XCTUnwrap(mailboxesEndpoint.urlRequest)
+
+        // then
+        XCTAssertEqual(mailboxesRequest.url, expectedUrl)
+        XCTAssertEqual(mailboxesRequest.httpMethod, HTTPMethod.get)
+        assertProperlyAttachedApiKey(mailboxesRequest, apiKey: apiKey)
+    }
 }
