@@ -37,7 +37,10 @@ final class SLClient {
             self.baseUrl = baseUrl
         }
     }
+}
 
+// MARK: - Generic core funtions
+extension SLClient {
     func makeCall<T: Decodable>(to endpoint: SLEndpoint,
                                 expectedObjectType: T.Type,
                                 completion: @escaping (Result<T, SLError>) -> Void) {
@@ -85,6 +88,7 @@ final class SLClient {
     }
 }
 
+// MARK: - Shared functions between host app and share extension
 extension SLClient {
     func fetchMailboxes(apiKey: ApiKey, completion: @escaping (Result<MailboxArray, SLError>) -> Void) {
         let mailboxesEndpoint = SLEndpoint.mailboxes(baseUrl: baseUrl, apiKey: apiKey)
