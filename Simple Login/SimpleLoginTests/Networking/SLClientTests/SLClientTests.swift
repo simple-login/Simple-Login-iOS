@@ -13,7 +13,7 @@ class SLClientTests: XCTestCase {
     func testInitWithDefaultArgs() throws {
         // given
         let expectedNetworkEngine = URLSession.shared
-        let expectedBaseUrl = try XCTUnwrap(URL(string: kDefaultBaseUrlString))
+        let expectedBaseUrl = try XCTUnwrap(URL(string: Settings.shared.apiUrl))
 
         // when
         let sut = try XCTUnwrap(SLClient())

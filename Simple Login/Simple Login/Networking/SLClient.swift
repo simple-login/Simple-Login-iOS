@@ -69,7 +69,7 @@ final class SLClient {
                 completion(.failure(error as? SLError ?? .unknownError(error: error)))
             }
 
-        case 400, 404:
+        case 400, 401, 404:
             do {
                 let errorMessage = try JSONDecoder().decode(ErrorMessage.self, from: data)
                 completion(.failure(.badRequest(description: errorMessage.value)))
@@ -77,7 +77,6 @@ final class SLClient {
                 completion(.failure(.unknownErrorWithStatusCode(statusCode: response.statusCode)))
             }
 
-        case 401: completion(.failure(.invalidApiKey))
         case 500: completion(.failure(.internalServerError))
         case 502: completion(.failure(.badGateway))
 

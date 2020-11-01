@@ -64,6 +64,11 @@
 		C044FBE8254EC0D20047F859 /* NetworkEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE312254B08DB00C798EE /* NetworkEngine.swift */; };
 		C044FBEF254EC1000047F859 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D323C7DDDC00EB5D98 /* Statics.swift */; };
 		C044FBF4254EC1440047F859 /* SLClient+hostApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044FBF3254EC1440047F859 /* SLClient+hostApp.swift */; };
+		C044FBF9254EC4A40047F859 /* AliasActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044FBF8254EC4A40047F859 /* AliasActivityTests.swift */; };
+		C044FBFE254EC5A20047F859 /* AliasActivity.json in Resources */ = {isa = PBXBuildFile; fileRef = C044FBFD254EC5A20047F859 /* AliasActivity.json */; };
+		C044FC09254ECB840047F859 /* AliasActivityArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044FC08254ECB840047F859 /* AliasActivityArray.swift */; };
+		C044FC14254ECDE60047F859 /* AliasActivityArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C044FC13254ECDE60047F859 /* AliasActivityArray.json */; };
+		C044FC1F254ECE310047F859 /* AliasActivityArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044FC1E254ECE310047F859 /* AliasActivityArrayTests.swift */; };
 		C0475C4D254D992B0018F081 /* SLEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475C4C254D992B0018F081 /* SLEndpointTests.swift */; };
 		C0475C5B254DF9C80018F081 /* AliasArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0475C5A254DF9C80018F081 /* AliasArray.swift */; };
 		C0475C64254DFAF80018F081 /* AliasMailbox.json in Resources */ = {isa = PBXBuildFile; fileRef = C0475C63254DFAF80018F081 /* AliasMailbox.json */; };
@@ -342,6 +347,11 @@
 		C044FBD1254EBB1A0047F859 /* ApiKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyTests.swift; sourceTree = "<group>"; };
 		C044FBD6254EBC3F0047F859 /* ApiKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ApiKey.json; sourceTree = "<group>"; };
 		C044FBF3254EC1440047F859 /* SLClient+hostApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SLClient+hostApp.swift"; sourceTree = "<group>"; };
+		C044FBF8254EC4A40047F859 /* AliasActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityTests.swift; sourceTree = "<group>"; };
+		C044FBFD254EC5A20047F859 /* AliasActivity.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AliasActivity.json; sourceTree = "<group>"; };
+		C044FC08254ECB840047F859 /* AliasActivityArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityArray.swift; sourceTree = "<group>"; };
+		C044FC13254ECDE60047F859 /* AliasActivityArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AliasActivityArray.json; sourceTree = "<group>"; };
+		C044FC1E254ECE310047F859 /* AliasActivityArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityArrayTests.swift; sourceTree = "<group>"; };
 		C0475C4C254D992B0018F081 /* SLEndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLEndpointTests.swift; sourceTree = "<group>"; };
 		C0475C5A254DF9C80018F081 /* AliasArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasArray.swift; sourceTree = "<group>"; };
 		C0475C63254DFAF80018F081 /* AliasMailbox.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AliasMailbox.json; sourceTree = "<group>"; };
@@ -702,6 +712,8 @@
 			children = (
 				C0475CAD254E05C60018F081 /* Alias.json */,
 				C0475CD5254E13A20018F081 /* AliasArray.json */,
+				C044FBFD254EC5A20047F859 /* AliasActivity.json */,
+				C044FC13254ECDE60047F859 /* AliasActivityArray.json */,
 				C0475C63254DFAF80018F081 /* AliasMailbox.json */,
 				C0475CA3254E01F90018F081 /* LatestActivity.json */,
 			);
@@ -712,9 +724,11 @@
 			isa = PBXGroup;
 			children = (
 				C0475CCD254E0E010018F081 /* AliasTests.swift */,
+				C0475CE0254E13E50018F081 /* AliasArrayTests.swift */,
+				C044FBF8254EC4A40047F859 /* AliasActivityTests.swift */,
+				C044FC1E254ECE310047F859 /* AliasActivityArrayTests.swift */,
 				C0475C77254DFB4A0018F081 /* AliasMailboxTests.swift */,
 				C0475CA8254E023D0018F081 /* LatestActivityTests.swift */,
-				C0475CE0254E13E50018F081 /* AliasArrayTests.swift */,
 			);
 			path = Alias;
 			sourceTree = "<group>";
@@ -910,8 +924,9 @@
 			isa = PBXGroup;
 			children = (
 				C05CD31423CA33C2007F1C9E /* Alias.swift */,
-				C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */,
 				C0475C5A254DF9C80018F081 /* AliasArray.swift */,
+				C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */,
+				C044FC08254ECB840047F859 /* AliasActivityArray.swift */,
 				C07F347424805FF600360BA3 /* AliasMailbox.swift */,
 				C0D069B32406CFDE00EBAC10 /* DeletedAlias.swift */,
 				C0BD47CC244DAB43006473B5 /* LatestActivity.swift */,
@@ -1600,6 +1615,7 @@
 				C0475C8B254E000B0018F081 /* ContactLite.json in Resources */,
 				C0475C64254DFAF80018F081 /* AliasMailbox.json in Resources */,
 				C0EBF9D6254CA7DB002FF72C /* ErrorMessage.json in Resources */,
+				C044FC14254ECDE60047F859 /* AliasActivityArray.json in Resources */,
 				C044FBD7254EBC3F0047F859 /* ApiKey.json in Resources */,
 				C03AE3B0254B55DF00C798EE /* UserLogin_MissingValue.json in Resources */,
 				C0475CA4254E01F90018F081 /* LatestActivity.json in Resources */,
@@ -1607,6 +1623,7 @@
 				C0EBF9B8254C9D2C002FF72C /* UserInfo_MissingValue.json in Resources */,
 				C0475CAE254E05C60018F081 /* Alias.json in Resources */,
 				C0EBF991254C77B8002FF72C /* UserInfo_Valid.json in Resources */,
+				C044FBFE254EC5A20047F859 /* AliasActivity.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1816,7 +1833,9 @@
 				C0EBF98B254C7762002FF72C /* UserInfoTests.swift in Sources */,
 				C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */,
 				C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */,
+				C044FC1F254ECE310047F859 /* AliasActivityArrayTests.swift in Sources */,
 				C0EBF983254C6F56002FF72C /* DecodableTestCase.swift in Sources */,
+				C044FBF9254EC4A40047F859 /* AliasActivityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1992,6 +2011,7 @@
 				C0D0699C24067AC700EBAC10 /* DirectoryViewController.swift in Sources */,
 				C069397923D395A1008AE6C1 /* SuffixListViewController.swift in Sources */,
 				C0BD47CD244DAB43006473B5 /* LatestActivity.swift in Sources */,
+				C044FC09254ECB840047F859 /* AliasActivityArray.swift in Sources */,
 				C0D6A28823D0A6A500EF21B8 /* HowItWorksViewController.swift in Sources */,
 				C0D8C4B0246ADD26008BB8D2 /* BaseLeftMenuButtonTableViewController.swift in Sources */,
 				C0D6A29123D0AB6800EF21B8 /* FaqViewController.swift in Sources */,

@@ -8,7 +8,8 @@
 
 import Foundation
 
-final class AliasActivity: Arrayable {
+// TODO: use struct instead
+final class AliasActivity: Decodable {
     static var jsonRootKey = "activities"
 
     let action: Action
@@ -24,32 +25,23 @@ final class AliasActivity: Arrayable {
         return "\(preciseDateAndTime) (\(value) \(unit) ago)"
     }()
 
-    init(dictionary: [String: Any]) throws {
-        var actionString = dictionary["action"] as? String
-        if actionString == "blocked" {
-            actionString = "block"
-        }
+    // swiftlint:disable:next type_name
+    private enum Key: String, CodingKey {
+        case action = "action"
+        case reverseAlias = "reverse_alias"
+        case from = "from"
+        case to = "to"
+        case timestamp = "timestamp"
+    }
 
-        let action = Action(rawValue: actionString ?? "")
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
 
-        let reverseAlias = dictionary["reverse_alias"] as? String
-        let from = dictionary["from"] as? String
-        let to = dictionary["to"] as? String
-        let timestamp = dictionary["timestamp"] as? TimeInterval
-
-        if let action = action,
-           let reverseAlias = reverseAlias,
-           let from = from,
-           let to = to,
-           let timestamp = timestamp {
-            self.action = action
-            self.reverseAlias = reverseAlias
-            self.from = from
-            self.to = to
-            self.timestamp = timestamp
-        } else {
-            throw SLError.failedToParse(anyObject: Self.self)
-        }
+        self.action = try container.decode(Action.self, forKey: .action)
+        self.reverseAlias = try container.decode(String.self, forKey: .reverseAlias)
+        self.from = try container.decode(String.self, forKey: .from)
+        self.to = try container.decode(String.self, forKey: .to)
+        self.timestamp = try container.decode(TimeInterval.self, forKey: .timestamp)
     }
 }
 

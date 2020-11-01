@@ -180,8 +180,8 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let activities = try [AliasActivity](data: data)
-                        completion(.success(activities))
+                        let aliasActivityArray = try JSONDecoder().decode(AliasActivityArray.self, from: data)
+                        completion(.success(aliasActivityArray.activities))
                     } catch let slError as SLError {
                         completion(.failure(slError))
                     } catch {
