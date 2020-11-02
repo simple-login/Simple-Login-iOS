@@ -346,4 +346,26 @@ extension SLClientTests {
         XCTAssertEqual(storedOk?.value, true)
         XCTAssertNil(storedError)
     }
+
+    func testUpdateAliasNote() throws {
+        // given
+        let data = try XCTUnwrap(Data.fromJson(fileName: "Ok"))
+        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+
+        // when
+        var storedOk: Ok?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.updateAliasNote(apiKey: ApiKey(value: ""), aliasId: 2_441, note: nil) { result in
+            switch result {
+            case .success(let ok): storedOk = ok
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertEqual(storedOk?.value, true)
+        XCTAssertNil(storedError)
+    }
 }

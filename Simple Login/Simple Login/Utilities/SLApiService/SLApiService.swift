@@ -240,36 +240,6 @@ extension SLApiService {
         delete(apiKey: apiKey, requestUrlString: "\(baseUrl)/api/aliases/\(id)", completion: completion)
     }
 
-    func updateAliasNote(apiKey: ApiKey,
-                         id: Alias.Identifier,
-                         note: String?,
-                         completion: @escaping (Result<Any?, SLError>) -> Void) {
-        AF.request("\(baseUrl)/api/aliases/\(id)",
-                   method: .put,
-                   parameters: ["note": note as Any],
-                   encoding: JSONEncoding.default,
-                   headers: apiKey.toHeaders()).response { response in
-            switch response.result {
-            case .success:
-                guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(.unknownResponseStatusCode))
-                    return
-                }
-
-                switch statusCode {
-                case 200: completion(.success(nil))
-                case 401: completion(.failure(.invalidApiKey))
-                case 500: completion(.failure(.internalServerError))
-                case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                }
-
-            case .failure(let error):
-                completion(.failure(.alamofireError(error: error)))
-            }
-        }
-    }
-
     func getAlias(apiKey: ApiKey,
                   id: Alias.Identifier,
                   completion: @escaping (Result<Alias, SLError>) -> Void) {

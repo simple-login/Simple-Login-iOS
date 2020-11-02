@@ -48,6 +48,7 @@ enum SLEndpoint {
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
     case updateAliasMailboxes(baseUrl: URL, apiKey: ApiKey, aliasId: Int, mailboxIds: [Int])
+    case updateAliasNote(baseUrl: URL, apiKey: ApiKey, aliasId: Int, note: String?)
     case updateAliasName(baseUrl: URL, apiKey: ApiKey, aliasId: Int, name: String?)
     case userInfo(baseUrl: URL, apiKey: ApiKey)
 
@@ -63,6 +64,8 @@ enum SLEndpoint {
         case let .updateAliasMailboxes(_, _, aliasId, _):
             return "/api/aliases/\(aliasId)"
         case let .updateAliasName(_, _, aliasId, _):
+            return "/api/aliases/\(aliasId)"
+        case let .updateAliasNote(_, _, aliasId, _):
             return "/api/aliases/\(aliasId)"
         case .userInfo: return "/api/user_info"
         }
@@ -93,6 +96,9 @@ enum SLEndpoint {
 
         case let .updateAliasName(baseUrl, apiKey, aliasId, name):
             return updateAliasNameRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, name: name)
+
+        case let .updateAliasNote(baseUrl, apiKey, aliasId, note):
+            return updateAliasNoteRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, note: note)
 
         case let .userInfo(baseUrl, apiKey):
             return userInfoRequest(baseUrl: baseUrl, apiKey: apiKey)
@@ -186,6 +192,20 @@ extension SLEndpoint {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.put
         request.addJsonRequestBody(["name": name as Any])
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func updateAliasNoteRequest(baseUrl: URL,
+                                        apiKey: ApiKey,
+                                        aliasId: Int,
+                                        note: String?) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.put
+        request.addJsonRequestBody(["note": note as Any])
         request.addApiKeyToHeaders(apiKey)
 
         return request

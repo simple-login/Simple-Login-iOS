@@ -53,6 +53,18 @@ extension SLClient {
                                        name: name)
         makeCall(to: updateAliasNameEndpoint, expectedObjectType: Ok.self, completion: completion)
     }
+
+    func updateAliasNote(apiKey: ApiKey,
+                         aliasId: Int,
+                         note: String?,
+                         completion: @escaping (Result<Ok, SLError>) -> Void) {
+        let updateAliasNoteEndpoint =
+            SLEndpoint.updateAliasNote(baseUrl: baseUrl,
+                                       apiKey: apiKey,
+                                       aliasId: aliasId,
+                                       note: note)
+        makeCall(to: updateAliasNoteEndpoint, expectedObjectType: Ok.self, completion: completion)
+    }
 }
 
 // MARK: - Contact
