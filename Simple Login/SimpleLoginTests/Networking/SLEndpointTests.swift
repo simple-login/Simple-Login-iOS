@@ -38,7 +38,7 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(urlRequest.allHTTPHeaderFields?["Content-Type"], "application/json")
     }
 
-    func testCorrectlyGenerateLoginRequest() throws {
+    func testGenerateLoginRequest() throws {
         // given
         let expectedEmail = "john.doe@example.com"
         let expectedPassword =
@@ -68,7 +68,7 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(loginRequestHttpBodyDict?["device"] as? String, expectedDeviceName)
     }
 
-    func testCorrectlyGenerateUserInfoRequest() throws {
+    func testGenerateUserInfoRequest() throws {
         // given
         let apiKey = givenApiKey()
         let expectedUrl = baseUrl.append(path: "/api/user_info")
@@ -83,7 +83,7 @@ class SLEndpointTests: XCTestCase {
         assertProperlyAttachedApiKey(userInfoRequest, apiKey: apiKey)
     }
 
-    func testWithoutSearchTermCorrectlyGenerateAliasesRequest() throws {
+    func testWithoutSearchTermGenerateAliasesRequest() throws {
         // given
         let apiKey = givenApiKey()
         let page = 25
@@ -104,7 +104,7 @@ class SLEndpointTests: XCTestCase {
         XCTAssertNil(aliasesRequest.allHTTPHeaderFields?["Content-Type"])
     }
 
-    func testWithSearchTermCorrectlyGenerateAliasesRequest() throws {
+    func testWithSearchTermGenerateAliasesRequest() throws {
         // given
         let apiKey = givenApiKey()
         let page = 25
@@ -129,7 +129,7 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(aliasesRequest.httpBody, expectedHttpBody)
     }
 
-    func testCorrectlyGenerateAliasActivitiesRequest() throws {
+    func testGenerateAliasActivitiesRequest() throws {
         // given
         let apiKey = givenApiKey()
         let aliasId = 2_769
@@ -152,7 +152,7 @@ class SLEndpointTests: XCTestCase {
         assertProperlyAttachedApiKey(aliasActivitiesRequest, apiKey: apiKey)
     }
 
-    func testCorrectlyGenerateMailboxesRequest() throws {
+    func testGenerateMailboxesRequest() throws {
         // given
         let apiKey = givenApiKey()
 
@@ -168,7 +168,7 @@ class SLEndpointTests: XCTestCase {
         assertProperlyAttachedApiKey(mailboxesRequest, apiKey: apiKey)
     }
 
-    func testCorrectlyGenerateContactsRequest() throws {
+    func testGenerateContactsRequest() throws {
         // given
         let apiKey = givenApiKey()
         let aliasId = 572
@@ -191,7 +191,7 @@ class SLEndpointTests: XCTestCase {
         assertProperlyAttachedApiKey(contactsRequest, apiKey: apiKey)
     }
 
-    func testCorrectlyGenerateUpdateAliasMailboxesRequest() throws {
+    func testGenerateUpdateAliasMailboxesRequest() throws {
         // given
         let apiKey = givenApiKey()
         let aliasId = 244
@@ -216,7 +216,7 @@ class SLEndpointTests: XCTestCase {
         assertProperlyAttachedApiKey(updateAliasMailboxesRequest, apiKey: apiKey)
     }
 
-    func testCorrectlyGenerateUpdateAliasNameRequest() throws {
+    func testGenerateUpdateAliasNameRequest() throws {
         // given
         let apiKey = givenApiKey()
         let aliasId = 789
@@ -237,7 +237,7 @@ class SLEndpointTests: XCTestCase {
         assertProperlyAttachedApiKey(updateAliasNameRequest, apiKey: apiKey)
     }
 
-    func testCorrectlyGenerateUpdateAliasNoteRequest() throws {
+    func testGenerateUpdateAliasNoteRequest() throws {
         // given
         let apiKey = givenApiKey()
         let aliasId = 637
@@ -258,7 +258,7 @@ class SLEndpointTests: XCTestCase {
         assertProperlyAttachedApiKey(updateAliasNameRequest, apiKey: apiKey)
     }
 
-    func testCorrectlyGenerateRandomAliasRequest() throws {
+    func testGenerateRandomAliasRequest() throws {
         // given
         let apiKey = givenApiKey()
         let randomMode = RandomMode.word
@@ -274,5 +274,22 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(randomAliasRequest.url, expectedUrl)
         XCTAssertEqual(randomAliasRequest.httpMethod, HTTPMethod.post)
         assertProperlyAttachedApiKey(randomAliasRequest, apiKey: apiKey)
+    }
+
+    func testGenerateToggleAliasRequest() throws {
+        // given
+        let apiKey = givenApiKey()
+        let aliasId = 1_383
+
+        let expectedUrl = baseUrl.append(path: "/api/aliases/\(aliasId)/toggle")
+
+        // when
+        let toggleAliasRequest =
+            SLEndpoint.toggleAlias(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId).urlRequest
+
+        // then
+        XCTAssertEqual(toggleAliasRequest.url, expectedUrl)
+        XCTAssertEqual(toggleAliasRequest.httpMethod, HTTPMethod.post)
+        assertProperlyAttachedApiKey(toggleAliasRequest, apiKey: apiKey)
     }
 }

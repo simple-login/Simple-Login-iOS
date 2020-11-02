@@ -122,6 +122,8 @@
 		C06BFF742550510B00256DAC /* Ok.json in Resources */ = {isa = PBXBuildFile; fileRef = C06BFF732550510B00256DAC /* Ok.json */; };
 		C06BFF7F2550516400256DAC /* OkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BFF7E2550516400256DAC /* OkTests.swift */; };
 		C06BFF862550A31700256DAC /* RandomMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04007AF23EE1DFB005AD66B /* RandomMode.swift */; };
+		C06BFF8B2550A9C600256DAC /* Enabled.json in Resources */ = {isa = PBXBuildFile; fileRef = C06BFF8A2550A9C600256DAC /* Enabled.json */; };
+		C06BFF932550A9E100256DAC /* EnabledTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BFF922550A9E100256DAC /* EnabledTests.swift */; };
 		C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07245EF241E294B00074360 /* AliasSearchViewController.swift */; };
 		C072CC1F2438A35F00DC4915 /* Faq.plist in Resources */ = {isa = PBXBuildFile; fileRef = C072CC1E2438A35F00DC4915 /* Faq.plist */; };
 		C072CC212438E47800DC4915 /* InstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C072CC202438E47800DC4915 /* InstructionViewController.swift */; };
@@ -409,6 +411,8 @@
 		C06BFF6E255050CC00256DAC /* Ok.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ok.swift; sourceTree = "<group>"; };
 		C06BFF732550510B00256DAC /* Ok.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Ok.json; sourceTree = "<group>"; };
 		C06BFF7E2550516400256DAC /* OkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkTests.swift; sourceTree = "<group>"; };
+		C06BFF8A2550A9C600256DAC /* Enabled.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Enabled.json; sourceTree = "<group>"; };
+		C06BFF922550A9E100256DAC /* EnabledTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnabledTests.swift; sourceTree = "<group>"; };
 		C07245EF241E294B00074360 /* AliasSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasSearchViewController.swift; sourceTree = "<group>"; };
 		C072CC1E2438A35F00DC4915 /* Faq.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Faq.plist; sourceTree = "<group>"; };
 		C072CC202438E47800DC4915 /* InstructionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionViewController.swift; sourceTree = "<group>"; };
@@ -1434,6 +1438,7 @@
 				C013BB59254F351F004B7FE5 /* ContactArray.json */,
 				C0475C8A254E000B0018F081 /* ContactLite.json */,
 				C0EBF968254C503C002FF72C /* DummyData.json */,
+				C06BFF8A2550A9C600256DAC /* Enabled.json */,
 				C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */,
 				C044FC39254EF89C0047F859 /* Mailbox.json */,
 				C044FC46254EF9550047F859 /* MailboxArray.json */,
@@ -1453,6 +1458,7 @@
 				C013BB46254F16CD004B7FE5 /* ContactTests.swift */,
 				C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */,
 				C0475C7F254DFDEA0018F081 /* ContactLiteTests.swift */,
+				C06BFF922550A9E100256DAC /* EnabledTests.swift */,
 				C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */,
 				C013BB25254EF9B9004B7FE5 /* MailboxTests.swift */,
 				C013BB31254EFBF0004B7FE5 /* MailboxArrayTests.swift */,
@@ -1626,6 +1632,7 @@
 				C0475CA4254E01F90018F081 /* LatestActivity.json in Resources */,
 				C0475CD6254E13A20018F081 /* AliasArray.json in Resources */,
 				C0475CAE254E05C60018F081 /* Alias.json in Resources */,
+				C06BFF8B2550A9C600256DAC /* Enabled.json in Resources */,
 				C06BFF742550510B00256DAC /* Ok.json in Resources */,
 				C0EBF991254C77B8002FF72C /* UserInfo.json in Resources */,
 				C044FBFE254EC5A20047F859 /* AliasActivity.json in Resources */,
@@ -1837,6 +1844,7 @@
 				C0EBF98B254C7762002FF72C /* UserInfoTests.swift in Sources */,
 				C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */,
 				C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */,
+				C06BFF932550A9E100256DAC /* EnabledTests.swift in Sources */,
 				C044FC1F254ECE310047F859 /* AliasActivityArrayTests.swift in Sources */,
 				C013BB47254F16CD004B7FE5 /* ContactTests.swift in Sources */,
 				C0EBF983254C6F56002FF72C /* DecodableTestCase.swift in Sources */,

@@ -48,6 +48,7 @@ enum SLEndpoint {
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
     case randomAlias(baseUrl: URL, apiKey: ApiKey, randomMode: RandomMode)
+    case toggleAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
     case updateAliasMailboxes(baseUrl: URL, apiKey: ApiKey, aliasId: Int, mailboxIds: [Int])
     case updateAliasNote(baseUrl: URL, apiKey: ApiKey, aliasId: Int, note: String?)
     case updateAliasName(baseUrl: URL, apiKey: ApiKey, aliasId: Int, name: String?)
@@ -61,6 +62,7 @@ enum SLEndpoint {
         case .login: return "/api/auth/login"
         case .mailboxes: return "/api/mailboxes"
         case .randomAlias: return "/api/alias/random/new"
+        case .toggleAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)/toggle"
         case .updateAliasMailboxes(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .updateAliasName(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .updateAliasNote(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
@@ -87,6 +89,9 @@ enum SLEndpoint {
 
         case let .randomAlias(baseUrl, apiKey, randomMode):
             return randomAlias(baseUrl: baseUrl, apiKey: apiKey, randomMode: randomMode)
+
+        case let .toggleAlias(baseUrl, apiKey, aliasId):
+            return toggleAliasRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId)
 
         case let .updateAliasMailboxes(baseUrl, apiKey, aliasId, mailboxIds):
             return updateAliasMailboxesRequest(baseUrl: baseUrl,
@@ -172,6 +177,16 @@ extension SLEndpoint {
     private func randomAlias(baseUrl: URL, apiKey: ApiKey, randomMode: RandomMode) -> URLRequest {
         let queryItem = URLQueryItem(name: "mode", value: randomMode.rawValue)
         let url = baseUrl.append(path: path, queryItems: [queryItem])
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.post
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func toggleAliasRequest(baseUrl: URL, apiKey: ApiKey, aliasId: Int) -> URLRequest {
+        let url = baseUrl.append(path: path)
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.post

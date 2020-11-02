@@ -238,36 +238,38 @@ extension AliasViewController {
     private func toggle(alias: Alias, at indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.toggleAlias(apiKey: apiKey, aliasId: alias.id) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            MBProgressHUD.hide(for: self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success(let enabled):
-                alias.setEnabled(enabled.value)
+                switch result {
+                case .success(let enabled):
+                    alias.setEnabled(enabled.value)
 
-                self.tableView.performBatchUpdates({
-                    switch self.currentAliasType {
-                    case .all: return
+                    self.tableView.performBatchUpdates({
+                        switch self.currentAliasType {
+                        case .all: return
 
-                    case .active:
-                        self.activeAliases.removeAll(where: { $0 == alias })
-                        self.tableView.deleteRows(at: [indexPath], with: .fade)
+                        case .active:
+                            self.activeAliases.removeAll(where: { $0 == alias })
+                            self.tableView.deleteRows(at: [indexPath], with: .fade)
 
-                    case .inactive:
-                        self.inactiveAliases.removeAll(where: { $0 == alias })
-                        self.tableView.deleteRows(at: [indexPath], with: .fade)
-                    }
-                }, completion: { _ in
-                    self.refilterAliasArrays()
+                        case .inactive:
+                            self.inactiveAliases.removeAll(where: { $0 == alias })
+                            self.tableView.deleteRows(at: [indexPath], with: .fade)
+                        }
+                    }, completion: { _ in
+                        self.refilterAliasArrays()
+                        self.tableView.reloadData()
+                    })
+
+                case .failure(let error):
+                    Toast.displayError(error)
+                    // reload data to switch alias to initial state when request to server fails
                     self.tableView.reloadData()
-                })
-
-            case .failure(let error):
-                Toast.displayError(error)
-                // reload data to switch alias to initial state when request to server fails
-                self.tableView.reloadData()
+                }
             }
         }
     }

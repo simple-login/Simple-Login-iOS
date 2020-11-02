@@ -116,21 +116,23 @@ extension AliasSearchViewController {
     private func toggle(alias: Alias) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.toggleAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.toggleAlias(apiKey: apiKey, aliasId: alias.id) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            MBProgressHUD.hide(for: self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success(let enabled):
-                alias.setEnabled(enabled.value)
-                self.toggledAlias?(alias)
+                switch result {
+                case .success(let enabled):
+                    alias.setEnabled(enabled.value)
+                    self.toggledAlias?(alias)
 
-            case .failure(let error):
-                Toast.displayError(error)
+                case .failure(let error):
+                    Toast.displayError(error)
+                }
+
+                self.tableView.reloadData()
             }
-
-            self.tableView.reloadData()
         }
     }
 

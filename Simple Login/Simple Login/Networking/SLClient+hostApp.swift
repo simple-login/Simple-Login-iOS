@@ -37,6 +37,13 @@ extension SLClient {
         makeCall(to: randomAliasEndpoint, expectedObjectType: Alias.self, completion: completion)
     }
 
+    func toggleAlias(apiKey: ApiKey,
+                     aliasId: Int,
+                     completion: @escaping (Result<Enabled, SLError>) -> Void) {
+        let toggleAliasEndpoint = SLEndpoint.toggleAlias(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId)
+        makeCall(to: toggleAliasEndpoint, expectedObjectType: Enabled.self, completion: completion)
+    }
+
     func updateAliasMailboxes(apiKey: ApiKey,
                               aliasId: Int,
                               mailboxIds: [Int],
