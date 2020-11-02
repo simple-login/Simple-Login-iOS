@@ -205,18 +205,20 @@ extension AliasActivityViewController {
     private func updateName(_ name: String?) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.updateAliasName(apiKey: apiKey, id: alias.id, name: name) { [weak self] result in
-            guard let self = self else { return }
-            MBProgressHUD.hide(for: self.view, animated: true)
+        SLClient.shared.updateAliasName(apiKey: apiKey, aliasId: alias.id, name: name) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success:
-                self.alias.setName(name)
-                self.tableView.reloadData()
-                self.didUpdateAlias?(self.alias)
+                switch result {
+                case .success:
+                    self.alias.setName(name)
+                    self.tableView.reloadData()
+                    self.didUpdateAlias?(self.alias)
 
-            case .failure(let error):
-                Toast.displayError(error)
+                case .failure(let error):
+                    Toast.displayError(error)
+                }
             }
         }
     }

@@ -215,4 +215,25 @@ class SLEndpointTests: XCTestCase {
         assertProperlySetJsonContentType(updateAliasMailboxesRequest)
         assertProperlyAttachedApiKey(updateAliasMailboxesRequest, apiKey: apiKey)
     }
+
+    func testCorrectlyGenerateUpdateAliasNameRequest() throws {
+        // given
+        let apiKey = givenApiKey()
+        let aliasId = 789
+        let name = "John Doe"
+
+        let expectedHttpBody = try JSONSerialization.data(withJSONObject: ["name": name])
+        let expectedUrl = baseUrl.append(path: "/api/aliases/\(aliasId)")
+
+        // when
+        let updateAliasNameRequest =
+            SLEndpoint.updateAliasName(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, name: name).urlRequest
+
+        // then
+        XCTAssertEqual(updateAliasNameRequest.url, expectedUrl)
+        XCTAssertEqual(updateAliasNameRequest.httpMethod, HTTPMethod.put)
+        XCTAssertEqual(updateAliasNameRequest.httpBody, expectedHttpBody)
+        assertProperlySetJsonContentType(updateAliasNameRequest)
+        assertProperlyAttachedApiKey(updateAliasNameRequest, apiKey: apiKey)
+    }
 }

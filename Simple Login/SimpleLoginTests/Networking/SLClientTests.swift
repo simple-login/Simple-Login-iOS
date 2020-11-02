@@ -302,4 +302,48 @@ extension SLClientTests {
         XCTAssertNotNil(storedContactArray)
         XCTAssertNil(storedError)
     }
+
+    func testUpdateAliasMailboxes() throws {
+        // given
+        let data = try XCTUnwrap(Data.fromJson(fileName: "Ok"))
+        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+
+        // when
+        var storedOk: Ok?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.updateAliasMailboxes(apiKey: ApiKey(value: ""), aliasId: 332, mailboxIds: [12, 291]) { result in
+            switch result {
+            case .success(let ok): storedOk = ok
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertEqual(storedOk?.value, true)
+        XCTAssertNil(storedError)
+    }
+
+    func testUpdateAliasName() throws {
+        // given
+        let data = try XCTUnwrap(Data.fromJson(fileName: "Ok"))
+        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+
+        // when
+        var storedOk: Ok?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.updateAliasName(apiKey: ApiKey(value: ""), aliasId: 2_441, name: "") { result in
+            switch result {
+            case .success(let ok): storedOk = ok
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertEqual(storedOk?.value, true)
+        XCTAssertNil(storedError)
+    }
 }

@@ -306,36 +306,6 @@ extension SLApiService {
             }
         }
     }
-
-    func updateAliasName(apiKey: ApiKey,
-                         id: Alias.Identifier,
-                         name: String?,
-                         completion: @escaping (Result<Any?, SLError>) -> Void) {
-        AF.request("\(baseUrl)/api/aliases/\(id)",
-                   method: .put,
-                   parameters: ["name": name as Any],
-                   encoding: JSONEncoding.default,
-                   headers: apiKey.toHeaders()).response { response in
-            switch response.result {
-            case .success:
-                guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(.unknownResponseStatusCode))
-                    return
-                }
-
-                switch statusCode {
-                case 200: completion(.success(nil))
-                case 401: completion(.failure(.invalidApiKey))
-                case 500: completion(.failure(.internalServerError))
-                case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                }
-
-            case .failure(let error):
-                completion(.failure(.alamofireError(error: error)))
-            }
-        }
-    }
 }
 
 // MARK: - Contact

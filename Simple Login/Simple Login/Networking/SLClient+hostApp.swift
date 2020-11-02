@@ -41,6 +41,18 @@ extension SLClient {
                                             mailboxIds: mailboxIds)
         makeCall(to: updateAliasMailboxesEndpoint, expectedObjectType: Ok.self, completion: completion)
     }
+
+    func updateAliasName(apiKey: ApiKey,
+                         aliasId: Int,
+                         name: String?,
+                         completion: @escaping (Result<Ok, SLError>) -> Void) {
+        let updateAliasNameEndpoint =
+            SLEndpoint.updateAliasName(baseUrl: baseUrl,
+                                       apiKey: apiKey,
+                                       aliasId: aliasId,
+                                       name: name)
+        makeCall(to: updateAliasNameEndpoint, expectedObjectType: Ok.self, completion: completion)
+    }
 }
 
 // MARK: - Contact

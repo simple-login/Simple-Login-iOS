@@ -48,6 +48,7 @@ enum SLEndpoint {
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
     case updateAliasMailboxes(baseUrl: URL, apiKey: ApiKey, aliasId: Int, mailboxIds: [Int])
+    case updateAliasName(baseUrl: URL, apiKey: ApiKey, aliasId: Int, name: String?)
     case userInfo(baseUrl: URL, apiKey: ApiKey)
 
     var path: String {
@@ -60,6 +61,8 @@ enum SLEndpoint {
         case .login: return "/api/auth/login"
         case .mailboxes: return "/api/mailboxes"
         case let .updateAliasMailboxes(_, _, aliasId, _):
+            return "/api/aliases/\(aliasId)"
+        case let .updateAliasName(_, _, aliasId, _):
             return "/api/aliases/\(aliasId)"
         case .userInfo: return "/api/user_info"
         }
@@ -87,6 +90,9 @@ enum SLEndpoint {
                                                apiKey: apiKey,
                                                aliasId: aliasId,
                                                mailboxIds: mailboxIds)
+
+        case let .updateAliasName(baseUrl, apiKey, aliasId, name):
+            return updateAliasNameRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, name: name)
 
         case let .userInfo(baseUrl, apiKey):
             return userInfoRequest(baseUrl: baseUrl, apiKey: apiKey)
@@ -167,6 +173,20 @@ extension SLEndpoint {
         request.httpMethod = HTTPMethod.put
         request.addApiKeyToHeaders(apiKey)
         request.addJsonRequestBody(["mailbox_ids": mailboxIds])
+
+        return request
+    }
+
+    private func updateAliasNameRequest(baseUrl: URL,
+                                        apiKey: ApiKey,
+                                        aliasId: Int,
+                                        name: String?) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.put
+        request.addJsonRequestBody(["name": name as Any])
+        request.addApiKeyToHeaders(apiKey)
 
         return request
     }
