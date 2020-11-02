@@ -65,20 +65,22 @@ final class CreateContactViewController: BaseApiKeyViewController {
 
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.createContact(apiKey: apiKey, aliasId: alias.id, email: email) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.createContact(apiKey: apiKey, aliasId: alias.id, email: email) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            MBProgressHUD.hide(for: self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success:
-                Toast.displayShortly(message: "Created contact \(email)")
-                self.dismiss(animated: true) {
-                    self.didCreateContact?()
+                switch result {
+                case .success:
+                    Toast.displayShortly(message: "Created contact \(email)")
+                    self.dismiss(animated: true) {
+                        self.didCreateContact?()
+                    }
+
+                case .failure(let error):
+                    Toast.displayError(error)
                 }
-
-            case .failure(let error):
-                Toast.displayError(error)
             }
         }
     }

@@ -160,39 +160,6 @@ extension SLApiService {
 
 // MARK: - Contact
 extension SLApiService {
-    func createContact(apiKey: ApiKey,
-                       aliasId: Alias.Identifier,
-                       email: String,
-                       completion: @escaping (Result<Any?, SLError>) -> Void) {
-        let parameters = ["contact": email]
-
-        AF.request("\(baseUrl)/api/aliases/\(aliasId)/contacts",
-                   method: .post,
-                   parameters: parameters,
-                   encoding: JSONEncoding.default,
-                   headers: apiKey.toHeaders()).response { response in
-            switch response.result {
-            case .success:
-                guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(.unknownResponseStatusCode))
-                    return
-                }
-
-                switch statusCode {
-                case 201: completion(.success(nil))
-                case 401: completion(.failure(.invalidApiKey))
-                case 409: completion(.failure(.duplicatedContact))
-                case 500: completion(.failure(.internalServerError))
-                case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                }
-
-            case .failure(let error):
-                completion(.failure(.alamofireError(error: error)))
-            }
-        }
-    }
-
     func deleteContact(apiKey: ApiKey,
                        id: Contact.Identifier,
                        completion: @escaping (Result<Any?, SLError>) -> Void) {

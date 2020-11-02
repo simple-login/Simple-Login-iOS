@@ -325,4 +325,25 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(getAliasRequest.httpMethod, HTTPMethod.get)
         assertProperlyAttachedApiKey(getAliasRequest, apiKey: apiKey)
     }
+
+    func testGenerateCreateContactRequest() throws {
+        // given
+        let apiKey = givenApiKey()
+        let aliasId = 8_838
+        let email = "john.doe@example.com"
+
+        let expectedHttpBody = try JSONSerialization.data(withJSONObject: ["contact": email])
+        let expectedUrl = baseUrl.append(path: "/api/aliases/\(aliasId)/contacts")
+
+        // when
+        let createContactRequest =
+            SLEndpoint.createContact(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, email: email).urlRequest
+
+        // then
+        XCTAssertEqual(createContactRequest.url, expectedUrl)
+        XCTAssertEqual(createContactRequest.httpMethod, HTTPMethod.post)
+        XCTAssertEqual(createContactRequest.httpBody, expectedHttpBody)
+        assertProperlySetJsonContentType(createContactRequest)
+        assertProperlyAttachedApiKey(createContactRequest, apiKey: apiKey)
+    }
 }

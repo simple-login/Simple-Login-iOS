@@ -97,6 +97,14 @@ extension SLClient {
 
 // MARK: - Contact
 extension SLClient {
+    func createContact(apiKey: ApiKey,
+                       aliasId: Int,
+                       email: String,
+                       completion: @escaping (Result<Contact, SLError>) -> Void) {
+        let createContactEndpoint = SLEndpoint.createContact(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, email: email)
+        makeCall(to: createContactEndpoint, expectedObjectType: Contact.self, completion: completion)
+    }
+
     func fetchContacts(apiKey: ApiKey,
                        aliasId: Int,
                        page: Int,
