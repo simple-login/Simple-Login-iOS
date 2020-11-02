@@ -32,6 +32,14 @@ final class NetworkEngineMock: NetworkEngine {
         }
     }
 
+    static func givenEngineWithDataFromFile(_ fileName: String, statusCode: Int = 200) throws
+    -> NetworkEngineMock {
+        let data = try XCTUnwrap(Data.fromJson(fileName: fileName))
+        let engine = NetworkEngineMock(data: data, statusCode: statusCode, error: nil)
+
+        return engine
+    }
+
     static func givenEngineWithDummyDataAndStatusCode(_ statusCode: Int) throws
     -> (engine: NetworkEngine, error: SLError) {
         let data = try XCTUnwrap(Data.fromJson(fileName: "DummyData"))

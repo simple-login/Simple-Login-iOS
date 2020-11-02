@@ -102,8 +102,7 @@ extension SLClientTests {
 
     func testLoginSuccessWithStatusCode200() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "UserLogin"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("UserLogin")
 
         // when
         let result = try whenLoginWith(engine: engine)
@@ -115,8 +114,7 @@ extension SLClientTests {
 
     func testLoginFailureWithStatusCode200() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "UserLogin_MissingValue"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("UserLogin_MissingValue")
 
         // when
         let result = try whenLoginWith(engine: engine)
@@ -193,8 +191,7 @@ extension SLClientTests {
 extension SLClientTests {
     func testFetchUserInfo() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "UserInfo"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("UserInfo")
 
         // when
         var storedUserInfo: UserInfo?
@@ -215,8 +212,7 @@ extension SLClientTests {
 
     func testFetchAliases() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "AliasArray"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("AliasArray")
 
         // when
         var storedAliasArray: AliasArray?
@@ -237,8 +233,7 @@ extension SLClientTests {
 
     func testFetchAliasActivities() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "AliasActivityArray"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("AliasActivityArray")
 
         // when
         var storedAliasActivitesArray: AliasActivityArray?
@@ -259,8 +254,7 @@ extension SLClientTests {
 
     func testFetchMailboxes() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "MailboxArray"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("MailboxArray")
 
         // when
         var storedMailboxArray: MailboxArray?
@@ -281,8 +275,7 @@ extension SLClientTests {
 
     func testFetchContacts() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "ContactArray"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("ContactArray")
 
         // when
         var storedContactArray: ContactArray?
@@ -305,8 +298,7 @@ extension SLClientTests {
 
     func testUpdateAliasMailboxes() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "Ok"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Ok")
 
         // when
         var storedOk: Ok?
@@ -327,8 +319,7 @@ extension SLClientTests {
 
     func testUpdateAliasName() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "Ok"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Ok")
 
         // when
         var storedOk: Ok?
@@ -349,8 +340,7 @@ extension SLClientTests {
 
     func testUpdateAliasNote() throws {
         // given
-        let data = try XCTUnwrap(Data.fromJson(fileName: "Ok"))
-        let engine = NetworkEngineMock(data: data, statusCode: 200, error: nil)
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Ok")
 
         // when
         var storedOk: Ok?
@@ -366,6 +356,132 @@ extension SLClientTests {
 
         // then
         XCTAssertEqual(storedOk?.value, true)
+        XCTAssertNil(storedError)
+    }
+
+    func testRandomAlias() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Alias")
+
+        // when
+        var storedAlias: Alias?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.randomAlias(apiKey: ApiKey(value: ""), randomMode: .uuid) { result in
+            switch result {
+            case .success(let alias): storedAlias = alias
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedAlias)
+        XCTAssertNil(storedError)
+    }
+
+    func testToggleAlias() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Enabled")
+
+        // when
+        var storedEnabled: Enabled?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.toggleAlias(apiKey: ApiKey(value: ""), aliasId: 18) { result in
+            switch result {
+            case .success(let enabled): storedEnabled = enabled
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedEnabled)
+        XCTAssertNil(storedError)
+    }
+
+    func testDeleteAlias() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Deleted")
+
+        // when
+        var storedDeleted: Deleted?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.deleteAlias(apiKey: ApiKey(value: ""), aliasId: 233) { result in
+            switch result {
+            case .success(let deleted): storedDeleted = deleted
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedDeleted)
+        XCTAssertNil(storedError)
+    }
+
+    func testGetAlias() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Alias")
+
+        // when
+        var storedAlias: Alias?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.getAlias(apiKey: ApiKey(value: ""), aliasId: 553) { result in
+            switch result {
+            case .success(let alias): storedAlias = alias
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedAlias)
+        XCTAssertNil(storedError)
+    }
+
+    func testCreateContact() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Contact")
+
+        // when
+        var storedContact: Contact?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.createContact(apiKey: ApiKey(value: ""), aliasId: 299, email: "john.doe@example.com") { result in
+            switch result {
+            case .success(let contatc): storedContact = contatc
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedContact)
+        XCTAssertNil(storedError)
+    }
+
+    func testDeleteContact() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Deleted")
+
+        // when
+        var storedDeleted: Deleted?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.deleteContact(apiKey: ApiKey(value: ""), contactId: 12) { result in
+            switch result {
+            case .success(let deleted): storedDeleted = deleted
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedDeleted)
         XCTAssertNil(storedError)
     }
 }

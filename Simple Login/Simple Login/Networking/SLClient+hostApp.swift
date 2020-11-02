@@ -109,7 +109,8 @@ extension SLClient {
     func deleteContact(apiKey: ApiKey,
                        contactId: Int,
                        completion: @escaping (Result<Deleted, SLError>) -> Void) {
-        let deleteContactEndpoint = SLEndpoint.deleteContact(baseUrl: baseUrl, apiKey: apiKey, contactId: contactId)
+        let deleteContactEndpoint =
+            SLEndpoint.deleteContact(baseUrl: baseUrl, apiKey: apiKey, contactId: contactId)
         makeCall(to: deleteContactEndpoint, expectedObjectType: Deleted.self, completion: completion)
     }
 
