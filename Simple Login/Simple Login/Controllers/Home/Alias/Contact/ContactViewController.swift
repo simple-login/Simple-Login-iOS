@@ -140,22 +140,24 @@ final class ContactViewController: BaseApiKeyViewController {
     private func delete(contact: Contact, indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.deleteContact(apiKey: apiKey, id: contact.id) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.deleteContact(apiKey: apiKey, contactId: contact.id) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            MBProgressHUD.hide(for: self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success:
-                self.tableView.performBatchUpdates({
-                    self.contacts.removeAll { $0.id == contact.id }
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
-                }, completion: { _ in
-                    self.tableView.reloadData()
-                    Toast.displayShortly(message: "Deleted contact \"\(contact.email)\"")
-                })
+                switch result {
+                case .success:
+                    self.tableView.performBatchUpdates({
+                        self.contacts.removeAll { $0.id == contact.id }
+                        self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    }, completion: { _ in
+                        self.tableView.reloadData()
+                        Toast.displayShortly(message: "Deleted contact \"\(contact.email)\"")
+                    })
 
-            case .failure(let error): Toast.displayError(error)
+                case .failure(let error): Toast.displayError(error)
+                }
             }
         }
     }

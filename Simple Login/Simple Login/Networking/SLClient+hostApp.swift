@@ -101,8 +101,16 @@ extension SLClient {
                        aliasId: Int,
                        email: String,
                        completion: @escaping (Result<Contact, SLError>) -> Void) {
-        let createContactEndpoint = SLEndpoint.createContact(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, email: email)
+        let createContactEndpoint =
+            SLEndpoint.createContact(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, email: email)
         makeCall(to: createContactEndpoint, expectedObjectType: Contact.self, completion: completion)
+    }
+
+    func deleteContact(apiKey: ApiKey,
+                       contactId: Int,
+                       completion: @escaping (Result<Deleted, SLError>) -> Void) {
+        let deleteContactEndpoint = SLEndpoint.deleteContact(baseUrl: baseUrl, apiKey: apiKey, contactId: contactId)
+        makeCall(to: deleteContactEndpoint, expectedObjectType: Deleted.self, completion: completion)
     }
 
     func fetchContacts(apiKey: ApiKey,

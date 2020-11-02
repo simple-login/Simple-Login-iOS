@@ -158,15 +158,6 @@ extension SLApiService {
     }
 }
 
-// MARK: - Contact
-extension SLApiService {
-    func deleteContact(apiKey: ApiKey,
-                       id: Contact.Identifier,
-                       completion: @escaping (Result<Any?, SLError>) -> Void) {
-        delete(apiKey: apiKey, requestUrlString: "\(baseUrl)/api/contacts/\(id)", completion: completion)
-    }
-}
-
 // MARK: - IAP
 extension SLApiService {
     func processPayment(apiKey: ApiKey,

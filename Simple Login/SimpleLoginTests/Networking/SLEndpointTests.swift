@@ -346,4 +346,21 @@ class SLEndpointTests: XCTestCase {
         assertProperlySetJsonContentType(createContactRequest)
         assertProperlyAttachedApiKey(createContactRequest, apiKey: apiKey)
     }
+
+    func testGenerateDeleteContactRequest() throws {
+        // given
+        let apiKey = givenApiKey()
+        let contactId = 12
+
+        let expectedUrl = baseUrl.append(path: "/api/contacts/\(contactId)")
+
+        // when
+        let deleteContactRequest =
+            SLEndpoint.deleteContact(baseUrl: baseUrl, apiKey: apiKey, contactId: contactId).urlRequest
+
+        // then
+        XCTAssertEqual(deleteContactRequest.url, expectedUrl)
+        XCTAssertEqual(deleteContactRequest.httpMethod, HTTPMethod.delete)
+        assertProperlyAttachedApiKey(deleteContactRequest, apiKey: apiKey)
+    }
 }
