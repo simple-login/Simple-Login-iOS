@@ -158,46 +158,6 @@ extension SLApiService {
     }
 }
 
-// MARK: - Alias
-extension SLApiService {
-    func getAlias(apiKey: ApiKey,
-                  id: Alias.Identifier,
-                  completion: @escaping (Result<Alias, SLError>) -> Void) {
-        AF.request("\(baseUrl)/api/aliases/\(id)",
-                   method: .get,
-                   encoding: URLEncoding.default,
-                   headers: apiKey.toHeaders()).responseData { response in
-            switch response.result {
-            case .success(let data):
-                guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(.unknownResponseStatusCode))
-                    return
-                }
-
-                switch statusCode {
-                case 200:
-                    do {
-                        let alias = try JSONDecoder().decode(Alias.self, from: data)
-                        completion(.success(alias))
-                    } catch let slError as SLError {
-                        completion(.failure(slError))
-                    } catch {
-                        completion(.failure(.unknownError(error: error)))
-                    }
-
-                case 401: completion(.failure(.invalidApiKey))
-                case 500: completion(.failure(.internalServerError))
-                case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                }
-
-            case .failure(let error):
-                completion(.failure(.alamofireError(error: error)))
-            }
-        }
-    }
-}
-
 // MARK: - Contact
 extension SLApiService {
     func createContact(apiKey: ApiKey,

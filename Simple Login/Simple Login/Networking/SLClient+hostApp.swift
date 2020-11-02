@@ -37,6 +37,13 @@ extension SLClient {
         makeCall(to: aliasActivitiesEndpoint, expectedObjectType: AliasActivityArray.self, completion: completion)
     }
 
+    func getAlias(apiKey: ApiKey,
+                  aliasId: Int,
+                  completion: @escaping (Result<Alias, SLError>) -> Void) {
+        let getAliasEndpoint = SLEndpoint.getAlias(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId)
+        makeCall(to: getAliasEndpoint, expectedObjectType: Alias.self, completion: completion)
+    }
+
     func randomAlias(apiKey: ApiKey,
                      randomMode: RandomMode,
                      completion: @escaping (Result<Alias, SLError>) -> Void) {

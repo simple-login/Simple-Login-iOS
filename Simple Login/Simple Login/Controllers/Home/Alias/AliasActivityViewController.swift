@@ -119,17 +119,19 @@ final class AliasActivityViewController: BaseApiKeyViewController {
     }
 
     private func fetchAlias() {
-        SLApiService.shared.getAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.getAlias(apiKey: apiKey, aliasId: alias.id) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            switch result {
-            case .success(let alias):
-                self.alias = alias
-                self.didUpdateAlias?(alias)
-                self.tableView.reloadData()
+                switch result {
+                case .success(let alias):
+                    self.alias = alias
+                    self.didUpdateAlias?(alias)
+                    self.tableView.reloadData()
 
-            case .failure(let error):
-                Toast.displayError(error)
+                case .failure(let error):
+                    Toast.displayError(error)
+                }
             }
         }
     }
