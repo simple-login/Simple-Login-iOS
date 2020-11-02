@@ -8,16 +8,16 @@
 
 import Foundation
 
-struct Deleted {
+struct Deleted: Decodable {
     let value: Bool
 
-    init(data: Data) throws {
-        // swiftlint:disable:next line_length
-        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
-            let deleted = jsonDictionary["deleted"] as? Bool else {
-                throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
-        }
+    // swiftlint:disable:next type_name
+    private enum Key: String, CodingKey {
+        case value = "deleted"
+    }
 
-        self.value = deleted
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        self.value = try container.decode(Bool.self, forKey: .value)
     }
 }

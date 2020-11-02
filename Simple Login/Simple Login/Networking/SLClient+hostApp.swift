@@ -8,6 +8,13 @@
 
 // MARK: - Alias
 extension SLClient {
+    func deleteAlias(apiKey: ApiKey,
+                     aliasId: Int,
+                     completion: @escaping (Result<Deleted, SLError>) -> Void) {
+        let deleteAliasEndpoint = SLEndpoint.deleteAlias(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId)
+        makeCall(to: deleteAliasEndpoint, expectedObjectType: Deleted.self, completion: completion)
+    }
+
     func fetchAliases(apiKey: ApiKey,
                       page: Int,
                       searchTerm: String? = nil,

@@ -292,4 +292,21 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(toggleAliasRequest.httpMethod, HTTPMethod.post)
         assertProperlyAttachedApiKey(toggleAliasRequest, apiKey: apiKey)
     }
+
+    func testGenerateDeleteAliasRequest() throws {
+        // given
+        let apiKey = givenApiKey()
+        let aliasId = 879
+
+        let expectedUrl = baseUrl.append(path: "/api/aliases/\(aliasId)")
+
+        // when
+        let deleteAliasRequest =
+            SLEndpoint.deleteAlias(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId).urlRequest
+
+        // then
+        XCTAssertEqual(deleteAliasRequest.url, expectedUrl)
+        XCTAssertEqual(deleteAliasRequest.httpMethod, HTTPMethod.delete)
+        assertProperlyAttachedApiKey(deleteAliasRequest, apiKey: apiKey)
+    }
 }

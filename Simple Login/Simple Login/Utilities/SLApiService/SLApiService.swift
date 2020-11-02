@@ -160,12 +160,6 @@ extension SLApiService {
 
 // MARK: - Alias
 extension SLApiService {
-    func deleteAlias(apiKey: ApiKey,
-                     id: Alias.Identifier,
-                     completion: @escaping (Result<Any?, SLError>) -> Void) {
-        delete(apiKey: apiKey, requestUrlString: "\(baseUrl)/api/aliases/\(id)", completion: completion)
-    }
-
     func getAlias(apiKey: ApiKey,
                   id: Alias.Identifier,
                   completion: @escaping (Result<Alias, SLError>) -> Void) {
@@ -384,7 +378,7 @@ extension SLApiService {
                 switch statusCode {
                 case 200:
                     do {
-                        let deleted = try Deleted(data: data)
+                        let deleted = try JSONDecoder().decode(Deleted.self, from: data)
                         deleted.value ? completion(.success(nil)) :
                             completion(.failure(.failedToDelete(anyObject: Alias.self)))
                     } catch let slError as SLError {

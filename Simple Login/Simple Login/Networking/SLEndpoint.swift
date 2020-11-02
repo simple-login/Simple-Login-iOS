@@ -45,6 +45,7 @@ enum SLEndpoint {
     case aliases(baseUrl: URL, apiKey: ApiKey, page: Int, searchTerm: String?)
     case aliasActivities(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
     case contacts(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
+    case deleteAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
     case randomAlias(baseUrl: URL, apiKey: ApiKey, randomMode: RandomMode)
@@ -59,6 +60,7 @@ enum SLEndpoint {
         case .aliases: return "/api/v2/aliases"
         case .aliasActivities(_, _, let aliasId, _): return "/api/aliases/\(aliasId)/activities"
         case .contacts(_, _, let aliasId, _): return "/api/aliases/\(aliasId)/contacts"
+        case .deleteAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)"
         case .login: return "/api/auth/login"
         case .mailboxes: return "/api/mailboxes"
         case .randomAlias: return "/api/alias/random/new"
@@ -80,6 +82,9 @@ enum SLEndpoint {
 
         case let .contacts(baseUrl, apiKey, aliasId, page):
             return contactsRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, page: page)
+
+        case let .deleteAlias(baseUrl, apiKey, _):
+            return deleteRequest(baseUrl: baseUrl, apiKey: apiKey)
 
         case let .login(baseUrl, email, password, deviceName):
             return loginRequest(baseUrl: baseUrl, email: email, password: password, deviceName: deviceName)
@@ -147,6 +152,16 @@ extension SLEndpoint {
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func deleteRequest(baseUrl: URL, apiKey: ApiKey) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.delete
         request.addApiKeyToHeaders(apiKey)
 
         return request

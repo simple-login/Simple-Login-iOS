@@ -157,24 +157,26 @@ extension AliasSearchViewController {
     private func delete(alias: Alias, at indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.deleteAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
-            guard let self = self else { return }
-            MBProgressHUD.hide(for: self.view, animated: true)
+        SLClient.shared.deleteAlias(apiKey: apiKey, aliasId: alias.id) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success:
-                self.tableView.performBatchUpdates({
-                    self.aliases.removeAll(where: { $0 == alias })
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
-                }, completion: { _ in
-                    self.tableView.reloadData()
-                    self.noAlias = self.aliases.isEmpty
-                    self.deletedAlias?(alias)
-                    Toast.displayShortly(message: "Deleted alias \"\(alias.email)\"")
-                })
+                switch result {
+                case .success:
+                    self.tableView.performBatchUpdates({
+                        self.aliases.removeAll(where: { $0 == alias })
+                        self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    }, completion: { _ in
+                        self.tableView.reloadData()
+                        self.noAlias = self.aliases.isEmpty
+                        self.deletedAlias?(alias)
+                        Toast.displayShortly(message: "Deleted alias \"\(alias.email)\"")
+                    })
 
-            case .failure(let error):
-                Toast.displayError(error)
+                case .failure(let error):
+                    Toast.displayError(error)
+                }
             }
         }
     }

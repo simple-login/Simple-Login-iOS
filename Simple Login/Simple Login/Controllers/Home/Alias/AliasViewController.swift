@@ -298,35 +298,37 @@ extension AliasViewController {
     private func delete(alias: Alias, at indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.deleteAlias(apiKey: apiKey, id: alias.id) { [weak self] result in
-            guard let self = self else { return }
-            MBProgressHUD.hide(for: self.view, animated: true)
+        SLClient.shared.deleteAlias(apiKey: apiKey, aliasId: alias.id) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success:
-                self.tableView.performBatchUpdates({
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                switch result {
+                case .success:
+                    self.tableView.performBatchUpdates({
+                        self.tableView.deleteRows(at: [indexPath], with: .fade)
 
-                    switch self.currentAliasType {
-                    case .all:
-                        self.aliases.removeAll(where: { $0 == alias })
-                        self.refilterAliasArrays()
+                        switch self.currentAliasType {
+                        case .all:
+                            self.aliases.removeAll(where: { $0 == alias })
+                            self.refilterAliasArrays()
 
-                    case .active:
-                        self.activeAliases.removeAll(where: { $0 == alias })
-                        self.aliases.removeAll(where: { $0 == alias })
+                        case .active:
+                            self.activeAliases.removeAll(where: { $0 == alias })
+                            self.aliases.removeAll(where: { $0 == alias })
 
-                    case .inactive:
-                        self.inactiveAliases.removeAll(where: { $0 == alias })
-                        self.aliases.removeAll(where: { $0 == alias })
-                    }
-                }, completion: { _ in
-                    self.tableView.reloadData()
-                    self.noAlias = self.aliases.isEmpty
-                    Toast.displayShortly(message: "Deleted alias \"\(alias.email)\"")
-                })
+                        case .inactive:
+                            self.inactiveAliases.removeAll(where: { $0 == alias })
+                            self.aliases.removeAll(where: { $0 == alias })
+                        }
+                    }, completion: { _ in
+                        self.tableView.reloadData()
+                        self.noAlias = self.aliases.isEmpty
+                        Toast.displayShortly(message: "Deleted alias \"\(alias.email)\"")
+                    })
 
-            case .failure(let error): Toast.displayError(error)
+                case .failure(let error): Toast.displayError(error)
+                }
             }
         }
     }
