@@ -6,6 +6,7 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
+// MARK: - Alias
 extension SLClient {
     func fetchAliases(apiKey: ApiKey,
                       page: Int,
@@ -28,7 +29,10 @@ extension SLClient {
                                                                  page: page)
         makeCall(to: aliasActivitiesEndpoint, expectedObjectType: AliasActivityArray.self, completion: completion)
     }
+}
 
+// MARK: - Contact
+extension SLClient {
     func fetchContacts(apiKey: ApiKey,
                        aliasId: Int,
                        page: Int,
@@ -39,7 +43,10 @@ extension SLClient {
                                                    page: page)
         makeCall(to: contactsEndpoint, expectedObjectType: ContactArray.self, completion: completion)
     }
+}
 
+// MARK: - Login
+extension SLClient {
     func login(email: String,
                password: String,
                deviceName: String,
