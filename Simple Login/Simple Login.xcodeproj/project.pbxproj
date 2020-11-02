@@ -118,6 +118,9 @@
 		C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */; };
 		C06BD31D23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */; };
 		C06BD31F23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */; };
+		C06BFF6F255050CC00256DAC /* Ok.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BFF6E255050CC00256DAC /* Ok.swift */; };
+		C06BFF742550510B00256DAC /* Ok.json in Resources */ = {isa = PBXBuildFile; fileRef = C06BFF732550510B00256DAC /* Ok.json */; };
+		C06BFF7F2550516400256DAC /* OkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BFF7E2550516400256DAC /* OkTests.swift */; };
 		C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07245EF241E294B00074360 /* AliasSearchViewController.swift */; };
 		C072CC1F2438A35F00DC4915 /* Faq.plist in Resources */ = {isa = PBXBuildFile; fileRef = C072CC1E2438A35F00DC4915 /* Faq.plist */; };
 		C072CC212438E47800DC4915 /* InstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C072CC202438E47800DC4915 /* InstructionViewController.swift */; };
@@ -402,6 +405,9 @@
 		C06BD31923D0F94D0056A9B3 /* MfaTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MfaTableViewCell.xib; sourceTree = "<group>"; };
 		C06BD31C23D0FC0E0056A9B3 /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
 		C06BD31E23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePasswordTableViewCell.xib; sourceTree = "<group>"; };
+		C06BFF6E255050CC00256DAC /* Ok.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ok.swift; sourceTree = "<group>"; };
+		C06BFF732550510B00256DAC /* Ok.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Ok.json; sourceTree = "<group>"; };
+		C06BFF7E2550516400256DAC /* OkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkTests.swift; sourceTree = "<group>"; };
 		C07245EF241E294B00074360 /* AliasSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasSearchViewController.swift; sourceTree = "<group>"; };
 		C072CC1E2438A35F00DC4915 /* Faq.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Faq.plist; sourceTree = "<group>"; };
 		C072CC202438E47800DC4915 /* InstructionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionViewController.swift; sourceTree = "<group>"; };
@@ -1137,6 +1143,7 @@
 				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
 				C07F346324802DA900360BA3 /* Mailbox.swift */,
 				C044FC3E254EF92F0047F859 /* MailboxArray.swift */,
+				C06BFF6E255050CC00256DAC /* Ok.swift */,
 				C04007AF23EE1DFB005AD66B /* RandomMode.swift */,
 				C05049BB23CE016600AEF20B /* SLColor.swift */,
 				C0B1DE3423C8AC8A003EED3B /* SLError.swift */,
@@ -1429,6 +1436,7 @@
 				C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */,
 				C044FC39254EF89C0047F859 /* Mailbox.json */,
 				C044FC46254EF9550047F859 /* MailboxArray.json */,
+				C06BFF732550510B00256DAC /* Ok.json */,
 				C0EBF990254C77B8002FF72C /* UserInfo.json */,
 				C03AE3A7254B55D000C798EE /* UserLogin.json */,
 				C03AE3AF254B55DF00C798EE /* UserLogin_MissingValue.json */,
@@ -1447,6 +1455,7 @@
 				C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */,
 				C013BB25254EF9B9004B7FE5 /* MailboxTests.swift */,
 				C013BB31254EFBF0004B7FE5 /* MailboxArrayTests.swift */,
+				C06BFF7E2550516400256DAC /* OkTests.swift */,
 				C0EBF98A254C7762002FF72C /* UserInfoTests.swift */,
 				C0EBF979254C6D62002FF72C /* UserLoginTests.swift */,
 			);
@@ -1616,6 +1625,7 @@
 				C0475CA4254E01F90018F081 /* LatestActivity.json in Resources */,
 				C0475CD6254E13A20018F081 /* AliasArray.json in Resources */,
 				C0475CAE254E05C60018F081 /* Alias.json in Resources */,
+				C06BFF742550510B00256DAC /* Ok.json in Resources */,
 				C0EBF991254C77B8002FF72C /* UserInfo.json in Resources */,
 				C044FBFE254EC5A20047F859 /* AliasActivity.json in Resources */,
 			);
@@ -1829,6 +1839,7 @@
 				C044FC1F254ECE310047F859 /* AliasActivityArrayTests.swift in Sources */,
 				C013BB47254F16CD004B7FE5 /* ContactTests.swift in Sources */,
 				C0EBF983254C6F56002FF72C /* DecodableTestCase.swift in Sources */,
+				C06BFF7F2550516400256DAC /* OkTests.swift in Sources */,
 				C013BB32254EFBF0004B7FE5 /* MailboxArrayTests.swift in Sources */,
 				C044FBF9254EC4A40047F859 /* AliasActivityTests.swift in Sources */,
 			);
@@ -1922,6 +1933,7 @@
 				C09ABE1023D3B8B200D5B731 /* CustomDomainTableViewCell.swift in Sources */,
 				C0D8C4AA246ADC62008BB8D2 /* BaseApiKeyLeftMenuButtonViewController.swift in Sources */,
 				C06BD31823D0F9330056A9B3 /* MfaTableViewCell.swift in Sources */,
+				C06BFF6F255050CC00256DAC /* Ok.swift in Sources */,
 				C0121C99244B48D20082F08A /* IapProduct.swift in Sources */,
 				C04DA67A24227F8900130095 /* AliasSearchNavigationController.swift in Sources */,
 				C0B1DE3F23C8BC28003EED3B /* LeftMenuViewController.swift in Sources */,

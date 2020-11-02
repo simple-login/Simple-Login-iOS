@@ -40,28 +40,32 @@ class SLEndpointTests: XCTestCase {
 
     func testCorrectlyGenerateLoginRequest() throws {
         // given
-        let email = "john.doe@example.com"
-        let password = "johndoe"
-        let deviceName = "iphone"
-
-        let expectedHttpBody = try JSONEncoder().encode(["email": email,
-                                                         "password": password,
-                                                         "device": deviceName])
+        let expectedEmail = "john.doe@example.com"
+        let expectedPassword =
+            // swiftlint:disable:next line_length
+            #"<[y9G'%8Z]rc}.}g/9-u(J'~v.#"["`M2N}"-@o;Rzz;F`[-}\b^sS9U/:H+nJzVe\nj6VG/F\u4"qJH'g$2d)6<3yH+%hrJ}nzL\cUc$D:MSTnNRx!-~jm`~=ZSpoc_"#
+        let expectedDeviceName = "iphone"
 
         let expectedUrl = baseUrl.append(path: "/api/auth/login")
 
         // when
-        let loginEndpoint = SLEndpoint.login(baseUrl: baseUrl,
-                                             email: email,
-                                             password: password,
-                                             deviceName: deviceName)
-        let loginRequest = try XCTUnwrap(loginEndpoint.urlRequest)
+        let loginRequest = SLEndpoint.login(baseUrl: baseUrl,
+                                            email: expectedEmail,
+                                            password: expectedPassword,
+                                            deviceName: expectedDeviceName).urlRequest
+
+        let loginRequestHttpBody = try XCTUnwrap(loginRequest.httpBody)
+        let loginRequestHttpBodyDict =
+            try JSONSerialization.jsonObject(with: loginRequestHttpBody) as? [String: Any]
 
         // then
         XCTAssertEqual(loginRequest.url, expectedUrl)
         XCTAssertEqual(loginRequest.httpMethod, HTTPMethod.post)
+
         assertProperlySetJsonContentType(loginRequest)
-        XCTAssertEqual(loginRequest.httpBody, expectedHttpBody)
+        XCTAssertEqual(loginRequestHttpBodyDict?["email"] as? String, expectedEmail)
+        XCTAssertEqual(loginRequestHttpBodyDict?["password"] as? String, expectedPassword)
+        XCTAssertEqual(loginRequestHttpBodyDict?["device"] as? String, expectedDeviceName)
     }
 
     func testCorrectlyGenerateUserInfoRequest() throws {
@@ -70,8 +74,8 @@ class SLEndpointTests: XCTestCase {
         let expectedUrl = baseUrl.append(path: "/api/user_info")
 
         // when
-        let userInfoEndpoint = SLEndpoint.userInfo(baseUrl: baseUrl, apiKey: apiKey)
-        let userInfoRequest = try XCTUnwrap(userInfoEndpoint.urlRequest)
+        let userInfoRequest = SLEndpoint.userInfo(baseUrl: baseUrl,
+                                                  apiKey: apiKey).urlRequest
 
         // then
         XCTAssertEqual(userInfoRequest.url, expectedUrl)
@@ -88,8 +92,10 @@ class SLEndpointTests: XCTestCase {
                                          queryItems: [queryItem])
 
         // when
-        let aliasesEndpoint = SLEndpoint.aliases(baseUrl: baseUrl, apiKey: apiKey, page: page, searchTerm: nil)
-        let aliasesRequest = try XCTUnwrap(aliasesEndpoint.urlRequest)
+        let aliasesRequest = SLEndpoint.aliases(baseUrl: baseUrl,
+                                                apiKey: apiKey,
+                                                page: page,
+                                                searchTerm: nil).urlRequest
 
         // then
         XCTAssertEqual(aliasesRequest.url, expectedUrl)
@@ -110,11 +116,10 @@ class SLEndpointTests: XCTestCase {
                                          queryItems: [queryItem])
 
         // when
-        let aliasesEndpoint = SLEndpoint.aliases(baseUrl: baseUrl,
-                                                 apiKey: apiKey,
-                                                 page: page,
-                                                 searchTerm: searchTerm)
-        let aliasesRequest = try XCTUnwrap(aliasesEndpoint.urlRequest)
+        let aliasesRequest = SLEndpoint.aliases(baseUrl: baseUrl,
+                                                apiKey: apiKey,
+                                                page: page,
+                                                searchTerm: searchTerm).urlRequest
 
         // then
         XCTAssertEqual(aliasesRequest.url, expectedUrl)
@@ -136,11 +141,10 @@ class SLEndpointTests: XCTestCase {
                            queryItems: [queryItem])
 
         // when
-        let aliasAtivitiesEndpoint = SLEndpoint.aliasActivities(baseUrl: baseUrl,
+        let aliasActivitiesRequest = SLEndpoint.aliasActivities(baseUrl: baseUrl,
                                                                 apiKey: apiKey,
                                                                 aliasId: aliasId,
-                                                                page: page)
-        let aliasActivitiesRequest = try XCTUnwrap(aliasAtivitiesEndpoint.urlRequest)
+                                                                page: page).urlRequest
 
         // then
         XCTAssertEqual(aliasActivitiesRequest.url, expectedUrl)
@@ -155,8 +159,8 @@ class SLEndpointTests: XCTestCase {
         let expectedUrl = baseUrl.append(path: "/api/mailboxes")
 
         // when
-        let mailboxesEndpoint = SLEndpoint.mailboxes(baseUrl: baseUrl, apiKey: apiKey)
-        let mailboxesRequest = try XCTUnwrap(mailboxesEndpoint.urlRequest)
+        let mailboxesRequest = SLEndpoint.mailboxes(baseUrl: baseUrl,
+                                                    apiKey: apiKey).urlRequest
 
         // then
         XCTAssertEqual(mailboxesRequest.url, expectedUrl)
@@ -176,12 +180,39 @@ class SLEndpointTests: XCTestCase {
                            queryItems: [queryItem])
 
         // when
-        let contactsEndpoint = SLEndpoint.contacts(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, page: page)
-        let contactsRequest = try XCTUnwrap(contactsEndpoint.urlRequest)
+        let contactsRequest = SLEndpoint.contacts(baseUrl: baseUrl,
+                                                  apiKey: apiKey,
+                                                  aliasId: aliasId,
+                                                  page: page).urlRequest
 
         // then
         XCTAssertEqual(contactsRequest.url, expectedUrl)
         XCTAssertEqual(contactsRequest.httpMethod, HTTPMethod.get)
         assertProperlyAttachedApiKey(contactsRequest, apiKey: apiKey)
+    }
+
+    func testCorrectlyGenerateUpdateAliasMailboxesRequest() throws {
+        // given
+        let apiKey = givenApiKey()
+        let aliasId = 244
+
+        let mailboxIds = [123, 4_219, 12]
+        let expectedHttpBody = try JSONSerialization.data(withJSONObject: ["mailbox_ids": mailboxIds])
+
+        let expectedUrl = baseUrl.append(path: "/api/aliases/\(aliasId)")
+
+        // when
+        let updateAliasMailboxesRequest =
+            SLEndpoint.updateAliasMailboxes(baseUrl: baseUrl,
+                                            apiKey: apiKey,
+                                            aliasId: aliasId,
+                                            mailboxIds: mailboxIds).urlRequest
+
+        // then
+        XCTAssertEqual(updateAliasMailboxesRequest.url, expectedUrl)
+        XCTAssertEqual(updateAliasMailboxesRequest.httpMethod, HTTPMethod.put)
+        XCTAssertEqual(updateAliasMailboxesRequest.httpBody, expectedHttpBody)
+        assertProperlySetJsonContentType(updateAliasMailboxesRequest)
+        assertProperlyAttachedApiKey(updateAliasMailboxesRequest, apiKey: apiKey)
     }
 }

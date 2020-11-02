@@ -16,7 +16,8 @@ extension URL {
         components.path = path
         components.queryItems = queryItems
 
-        // Safely force unwrap because constructing a new url based on another url's elements (scheme, host) always succeed
+        // Safely force unwrap because constructing a new url
+        // based on another url's elements (scheme, host) always succeed
         // swiftlint:disable:next force_unwrapping
         return components.url!
     }
@@ -27,8 +28,8 @@ extension URLRequest {
         addValue(apiKey.value, forHTTPHeaderField: "Authentication")
     }
 
-    mutating func addJsonRequestBody(_ dict: [String: String]) {
-        httpBody = try? JSONEncoder().encode(dict)
+    mutating func addJsonRequestBody(_ dict: [String: Any]) {
+        httpBody = try? JSONSerialization.data(withJSONObject: dict)
         addValue("application/json", forHTTPHeaderField: "Content-Type")
     }
 }
@@ -46,6 +47,7 @@ enum SLEndpoint {
     case contacts(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
+    case updateAliasMailboxes(baseUrl: URL, apiKey: ApiKey, aliasId: Int, mailboxIds: [Int])
     case userInfo(baseUrl: URL, apiKey: ApiKey)
 
     var path: String {
@@ -57,6 +59,8 @@ enum SLEndpoint {
             return "/api/aliases/\(aliasId)/contacts"
         case .login: return "/api/auth/login"
         case .mailboxes: return "/api/mailboxes"
+        case let .updateAliasMailboxes(_, _, aliasId, _):
+            return "/api/aliases/\(aliasId)"
         case .userInfo: return "/api/user_info"
         }
     }
@@ -77,6 +81,12 @@ enum SLEndpoint {
 
         case let .mailboxes(baseUrl, apiKey):
             return mailboxesRequest(baseUrl: baseUrl, apiKey: apiKey)
+
+        case let .updateAliasMailboxes(baseUrl, apiKey, aliasId, mailboxIds):
+            return updateAliasMailboxesRequest(baseUrl: baseUrl,
+                                               apiKey: apiKey,
+                                               aliasId: aliasId,
+                                               mailboxIds: mailboxIds)
 
         case let .userInfo(baseUrl, apiKey):
             return userInfoRequest(baseUrl: baseUrl, apiKey: apiKey)
@@ -143,6 +153,20 @@ extension SLEndpoint {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get
         request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func updateAliasMailboxesRequest(baseUrl: URL,
+                                             apiKey: ApiKey,
+                                             aliasId: Int,
+                                             mailboxIds: [Int]) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.put
+        request.addApiKeyToHeaders(apiKey)
+        request.addJsonRequestBody(["mailbox_ids": mailboxIds])
 
         return request
     }

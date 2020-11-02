@@ -152,21 +152,22 @@ extension AliasActivityViewController {
     private func updateMailboxes(_ mailboxes: [AliasMailbox]) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.updateAliasMailboxes(
-            apiKey: apiKey,
-            id: alias.id,
-            mailboxIds: mailboxes.map { $0.id }) { [weak self] result in
-            guard let self = self else { return }
-            MBProgressHUD.hide(for: self.view, animated: true)
+        SLClient.shared.updateAliasMailboxes(apiKey: apiKey,
+                                             aliasId: alias.id,
+                                             mailboxIds: mailboxes.map { $0.id }) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success:
-                self.alias.setMailboxes(mailboxes)
-                self.tableView.reloadData()
-                self.didUpdateAlias?(self.alias)
+                switch result {
+                case .success:
+                    self.alias.setMailboxes(mailboxes)
+                    self.tableView.reloadData()
+                    self.didUpdateAlias?(self.alias)
 
-            case .failure(let error):
-                Toast.displayError(error)
+                case .failure(let error):
+                    Toast.displayError(error)
+                }
             }
         }
     }
