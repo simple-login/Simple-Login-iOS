@@ -257,4 +257,22 @@ class SLEndpointTests: XCTestCase {
         assertProperlySetJsonContentType(updateAliasNameRequest)
         assertProperlyAttachedApiKey(updateAliasNameRequest, apiKey: apiKey)
     }
+
+    func testCorrectlyGenerateRandomAliasRequest() throws {
+        // given
+        let apiKey = givenApiKey()
+        let randomMode = RandomMode.word
+
+        let queryItem = URLQueryItem(name: "mode", value: randomMode.rawValue)
+        let expectedUrl = baseUrl.append(path: "/api/alias/random/new", queryItems: [queryItem])
+
+        // when
+        let randomAliasRequest =
+            SLEndpoint.randomAlias(baseUrl: baseUrl, apiKey: apiKey, randomMode: randomMode).urlRequest
+
+        // then
+        XCTAssertEqual(randomAliasRequest.url, expectedUrl)
+        XCTAssertEqual(randomAliasRequest.httpMethod, HTTPMethod.post)
+        assertProperlyAttachedApiKey(randomAliasRequest, apiKey: apiKey)
+    }
 }

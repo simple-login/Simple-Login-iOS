@@ -47,6 +47,7 @@ enum SLEndpoint {
     case contacts(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
+    case randomAlias(baseUrl: URL, apiKey: ApiKey, randomMode: RandomMode)
     case updateAliasMailboxes(baseUrl: URL, apiKey: ApiKey, aliasId: Int, mailboxIds: [Int])
     case updateAliasNote(baseUrl: URL, apiKey: ApiKey, aliasId: Int, note: String?)
     case updateAliasName(baseUrl: URL, apiKey: ApiKey, aliasId: Int, name: String?)
@@ -55,18 +56,14 @@ enum SLEndpoint {
     var path: String {
         switch self {
         case .aliases: return "/api/v2/aliases"
-        case let .aliasActivities(_, _, aliasId, _):
-            return "/api/aliases/\(aliasId)/activities"
-        case let .contacts(_, _, aliasId, _):
-            return "/api/aliases/\(aliasId)/contacts"
+        case .aliasActivities(_, _, let aliasId, _): return "/api/aliases/\(aliasId)/activities"
+        case .contacts(_, _, let aliasId, _): return "/api/aliases/\(aliasId)/contacts"
         case .login: return "/api/auth/login"
         case .mailboxes: return "/api/mailboxes"
-        case let .updateAliasMailboxes(_, _, aliasId, _):
-            return "/api/aliases/\(aliasId)"
-        case let .updateAliasName(_, _, aliasId, _):
-            return "/api/aliases/\(aliasId)"
-        case let .updateAliasNote(_, _, aliasId, _):
-            return "/api/aliases/\(aliasId)"
+        case .randomAlias: return "/api/alias/random/new"
+        case .updateAliasMailboxes(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
+        case .updateAliasName(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
+        case .updateAliasNote(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .userInfo: return "/api/user_info"
         }
     }
@@ -87,6 +84,9 @@ enum SLEndpoint {
 
         case let .mailboxes(baseUrl, apiKey):
             return mailboxesRequest(baseUrl: baseUrl, apiKey: apiKey)
+
+        case let .randomAlias(baseUrl, apiKey, randomMode):
+            return randomAlias(baseUrl: baseUrl, apiKey: apiKey, randomMode: randomMode)
 
         case let .updateAliasMailboxes(baseUrl, apiKey, aliasId, mailboxIds):
             return updateAliasMailboxesRequest(baseUrl: baseUrl,
@@ -164,6 +164,17 @@ extension SLEndpoint {
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func randomAlias(baseUrl: URL, apiKey: ApiKey, randomMode: RandomMode) -> URLRequest {
+        let queryItem = URLQueryItem(name: "mode", value: randomMode.rawValue)
+        let url = baseUrl.append(path: path, queryItems: [queryItem])
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.post
         request.addApiKeyToHeaders(apiKey)
 
         return request

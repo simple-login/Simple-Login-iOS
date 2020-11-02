@@ -121,6 +121,7 @@
 		C06BFF6F255050CC00256DAC /* Ok.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BFF6E255050CC00256DAC /* Ok.swift */; };
 		C06BFF742550510B00256DAC /* Ok.json in Resources */ = {isa = PBXBuildFile; fileRef = C06BFF732550510B00256DAC /* Ok.json */; };
 		C06BFF7F2550516400256DAC /* OkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BFF7E2550516400256DAC /* OkTests.swift */; };
+		C06BFF862550A31700256DAC /* RandomMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04007AF23EE1DFB005AD66B /* RandomMode.swift */; };
 		C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07245EF241E294B00074360 /* AliasSearchViewController.swift */; };
 		C072CC1F2438A35F00DC4915 /* Faq.plist in Resources */ = {isa = PBXBuildFile; fileRef = C072CC1E2438A35F00DC4915 /* Faq.plist */; };
 		C072CC212438E47800DC4915 /* InstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C072CC202438E47800DC4915 /* InstructionViewController.swift */; };
@@ -1881,6 +1882,7 @@
 				C0AACB5F24538A200016355D /* ApiKey.swift in Sources */,
 				C081656623FDAA6B005B0ABD /* RegexHelpers.swift in Sources */,
 				C0BE30B7248658ED0096BCF5 /* Storyboarded.swift in Sources */,
+				C06BFF862550A31700256DAC /* RandomMode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -59,7 +59,7 @@ extension SLClient {
                                       response: HTTPURLResponse,
                                       completion: @escaping (Result<T, SLError>) -> Void) {
         switch response.statusCode {
-        case 200:
+        case 200, 201:
             do {
                 let object = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(object))

@@ -160,43 +160,6 @@ extension SLApiService {
 
 // MARK: - Alias
 extension SLApiService {
-    func randomAlias(apiKey: ApiKey,
-                     randomMode: RandomMode,
-                     completion: @escaping (Result<Alias, SLError>) -> Void) {
-        AF.request("\(baseUrl)/api/alias/random/new?mode=\(randomMode.rawValue)",
-                   method: .post,
-                   encoding: URLEncoding.default,
-                   headers: apiKey.toHeaders()).responseData { response in
-            switch response.result {
-            case .success(let data):
-                guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(.unknownResponseStatusCode))
-                    return
-                }
-
-                switch statusCode {
-                case 201:
-                    do {
-                        let alias = try JSONDecoder().decode(Alias.self, from: data)
-                        completion(.success(alias))
-                    } catch let slError as SLError {
-                        completion(.failure(slError))
-                    } catch {
-                        completion(.failure(.unknownError(error: error)))
-                    }
-
-                case 401: completion(.failure(.invalidApiKey))
-                case 500: completion(.failure(.internalServerError))
-                case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                }
-
-            case .failure(let error):
-                completion(.failure(.alamofireError(error: error)))
-            }
-        }
-    }
-
     func toggleAlias(apiKey: ApiKey,
                      id: Alias.Identifier,
                      completion: @escaping (Result<Enabled, SLError>) -> Void) {

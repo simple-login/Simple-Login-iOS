@@ -382,14 +382,16 @@ extension AliasViewController {
     private func randomAlias(mode: RandomMode) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.randomAlias(apiKey: apiKey, randomMode: mode) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.randomAlias(apiKey: apiKey, randomMode: mode) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            MBProgressHUD.hide(for: self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success(let newlyCreatedAlias): self.finalizeAliasCreation(newlyCreatedAlias)
-            case .failure(let error): Toast.displayError(error)
+                switch result {
+                case .success(let newlyCreatedAlias): self.finalizeAliasCreation(newlyCreatedAlias)
+                case .failure(let error): Toast.displayError(error)
+                }
             }
         }
     }

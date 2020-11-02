@@ -30,6 +30,13 @@ extension SLClient {
         makeCall(to: aliasActivitiesEndpoint, expectedObjectType: AliasActivityArray.self, completion: completion)
     }
 
+    func randomAlias(apiKey: ApiKey,
+                     randomMode: RandomMode,
+                     completion: @escaping (Result<Alias, SLError>) -> Void) {
+        let randomAliasEndpoint = SLEndpoint.randomAlias(baseUrl: baseUrl, apiKey: apiKey, randomMode: randomMode)
+        makeCall(to: randomAliasEndpoint, expectedObjectType: Alias.self, completion: completion)
+    }
+
     func updateAliasMailboxes(apiKey: ApiKey,
                               aliasId: Int,
                               mailboxIds: [Int],
