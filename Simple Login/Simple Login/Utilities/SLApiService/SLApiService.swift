@@ -233,10 +233,6 @@ extension SLApiService {
         }
     }
 
-    func deleteMailbox(apiKey: ApiKey, id: Int, completion: @escaping (Result<Any?, SLError>) -> Void) {
-        delete(apiKey: apiKey, requestUrlString: "\(baseUrl)/api/mailboxes/\(id)", completion: completion)
-    }
-
     func makeDefaultMailbox(apikey: ApiKey, id: Int, completion: @escaping (Result<Any?, SLError>) -> Void) {
         let parameters = ["default": true]
 

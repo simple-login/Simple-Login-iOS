@@ -78,7 +78,9 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.login(email: "", password: "", deviceName: "") { result in
+        client.login(email: String.randomEmail(),
+                     password: String.randomPassword(),
+                     deviceName: String.randomDeviceName()) { result in
             switch result {
             case .success(let userLogin): storedUserLogin = userLogin
             case .failure(let error): storedError = error
@@ -198,7 +200,7 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.fetchUserInfo(apiKey: ApiKey(value: "")) { result in
+        client.fetchUserInfo(apiKey: ApiKey.random()) { result in
             switch result {
             case .success(let userInfo): storedUserInfo = userInfo
             case .failure(let error): storedError = error
@@ -219,7 +221,7 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.fetchAliases(apiKey: ApiKey(value: ""), page: 10, searchTerm: nil) { result in
+        client.fetchAliases(apiKey: ApiKey.random(), page: Int.randomPageId(), searchTerm: nil) { result in
             switch result {
             case .success(let aliasArray): storedAliasArray = aliasArray
             case .failure(let error): storedError = error
@@ -240,7 +242,9 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.fetchAliasActivities(apiKey: ApiKey(value: ""), aliasId: 2_369, page: 10) { result in
+        client.fetchAliasActivities(apiKey: ApiKey.random(),
+                                    aliasId: Int.randomIdentifer(),
+                                    page: Int.randomPageId()) { result in
             switch result {
             case .success(let aliasActivitesArray): storedAliasActivitesArray = aliasActivitesArray
             case .failure(let error): storedError = error
@@ -261,7 +265,7 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.fetchMailboxes(apiKey: ApiKey(value: "")) { result in
+        client.fetchMailboxes(apiKey: ApiKey.random()) { result in
             switch result {
             case .success(let mailboxArray): storedMailboxArray = mailboxArray
             case .failure(let error): storedError = error
@@ -282,9 +286,9 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.fetchContacts(apiKey: ApiKey(value: ""),
-                             aliasId: 128,
-                             page: 12) { result in
+        client.fetchContacts(apiKey: ApiKey.random(),
+                             aliasId: Int.randomIdentifer(),
+                             page: Int.randomPageId()) { result in
             switch result {
             case .success(let contactArray): storedContactArray = contactArray
             case .failure(let error): storedError = error
@@ -305,7 +309,9 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.updateAliasMailboxes(apiKey: ApiKey(value: ""), aliasId: 332, mailboxIds: [12, 291]) { result in
+        client.updateAliasMailboxes(apiKey: ApiKey.random(),
+                                    aliasId: Int.randomIdentifer(),
+                                    mailboxIds: [Int.randomIdentifer(), Int.randomIdentifer()]) { result in
             switch result {
             case .success(let ok): storedOk = ok
             case .failure(let error): storedError = error
@@ -326,7 +332,9 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.updateAliasName(apiKey: ApiKey(value: ""), aliasId: 2_441, name: "") { result in
+        client.updateAliasName(apiKey: ApiKey.random(),
+                               aliasId: Int.randomIdentifer(),
+                               name: String.randomName()) { result in
             switch result {
             case .success(let ok): storedOk = ok
             case .failure(let error): storedError = error
@@ -347,7 +355,9 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.updateAliasNote(apiKey: ApiKey(value: ""), aliasId: 2_441, note: nil) { result in
+        client.updateAliasNote(apiKey: ApiKey.random(),
+                               aliasId: Int.randomIdentifer(),
+                               note: nil) { result in
             switch result {
             case .success(let ok): storedOk = ok
             case .failure(let error): storedError = error
@@ -368,7 +378,7 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.randomAlias(apiKey: ApiKey(value: ""), randomMode: .uuid) { result in
+        client.randomAlias(apiKey: ApiKey.random(), randomMode: .uuid) { result in
             switch result {
             case .success(let alias): storedAlias = alias
             case .failure(let error): storedError = error
@@ -389,7 +399,7 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.toggleAlias(apiKey: ApiKey(value: ""), aliasId: 18) { result in
+        client.toggleAlias(apiKey: ApiKey.random(), aliasId: Int.randomIdentifer()) { result in
             switch result {
             case .success(let enabled): storedEnabled = enabled
             case .failure(let error): storedError = error
@@ -410,7 +420,7 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.deleteAlias(apiKey: ApiKey(value: ""), aliasId: 233) { result in
+        client.deleteAlias(apiKey: ApiKey.random(), aliasId: Int.randomIdentifer()) { result in
             switch result {
             case .success(let deleted): storedDeleted = deleted
             case .failure(let error): storedError = error
@@ -431,7 +441,7 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.getAlias(apiKey: ApiKey(value: ""), aliasId: 553) { result in
+        client.getAlias(apiKey: ApiKey.random(), aliasId: Int.randomIdentifer()) { result in
             switch result {
             case .success(let alias): storedAlias = alias
             case .failure(let error): storedError = error
@@ -452,7 +462,9 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.createContact(apiKey: ApiKey(value: ""), aliasId: 299, email: "john.doe@example.com") { result in
+        client.createContact(apiKey: ApiKey.random(),
+                             aliasId: Int.randomIdentifer(),
+                             email: String.randomEmail()) { result in
             switch result {
             case .success(let contatc): storedContact = contatc
             case .failure(let error): storedError = error
@@ -473,7 +485,28 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.deleteContact(apiKey: ApiKey(value: ""), contactId: 12) { result in
+        client.deleteContact(apiKey: ApiKey.random(), contactId: Int.randomIdentifer()) { result in
+            switch result {
+            case .success(let deleted): storedDeleted = deleted
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedDeleted)
+        XCTAssertNil(storedError)
+    }
+
+    func testDeleteMailbox() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Deleted")
+
+        // when
+        var storedDeleted: Deleted?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.deleteMailbox(apiKey: ApiKey.random(), mailboxId: Int.randomIdentifer()) { result in
             switch result {
             case .success(let deleted): storedDeleted = deleted
             case .failure(let error): storedError = error

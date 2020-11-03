@@ -48,6 +48,7 @@ enum SLEndpoint {
     case createContact(baseUrl: URL, apiKey: ApiKey, aliasId: Int, email: String)
     case deleteAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
     case deleteContact(baseUrl: URL, apiKey: ApiKey, contactId: Int)
+    case deleteMailbox(baseUrl: URL, apiKey: ApiKey, mailboxId: Int)
     case getAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
@@ -66,6 +67,7 @@ enum SLEndpoint {
         case .createContact(_, _, let aliasId, _): return "/api/aliases/\(aliasId)/contacts"
         case .deleteAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)"
         case .deleteContact(_, _, let contactId): return "/api/contacts/\(contactId)"
+        case .deleteMailbox(_, _, let mailboxId): return "/api/mailboxes/\(mailboxId)"
         case .getAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)"
         case .login: return "/api/auth/login"
         case .mailboxes: return "/api/mailboxes"
@@ -96,6 +98,9 @@ enum SLEndpoint {
             return deleteRequest(baseUrl: baseUrl, apiKey: apiKey)
 
         case let .deleteContact(baseUrl, apiKey, _):
+            return deleteRequest(baseUrl: baseUrl, apiKey: apiKey)
+
+        case let .deleteMailbox(baseUrl, apiKey, _):
             return deleteRequest(baseUrl: baseUrl, apiKey: apiKey)
 
         case let .getAlias(baseUrl, apiKey, aliasId):

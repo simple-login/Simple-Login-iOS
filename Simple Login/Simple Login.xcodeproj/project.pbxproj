@@ -198,6 +198,9 @@
 		C0BE30B7248658ED0096BCF5 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C00B123D25C390036B905 /* Storyboarded.swift */; };
 		C0BE665923CA7AC100602FB7 /* Toast+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE665823CA7AC100602FB7 /* Toast+Convenience.swift */; };
 		C0C053222438E8A60080AD4D /* delete.gif in Resources */ = {isa = PBXBuildFile; fileRef = C0C053212438E8A60080AD4D /* delete.gif */; };
+		C0C67C2825516D95004BBC7F /* String+random.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C67C2725516D95004BBC7F /* String+random.swift */; };
+		C0C67C2D25516E2B004BBC7F /* ApiKey+random.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C67C2C25516E2B004BBC7F /* ApiKey+random.swift */; };
+		C0C67C3225517097004BBC7F /* Int+random.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C67C3125517097004BBC7F /* Int+random.swift */; };
 		C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3AFD23E98A5700887264 /* UserLogin.swift */; };
 		C0D0500E23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D0500F23FED26900B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
@@ -481,6 +484,9 @@
 		C0BD47CE244DAB6F006473B5 /* ContactLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLite.swift; sourceTree = "<group>"; };
 		C0BE665823CA7AC100602FB7 /* Toast+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toast+Convenience.swift"; sourceTree = "<group>"; };
 		C0C053212438E8A60080AD4D /* delete.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = delete.gif; sourceTree = "<group>"; };
+		C0C67C2725516D95004BBC7F /* String+random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+random.swift"; sourceTree = "<group>"; };
+		C0C67C2C25516E2B004BBC7F /* ApiKey+random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiKey+random.swift"; sourceTree = "<group>"; };
+		C0C67C3125517097004BBC7F /* Int+random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+random.swift"; sourceTree = "<group>"; };
 		C0CA3AFD23E98A5700887264 /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
 		C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience+AllTarget.swift"; sourceTree = "<group>"; };
 		C0D069982406798600EBAC10 /* Directory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Directory.storyboard; sourceTree = "<group>"; };
@@ -705,7 +711,10 @@
 		C03AE3B8254B56B500C798EE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C0C67C2C25516E2B004BBC7F /* ApiKey+random.swift */,
 				C03AE3B9254B56E100C798EE /* Data+fromJsonFile.swift */,
+				C0C67C3125517097004BBC7F /* Int+random.swift */,
+				C0C67C2725516D95004BBC7F /* String+random.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1853,10 +1862,13 @@
 				C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */,
 				C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */,
 				C06BFF932550A9E100256DAC /* EnabledTests.swift in Sources */,
+				C0C67C2825516D95004BBC7F /* String+random.swift in Sources */,
 				C044FC1F254ECE310047F859 /* AliasActivityArrayTests.swift in Sources */,
 				C013BB47254F16CD004B7FE5 /* ContactTests.swift in Sources */,
+				C0C67C3225517097004BBC7F /* Int+random.swift in Sources */,
 				C0EBF983254C6F56002FF72C /* DecodableTestCase.swift in Sources */,
 				C06BFF7F2550516400256DAC /* OkTests.swift in Sources */,
+				C0C67C2D25516E2B004BBC7F /* ApiKey+random.swift in Sources */,
 				C013BB32254EFBF0004B7FE5 /* MailboxArrayTests.swift in Sources */,
 				C044FBF9254EC4A40047F859 /* AliasActivityTests.swift in Sources */,
 			);

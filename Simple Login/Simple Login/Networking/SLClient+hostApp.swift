@@ -144,3 +144,14 @@ extension SLClient {
         makeCall(to: userInfoEndpoint, expectedObjectType: UserInfo.self, completion: completion)
     }
 }
+
+// MARK: - Mailbox
+extension SLClient {
+    func deleteMailbox(apiKey: ApiKey,
+                       mailboxId: Int,
+                       completion: @escaping (Result<Deleted, SLError>) -> Void) {
+        let deleteMailboxEndpoint =
+            SLEndpoint.deleteMailbox(baseUrl: baseUrl, apiKey: apiKey, mailboxId: mailboxId)
+        makeCall(to: deleteMailboxEndpoint, expectedObjectType: Deleted.self, completion: completion)
+    }
+}

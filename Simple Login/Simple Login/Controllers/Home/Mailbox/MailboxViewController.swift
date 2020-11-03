@@ -167,21 +167,23 @@ extension MailboxViewController {
     private func delete(mailbox: Mailbox, at indexPath: IndexPath) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.deleteMailbox(apiKey: apiKey, id: mailbox.id) { [weak self] result in
-            guard let self = self else { return }
-            MBProgressHUD.hide(for: self.view, animated: true)
+        SLClient.shared.deleteMailbox(apiKey: apiKey, mailboxId: mailbox.id) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success:
-                self.tableView.performBatchUpdates({
-                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                    self.mailboxes.removeAll(where: { $0.id == mailbox.id })
-                }, completion: { _ in
-                    Toast.displayShortly(message: "Deleted \"\(mailbox.email)\"")
-                })
+                switch result {
+                case .success:
+                    self.tableView.performBatchUpdates({
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                        self.mailboxes.removeAll(where: { $0.id == mailbox.id })
+                    }, completion: { _ in
+                        Toast.displayShortly(message: "Deleted \"\(mailbox.email)\"")
+                    })
 
-            case .failure(let error):
-                Toast.displayError(error)
+                case .failure(let error):
+                    Toast.displayError(error)
+                }
             }
         }
     }

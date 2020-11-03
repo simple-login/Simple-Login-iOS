@@ -26,10 +26,6 @@ class SLEndpointTests: XCTestCase {
         super.tearDown()
     }
 
-    func givenApiKey() -> ApiKey {
-        ApiKey(value: "an api key")
-    }
-
     func assertProperlyAttachedApiKey(_ urlRequest: URLRequest, apiKey: ApiKey) {
         XCTAssertEqual(urlRequest.allHTTPHeaderFields?["Authentication"], apiKey.value)
     }
@@ -40,11 +36,11 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateLoginRequest() throws {
         // given
-        let expectedEmail = "john.doe@example.com"
+        let expectedEmail = String.randomEmail()
         let expectedPassword =
             // swiftlint:disable:next line_length
             #"<[y9G'%8Z]rc}.}g/9-u(J'~v.#"["`M2N}"-@o;Rzz;F`[-}\b^sS9U/:H+nJzVe\nj6VG/F\u4"qJH'g$2d)6<3yH+%hrJ}nzL\cUc$D:MSTnNRx!-~jm`~=ZSpoc_"#
-        let expectedDeviceName = "iphone"
+        let expectedDeviceName = String.randomDeviceName()
 
         let expectedUrl = baseUrl.append(path: "/api/auth/login")
 
@@ -70,7 +66,7 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateUserInfoRequest() throws {
         // given
-        let apiKey = givenApiKey()
+        let apiKey = ApiKey.random()
         let expectedUrl = baseUrl.append(path: "/api/user_info")
 
         // when
@@ -85,8 +81,8 @@ class SLEndpointTests: XCTestCase {
 
     func testWithoutSearchTermGenerateAliasesRequest() throws {
         // given
-        let apiKey = givenApiKey()
-        let page = 25
+        let apiKey = ApiKey.random()
+        let page = Int.randomPageId()
         let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
         let expectedUrl = baseUrl.append(path: "/api/v2/aliases",
                                          queryItems: [queryItem])
@@ -106,9 +102,9 @@ class SLEndpointTests: XCTestCase {
 
     func testWithSearchTermGenerateAliasesRequest() throws {
         // given
-        let apiKey = givenApiKey()
-        let page = 25
-        let searchTerm = "john doe"
+        let apiKey = ApiKey.random()
+        let page = Int.randomPageId()
+        let searchTerm = String.randomName()
         let expectedHttpBody = try JSONEncoder().encode(["query": searchTerm])
 
         let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
@@ -131,9 +127,9 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateAliasActivitiesRequest() throws {
         // given
-        let apiKey = givenApiKey()
-        let aliasId = 2_769
-        let page = 23
+        let apiKey = ApiKey.random()
+        let aliasId = Int.randomIdentifer()
+        let page = Int.randomPageId()
 
         let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
         let expectedUrl =
@@ -154,7 +150,7 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateMailboxesRequest() throws {
         // given
-        let apiKey = givenApiKey()
+        let apiKey = ApiKey.random()
 
         let expectedUrl = baseUrl.append(path: "/api/mailboxes")
 
@@ -170,9 +166,9 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateContactsRequest() throws {
         // given
-        let apiKey = givenApiKey()
-        let aliasId = 572
-        let page = 10
+        let apiKey = ApiKey.random()
+        let aliasId = Int.randomIdentifer()
+        let page = Int.randomPageId()
         let queryItem = URLQueryItem(name: "page_id", value: "\(page)")
 
         let expectedUrl =
@@ -193,8 +189,8 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateUpdateAliasMailboxesRequest() throws {
         // given
-        let apiKey = givenApiKey()
-        let aliasId = 244
+        let apiKey = ApiKey.random()
+        let aliasId = Int.randomIdentifer()
 
         let mailboxIds = [123, 4_219, 12]
         let expectedHttpBody = try JSONSerialization.data(withJSONObject: ["mailbox_ids": mailboxIds])
@@ -218,9 +214,9 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateUpdateAliasNameRequest() throws {
         // given
-        let apiKey = givenApiKey()
-        let aliasId = 789
-        let name = "John Doe"
+        let apiKey = ApiKey.random()
+        let aliasId = Int.randomIdentifer()
+        let name = String.randomName()
 
         let expectedHttpBody = try JSONSerialization.data(withJSONObject: ["name": name])
         let expectedUrl = baseUrl.append(path: "/api/aliases/\(aliasId)")
@@ -239,9 +235,9 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateUpdateAliasNoteRequest() throws {
         // given
-        let apiKey = givenApiKey()
-        let aliasId = 637
-        let note = "some note"
+        let apiKey = ApiKey.random()
+        let aliasId = Int.randomIdentifer()
+        let note = String.randomName()
 
         let expectedHttpBody = try JSONSerialization.data(withJSONObject: ["note": note])
         let expectedUrl = baseUrl.append(path: "/api/aliases/\(aliasId)")
@@ -260,7 +256,7 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateRandomAliasRequest() throws {
         // given
-        let apiKey = givenApiKey()
+        let apiKey = ApiKey.random()
         let randomMode = RandomMode.word
 
         let queryItem = URLQueryItem(name: "mode", value: randomMode.rawValue)
@@ -278,8 +274,8 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateToggleAliasRequest() throws {
         // given
-        let apiKey = givenApiKey()
-        let aliasId = 1_383
+        let apiKey = ApiKey.random()
+        let aliasId = Int.randomIdentifer()
 
         let expectedUrl = baseUrl.append(path: "/api/aliases/\(aliasId)/toggle")
 
@@ -295,8 +291,8 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateDeleteAliasRequest() throws {
         // given
-        let apiKey = givenApiKey()
-        let aliasId = 879
+        let apiKey = ApiKey.random()
+        let aliasId = Int.randomIdentifer()
 
         let expectedUrl = baseUrl.append(path: "/api/aliases/\(aliasId)")
 
@@ -312,8 +308,8 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateGetAliasRequest() throws {
         // given
-        let apiKey = givenApiKey()
-        let aliasId = 612
+        let apiKey = ApiKey.random()
+        let aliasId = Int.randomIdentifer()
 
         let expectedUrl = baseUrl.append(path: "/api/aliases/\(aliasId)")
 
@@ -328,9 +324,9 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateCreateContactRequest() throws {
         // given
-        let apiKey = givenApiKey()
-        let aliasId = 8_838
-        let email = "john.doe@example.com"
+        let apiKey = ApiKey.random()
+        let aliasId = Int.randomIdentifer()
+        let email = String.randomEmail()
 
         let expectedHttpBody = try JSONSerialization.data(withJSONObject: ["contact": email])
         let expectedUrl = baseUrl.append(path: "/api/aliases/\(aliasId)/contacts")
@@ -349,8 +345,8 @@ class SLEndpointTests: XCTestCase {
 
     func testGenerateDeleteContactRequest() throws {
         // given
-        let apiKey = givenApiKey()
-        let contactId = 12
+        let apiKey = ApiKey.random()
+        let contactId = Int.randomIdentifer()
 
         let expectedUrl = baseUrl.append(path: "/api/contacts/\(contactId)")
 
@@ -362,5 +358,22 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(deleteContactRequest.url, expectedUrl)
         XCTAssertEqual(deleteContactRequest.httpMethod, HTTPMethod.delete)
         assertProperlyAttachedApiKey(deleteContactRequest, apiKey: apiKey)
+    }
+
+    func testGenerateDeleteMailboxRequest() throws {
+        // given
+        let apiKey = ApiKey.random()
+        let mailboxId = Int.randomIdentifer()
+
+        let expectedUrl = baseUrl.append(path: "/api/mailboxes/\(mailboxId)")
+
+        // when
+        let deleteMailboxRequest =
+            SLEndpoint.deleteMailbox(baseUrl: baseUrl, apiKey: apiKey, mailboxId: mailboxId).urlRequest
+
+        // then
+        XCTAssertEqual(deleteMailboxRequest.url, expectedUrl)
+        XCTAssertEqual(deleteMailboxRequest.httpMethod, HTTPMethod.delete)
+        assertProperlyAttachedApiKey(deleteMailboxRequest, apiKey: apiKey)
     }
 }
