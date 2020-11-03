@@ -538,4 +538,25 @@ extension SLClientTests {
         XCTAssertNotNil(storedDeleted)
         XCTAssertNil(storedError)
     }
+
+    func testMakeDefaultMailbox() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Updated")
+
+        // when
+        var storedUpdated: Updated?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.makeDefaultMailbox(apiKey: ApiKey.random(), mailboxId: Int.randomIdentifer()) { result in
+            switch result {
+            case .success(let updated): storedUpdated = updated
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedUpdated)
+        XCTAssertNil(storedError)
+    }
 }

@@ -123,24 +123,26 @@ extension MailboxViewController {
     private func makeDefault(mailboxId: Int) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.makeDefaultMailbox(apikey: apiKey, id: mailboxId) { [weak self] result in
-            guard let self = self else { return }
-            MBProgressHUD.hide(for: self.view, animated: true)
+        SLClient.shared.makeDefaultMailbox(apiKey: apiKey, mailboxId: mailboxId) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success:
-                self.mailboxes.forEach { mailbox in
-                    if mailbox.id == mailboxId {
-                        mailbox.setIsDefault(true)
-                    } else if mailbox.isDefault {
-                        mailbox.setIsDefault(false)
+                switch result {
+                case .success:
+                    self.mailboxes.forEach { mailbox in
+                        if mailbox.id == mailboxId {
+                            mailbox.setIsDefault(true)
+                        } else if mailbox.isDefault {
+                            mailbox.setIsDefault(false)
+                        }
                     }
+
+                    self.tableView.reloadData()
+
+                case .failure(let error):
+                    Toast.displayError(error)
                 }
-
-                self.tableView.reloadData()
-
-            case .failure(let error):
-                Toast.displayError(error)
             }
         }
     }

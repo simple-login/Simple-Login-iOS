@@ -161,4 +161,12 @@ extension SLClient {
             SLEndpoint.deleteMailbox(baseUrl: baseUrl, apiKey: apiKey, mailboxId: mailboxId)
         makeCall(to: deleteMailboxEndpoint, expectedObjectType: Deleted.self, completion: completion)
     }
+
+    func makeDefaultMailbox(apiKey: ApiKey,
+                            mailboxId: Int,
+                            completion: @escaping (Result<Updated, SLError>) -> Void) {
+        let makeDefaultMailboxEndpoint =
+            SLEndpoint.makeDefaultMailbox(baseUrl: baseUrl, apiKey: apiKey, mailboxId: mailboxId)
+        makeCall(to: makeDefaultMailboxEndpoint, expectedObjectType: Updated.self, completion: completion)
+    }
 }

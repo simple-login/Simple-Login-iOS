@@ -53,6 +53,7 @@ enum SLEndpoint {
     case getAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
+    case makeDefaultMailbox(baseUrl: URL, apiKey: ApiKey, mailboxId: Int)
     case randomAlias(baseUrl: URL, apiKey: ApiKey, randomMode: RandomMode)
     case toggleAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
     case updateAliasMailboxes(baseUrl: URL, apiKey: ApiKey, aliasId: Int, mailboxIds: [Int])
@@ -73,6 +74,7 @@ enum SLEndpoint {
         case .getAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)"
         case .login: return "/api/auth/login"
         case .mailboxes: return "/api/v2/mailboxes"
+        case .makeDefaultMailbox(_, _, let mailboxId): return "/api/mailboxes/\(mailboxId)"
         case .randomAlias: return "/api/alias/random/new"
         case .toggleAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)/toggle"
         case .updateAliasMailboxes(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
@@ -116,6 +118,9 @@ enum SLEndpoint {
 
         case let .mailboxes(baseUrl, apiKey):
             return mailboxesRequest(baseUrl: baseUrl, apiKey: apiKey)
+
+        case let .makeDefaultMailbox(baseUrl, apiKey, mailboxId):
+            return makeDefaultMailboxRequest(baseUrl: baseUrl, apiKey: apiKey, mailboxId: mailboxId)
 
         case let .randomAlias(baseUrl, apiKey, randomMode):
             return randomAlias(baseUrl: baseUrl, apiKey: apiKey, randomMode: randomMode)
@@ -246,6 +251,17 @@ extension SLEndpoint {
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func makeDefaultMailboxRequest(baseUrl: URL, apiKey: ApiKey, mailboxId: Int) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.put
+        request.addJsonRequestBody(["default": true])
         request.addApiKeyToHeaders(apiKey)
 
         return request

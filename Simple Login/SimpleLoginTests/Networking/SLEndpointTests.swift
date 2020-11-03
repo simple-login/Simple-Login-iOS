@@ -396,4 +396,24 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(deleteMailboxRequest.httpMethod, HTTPMethod.delete)
         assertProperlyAttachedApiKey(deleteMailboxRequest, apiKey: apiKey)
     }
+
+    func testGenerateMakeDefaultMailboxRequest() throws {
+        // given
+        let apiKey = ApiKey.random()
+        let mailboxId = Int.randomIdentifer()
+
+        let expectedHttpBody = try JSONSerialization.data(withJSONObject: ["default": true])
+        let expectedUrl = baseUrl.append(path: "/api/mailboxes/\(mailboxId)")
+
+        // when
+        let makeDefaultMailboxRequest =
+            SLEndpoint.makeDefaultMailbox(baseUrl: baseUrl, apiKey: apiKey, mailboxId: mailboxId).urlRequest
+
+        // then
+        XCTAssertEqual(makeDefaultMailboxRequest.url, expectedUrl)
+        XCTAssertEqual(makeDefaultMailboxRequest.httpMethod, HTTPMethod.put)
+        XCTAssertEqual(makeDefaultMailboxRequest.httpBody, expectedHttpBody)
+        assertProperlySetJsonContentType(makeDefaultMailboxRequest)
+        assertProperlyAttachedApiKey(makeDefaultMailboxRequest, apiKey: apiKey)
+    }
 }
