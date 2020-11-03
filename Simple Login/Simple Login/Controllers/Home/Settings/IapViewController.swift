@@ -144,15 +144,16 @@ final class IapViewController: BaseApiKeyViewController, Storyboarded {
             switch result {
             case .success(let receiptData):
                 let encryptedReceipt = receiptData.base64EncodedString(options: [])
-                SLApiService.shared.processPayment(
-                    apiKey: self.apiKey,
-                    receiptData: encryptedReceipt) { [weak self] processPaymentResult in
-                    guard let self = self else { return }
-                    MBProgressHUD.hide(for: self.view, animated: true)
+                SLClient.shared.processPayment(apiKey: self.apiKey,
+                                               receiptData: encryptedReceipt) { [weak self] processPaymentResult in
+                    DispatchQueue.main.async {
+                        guard let self = self else { return }
+                        MBProgressHUD.hide(for: self.view, animated: true)
 
-                    switch processPaymentResult {
-                    case .success: self.alertPaymentSuccessful()
-                    case .failure(let error): Toast.displayError(error)
+                        switch processPaymentResult {
+                        case .success: self.alertPaymentSuccessful()
+                        case .failure(let error): Toast.displayError(error)
+                        }
                     }
                 }
 

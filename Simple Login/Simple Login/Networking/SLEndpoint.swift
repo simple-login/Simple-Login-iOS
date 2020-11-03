@@ -54,6 +54,7 @@ enum SLEndpoint {
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
     case makeDefaultMailbox(baseUrl: URL, apiKey: ApiKey, mailboxId: Int)
+    case processPayment(baseUrl: URL, apiKey: ApiKey, receiptData: String)
     case randomAlias(baseUrl: URL, apiKey: ApiKey, randomMode: RandomMode)
     case toggleAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
     case updateAliasMailboxes(baseUrl: URL, apiKey: ApiKey, aliasId: Int, mailboxIds: [Int])
@@ -75,6 +76,7 @@ enum SLEndpoint {
         case .login: return "/api/auth/login"
         case .mailboxes: return "/api/v2/mailboxes"
         case .makeDefaultMailbox(_, _, let mailboxId): return "/api/mailboxes/\(mailboxId)"
+        case .processPayment: return "/api/apple/process_payment"
         case .randomAlias: return "/api/alias/random/new"
         case .toggleAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)/toggle"
         case .updateAliasMailboxes(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
@@ -121,6 +123,9 @@ enum SLEndpoint {
 
         case let .makeDefaultMailbox(baseUrl, apiKey, mailboxId):
             return makeDefaultMailboxRequest(baseUrl: baseUrl, apiKey: apiKey, mailboxId: mailboxId)
+
+        case let .processPayment(baseUrl, apiKey, receiptData):
+            return processPayment(baseUrl: baseUrl, apiKey: apiKey, receiptData: receiptData)
 
         case let .randomAlias(baseUrl, apiKey, randomMode):
             return randomAlias(baseUrl: baseUrl, apiKey: apiKey, randomMode: randomMode)
@@ -262,6 +267,17 @@ extension SLEndpoint {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.put
         request.addJsonRequestBody(["default": true])
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func processPayment(baseUrl: URL, apiKey: ApiKey, receiptData: String) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.post
+        request.addJsonRequestBody(["receipt_data": receiptData])
         request.addApiKeyToHeaders(apiKey)
 
         return request

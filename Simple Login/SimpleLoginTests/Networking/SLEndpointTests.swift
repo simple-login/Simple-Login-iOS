@@ -416,4 +416,24 @@ class SLEndpointTests: XCTestCase {
         assertProperlySetJsonContentType(makeDefaultMailboxRequest)
         assertProperlyAttachedApiKey(makeDefaultMailboxRequest, apiKey: apiKey)
     }
+
+    func testGenerateProcessPaymentRequest() throws {
+        // given
+        let apiKey = ApiKey.random()
+        let receiptData = String.randomPassword()
+
+        let expectedHttpBody = try JSONSerialization.data(withJSONObject: ["receipt_data": receiptData])
+        let expectedUrl = baseUrl.append(path: "/api/apple/process_payment")
+
+        // when
+        let processPaymentRequest =
+            SLEndpoint.processPayment(baseUrl: baseUrl, apiKey: apiKey, receiptData: receiptData).urlRequest
+
+        // then
+        XCTAssertEqual(processPaymentRequest.url, expectedUrl)
+        XCTAssertEqual(processPaymentRequest.httpMethod, HTTPMethod.post)
+        XCTAssertEqual(processPaymentRequest.httpBody, expectedHttpBody)
+        assertProperlySetJsonContentType(processPaymentRequest)
+        assertProperlyAttachedApiKey(processPaymentRequest, apiKey: apiKey)
+    }
 }

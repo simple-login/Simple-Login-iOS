@@ -170,3 +170,14 @@ extension SLClient {
         makeCall(to: makeDefaultMailboxEndpoint, expectedObjectType: Updated.self, completion: completion)
     }
 }
+
+// MARK: - Payment
+extension SLClient {
+    func processPayment(apiKey: ApiKey,
+                        receiptData: String,
+                        completion: @escaping (Result<Ok, SLError>) -> Void) {
+        let processPaymentEndpoint =
+            SLEndpoint.processPayment(baseUrl: baseUrl, apiKey: apiKey, receiptData: receiptData)
+        makeCall(to: processPaymentEndpoint, expectedObjectType: Ok.self, completion: completion)
+    }
+}
