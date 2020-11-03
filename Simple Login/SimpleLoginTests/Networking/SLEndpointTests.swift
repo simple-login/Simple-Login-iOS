@@ -152,7 +152,7 @@ class SLEndpointTests: XCTestCase {
         // given
         let apiKey = ApiKey.random()
 
-        let expectedUrl = baseUrl.append(path: "/api/mailboxes")
+        let expectedUrl = baseUrl.append(path: "/api/v2/mailboxes")
 
         // when
         let mailboxesRequest = SLEndpoint.mailboxes(baseUrl: baseUrl,

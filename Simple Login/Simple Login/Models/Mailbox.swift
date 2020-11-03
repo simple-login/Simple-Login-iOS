@@ -15,6 +15,7 @@ final class Mailbox: Decodable {
     private(set) var isDefault: Bool
     let numOfAlias: Int
     let creationTimestamp: TimeInterval
+    let isVerified: Bool
 
     // TODO: to be removed
     lazy var creationString: String = {
@@ -47,6 +48,7 @@ final class Mailbox: Decodable {
         case isDefault = "default"
         case numOfAlias = "nb_alias"
         case creationTimestamp = "creation_timestamp"
+        case isVerified = "verified"
     }
 
     init(from decoder: Decoder) throws {
@@ -57,6 +59,7 @@ final class Mailbox: Decodable {
         self.isDefault = try container.decode(Bool.self, forKey: .isDefault)
         self.numOfAlias = try container.decode(Int.self, forKey: .numOfAlias)
         self.creationTimestamp = try container.decode(TimeInterval.self, forKey: .creationTimestamp)
+        self.isVerified = try container.decode(Bool.self, forKey: .isVerified)
     }
 
     func setIsDefault(_ isDefault: Bool) {

@@ -4,20 +4,23 @@
         "default": true,
         "email": "john.doe@example.com",
         "id": 56,
-        "nb_alias": 87
+        "nb_alias": 87,
+        "verified": true
     },
     {
         "creation_timestamp": 1591717007,
         "default": true,
         "email": "john.doe@example.com",
         "id": 56,
-        "nb_alias": 87
+        "nb_alias": 87,
+        "verified": false
     },
     {
         "creation_timestamp": 1591717007,
         "default": true,
         "email": "john.doe@example.com",
         "id": 56,
-        "nb_alias": 87
+        "nb_alias": 87,
+        "verified": true
     }]
 }

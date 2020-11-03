@@ -70,7 +70,7 @@ enum SLEndpoint {
         case .deleteMailbox(_, _, let mailboxId): return "/api/mailboxes/\(mailboxId)"
         case .getAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)"
         case .login: return "/api/auth/login"
-        case .mailboxes: return "/api/mailboxes"
+        case .mailboxes: return "/api/v2/mailboxes"
         case .randomAlias: return "/api/alias/random/new"
         case .toggleAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)/toggle"
         case .updateAliasMailboxes(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
