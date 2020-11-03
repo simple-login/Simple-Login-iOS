@@ -201,6 +201,9 @@
 		C0C67C2825516D95004BBC7F /* String+random.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C67C2725516D95004BBC7F /* String+random.swift */; };
 		C0C67C2D25516E2B004BBC7F /* ApiKey+random.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C67C2C25516E2B004BBC7F /* ApiKey+random.swift */; };
 		C0C67C3225517097004BBC7F /* Int+random.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C67C3125517097004BBC7F /* Int+random.swift */; };
+		C0C67C3B2551A1A3004BBC7F /* Updated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C67C3A2551A1A3004BBC7F /* Updated.swift */; };
+		C0C67C442551A1F1004BBC7F /* Updated.json in Resources */ = {isa = PBXBuildFile; fileRef = C0C67C432551A1F1004BBC7F /* Updated.json */; };
+		C0C67C4D2551A22B004BBC7F /* UpdatedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C67C4C2551A22B004BBC7F /* UpdatedTests.swift */; };
 		C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3AFD23E98A5700887264 /* UserLogin.swift */; };
 		C0D0500E23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D0500F23FED26900B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
@@ -487,6 +490,9 @@
 		C0C67C2725516D95004BBC7F /* String+random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+random.swift"; sourceTree = "<group>"; };
 		C0C67C2C25516E2B004BBC7F /* ApiKey+random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiKey+random.swift"; sourceTree = "<group>"; };
 		C0C67C3125517097004BBC7F /* Int+random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+random.swift"; sourceTree = "<group>"; };
+		C0C67C3A2551A1A3004BBC7F /* Updated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updated.swift; sourceTree = "<group>"; };
+		C0C67C432551A1F1004BBC7F /* Updated.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Updated.json; sourceTree = "<group>"; };
+		C0C67C4C2551A22B004BBC7F /* UpdatedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatedTests.swift; sourceTree = "<group>"; };
 		C0CA3AFD23E98A5700887264 /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
 		C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience+AllTarget.swift"; sourceTree = "<group>"; };
 		C0D069982406798600EBAC10 /* Directory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Directory.storyboard; sourceTree = "<group>"; };
@@ -1151,9 +1157,7 @@
 				C013BB5E254F354A004B7FE5 /* ContactArray.swift */,
 				C0BD47CE244DAB6F006473B5 /* ContactLite.swift */,
 				C03D2D5F23D4AF300057F44F /* CustomDomain.swift */,
-				C0D8C4B4246AF303008BB8D2 /* Deleted.swift */,
 				C0D069AA2406BE7800EBAC10 /* Directory.swift */,
-				C0D8C4B6246AF4B6008BB8D2 /* Enabled.swift */,
 				C0D8C4B2246AF132008BB8D2 /* ErrorMessage.swift */,
 				C0D6A29223D0ABDC00EF21B8 /* Faq.swift */,
 				C09DB81D2439EF16002A9973 /* How.swift */,
@@ -1161,7 +1165,7 @@
 				C0B1DE4923C90F01003EED3B /* LeftMenuOption.swift */,
 				C07F346324802DA900360BA3 /* Mailbox.swift */,
 				C044FC3E254EF92F0047F859 /* MailboxArray.swift */,
-				C06BFF6E255050CC00256DAC /* Ok.swift */,
+				C0C67C392551A0ED004BBC7F /* Modification responses */,
 				C04007AF23EE1DFB005AD66B /* RandomMode.swift */,
 				C05049BB23CE016600AEF20B /* SLColor.swift */,
 				C0B1DE3423C8AC8A003EED3B /* SLError.swift */,
@@ -1218,6 +1222,39 @@
 				C027A27924053AA800BD19C9 /* WalkthroughLastStepViewController.swift */,
 			);
 			path = Walkthrough;
+			sourceTree = "<group>";
+		};
+		C0C67C392551A0ED004BBC7F /* Modification responses */ = {
+			isa = PBXGroup;
+			children = (
+				C0D8C4B4246AF303008BB8D2 /* Deleted.swift */,
+				C0D8C4B6246AF4B6008BB8D2 /* Enabled.swift */,
+				C06BFF6E255050CC00256DAC /* Ok.swift */,
+				C0C67C3A2551A1A3004BBC7F /* Updated.swift */,
+			);
+			path = "Modification responses";
+			sourceTree = "<group>";
+		};
+		C0C67C422551A1D2004BBC7F /* Modification responses */ = {
+			isa = PBXGroup;
+			children = (
+				C06BFF9A2550B38900256DAC /* Deleted.json */,
+				C06BFF8A2550A9C600256DAC /* Enabled.json */,
+				C06BFF732550510B00256DAC /* Ok.json */,
+				C0C67C432551A1F1004BBC7F /* Updated.json */,
+			);
+			path = "Modification responses";
+			sourceTree = "<group>";
+		};
+		C0C67C4B2551A200004BBC7F /* Modification responses */ = {
+			isa = PBXGroup;
+			children = (
+				C06BFFA52550B3AA00256DAC /* DeletedTests.swift */,
+				C06BFF922550A9E100256DAC /* EnabledTests.swift */,
+				C06BFF7E2550516400256DAC /* OkTests.swift */,
+				C0C67C4C2551A22B004BBC7F /* UpdatedTests.swift */,
+			);
+			path = "Modification responses";
 			sourceTree = "<group>";
 		};
 		C0D0699A240679B000EBAC10 /* Directory */ = {
@@ -1450,13 +1487,11 @@
 				C013BB3E254F1665004B7FE5 /* Contact.json */,
 				C013BB59254F351F004B7FE5 /* ContactArray.json */,
 				C0475C8A254E000B0018F081 /* ContactLite.json */,
-				C06BFF9A2550B38900256DAC /* Deleted.json */,
 				C0EBF968254C503C002FF72C /* DummyData.json */,
-				C06BFF8A2550A9C600256DAC /* Enabled.json */,
 				C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */,
 				C044FC39254EF89C0047F859 /* Mailbox.json */,
 				C044FC46254EF9550047F859 /* MailboxArray.json */,
-				C06BFF732550510B00256DAC /* Ok.json */,
+				C0C67C422551A1D2004BBC7F /* Modification responses */,
 				C0EBF990254C77B8002FF72C /* UserInfo.json */,
 				C03AE3A7254B55D000C798EE /* UserLogin.json */,
 				C03AE3AF254B55DF00C798EE /* UserLogin_MissingValue.json */,
@@ -1472,12 +1507,10 @@
 				C013BB46254F16CD004B7FE5 /* ContactTests.swift */,
 				C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */,
 				C0475C7F254DFDEA0018F081 /* ContactLiteTests.swift */,
-				C06BFFA52550B3AA00256DAC /* DeletedTests.swift */,
-				C06BFF922550A9E100256DAC /* EnabledTests.swift */,
 				C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */,
 				C013BB25254EF9B9004B7FE5 /* MailboxTests.swift */,
 				C013BB31254EFBF0004B7FE5 /* MailboxArrayTests.swift */,
-				C06BFF7E2550516400256DAC /* OkTests.swift */,
+				C0C67C4B2551A200004BBC7F /* Modification responses */,
 				C0EBF98A254C7762002FF72C /* UserInfoTests.swift */,
 				C0EBF979254C6D62002FF72C /* UserLoginTests.swift */,
 			);
@@ -1651,6 +1684,7 @@
 				C06BFF8B2550A9C600256DAC /* Enabled.json in Resources */,
 				C06BFF742550510B00256DAC /* Ok.json in Resources */,
 				C0EBF991254C77B8002FF72C /* UserInfo.json in Resources */,
+				C0C67C442551A1F1004BBC7F /* Updated.json in Resources */,
 				C044FBFE254EC5A20047F859 /* AliasActivity.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1867,6 +1901,7 @@
 				C013BB47254F16CD004B7FE5 /* ContactTests.swift in Sources */,
 				C0C67C3225517097004BBC7F /* Int+random.swift in Sources */,
 				C0EBF983254C6F56002FF72C /* DecodableTestCase.swift in Sources */,
+				C0C67C4D2551A22B004BBC7F /* UpdatedTests.swift in Sources */,
 				C06BFF7F2550516400256DAC /* OkTests.swift in Sources */,
 				C0C67C2D25516E2B004BBC7F /* ApiKey+random.swift in Sources */,
 				C013BB32254EFBF0004B7FE5 /* MailboxArrayTests.swift in Sources */,
@@ -2021,6 +2056,7 @@
 				C027A27C24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift in Sources */,
 				C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */,
 				C027A2752405368700BD19C9 /* WalkthroughWelcomeViewController.swift in Sources */,
+				C0C67C3B2551A1A3004BBC7F /* Updated.swift in Sources */,
 				C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */,
 				C0475C5B254DF9C80018F081 /* AliasArray.swift in Sources */,
 				C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */,
