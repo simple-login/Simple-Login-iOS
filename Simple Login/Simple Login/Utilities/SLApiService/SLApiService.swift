@@ -49,31 +49,4 @@ extension SLApiService {
             }
         }
     }
-
-    func reactivate(email: String, completion: @escaping (Result<Any?, SLError>) -> Void) {
-        let parameters = ["email": email]
-
-        AF.request("\(baseUrl)/api/auth/reactivate",
-                   method: .post,
-                   parameters: parameters,
-                   encoding: JSONEncoding.default).responseData { response in
-            switch response.result {
-            case .success:
-                guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(.unknownResponseStatusCode))
-                    return
-                }
-
-                switch statusCode {
-                case 200: completion(.success(nil))
-                case 500: completion(.failure(.internalServerError))
-                case 502: completion(.failure(.badGateway))
-                default: completion(.failure(.unknownErrorWithStatusCode(statusCode: statusCode)))
-                }
-
-            case .failure(let error):
-                completion(.failure(.alamofireError(error: error)))
-            }
-        }
-    }
 }

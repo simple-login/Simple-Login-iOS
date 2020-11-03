@@ -63,6 +63,7 @@ enum SLEndpoint {
     case updateAliasNote(baseUrl: URL, apiKey: ApiKey, aliasId: Int, note: String?)
     case updateAliasName(baseUrl: URL, apiKey: ApiKey, aliasId: Int, name: String?)
     case userInfo(baseUrl: URL, apiKey: ApiKey)
+    case reactivateEmail(baseUrl: URL, email: String)
     case verifyMfa(baseUrl: URL, key: String, token: String, deviceName: String)
 
     var path: String {
@@ -88,6 +89,7 @@ enum SLEndpoint {
         case .updateAliasName(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .updateAliasNote(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .userInfo: return "/api/user_info"
+        case .reactivateEmail: return "/api/auth/reactivate"
         case .verifyMfa: return "/api/auth/mfa"
         }
     }
@@ -159,6 +161,9 @@ enum SLEndpoint {
 
         case let .userInfo(baseUrl, apiKey):
             return userInfoRequest(baseUrl: baseUrl, apiKey: apiKey)
+
+        case let .reactivateEmail(baseUrl, email):
+            return reactivateEmailRequest(baseUrl: baseUrl, email: email)
 
         case let .verifyMfa(baseUrl, key, token, deviceName):
             return verifyMfaRequest(baseUrl: baseUrl, key: key, token: token, deviceName: deviceName)
@@ -387,6 +392,16 @@ extension SLEndpoint {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get
         request.addApiKeyToHeaders(apiKey)
+        return request
+    }
+
+    private func reactivateEmailRequest(baseUrl: URL, email: String) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.post
+        request.addJsonRequestBody(["email": email])
+
         return request
     }
 

@@ -477,6 +477,7 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(verifyMfaRequestHttpBodyDict["mfa_token"] as? String, expectedToken)
         XCTAssertEqual(verifyMfaRequestHttpBodyDict["mfa_key"] as? String, expectedKey)
         XCTAssertEqual(verifyMfaRequestHttpBodyDict["device"] as? String, expectedDeviceName)
+        assertProperlySetJsonContentType(verifyMfaRequest)
     }
 
     func testGenerateActivateEmailRequest() throws {
@@ -498,5 +499,23 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(activateEmailRequest.httpMethod, HTTPMethod.post)
         XCTAssertEqual(activateEmailRequestHttpBodyDict["email"] as? String, expectedEmail)
         XCTAssertEqual(activateEmailRequestHttpBodyDict["code"] as? String, expectedCode)
+        assertProperlySetJsonContentType(activateEmailRequest)
+    }
+
+    func testGenerateReactivateEmailRequest() throws {
+        // given
+        let email = String.randomEmail()
+
+        let expectedHttpBody = try JSONSerialization.data(withJSONObject: ["email": email])
+        let expectedUrl = baseUrl.append(path: "/api/auth/reactivate")
+
+        // when
+        let reactivateEmailRequest = SLEndpoint.reactivateEmail(baseUrl: baseUrl, email: email).urlRequest
+
+        // then
+        XCTAssertEqual(reactivateEmailRequest.url, expectedUrl)
+        XCTAssertEqual(reactivateEmailRequest.httpMethod, HTTPMethod.post)
+        XCTAssertEqual(reactivateEmailRequest.httpBody, expectedHttpBody)
+        assertProperlySetJsonContentType(reactivateEmailRequest)
     }
 }

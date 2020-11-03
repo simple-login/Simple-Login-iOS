@@ -634,7 +634,28 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.activateEmail(email: String.randomEmail(), code: String.randomPassword()) { result in
+        client.activate(email: String.randomEmail(), code: String.randomPassword()) { result in
+            switch result {
+            case .success(let message): storedMessage = message
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedMessage)
+        XCTAssertNil(storedError)
+    }
+
+    func testReactivateEmail() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Message")
+
+        // when
+        var storedMessage: Message?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.reactivate(email: String.randomEmail()) { result in
             switch result {
             case .success(let message): storedMessage = message
             case .failure(let error): storedError = error

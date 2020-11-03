@@ -168,7 +168,7 @@ final class VerificationViewController: BaseViewController, Storyboarded {
             }
 
         case .accountActivation(let email, _):
-            SLClient.shared.activateEmail(email: email, code: code) { [weak self] result in
+            SLClient.shared.activate(email: email, code: code) { [weak self] result in
                 DispatchQueue.main.async {
                     guard let self = self else { return }
                     MBProgressHUD.hide(for: self.view, animated: true)
@@ -227,17 +227,19 @@ final class VerificationViewController: BaseViewController, Storyboarded {
     private func reactivate(email: String) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.reactivate(email: email) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.reactivate(email: email) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            MBProgressHUD.hide(for: self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success:
-                Toast.displayLongly(message: "Check your inbox for new activation code")
+                switch result {
+                case .success:
+                    Toast.displayLongly(message: "Check your inbox for new activation code")
 
-            case .failure(let error):
-                self.showErrorLabel(true, errorMessage: error.description)
+                case .failure(let error):
+                    self.showErrorLabel(true, errorMessage: error.description)
+                }
             }
         }
     }
