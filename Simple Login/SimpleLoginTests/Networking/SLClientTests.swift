@@ -666,4 +666,25 @@ extension SLClientTests {
         XCTAssertNotNil(storedMessage)
         XCTAssertNil(storedError)
     }
+
+    func testSignUp() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Message")
+
+        // when
+        var storedMessage: Message?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.signUp(email: String.randomEmail(), password: String.randomPassword()) { result in
+            switch result {
+            case .success(let message): storedMessage = message
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedMessage)
+        XCTAssertNil(storedError)
+    }
 }

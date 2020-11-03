@@ -205,6 +205,13 @@ extension SLClient {
         makeCall(to: activateEmailEndpoint, expectedObjectType: Message.self, completion: completion)
     }
 
+    func signUp(email: String,
+                password: String,
+                completion: @escaping (Result<Message, SLError>) -> Void) {
+        let signUpEndpoint = SLEndpoint.signUp(baseUrl: baseUrl, email: email, password: password)
+        makeCall(to: signUpEndpoint, expectedObjectType: Message.self, completion: completion)
+    }
+
     func reactivate(email: String, completion: @escaping (Result<Message, SLError>) -> Void) {
         let reactivateEmailEndpoint = SLEndpoint.reactivateEmail(baseUrl: baseUrl, email: email)
         makeCall(to: reactivateEmailEndpoint, expectedObjectType: Message.self, completion: completion)

@@ -176,7 +176,6 @@
 		C0A726FE23EC6D3E00A62A22 /* AliasActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */; };
 		C0AACB5E245389FD0016355D /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AACB5D245389FD0016355D /* ApiKey.swift */; };
 		C0AACB5F24538A200016355D /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AACB5D245389FD0016355D /* ApiKey.swift */; };
-		C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3223C8AC72003EED3B /* SLApiService.swift */; };
 		C0B1DE3523C8AC8A003EED3B /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3423C8AC8A003EED3B /* SLError.swift */; };
 		C0B1DE3723C8ACA4003EED3B /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3623C8ACA4003EED3B /* UserInfo.swift */; };
 		C0B1DE3923C8AD22003EED3B /* UserOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1DE3823C8AD22003EED3B /* UserOptions.swift */; };
@@ -471,7 +470,6 @@
 		C0A726FB23EC135000A62A22 /* LoadingFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingFooterView.xib; sourceTree = "<group>"; };
 		C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivity.swift; sourceTree = "<group>"; };
 		C0AACB5D245389FD0016355D /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
-		C0B1DE3223C8AC72003EED3B /* SLApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLApiService.swift; sourceTree = "<group>"; };
 		C0B1DE3423C8AC8A003EED3B /* SLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLError.swift; sourceTree = "<group>"; };
 		C0B1DE3623C8ACA4003EED3B /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C0B1DE3823C8AD22003EED3B /* UserOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOptions.swift; sourceTree = "<group>"; };
@@ -625,7 +623,6 @@
 		C0016DBD24548D6300513D64 /* SLApiService */ = {
 			isa = PBXGroup;
 			children = (
-				C0B1DE3223C8AC72003EED3B /* SLApiService.swift */,
 				C0016DBE24548D8500513D64 /* SLApiService+SharedFunctions.swift */,
 			);
 			path = SLApiService;
@@ -1996,7 +1993,6 @@
 				C05CD31023CA0ACB007F1C9E /* BaseViewController.swift in Sources */,
 				C0A726FE23EC6D3E00A62A22 /* AliasActivity.swift in Sources */,
 				C0B1DE4A23C90F01003EED3B /* LeftMenuOption.swift in Sources */,
-				C0B1DE3323C8AC72003EED3B /* SLApiService.swift in Sources */,
 				C0D8C4B7246AF4B6008BB8D2 /* Enabled.swift in Sources */,
 				C05CD30A23CA0473007F1C9E /* CustomDomainViewController.swift in Sources */,
 				C0D6A28D23D0A8EC00EF21B8 /* What.swift in Sources */,

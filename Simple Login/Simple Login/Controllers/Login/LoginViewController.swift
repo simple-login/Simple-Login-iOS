@@ -204,18 +204,20 @@ extension LoginViewController {
     private func signUp(email: String, password: String) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.signUp(email: email, password: password) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.signUp(email: email, password: password) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            MBProgressHUD.hide(for: self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success:
-                Toast.displayLongly(message: "Check your inbox for verification code")
-                self.verify(mode: .accountActivation(email: email, password: password))
+                switch result {
+                case .success:
+                    Toast.displayLongly(message: "Check your inbox for verification code")
+                    self.verify(mode: .accountActivation(email: email, password: password))
 
-            case .failure(let error):
-                Toast.displayError(error)
+                case .failure(let error):
+                    Toast.displayError(error)
+                }
             }
         }
     }

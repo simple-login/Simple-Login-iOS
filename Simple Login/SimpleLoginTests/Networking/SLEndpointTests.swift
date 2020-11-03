@@ -9,6 +9,7 @@
 @testable import SimpleLogin
 import XCTest
 
+// swiftlint:disable type_body_length
 class SLEndpointTests: XCTestCase {
     private let scheme = "https"
     private let host = "example.com"
@@ -517,5 +518,26 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(reactivateEmailRequest.httpMethod, HTTPMethod.post)
         XCTAssertEqual(reactivateEmailRequest.httpBody, expectedHttpBody)
         assertProperlySetJsonContentType(reactivateEmailRequest)
+    }
+
+    func testGenerateSignUpRequest() throws {
+        // given
+        let expectedEmail = String.randomEmail()
+        let expectedPassword = String.randomPassword()
+        let expectedUrl = baseUrl.append(path: "/api/auth/register")
+
+        // when
+        let signUpRequest =
+            SLEndpoint.signUp(baseUrl: baseUrl, email: expectedEmail, password: expectedPassword).urlRequest
+        let signUpRequestHttpBody = try XCTUnwrap(signUpRequest.httpBody)
+        let signUpRequestHttpBodyDict =
+            try XCTUnwrap(JSONSerialization.jsonObject(with: signUpRequestHttpBody) as? [String: Any])
+
+        // then
+        XCTAssertEqual(signUpRequest.url, expectedUrl)
+        XCTAssertEqual(signUpRequest.httpMethod, HTTPMethod.post)
+        XCTAssertEqual(signUpRequestHttpBodyDict["email"] as? String, expectedEmail)
+        XCTAssertEqual(signUpRequestHttpBodyDict["password"] as? String, expectedPassword)
+        assertProperlySetJsonContentType(signUpRequest)
     }
 }
