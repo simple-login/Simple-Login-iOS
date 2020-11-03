@@ -9,7 +9,7 @@
 import Foundation
 
 struct UserLogin: Decodable {
-    let apiKey: ApiKey
+    let apiKey: ApiKey?
     let email: String
     let isMfaEnabled: Bool
     let mfaKey: String?
@@ -18,8 +18,12 @@ struct UserLogin: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
 
-        let apiKeyString = try container.decode(String.self, forKey: .apiKey)
-        self.apiKey = ApiKey(value: apiKeyString)
+        if let apiKeyString = try container.decode(String?.self, forKey: .apiKey) {
+            self.apiKey = ApiKey(value: apiKeyString)
+        } else {
+            self.apiKey = nil
+        }
+
         self.email = try container.decode(String.self, forKey: .email)
         self.isMfaEnabled = try container.decode(Bool.self, forKey: .isMfaEnabled)
         self.mfaKey = try container.decode(String?.self, forKey: .mfaKey)

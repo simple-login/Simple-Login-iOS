@@ -601,4 +601,25 @@ extension SLClientTests {
         XCTAssertEqual(storedOk?.value, true)
         XCTAssertNil(storedError)
     }
+
+    func testVerifyMfa() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("ApiKey")
+
+        // when
+        var storedApiKey: ApiKey?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.verifyMfa(key: String.randomPassword(), token: String.randomPassword(), deviceName: String.randomName()) { result in
+            switch result {
+            case .success(let apiKey): storedApiKey = apiKey
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedApiKey)
+        XCTAssertNil(storedError)
+    }
 }

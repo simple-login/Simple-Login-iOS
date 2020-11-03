@@ -453,4 +453,29 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(forgotPasswordRequest.httpBody, expectedHttpBody)
         assertProperlySetJsonContentType(forgotPasswordRequest)
     }
+
+    func testGenerateVerifyMfaRequest() throws {
+        // given
+        let expectedKey = String.randomPassword()
+        let expectedToken = String.randomPassword()
+        let expectedDeviceName = String.randomDeviceName()
+
+        let expectedUrl = baseUrl.append(path: "/api/auth/mfa")
+
+        // when
+        let verifyMfaRequest = SLEndpoint.verifyMfa(baseUrl: baseUrl,
+                                                    key: expectedKey,
+                                                    token: expectedToken,
+                                                    deviceName: expectedDeviceName).urlRequest
+        let verifyMfaRequestHttpBody = try XCTUnwrap(verifyMfaRequest.httpBody)
+        let verifyMfaRequestHttpBodyDict =
+            try JSONSerialization.jsonObject(with: verifyMfaRequestHttpBody) as? [String: Any]
+
+        // then
+        XCTAssertEqual(verifyMfaRequest.url, expectedUrl)
+        XCTAssertEqual(verifyMfaRequest.httpMethod, HTTPMethod.post)
+        XCTAssertEqual(verifyMfaRequestHttpBodyDict?["mfa_token"] as? String, expectedToken)
+        XCTAssertEqual(verifyMfaRequestHttpBodyDict?["mfa_key"] as? String, expectedKey)
+        XCTAssertEqual(verifyMfaRequestHttpBodyDict?["device"] as? String, expectedDeviceName)
+    }
 }

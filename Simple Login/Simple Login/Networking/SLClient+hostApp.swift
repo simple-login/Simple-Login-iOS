@@ -148,6 +148,15 @@ extension SLClient {
         let forgotPasswordEndpoint = SLEndpoint.forgotPassword(baseUrl: baseUrl, email: email)
         makeCall(to: forgotPasswordEndpoint, expectedObjectType: Ok.self, completion: completion)
     }
+
+    func verifyMfa(key: String,
+                   token: String,
+                   deviceName: String,
+                   completion: @escaping (Result<ApiKey, SLError>) -> Void) {
+        let verifyMfaEndpoint =
+            SLEndpoint.verifyMfa(baseUrl: baseUrl, key: key, token: token, deviceName: deviceName)
+        makeCall(to: verifyMfaEndpoint, expectedObjectType: ApiKey.self, completion: completion)
+    }
 }
 
 // MARK: - Mailbox

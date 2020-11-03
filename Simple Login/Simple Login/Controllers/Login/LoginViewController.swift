@@ -75,8 +75,10 @@ final class LoginViewController: BaseViewController, Storyboarded {
                         } else {
                             Toast.displayLongly(message: "MFA key is null")
                         }
+                    } else if let apiKey = userLogin.apiKey {
+                        self.finalizeLogin(apiKey: apiKey)
                     } else {
-                        self.finalizeLogin(apiKey: userLogin.apiKey)
+                        Toast.displayLongly(message: "API key is null")
                     }
 
                 case .failure(let error):

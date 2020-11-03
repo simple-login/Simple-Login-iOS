@@ -147,19 +147,23 @@ final class VerificationViewController: BaseViewController, Storyboarded {
 
         switch mode {
         case .otp(let mfaKey):
-            SLApiService.shared.verifyMFA(mfaKey: mfaKey, mfaToken: code) { [weak self] result in
-                guard let self = self else { return }
-                MBProgressHUD.hide(for: self.view, animated: true)
+            SLClient.shared.verifyMfa(key: mfaKey,
+                                      token: code,
+                                      deviceName: UIDevice.current.name) { [weak self] result in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    MBProgressHUD.hide(for: self.view, animated: true)
 
-                switch result {
-                case .success(let apiKey):
-                    self.dismiss(animated: true) {
-                        self.otpVerificationSuccesful?(apiKey)
+                    switch result {
+                    case .success(let apiKey):
+                        self.dismiss(animated: true) {
+                            self.otpVerificationSuccesful?(apiKey)
+                        }
+
+                    case .failure(let error):
+                        self.showErrorLabel(true, errorMessage: error.description)
+                        self.reset()
                     }
-
-                case .failure(let error):
-                    self.showErrorLabel(true, errorMessage: error.description)
-                    self.reset()
                 }
             }
 
