@@ -497,6 +497,27 @@ extension SLClientTests {
         XCTAssertNil(storedError)
     }
 
+    func testCreateMailbox() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Mailbox")
+
+        // when
+        var storedMailbox: Mailbox?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.createMailbox(apiKey: ApiKey.random(), email: String.randomEmail()) { result in
+            switch result {
+            case .success(let mailbox): storedMailbox = mailbox
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedMailbox)
+        XCTAssertNil(storedError)
+    }
+
     func testDeleteMailbox() throws {
         // given
         let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Deleted")

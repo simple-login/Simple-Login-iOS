@@ -86,14 +86,16 @@ final class MailboxViewController: BaseApiKeyLeftMenuButtonViewController, Story
     private func createMailbox(_ email: String) {
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        SLApiService.shared.createMailbox(apikey: apiKey, email: email) { [weak self] result in
-            guard let self = self else { return }
-            MBProgressHUD.hide(for: self.view, animated: true)
+        SLClient.shared.createMailbox(apiKey: apiKey, email: email) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success:
-                Toast.displayLongly(message: "You are going to receive a confirmation email for \"\(email)\"")
-            case .failure(let error): Toast.displayError(error)
+                switch result {
+                case .success:
+                    Toast.displayLongly(message: "You are going to receive a confirmation email for \"\(email)\"")
+                case .failure(let error): Toast.displayError(error)
+                }
             }
         }
     }

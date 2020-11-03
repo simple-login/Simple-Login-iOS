@@ -147,6 +147,13 @@ extension SLClient {
 
 // MARK: - Mailbox
 extension SLClient {
+    func createMailbox(apiKey: ApiKey,
+                       email: String,
+                       completion: @escaping (Result<Mailbox, SLError>) -> Void) {
+        let createMailboxEndpoint = SLEndpoint.createMailbox(baseUrl: baseUrl, apiKey: apiKey, email: email)
+        makeCall(to: createMailboxEndpoint, expectedObjectType: Mailbox.self, completion: completion)
+    }
+
     func deleteMailbox(apiKey: ApiKey,
                        mailboxId: Int,
                        completion: @escaping (Result<Deleted, SLError>) -> Void) {
