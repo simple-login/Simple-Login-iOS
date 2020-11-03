@@ -44,6 +44,7 @@ enum HTTPMethod {
 enum SLEndpoint {
     case aliases(baseUrl: URL, apiKey: ApiKey, page: Int, searchTerm: String?)
     case aliasActivities(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
+    case activateEmail(baseUrl: URL, email: String, code: String)
     case contacts(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
     case createContact(baseUrl: URL, apiKey: ApiKey, aliasId: Int, email: String)
     case createMailbox(baseUrl: URL, apiKey: ApiKey, email: String)
@@ -68,6 +69,7 @@ enum SLEndpoint {
         switch self {
         case .aliases: return "/api/v2/aliases"
         case .aliasActivities(_, _, let aliasId, _): return "/api/aliases/\(aliasId)/activities"
+        case .activateEmail: return "/api/auth/activate"
         case .contacts(_, _, let aliasId, _): return "/api/aliases/\(aliasId)/contacts"
         case .createContact(_, _, let aliasId, _): return "/api/aliases/\(aliasId)/contacts"
         case .createMailbox: return "/api/mailboxes"
@@ -97,6 +99,9 @@ enum SLEndpoint {
 
         case let .aliasActivities(baseUrl, apiKey, aliasId, page):
             return aliasActivitiesRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, page: page)
+
+        case let .activateEmail(baseUrl, email, code):
+            return activateEmailRequest(baseUrl: baseUrl, email: email, code: code)
 
         case let .contacts(baseUrl, apiKey, aliasId, page):
             return contactsRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, page: page)
@@ -156,7 +161,7 @@ enum SLEndpoint {
             return userInfoRequest(baseUrl: baseUrl, apiKey: apiKey)
 
         case let .verifyMfa(baseUrl, key, token, deviceName):
-            return verifyMfa(baseUrl: baseUrl, key: key, token: token, deviceName: deviceName)
+            return verifyMfaRequest(baseUrl: baseUrl, key: key, token: token, deviceName: deviceName)
         }
     }
 }
@@ -187,6 +192,16 @@ extension SLEndpoint {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get
         request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func activateEmailRequest(baseUrl: URL, email: String, code: String) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.post
+        request.addJsonRequestBody(["email": email, "code": code])
 
         return request
     }
@@ -375,7 +390,7 @@ extension SLEndpoint {
         return request
     }
 
-    private func verifyMfa(baseUrl: URL, key: String, token: String, deviceName: String) -> URLRequest {
+    private func verifyMfaRequest(baseUrl: URL, key: String, token: String, deviceName: String) -> URLRequest {
         let url = baseUrl.append(path: path)
 
         var request = URLRequest(url: url)

@@ -611,7 +611,9 @@ extension SLClientTests {
         var storedError: SLError?
 
         let client = try SLClient(engine: engine)
-        client.verifyMfa(key: String.randomPassword(), token: String.randomPassword(), deviceName: String.randomName()) { result in
+        client.verifyMfa(key: String.randomPassword(),
+                         token: String.randomPassword(),
+                         deviceName: String.randomName()) { result in
             switch result {
             case .success(let apiKey): storedApiKey = apiKey
             case .failure(let error): storedError = error
@@ -620,6 +622,27 @@ extension SLClientTests {
 
         // then
         XCTAssertNotNil(storedApiKey)
+        XCTAssertNil(storedError)
+    }
+
+    func testActivateEmail() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Message")
+
+        // when
+        var storedMessage: Message?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.activateEmail(email: String.randomEmail(), code: String.randomPassword()) { result in
+            switch result {
+            case .success(let message): storedMessage = message
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedMessage)
         XCTAssertNil(storedError)
     }
 }

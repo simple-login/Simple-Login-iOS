@@ -168,25 +168,27 @@ final class VerificationViewController: BaseViewController, Storyboarded {
             }
 
         case .accountActivation(let email, _):
-            SLApiService.shared.verifyEmail(email: email, code: code) { [weak self] result in
-                guard let self = self else { return }
-                MBProgressHUD.hide(for: self.view, animated: true)
+            SLClient.shared.activateEmail(email: email, code: code) { [weak self] result in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    MBProgressHUD.hide(for: self.view, animated: true)
 
-                switch result {
-                case .success:
-                    self.dismiss(animated: true) {
-                        self.accountVerificationSuccesful?()
+                    switch result {
+                    case .success:
+                        self.dismiss(animated: true) {
+                            self.accountVerificationSuccesful?()
+                        }
+
+                    case .failure(let error):
+                        switch error {
+                        case .reactivationNeeded: self.showReactivateAlert(email: email)
+
+                        default:
+                            self.showErrorLabel(true, errorMessage: error.description)
+                        }
+
+                        self.reset()
                     }
-
-                case .failure(let error):
-                    switch error {
-                    case .reactivationNeeded: self.showReactivateAlert(email: email)
-
-                    default:
-                        self.showErrorLabel(true, errorMessage: error.description)
-                    }
-
-                    self.reset()
                 }
             }
 

@@ -31,7 +31,7 @@ class UserLoginTests: XCTestCase, DecodableTestCase {
 
     // MARK: - Decodable test
     func testDecodeApiKey() {
-        XCTAssertEqual(sut.apiKey.value, dictionary["api_key"] as? String)
+        XCTAssertEqual(sut.apiKey?.value, dictionary["api_key"] as? String)
     }
 
     func testDecodeEmail() {

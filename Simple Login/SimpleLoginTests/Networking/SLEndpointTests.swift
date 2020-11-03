@@ -469,13 +469,34 @@ class SLEndpointTests: XCTestCase {
                                                     deviceName: expectedDeviceName).urlRequest
         let verifyMfaRequestHttpBody = try XCTUnwrap(verifyMfaRequest.httpBody)
         let verifyMfaRequestHttpBodyDict =
-            try JSONSerialization.jsonObject(with: verifyMfaRequestHttpBody) as? [String: Any]
+            try XCTUnwrap(JSONSerialization.jsonObject(with: verifyMfaRequestHttpBody) as? [String: Any])
 
         // then
         XCTAssertEqual(verifyMfaRequest.url, expectedUrl)
         XCTAssertEqual(verifyMfaRequest.httpMethod, HTTPMethod.post)
-        XCTAssertEqual(verifyMfaRequestHttpBodyDict?["mfa_token"] as? String, expectedToken)
-        XCTAssertEqual(verifyMfaRequestHttpBodyDict?["mfa_key"] as? String, expectedKey)
-        XCTAssertEqual(verifyMfaRequestHttpBodyDict?["device"] as? String, expectedDeviceName)
+        XCTAssertEqual(verifyMfaRequestHttpBodyDict["mfa_token"] as? String, expectedToken)
+        XCTAssertEqual(verifyMfaRequestHttpBodyDict["mfa_key"] as? String, expectedKey)
+        XCTAssertEqual(verifyMfaRequestHttpBodyDict["device"] as? String, expectedDeviceName)
+    }
+
+    func testGenerateActivateEmailRequest() throws {
+        // given
+        let expectedEmail = String.randomEmail()
+        let expectedCode = String.randomName()
+
+        let expectedUrl = baseUrl.append(path: "/api/auth/activate")
+
+        // when
+        let activateEmailRequest =
+            SLEndpoint.activateEmail(baseUrl: baseUrl, email: expectedEmail, code: expectedCode).urlRequest
+        let activateEmailRequestHttpBody = try XCTUnwrap(activateEmailRequest.httpBody)
+        let activateEmailRequestHttpBodyDict =
+        try XCTUnwrap(JSONSerialization.jsonObject(with: activateEmailRequestHttpBody) as? [String: Any])
+
+        // then
+        XCTAssertEqual(activateEmailRequest.url, expectedUrl)
+        XCTAssertEqual(activateEmailRequest.httpMethod, HTTPMethod.post)
+        XCTAssertEqual(activateEmailRequestHttpBodyDict["email"] as? String, expectedEmail)
+        XCTAssertEqual(activateEmailRequestHttpBodyDict["code"] as? String, expectedCode)
     }
 }
