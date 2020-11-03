@@ -143,6 +143,11 @@ extension SLClient {
         let userInfoEndpoint = SLEndpoint.userInfo(baseUrl: baseUrl, apiKey: apiKey)
         makeCall(to: userInfoEndpoint, expectedObjectType: UserInfo.self, completion: completion)
     }
+
+    func forgotPassword(email: String, completion: @escaping (Result<Ok, SLError>) -> Void) {
+        let forgotPasswordEndpoint = SLEndpoint.forgotPassword(baseUrl: baseUrl, email: email)
+        makeCall(to: forgotPasswordEndpoint, expectedObjectType: Ok.self, completion: completion)
+    }
 }
 
 // MARK: - Mailbox

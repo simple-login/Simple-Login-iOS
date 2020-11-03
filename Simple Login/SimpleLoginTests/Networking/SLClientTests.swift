@@ -580,4 +580,25 @@ extension SLClientTests {
         XCTAssertEqual(storedOk?.value, true)
         XCTAssertNil(storedError)
     }
+
+    func testForgotPassword() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Ok")
+
+        // when
+        var storedOk: Ok?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.forgotPassword(email: String.randomEmail()) { result in
+            switch result {
+            case .success(let ok): storedOk = ok
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertEqual(storedOk?.value, true)
+        XCTAssertNil(storedError)
+    }
 }

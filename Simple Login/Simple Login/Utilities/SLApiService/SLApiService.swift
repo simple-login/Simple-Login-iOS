@@ -50,15 +50,6 @@ extension SLApiService {
             }
         }
     }
-
-    func forgotPassword(email: String, completion: @escaping () -> Void) {
-        AF.request("\(baseUrl)/api/auth/forgot_password",
-                   method: .post,
-                   parameters: ["email": email],
-                   encoding: JSONEncoding.default).response { _ in
-            completion()
-        }
-    }
 }
 
 // MARK: - Sign Up

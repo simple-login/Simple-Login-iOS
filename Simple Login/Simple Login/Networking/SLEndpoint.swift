@@ -50,6 +50,7 @@ enum SLEndpoint {
     case deleteAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
     case deleteContact(baseUrl: URL, apiKey: ApiKey, contactId: Int)
     case deleteMailbox(baseUrl: URL, apiKey: ApiKey, mailboxId: Int)
+    case forgotPassword(baseUrl: URL, email: String)
     case getAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
@@ -72,6 +73,7 @@ enum SLEndpoint {
         case .deleteAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)"
         case .deleteContact(_, _, let contactId): return "/api/contacts/\(contactId)"
         case .deleteMailbox(_, _, let mailboxId): return "/api/mailboxes/\(mailboxId)"
+        case .forgotPassword: return "/api/auth/forgot_password"
         case .getAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)"
         case .login: return "/api/auth/login"
         case .mailboxes: return "/api/v2/mailboxes"
@@ -111,6 +113,9 @@ enum SLEndpoint {
 
         case let .deleteMailbox(baseUrl, apiKey, _):
             return deleteRequest(baseUrl: baseUrl, apiKey: apiKey)
+
+        case let .forgotPassword(baseUrl, email):
+            return forgotPasswordRequest(baseUrl: baseUrl, email: email)
 
         case let .getAlias(baseUrl, apiKey, aliasId):
             return getAliasRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId)
@@ -225,6 +230,16 @@ extension SLEndpoint {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.delete
         request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func forgotPasswordRequest(baseUrl: URL, email: String) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.post
+        request.addJsonRequestBody(["email": email])
 
         return request
     }

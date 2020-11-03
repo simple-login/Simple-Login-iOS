@@ -436,4 +436,21 @@ class SLEndpointTests: XCTestCase {
         assertProperlySetJsonContentType(processPaymentRequest)
         assertProperlyAttachedApiKey(processPaymentRequest, apiKey: apiKey)
     }
+
+    func testGenerateForgotPasswordRequest() throws {
+        // given
+        let email = String.randomEmail()
+        let expectedHttpBody =
+            try JSONSerialization.data(withJSONObject: ["email": email])
+        let expectedUrl = baseUrl.append(path: "/api/auth/forgot_password")
+
+        // when
+        let forgotPasswordRequest = SLEndpoint.forgotPassword(baseUrl: baseUrl, email: email).urlRequest
+
+        // then
+        XCTAssertEqual(forgotPasswordRequest.url, expectedUrl)
+        XCTAssertEqual(forgotPasswordRequest.httpMethod, HTTPMethod.post)
+        XCTAssertEqual(forgotPasswordRequest.httpBody, expectedHttpBody)
+        assertProperlySetJsonContentType(forgotPasswordRequest)
+    }
 }
