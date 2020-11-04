@@ -127,7 +127,7 @@ final class CreateAliasViewController: BaseApiKeyViewController {
         }
 
         fetchGroup.enter()
-        SLApiService.shared.fetchUserOptions(apiKey: apiKey) { result in
+        SLClient.shared.fetchUserOptions(apiKey: apiKey) { result in
             switch result {
             case .success(let userOptions): fetchedUserOptions = userOptions
             case .failure(let error): storedError = error

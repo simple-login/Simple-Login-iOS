@@ -540,4 +540,37 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(signUpRequestHttpBodyDict["password"] as? String, expectedPassword)
         assertProperlySetJsonContentType(signUpRequest)
     }
+
+    func testGenerateUserOptionsRequestWithHostname() throws {
+        // given
+        let apiKey = ApiKey.random()
+        let hostname = String.randomName()
+        let queryItem = URLQueryItem(name: "hostname", value: hostname)
+
+        let expectedUrl = baseUrl.append(path: "/api/v4/alias/options", queryItems: [queryItem])
+
+        // when
+        let userOptionsRequest =
+            SLEndpoint.userOptions(baseUrl: baseUrl, apiKey: apiKey, hostname: hostname).urlRequest
+
+        // then
+        XCTAssertEqual(userOptionsRequest.url, expectedUrl)
+        XCTAssertEqual(userOptionsRequest.httpMethod, HTTPMethod.get)
+        assertProperlyAttachedApiKey(userOptionsRequest, apiKey: apiKey)
+    }
+
+    func testGenerateUserOptionsRequestWithoutHostname() throws {
+        // given
+        let apiKey = ApiKey.random()
+
+        let expectedUrl = baseUrl.append(path: "/api/v4/alias/options")
+
+        // when
+        let userOptionsRequest = SLEndpoint.userOptions(baseUrl: baseUrl, apiKey: apiKey, hostname: nil).urlRequest
+
+        // then
+        XCTAssertEqual(userOptionsRequest.url, expectedUrl)
+        XCTAssertEqual(userOptionsRequest.httpMethod, HTTPMethod.get)
+        assertProperlyAttachedApiKey(userOptionsRequest, apiKey: apiKey)
+    }
 }

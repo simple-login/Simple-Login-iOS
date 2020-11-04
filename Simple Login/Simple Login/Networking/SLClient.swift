@@ -85,6 +85,13 @@ extension SLClient {
 
 // MARK: - Shared functions between host app and share extension
 extension SLClient {
+    func fetchUserOptions(apiKey: ApiKey,
+                          hostname: String? = nil,
+                          completion: @escaping (Result<UserOptions, SLError>) -> Void) {
+        let userOptionsEndpoint = SLEndpoint.userOptions(baseUrl: baseUrl, apiKey: apiKey, hostname: hostname)
+        makeCall(to: userOptionsEndpoint, expectedObjectType: UserOptions.self, completion: completion)
+    }
+
     func fetchMailboxes(apiKey: ApiKey, completion: @escaping (Result<MailboxArray, SLError>) -> Void) {
         let mailboxesEndpoint = SLEndpoint.mailboxes(baseUrl: baseUrl, apiKey: apiKey)
         makeCall(to: mailboxesEndpoint, expectedObjectType: MailboxArray.self, completion: completion)

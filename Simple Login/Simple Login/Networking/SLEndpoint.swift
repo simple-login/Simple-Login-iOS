@@ -65,6 +65,7 @@ enum SLEndpoint {
     case userInfo(baseUrl: URL, apiKey: ApiKey)
     case reactivateEmail(baseUrl: URL, email: String)
     case signUp(baseUrl: URL, email: String, password: String)
+    case userOptions(baseUrl: URL, apiKey: ApiKey, hostname: String?)
     case verifyMfa(baseUrl: URL, key: String, token: String, deviceName: String)
 
     var path: String {
@@ -92,6 +93,7 @@ enum SLEndpoint {
         case .userInfo: return "/api/user_info"
         case .reactivateEmail: return "/api/auth/reactivate"
         case .signUp: return "/api/auth/register"
+        case .userOptions: return "/api/v4/alias/options"
         case .verifyMfa: return "/api/auth/mfa"
         }
     }
@@ -169,6 +171,9 @@ enum SLEndpoint {
 
         case let .signUp(baseUrl, email, password):
             return signUpRequest(baseUrl: baseUrl, email: email, password: password)
+
+        case let .userOptions(baseUrl, apiKey, hostname):
+            return userOptionsRequest(baseUrl: baseUrl, apiKey: apiKey, hostname: hostname)
 
         case let .verifyMfa(baseUrl, key, token, deviceName):
             return verifyMfaRequest(baseUrl: baseUrl, key: key, token: token, deviceName: deviceName)
@@ -416,6 +421,22 @@ extension SLEndpoint {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.post
         request.addJsonRequestBody(["email": email, "password": password])
+
+        return request
+    }
+
+    private func userOptionsRequest(baseUrl: URL, apiKey: ApiKey, hostname: String?) -> URLRequest {
+        let url: URL
+        if let hostname = hostname {
+            let queryItem = URLQueryItem(name: "hostname", value: hostname)
+            url = baseUrl.append(path: path, queryItems: [queryItem])
+        } else {
+            url = baseUrl.append(path: path)
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.get
+        request.addApiKeyToHeaders(apiKey)
 
         return request
     }

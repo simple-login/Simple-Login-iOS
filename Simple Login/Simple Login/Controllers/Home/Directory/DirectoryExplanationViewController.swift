@@ -33,19 +33,21 @@ final class DirectoryExplanationViewController: BaseApiKeyViewController {
         MBProgressHUD.showAdded(to: view, animated: true)
         rootStackView.isHidden = true
 
-        SLApiService.shared.fetchUserOptions(apiKey: apiKey) { [weak self] result in
-            guard let self = self else { return }
+        SLClient.shared.fetchUserOptions(apiKey: apiKey) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            MBProgressHUD.hide(for: self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            switch result {
-            case .success(let userOptions):
-                self.rootStackView.isHidden = false
-                self.userOptions = userOptions
-                self.setUpUI()
+                switch result {
+                case .success(let userOptions):
+                    self.rootStackView.isHidden = false
+                    self.userOptions = userOptions
+                    self.setUpUI()
 
-            case .failure(let error):
-                Toast.displayError(error)
+                case .failure(let error):
+                    Toast.displayError(error)
+                }
             }
         }
     }
