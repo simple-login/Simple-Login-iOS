@@ -32,6 +32,7 @@
 		C013BB5A254F351F004B7FE5 /* ContactArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C013BB59254F351F004B7FE5 /* ContactArray.json */; };
 		C013BB5F254F354A004B7FE5 /* ContactArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB5E254F354A004B7FE5 /* ContactArray.swift */; };
 		C013BB6A254F3892004B7FE5 /* ContactArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */; };
+		C017AAEC255304E5004C80BF /* UserOptionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017AAEB255304E5004C80BF /* UserOptionsTests.swift */; };
 		C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */; };
 		C01ABA69246068340075DCC9 /* WhatAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ABA68246068340075DCC9 /* WhatAndFaqTableViewCell.swift */; };
 		C01ABA6B246068B20075DCC9 /* WhatAndFaqTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */; };
@@ -261,6 +262,7 @@
 		C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */; };
 		C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D9B66423CBC838009A6699 /* String+Utilities.swift */; };
 		C0D9BF86246D81D00009FB29 /* Sentry.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0D9BF85246D81D00009FB29 /* Sentry.plist */; };
+		C0DDB6CF2552F39B0032828D /* UserOptions.json in Resources */ = {isa = PBXBuildFile; fileRef = C0DDB6CE2552F39B0032828D /* UserOptions.json */; };
 		C0DF1BD224391E2700BA0742 /* UIViewController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF1BD124391E2700BA0742 /* UIViewController+Convenience.swift */; };
 		C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */; };
 		C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */; };
@@ -336,6 +338,7 @@
 		C013BB59254F351F004B7FE5 /* ContactArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ContactArray.json; sourceTree = "<group>"; };
 		C013BB5E254F354A004B7FE5 /* ContactArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactArray.swift; sourceTree = "<group>"; };
 		C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactArrayTests.swift; sourceTree = "<group>"; };
+		C017AAEB255304E5004C80BF /* UserOptionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOptionsTests.swift; sourceTree = "<group>"; };
 		C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterpriseViewController.swift; sourceTree = "<group>"; };
 		C01ABA68246068340075DCC9 /* WhatAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatAndFaqTableViewCell.swift; sourceTree = "<group>"; };
 		C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatAndFaqTableViewCell.xib; sourceTree = "<group>"; };
@@ -550,6 +553,7 @@
 		C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelpers.swift; sourceTree = "<group>"; };
 		C0D9B66423CBC838009A6699 /* String+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
 		C0D9BF85246D81D00009FB29 /* Sentry.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Sentry.plist; sourceTree = "<group>"; };
+		C0DDB6CE2552F39B0032828D /* UserOptions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UserOptions.json; sourceTree = "<group>"; };
 		C0DF1BD124391E2700BA0742 /* UIViewController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience.swift"; sourceTree = "<group>"; };
 		C0E50DA623C92EFB0058B88E /* SeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		C0E50DA823C92F180058B88E /* SeparatorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorTableViewCell.xib; sourceTree = "<group>"; };
@@ -1501,6 +1505,7 @@
 				C0EBF990254C77B8002FF72C /* UserInfo.json */,
 				C03AE3A7254B55D000C798EE /* UserLogin.json */,
 				C03AE3AF254B55DF00C798EE /* UserLogin_MissingValue.json */,
+				C0DDB6CE2552F39B0032828D /* UserOptions.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1519,6 +1524,7 @@
 				C0C67C4B2551A200004BBC7F /* Modification responses */,
 				C0EBF98A254C7762002FF72C /* UserInfoTests.swift */,
 				C0EBF979254C6D62002FF72C /* UserLoginTests.swift */,
+				C017AAEB255304E5004C80BF /* UserOptionsTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1689,6 +1695,7 @@
 				C06BFF9B2550B38900256DAC /* Deleted.json in Resources */,
 				C0475CAE254E05C60018F081 /* Alias.json in Resources */,
 				C06BFF8B2550A9C600256DAC /* Enabled.json in Resources */,
+				C0DDB6CF2552F39B0032828D /* UserOptions.json in Resources */,
 				C06BFF742550510B00256DAC /* Ok.json in Resources */,
 				C0EBF991254C77B8002FF72C /* UserInfo.json in Resources */,
 				C0C67C442551A1F1004BBC7F /* Updated.json in Resources */,
@@ -1903,6 +1910,7 @@
 				C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */,
 				C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */,
 				C06BFF932550A9E100256DAC /* EnabledTests.swift in Sources */,
+				C017AAEC255304E5004C80BF /* UserOptionsTests.swift in Sources */,
 				C0C67C2825516D95004BBC7F /* String+random.swift in Sources */,
 				C044FC1F254ECE310047F859 /* AliasActivityArrayTests.swift in Sources */,
 				C013BB47254F16CD004B7FE5 /* ContactTests.swift in Sources */,

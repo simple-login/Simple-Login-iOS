@@ -8,11 +8,15 @@
 
 import Foundation
 
-struct Suffix {
+struct Suffix: Equatable {
     let value: [String]
+
+    static func == (lhs: Suffix, rhs: Suffix) -> Bool {
+        lhs.value == rhs.value
+    }
 }
 
-struct UserOptions {
+struct UserOptions: Decodable {
     let canCreate: Bool
     let prefixSuggestion: String
     let suffixes: [Suffix]
@@ -29,41 +33,20 @@ struct UserOptions {
         return domains
     }()
 
-    /*
-     {
-         "can_create": true,
-         "prefix_suggestion": "",
-         "suffixes": [
-             [
-                 ".claustrum@sldev.ovh",
-                 ".claustrum@sldev.ovh.XtTG1w.N_0x77e2dOYlCklEM1RaOp0q3Fc"
-             ],
-             [
-                 ".cellulosing@hai.sldev.ovh",
-                 ".cellulosing@hai.sldev.ovh.XtTG1w.dY3zGAGRU9MV7LhBKVMfgFEWNrA"
-             ]
-         ]
-     }
-     */
+    // swiftlint:disable:next type_name
+    private enum Key: String, CodingKey {
+        case canCreate = "can_create"
+        case prefixSuggestion = "prefix_suggestion"
+        case suffixes = "suffixes"
+    }
 
-    init(data: Data) throws {
-        // swiftlint:disable:next line_length
-        guard let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-            throw SLError.failedToSerializeJsonForObject(anyObject: Self.self)
-        }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
 
-        let canCreate = jsonDictionary["can_create"] as? Bool
-        let prefixSuggestion = jsonDictionary["prefix_suggestion"] as? String
-        let suffixes = jsonDictionary["suffixes"] as? [[String]]
+        self.canCreate = try container.decode(Bool.self, forKey: .canCreate)
+        self.prefixSuggestion = try container.decode(String.self, forKey: .prefixSuggestion)
 
-        if let canCreate = canCreate,
-            let prefixSuggestion = prefixSuggestion,
-            let suffixes = suffixes {
-            self.canCreate = canCreate
-            self.prefixSuggestion = prefixSuggestion
-            self.suffixes = suffixes.map { Suffix(value: $0) }
-        } else {
-            throw SLError.failedToParse(anyObject: Self.self)
-        }
+        let suffixesArray = try container.decode([[String]].self, forKey: .suffixes)
+        self.suffixes = suffixesArray.map { Suffix(value: $0) }
     }
 }
