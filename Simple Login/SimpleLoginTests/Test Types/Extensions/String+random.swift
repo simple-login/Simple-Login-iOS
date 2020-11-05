@@ -24,6 +24,13 @@ extension String {
         random(allowedLetters: .lowercaseUppercaseDigit, length: 20)
     }
 
+    static func randomNullableName() -> String? {
+        let isNull = Bool.random()
+
+        if isNull { return nil }
+        return randomName()
+    }
+
     static func randomEmail() -> String {
         let username = random(allowedLetters: .lowercase, length: 10)
         let hostname = random(allowedLetters: .lowercase, length: 5)

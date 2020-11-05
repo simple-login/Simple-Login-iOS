@@ -167,6 +167,8 @@
 		C097A9EE23C7987F00EC1EFE /* StartUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EC23C7987F00EC1EFE /* StartUp.storyboard */; };
 		C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C097A9EF23C7988300EC1EFE /* Assets.xcassets */; };
 		C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9F123C7988300EC1EFE /* LaunchScreen.storyboard */; };
+		C099C94B2554375800451558 /* AliasCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CDF16255429960093D6C9 /* AliasCreationRequest.swift */; };
+		C099C9582554385F00451558 /* AliasCreationRequest+random.swift in Sources */ = {isa = PBXBuildFile; fileRef = C099C9572554385F00451558 /* AliasCreationRequest+random.swift */; };
 		C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */; };
 		C09ABE1023D3B8B200D5B731 /* CustomDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */; };
 		C09ABE1223D3BA9600D5B731 /* CustomDomainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */; };
@@ -467,6 +469,7 @@
 		C097A9EF23C7988300EC1EFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C097A9F223C7988300EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C097A9F423C7988400EC1EFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C099C9572554385F00451558 /* AliasCreationRequest+random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AliasCreationRequest+random.swift"; sourceTree = "<group>"; };
 		C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CustomDomain.storyboard; sourceTree = "<group>"; };
 		C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainTableViewCell.swift; sourceTree = "<group>"; };
 		C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomDomainTableViewCell.xib; sourceTree = "<group>"; };
@@ -735,6 +738,7 @@
 				C0C67C3125517097004BBC7F /* Int+random.swift */,
 				C0C67C2725516D95004BBC7F /* String+random.swift */,
 				C09CDF2625542DC20093D6C9 /* Suffix+random.swift */,
+				C099C9572554385F00451558 /* AliasCreationRequest+random.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1918,6 +1922,7 @@
 				C044FBD2254EBB1A0047F859 /* ApiKeyTests.swift in Sources */,
 				C06BFFA62550B3AA00256DAC /* DeletedTests.swift in Sources */,
 				C0EBF98B254C7762002FF72C /* UserInfoTests.swift in Sources */,
+				C099C9582554385F00451558 /* AliasCreationRequest+random.swift in Sources */,
 				C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */,
 				C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */,
 				C06BFF932550A9E100256DAC /* EnabledTests.swift in Sources */,
@@ -1967,6 +1972,7 @@
 				C00BC55723FDA0D900E66FFE /* UserOptions.swift in Sources */,
 				C0BE30B42486570A0096BCF5 /* SelectMailboxesViewController.swift in Sources */,
 				C0016DC824548F8A00513D64 /* AliasActivity.swift in Sources */,
+				C099C94B2554375800451558 /* AliasCreationRequest.swift in Sources */,
 				C0475CB5254E0C7E0018F081 /* AliasArray.swift in Sources */,
 				C044FBE4254EC0B90047F859 /* SLClient.swift in Sources */,
 				C0AACB5F24538A200016355D /* ApiKey.swift in Sources */,

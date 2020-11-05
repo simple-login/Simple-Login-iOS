@@ -85,6 +85,16 @@ extension SLClient {
 
 // MARK: - Shared functions between host app and share extension
 extension SLClient {
+    func createAlias(apiKey: ApiKey,
+                     aliasCreationRequest: AliasCreationRequest,
+                     completion: @escaping (Result<Alias, SLError>) -> Void) {
+        let createAliasEndpoint =
+            SLEndpoint.createAlias(baseUrl: baseUrl,
+                                   apiKey: apiKey,
+                                   aliasCreationRequest: aliasCreationRequest)
+        makeCall(to: createAliasEndpoint, expectedObjectType: Alias.self, completion: completion)
+    }
+
     func fetchUserOptions(apiKey: ApiKey,
                           hostname: String? = nil,
                           completion: @escaping (Result<UserOptions, SLError>) -> Void) {

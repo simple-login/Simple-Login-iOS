@@ -9,6 +9,7 @@
 @testable import SimpleLogin
 import XCTest
 
+// swiftlint:disable file_length
 class SLClientTests: XCTestCase {
     func testInitWithDefaultArgs() throws {
         // given
@@ -706,6 +707,28 @@ extension SLClientTests {
 
         // then
         XCTAssertNotNil(storedUserOptions)
+        XCTAssertNil(storedError)
+    }
+
+    func testCreateAlias() throws {
+        // given
+        let aliasCreationRequest = AliasCreationRequest.random()
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("Alias")
+
+        // when
+        var storedAlias: Alias?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.createAlias(apiKey: ApiKey.random(), aliasCreationRequest: aliasCreationRequest) { result in
+            switch result {
+            case .success(let alias): storedAlias = alias
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedAlias)
         XCTAssertNil(storedError)
     }
 }

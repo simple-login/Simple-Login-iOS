@@ -46,6 +46,7 @@ enum SLEndpoint {
     case aliasActivities(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
     case activateEmail(baseUrl: URL, email: String, code: String)
     case contacts(baseUrl: URL, apiKey: ApiKey, aliasId: Int, page: Int)
+    case createAlias(baseUrl: URL, apiKey: ApiKey, aliasCreationRequest: AliasCreationRequest)
     case createContact(baseUrl: URL, apiKey: ApiKey, aliasId: Int, email: String)
     case createMailbox(baseUrl: URL, apiKey: ApiKey, email: String)
     case deleteAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
@@ -74,6 +75,7 @@ enum SLEndpoint {
         case .aliasActivities(_, _, let aliasId, _): return "/api/aliases/\(aliasId)/activities"
         case .activateEmail: return "/api/auth/activate"
         case .contacts(_, _, let aliasId, _): return "/api/aliases/\(aliasId)/contacts"
+        case .createAlias: return "/api/v3/alias/custom/new"
         case .createContact(_, _, let aliasId, _): return "/api/aliases/\(aliasId)/contacts"
         case .createMailbox: return "/api/mailboxes"
         case .deleteAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)"
@@ -111,6 +113,9 @@ enum SLEndpoint {
 
         case let .contacts(baseUrl, apiKey, aliasId, page):
             return contactsRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, page: page)
+
+        case let .createAlias(baseUrl, apiKey, aliasCreationRequest):
+            return createAliasRequest(baseUrl: baseUrl, apiKey: apiKey, aliasCreationRequest: aliasCreationRequest)
 
         case let .createContact(baseUrl, apiKey, aliasId, email):
             return createContactRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, email: email)
@@ -227,6 +232,17 @@ extension SLEndpoint {
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func createAliasRequest(baseUrl: URL, apiKey: ApiKey, aliasCreationRequest: AliasCreationRequest) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.post
+        request.addJsonRequestBody(aliasCreationRequest.toRequestBody())
         request.addApiKeyToHeaders(apiKey)
 
         return request

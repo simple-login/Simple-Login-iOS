@@ -573,4 +573,32 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(userOptionsRequest.httpMethod, HTTPMethod.get)
         assertProperlyAttachedApiKey(userOptionsRequest, apiKey: apiKey)
     }
+
+    func testGenerateCreateAliasRequest() throws {
+        // given
+        let apiKey = ApiKey.random()
+        let aliasCreationRequest = AliasCreationRequest.random()
+
+        let expectedUrl = baseUrl.append(path: "/api/v3/alias/custom/new")
+
+        // when
+        let createAliasRequest =
+            SLEndpoint.createAlias(baseUrl: baseUrl,
+                                   apiKey: apiKey,
+                                   aliasCreationRequest: aliasCreationRequest).urlRequest
+        let createAliasHttpBody = try XCTUnwrap(createAliasRequest.httpBody)
+        let createAliasHttpBodyDict =
+            try XCTUnwrap(JSONSerialization.jsonObject(with: createAliasHttpBody) as? [String: Any])
+
+        // then
+        XCTAssertEqual(createAliasRequest.url, expectedUrl)
+        XCTAssertEqual(createAliasRequest.httpMethod, HTTPMethod.post)
+        XCTAssertEqual(createAliasHttpBodyDict["alias_prefix"] as? String, aliasCreationRequest.prefix)
+        XCTAssertEqual(createAliasHttpBodyDict["signed_suffix"] as? String, aliasCreationRequest.suffix.value[1])
+        XCTAssertEqual(createAliasHttpBodyDict["mailbox_ids"] as? [Int], aliasCreationRequest.mailboxIds)
+        XCTAssertEqual(createAliasHttpBodyDict["name"] as? String, aliasCreationRequest.name)
+        XCTAssertEqual(createAliasHttpBodyDict["note"] as? String, aliasCreationRequest.note)
+        assertProperlySetJsonContentType(createAliasRequest)
+        assertProperlyAttachedApiKey(createAliasRequest, apiKey: apiKey)
+    }
 }

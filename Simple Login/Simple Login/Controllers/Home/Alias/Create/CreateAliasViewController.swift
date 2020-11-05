@@ -164,24 +164,28 @@ final class CreateAliasViewController: BaseApiKeyViewController {
         let note = noteTextField.text != "" ? noteTextField.text : nil
         let mailboxIds = selectedMailboxes.map { $0.id }
 
-        SLApiService.shared.createAlias(apiKey: apiKey,
-                                        prefix: prefixTextField.text ?? "",
-                                        suffix: suffix,
-                                        mailboxIds: mailboxIds,
-                                        name: name,
-                                        note: note) { [weak self] result in
-            guard let self = self else { return }
+        let aliasCreationRequest = AliasCreationRequest(prefix: prefixTextField.text ?? "",
+                                                        suffix: suffix,
+                                                        mailboxIds: mailboxIds,
+                                                        name: name,
+                                                        note: note)
 
-            MBProgressHUD.hide(for: self.view, animated: true)
+        SLClient.shared.createAlias(apiKey: apiKey,
+                                    aliasCreationRequest: aliasCreationRequest) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            switch result {
-            case .success(let newlyCreatedAlias):
-                self.createdAlias?(newlyCreatedAlias)
-                self.dismiss(animated: true, completion: nil)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-            case .failure(let error):
-                self.dismiss(animated: true) {
-                    Toast.displayError(error)
+                switch result {
+                case .success(let newlyCreatedAlias):
+                    self.createdAlias?(newlyCreatedAlias)
+                    self.dismiss(animated: true, completion: nil)
+
+                case .failure(let error):
+                    self.dismiss(animated: true) {
+                        Toast.displayError(error)
+                    }
                 }
             }
         }

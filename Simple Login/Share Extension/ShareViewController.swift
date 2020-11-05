@@ -232,34 +232,38 @@ extension ShareViewController {
         let note = noteTextField.text != "" ? noteTextField.text : nil
         let mailboxIds = selectedMailboxes.map { $0.id }
 
-        SLApiService.shared.createAlias(apiKey: apiKey,
-                                        prefix: prefixTextField.text ?? "",
-                                        suffix: suffix,
-                                        mailboxIds: mailboxIds,
-                                        name: name,
-                                        note: note) { [weak self] result in
-            guard let self = self else { return }
+        let aliasCreationRequest = AliasCreationRequest(prefix: prefixTextField.text ?? "",
+                                                        suffix: suffix,
+                                                        mailboxIds: mailboxIds,
+                                                        name: name,
+                                                        note: note)
 
-            MBProgressHUD.hide(for: self.view, animated: true)
+        SLClient.shared.createAlias(apiKey: apiKey,
+                                    aliasCreationRequest: aliasCreationRequest) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
 
-            switch result {
-            case .success(let newlyCreatedAlias):
-                let alert = UIAlertController(
-                    title: "You are all set!",
-                    message: "\"\(newlyCreatedAlias.email)\"\nis created and ready to use",
-                    preferredStyle: .alert)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-                let closeAction = UIAlertAction(title: "Copy & Close", style: .default) { _ in
-                    UIPasteboard.general.string = newlyCreatedAlias.email
-                    self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-                }
+                switch result {
+                case .success(let newlyCreatedAlias):
+                    let alert = UIAlertController(
+                        title: "You are all set!",
+                        message: "\"\(newlyCreatedAlias.email)\"\nis created and ready to use",
+                        preferredStyle: .alert)
 
-                alert.addAction(closeAction)
-                self.present(alert, animated: true, completion: nil)
+                    let closeAction = UIAlertAction(title: "Copy & Close", style: .default) { _ in
+                        UIPasteboard.general.string = newlyCreatedAlias.email
+                        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                    }
 
-            case .failure(let error):
-                self.alertError(error) {
-                    self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                    alert.addAction(closeAction)
+                    self.present(alert, animated: true, completion: nil)
+
+                case .failure(let error):
+                    self.alertError(error) {
+                        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                    }
                 }
             }
         }
