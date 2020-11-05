@@ -71,7 +71,9 @@ final class AliasSearchViewController: BaseApiKeyViewController {
         MBProgressHUD.showAdded(to: view, animated: true)
         isFetching = true
 
-        SLClient.shared.fetchAliases(apiKey: apiKey, page: fetchedPage + 1, searchTerm: self.searchTerm ?? "") { [weak self] result in
+        SLClient.shared.fetchAliases(apiKey: apiKey,
+                                     page: fetchedPage + 1,
+                                     searchTerm: self.searchTerm ?? "") { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)

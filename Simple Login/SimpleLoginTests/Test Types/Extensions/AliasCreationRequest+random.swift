@@ -16,6 +16,10 @@ extension AliasCreationRequest {
         let randomName = String.randomNullableName()
         let randomNote = String.randomNullableName()
 
-        return AliasCreationRequest(prefix: randomPrefix, suffix: randomSuffix, mailboxIds: randomMailboxIds, name: randomName, note: randomNote)
+        return AliasCreationRequest(prefix: randomPrefix,
+                                    suffix: randomSuffix,
+                                    mailboxIds: randomMailboxIds,
+                                    name: randomName,
+                                    note: randomNote)
     }
 }

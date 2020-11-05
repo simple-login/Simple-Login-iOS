@@ -237,7 +237,9 @@ extension SLEndpoint {
         return request
     }
 
-    private func createAliasRequest(baseUrl: URL, apiKey: ApiKey, aliasCreationRequest: AliasCreationRequest) -> URLRequest {
+    private func createAliasRequest(baseUrl: URL,
+                                    apiKey: ApiKey,
+                                    aliasCreationRequest: AliasCreationRequest) -> URLRequest {
         let url = baseUrl.append(path: path)
 
         var request = URLRequest(url: url)
