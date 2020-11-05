@@ -170,6 +170,9 @@
 		C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */; };
 		C09ABE1023D3B8B200D5B731 /* CustomDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */; };
 		C09ABE1223D3BA9600D5B731 /* CustomDomainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */; };
+		C09CDF17255429960093D6C9 /* AliasCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CDF16255429960093D6C9 /* AliasCreationRequest.swift */; };
+		C09CDF1F25542CFD0093D6C9 /* AliasCreationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CDF1E25542CFD0093D6C9 /* AliasCreationRequestTests.swift */; };
+		C09CDF2725542DC20093D6C9 /* Suffix+random.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CDF2625542DC20093D6C9 /* Suffix+random.swift */; };
 		C09DB81E2439EF16002A9973 /* How.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09DB81D2439EF16002A9973 /* How.swift */; };
 		C09DB8202439F341002A9973 /* WhatYouCanDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09DB81F2439F341002A9973 /* WhatYouCanDoViewController.swift */; };
 		C0A726FA23EC131900A62A22 /* LoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A726F923EC131900A62A22 /* LoadingFooterView.swift */; };
@@ -467,6 +470,9 @@
 		C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CustomDomain.storyboard; sourceTree = "<group>"; };
 		C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainTableViewCell.swift; sourceTree = "<group>"; };
 		C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomDomainTableViewCell.xib; sourceTree = "<group>"; };
+		C09CDF16255429960093D6C9 /* AliasCreationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasCreationRequest.swift; sourceTree = "<group>"; };
+		C09CDF1E25542CFD0093D6C9 /* AliasCreationRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasCreationRequestTests.swift; sourceTree = "<group>"; };
+		C09CDF2625542DC20093D6C9 /* Suffix+random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Suffix+random.swift"; sourceTree = "<group>"; };
 		C09DB81D2439EF16002A9973 /* How.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = How.swift; sourceTree = "<group>"; };
 		C09DB81F2439F341002A9973 /* WhatYouCanDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatYouCanDoViewController.swift; sourceTree = "<group>"; };
 		C0A726F923EC131900A62A22 /* LoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooterView.swift; sourceTree = "<group>"; };
@@ -728,6 +734,7 @@
 				C03AE3B9254B56E100C798EE /* Data+fromJsonFile.swift */,
 				C0C67C3125517097004BBC7F /* Int+random.swift */,
 				C0C67C2725516D95004BBC7F /* String+random.swift */,
+				C09CDF2625542DC20093D6C9 /* Suffix+random.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -763,6 +770,7 @@
 				C0475CE0254E13E50018F081 /* AliasArrayTests.swift */,
 				C044FBF8254EC4A40047F859 /* AliasActivityTests.swift */,
 				C044FC1E254ECE310047F859 /* AliasActivityArrayTests.swift */,
+				C09CDF1E25542CFD0093D6C9 /* AliasCreationRequestTests.swift */,
 				C0475C77254DFB4A0018F081 /* AliasMailboxTests.swift */,
 				C0475CA8254E023D0018F081 /* LatestActivityTests.swift */,
 			);
@@ -963,6 +971,7 @@
 				C0475C5A254DF9C80018F081 /* AliasArray.swift */,
 				C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */,
 				C044FC08254ECB840047F859 /* AliasActivityArray.swift */,
+				C09CDF16255429960093D6C9 /* AliasCreationRequest.swift */,
 				C07F347424805FF600360BA3 /* AliasMailbox.swift */,
 				C0D069B32406CFDE00EBAC10 /* DeletedAlias.swift */,
 				C0BD47CC244DAB43006473B5 /* LatestActivity.swift */,
@@ -1897,11 +1906,13 @@
 				C0475C78254DFB4A0018F081 /* AliasMailboxTests.swift in Sources */,
 				C0475C80254DFDEA0018F081 /* ContactLiteTests.swift in Sources */,
 				C0EBF97A254C6D62002FF72C /* UserLoginTests.swift in Sources */,
+				C09CDF2725542DC20093D6C9 /* Suffix+random.swift in Sources */,
 				C0475CA9254E023D0018F081 /* LatestActivityTests.swift in Sources */,
 				C013BB6A254F3892004B7FE5 /* ContactArrayTests.swift in Sources */,
 				C0475CCE254E0E010018F081 /* AliasTests.swift in Sources */,
 				C0475CE1254E13E50018F081 /* AliasArrayTests.swift in Sources */,
 				C0EBF95C254C4BCF002FF72C /* NetworkEngineMock.swift in Sources */,
+				C09CDF1F25542CFD0093D6C9 /* AliasCreationRequestTests.swift in Sources */,
 				C0EBF9D1254CA76C002FF72C /* ErrorMessageTests.swift in Sources */,
 				C013BB26254EF9B9004B7FE5 /* MailboxTests.swift in Sources */,
 				C044FBD2254EBB1A0047F859 /* ApiKeyTests.swift in Sources */,
@@ -1972,6 +1983,7 @@
 				C0D2F950240B0A2700CCE6BD /* SignUpViewController.swift in Sources */,
 				C07B41F623EAEDCD002E6223 /* VerificationViewController.swift in Sources */,
 				C067EDC02483F58E00A89C75 /* UserDefault.swift in Sources */,
+				C09CDF17255429960093D6C9 /* AliasCreationRequest.swift in Sources */,
 				C03AE313254B08DB00C798EE /* NetworkEngine.swift in Sources */,
 				C0B1DE4623C90D6D003EED3B /* LeftMenuOptionTableViewCell.swift in Sources */,
 				C0BD47CF244DAB6F006473B5 /* ContactLite.swift in Sources */,
