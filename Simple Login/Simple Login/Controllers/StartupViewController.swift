@@ -15,7 +15,8 @@ final class StartupViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        SLApiService.shared.refreshBaseUrl()
+        SLClient.shared.refreshBaseUrl()
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handlePurchaseSuccessfully),
                                                name: .purchaseSuccessfully,

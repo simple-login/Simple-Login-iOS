@@ -83,7 +83,7 @@ extension CustomDomainDetailViewController: UITableViewDataSource {
 
                 cell.didTapVerifyButton = { [unowned self] in
                     // swiftlint:disable:next line_length
-                    if let url = URL(string: "\(SLApiService.shared.baseUrl)/dashboard/domains/\(self.customDomain.id)/dns") {
+                    if let url = URL(string: "\(SLClient.shared.baseUrl.absoluteURL)/dashboard/domains/\(self.customDomain.id)/dns") {
                         UIApplication.shared.open(url)
                     }
                 }

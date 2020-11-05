@@ -4,7 +4,6 @@ platform :ios, '11.0'
 use_frameworks!
 
 def common_pods
-  pod 'Alamofire', '~> 5.0.0-rc.3'
   pod 'MBProgressHUD', '~> 1.2.0'
   pod 'KeychainAccess'
 end
@@ -20,10 +19,6 @@ target 'Simple Login' do
   pod 'SwiftyStoreKit'
   pod 'MaterialComponents/Snackbar'
   pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '5.0.2'
-end
-
-target 'SimpleLoginTests' do
-  pod 'Alamofire', '~> 5.0.0-rc.3'
 end
 
 target 'Share Extension' do

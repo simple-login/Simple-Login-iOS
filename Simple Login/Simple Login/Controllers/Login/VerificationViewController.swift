@@ -181,6 +181,7 @@ final class VerificationViewController: BaseViewController, Storyboarded {
 
                     case .failure(let error):
                         switch error {
+                        // TODO: unreachable case
                         case .reactivationNeeded: self.showReactivateAlert(email: email)
 
                         default:

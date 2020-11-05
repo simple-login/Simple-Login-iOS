@@ -1,12 +1,11 @@
 PODS:
-  - Alamofire (5.0.5)
   - Differ (1.4.5)
   - Gifu (3.3)
   - KeychainAccess (4.2.1)
   - MarqueeLabel (4.0.5)
-  - MaterialComponents/AnimationTiming (118.1.0)
-  - MaterialComponents/Availability (118.1.0)
-  - MaterialComponents/Buttons (118.1.0):
+  - MaterialComponents/AnimationTiming (118.2.0)
+  - MaterialComponents/Availability (118.2.0)
+  - MaterialComponents/Buttons (118.2.0):
     - MaterialComponents/Elevation
     - MaterialComponents/Ink
     - MaterialComponents/private/Math
@@ -18,40 +17,40 @@ PODS:
     - MaterialComponents/Typography
     - MDFInternationalization
     - MDFTextAccessibility
-  - MaterialComponents/Elevation (118.1.0):
+  - MaterialComponents/Elevation (118.2.0):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/Ink (118.1.0):
+  - MaterialComponents/Ink (118.2.0):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/OverlayWindow (118.1.0):
+  - MaterialComponents/OverlayWindow (118.2.0):
     - MaterialComponents/Availability
     - MaterialComponents/private/Application
-  - MaterialComponents/private/Application (118.1.0)
-  - MaterialComponents/private/Color (118.1.0):
+  - MaterialComponents/private/Application (118.2.0)
+  - MaterialComponents/private/Color (118.2.0):
     - MaterialComponents/Availability
-  - MaterialComponents/private/KeyboardWatcher (118.1.0):
+  - MaterialComponents/private/KeyboardWatcher (118.2.0):
     - MaterialComponents/private/Application
-  - MaterialComponents/private/Math (118.1.0)
-  - MaterialComponents/private/Overlay (118.1.0)
-  - MaterialComponents/Ripple (118.1.0):
+  - MaterialComponents/private/Math (118.2.0)
+  - MaterialComponents/private/Overlay (118.2.0)
+  - MaterialComponents/Ripple (118.2.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/ShadowElevations (118.1.0)
-  - MaterialComponents/ShadowLayer (118.1.0):
+  - MaterialComponents/ShadowElevations (118.2.0)
+  - MaterialComponents/ShadowLayer (118.2.0):
     - MaterialComponents/ShadowElevations
-  - MaterialComponents/ShapeLibrary (118.1.0):
+  - MaterialComponents/ShapeLibrary (118.2.0):
     - MaterialComponents/private/Math
     - MaterialComponents/Shapes
-  - MaterialComponents/Shapes (118.1.0):
+  - MaterialComponents/Shapes (118.2.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
     - MaterialComponents/ShadowLayer
-  - MaterialComponents/Snackbar (118.1.0):
+  - MaterialComponents/Snackbar (118.2.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Availability
     - MaterialComponents/Buttons
@@ -64,7 +63,7 @@ PODS:
     - MaterialComponents/ShadowElevations
     - MaterialComponents/ShadowLayer
     - MaterialComponents/Typography
-  - MaterialComponents/Typography (118.1.0):
+  - MaterialComponents/Typography (118.2.0):
     - MaterialComponents/private/Application
     - MaterialComponents/private/Math
     - MDFTextAccessibility
@@ -80,7 +79,6 @@ PODS:
   - Toaster (2.2.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.0.0-rc.3)
   - Differ
   - Gifu
   - KeychainAccess
@@ -95,7 +93,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Alamofire
     - Differ
     - Gifu
     - KeychainAccess
@@ -120,12 +117,11 @@ CHECKOUT OPTIONS:
     :tag: 5.0.2
 
 SPEC CHECKSUMS:
-  Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   Differ: 3b6bd78e2b20cc795d9a86f7641d087524e4273e
   Gifu: 97c2a3c3865fbc834ab13f797e2e8e7729a1853c
   KeychainAccess: 9b07f665298d13c3a85881bd3171f6f49b8151c1
   MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
-  MaterialComponents: e4a7c8b5eabe7856ef58f632fb5800a229bda5be
+  MaterialComponents: fc3dba46cf3ae8495728a875778b47d0c6ec7ed5
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
@@ -135,6 +131,6 @@ SPEC CHECKSUMS:
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: dbe3b649e560460c713bf11b387b0b1fbee4f86a
+PODFILE CHECKSUM: 1237fd09099a41b86f0594ad561ddbe1f97936e9
 
 COCOAPODS: 1.9.1

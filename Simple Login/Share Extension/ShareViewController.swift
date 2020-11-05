@@ -63,7 +63,7 @@ class ShareViewController: BaseApiKeyViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        SLApiService.shared.refreshBaseUrl()
+        SLClient.shared.refreshBaseUrl()
         setUpUI()
         extractUrlString()
     }

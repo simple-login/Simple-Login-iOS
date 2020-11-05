@@ -6,7 +6,6 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
-import Alamofire
 import Foundation
 
 struct ApiKey: Decodable {
@@ -25,7 +24,4 @@ struct ApiKey: Decodable {
     enum Key: String, CodingKey {
         case apiKey = "api_key"
     }
-
-    // TODO: to be removed
-    func toHeaders() -> HTTPHeaders { ["Authentication": value] }
 }

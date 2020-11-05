@@ -37,6 +37,10 @@ final class SLClient {
             self.baseUrl = baseUrl
         }
     }
+
+    func refreshBaseUrl() {
+        updateBaseUrlString(Settings.shared.apiUrl)
+    }
 }
 
 // MARK: - Generic core funtions
