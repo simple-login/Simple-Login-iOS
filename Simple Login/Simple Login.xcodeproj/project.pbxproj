@@ -38,14 +38,6 @@
 		C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C00B123D25C390036B905 /* Storyboarded.swift */; };
 		C0222396245F3DFC003157B9 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0222395245F3DFC003157B9 /* UserDefaults+Extensions.swift */; };
 		C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02646FE23D0F4F600E9932B /* AvatarImageView.swift */; };
-		C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */; };
-		C027A26F24051D9700BD19C9 /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C027A26E24051D9700BD19C9 /* Walkthrough.storyboard */; };
-		C027A2752405368700BD19C9 /* WalkthroughWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A2742405368700BD19C9 /* WalkthroughWelcomeViewController.swift */; };
-		C027A2782405386900BD19C9 /* superman.gif in Resources */ = {isa = PBXBuildFile; fileRef = C027A2772405386900BD19C9 /* superman.gif */; };
-		C027A27A24053AA800BD19C9 /* WalkthroughLastStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27924053AA800BD19C9 /* WalkthroughLastStepViewController.swift */; };
-		C027A27C24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27B24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift */; };
-		C027A27E2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27D2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift */; };
-		C027A280240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C027A27F240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift */; };
 		C02B8FDF2484E86300AA3AEF /* SelectMailboxesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B8FDE2484E86300AA3AEF /* SelectMailboxesViewController.swift */; };
 		C02B8FE02484FAB000AA3AEF /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8C4B2246AF132008BB8D2 /* ErrorMessage.swift */; };
 		C032D6ED2419830300C06EB7 /* UIAlertController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */; };
@@ -345,14 +337,6 @@
 		C01C00B123D25C390036B905 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		C0222395245F3DFC003157B9 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		C02646FE23D0F4F600E9932B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
-		C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
-		C027A26E24051D9700BD19C9 /* Walkthrough.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
-		C027A2742405368700BD19C9 /* WalkthroughWelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughWelcomeViewController.swift; sourceTree = "<group>"; };
-		C027A2772405386900BD19C9 /* superman.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = superman.gif; sourceTree = "<group>"; };
-		C027A27924053AA800BD19C9 /* WalkthroughLastStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughLastStepViewController.swift; sourceTree = "<group>"; };
-		C027A27B24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWalkthroughStepViewController.swift; sourceTree = "<group>"; };
-		C027A27D2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughNoExtraMailViewController.swift; sourceTree = "<group>"; };
-		C027A27F240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughNoMoreSpamViewController.swift; sourceTree = "<group>"; };
 		C02B8FDE2484E86300AA3AEF /* SelectMailboxesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMailboxesViewController.swift; sourceTree = "<group>"; };
 		C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Convenience.swift"; sourceTree = "<group>"; };
 		C0373A8823EF55160044507C /* SimpleLogin Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SimpleLogin Share Extension.entitlements"; sourceTree = "<group>"; };
@@ -661,7 +645,6 @@
 		C027A2762405385800BD19C9 /* Ressources */ = {
 			isa = PBXGroup;
 			children = (
-				C027A2772405386900BD19C9 /* superman.gif */,
 				C0C053212438E8A60080AD4D /* delete.gif */,
 				C072CC1E2438A35F00DC4915 /* Faq.plist */,
 				C0D9BF85246D81D00009FB29 /* Sentry.plist */,
@@ -1091,7 +1074,6 @@
 			isa = PBXGroup;
 			children = (
 				C097A9EC23C7987F00EC1EFE /* StartUp.storyboard */,
-				C027A26E24051D9700BD19C9 /* Walkthrough.storyboard */,
 				C00D74EA23E8AD0300BE48F0 /* Login.storyboard */,
 				C0B1DE3B23C8AD7B003EED3B /* Home.storyboard */,
 				C07F346A2480517200360BA3 /* Mailbox.storyboard */,
@@ -1140,7 +1122,6 @@
 			isa = PBXGroup;
 			children = (
 				C0D8C4A6246AD99D008BB8D2 /* Base */,
-				C0B81AF524043CBB00742593 /* Walkthrough */,
 				C052F0D623C7DF3D00EB5D98 /* Login */,
 				C052F0D523C7DF3000EB5D98 /* Home */,
 				C0B6108A23C7A46700D34B8C /* StartupViewController.swift */,
@@ -1209,19 +1190,6 @@
 				C0B76DF023D0DE3C003AAB7E /* ProfileAndMembershipTableViewCell.xib */,
 			);
 			path = ProfileAndMembershipTableViewCell;
-			sourceTree = "<group>";
-		};
-		C0B81AF524043CBB00742593 /* Walkthrough */ = {
-			isa = PBXGroup;
-			children = (
-				C027A26C24051D7300BD19C9 /* WalkthroughViewController.swift */,
-				C027A27B24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift */,
-				C027A2742405368700BD19C9 /* WalkthroughWelcomeViewController.swift */,
-				C027A27D2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift */,
-				C027A27F240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift */,
-				C027A27924053AA800BD19C9 /* WalkthroughLastStepViewController.swift */,
-			);
-			path = Walkthrough;
 			sourceTree = "<group>";
 		};
 		C0C67C392551A0ED004BBC7F /* Modification responses */ = {
@@ -1627,7 +1595,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = SimpleLogin;
 				TargetAttributes = {
 					C03AE2F2254B06BA00C798EE = {
@@ -1717,7 +1685,6 @@
 				C0D6A28F23D0A93800EF21B8 /* WhatTableViewCell.xib in Resources */,
 				C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */,
 				C0956A4D23D109FB000CEBDD /* ExportDataTableViewCell.xib in Resources */,
-				C027A2782405386900BD19C9 /* superman.gif in Resources */,
 				C0D9BF86246D81D00009FB29 /* Sentry.plist in Resources */,
 				C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */,
 				C0D6A27523D0767000EF21B8 /* HowAndSecurityTableViewCell.xib in Resources */,
@@ -1730,7 +1697,6 @@
 				C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */,
 				C0A726FC23EC135000A62A22 /* LoadingFooterView.xib in Resources */,
 				C0747EE423CCDE7C008035E9 /* AliasActivityTableHeaderView.xib in Resources */,
-				C027A26F24051D9700BD19C9 /* Walkthrough.storyboard in Resources */,
 				C0D6A29823D0AD2400EF21B8 /* FaqTableViewCell.xib in Resources */,
 				C0D069A82406AF8E00EBAC10 /* DomainCatchAllTableViewCell.xib in Resources */,
 				C097A9EE23C7987F00EC1EFE /* StartUp.storyboard in Resources */,
@@ -1934,7 +1900,6 @@
 				C01ABA69246068340075DCC9 /* WhatAndFaqTableViewCell.swift in Sources */,
 				C0747EDF23CCA6F5008035E9 /* CreateContactViewController.swift in Sources */,
 				C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */,
-				C027A280240548DE00BD19C9 /* WalkthroughNoMoreSpamViewController.swift in Sources */,
 				C0B1DE4223C90D2C003EED3B /* RegisterableCell.swift in Sources */,
 				C0B1DE3723C8ACA4003EED3B /* UserInfo.swift in Sources */,
 				C0D9B66123CBC0AA009A6699 /* CreateAliasViewController.swift in Sources */,
@@ -1960,7 +1925,6 @@
 				C0D8C4B7246AF4B6008BB8D2 /* Enabled.swift in Sources */,
 				C05CD30A23CA0473007F1C9E /* CustomDomainViewController.swift in Sources */,
 				C0D6A28D23D0A8EC00EF21B8 /* What.swift in Sources */,
-				C027A27E2405486100BD19C9 /* WalkthroughNoExtraMailViewController.swift in Sources */,
 				C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */,
 				C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */,
 				C05CD31523CA33C2007F1C9E /* Alias.swift in Sources */,
@@ -1998,7 +1962,6 @@
 				C07F346F248052AF00360BA3 /* MailboxTableViewCell.swift in Sources */,
 				C013BB5F254F354A004B7FE5 /* ContactArray.swift in Sources */,
 				C0D8C4B5246AF303008BB8D2 /* Deleted.swift in Sources */,
-				C027A27A24053AA800BD19C9 /* WalkthroughLastStepViewController.swift in Sources */,
 				C03AE38C254B38C600C798EE /* SLEndpoint.swift in Sources */,
 				C0D87CC22423C41800BCF5AB /* LoginNavigationViewController.swift in Sources */,
 				C0A726FA23EC131900A62A22 /* LoadingFooterView.swift in Sources */,
@@ -2017,16 +1980,13 @@
 				C0AACB5E245389FD0016355D /* ApiKey.swift in Sources */,
 				C08A202A23CC95DF00CB8D2F /* ContactTableViewCell.swift in Sources */,
 				C0D6A29623D0ACDF00EF21B8 /* FaqTableViewCell.swift in Sources */,
-				C027A26D24051D7300BD19C9 /* WalkthroughViewController.swift in Sources */,
 				C067EDC52483FA8500A89C75 /* Settings.swift in Sources */,
 				C0D069B82406D09200EBAC10 /* ListDeletedAliasesTableViewCell.swift in Sources */,
 				C0D069AB2406BE7800EBAC10 /* Directory.swift in Sources */,
 				C0E50DA723C92EFB0058B88E /* SeparatorTableViewCell.swift in Sources */,
 				C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */,
 				C0F84B1C23D4B6F300E0852C /* CustomDomainDetailViewController.swift in Sources */,
-				C027A27C24053BD700BD19C9 /* BaseWalkthroughStepViewController.swift in Sources */,
 				C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */,
-				C027A2752405368700BD19C9 /* WalkthroughWelcomeViewController.swift in Sources */,
 				C0C67C3B2551A1A3004BBC7F /* Updated.swift in Sources */,
 				C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */,
 				C0475C5B254DF9C80018F081 /* AliasArray.swift in Sources */,
@@ -2228,6 +2188,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2288,6 +2249,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
