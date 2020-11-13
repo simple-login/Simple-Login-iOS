@@ -59,13 +59,14 @@ enum SLEndpoint {
     case makeDefaultMailbox(baseUrl: URL, apiKey: ApiKey, mailboxId: Int)
     case processPayment(baseUrl: URL, apiKey: ApiKey, receiptData: String)
     case randomAlias(baseUrl: URL, apiKey: ApiKey, randomMode: RandomMode)
+    case reactivateEmail(baseUrl: URL, email: String)
+    case signUp(baseUrl: URL, email: String, password: String)
     case toggleAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
     case updateAliasMailboxes(baseUrl: URL, apiKey: ApiKey, aliasId: Int, mailboxIds: [Int])
     case updateAliasNote(baseUrl: URL, apiKey: ApiKey, aliasId: Int, note: String?)
     case updateAliasName(baseUrl: URL, apiKey: ApiKey, aliasId: Int, name: String?)
     case userInfo(baseUrl: URL, apiKey: ApiKey)
-    case reactivateEmail(baseUrl: URL, email: String)
-    case signUp(baseUrl: URL, email: String, password: String)
+    case userSettings(baseUrl: URL, apiKey: ApiKey)
     case userOptions(baseUrl: URL, apiKey: ApiKey, hostname: String?)
     case verifyMfa(baseUrl: URL, key: String, token: String, deviceName: String)
 
@@ -88,14 +89,15 @@ enum SLEndpoint {
         case .makeDefaultMailbox(_, _, let mailboxId): return "/api/mailboxes/\(mailboxId)"
         case .processPayment: return "/api/apple/process_payment"
         case .randomAlias: return "/api/alias/random/new"
+        case .reactivateEmail: return "/api/auth/reactivate"
+        case .signUp: return "/api/auth/register"
         case .toggleAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)/toggle"
         case .updateAliasMailboxes(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .updateAliasName(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .updateAliasNote(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .userInfo: return "/api/user_info"
-        case .reactivateEmail: return "/api/auth/reactivate"
-        case .signUp: return "/api/auth/register"
         case .userOptions: return "/api/v4/alias/options"
+        case .userSettings: return "/api/setting"
         case .verifyMfa: return "/api/auth/mfa"
         }
     }
@@ -153,6 +155,12 @@ enum SLEndpoint {
         case let .randomAlias(baseUrl, apiKey, randomMode):
             return randomAlias(baseUrl: baseUrl, apiKey: apiKey, randomMode: randomMode)
 
+        case let .reactivateEmail(baseUrl, email):
+            return reactivateEmailRequest(baseUrl: baseUrl, email: email)
+
+        case let .signUp(baseUrl, email, password):
+            return signUpRequest(baseUrl: baseUrl, email: email, password: password)
+
         case let .toggleAlias(baseUrl, apiKey, aliasId):
             return toggleAliasRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId)
 
@@ -171,14 +179,11 @@ enum SLEndpoint {
         case let .userInfo(baseUrl, apiKey):
             return userInfoRequest(baseUrl: baseUrl, apiKey: apiKey)
 
-        case let .reactivateEmail(baseUrl, email):
-            return reactivateEmailRequest(baseUrl: baseUrl, email: email)
-
-        case let .signUp(baseUrl, email, password):
-            return signUpRequest(baseUrl: baseUrl, email: email, password: password)
-
         case let .userOptions(baseUrl, apiKey, hostname):
             return userOptionsRequest(baseUrl: baseUrl, apiKey: apiKey, hostname: hostname)
+
+        case let .userSettings(baseUrl, apiKey):
+            return userSettingsRequest(baseUrl: baseUrl, apiKey: apiKey)
 
         case let .verifyMfa(baseUrl, key, token, deviceName):
             return verifyMfaRequest(baseUrl: baseUrl, key: key, token: token, deviceName: deviceName)
@@ -362,6 +367,26 @@ extension SLEndpoint {
         return request
     }
 
+    private func reactivateEmailRequest(baseUrl: URL, email: String) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.post
+        request.addJsonRequestBody(["email": email])
+
+        return request
+    }
+
+    private func signUpRequest(baseUrl: URL, email: String, password: String) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.post
+        request.addJsonRequestBody(["email": email, "password": password])
+
+        return request
+    }
+
     private func toggleAliasRequest(baseUrl: URL, apiKey: ApiKey, aliasId: Int) -> URLRequest {
         let url = baseUrl.append(path: path)
 
@@ -423,26 +448,6 @@ extension SLEndpoint {
         return request
     }
 
-    private func reactivateEmailRequest(baseUrl: URL, email: String) -> URLRequest {
-        let url = baseUrl.append(path: path)
-
-        var request = URLRequest(url: url)
-        request.httpMethod = HTTPMethod.post
-        request.addJsonRequestBody(["email": email])
-
-        return request
-    }
-
-    private func signUpRequest(baseUrl: URL, email: String, password: String) -> URLRequest {
-        let url = baseUrl.append(path: path)
-
-        var request = URLRequest(url: url)
-        request.httpMethod = HTTPMethod.post
-        request.addJsonRequestBody(["email": email, "password": password])
-
-        return request
-    }
-
     private func userOptionsRequest(baseUrl: URL, apiKey: ApiKey, hostname: String?) -> URLRequest {
         let url: URL
         if let hostname = hostname {
@@ -451,6 +456,16 @@ extension SLEndpoint {
         } else {
             url = baseUrl.append(path: path)
         }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.get
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func userSettingsRequest(baseUrl: URL, apiKey: ApiKey) -> URLRequest {
+        let url = baseUrl.append(path: path)
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get

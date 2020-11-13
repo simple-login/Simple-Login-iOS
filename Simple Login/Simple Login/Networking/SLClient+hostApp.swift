@@ -196,6 +196,15 @@ extension SLClient {
     }
 }
 
+// MARK: - Settings
+extension SLClient {
+    func fetchUserSettings(apiKey: ApiKey,
+                           completion: @escaping (Result<UserSettings, SLError>) -> Void) {
+        let userSettingsEndpoint = SLEndpoint.userSettings(baseUrl: baseUrl, apiKey: apiKey)
+        makeCall(to: userSettingsEndpoint, expectedObjectType: UserSettings.self, completion: completion)
+    }
+}
+
 // MARK: - Sign up
 extension SLClient {
     func activate(email: String,

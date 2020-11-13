@@ -601,4 +601,18 @@ class SLEndpointTests: XCTestCase {
         assertProperlySetJsonContentType(createAliasRequest)
         assertProperlyAttachedApiKey(createAliasRequest, apiKey: apiKey)
     }
+
+    func testGenerateUserSettingsRequest() throws {
+        // given
+        let apiKey = ApiKey.random()
+        let expectedUrl = baseUrl.append(path: "/api/setting")
+
+        // when
+        let userSettingsRequest = SLEndpoint.userSettings(baseUrl: baseUrl, apiKey: apiKey).urlRequest
+
+        // then
+        XCTAssertEqual(userSettingsRequest.url, expectedUrl)
+        XCTAssertEqual(userSettingsRequest.httpMethod, HTTPMethod.get)
+        assertProperlyAttachedApiKey(userSettingsRequest, apiKey: apiKey)
+    }
 }

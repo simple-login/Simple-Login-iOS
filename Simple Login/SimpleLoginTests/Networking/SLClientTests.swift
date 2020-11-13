@@ -731,4 +731,25 @@ extension SLClientTests {
         XCTAssertNotNil(storedAlias)
         XCTAssertNil(storedError)
     }
+
+    func testFetchUserSettings() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("UserSettings")
+
+        // when
+        var storedUserSettings: UserSettings?
+        var storedError: Error?
+
+        let client = try SLClient(engine: engine)
+        client.fetchUserSettings(apiKey: ApiKey.random()) { result in
+            switch result {
+            case .success(let userSettings): storedUserSettings = userSettings
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedUserSettings)
+        XCTAssertNil(storedError)
+    }
 }
