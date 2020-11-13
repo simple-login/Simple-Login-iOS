@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum RandomMode: String {
+enum RandomMode: String, Decodable {
     case uuid = "uuid", word = "word"
 }
