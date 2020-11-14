@@ -738,7 +738,7 @@ extension SLClientTests {
 
         // when
         var storedUserSettings: UserSettings?
-        var storedError: Error?
+        var storedError: SLError?
 
         let client = try SLClient(engine: engine)
         client.fetchUserSettings(apiKey: ApiKey.random()) { result in
@@ -750,6 +750,28 @@ extension SLClientTests {
 
         // then
         XCTAssertNotNil(storedUserSettings)
+        XCTAssertNil(storedError)
+    }
+
+    func testGetDomainLites() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("DomainLites")
+
+        // when
+        var storedDomainLites: [DomainLite]?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.getDomainLites(apiKey: ApiKey.random()) { result in
+            switch result {
+            case .success(let domainLites): storedDomainLites = domainLites
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedDomainLites)
+        XCTAssertEqual(storedDomainLites?.count, 4)
         XCTAssertNil(storedError)
     }
 }

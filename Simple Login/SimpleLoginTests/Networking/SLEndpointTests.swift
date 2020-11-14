@@ -615,4 +615,18 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(userSettingsRequest.httpMethod, HTTPMethod.get)
         assertProperlyAttachedApiKey(userSettingsRequest, apiKey: apiKey)
     }
+
+    func testGenerateGetDomainLitesRequest() throws {
+        // given
+        let apiKey = ApiKey.random()
+        let expectedUrl = baseUrl.append(path: "/api/v2/setting/domains")
+
+        // when
+        let getDomainLitesRequest = SLEndpoint.getDomainLites(baseUrl: baseUrl, apiKey: apiKey).urlRequest
+
+        // then
+        XCTAssertEqual(getDomainLitesRequest.url, expectedUrl)
+        XCTAssertEqual(getDomainLitesRequest.httpMethod, HTTPMethod.get)
+        assertProperlyAttachedApiKey(getDomainLitesRequest, apiKey: apiKey)
+    }
 }

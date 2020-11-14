@@ -54,6 +54,7 @@ enum SLEndpoint {
     case deleteMailbox(baseUrl: URL, apiKey: ApiKey, mailboxId: Int)
     case forgotPassword(baseUrl: URL, email: String)
     case getAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
+    case getDomainLites(baseUrl: URL, apiKey: ApiKey)
     case login(baseUrl: URL, email: String, password: String, deviceName: String)
     case mailboxes(baseUrl: URL, apiKey: ApiKey)
     case makeDefaultMailbox(baseUrl: URL, apiKey: ApiKey, mailboxId: Int)
@@ -84,6 +85,7 @@ enum SLEndpoint {
         case .deleteMailbox(_, _, let mailboxId): return "/api/mailboxes/\(mailboxId)"
         case .forgotPassword: return "/api/auth/forgot_password"
         case .getAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)"
+        case .getDomainLites: return "/api/v2/setting/domains"
         case .login: return "/api/auth/login"
         case .mailboxes: return "/api/v2/mailboxes"
         case .makeDefaultMailbox(_, _, let mailboxId): return "/api/mailboxes/\(mailboxId)"
@@ -139,6 +141,9 @@ enum SLEndpoint {
 
         case let .getAlias(baseUrl, apiKey, aliasId):
             return getAliasRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId)
+
+        case let .getDomainLites(baseUrl, apiKey):
+            return getDomainLitesRequest(baseUrl: baseUrl, apiKey: apiKey)
 
         case let .login(baseUrl, email, password, deviceName):
             return loginRequest(baseUrl: baseUrl, email: email, password: password, deviceName: deviceName)
@@ -303,6 +308,16 @@ extension SLEndpoint {
     }
 
     private func getAliasRequest(baseUrl: URL, apiKey: ApiKey, aliasId: Int) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.get
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func getDomainLitesRequest(baseUrl: URL, apiKey: ApiKey) -> URLRequest {
         let url = baseUrl.append(path: path)
 
         var request = URLRequest(url: url)

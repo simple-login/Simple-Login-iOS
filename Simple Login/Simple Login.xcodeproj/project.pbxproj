@@ -213,6 +213,7 @@
 		C0CD8F9C25607E3B003DB787 /* DomainLite.json in Resources */ = {isa = PBXBuildFile; fileRef = C0CD8F9B25607E3B003DB787 /* DomainLite.json */; };
 		C0CD8FA425607E9A003DB787 /* DomainLiteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8FA325607E9A003DB787 /* DomainLiteTests.swift */; };
 		C0CD8FAC25607F9B003DB787 /* DomainLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8FAB25607F9B003DB787 /* DomainLite.swift */; };
+		C0CD8FB9256083DE003DB787 /* DomainLites.json in Resources */ = {isa = PBXBuildFile; fileRef = C0CD8FB8256083DE003DB787 /* DomainLites.json */; };
 		C0D0500E23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D0500F23FED26900B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D069992406798600EBAC10 /* Directory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0D069982406798600EBAC10 /* Directory.storyboard */; };
@@ -508,6 +509,7 @@
 		C0CD8F9B25607E3B003DB787 /* DomainLite.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DomainLite.json; sourceTree = "<group>"; };
 		C0CD8FA325607E9A003DB787 /* DomainLiteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLiteTests.swift; sourceTree = "<group>"; };
 		C0CD8FAB25607F9B003DB787 /* DomainLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLite.swift; sourceTree = "<group>"; };
+		C0CD8FB8256083DE003DB787 /* DomainLites.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DomainLites.json; sourceTree = "<group>"; };
 		C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience+AllTarget.swift"; sourceTree = "<group>"; };
 		C0D069982406798600EBAC10 /* Directory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Directory.storyboard; sourceTree = "<group>"; };
 		C0D0699B24067AC700EBAC10 /* DirectoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
@@ -1483,6 +1485,8 @@
 				C013BB3E254F1665004B7FE5 /* Contact.json */,
 				C013BB59254F351F004B7FE5 /* ContactArray.json */,
 				C0475C8A254E000B0018F081 /* ContactLite.json */,
+				C0CD8F9B25607E3B003DB787 /* DomainLite.json */,
+				C0CD8FB8256083DE003DB787 /* DomainLites.json */,
 				C0EBF968254C503C002FF72C /* DummyData.json */,
 				C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */,
 				C044FC39254EF89C0047F859 /* Mailbox.json */,
@@ -1494,7 +1498,6 @@
 				C03AE3AF254B55DF00C798EE /* UserLogin_MissingValue.json */,
 				C0DDB6CE2552F39B0032828D /* UserOptions.json */,
 				C0C786F7255F335C000D9AB1 /* UserSettings.json */,
-				C0CD8F9B25607E3B003DB787 /* DomainLite.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1691,6 +1694,7 @@
 				C0DDB6CF2552F39B0032828D /* UserOptions.json in Resources */,
 				C06BFF742550510B00256DAC /* Ok.json in Resources */,
 				C0EBF991254C77B8002FF72C /* UserInfo.json in Resources */,
+				C0CD8FB9256083DE003DB787 /* DomainLites.json in Resources */,
 				C0C67C442551A1F1004BBC7F /* Updated.json in Resources */,
 				C044FBFE254EC5A20047F859 /* AliasActivity.json in Resources */,
 			);
