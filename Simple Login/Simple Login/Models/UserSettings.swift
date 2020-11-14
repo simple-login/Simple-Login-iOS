@@ -28,3 +28,22 @@ struct UserSettings: Decodable {
         self.randomAliasDefaultDomain = try container.decode(String.self, forKey: .randomAliasDefaultDomain)
     }
 }
+
+extension UserSettings {
+    enum Option {
+        case randomMode(RandomMode)
+        case notification(Bool)
+        case randomAliasDefaultDomain(String)
+
+        var requestBody: [String: Any] {
+            switch self {
+            case .randomMode(let mode):
+                return ["alias_generator": mode.rawValue]
+            case .notification(let isOn):
+                return ["notification": isOn]
+            case .randomAliasDefaultDomain(let domainName):
+                return ["random_alias_default_domain": domainName]
+            }
+        }
+    }
+}

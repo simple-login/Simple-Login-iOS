@@ -214,6 +214,7 @@
 		C0CD8FA425607E9A003DB787 /* DomainLiteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8FA325607E9A003DB787 /* DomainLiteTests.swift */; };
 		C0CD8FAC25607F9B003DB787 /* DomainLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8FAB25607F9B003DB787 /* DomainLite.swift */; };
 		C0CD8FB9256083DE003DB787 /* DomainLites.json in Resources */ = {isa = PBXBuildFile; fileRef = C0CD8FB8256083DE003DB787 /* DomainLites.json */; };
+		C0CD8FC4256088AB003DB787 /* UserSettingsOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8FC3256088AB003DB787 /* UserSettingsOptionTests.swift */; };
 		C0D0500E23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D0500F23FED26900B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D069992406798600EBAC10 /* Directory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0D069982406798600EBAC10 /* Directory.storyboard */; };
@@ -510,6 +511,7 @@
 		C0CD8FA325607E9A003DB787 /* DomainLiteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLiteTests.swift; sourceTree = "<group>"; };
 		C0CD8FAB25607F9B003DB787 /* DomainLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLite.swift; sourceTree = "<group>"; };
 		C0CD8FB8256083DE003DB787 /* DomainLites.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DomainLites.json; sourceTree = "<group>"; };
+		C0CD8FC3256088AB003DB787 /* UserSettingsOptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsOptionTests.swift; sourceTree = "<group>"; };
 		C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience+AllTarget.swift"; sourceTree = "<group>"; };
 		C0D069982406798600EBAC10 /* Directory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Directory.storyboard; sourceTree = "<group>"; };
 		C0D0699B24067AC700EBAC10 /* DirectoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
@@ -1510,6 +1512,7 @@
 				C013BB46254F16CD004B7FE5 /* ContactTests.swift */,
 				C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */,
 				C0475C7F254DFDEA0018F081 /* ContactLiteTests.swift */,
+				C0CD8FA325607E9A003DB787 /* DomainLiteTests.swift */,
 				C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */,
 				C013BB25254EF9B9004B7FE5 /* MailboxTests.swift */,
 				C013BB31254EFBF0004B7FE5 /* MailboxArrayTests.swift */,
@@ -1519,7 +1522,7 @@
 				C0EBF979254C6D62002FF72C /* UserLoginTests.swift */,
 				C017AAEB255304E5004C80BF /* UserOptionsTests.swift */,
 				C0C786FF255F3396000D9AB1 /* UserSettingsTests.swift */,
-				C0CD8FA325607E9A003DB787 /* DomainLiteTests.swift */,
+				C0CD8FC3256088AB003DB787 /* UserSettingsOptionTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1857,6 +1860,7 @@
 				C0CD8FA425607E9A003DB787 /* DomainLiteTests.swift in Sources */,
 				C0475CA9254E023D0018F081 /* LatestActivityTests.swift in Sources */,
 				C013BB6A254F3892004B7FE5 /* ContactArrayTests.swift in Sources */,
+				C0CD8FC4256088AB003DB787 /* UserSettingsOptionTests.swift in Sources */,
 				C0475CCE254E0E010018F081 /* AliasTests.swift in Sources */,
 				C0475CE1254E13E50018F081 /* AliasArrayTests.swift in Sources */,
 				C0EBF95C254C4BCF002FF72C /* NetworkEngineMock.swift in Sources */,
