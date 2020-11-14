@@ -205,6 +205,11 @@
 		C0C786F8255F335C000D9AB1 /* UserSettings.json in Resources */ = {isa = PBXBuildFile; fileRef = C0C786F7255F335C000D9AB1 /* UserSettings.json */; };
 		C0C78700255F3396000D9AB1 /* UserSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C786FF255F3396000D9AB1 /* UserSettingsTests.swift */; };
 		C0CA3AFE23E98A5700887264 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3AFD23E98A5700887264 /* UserLogin.swift */; };
+		C0CD8F47256042D8003DB787 /* Suffix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8F46256042D8003DB787 /* Suffix.swift */; };
+		C0CD8F5A256043B3003DB787 /* Suffix.json in Resources */ = {isa = PBXBuildFile; fileRef = C0CD8F59256043B3003DB787 /* Suffix.json */; };
+		C0CD8F5F256043C7003DB787 /* SuffixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8F5E256043C7003DB787 /* SuffixTests.swift */; };
+		C0CD8F6925604440003DB787 /* Suffix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8F46256042D8003DB787 /* Suffix.swift */; };
+		C0CD8F92256068C6003DB787 /* Suffix+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8F91256068C6003DB787 /* Suffix+Equatable.swift */; };
 		C0D0500E23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D0500F23FED26900B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D069992406798600EBAC10 /* Directory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0D069982406798600EBAC10 /* Directory.storyboard */; };
@@ -493,6 +498,10 @@
 		C0C786F7255F335C000D9AB1 /* UserSettings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UserSettings.json; sourceTree = "<group>"; };
 		C0C786FF255F3396000D9AB1 /* UserSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsTests.swift; sourceTree = "<group>"; };
 		C0CA3AFD23E98A5700887264 /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
+		C0CD8F46256042D8003DB787 /* Suffix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suffix.swift; sourceTree = "<group>"; };
+		C0CD8F59256043B3003DB787 /* Suffix.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Suffix.json; sourceTree = "<group>"; };
+		C0CD8F5E256043C7003DB787 /* SuffixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuffixTests.swift; sourceTree = "<group>"; };
+		C0CD8F91256068C6003DB787 /* Suffix+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Suffix+Equatable.swift"; sourceTree = "<group>"; };
 		C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience+AllTarget.swift"; sourceTree = "<group>"; };
 		C0D069982406798600EBAC10 /* Directory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Directory.storyboard; sourceTree = "<group>"; };
 		C0D0699B24067AC700EBAC10 /* DirectoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
@@ -709,6 +718,7 @@
 				C0C67C2725516D95004BBC7F /* String+random.swift */,
 				C09CDF2625542DC20093D6C9 /* Suffix+random.swift */,
 				C099C9572554385F00451558 /* AliasCreationRequest+random.swift */,
+				C0CD8F91256068C6003DB787 /* Suffix+Equatable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1156,6 +1166,7 @@
 				C04007AF23EE1DFB005AD66B /* RandomMode.swift */,
 				C05049BB23CE016600AEF20B /* SLColor.swift */,
 				C0B1DE3423C8AC8A003EED3B /* SLError.swift */,
+				C0CD8F46256042D8003DB787 /* Suffix.swift */,
 				C0CA3AFD23E98A5700887264 /* UserLogin.swift */,
 				C0B1DE3623C8ACA4003EED3B /* UserInfo.swift */,
 				C0B1DE3823C8AD22003EED3B /* UserOptions.swift */,
@@ -1470,6 +1481,7 @@
 				C044FC39254EF89C0047F859 /* Mailbox.json */,
 				C044FC46254EF9550047F859 /* MailboxArray.json */,
 				C0C67C422551A1D2004BBC7F /* Modification responses */,
+				C0CD8F59256043B3003DB787 /* Suffix.json */,
 				C0EBF990254C77B8002FF72C /* UserInfo.json */,
 				C03AE3A7254B55D000C798EE /* UserLogin.json */,
 				C03AE3AF254B55DF00C798EE /* UserLogin_MissingValue.json */,
@@ -1491,6 +1503,7 @@
 				C013BB25254EF9B9004B7FE5 /* MailboxTests.swift */,
 				C013BB31254EFBF0004B7FE5 /* MailboxArrayTests.swift */,
 				C0C67C4B2551A200004BBC7F /* Modification responses */,
+				C0CD8F5E256043C7003DB787 /* SuffixTests.swift */,
 				C0EBF98A254C7762002FF72C /* UserInfoTests.swift */,
 				C0EBF979254C6D62002FF72C /* UserLoginTests.swift */,
 				C017AAEB255304E5004C80BF /* UserOptionsTests.swift */,
@@ -1656,6 +1669,7 @@
 				C0EBF9D6254CA7DB002FF72C /* ErrorMessage.json in Resources */,
 				C0C786F8255F335C000D9AB1 /* UserSettings.json in Resources */,
 				C044FC14254ECDE60047F859 /* AliasActivityArray.json in Resources */,
+				C0CD8F5A256043B3003DB787 /* Suffix.json in Resources */,
 				C044FBD7254EBC3F0047F859 /* ApiKey.json in Resources */,
 				C013BB3F254F1665004B7FE5 /* Contact.json in Resources */,
 				C03AE3B0254B55DF00C798EE /* UserLogin_MissingValue.json in Resources */,
@@ -1839,12 +1853,14 @@
 				C0EBF98B254C7762002FF72C /* UserInfoTests.swift in Sources */,
 				C099C9582554385F00451558 /* AliasCreationRequest+random.swift in Sources */,
 				C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */,
+				C0CD8F92256068C6003DB787 /* Suffix+Equatable.swift in Sources */,
 				C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */,
 				C06BFF932550A9E100256DAC /* EnabledTests.swift in Sources */,
 				C017AAEC255304E5004C80BF /* UserOptionsTests.swift in Sources */,
 				C0C67C2825516D95004BBC7F /* String+random.swift in Sources */,
 				C044FC1F254ECE310047F859 /* AliasActivityArrayTests.swift in Sources */,
 				C013BB47254F16CD004B7FE5 /* ContactTests.swift in Sources */,
+				C0CD8F5F256043C7003DB787 /* SuffixTests.swift in Sources */,
 				C0C78700255F3396000D9AB1 /* UserSettingsTests.swift in Sources */,
 				C0C67C3225517097004BBC7F /* Int+random.swift in Sources */,
 				C0EBF983254C6F56002FF72C /* DecodableTestCase.swift in Sources */,
@@ -1873,6 +1889,7 @@
 				C0016DC524548EEF00513D64 /* Date+Distance.swift in Sources */,
 				C00BC55823FDA0DC00E66FFE /* SLError.swift in Sources */,
 				C067EDC42483F90700A89C75 /* Settings.swift in Sources */,
+				C0CD8F6925604440003DB787 /* Suffix.swift in Sources */,
 				C00BC54A23FD95E100E66FFE /* SLKeychainService.swift in Sources */,
 				C07F3476248061BC00360BA3 /* AliasMailbox.swift in Sources */,
 				C044FBE8254EC0D20047F859 /* NetworkEngine.swift in Sources */,
@@ -1980,6 +1997,7 @@
 				C0F84B2323D4BAA200E0852C /* DomainInfoTableViewCell.swift in Sources */,
 				C0D5D5332469EA4200B64B8B /* ChangeApiUrlViewController.swift in Sources */,
 				C0D6A28623D09EC800EF21B8 /* BorderedShadowedView.swift in Sources */,
+				C0CD8F47256042D8003DB787 /* Suffix.swift in Sources */,
 				C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */,
 				C01ABA6E24606F320075DCC9 /* HelpAndRoadmapTableViewCell.swift in Sources */,
 				C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */,

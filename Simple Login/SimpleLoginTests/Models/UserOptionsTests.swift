@@ -40,10 +40,19 @@ class UserOptionsTest: XCTestCase, DecodableTestCase {
 
     func testDecodeSuffixes() throws {
         // given
-        let suffixesArray = try XCTUnwrap(dictionary["suffixes"] as? [[String]])
-        let expectedFirstSuffix = Suffix(value: suffixesArray[0])
-        let expectedSecondSuffix = Suffix(value: suffixesArray[1])
-        let expectedThirdSuffix = Suffix(value: suffixesArray[2])
+        let suffixesArray = try XCTUnwrap(dictionary["suffixes"] as? [[String: String]])
+
+        let expectedFirstSuffix =
+            try Suffix(value: XCTUnwrap(suffixesArray[0]["suffix"]),
+                       signature: XCTUnwrap(suffixesArray[0]["signed_suffix"]))
+
+        let expectedSecondSuffix =
+            try Suffix(value: XCTUnwrap(suffixesArray[1]["suffix"]),
+                       signature: XCTUnwrap(suffixesArray[1]["signed_suffix"]))
+
+        let expectedThirdSuffix =
+            try Suffix(value: XCTUnwrap(suffixesArray[2]["suffix"]),
+                       signature: XCTUnwrap(suffixesArray[2]["signed_suffix"]))
 
         // when
         let firstSuffix = try XCTUnwrap(sut.suffixes[0])

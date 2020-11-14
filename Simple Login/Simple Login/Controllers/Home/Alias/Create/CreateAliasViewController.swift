@@ -34,14 +34,14 @@ final class CreateAliasViewController: BaseApiKeyViewController {
 
     private var userOptions: UserOptions? {
         didSet {
-            suffixLabel.text = userOptions?.suffixes[0].value[0]
+            suffixLabel.text = userOptions?.suffixes[0].value
             alertUpgradeIfApplicable()
         }
     }
 
     private var selectedSuffixIndex = 0 {
         didSet {
-            suffixLabel.text = userOptions?.suffixes[selectedSuffixIndex].value[0]
+            suffixLabel.text = userOptions?.suffixes[selectedSuffixIndex].value
         }
     }
 

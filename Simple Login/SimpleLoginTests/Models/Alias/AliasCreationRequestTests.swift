@@ -77,7 +77,7 @@ class AliasCreationRequestTests: XCTestCase {
         let requestBody = sut.toRequestBody()
 
         XCTAssertEqual(requestBody["alias_prefix"] as? String, prefix)
-        XCTAssertEqual(requestBody["signed_suffix"] as? String, suffix.value[1])
+        XCTAssertEqual(requestBody["signed_suffix"] as? String, suffix.signature)
         XCTAssertEqual(requestBody["mailbox_ids"] as? [Int], mailboxIds)
         XCTAssertEqual(requestBody["name"] as? String, name)
         XCTAssertEqual(requestBody["note"] as? String, note)

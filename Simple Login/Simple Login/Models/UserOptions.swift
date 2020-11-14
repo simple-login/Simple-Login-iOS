@@ -8,14 +8,6 @@
 
 import Foundation
 
-struct Suffix: Equatable {
-    let value: [String]
-
-    static func == (lhs: Suffix, rhs: Suffix) -> Bool {
-        lhs.value == rhs.value
-    }
-}
-
 struct UserOptions: Decodable {
     let canCreate: Bool
     let prefixSuggestion: String
@@ -25,7 +17,7 @@ struct UserOptions: Decodable {
         var domains: [String] = []
 
         suffixes.forEach { suffix in
-            if let domain = RegexHelpers.firstMatch(for: #"(?<=@).*"#, inString: suffix.value[0]) {
+            if let domain = RegexHelpers.firstMatch(for: #"(?<=@).*"#, inString: suffix.value) {
                 domains.append(domain)
             }
         }
@@ -45,8 +37,6 @@ struct UserOptions: Decodable {
 
         self.canCreate = try container.decode(Bool.self, forKey: .canCreate)
         self.prefixSuggestion = try container.decode(String.self, forKey: .prefixSuggestion)
-
-        let suffixesArray = try container.decode([[String]].self, forKey: .suffixes)
-        self.suffixes = suffixesArray.map { Suffix(value: $0) }
+        self.suffixes = try container.decode([Suffix].self, forKey: .suffixes)
     }
 }

@@ -10,6 +10,6 @@
 
 extension Suffix {
     static func random() -> Suffix {
-        Suffix(value: [String.randomName(), String.randomName()])
+        Suffix(value: String.randomName(), signature: String.randomName())
     }
 }

@@ -96,7 +96,7 @@ enum SLEndpoint {
         case .updateAliasName(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .updateAliasNote(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .userInfo: return "/api/user_info"
-        case .userOptions: return "/api/v4/alias/options"
+        case .userOptions: return "/api/v5/alias/options"
         case .userSettings: return "/api/setting"
         case .verifyMfa: return "/api/auth/mfa"
         }

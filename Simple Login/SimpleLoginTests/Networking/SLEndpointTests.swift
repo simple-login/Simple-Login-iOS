@@ -547,7 +547,7 @@ class SLEndpointTests: XCTestCase {
         let hostname = String.randomName()
         let queryItem = URLQueryItem(name: "hostname", value: hostname)
 
-        let expectedUrl = baseUrl.append(path: "/api/v4/alias/options", queryItems: [queryItem])
+        let expectedUrl = baseUrl.append(path: "/api/v5/alias/options", queryItems: [queryItem])
 
         // when
         let userOptionsRequest =
@@ -563,7 +563,7 @@ class SLEndpointTests: XCTestCase {
         // given
         let apiKey = ApiKey.random()
 
-        let expectedUrl = baseUrl.append(path: "/api/v4/alias/options")
+        let expectedUrl = baseUrl.append(path: "/api/v5/alias/options")
 
         // when
         let userOptionsRequest = SLEndpoint.userOptions(baseUrl: baseUrl, apiKey: apiKey, hostname: nil).urlRequest
@@ -594,7 +594,7 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(createAliasRequest.url, expectedUrl)
         XCTAssertEqual(createAliasRequest.httpMethod, HTTPMethod.post)
         XCTAssertEqual(createAliasHttpBodyDict["alias_prefix"] as? String, aliasCreationRequest.prefix)
-        XCTAssertEqual(createAliasHttpBodyDict["signed_suffix"] as? String, aliasCreationRequest.suffix.value[1])
+        XCTAssertEqual(createAliasHttpBodyDict["signed_suffix"] as? String, aliasCreationRequest.suffix.signature)
         XCTAssertEqual(createAliasHttpBodyDict["mailbox_ids"] as? [Int], aliasCreationRequest.mailboxIds)
         XCTAssertEqual(createAliasHttpBodyDict["name"] as? String, aliasCreationRequest.name)
         XCTAssertEqual(createAliasHttpBodyDict["note"] as? String, aliasCreationRequest.note)

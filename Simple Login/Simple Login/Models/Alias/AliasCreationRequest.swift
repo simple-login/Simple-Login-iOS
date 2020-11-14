@@ -17,7 +17,7 @@ struct AliasCreationRequest {
 
     func toRequestBody() -> [String: Any] {
         var dict: [String: Any] = ["alias_prefix": prefix,
-                                   "signed_suffix": suffix.value[1],
+                                   "signed_suffix": suffix.signature,
                                    "mailbox_ids": mailboxIds]
 
         if let name = name { dict["name"] = name }

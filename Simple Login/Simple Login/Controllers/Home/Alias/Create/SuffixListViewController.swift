@@ -55,7 +55,7 @@ extension SuffixListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let suffix = suffixes[indexPath.row]
-        cell.textLabel?.text = suffix.value[0]
+        cell.textLabel?.text = suffix.value
 
         if indexPath.row == selectedSuffixIndex {
             cell.accessoryType = .checkmark
