@@ -210,6 +210,9 @@
 		C0CD8F5F256043C7003DB787 /* SuffixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8F5E256043C7003DB787 /* SuffixTests.swift */; };
 		C0CD8F6925604440003DB787 /* Suffix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8F46256042D8003DB787 /* Suffix.swift */; };
 		C0CD8F92256068C6003DB787 /* Suffix+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8F91256068C6003DB787 /* Suffix+Equatable.swift */; };
+		C0CD8F9C25607E3B003DB787 /* DomainLite.json in Resources */ = {isa = PBXBuildFile; fileRef = C0CD8F9B25607E3B003DB787 /* DomainLite.json */; };
+		C0CD8FA425607E9A003DB787 /* DomainLiteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8FA325607E9A003DB787 /* DomainLiteTests.swift */; };
+		C0CD8FAC25607F9B003DB787 /* DomainLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8FAB25607F9B003DB787 /* DomainLite.swift */; };
 		C0D0500E23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D0500F23FED26900B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D069992406798600EBAC10 /* Directory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0D069982406798600EBAC10 /* Directory.storyboard */; };
@@ -502,6 +505,9 @@
 		C0CD8F59256043B3003DB787 /* Suffix.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Suffix.json; sourceTree = "<group>"; };
 		C0CD8F5E256043C7003DB787 /* SuffixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuffixTests.swift; sourceTree = "<group>"; };
 		C0CD8F91256068C6003DB787 /* Suffix+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Suffix+Equatable.swift"; sourceTree = "<group>"; };
+		C0CD8F9B25607E3B003DB787 /* DomainLite.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DomainLite.json; sourceTree = "<group>"; };
+		C0CD8FA325607E9A003DB787 /* DomainLiteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLiteTests.swift; sourceTree = "<group>"; };
+		C0CD8FAB25607F9B003DB787 /* DomainLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLite.swift; sourceTree = "<group>"; };
 		C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience+AllTarget.swift"; sourceTree = "<group>"; };
 		C0D069982406798600EBAC10 /* Directory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Directory.storyboard; sourceTree = "<group>"; };
 		C0D0699B24067AC700EBAC10 /* DirectoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
@@ -1155,6 +1161,7 @@
 				C0BD47CE244DAB6F006473B5 /* ContactLite.swift */,
 				C03D2D5F23D4AF300057F44F /* CustomDomain.swift */,
 				C0D069AA2406BE7800EBAC10 /* Directory.swift */,
+				C0CD8FAB25607F9B003DB787 /* DomainLite.swift */,
 				C0D8C4B2246AF132008BB8D2 /* ErrorMessage.swift */,
 				C0D6A29223D0ABDC00EF21B8 /* Faq.swift */,
 				C09DB81D2439EF16002A9973 /* How.swift */,
@@ -1487,6 +1494,7 @@
 				C03AE3AF254B55DF00C798EE /* UserLogin_MissingValue.json */,
 				C0DDB6CE2552F39B0032828D /* UserOptions.json */,
 				C0C786F7255F335C000D9AB1 /* UserSettings.json */,
+				C0CD8F9B25607E3B003DB787 /* DomainLite.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1508,6 +1516,7 @@
 				C0EBF979254C6D62002FF72C /* UserLoginTests.swift */,
 				C017AAEB255304E5004C80BF /* UserOptionsTests.swift */,
 				C0C786FF255F3396000D9AB1 /* UserSettingsTests.swift */,
+				C0CD8FA325607E9A003DB787 /* DomainLiteTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1665,6 +1674,7 @@
 				C0475C8B254E000B0018F081 /* ContactLite.json in Resources */,
 				C044FC47254EF9550047F859 /* MailboxArray.json in Resources */,
 				C0475C64254DFAF80018F081 /* AliasMailbox.json in Resources */,
+				C0CD8F9C25607E3B003DB787 /* DomainLite.json in Resources */,
 				C013BB5A254F351F004B7FE5 /* ContactArray.json in Resources */,
 				C0EBF9D6254CA7DB002FF72C /* ErrorMessage.json in Resources */,
 				C0C786F8255F335C000D9AB1 /* UserSettings.json in Resources */,
@@ -1840,6 +1850,7 @@
 				C0475C80254DFDEA0018F081 /* ContactLiteTests.swift in Sources */,
 				C0EBF97A254C6D62002FF72C /* UserLoginTests.swift in Sources */,
 				C09CDF2725542DC20093D6C9 /* Suffix+random.swift in Sources */,
+				C0CD8FA425607E9A003DB787 /* DomainLiteTests.swift in Sources */,
 				C0475CA9254E023D0018F081 /* LatestActivityTests.swift in Sources */,
 				C013BB6A254F3892004B7FE5 /* ContactArrayTests.swift in Sources */,
 				C0475CCE254E0E010018F081 /* AliasTests.swift in Sources */,
@@ -1989,6 +2000,7 @@
 				C0747EE923CCFAFE008035E9 /* AliasActivityTableViewCell.swift in Sources */,
 				C07F346F248052AF00360BA3 /* MailboxTableViewCell.swift in Sources */,
 				C013BB5F254F354A004B7FE5 /* ContactArray.swift in Sources */,
+				C0CD8FAC25607F9B003DB787 /* DomainLite.swift in Sources */,
 				C0D8C4B5246AF303008BB8D2 /* Deleted.swift in Sources */,
 				C03AE38C254B38C600C798EE /* SLEndpoint.swift in Sources */,
 				C0D87CC22423C41800BCF5AB /* LoginNavigationViewController.swift in Sources */,
