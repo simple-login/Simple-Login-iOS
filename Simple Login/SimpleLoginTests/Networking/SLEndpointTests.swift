@@ -629,4 +629,23 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(getDomainLitesRequest.httpMethod, HTTPMethod.get)
         assertProperlyAttachedApiKey(getDomainLitesRequest, apiKey: apiKey)
     }
+
+    func testGenerateUpdateUserSettingsRequest() throws {
+        // given
+        let apiKey = ApiKey.random()
+        let expectedUrl = baseUrl.append(path: "/api/setting")
+        let option = UserSettings.Option.random()
+        let expectedBody = try JSONSerialization.data(withJSONObject: option.requestBody)
+
+        // when
+        let updateUserSettingsRequest =
+            SLEndpoint.updateUserSettings(baseUrl: baseUrl, apiKey: apiKey, option: option).urlRequest
+        let updateUserSettingsHttpBody = try XCTUnwrap(updateUserSettingsRequest.httpBody)
+
+        // then
+        XCTAssertEqual(updateUserSettingsRequest.url, expectedUrl)
+        XCTAssertEqual(updateUserSettingsRequest.httpMethod, HTTPMethod.patch)
+        XCTAssertEqual(updateUserSettingsHttpBody, expectedBody)
+        assertProperlyAttachedApiKey(updateUserSettingsRequest, apiKey: apiKey)
+    }
 }

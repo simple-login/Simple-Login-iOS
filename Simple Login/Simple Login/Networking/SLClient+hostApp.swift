@@ -209,6 +209,14 @@ extension SLClient {
         let getDomainLitesEndpoint = SLEndpoint.getDomainLites(baseUrl: baseUrl, apiKey: apiKey)
         makeCall(to: getDomainLitesEndpoint, expectedObjectType: [DomainLite].self, completion: completion)
     }
+
+    func updateUserSettings(apiKey: ApiKey,
+                            option: UserSettings.Option,
+                            completion: @escaping (Result<UserSettings, SLError>) -> Void) {
+        let updateUserSettingsEndpoint =
+            SLEndpoint.updateUserSettings(baseUrl: baseUrl, apiKey: apiKey, option: option)
+        makeCall(to: updateUserSettingsEndpoint, expectedObjectType: UserSettings.self, completion: completion)
+    }
 }
 
 // MARK: - Sign up

@@ -37,6 +37,7 @@ extension URLRequest {
 enum HTTPMethod {
     static let delete = "DELETE"
     static let get = "GET"
+    static let patch = "PATCH"
     static let post = "POST"
     static let put = "PUT"
 }
@@ -66,6 +67,7 @@ enum SLEndpoint {
     case updateAliasMailboxes(baseUrl: URL, apiKey: ApiKey, aliasId: Int, mailboxIds: [Int])
     case updateAliasNote(baseUrl: URL, apiKey: ApiKey, aliasId: Int, note: String?)
     case updateAliasName(baseUrl: URL, apiKey: ApiKey, aliasId: Int, name: String?)
+    case updateUserSettings(baseUrl: URL, apiKey: ApiKey, option: UserSettings.Option)
     case userInfo(baseUrl: URL, apiKey: ApiKey)
     case userSettings(baseUrl: URL, apiKey: ApiKey)
     case userOptions(baseUrl: URL, apiKey: ApiKey, hostname: String?)
@@ -97,6 +99,7 @@ enum SLEndpoint {
         case .updateAliasMailboxes(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .updateAliasName(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .updateAliasNote(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
+        case .updateUserSettings: return "/api/setting"
         case .userInfo: return "/api/user_info"
         case .userOptions: return "/api/v5/alias/options"
         case .userSettings: return "/api/setting"
@@ -180,6 +183,9 @@ enum SLEndpoint {
 
         case let .updateAliasNote(baseUrl, apiKey, aliasId, note):
             return updateAliasNoteRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, note: note)
+
+        case let .updateUserSettings(baseUrl, apiKey, option):
+            return updateUserSettingsRequest(baseUrl: baseUrl, apiKey: apiKey, option: option)
 
         case let .userInfo(baseUrl, apiKey):
             return userInfoRequest(baseUrl: baseUrl, apiKey: apiKey)
@@ -449,6 +455,19 @@ extension SLEndpoint {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.put
         request.addJsonRequestBody(["note": note as Any])
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func updateUserSettingsRequest(baseUrl: URL,
+                                           apiKey: ApiKey,
+                                           option: UserSettings.Option) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.patch
+        request.addJsonRequestBody(option.requestBody)
         request.addApiKeyToHeaders(apiKey)
 
         return request

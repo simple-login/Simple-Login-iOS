@@ -9,17 +9,18 @@
 import Foundation
 
 enum SenderFormat: String, CustomStringConvertible, Decodable {
-    case at = "AT"
-    case via = "VIA"
+    // swiftlint:disable:next identifier_name
     case a = "A"
+    case at = "AT"
     case full = "FULL"
+    case via = "VIA"
 
     var description: String {
         switch self {
-        case .at: return "John Doe - john.doe at example.com"
-        case .via: return "john.doe@example.com via SimpleLogin"
         case .a: return "John Doe - john.doe(a)example.com"
+        case .at: return "John Doe - john.doe at example.com"
         case .full: return "John Doe - john.doe@example.com"
+        case .via: return "john.doe@example.com via SimpleLogin"
         }
     }
 }

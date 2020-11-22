@@ -774,4 +774,25 @@ extension SLClientTests {
         XCTAssertEqual(storedDomainLites?.count, 4)
         XCTAssertNil(storedError)
     }
+
+    func testUpdateUserSettings() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("UserSettings")
+
+        // when
+        var storedUserSettings: UserSettings?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.updateUserSettings(apiKey: ApiKey.random(), option: UserSettings.Option.random()) { result in
+            switch result {
+            case .success(let userSettings): storedUserSettings = userSettings
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedUserSettings)
+        XCTAssertNil(storedError)
+    }
 }
