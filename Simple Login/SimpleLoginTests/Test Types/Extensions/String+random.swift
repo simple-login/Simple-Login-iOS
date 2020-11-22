@@ -34,7 +34,7 @@ extension String {
     static func randomEmail() -> String {
         let username = random(allowedLetters: .lowercase, length: 10)
         let hostname = random(allowedLetters: .lowercase, length: 5)
-        let domain = ["com", "co", "io", "net", "me"].randomElement()!
+        let domain = randomDomain()
 
         return "\(username)@\(hostname).\(domain)"
     }
@@ -45,5 +45,16 @@ extension String {
 
     static func randomDeviceName() -> String {
         random(allowedLetters: .lowercaseUppercaseDigit, length: 15)
+    }
+
+    static func randomDomain() -> String {
+        ["com", "co", "io", "net", "me"].randomElement()!
+    }
+
+    static func randomValidUrlString() -> String {
+        let hostname = random(allowedLetters: .lowercase, length: 8)
+        let domain = randomDomain()
+
+        return "https://\(hostname).\(domain)"
     }
 }

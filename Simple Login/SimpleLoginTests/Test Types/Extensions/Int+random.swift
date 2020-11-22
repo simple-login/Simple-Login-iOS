@@ -16,4 +16,14 @@ extension Int {
     static func randomPageId() -> Int {
         Int.random(in: 1...100)
     }
+
+    static func randomStatusCode(except: Int?) -> Int {
+        while true {
+            let random = Int.random(in: 1...1_000)
+            if let except = except, random != except {
+                return random
+            }
+            return random
+        }
+    }
 }

@@ -32,6 +32,10 @@ final class NetworkEngineMock: NetworkEngine {
         }
     }
 
+    static func givenNullEngine() -> NetworkEngineMock {
+        NetworkEngineMock(data: nil, statusCode: nil, error: nil)
+    }
+
     static func givenEngineWithDataFromFile(_ fileName: String, statusCode: Int = 200) throws
     -> NetworkEngineMock {
         let data = try XCTUnwrap(Data.fromJson(fileName: fileName))
@@ -46,6 +50,13 @@ final class NetworkEngineMock: NetworkEngine {
         let engine = NetworkEngineMock(data: data, statusCode: statusCode, error: nil)
         let error = SLError.unknownErrorWithStatusCode(statusCode: statusCode)
         return (engine, error)
+    }
+
+    static func givenEngineWithExpectedDummyData(statusCode: Int) throws
+    -> (engine: NetworkEngine, data: Data) {
+        let data = try XCTUnwrap(Data.fromJson(fileName: "DummyData"))
+        let engine = NetworkEngineMock(data: data, statusCode: statusCode, error: nil)
+        return (engine, data)
     }
 
     static func givenEngineWithUnknownError() -> (engine: NetworkEngineMock, error: SLError) {
@@ -71,6 +82,16 @@ final class NetworkEngineMock: NetworkEngine {
         let errorMessage = try JSONDecoder().decode(ErrorMessage.self, from: data)
         let error = SLError.badRequest(description: errorMessage.value)
         let engine = NetworkEngineMock(data: data, statusCode: statusCode, error: nil)
+
+        return (engine, error)
+    }
+
+    static func givenEngineWithRandomError()
+    -> (engine: NetworkEngineMock, error: NSError) {
+        let error = NSError(domain: "io.simplelogin.ios-app.networkingerror",
+                            code: Int.randomIdentifer(),
+                            userInfo: nil)
+        let engine = NetworkEngineMock(data: nil, statusCode: nil, error: error)
 
         return (engine, error)
     }

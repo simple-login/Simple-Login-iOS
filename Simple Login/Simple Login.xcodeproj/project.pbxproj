@@ -282,6 +282,8 @@
 		C0EBF9D1254CA76C002FF72C /* ErrorMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */; };
 		C0EBF9D6254CA7DB002FF72C /* ErrorMessage.json in Resources */ = {isa = PBXBuildFile; fileRef = C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */; };
 		C0F57021241D398D00BCC84B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F57020241D398D00BCC84B /* Contact.swift */; };
+		C0F6AEDF256AA95100790FD1 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F6AEDE256AA95100790FD1 /* ImageService.swift */; };
+		C0F6AEE4256AAB3000790FD1 /* ImageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F6AEE3256AAB3000790FD1 /* ImageServiceTests.swift */; };
 		C0F84B1C23D4B6F300E0852C /* CustomDomainDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */; };
 		C0F84B2023D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B1F23D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift */; };
 		C0F84B2323D4BAA200E0852C /* DomainInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B2223D4BAA200E0852C /* DomainInfoTableViewCell.swift */; };
@@ -577,6 +579,8 @@
 		C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageTests.swift; sourceTree = "<group>"; };
 		C0EBF9D5254CA7DB002FF72C /* ErrorMessage.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ErrorMessage.json; sourceTree = "<group>"; };
 		C0F57020241D398D00BCC84B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		C0F6AEDE256AA95100790FD1 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		C0F6AEE3256AAB3000790FD1 /* ImageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceTests.swift; sourceTree = "<group>"; };
 		C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainDetailViewController.swift; sourceTree = "<group>"; };
 		C0F84B1F23D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotVerifiedDomainTableViewCell.swift; sourceTree = "<group>"; };
 		C0F84B2223D4BAA200E0852C /* DomainInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -680,6 +684,7 @@
 		C03AE2EE254B06A700C798EE /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				C0F6AEDE256AA95100790FD1 /* ImageService.swift */,
 				C03AE312254B08DB00C798EE /* NetworkEngine.swift */,
 				C03AE317254B0AAB00C798EE /* SLClient.swift */,
 				C044FBF3254EC1440047F859 /* SLClient+hostApp.swift */,
@@ -703,6 +708,7 @@
 		C03AE306254B06D200C798EE /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				C0F6AEE3256AAB3000790FD1 /* ImageServiceTests.swift */,
 				C0EBF95B254C4BCF002FF72C /* NetworkEngineMock.swift */,
 				C03AE31F254B0B8E00C798EE /* SLClientTests.swift */,
 				C0475C4C254D992B0018F081 /* SLEndpointTests.swift */,
@@ -1853,6 +1859,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0475C4D254D992B0018F081 /* SLEndpointTests.swift in Sources */,
+				C0F6AEE4256AAB3000790FD1 /* ImageServiceTests.swift in Sources */,
 				C0475C78254DFB4A0018F081 /* AliasMailboxTests.swift in Sources */,
 				C0475C80254DFDEA0018F081 /* ContactLiteTests.swift in Sources */,
 				C0EBF97A254C6D62002FF72C /* UserLoginTests.swift in Sources */,
@@ -2020,6 +2027,7 @@
 				C0CD8F47256042D8003DB787 /* Suffix.swift in Sources */,
 				C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */,
 				C01ABA6E24606F320075DCC9 /* HelpAndRoadmapTableViewCell.swift in Sources */,
+				C0F6AEDF256AA95100790FD1 /* ImageService.swift in Sources */,
 				C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */,
 				C0D0699E24067D1400EBAC10 /* DirectoryExplanationViewController.swift in Sources */,
 				C0D6A28223D07A1500EF21B8 /* TermsAndPrivacyTableViewCell.swift in Sources */,
