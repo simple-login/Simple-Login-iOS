@@ -47,15 +47,26 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
         guard let apiKey = SLKeychainService.getApiKey() else { return }
         MBProgressHUD.showAdded(to: view, animated: true)
         SLClient.shared.fetchUserSettings(apiKey: apiKey) { [weak self] result in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                MBProgressHUD.hide(for: self.view, animated: true)
-                switch result {
-                case .success(let userSettings):
-                    self.userSettings = userSettings
-                    self.tableView.reloadData()
-                case .failure(let error): Toast.displayError(error)
-                }
+            self?.handleUserSettingsResult(result)
+        }
+    }
+
+    private func updateUserSettings(option: UserSettings.Option) {
+        guard let apiKey = SLKeychainService.getApiKey() else { return }
+        MBProgressHUD.showAdded(to: view, animated: true)
+        SLClient.shared.updateUserSettings(apiKey: apiKey, option: option) { [weak self] result in
+            self?.handleUserSettingsResult(result)
+        }
+    }
+
+    private func handleUserSettingsResult(_ result: Result<UserSettings, SLError>) {
+        DispatchQueue.main.async {
+            MBProgressHUD.hide(for: self.view, animated: true)
+            switch result {
+            case .success(let userSettings):
+                self.userSettings = userSettings
+                self.tableView.reloadData()
+            case .failure(let error): Toast.displayError(error)
             }
         }
     }
@@ -242,8 +253,9 @@ extension SettingsViewController {
     private func notificationTableViewCell(for indexPath: IndexPath) -> UITableViewCell {
         let cell = NotificationTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
 
-        cell.didSwitch = { isOn in
-
+        cell.didSwitch = { [unowned self] isOn in
+            let option = UserSettings.Option.notification(isOn)
+            self.updateUserSettings(option: option)
         }
 
         return cell
