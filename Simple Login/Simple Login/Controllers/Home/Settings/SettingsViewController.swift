@@ -6,6 +6,7 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
+import MBProgressHUD
 import Toaster
 import UIKit
 
@@ -13,10 +14,13 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
     @IBOutlet private weak var tableView: UITableView!
 
     var userInfo: UserInfo!
+    private var userSettings: UserSettings!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        assert(userInfo != nil, "UserInfo must be set for \(Self.self)")
         setUpUI()
+        fetchUserSettings()
     }
 
     override func viewWillLayoutSubviews() {
@@ -37,6 +41,23 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
         ListDeletedAliasesTableViewCell.register(with: tableView)
         ExportDataTableViewCell.register(with: tableView)
         DeleteAccountTableViewCell.register(with: tableView)
+    }
+
+    private func fetchUserSettings() {
+        guard let apiKey = SLKeychainService.getApiKey() else { return }
+        MBProgressHUD.showAdded(to: view, animated: true)
+        SLClient.shared.fetchUserSettings(apiKey: apiKey) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(for: self.view, animated: true)
+                switch result {
+                case .success(let userSettings):
+                    self.userSettings = userSettings
+                    self.tableView.reloadData()
+                case .failure(let error): Toast.displayError(error)
+                }
+            }
+        }
     }
 }
 
@@ -161,84 +182,100 @@ extension SettingsViewController {
 
 // MARK: - UITableViewDataSource
 extension SettingsViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int { 1 }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if userSettings != nil {
+            return 2
+        }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        return 1
     }
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case 0:
-            let cell = ProfileAndMembershipTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-
-            cell.bind(with: userInfo)
-
-            cell.didTapModifyLabel = { [unowned self] in
-                self.showAlertModifyProfile()
-            }
-
-            cell.didTapUpgradeLabel = { [unowned self] in
-                self.performSegue(withIdentifier: "showIAP", sender: nil)
-            }
-
-            return cell
-
-        case 1:
-            let cell = MfaTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-
-            cell.didTapEnableDisableLabel = {
-                Toast.displayShortly(message: "enable/disable MFA")
-            }
-
-            return cell
-
-        case 2:
-            let cell = ChangePasswordTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-
-            cell.didTapRootView = { [unowned self] in
-                self.showAlertChangePassword()
-            }
-
-            return cell
-
-        case 3:
-            let cell = NotificationTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-
-            cell.didSwitch = { isOn in
-               Toast.displayShortly(message: "\(isOn)")
-            }
-
-            return cell
-
-        case 4:
-            let cell = ListDeletedAliasesTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-
-            cell.didTapRootView = { [unowned self] in
-                self.performSegue(withIdentifier: "showDeletedAliases", sender: nil)
-            }
-
-            return cell
-
-        case 5:
-            let cell = ExportDataTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-
-            cell.didTapRootView = { [unowned self] in
-                self.showAlertExportData()
-            }
-
-            return cell
-
-        case 6:
-            let cell = DeleteAccountTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-
-            cell.didTapDeleteLabel = { [unowned self] in
-                self.showAlertDeleteAccount()
-            }
-
-            return cell
-
+        switch indexPath.section {
+        case 0: return profileAndMembershipTableViewCell(for: indexPath)
+        case 1: return notificationTableViewCell(for: indexPath)
         default: return UITableViewCell()
         }
+    }
+}
+
+// MARK: - Cells
+extension SettingsViewController {
+    private func profileAndMembershipTableViewCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = ProfileAndMembershipTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+
+        cell.bind(with: userInfo)
+
+        cell.didTapModifyLabel = { [unowned self] in
+            self.showAlertModifyProfile()
+        }
+
+        cell.didTapUpgradeLabel = { [unowned self] in
+            self.performSegue(withIdentifier: "showIAP", sender: nil)
+        }
+
+        return cell
+    }
+
+    private func mfaTableViewCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = MfaTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+
+        cell.didTapEnableDisableLabel = {
+            Toast.displayShortly(message: "enable/disable MFA")
+        }
+
+        return cell
+    }
+
+    private func changePasswordTableViewCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = ChangePasswordTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+
+        cell.didTapRootView = { [unowned self] in
+            self.showAlertChangePassword()
+        }
+
+        return cell
+    }
+
+    private func notificationTableViewCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = NotificationTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+
+        cell.didSwitch = { isOn in
+
+        }
+
+        return cell
+    }
+
+    private func listDeletedAliasesTableViewCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = ListDeletedAliasesTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+
+        cell.didTapRootView = { [unowned self] in
+            self.performSegue(withIdentifier: "showDeletedAliases", sender: nil)
+        }
+
+        return cell
+    }
+
+    private func exportDataTableViewCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = ExportDataTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+
+        cell.didTapRootView = { [unowned self] in
+            self.showAlertExportData()
+        }
+
+        return cell
+    }
+
+    private func deleteAccountTableViewCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = DeleteAccountTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+
+        cell.didTapDeleteLabel = { [unowned self] in
+            self.showAlertDeleteAccount()
+        }
+
+        return cell
     }
 }
