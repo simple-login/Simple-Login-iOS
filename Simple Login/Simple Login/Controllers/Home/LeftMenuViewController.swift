@@ -115,6 +115,8 @@ final class LeftMenuViewController: BaseViewController {
             statusLabel.text = "Free plan"
             statusLabel.textColor = .white
         }
+
+        avatarImageView.setImage(with: userInfo.profilePictureUrl)
     }
 }
 

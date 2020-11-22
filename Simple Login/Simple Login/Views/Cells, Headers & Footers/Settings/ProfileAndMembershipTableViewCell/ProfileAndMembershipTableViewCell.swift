@@ -60,5 +60,7 @@ final class ProfileAndMembershipTableViewCell: UITableViewCell, RegisterableCell
             membershipLabel.textColor = SLColor.titleColor
             upgradeLabel.isHidden = false
         }
+
+        avatarImageView.setImage(with: userInfo.profilePictureUrl)
     }
 }
