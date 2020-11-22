@@ -43,4 +43,10 @@ class UserSettingsTests: XCTestCase, DecodableTestCase {
     func testDecodeRandomAliasDefaultDomain() {
         XCTAssertEqual(sut.randomAliasDefaultDomain, dictionary["random_alias_default_domain"] as? String)
     }
+
+    func testDecodeSenderFormat() throws {
+        let senderFormatRawValue = try XCTUnwrap(dictionary["sender_format"] as? String)
+        let expectedSenderFormat = try XCTUnwrap(SenderFormat(rawValue: senderFormatRawValue))
+        XCTAssertEqual(sut.senderFormat, expectedSenderFormat)
+    }
 }

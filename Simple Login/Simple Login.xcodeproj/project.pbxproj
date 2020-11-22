@@ -284,6 +284,7 @@
 		C0F57021241D398D00BCC84B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F57020241D398D00BCC84B /* Contact.swift */; };
 		C0F6AEDF256AA95100790FD1 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F6AEDE256AA95100790FD1 /* ImageService.swift */; };
 		C0F6AEE4256AAB3000790FD1 /* ImageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F6AEE3256AAB3000790FD1 /* ImageServiceTests.swift */; };
+		C0F6AEEF256AF06500790FD1 /* SenderFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F6AEEE256AF06400790FD1 /* SenderFormat.swift */; };
 		C0F84B1C23D4B6F300E0852C /* CustomDomainDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */; };
 		C0F84B2023D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B1F23D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift */; };
 		C0F84B2323D4BAA200E0852C /* DomainInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F84B2223D4BAA200E0852C /* DomainInfoTableViewCell.swift */; };
@@ -581,6 +582,7 @@
 		C0F57020241D398D00BCC84B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		C0F6AEDE256AA95100790FD1 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		C0F6AEE3256AAB3000790FD1 /* ImageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceTests.swift; sourceTree = "<group>"; };
+		C0F6AEEE256AF06400790FD1 /* SenderFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderFormat.swift; sourceTree = "<group>"; };
 		C0F84B1B23D4B6F300E0852C /* CustomDomainDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainDetailViewController.swift; sourceTree = "<group>"; };
 		C0F84B1F23D4B9FC00E0852C /* NotVerifiedDomainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotVerifiedDomainTableViewCell.swift; sourceTree = "<group>"; };
 		C0F84B2223D4BAA200E0852C /* DomainInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -1181,6 +1183,7 @@
 				C044FC3E254EF92F0047F859 /* MailboxArray.swift */,
 				C0C67C392551A0ED004BBC7F /* Modification responses */,
 				C04007AF23EE1DFB005AD66B /* RandomMode.swift */,
+				C0F6AEEE256AF06400790FD1 /* SenderFormat.swift */,
 				C05049BB23CE016600AEF20B /* SLColor.swift */,
 				C0B1DE3423C8AC8A003EED3B /* SLError.swift */,
 				C0CD8F46256042D8003DB787 /* Suffix.swift */,
@@ -2023,6 +2026,7 @@
 				C0D6A27D23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift in Sources */,
 				C0F84B2323D4BAA200E0852C /* DomainInfoTableViewCell.swift in Sources */,
 				C0D5D5332469EA4200B64B8B /* ChangeApiUrlViewController.swift in Sources */,
+				C0F6AEEF256AF06500790FD1 /* SenderFormat.swift in Sources */,
 				C0D6A28623D09EC800EF21B8 /* BorderedShadowedView.swift in Sources */,
 				C0CD8F47256042D8003DB787 /* Suffix.swift in Sources */,
 				C07245F0241E294B00074360 /* AliasSearchViewController.swift in Sources */,
