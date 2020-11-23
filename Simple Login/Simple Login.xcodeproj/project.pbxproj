@@ -86,6 +86,7 @@
 		C05049BC23CE016600AEF20B /* SLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05049BB23CE016600AEF20B /* SLColor.swift */; };
 		C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */; };
 		C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F0D323C7DDDC00EB5D98 /* Statics.swift */; };
+		C05A8688256C571D00B88017 /* DomainLiteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A8687256C571D00B88017 /* DomainLiteListViewController.swift */; };
 		C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30323CA0343007F1C9E /* HomeNavigationController.swift */; };
 		C05CD30623CA0419007F1C9E /* AliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30523CA0419007F1C9E /* AliasViewController.swift */; };
 		C05CD30A23CA0473007F1C9E /* CustomDomainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD30923CA0473007F1C9E /* CustomDomainViewController.swift */; };
@@ -404,6 +405,7 @@
 		C05049BB23CE016600AEF20B /* SLColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLColor.swift; sourceTree = "<group>"; };
 		C052F0D123C7DCA600EB5D98 /* SLKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLKeychainService.swift; sourceTree = "<group>"; };
 		C052F0D323C7DDDC00EB5D98 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
+		C05A8687256C571D00B88017 /* DomainLiteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLiteListViewController.swift; sourceTree = "<group>"; };
 		C05CD30323CA0343007F1C9E /* HomeNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationController.swift; sourceTree = "<group>"; };
 		C05CD30523CA0419007F1C9E /* AliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasViewController.swift; sourceTree = "<group>"; };
 		C05CD30923CA0473007F1C9E /* CustomDomainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainViewController.swift; sourceTree = "<group>"; };
@@ -1438,10 +1440,11 @@
 		C0D6A29923D0DC5000EF21B8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */,
 				C0D069B12406CE4300EBAC10 /* DeletedAliasesViewController.swift */,
-				C03F2F54244B45C000CEA316 /* IapViewController.swift */,
 				C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */,
+				C03F2F54244B45C000CEA316 /* IapViewController.swift */,
+				C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */,
+				C05A8687256C571D00B88017 /* DomainLiteListViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2084,6 +2087,7 @@
 				C0D069B42406CFDE00EBAC10 /* DeletedAlias.swift in Sources */,
 				C0D069AE2406BFC800EBAC10 /* DirectoryTableViewCell.swift in Sources */,
 				C0D8C4B3246AF132008BB8D2 /* ErrorMessage.swift in Sources */,
+				C05A8688256C571D00B88017 /* DomainLiteListViewController.swift in Sources */,
 				C0C786F3255F3060000D9AB1 /* UserSettings.swift in Sources */,
 				C052F0D423C7DDDC00EB5D98 /* Statics.swift in Sources */,
 				C0D069BF2406D1F400EBAC10 /* DeletedAliasTableViewCell.swift in Sources */,
