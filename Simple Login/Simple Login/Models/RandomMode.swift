@@ -8,6 +8,13 @@
 
 import Foundation
 
-enum RandomMode: String, Decodable {
+enum RandomMode: String, CustomStringConvertible, Decodable {
     case uuid = "uuid", word = "word"
+
+    var description: String {
+        switch self {
+        case .uuid: return "Based on UUID"
+        case .word: return "Based on random words"
+        }
+    }
 }

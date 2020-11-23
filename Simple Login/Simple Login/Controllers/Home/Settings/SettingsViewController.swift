@@ -15,12 +15,13 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
 
     var userInfo: UserInfo!
     private var userSettings: UserSettings!
+    private var domains: [DomainLite]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(userInfo != nil, "UserInfo must be set for \(Self.self)")
         setUpUI()
-        fetchUserSettings()
+        fetchUserSettingsAndDomains()
     }
 
     override func viewWillLayoutSubviews() {
@@ -34,20 +35,54 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = .clear
 
-        ProfileAndMembershipTableViewCell.register(with: tableView)
-        MfaTableViewCell.register(with: tableView)
         ChangePasswordTableViewCell.register(with: tableView)
-        NotificationTableViewCell.register(with: tableView)
-        ListDeletedAliasesTableViewCell.register(with: tableView)
-        ExportDataTableViewCell.register(with: tableView)
         DeleteAccountTableViewCell.register(with: tableView)
+        ExportDataTableViewCell.register(with: tableView)
+        ListDeletedAliasesTableViewCell.register(with: tableView)
+        MfaTableViewCell.register(with: tableView)
+        NotificationTableViewCell.register(with: tableView)
+        ProfileAndMembershipTableViewCell.register(with: tableView)
+        RandomAliasTableViewCell.register(with: tableView)
     }
 
-    private func fetchUserSettings() {
+    private func fetchUserSettingsAndDomains() {
         guard let apiKey = SLKeychainService.getApiKey() else { return }
         MBProgressHUD.showAdded(to: view, animated: true)
-        SLClient.shared.fetchUserSettings(apiKey: apiKey) { [weak self] result in
-            self?.handleUserSettingsResult(result)
+
+        let fetchGroup = DispatchGroup()
+        var storedUserSettings: UserSettings?
+        var storedDomains: [DomainLite]?
+        var storedError: SLError?
+
+        fetchGroup.enter()
+        SLClient.shared.fetchUserSettings(apiKey: apiKey) { result in
+            switch result {
+            case .success(let userSettings): storedUserSettings = userSettings
+            case .failure(let error): storedError = error
+            }
+            fetchGroup.leave()
+        }
+
+        fetchGroup.enter()
+        SLClient.shared.getDomainLites(apiKey: apiKey) { result in
+            switch result {
+            case .success(let domains): storedDomains = domains
+            case .failure(let error): storedError = error
+            }
+            fetchGroup.leave()
+        }
+
+        fetchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+            guard let self = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
+
+            if let error = storedError {
+                self.alertRetry(error)
+            } else if let userSettings = storedUserSettings, let domains = storedDomains {
+                self.userSettings = userSettings
+                self.domains = domains
+                self.tableView.reloadData()
+            }
         }
     }
 
@@ -55,20 +90,53 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
         guard let apiKey = SLKeychainService.getApiKey() else { return }
         MBProgressHUD.showAdded(to: view, animated: true)
         SLClient.shared.updateUserSettings(apiKey: apiKey, option: option) { [weak self] result in
-            self?.handleUserSettingsResult(result)
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(for: self.view, animated: true)
+                switch result {
+                case .success(let userSettings):
+                    self.userSettings = userSettings
+                    self.tableView.reloadData()
+                case .failure(let error): Toast.displayError(error)
+                }
+            }
         }
     }
 
-    private func handleUserSettingsResult(_ result: Result<UserSettings, SLError>) {
-        DispatchQueue.main.async {
-            MBProgressHUD.hide(for: self.view, animated: true)
-            switch result {
-            case .success(let userSettings):
-                self.userSettings = userSettings
-                self.tableView.reloadData()
-            case .failure(let error): Toast.displayError(error)
-            }
+    private func alertRetry(_ error: SLError) {
+        let alert = UIAlertController(title: "Error occured", message: error.description, preferredStyle: .alert)
+
+        let retryAction = UIAlertAction(title: "Retry", style: .default) { [unowned self] _ in
+            self.fetchUserSettingsAndDomains()
         }
+        alert.addAction(retryAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func alertRandomModes() {
+        let style: UIAlertController.Style =
+            UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+
+        let alert = UIAlertController(title: nil,
+                                      message: "Change the way random aliases are generated by default",
+                                      preferredStyle: style)
+
+        let randomWordsAction =
+            UIAlertAction(title: RandomMode.word.description, style: .default) { [unowned self] _ in
+                self.updateUserSettings(option: .randomMode(.word))
+            }
+        alert.addAction(randomWordsAction)
+
+        let uuidAction = UIAlertAction(title: RandomMode.uuid.description, style: .default) { [unowned self] _ in
+            self.updateUserSettings(option: .randomMode(.uuid))
+        }
+        alert.addAction(uuidAction)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -195,7 +263,7 @@ extension SettingsViewController {
 extension SettingsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         if userSettings != nil {
-            return 2
+            return 3
         }
 
         return 1
@@ -207,6 +275,7 @@ extension SettingsViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0: return profileAndMembershipTableViewCell(for: indexPath)
         case 1: return notificationTableViewCell(for: indexPath)
+        case 2: return randomAliasTableViewCell(for: indexPath)
         default: return UITableViewCell()
         }
     }
@@ -258,6 +327,8 @@ extension SettingsViewController {
             self.updateUserSettings(option: option)
         }
 
+        cell.bind(userSettings: userSettings)
+
         return cell
     }
 
@@ -287,6 +358,22 @@ extension SettingsViewController {
         cell.didTapDeleteLabel = { [unowned self] in
             self.showAlertDeleteAccount()
         }
+
+        return cell
+    }
+
+    private func randomAliasTableViewCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = RandomAliasTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+
+        cell.didTapRandomModeButton = { [unowned self] in
+            self.alertRandomModes()
+        }
+
+        cell.didTapDefaultDomainButton = { [unowned self] in
+            print("didTapDefaultDomainButton")
+        }
+
+        cell.bind(userSettings: userSettings)
 
         return cell
     }

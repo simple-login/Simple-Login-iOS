@@ -9,6 +9,8 @@
 import UIKit
 
 final class NotificationTableViewCell: UITableViewCell, RegisterableCell {
+    @IBOutlet private weak var notificationSwift: UISwitch!
+
     var didSwitch: ((_ isOn: Bool) -> Void)?
 
     override func awakeFromNib() {
@@ -18,5 +20,9 @@ final class NotificationTableViewCell: UITableViewCell, RegisterableCell {
 
     @IBAction private func switchValueChanged(_ sender: UISwitch) {
         didSwitch?(sender.isOn)
+    }
+
+    func bind(userSettings: UserSettings) {
+        notificationSwift.isOn = userSettings.notification
     }
 }

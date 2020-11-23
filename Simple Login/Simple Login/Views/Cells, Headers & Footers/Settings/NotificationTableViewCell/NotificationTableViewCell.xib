@@ -68,6 +68,9 @@
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+            <connections>
+                <outlet property="notificationSwift" destination="qAU-tY-cin" id="atr-8U-r1B"/>
+            </connections>
             <point key="canvasLocation" x="127.53623188405798" y="87.388392857142847"/>
         </tableViewCell>
     </objects>

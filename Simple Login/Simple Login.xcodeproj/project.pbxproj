@@ -98,6 +98,7 @@
 		C05CD31A23CA4040007F1C9E /* Date+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CD31923CA4040007F1C9E /* Date+Distance.swift */; };
 		C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05CD31B23CA41CD007F1C9E /* AliasTableViewCell.xib */; };
 		C05FB6422422C76B000A4740 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05FB6412422C76B000A4740 /* ForgotPasswordViewController.swift */; };
+		C066AC16256B183600BAF722 /* RandomAliasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0753347256B1790008338DF /* RandomAliasTableViewCell.swift */; };
 		C067EDC02483F58E00A89C75 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = C067EDBF2483F58E00A89C75 /* UserDefault.swift */; };
 		C067EDC32483F90700A89C75 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = C067EDBF2483F58E00A89C75 /* UserDefault.swift */; };
 		C067EDC42483F90700A89C75 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C067EDC12483F67E00A89C75 /* Settings.swift */; };
@@ -125,6 +126,7 @@
 		C0747EE623CCF4BE008035E9 /* AliasActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */; };
 		C0747EE923CCFAFE008035E9 /* AliasActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE823CCFAFE008035E9 /* AliasActivityTableViewCell.swift */; };
 		C0747EEB23CCFB18008035E9 /* AliasActivityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0747EEA23CCFB18008035E9 /* AliasActivityTableViewCell.xib */; };
+		C0753340256B10DC008338DF /* RandomAliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C075333F256B10DC008338DF /* RandomAliasTableViewCell.xib */; };
 		C07B41F623EAEDCD002E6223 /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F523EAEDCD002E6223 /* VerificationViewController.swift */; };
 		C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F723EB1BC4002E6223 /* Notification+Name.swift */; };
 		C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */; };
@@ -438,6 +440,8 @@
 		C0747EE523CCF4BE008035E9 /* AliasActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityViewController.swift; sourceTree = "<group>"; };
 		C0747EE823CCFAFE008035E9 /* AliasActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivityTableViewCell.swift; sourceTree = "<group>"; };
 		C0747EEA23CCFB18008035E9 /* AliasActivityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasActivityTableViewCell.xib; sourceTree = "<group>"; };
+		C075333F256B10DC008338DF /* RandomAliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RandomAliasTableViewCell.xib; sourceTree = "<group>"; };
+		C0753347256B1790008338DF /* RandomAliasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAliasTableViewCell.swift; sourceTree = "<group>"; };
 		C07B41F523EAEDCD002E6223 /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
 		C07B41F723EB1BC4002E6223 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utitlities.swift"; sourceTree = "<group>"; };
@@ -1215,13 +1219,14 @@
 		C0B76DEC23D0DDF2003AAB7E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				C0B76DED23D0DE05003AAB7E /* ProfileAndMembershipTableViewCell */,
-				C06BD31623D0F91D0056A9B3 /* MfaTableViewCell */,
 				C06BD31B23D0FBFE0056A9B3 /* ChangePasswordTableViewCell */,
-				C0956A4423D105A2000CEBDD /* NotificationTableViewCell */,
-				C0956A4923D109C6000CEBDD /* ExportDataTableViewCell */,
 				C0956A4E23D10BFB000CEBDD /* DeleteAccountTableViewCell */,
 				C0D069B52406D06200EBAC10 /* DeletedAliases */,
+				C0956A4923D109C6000CEBDD /* ExportDataTableViewCell */,
+				C06BD31623D0F91D0056A9B3 /* MfaTableViewCell */,
+				C0956A4423D105A2000CEBDD /* NotificationTableViewCell */,
+				C0B76DED23D0DE05003AAB7E /* ProfileAndMembershipTableViewCell */,
+				C0F6AF06256B106700790FD1 /* RandomAliasTableViewCell */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1549,6 +1554,15 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		C0F6AF06256B106700790FD1 /* RandomAliasTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C0753347256B1790008338DF /* RandomAliasTableViewCell.swift */,
+				C075333F256B10DC008338DF /* RandomAliasTableViewCell.xib */,
+			);
+			path = RandomAliasTableViewCell;
+			sourceTree = "<group>";
+		};
 		C0F84B1D23D4B9CC00E0852C /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1739,6 +1753,7 @@
 				C01ABA6B246068B20075DCC9 /* WhatAndFaqTableViewCell.xib in Resources */,
 				C0D6A28F23D0A93800EF21B8 /* WhatTableViewCell.xib in Resources */,
 				C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */,
+				C0753340256B10DC008338DF /* RandomAliasTableViewCell.xib in Resources */,
 				C0956A4D23D109FB000CEBDD /* ExportDataTableViewCell.xib in Resources */,
 				C0D9BF86246D81D00009FB29 /* Sentry.plist in Resources */,
 				C0B1DE4823C90DED003EED3B /* LeftMenuOptionTableViewCell.xib in Resources */,
@@ -2062,6 +2077,7 @@
 				C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */,
 				C00D74E923E8ACE400BE48F0 /* LoginViewController.swift in Sources */,
 				C052F0D223C7DCA600EB5D98 /* SLKeychainService.swift in Sources */,
+				C066AC16256B183600BAF722 /* RandomAliasTableViewCell.swift in Sources */,
 				C0BE665923CA7AC100602FB7 /* Toast+Convenience.swift in Sources */,
 				C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */,
 				C067EDC7248408ED00A89C75 /* HowToUseMailboxesViewController.swift in Sources */,
