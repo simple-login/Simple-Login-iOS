@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum SenderFormat: String, CustomStringConvertible, Decodable {
+enum SenderFormat: String, CustomStringConvertible, Decodable, CaseIterable {
     // swiftlint:disable:next identifier_name
     case a = "A"
     case at = "AT"

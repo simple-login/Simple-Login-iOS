@@ -40,6 +40,8 @@
 		C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02646FE23D0F4F600E9932B /* AvatarImageView.swift */; };
 		C02B8FDF2484E86300AA3AEF /* SelectMailboxesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B8FDE2484E86300AA3AEF /* SelectMailboxesViewController.swift */; };
 		C02B8FE02484FAB000AA3AEF /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8C4B2246AF132008BB8D2 /* ErrorMessage.swift */; };
+		C030C74C256EFCA600770F2C /* SenderFormatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C030C74B256EFCA600770F2C /* SenderFormatTableViewCell.swift */; };
+		C030C751256EFCC500770F2C /* SenderFormatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C030C750256EFCC500770F2C /* SenderFormatTableViewCell.xib */; };
 		C032D6ED2419830300C06EB7 /* UIAlertController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */; };
 		C03AE313254B08DB00C798EE /* NetworkEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE312254B08DB00C798EE /* NetworkEngine.swift */; };
 		C03AE318254B0AAB00C798EE /* SLClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE317254B0AAB00C798EE /* SLClient.swift */; };
@@ -360,6 +362,8 @@
 		C0222395245F3DFC003157B9 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		C02646FE23D0F4F600E9932B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		C02B8FDE2484E86300AA3AEF /* SelectMailboxesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMailboxesViewController.swift; sourceTree = "<group>"; };
+		C030C74B256EFCA600770F2C /* SenderFormatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderFormatTableViewCell.swift; sourceTree = "<group>"; };
+		C030C750256EFCC500770F2C /* SenderFormatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderFormatTableViewCell.xib; sourceTree = "<group>"; };
 		C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Convenience.swift"; sourceTree = "<group>"; };
 		C0373A8823EF55160044507C /* SimpleLogin Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SimpleLogin Share Extension.entitlements"; sourceTree = "<group>"; };
 		C03AE2F3254B06BA00C798EE /* SimpleLoginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleLoginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -691,6 +695,15 @@
 				C0D9BF85246D81D00009FB29 /* Sentry.plist */,
 			);
 			path = Ressources;
+			sourceTree = "<group>";
+		};
+		C030C74A256EFC8000770F2C /* SenderFormatTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C030C74B256EFCA600770F2C /* SenderFormatTableViewCell.swift */,
+				C030C750256EFCC500770F2C /* SenderFormatTableViewCell.xib */,
+			);
+			path = SenderFormatTableViewCell;
 			sourceTree = "<group>";
 		};
 		C03AE2EE254B06A700C798EE /* Networking */ = {
@@ -1229,6 +1242,7 @@
 				C0956A4423D105A2000CEBDD /* NotificationTableViewCell */,
 				C0B76DED23D0DE05003AAB7E /* ProfileAndMembershipTableViewCell */,
 				C0F6AF06256B106700790FD1 /* RandomAliasTableViewCell */,
+				C030C74A256EFC8000770F2C /* SenderFormatTableViewCell */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1768,6 +1782,7 @@
 				C0F84B2723D4BCCA00E0852C /* NotVerifiedDomainTableViewCell.xib in Resources */,
 				C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */,
 				C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */,
+				C030C751256EFCC500770F2C /* SenderFormatTableViewCell.xib in Resources */,
 				C0A726FC23EC135000A62A22 /* LoadingFooterView.xib in Resources */,
 				C0747EE423CCDE7C008035E9 /* AliasActivityTableHeaderView.xib in Resources */,
 				C0D6A29823D0AD2400EF21B8 /* FaqTableViewCell.xib in Resources */,
@@ -2074,6 +2089,7 @@
 				C0D9B66323CBC80F009A6699 /* RegexHelpers.swift in Sources */,
 				C0F84B1C23D4B6F300E0852C /* CustomDomainDetailViewController.swift in Sources */,
 				C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */,
+				C030C74C256EFCA600770F2C /* SenderFormatTableViewCell.swift in Sources */,
 				C0C67C3B2551A1A3004BBC7F /* Updated.swift in Sources */,
 				C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */,
 				C0475C5B254DF9C80018F081 /* AliasArray.swift in Sources */,

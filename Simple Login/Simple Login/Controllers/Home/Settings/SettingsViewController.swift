@@ -43,6 +43,7 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
         NotificationTableViewCell.register(with: tableView)
         ProfileAndMembershipTableViewCell.register(with: tableView)
         RandomAliasTableViewCell.register(with: tableView)
+        SenderFormatTableViewCell.register(with: tableView)
     }
 
     private func fetchUserSettingsAndDomains() {
@@ -210,6 +211,29 @@ extension SettingsViewController {
         present(alert, animated: true, completion: nil)
     }
 
+    private func showAlertModifySenderFormat() {
+        let style: UIAlertController.Style =
+            UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+
+        let alert = UIAlertController(title: "Choose sender address format",
+                                      // swiftlint:disable:next line_length
+                                      message: "John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?",
+                                      preferredStyle: style)
+
+        for senderFormat in SenderFormat.allCases {
+            let senderFormatAction =
+                UIAlertAction(title: senderFormat.description, style: .default) { [unowned self] _ in
+                    self.updateUserSettings(option: .senderFormat(senderFormat))
+                }
+            alert.addAction(senderFormatAction)
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+
     private func showPickPhoto() {
         Toast.displayShortly(message: #function)
     }
@@ -276,7 +300,7 @@ extension SettingsViewController {
 extension SettingsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         if userSettings != nil {
-            return 3
+            return 4
         }
 
         return 1
@@ -289,6 +313,7 @@ extension SettingsViewController: UITableViewDataSource {
         case 0: return profileAndMembershipTableViewCell(for: indexPath)
         case 1: return notificationTableViewCell(for: indexPath)
         case 2: return randomAliasTableViewCell(for: indexPath)
+        case 3: return senderFormatTableViewCell(for: indexPath)
         default: return UITableViewCell()
         }
     }
@@ -384,6 +409,18 @@ extension SettingsViewController {
 
         cell.didTapDefaultDomainButton = { [unowned self] in
             self.performSegue(withIdentifier: "showDomains", sender: nil)
+        }
+
+        cell.bind(userSettings: userSettings)
+
+        return cell
+    }
+
+    private func senderFormatTableViewCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = SenderFormatTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+
+        cell.didTapSenderFormatButton = { [unowned self] in
+            self.showAlertModifySenderFormat()
         }
 
         cell.bind(userSettings: userSettings)
