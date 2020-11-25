@@ -795,4 +795,25 @@ extension SLClientTests {
         XCTAssertNotNil(storedUserSettings)
         XCTAssertNil(storedError)
     }
+
+    func testUpdateProfilePicture() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("UserInfo")
+
+        // when
+        var storedUserInfo: UserInfo?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.updateProfilePicture(apiKey: ApiKey.random(), base64String: String.randomName()) { result in
+            switch result {
+            case .success(let userInfo): storedUserInfo = userInfo
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedUserInfo)
+        XCTAssertNil(storedError)
+    }
 }

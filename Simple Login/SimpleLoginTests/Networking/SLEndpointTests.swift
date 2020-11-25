@@ -648,4 +648,25 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(updateUserSettingsHttpBody, expectedBody)
         assertProperlyAttachedApiKey(updateUserSettingsRequest, apiKey: apiKey)
     }
+
+    func testGenerateUpdateProfilePictureRequest() throws {
+        // given
+        let apiKey = ApiKey.random()
+        let expectedUrl = baseUrl.append(path: "/api/user_info")
+        let base64String = String.randomName()
+        let expectedBody = try JSONSerialization.data(withJSONObject: ["profile_picture": base64String])
+
+        // when
+        let updateProfilePictureRequest =
+            SLEndpoint.updateProfilePicture(baseUrl: baseUrl,
+                                            apiKey: apiKey,
+                                            base64String: base64String).urlRequest
+        let updateProfilePictureHttpBody = try XCTUnwrap(updateProfilePictureRequest.httpBody)
+
+        // then
+        XCTAssertEqual(updateProfilePictureRequest.url, expectedUrl)
+        XCTAssertEqual(updateProfilePictureRequest.httpMethod, HTTPMethod.patch)
+        XCTAssertEqual(updateProfilePictureHttpBody, expectedBody)
+        assertProperlyAttachedApiKey(updateProfilePictureRequest, apiKey: apiKey)
+    }
 }

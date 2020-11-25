@@ -28,7 +28,7 @@ extension URLRequest {
         addValue(apiKey.value, forHTTPHeaderField: "Authentication")
     }
 
-    mutating func addJsonRequestBody(_ dict: [String: Any]) {
+    mutating func addJsonRequestBody(_ dict: [String: Any?]) {
         httpBody = try? JSONSerialization.data(withJSONObject: dict)
         addValue("application/json", forHTTPHeaderField: "Content-Type")
     }
@@ -65,8 +65,9 @@ enum SLEndpoint {
     case signUp(baseUrl: URL, email: String, password: String)
     case toggleAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
     case updateAliasMailboxes(baseUrl: URL, apiKey: ApiKey, aliasId: Int, mailboxIds: [Int])
-    case updateAliasNote(baseUrl: URL, apiKey: ApiKey, aliasId: Int, note: String?)
     case updateAliasName(baseUrl: URL, apiKey: ApiKey, aliasId: Int, name: String?)
+    case updateAliasNote(baseUrl: URL, apiKey: ApiKey, aliasId: Int, note: String?)
+    case updateProfilePicture(baseUrl: URL, apiKey: ApiKey, base64String: String?)
     case updateUserSettings(baseUrl: URL, apiKey: ApiKey, option: UserSettings.Option)
     case userInfo(baseUrl: URL, apiKey: ApiKey)
     case userSettings(baseUrl: URL, apiKey: ApiKey)
@@ -99,6 +100,7 @@ enum SLEndpoint {
         case .updateAliasMailboxes(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .updateAliasName(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .updateAliasNote(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
+        case .updateProfilePicture: return "/api/user_info"
         case .updateUserSettings: return "/api/setting"
         case .userInfo: return "/api/user_info"
         case .userOptions: return "/api/v5/alias/options"
@@ -183,6 +185,9 @@ enum SLEndpoint {
 
         case let .updateAliasNote(baseUrl, apiKey, aliasId, note):
             return updateAliasNoteRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, note: note)
+
+        case let .updateProfilePicture(baseUrl, apiKey, base64String):
+            return updateProfilePictureRequest(baseUrl: baseUrl, apiKey: apiKey, base64String: base64String)
 
         case let .updateUserSettings(baseUrl, apiKey, option):
             return updateUserSettingsRequest(baseUrl: baseUrl, apiKey: apiKey, option: option)
@@ -456,6 +461,17 @@ extension SLEndpoint {
         request.httpMethod = HTTPMethod.put
         request.addJsonRequestBody(["note": note as Any])
         request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func updateProfilePictureRequest(baseUrl: URL, apiKey: ApiKey, base64String: String?) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.patch
+        request.addApiKeyToHeaders(apiKey)
+        request.addJsonRequestBody(["profile_picture": base64String])
 
         return request
     }
