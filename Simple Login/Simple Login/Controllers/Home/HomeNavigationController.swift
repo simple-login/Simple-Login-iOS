@@ -201,6 +201,9 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
         if settingsViewController == nil {
             settingsViewController = SettingsViewController.instantiate(storyboardName: "Settings")
             settingsViewController?.userInfo = userInfo
+            settingsViewController?.didUpdateUserInfo = { [unowned self] userInfo in
+                self.userInfo = userInfo
+            }
             settingsViewController?.didTapLeftBarButtonItem = { [unowned self] in
                 self.toggleLeftMenu()
             }

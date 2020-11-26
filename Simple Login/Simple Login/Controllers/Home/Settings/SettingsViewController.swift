@@ -13,6 +13,8 @@ import UIKit
 final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Storyboarded {
     @IBOutlet private weak var tableView: UITableView!
 
+    var didUpdateUserInfo: ((_ userInfo: UserInfo) -> Void)?
+
     var userInfo: UserInfo!
     private var userSettings: UserSettings!
     private var domains: [DomainLite]!
@@ -104,6 +106,42 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
         }
     }
 
+    private func updateName(_ name: String?) {
+        guard let apiKey = SLKeychainService.getApiKey() else { return }
+        MBProgressHUD.showAdded(to: view, animated: true)
+        SLClient.shared.updateName(apiKey: apiKey, name: name) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(for: self.view, animated: true)
+                switch result {
+                case .success(let userInfo):
+                    self.didUpdateUserInfo?(userInfo)
+                    self.userInfo = userInfo
+                    self.tableView.reloadData()
+                case .failure(let error): Toast.displayError(error)
+                }
+            }
+        }
+    }
+
+    private func updateProfilePicture(_ base64String: String?) {
+        guard let apiKey = SLKeychainService.getApiKey() else { return }
+        MBProgressHUD.showAdded(to: view, animated: true)
+        SLClient.shared.updateProfilePicture(apiKey: apiKey, base64String: base64String) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(for: self.view, animated: true)
+                switch result {
+                case .success(let userInfo):
+                    self.didUpdateUserInfo?(userInfo)
+                    self.userInfo = userInfo
+                    self.tableView.reloadData()
+                case .failure(let error): Toast.displayError(error)
+                }
+            }
+        }
+    }
+
     private func alertRetry(_ error: SLError) {
         let alert = UIAlertController(title: "Error occured", message: error.description, preferredStyle: .alert)
 
@@ -158,8 +196,8 @@ extension SettingsViewController {
         }
         alert.addAction(uploadAction)
 
-        let removeAction = UIAlertAction(title: "Remove profile photo", style: .default) { [unowned self] _ in
-            self.removeProfilePhoto()
+        let removeAction = UIAlertAction(title: "Remove profile photo", style: .destructive) { [unowned self] _ in
+            self.updateProfilePicture(nil)
         }
         alert.addAction(removeAction)
 
@@ -172,11 +210,10 @@ extension SettingsViewController {
     private func showAlertModifyUsername() {
         let alert = UIAlertController(title: "Enter new display name", message: nil, preferredStyle: .alert)
 
-        alert.addTextField { _ in
-        }
+        alert.addTextField()
 
         let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] _ in
-            self.saveUsername()
+            self.updateName(alert.textFields?[0].text)
         }
         alert.addAction(saveAction)
 
@@ -235,14 +272,6 @@ extension SettingsViewController {
     }
 
     private func showPickPhoto() {
-        Toast.displayShortly(message: #function)
-    }
-
-    private func removeProfilePhoto() {
-        Toast.displayShortly(message: #function)
-    }
-
-    private func saveUsername() {
         Toast.displayShortly(message: #function)
     }
 }

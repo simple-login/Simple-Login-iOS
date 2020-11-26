@@ -23,10 +23,9 @@ final class ProfileAndMembershipTableViewCell: UITableViewCell, RegisterableCell
         super.awakeFromNib()
         selectionStyle = .none
 
-//        let tapModify = UITapGestureRecognizer(target: self, action: #selector(modifyLabelTapped))
-//        modifyLabel.isUserInteractionEnabled = true
-//        modifyLabel.addGestureRecognizer(tapModify)
-        modifyLabel.isHidden = true
+        let tapModify = UITapGestureRecognizer(target: self, action: #selector(modifyLabelTapped))
+        modifyLabel.isUserInteractionEnabled = true
+        modifyLabel.addGestureRecognizer(tapModify)
 
         let tapUpgrade = UITapGestureRecognizer(target: self, action: #selector(upgradeLabelTapped))
         upgradeLabel.isUserInteractionEnabled = true
