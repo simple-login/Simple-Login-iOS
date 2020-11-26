@@ -669,4 +669,25 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(updateProfilePictureHttpBody, expectedBody)
         assertProperlyAttachedApiKey(updateProfilePictureRequest, apiKey: apiKey)
     }
+
+    func testGenerateUpdateNameRequest() throws {
+        // given
+        let apiKey = ApiKey.random()
+        let expectedUrl = baseUrl.append(path: "/api/user_info")
+        let name = String.randomName()
+        let expectedBody = try JSONSerialization.data(withJSONObject: ["name": name])
+
+        // when
+        let updateNameRequest =
+            SLEndpoint.updateName(baseUrl: baseUrl,
+                                  apiKey: apiKey,
+                                  name: name).urlRequest
+        let updateNameHttpBody = try XCTUnwrap(updateNameRequest.httpBody)
+
+        // then
+        XCTAssertEqual(updateNameRequest.url, expectedUrl)
+        XCTAssertEqual(updateNameRequest.httpMethod, HTTPMethod.patch)
+        XCTAssertEqual(updateNameHttpBody, expectedBody)
+        assertProperlyAttachedApiKey(updateNameRequest, apiKey: apiKey)
+    }
 }

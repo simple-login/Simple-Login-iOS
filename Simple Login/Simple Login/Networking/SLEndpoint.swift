@@ -67,6 +67,7 @@ enum SLEndpoint {
     case updateAliasMailboxes(baseUrl: URL, apiKey: ApiKey, aliasId: Int, mailboxIds: [Int])
     case updateAliasName(baseUrl: URL, apiKey: ApiKey, aliasId: Int, name: String?)
     case updateAliasNote(baseUrl: URL, apiKey: ApiKey, aliasId: Int, note: String?)
+    case updateName(baseUrl: URL, apiKey: ApiKey, name: String?)
     case updateProfilePicture(baseUrl: URL, apiKey: ApiKey, base64String: String?)
     case updateUserSettings(baseUrl: URL, apiKey: ApiKey, option: UserSettings.Option)
     case userInfo(baseUrl: URL, apiKey: ApiKey)
@@ -100,6 +101,7 @@ enum SLEndpoint {
         case .updateAliasMailboxes(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .updateAliasName(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
         case .updateAliasNote(_, _, let aliasId, _): return "/api/aliases/\(aliasId)"
+        case .updateName: return ""
         case .updateProfilePicture: return "/api/user_info"
         case .updateUserSettings: return "/api/setting"
         case .userInfo: return "/api/user_info"
@@ -185,6 +187,9 @@ enum SLEndpoint {
 
         case let .updateAliasNote(baseUrl, apiKey, aliasId, note):
             return updateAliasNoteRequest(baseUrl: baseUrl, apiKey: apiKey, aliasId: aliasId, note: note)
+
+        case let .updateName(baseUrl, apiKey, name):
+            return updateNameRequest(baseUrl: baseUrl, apiKey: apiKey, name: name)
 
         case let .updateProfilePicture(baseUrl, apiKey, base64String):
             return updateProfilePictureRequest(baseUrl: baseUrl, apiKey: apiKey, base64String: base64String)
@@ -460,6 +465,17 @@ extension SLEndpoint {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.put
         request.addJsonRequestBody(["note": note as Any])
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func updateNameRequest(baseUrl: URL, apiKey: ApiKey, name: String?) -> URLRequest {
+        let url = baseUrl.append(path: "/api/user_info")
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.patch
+        request.addJsonRequestBody(["name": name])
         request.addApiKeyToHeaders(apiKey)
 
         return request

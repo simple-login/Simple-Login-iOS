@@ -210,6 +210,13 @@ extension SLClient {
         makeCall(to: getDomainLitesEndpoint, expectedObjectType: [DomainLite].self, completion: completion)
     }
 
+    func updateName(apiKey: ApiKey,
+                    name: String?,
+                    completion: @escaping (Result<UserInfo, SLError>) -> Void) {
+        let updateNameEndpoint = SLEndpoint.updateName(baseUrl: baseUrl, apiKey: apiKey, name: name)
+        makeCall(to: updateNameEndpoint, expectedObjectType: UserInfo.self, completion: completion)
+    }
+
     func updateProfilePicture(apiKey: ApiKey,
                               base64String: String?,
                               completion: @escaping (Result<UserInfo, SLError>) -> Void) {
