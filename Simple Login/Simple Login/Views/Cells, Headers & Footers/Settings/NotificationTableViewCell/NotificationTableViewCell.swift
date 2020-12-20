@@ -9,7 +9,7 @@
 import UIKit
 
 final class NotificationTableViewCell: UITableViewCell, RegisterableCell {
-    @IBOutlet private weak var notificationSwift: UISwitch!
+    @IBOutlet private weak var notificationSwitch: UISwitch!
 
     var didSwitch: ((_ isOn: Bool) -> Void)?
 
@@ -23,6 +23,6 @@ final class NotificationTableViewCell: UITableViewCell, RegisterableCell {
     }
 
     func bind(userSettings: UserSettings) {
-        notificationSwift.isOn = userSettings.notification
+        notificationSwitch.isOn = userSettings.notification
     }
 }

@@ -6,23 +6,46 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
+import LocalAuthentication
 import MBProgressHUD
 import Toaster
 import UIKit
 
+extension LABiometryType: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .none: return "Biometric authentication not supported"
+        case .touchID: return "Touch ID"
+        case .faceID: return "Face ID"
+        @unknown default: return "Unknown biometric type"
+        }
+    }
+}
+
 final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Storyboarded {
     @IBOutlet private weak var tableView: UITableView!
+
+    private enum Section {
+        case profileAndMembership
+        case biometricAuthentication
+        case notification
+        case randomAlias
+        case senderFormat
+    }
 
     var didUpdateUserInfo: ((_ userInfo: UserInfo) -> Void)?
 
     var userInfo: UserInfo!
     private var userSettings: UserSettings!
     private var domains: [DomainLite]!
+    private var sections: [Section] = []
+    private var biometryType = LABiometryType.none
 
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(userInfo != nil, "UserInfo must be set for \(Self.self)")
         setUpUI()
+        initSections()
         fetchUserSettingsAndDomains()
     }
 
@@ -37,6 +60,7 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = .clear
 
+        BiometricAuthTableViewCell.register(with: tableView)
         ChangePasswordTableViewCell.register(with: tableView)
         DeleteAccountTableViewCell.register(with: tableView)
         ExportDataTableViewCell.register(with: tableView)
@@ -46,6 +70,19 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
         ProfileAndMembershipTableViewCell.register(with: tableView)
         RandomAliasTableViewCell.register(with: tableView)
         SenderFormatTableViewCell.register(with: tableView)
+    }
+
+    private func initSections() {
+        let localAuthenticationContext = LAContext()
+        if localAuthenticationContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil) {
+            biometryType = localAuthenticationContext.biometryType
+        }
+
+        sections = [.profileAndMembership, .notification, .randomAlias, .senderFormat]
+
+        if biometryType != .none {
+            sections.insert(.biometricAuthentication, at: 1)
+        }
     }
 
     private func fetchUserSettingsAndDomains() {
@@ -127,7 +164,8 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
     private func updateProfilePicture(_ base64String: String?) {
         guard let apiKey = SLKeychainService.getApiKey() else { return }
         MBProgressHUD.showAdded(to: view, animated: true)
-        SLClient.shared.updateProfilePicture(apiKey: apiKey, base64String: base64String) { [weak self] result in
+        SLClient.shared.updateProfilePicture(apiKey: apiKey,
+                                             base64String: base64String) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 MBProgressHUD.hide(for: self.view, animated: true)
@@ -329,7 +367,7 @@ extension SettingsViewController {
 extension SettingsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         if userSettings != nil {
-            return 4
+            return sections.count
         }
 
         return 1
@@ -338,12 +376,12 @@ extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0: return profileAndMembershipTableViewCell(for: indexPath)
-        case 1: return notificationTableViewCell(for: indexPath)
-        case 2: return randomAliasTableViewCell(for: indexPath)
-        case 3: return senderFormatTableViewCell(for: indexPath)
-        default: return UITableViewCell()
+        switch sections[indexPath.section] {
+        case .profileAndMembership: return profileAndMembershipTableViewCell(for: indexPath)
+        case .biometricAuthentication: return biometricAuthTableViewCell(for: indexPath)
+        case .notification: return notificationTableViewCell(for: indexPath)
+        case .randomAlias: return randomAliasTableViewCell(for: indexPath)
+        case .senderFormat: return senderFormatTableViewCell(for: indexPath)
         }
     }
 }
@@ -382,6 +420,37 @@ extension SettingsViewController {
         cell.didTapRootView = { [unowned self] in
             self.showAlertChangePassword()
         }
+
+        return cell
+    }
+
+    private func biometricAuthTableViewCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = BiometricAuthTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+
+        cell.didSwitch = { [unowned self] isOn in
+            let localAuthenticationContext = LAContext()
+            localAuthenticationContext.localizedFallbackTitle = "Or use your passcode"
+            let action = isOn ? "activate" : "deactivate"
+            let reason = "Please authenticate to \(action) \(self.biometryType.description) authentication"
+            localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, error in
+                DispatchQueue.main.async {
+                    if success {
+                        if isOn {
+                            UserDefaults.activateBiometricAuth()
+                            Toast.displayShortly(message: "\(self.biometryType.description) deactivated")
+                        } else {
+                            UserDefaults.deactivateBiometricAuth()
+                            Toast.displayShortly(message: "\(self.biometryType.description) activated")
+                        }
+                    } else if let error = error {
+                        Toast.displayShortly(message: error.localizedDescription)
+                        cell.setSwitch(isOn: !isOn)
+                    }
+                }
+            }
+        }
+
+        cell.bind(text: biometryType.description + " authentication")
 
         return cell
     }

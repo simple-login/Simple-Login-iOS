@@ -29,4 +29,17 @@ extension UserDefaults {
     static func setDidMakeAReview() {
         defaults.set(true, forKey: didMakeAReviewKey)
     }
+
+    // Biometric authentication
+    private static let activeBiometricAuthKey = "ActiveBiometricAuthKey"
+
+    static func activeBiometricAuth() -> Bool { defaults.bool(forKey: activeBiometricAuthKey) }
+
+    static func activateBiometricAuth() {
+        defaults.set(true, forKey: activeBiometricAuthKey)
+    }
+
+    static func deactivateBiometricAuth() {
+        defaults.set(false, forKey: activeBiometricAuthKey)
+    }
 }

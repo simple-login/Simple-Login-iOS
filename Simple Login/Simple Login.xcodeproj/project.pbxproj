@@ -53,6 +53,8 @@
 		C03AE3BA254B56E100C798EE /* Data+fromJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE3B9254B56E100C798EE /* Data+fromJsonFile.swift */; };
 		C03D2D6023D4AF300057F44F /* CustomDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D2D5F23D4AF300057F44F /* CustomDomain.swift */; };
 		C03F2F55244B45C000CEA316 /* IapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F2F54244B45C000CEA316 /* IapViewController.swift */; };
+		C03FA38C258ABB35009B1A17 /* BiometricAuthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03FA38B258ABB35009B1A17 /* BiometricAuthTableViewCell.swift */; };
+		C03FA394258ABB50009B1A17 /* BiometricAuthTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C03FA393258ABB50009B1A17 /* BiometricAuthTableViewCell.xib */; };
 		C04007B023EE1DFB005AD66B /* RandomMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04007AF23EE1DFB005AD66B /* RandomMode.swift */; };
 		C042C25B23EF3A570045A04D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C042C25A23EF3A570045A04D /* ShareViewController.swift */; };
 		C042C25E23EF3A570045A04D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C042C25C23EF3A570045A04D /* MainInterface.storyboard */; };
@@ -377,6 +379,8 @@
 		C03AE3B9254B56E100C798EE /* Data+fromJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+fromJsonFile.swift"; sourceTree = "<group>"; };
 		C03D2D5F23D4AF300057F44F /* CustomDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomain.swift; sourceTree = "<group>"; };
 		C03F2F54244B45C000CEA316 /* IapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IapViewController.swift; sourceTree = "<group>"; };
+		C03FA38B258ABB35009B1A17 /* BiometricAuthTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthTableViewCell.swift; sourceTree = "<group>"; };
+		C03FA393258ABB50009B1A17 /* BiometricAuthTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiometricAuthTableViewCell.xib; sourceTree = "<group>"; };
 		C04007AF23EE1DFB005AD66B /* RandomMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMode.swift; sourceTree = "<group>"; };
 		C042C25823EF3A570045A04D /* SimpleLogin Share Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SimpleLogin Share Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C042C25A23EF3A570045A04D /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -763,6 +767,15 @@
 				C0F6AEFE256B07FE00790FD1 /* UserSettingsOption+random.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C03FA38A258ABB0A009B1A17 /* BiometricAuthTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C03FA38B258ABB35009B1A17 /* BiometricAuthTableViewCell.swift */,
+				C03FA393258ABB50009B1A17 /* BiometricAuthTableViewCell.xib */,
+			);
+			path = BiometricAuthTableViewCell;
 			sourceTree = "<group>";
 		};
 		C042C25923EF3A570045A04D /* Share Extension */ = {
@@ -1234,6 +1247,7 @@
 		C0B76DEC23D0DDF2003AAB7E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C03FA38A258ABB0A009B1A17 /* BiometricAuthTableViewCell */,
 				C06BD31B23D0FBFE0056A9B3 /* ChangePasswordTableViewCell */,
 				C0956A4E23D10BFB000CEBDD /* DeleteAccountTableViewCell */,
 				C0D069B52406D06200EBAC10 /* DeletedAliases */,
@@ -1779,6 +1793,7 @@
 				C00D74EB23E8AD0300BE48F0 /* Login.storyboard in Resources */,
 				C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */,
 				C07F3471248052C400360BA3 /* MailboxTableViewCell.xib in Resources */,
+				C03FA394258ABB50009B1A17 /* BiometricAuthTableViewCell.xib in Resources */,
 				C0F84B2723D4BCCA00E0852C /* NotVerifiedDomainTableViewCell.xib in Resources */,
 				C097A9F023C7988300EC1EFE /* Assets.xcassets in Resources */,
 				C0E50DA923C92F180058B88E /* SeparatorTableViewCell.xib in Resources */,
@@ -2048,6 +2063,7 @@
 				C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */,
 				C05CD30423CA0343007F1C9E /* HomeNavigationController.swift in Sources */,
 				C044FC3F254EF92F0047F859 /* MailboxArray.swift in Sources */,
+				C03FA38C258ABB35009B1A17 /* BiometricAuthTableViewCell.swift in Sources */,
 				C0C67C552551F9DC004BBC7F /* Message.swift in Sources */,
 				C07F346924804F0800360BA3 /* MailboxViewController.swift in Sources */,
 				C0747EE223CCDE63008035E9 /* AliasActivityTableHeaderView.swift in Sources */,

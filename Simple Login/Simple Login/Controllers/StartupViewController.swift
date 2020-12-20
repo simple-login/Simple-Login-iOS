@@ -6,6 +6,7 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
+import LocalAuthentication
 import MBProgressHUD
 import Toaster
 import UIKit
@@ -29,15 +30,51 @@ final class StartupViewController: BaseViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        checkApiKeyAndProceed()
+        checkApiKeyAndAuthenticateIfApplicable()
     }
 
-    private func checkApiKeyAndProceed() {
+    private func checkApiKeyAndAuthenticateIfApplicable() {
         guard let apiKey = SLKeychainService.getApiKey() else {
             presentLoginViewController()
             return
         }
 
+        guard UserDefaults.activeBiometricAuth() else {
+            fetchUserInfoAndProceed(apiKey: apiKey)
+            return
+        }
+
+        let localAuthenticationContext = LAContext()
+        localAuthenticationContext.localizedFallbackTitle = "Or use your passcode"
+
+        if localAuthenticationContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil) {
+            let reason = "Please authenticate to continue"
+            // swiftlint:disable:next line_length
+            localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { [unowned self] success, _ in
+                DispatchQueue.main.async {
+                    if success {
+                        self.fetchUserInfoAndProceed(apiKey: apiKey)
+                    } else {
+                        self.handleErrorDeviceOwnerAuthentication()
+                    }
+                }
+            }
+        } else {
+            fetchUserInfoAndProceed(apiKey: apiKey)
+        }
+    }
+
+    private func handleErrorDeviceOwnerAuthentication() {
+        UserDefaults.deactivateBiometricAuth()
+        do {
+            try SLKeychainService.removeApiKey()
+            presentLoginViewController()
+        } catch {
+            Toast.displayShortly(message: "Error removing API key from keychain")
+        }
+    }
+
+    private func fetchUserInfoAndProceed(apiKey: ApiKey) {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud.mode = .text
         hud.label.text = "Connecting to server..."
@@ -93,7 +130,7 @@ final class StartupViewController: BaseViewController {
         let alert = UIAlertController(title: "Error occured", message: error.description, preferredStyle: .alert)
 
         let retryAction = UIAlertAction(title: "Retry", style: .default) { [unowned self] _ in
-            self.checkApiKeyAndProceed()
+            self.checkApiKeyAndAuthenticateIfApplicable()
         }
         alert.addAction(retryAction)
 

@@ -10,29 +10,29 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationTableViewCell" rowHeight="117" id="rDr-3h-abk" customClass="NotificationTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BiometricAuthTableViewCell" rowHeight="117" id="LTh-uO-hwg" customClass="BiometricAuthTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="117"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rDr-3h-abk" id="Fen-gt-rhS">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LTh-uO-hwg" id="azI-cg-H2X">
                 <rect key="frame" x="0.0" y="0.0" width="414" height="117"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEo-0P-rYZ" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4D6-VG-RXv" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
                         <rect key="frame" x="8" y="4" width="398" height="109"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7bM-EF-Cdt">
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9Kx-eF-YgO">
                                 <rect key="frame" x="16" y="16" width="366" height="77"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MM2-hG-rnz">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="BXQ-S5-01k">
                                         <rect key="frame" x="0.0" y="10" width="309" height="57.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Newsletters" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THt-B7-DG1">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Face / Touch ID" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDg-NQ-UKm">
                                                 <rect key="frame" x="0.0" y="0.0" width="309" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                 <color key="textColor" name="TextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="We will occasionally send you emails with new feature announcements" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YzK-bu-WDP">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Restrict unwanted access to your SimpleLogin account on this device" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WrK-LR-tL6">
                                                 <rect key="frame" x="0.0" y="26" width="309" height="31.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" name="TitleColor"/>
@@ -40,11 +40,11 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qAU-tY-cin">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fas-Q5-any">
                                         <rect key="frame" x="317" y="23" width="51" height="31"/>
                                         <color key="onTintColor" name="TintColor"/>
                                         <connections>
-                                            <action selector="switchValueChanged:" destination="rDr-3h-abk" eventType="valueChanged" id="Q1z-Jc-wUP"/>
+                                            <action selector="switchValueChanged:" destination="LTh-uO-hwg" eventType="valueChanged" id="PDH-B8-ifN"/>
                                         </connections>
                                     </switch>
                                 </subviews>
@@ -52,24 +52,25 @@
                         </subviews>
                         <color key="backgroundColor" name="FrontBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="7bM-EF-Cdt" firstAttribute="top" secondItem="uEo-0P-rYZ" secondAttribute="top" constant="16" id="UY6-xZ-4fW"/>
-                            <constraint firstItem="7bM-EF-Cdt" firstAttribute="leading" secondItem="uEo-0P-rYZ" secondAttribute="leading" constant="16" id="aMt-NV-S2o"/>
-                            <constraint firstAttribute="trailing" secondItem="7bM-EF-Cdt" secondAttribute="trailing" constant="16" id="i66-Zt-sPx"/>
-                            <constraint firstAttribute="bottom" secondItem="7bM-EF-Cdt" secondAttribute="bottom" constant="16" id="sPk-El-apS"/>
+                            <constraint firstItem="9Kx-eF-YgO" firstAttribute="top" secondItem="4D6-VG-RXv" secondAttribute="top" constant="16" id="8Pd-9P-nRC"/>
+                            <constraint firstAttribute="trailing" secondItem="9Kx-eF-YgO" secondAttribute="trailing" constant="16" id="Rf1-KM-aNy"/>
+                            <constraint firstAttribute="bottom" secondItem="9Kx-eF-YgO" secondAttribute="bottom" constant="16" id="TaT-QP-les"/>
+                            <constraint firstItem="9Kx-eF-YgO" firstAttribute="leading" secondItem="4D6-VG-RXv" secondAttribute="leading" constant="16" id="r41-uY-N9P"/>
                         </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                 <constraints>
-                    <constraint firstItem="uEo-0P-rYZ" firstAttribute="top" secondItem="Fen-gt-rhS" secondAttribute="top" constant="4" id="4gZ-Aw-xGc"/>
-                    <constraint firstItem="uEo-0P-rYZ" firstAttribute="leading" secondItem="Fen-gt-rhS" secondAttribute="leading" constant="8" id="4wP-Vt-3xh"/>
-                    <constraint firstAttribute="trailing" secondItem="uEo-0P-rYZ" secondAttribute="trailing" constant="8" id="rmI-Gd-CQF"/>
-                    <constraint firstAttribute="bottom" secondItem="uEo-0P-rYZ" secondAttribute="bottom" constant="4" id="wyJ-zb-LgE"/>
+                    <constraint firstItem="4D6-VG-RXv" firstAttribute="leading" secondItem="azI-cg-H2X" secondAttribute="leading" constant="8" id="8wz-P2-PNo"/>
+                    <constraint firstAttribute="bottom" secondItem="4D6-VG-RXv" secondAttribute="bottom" constant="4" id="9yo-yC-ztZ"/>
+                    <constraint firstItem="4D6-VG-RXv" firstAttribute="top" secondItem="azI-cg-H2X" secondAttribute="top" constant="4" id="EDI-eg-HNA"/>
+                    <constraint firstAttribute="trailing" secondItem="4D6-VG-RXv" secondAttribute="trailing" constant="8" id="fqK-rJ-mPd"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
             <connections>
-                <outlet property="notificationSwitch" destination="qAU-tY-cin" id="atr-8U-r1B"/>
+                <outlet property="activationSwitch" destination="Fas-Q5-any" id="lBs-yA-r7b"/>
+                <outlet property="titleLabel" destination="JDg-NQ-UKm" id="9fs-DK-ydt"/>
             </connections>
             <point key="canvasLocation" x="127.53623188405798" y="87.388392857142847"/>
         </tableViewCell>
@@ -88,10 +89,10 @@
             <color white="0.3580000102519989" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
