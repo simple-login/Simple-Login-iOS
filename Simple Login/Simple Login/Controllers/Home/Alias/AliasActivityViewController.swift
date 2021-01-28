@@ -286,12 +286,14 @@ extension AliasActivityViewController: UITableViewDelegate {
             presentReverseAliasAlert(from: activity.to,
                                      to: activity.from,
                                      reverseAlias: activity.reverseAlias,
+                                     reverseAliasAddress: activity.reverseAliasAddress,
                                      mailComposerVCDelegate: self)
 
         case .reply:
             presentReverseAliasAlert(from: activity.from,
                                      to: activity.to,
                                      reverseAlias: activity.reverseAlias,
+                                     reverseAliasAddress: activity.reverseAliasAddress,
                                      mailComposerVCDelegate: self)
         }
     }

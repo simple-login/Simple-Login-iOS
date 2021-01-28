@@ -171,6 +171,7 @@ extension ContactViewController: UITableViewDelegate {
         presentReverseAliasAlert(from: alias.email,
                                  to: contact.email,
                                  reverseAlias: contact.reverseAlias,
+                                 reverseAliasAddress: contact.reverseAliasAddress,
                                  mailComposerVCDelegate: self)
     }
 

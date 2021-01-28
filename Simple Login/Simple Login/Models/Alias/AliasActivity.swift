@@ -14,6 +14,7 @@ final class AliasActivity: Decodable {
 
     let action: Action
     let reverseAlias: String
+    let reverseAliasAddress: String
     let from: String
     let to: String
     let timestamp: TimeInterval
@@ -29,6 +30,7 @@ final class AliasActivity: Decodable {
     private enum Key: String, CodingKey {
         case action = "action"
         case reverseAlias = "reverse_alias"
+        case reverseAliasAddress = "reverse_alias_address"
         case from = "from"
         case to = "to"
         case timestamp = "timestamp"
@@ -39,6 +41,7 @@ final class AliasActivity: Decodable {
 
         self.action = try container.decode(Action.self, forKey: .action)
         self.reverseAlias = try container.decode(String.self, forKey: .reverseAlias)
+        self.reverseAliasAddress = try container.decode(String.self, forKey: .reverseAliasAddress)
         self.from = try container.decode(String.self, forKey: .from)
         self.to = try container.decode(String.self, forKey: .to)
         self.timestamp = try container.decode(TimeInterval.self, forKey: .timestamp)

@@ -14,6 +14,7 @@ final class Contact: Decodable {
     let id: Identifier
     let email: String
     let reverseAlias: String
+    let reverseAliasAddress: String
     let creationDate: String
     let creationTimestamp: TimeInterval
     let lastEmailSentDate: String?
@@ -44,6 +45,7 @@ final class Contact: Decodable {
         case id = "id"
         case email = "contact"
         case reverseAlias = "reverse_alias"
+        case reverseAliasAddress = "reverse_alias_address"
         case creationDate = "creation_date"
         case creationTimestamp = "creation_timestamp"
         case lastEmailSentDate = "last_email_sent_date"
@@ -56,6 +58,7 @@ final class Contact: Decodable {
         self.id = try container.decode(Int.self, forKey: .id)
         self.email = try container.decode(String.self, forKey: .email)
         self.reverseAlias = try container.decode(String.self, forKey: .reverseAlias)
+        self.reverseAliasAddress = try container.decode(String.self, forKey: .reverseAliasAddress)
         self.creationDate = try container.decode(String.self, forKey: .creationDate)
         self.creationTimestamp = try container.decode(TimeInterval.self, forKey: .creationTimestamp)
         self.lastEmailSentDate = try container.decode(String?.self, forKey: .lastEmailSentDate)
