@@ -8,6 +8,7 @@
 
 import LocalAuthentication
 import MBProgressHUD
+import Photos
 import Toaster
 import UIKit
 
@@ -230,7 +231,18 @@ extension SettingsViewController {
         let alert = UIAlertController(title: "Modify profile photo", message: nil, preferredStyle: .actionSheet)
 
         let uploadAction = UIAlertAction(title: "Upload new photo", style: .default) { [unowned self] _ in
-            self.showPickPhoto()
+            switch PHPhotoLibrary.authorizationStatus() {
+            case .authorized: self.showPhotoPicker()
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization { newStatus in
+                    if newStatus == .authorized {
+                        DispatchQueue.main.async {
+                            self.showPhotoPicker()
+                        }
+                    }
+                }
+            default: self.alertOpenSettings()
+            }
         }
         alert.addAction(uploadAction)
 
@@ -309,8 +321,28 @@ extension SettingsViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    private func showPickPhoto() {
-        Toast.displayShortly(message: #function)
+    private func alertOpenSettings() {
+        let alert = UIAlertController(title: nil,
+                                      message: "Please allow access to photo library",
+                                      preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: "Open Settings", style: .default) { _ in
+            if let appSettingsURL = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(appSettingsURL, options: [:], completionHandler: nil)
+            }
+        }
+        alert.addAction(settingsAction)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func showPhotoPicker() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
     }
 }
 
@@ -432,7 +464,8 @@ extension SettingsViewController {
             localAuthenticationContext.localizedFallbackTitle = "Or use your passcode"
             let action = isOn ? "activate" : "deactivate"
             let reason = "Please authenticate to \(action) \(self.biometryType.description) authentication"
-            localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, error in
+            localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthentication,
+                                                      localizedReason: reason) { success, error in
                 DispatchQueue.main.async {
                     if success {
                         if isOn {
@@ -524,5 +557,17 @@ extension SettingsViewController {
         cell.bind(userSettings: userSettings)
 
         return cell
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate
+extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let pickedImage = info[.originalImage] as? UIImage,
+           let base64String = pickedImage.jpegData(compressionQuality: 0.5)?.base64EncodedString() {
+            updateProfilePicture(base64String)
+        }
+        picker.dismiss(animated: true, completion: nil)
     }
 }

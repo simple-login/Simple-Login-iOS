@@ -33,7 +33,10 @@ class AvatarImageView: UIImageView {
     }
 
     func setImage(with urlString: String?) {
-        guard let urlString = urlString else { return }
+        guard let urlString = urlString else {
+            fallbackToDefaultAvatar()
+            return
+        }
         ImageService.shared.getImage(from: urlString) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -44,9 +47,14 @@ class AvatarImageView: UIImageView {
 
                 case .failure(let error):
                     Toast.displayLongly(message: error.description)
-                    self.layer.borderColor = SLColor.tintColor.cgColor
+                    self.fallbackToDefaultAvatar()
                 }
             }
         }
+    }
+
+    private func fallbackToDefaultAvatar() {
+        image = UIImage(named: "UserIcon")
+        layer.borderColor = SLColor.tintColor.cgColor
     }
 }

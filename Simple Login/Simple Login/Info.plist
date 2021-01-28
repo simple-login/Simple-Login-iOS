@@ -71,5 +71,7 @@
 	</array>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Restrict unwanted access to your SimpleLogin account on this device</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>SimpleLogin needs photo library access to update your profile photo</string>
 </dict>
 </plist>
