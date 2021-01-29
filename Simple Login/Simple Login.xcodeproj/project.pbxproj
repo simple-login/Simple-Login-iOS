@@ -131,6 +131,8 @@
 		C0747EE923CCFAFE008035E9 /* AliasActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0747EE823CCFAFE008035E9 /* AliasActivityTableViewCell.swift */; };
 		C0747EEB23CCFB18008035E9 /* AliasActivityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0747EEA23CCFB18008035E9 /* AliasActivityTableViewCell.xib */; };
 		C0753340256B10DC008338DF /* RandomAliasTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C075333F256B10DC008338DF /* RandomAliasTableViewCell.xib */; };
+		C078433A25C4B74E006E8C3A /* TeamAndBlogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C078433925C4B74E006E8C3A /* TeamAndBlogTableViewCell.swift */; };
+		C078434225C4B789006E8C3A /* TeamAndBlogTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C078434125C4B789006E8C3A /* TeamAndBlogTableViewCell.xib */; };
 		C07B41F623EAEDCD002E6223 /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F523EAEDCD002E6223 /* VerificationViewController.swift */; };
 		C07B41F823EB1BC4002E6223 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41F723EB1BC4002E6223 /* Notification+Name.swift */; };
 		C07B41FC23EB555C002E6223 /* UIView+Utitlities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */; };
@@ -245,8 +247,6 @@
 		C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */; };
 		C0D6A27323D0759800EF21B8 /* HowAndSecurityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27223D0759800EF21B8 /* HowAndSecurityTableViewCell.swift */; };
 		C0D6A27523D0767000EF21B8 /* HowAndSecurityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A27423D0767000EF21B8 /* HowAndSecurityTableViewCell.xib */; };
-		C0D6A27823D077E800EF21B8 /* TeamAndContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27723D077E800EF21B8 /* TeamAndContactTableViewCell.swift */; };
-		C0D6A27A23D078AB00EF21B8 /* TeamAndContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A27923D078AB00EF21B8 /* TeamAndContactTableViewCell.xib */; };
 		C0D6A27D23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A27C23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift */; };
 		C0D6A27F23D079C200EF21B8 /* PricingAndBlogTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6A27E23D079C200EF21B8 /* PricingAndBlogTableViewCell.xib */; };
 		C0D6A28223D07A1500EF21B8 /* TermsAndPrivacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6A28123D07A1500EF21B8 /* TermsAndPrivacyTableViewCell.swift */; };
@@ -450,6 +450,8 @@
 		C0747EEA23CCFB18008035E9 /* AliasActivityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AliasActivityTableViewCell.xib; sourceTree = "<group>"; };
 		C075333F256B10DC008338DF /* RandomAliasTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RandomAliasTableViewCell.xib; sourceTree = "<group>"; };
 		C0753347256B1790008338DF /* RandomAliasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAliasTableViewCell.swift; sourceTree = "<group>"; };
+		C078433925C4B74E006E8C3A /* TeamAndBlogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamAndBlogTableViewCell.swift; sourceTree = "<group>"; };
+		C078434125C4B789006E8C3A /* TeamAndBlogTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeamAndBlogTableViewCell.xib; sourceTree = "<group>"; };
 		C07B41F523EAEDCD002E6223 /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
 		C07B41F723EB1BC4002E6223 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utitlities.swift"; sourceTree = "<group>"; };
@@ -553,8 +555,6 @@
 		C0D6A26F23D0731F00EF21B8 /* GeneralInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27223D0759800EF21B8 /* HowAndSecurityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAndSecurityTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A27423D0767000EF21B8 /* HowAndSecurityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HowAndSecurityTableViewCell.xib; sourceTree = "<group>"; };
-		C0D6A27723D077E800EF21B8 /* TeamAndContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamAndContactTableViewCell.swift; sourceTree = "<group>"; };
-		C0D6A27923D078AB00EF21B8 /* TeamAndContactTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeamAndContactTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A27C23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricingAndBlogTableViewCell.swift; sourceTree = "<group>"; };
 		C0D6A27E23D079C200EF21B8 /* PricingAndBlogTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PricingAndBlogTableViewCell.xib; sourceTree = "<group>"; };
 		C0D6A28123D07A1500EF21B8 /* TermsAndPrivacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndPrivacyTableViewCell.swift; sourceTree = "<group>"; };
@@ -971,6 +971,15 @@
 				C0747EEA23CCFB18008035E9 /* AliasActivityTableViewCell.xib */,
 			);
 			path = AliasActivityTableViewCell;
+			sourceTree = "<group>";
+		};
+		C078433825C4B733006E8C3A /* TeamAndBlogTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C078433925C4B74E006E8C3A /* TeamAndBlogTableViewCell.swift */,
+				C078434125C4B789006E8C3A /* TeamAndBlogTableViewCell.xib */,
+			);
+			path = TeamAndBlogTableViewCell;
 			sourceTree = "<group>";
 		};
 		C07F346724804EEE00360BA3 /* Mailbox */ = {
@@ -1390,7 +1399,7 @@
 				C0D6A26C23D072E700EF21B8 /* GeneralInfoTableViewCell */,
 				C0D6A27123D0758100EF21B8 /* HowAndSecurityTableViewCell */,
 				C01ABA67246068230075DCC9 /* WhatAndFaqTableViewCell */,
-				C0D6A27623D077D600EF21B8 /* TeamAndContactTableViewCell */,
+				C078433825C4B733006E8C3A /* TeamAndBlogTableViewCell */,
 				C0D6A27B23D078FE00EF21B8 /* PricingAndBlogTableViewCell */,
 				C01ABA6C24606F190075DCC9 /* HelpAndRoadmapTableViewCell */,
 				C0D6A28023D07A0400EF21B8 /* TermsAndPrivacyTableViewCell */,
@@ -1416,15 +1425,6 @@
 				C0D6A27423D0767000EF21B8 /* HowAndSecurityTableViewCell.xib */,
 			);
 			path = HowAndSecurityTableViewCell;
-			sourceTree = "<group>";
-		};
-		C0D6A27623D077D600EF21B8 /* TeamAndContactTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C0D6A27723D077E800EF21B8 /* TeamAndContactTableViewCell.swift */,
-				C0D6A27923D078AB00EF21B8 /* TeamAndContactTableViewCell.xib */,
-			);
-			path = TeamAndContactTableViewCell;
 			sourceTree = "<group>";
 		};
 		C0D6A27B23D078FE00EF21B8 /* PricingAndBlogTableViewCell */ = {
@@ -1802,6 +1802,7 @@
 				C097A9EE23C7987F00EC1EFE /* StartUp.storyboard in Resources */,
 				C0D6A27023D0732000EF21B8 /* GeneralInfoTableViewCell.xib in Resources */,
 				C0D069BA2406D0A800EBAC10 /* ListDeletedAliasesTableViewCell.xib in Resources */,
+				C078434225C4B789006E8C3A /* TeamAndBlogTableViewCell.xib in Resources */,
 				C0D069A32406A95E00EBAC10 /* DeleteDomainTableViewCell.xib in Resources */,
 				C0F84B2523D4BB1900E0852C /* DomainInfoTableViewCell.xib in Resources */,
 				C0B1DE3C23C8AD7B003EED3B /* Home.storyboard in Resources */,
@@ -1811,7 +1812,6 @@
 				C072CC1F2438A35F00DC4915 /* Faq.plist in Resources */,
 				C0956A5223D10C71000CEBDD /* DeleteAccountTableViewCell.xib in Resources */,
 				C01ABA7024606F860075DCC9 /* HelpAndRoadmapTableViewCell.xib in Resources */,
-				C0D6A27A23D078AB00EF21B8 /* TeamAndContactTableViewCell.xib in Resources */,
 				C06BD31A23D0F94D0056A9B3 /* MfaTableViewCell.xib in Resources */,
 				C06BD31F23D0FC250056A9B3 /* ChangePasswordTableViewCell.xib in Resources */,
 				C05CD31C23CA41CD007F1C9E /* AliasTableViewCell.xib in Resources */,
@@ -2010,6 +2010,7 @@
 				C01ABA69246068340075DCC9 /* WhatAndFaqTableViewCell.swift in Sources */,
 				C0747EDF23CCA6F5008035E9 /* CreateContactViewController.swift in Sources */,
 				C08A202723CC776600CB8D2F /* HowToSendEmailViewController.swift in Sources */,
+				C078433A25C4B74E006E8C3A /* TeamAndBlogTableViewCell.swift in Sources */,
 				C0B1DE4223C90D2C003EED3B /* RegisterableCell.swift in Sources */,
 				C0B1DE3723C8ACA4003EED3B /* UserInfo.swift in Sources */,
 				C0D9B66123CBC0AA009A6699 /* CreateAliasViewController.swift in Sources */,
@@ -2125,7 +2126,6 @@
 				C0D0500E23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */,
 				C05CD30C23CA052A007F1C9E /* SettingsViewController.swift in Sources */,
 				C09DB81E2439EF16002A9973 /* How.swift in Sources */,
-				C0D6A27823D077E800EF21B8 /* TeamAndContactTableViewCell.swift in Sources */,
 				C00BC55A23FDA10900E66FFE /* BaseUrlStatic.swift in Sources */,
 				C05FB6422422C76B000A4740 /* ForgotPasswordViewController.swift in Sources */,
 				C07F346424802DA900360BA3 /* Mailbox.swift in Sources */,

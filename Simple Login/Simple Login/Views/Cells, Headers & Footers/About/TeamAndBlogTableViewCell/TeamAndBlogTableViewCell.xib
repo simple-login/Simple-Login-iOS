@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TeamAndBlogTableViewCell" rowHeight="139" id="R1o-Ls-qXD" customClass="TeamAndBlogTableViewCell" customModule="SimpleLogin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="428" height="139"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R1o-Ls-qXD" id="JIi-Br-goc">
+                <rect key="frame" x="0.0" y="0.0" width="428" height="139"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6z-D0-JVj" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
+                        <rect key="frame" x="8" y="4" width="412" height="131"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our team" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xls-02-KrL">
+                                <rect key="frame" x="16" y="16" width="380" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <color key="textColor" name="ClickableTitleColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6C-4s-dJg" userLabel="SeparatorView">
+                                <rect key="frame" x="0.0" y="49" width="412" height="1"/>
+                                <color key="backgroundColor" name="SeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="nE4-3X-oXS"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Blog" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Hs-aF-59g">
+                                <rect key="frame" x="16" y="66" width="380" height="49"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <color key="textColor" name="ClickableTitleColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" name="FrontBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="5Hs-aF-59g" secondAttribute="trailing" constant="16" id="3Jd-E0-9NE"/>
+                            <constraint firstAttribute="trailing" secondItem="Xls-02-KrL" secondAttribute="trailing" constant="16" id="JUT-JF-sK7"/>
+                            <constraint firstItem="Xls-02-KrL" firstAttribute="leading" secondItem="h6z-D0-JVj" secondAttribute="leading" constant="16" id="ODq-em-az1"/>
+                            <constraint firstItem="5Hs-aF-59g" firstAttribute="top" secondItem="h6C-4s-dJg" secondAttribute="bottom" constant="16" id="QGJ-Qe-ojP"/>
+                            <constraint firstItem="5Hs-aF-59g" firstAttribute="leading" secondItem="h6z-D0-JVj" secondAttribute="leading" constant="16" id="RwS-dK-MG5"/>
+                            <constraint firstItem="Xls-02-KrL" firstAttribute="top" secondItem="h6z-D0-JVj" secondAttribute="top" constant="16" id="baw-j0-Z7K"/>
+                            <constraint firstItem="h6C-4s-dJg" firstAttribute="top" secondItem="Xls-02-KrL" secondAttribute="bottom" constant="16" id="e2m-ET-wb7"/>
+                            <constraint firstAttribute="trailing" secondItem="h6C-4s-dJg" secondAttribute="trailing" id="fZn-0D-9k4"/>
+                            <constraint firstAttribute="bottom" secondItem="5Hs-aF-59g" secondAttribute="bottom" constant="16" id="xJu-0J-QPf"/>
+                            <constraint firstItem="h6C-4s-dJg" firstAttribute="leading" secondItem="h6z-D0-JVj" secondAttribute="leading" id="z8J-Ta-d8u"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="h6z-D0-JVj" secondAttribute="bottom" constant="4" id="Jqe-04-Bwm"/>
+                    <constraint firstItem="h6z-D0-JVj" firstAttribute="top" secondItem="JIi-Br-goc" secondAttribute="top" constant="4" id="apT-mh-ePD"/>
+                    <constraint firstAttribute="trailing" secondItem="h6z-D0-JVj" secondAttribute="trailing" constant="8" id="gdW-JQ-x2G"/>
+                    <constraint firstItem="h6z-D0-JVj" firstAttribute="leading" secondItem="JIi-Br-goc" secondAttribute="leading" constant="8" id="m7P-6y-erB"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+            <connections>
+                <outlet property="blogLabel" destination="5Hs-aF-59g" id="MBE-LL-5xH"/>
+                <outlet property="teamLabel" destination="Xls-02-KrL" id="HkH-cW-zsL"/>
+            </connections>
+            <point key="canvasLocation" x="184.05797101449278" y="134.93303571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="ClickableTitleColor">
+            <color white="0.0" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="FrontBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="SeparatorColor">
+            <color white="0.80000001192092896" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

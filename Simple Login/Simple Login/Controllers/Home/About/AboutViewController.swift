@@ -26,7 +26,7 @@ final class AboutViewController: BaseLeftMenuButtonViewController, Storyboarded 
         GeneralInfoTableViewCell.register(with: tableView)
         HowAndSecurityTableViewCell.register(with: tableView)
         WhatAndFaqTableViewCell.register(with: tableView)
-        TeamAndContactTableViewCell.register(with: tableView)
+        TeamAndBlogTableViewCell.register(with: tableView)
         PricingAndBlogTableViewCell.register(with: tableView)
         HelpAndRoadmapTableViewCell.register(with: tableView)
         TermsAndPrivacyTableViewCell.register(with: tableView)
@@ -75,7 +75,7 @@ extension AboutViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int { 1 }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        7
+        6
     }
 
     // swiftlint:disable:next function_body_length
@@ -110,23 +110,10 @@ extension AboutViewController: UITableViewDataSource {
             return cell
 
         case 3:
-            let cell = TeamAndContactTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
+            let cell = TeamAndBlogTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
 
             cell.didTapTeamLabel = { [unowned self] in
                 self.performSegue(withIdentifier: "showTeam", sender: nil)
-            }
-
-            cell.didTapContactLabel = { [unowned self] in
-                self.openContactForm()
-            }
-
-            return cell
-
-        case 4:
-            let cell = PricingAndBlogTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
-
-            cell.didTapPricingLabel = { [unowned self] in
-                self.performSegue(withIdentifier: "showPricing", sender: nil)
             }
 
             cell.didTapBlogLabel = { [unowned self] in
@@ -135,7 +122,7 @@ extension AboutViewController: UITableViewDataSource {
 
             return cell
 
-        case 5:
+        case 4:
             let cell = HelpAndRoadmapTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
 
             cell.didTapHelpLabel = { [unowned self] in
@@ -149,7 +136,7 @@ extension AboutViewController: UITableViewDataSource {
 
             return cell
 
-        case 6:
+        case 5:
             let cell = TermsAndPrivacyTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
 
             cell.didTapTermsLabel = { [unowned self] in
