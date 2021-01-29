@@ -70,9 +70,6 @@ PODS:
   - MBProgressHUD (1.2.0)
   - MDFInternationalization (2.0.0)
   - MDFTextAccessibility (2.0.0)
-  - Sentry (5.0.2):
-    - Sentry/Core (= 5.0.2)
-  - Sentry/Core (5.0.2)
   - SideMenu (6.4.9)
   - SkyFloatingLabelTextField (3.8.0)
   - SwiftyStoreKit (0.16.1)
@@ -85,7 +82,6 @@ DEPENDENCIES:
   - MarqueeLabel
   - MaterialComponents/Snackbar
   - MBProgressHUD (~> 1.2.0)
-  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `5.0.2`)
   - SideMenu (~> 6.4.8)
   - SkyFloatingLabelTextField (~> 3.0)
   - SwiftyStoreKit
@@ -106,16 +102,6 @@ SPEC REPOS:
     - SwiftyStoreKit
     - Toaster
 
-EXTERNAL SOURCES:
-  Sentry:
-    :git: https://github.com/getsentry/sentry-cocoa.git
-    :tag: 5.0.2
-
-CHECKOUT OPTIONS:
-  Sentry:
-    :git: https://github.com/getsentry/sentry-cocoa.git
-    :tag: 5.0.2
-
 SPEC CHECKSUMS:
   Differ: 3b6bd78e2b20cc795d9a86f7641d087524e4273e
   Gifu: 97c2a3c3865fbc834ab13f797e2e8e7729a1853c
@@ -125,12 +111,11 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
-  Sentry: 5cec6146fff65c11080f78e8128582727c076e12
   SideMenu: 8ef57a3cfc024a2d3fc1c036c7fe98537baec9e0
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: 91c371cff0182e64e3bb35a6de8d9ebd70b8c127
+PODFILE CHECKSUM: 1a0d25a3568e313c3c775a2db8e90513d5472974
 
 COCOAPODS: 1.10.0

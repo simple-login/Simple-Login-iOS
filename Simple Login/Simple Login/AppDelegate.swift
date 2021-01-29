@@ -6,7 +6,6 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
-import Sentry
 import SwiftyStoreKit
 import Toaster
 import UIKit
@@ -18,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // swiftlint:disable:next line_length
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setUpUI()
-        setUpSentry()
         setUpStoreKit()
         askForReview()
         return true
@@ -34,21 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Toaster's appearance
         ToastView.appearance().backgroundColor = SLColor.textColor
         ToastView.appearance().textColor = SLColor.menuBackgroundColor
-    }
-
-    private func setUpSentry() {
-        // Sentry dsn is stored in Sentry.plist which is found in Ressources folder
-        guard let url = Bundle.main.url(forResource: "Sentry", withExtension: "plist"),
-            let sentryDictionary = NSDictionary(contentsOf: url) as? [String: String],
-            let sentryDsn = sentryDictionary["dsn"] else {
-                // Impossible case where Sentry.plist is not found. But who knows?
-                return
-        }
-
-        SentrySDK.start(options: [
-            "dsn": sentryDsn,
-            "enableAutoSessionTracking": true
-        ])
     }
 
     private func setUpStoreKit() {
