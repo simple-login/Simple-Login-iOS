@@ -209,7 +209,10 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
 // MARK: - Modify
 extension SettingsViewController {
     private func showAlertModifyProfile() {
-        let alert = UIAlertController(title: "Modify profile", message: nil, preferredStyle: .actionSheet)
+        let style: UIAlertController.Style =
+            UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+
+        let alert = UIAlertController(title: "Modify profile", message: nil, preferredStyle: style)
 
         let profileAction = UIAlertAction(title: "Modify profile photo", style: .default) { [unowned self] _ in
             self.showAlertModifyProfilePhoto()
@@ -228,7 +231,10 @@ extension SettingsViewController {
     }
 
     private func showAlertModifyProfilePhoto() {
-        let alert = UIAlertController(title: "Modify profile photo", message: nil, preferredStyle: .actionSheet)
+        let style: UIAlertController.Style =
+            UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+
+        let alert = UIAlertController(title: "Modify profile photo", message: nil, preferredStyle: style)
 
         let uploadAction = UIAlertAction(title: "Upload new photo", style: .default) { [unowned self] _ in
             switch PHPhotoLibrary.authorizationStatus() {
