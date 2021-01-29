@@ -30,7 +30,6 @@
 		C013BB5F254F354A004B7FE5 /* ContactArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB5E254F354A004B7FE5 /* ContactArray.swift */; };
 		C013BB6A254F3892004B7FE5 /* ContactArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */; };
 		C017AAEC255304E5004C80BF /* UserOptionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C017AAEB255304E5004C80BF /* UserOptionsTests.swift */; };
-		C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */; };
 		C01ABA69246068340075DCC9 /* WhatAndFaqTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ABA68246068340075DCC9 /* WhatAndFaqTableViewCell.swift */; };
 		C01ABA6B246068B20075DCC9 /* WhatAndFaqTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */; };
 		C01ABA6E24606F320075DCC9 /* HelpAndRoadmapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ABA6D24606F320075DCC9 /* HelpAndRoadmapTableViewCell.swift */; };
@@ -355,7 +354,6 @@
 		C013BB5E254F354A004B7FE5 /* ContactArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactArray.swift; sourceTree = "<group>"; };
 		C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactArrayTests.swift; sourceTree = "<group>"; };
 		C017AAEB255304E5004C80BF /* UserOptionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOptionsTests.swift; sourceTree = "<group>"; };
-		C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterpriseViewController.swift; sourceTree = "<group>"; };
 		C01ABA68246068340075DCC9 /* WhatAndFaqTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatAndFaqTableViewCell.swift; sourceTree = "<group>"; };
 		C01ABA6A246068B20075DCC9 /* WhatAndFaqTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatAndFaqTableViewCell.xib; sourceTree = "<group>"; };
 		C01ABA6D24606F320075DCC9 /* HelpAndRoadmapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndRoadmapTableViewCell.swift; sourceTree = "<group>"; };
@@ -1469,7 +1467,6 @@
 			isa = PBXGroup;
 			children = (
 				C0D069B12406CE4300EBAC10 /* DeletedAliasesViewController.swift */,
-				C018B5F2244CB37200ABD233 /* EnterpriseViewController.swift */,
 				C03F2F54244B45C000CEA316 /* IapViewController.swift */,
 				C05CD30B23CA052A007F1C9E /* SettingsViewController.swift */,
 				C05A8687256C571D00B88017 /* DomainLiteListViewController.swift */,
@@ -2107,7 +2104,6 @@
 				C01C00B223D25C390036B905 /* Storyboarded.swift in Sources */,
 				C030C74C256EFCA600770F2C /* SenderFormatTableViewCell.swift in Sources */,
 				C0C67C3B2551A1A3004BBC7F /* Updated.swift in Sources */,
-				C018B5F3244CB37200ABD233 /* EnterpriseViewController.swift in Sources */,
 				C0475C5B254DF9C80018F081 /* AliasArray.swift in Sources */,
 				C0D9B66523CBC838009A6699 /* String+Utilities.swift in Sources */,
 				C00D74E923E8ACE400BE48F0 /* LoginViewController.swift in Sources */,

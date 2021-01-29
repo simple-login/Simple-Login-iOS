@@ -16,7 +16,6 @@ final class IapViewController: BaseApiKeyViewController, Storyboarded {
     @IBOutlet private weak var rootScrollView: UIScrollView!
     @IBOutlet private weak var monthlyButton: UIButton!
     @IBOutlet private weak var yearlyButton: UIButton!
-    @IBOutlet private weak var enterpriseButton: UIButton!
     @IBOutlet private weak var restoreButton: UIButton!
 
     private var productMonthly: SKProduct?
@@ -45,9 +44,6 @@ final class IapViewController: BaseApiKeyViewController, Storyboarded {
     }
 
     private func setUpUI() {
-        enterpriseButton.layer.borderWidth = 2
-        enterpriseButton.layer.borderColor = SLColor.tintColor.cgColor
-
         restoreButton.layer.borderWidth = 2
         restoreButton.layer.borderColor = SLColor.tintColor.cgColor
     }
@@ -218,10 +214,6 @@ extension IapViewController {
 
         buy(product)
         // swiftlint:enable identifier_name
-    }
-
-    @IBAction private func enterpriseButtonTapped() {
-        performSegue(withIdentifier: "showEnterprise", sender: nil)
     }
 
     @IBAction private func restoreButtonTapped() {
