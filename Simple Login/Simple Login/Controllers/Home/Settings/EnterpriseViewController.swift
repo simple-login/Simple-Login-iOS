@@ -17,26 +17,4 @@ final class EnterpriseViewController: BaseViewController {
     @IBAction private func closeButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
-
-    @IBAction private func contactUsButtonTapped() {
-        let mailComposerVC = MFMailComposeViewController()
-
-        if mailComposerVC.view == nil {
-            return
-        }
-
-        mailComposerVC.mailComposeDelegate = self
-        mailComposerVC.setToRecipients(["hi@simplelogin.io"])
-
-        present(mailComposerVC, animated: true, completion: nil)
-    }
-}
-
-// MARK: - MFMailComposeViewControllerDelegate
-extension EnterpriseViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController,
-                               didFinishWith result: MFMailComposeResult,
-                               error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
-    }
 }

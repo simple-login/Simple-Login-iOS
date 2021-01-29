@@ -631,7 +631,7 @@
                                 </items>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yrg-QZ-WNt">
-                                <rect key="frame" x="20" y="76" width="374" height="171"/>
+                                <rect key="frame" x="20" y="76" width="374" height="123"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADOPT SIMPLELOGIN FOR YOUR ENTERPRISE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XBO-bc-tAe">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="19.5"/>
@@ -697,20 +697,6 @@
                                             <constraint firstAttribute="height" constant="10" id="Zrv-DU-7QI"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="444-co-uLa">
-                                        <rect key="frame" x="0.0" y="131" width="374" height="40"/>
-                                        <color key="backgroundColor" name="TintColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="hFR-nf-E5h"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <state key="normal" title="CONTACT US">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="contactUsButtonTapped" destination="lqB-Xz-Igf" eventType="touchUpInside" id="d6p-SH-FZp"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
