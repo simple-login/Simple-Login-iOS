@@ -16,21 +16,30 @@ SimpleLogin is an open source solution to protect your email inbox. This reposit
 |----|----|----|
 |<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/SL/4.png" width="180" />|<img src="https://raw.githubusercontent.com/ntnhon/TarotCodexPublicImages/master/SL/5.png" width="180" />
 ## Features
-- Manage your aliases: list, create, edit, delete, enable/disable.
-- Manage your alias contacts: list, create, delete.
-- Manage your mailbox list: create, delete, make default.
-- View alias activities.
-- Share extension which allows you to create alias on the fly while using a browser.
-- Premium subscription with In-App Purchase.
+- Manage aliases: create/edit/delete & enable/disable an alias.
+
+- Manage contacts: create contacts to send email from your aliases.
+
+- Manage mailboxes: create/delete/make default a mailbox.
+
+- Share extension: create alias without leaving your browser.
+
+- Secure login with Two Factor Authentication (2FA).
+
+- Secure access with TouchID & FaceID.
+
+- Support self-hosted: you can use this application with your own SimpleLogin instance.
+
+- Support dark mode.
 
 ## TODO
 - [ ] Manage custom domains
 - [ ] Manage directories
 - [x] Manage mailboxes
-- [ ] Account settings
+- [x] Account settings
 
 ## License
-Copyright (c) 2019-2020 SimpleLogin
+Copyright (c) 2019-2021 SimpleLogin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
