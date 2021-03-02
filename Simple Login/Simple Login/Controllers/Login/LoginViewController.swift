@@ -15,8 +15,13 @@ final class LoginViewController: BaseViewController, Storyboarded {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var loginButton: UIButton!
-
     @IBOutlet private weak var versionLabel: UILabel!
+    private var showHidePasswordImageView: UIImageView!
+    private var isShowingPassword = false {
+        didSet {
+            passwordTextField.isSecureTextEntry = !isShowingPassword
+        }
+    }
 
     private var isValidEmailAddress: Bool = true {
         didSet {
@@ -43,7 +48,27 @@ final class LoginViewController: BaseViewController, Storyboarded {
         loginButton.setTitleColor(SLColor.tintColor, for: .normal)
         loginButton.setTitleColor(SLColor.tintColor.withAlphaComponent(0.3), for: .disabled)
 
+        // Show/hide password
+        showHidePasswordImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        showHidePasswordImageView.contentMode = .scaleAspectFit
+        showHidePasswordImageView.tintColor = UIColor.lightGray.withAlphaComponent(0.6)
+        showHidePasswordImageView.image = UIImage(named: "ic_eye_fill")
+        let imageContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: 20))
+        imageContainerView.addSubview(showHidePasswordImageView)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(toggleShowHidePassword))
+        imageContainerView.isUserInteractionEnabled = true
+        imageContainerView.addGestureRecognizer(tap)
+        passwordTextField.rightView = imageContainerView
+        passwordTextField.rightViewMode = .always
+
         versionLabel.text = "SimpleLogin v\(kVersionString)"
+    }
+
+    @objc
+    private func toggleShowHidePassword() {
+        isShowingPassword.toggle()
+        let imageName = isShowingPassword ? "ic_eye_slash_fill" : "ic_eye_fill"
+        showHidePasswordImageView.image = UIImage(named: imageName)
     }
 
     @IBAction private func login() {
