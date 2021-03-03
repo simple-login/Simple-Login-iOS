@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class CustomDomain {
+final class CustomDomain: Decodable {
     let id: Int
     let name: String
     let creationTimestamp: TimeInterval
@@ -77,15 +77,21 @@ final class CustomDomain {
         return attributedString
     }()
 
-    init() {
-        // swiftlint:disable force_unwrapping
-        let randomId = Array(0...100).randomElement()!
-        id = randomId
-        name = "example\(randomId).com"
-        let randomHour = Array(0...10).randomElement()!
-        creationTimestamp = TimeInterval(1_578_697_200 + randomHour * 86_400)
-        aliasCount = Array(0...100).randomElement()!
-        isVerified = Bool.random()
-        // swiftlint:enable force_unwrapping
+    // swiftlint:disable type_name
+    private enum Key: String, CodingKey {
+        case id = "id"
+        case name = "domain"
+        case creationTimestamp = "creation_timestamp"
+        case aliasCount = "nb_alias"
+        case isVerified = "verified"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.creationTimestamp = Date().timeIntervalSince1970
+        self.aliasCount = try container.decode(Int.self, forKey: .aliasCount)
+        self.isVerified = try container.decode(Bool.self, forKey: .isVerified)
     }
 }

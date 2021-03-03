@@ -11,15 +11,7 @@ import UIKit
 final class CustomDomainViewController: BaseApiKeyLeftMenuButtonViewController, Storyboarded {
     @IBOutlet private weak var tableView: UITableView!
 
-    private lazy var customDomains: [CustomDomain] = {
-        var customDomains: [CustomDomain] = []
-
-        for _ in 0...10 {
-            customDomains.append(CustomDomain())
-        }
-
-        return customDomains
-    }()
+    private var customDomains: [CustomDomain] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()

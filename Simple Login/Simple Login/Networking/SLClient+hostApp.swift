@@ -126,6 +126,16 @@ extension SLClient {
     }
 }
 
+// MARK: - Custom domain
+extension SLClient {
+    func fetchCustomDomains(apiKey: ApiKey,
+                            completion: @escaping (Result<CustomDomainArray, SLError>) -> Void) {
+        let customDomainsEndpoint =
+            SLEndpoint.customDomains(baseUrl: baseUrl, apiKey: apiKey)
+        makeCall(to: customDomainsEndpoint, expectedObjectType: CustomDomainArray.self, completion: completion)
+    }
+}
+
 // MARK: - Login
 extension SLClient {
     func login(email: String,

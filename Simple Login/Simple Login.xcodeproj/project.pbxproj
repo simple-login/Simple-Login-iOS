@@ -42,6 +42,9 @@
 		C030C74C256EFCA600770F2C /* SenderFormatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C030C74B256EFCA600770F2C /* SenderFormatTableViewCell.swift */; };
 		C030C751256EFCC500770F2C /* SenderFormatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C030C750256EFCC500770F2C /* SenderFormatTableViewCell.xib */; };
 		C032D6ED2419830300C06EB7 /* UIAlertController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */; };
+		C0333B9B25F0378E005E8278 /* CustomDomainArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0333B9A25F0378E005E8278 /* CustomDomainArray.swift */; };
+		C0333BA325F039A7005E8278 /* CustomDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0333BA225F039A7005E8278 /* CustomDomainTests.swift */; };
+		C0333BA825F039BE005E8278 /* CustomDomain.json in Resources */ = {isa = PBXBuildFile; fileRef = C0333BA725F039BE005E8278 /* CustomDomain.json */; };
 		C03AE313254B08DB00C798EE /* NetworkEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE312254B08DB00C798EE /* NetworkEngine.swift */; };
 		C03AE318254B0AAB00C798EE /* SLClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE317254B0AAB00C798EE /* SLClient.swift */; };
 		C03AE320254B0B8E00C798EE /* SLClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AE31F254B0B8E00C798EE /* SLClientTests.swift */; };
@@ -174,6 +177,7 @@
 		C09CDF2725542DC20093D6C9 /* Suffix+random.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CDF2625542DC20093D6C9 /* Suffix+random.swift */; };
 		C09DB81E2439EF16002A9973 /* How.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09DB81D2439EF16002A9973 /* How.swift */; };
 		C09DB8202439F341002A9973 /* WhatYouCanDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09DB81F2439F341002A9973 /* WhatYouCanDoViewController.swift */; };
+		C0A51EA525F0364C00A8F111 /* CustomDomainArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A51EA425F0364C00A8F111 /* CustomDomainArray.json */; };
 		C0A726FA23EC131900A62A22 /* LoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A726F923EC131900A62A22 /* LoadingFooterView.swift */; };
 		C0A726FC23EC135000A62A22 /* LoadingFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0A726FB23EC135000A62A22 /* LoadingFooterView.xib */; };
 		C0A726FE23EC6D3E00A62A22 /* AliasActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */; };
@@ -365,6 +369,9 @@
 		C030C74B256EFCA600770F2C /* SenderFormatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderFormatTableViewCell.swift; sourceTree = "<group>"; };
 		C030C750256EFCC500770F2C /* SenderFormatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderFormatTableViewCell.xib; sourceTree = "<group>"; };
 		C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Convenience.swift"; sourceTree = "<group>"; };
+		C0333B9A25F0378E005E8278 /* CustomDomainArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainArray.swift; sourceTree = "<group>"; };
+		C0333BA225F039A7005E8278 /* CustomDomainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainTests.swift; sourceTree = "<group>"; };
+		C0333BA725F039BE005E8278 /* CustomDomain.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CustomDomain.json; sourceTree = "<group>"; };
 		C0373A8823EF55160044507C /* SimpleLogin Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SimpleLogin Share Extension.entitlements"; sourceTree = "<group>"; };
 		C03AE2F3254B06BA00C798EE /* SimpleLoginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleLoginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03AE2F7254B06BA00C798EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -488,6 +495,7 @@
 		C09CDF2625542DC20093D6C9 /* Suffix+random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Suffix+random.swift"; sourceTree = "<group>"; };
 		C09DB81D2439EF16002A9973 /* How.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = How.swift; sourceTree = "<group>"; };
 		C09DB81F2439F341002A9973 /* WhatYouCanDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatYouCanDoViewController.swift; sourceTree = "<group>"; };
+		C0A51EA425F0364C00A8F111 /* CustomDomainArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CustomDomainArray.json; sourceTree = "<group>"; };
 		C0A726F923EC131900A62A22 /* LoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooterView.swift; sourceTree = "<group>"; };
 		C0A726FB23EC135000A62A22 /* LoadingFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingFooterView.xib; sourceTree = "<group>"; };
 		C0A726FD23EC6D3E00A62A22 /* AliasActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasActivity.swift; sourceTree = "<group>"; };
@@ -1216,6 +1224,7 @@
 				C013BB5E254F354A004B7FE5 /* ContactArray.swift */,
 				C0BD47CE244DAB6F006473B5 /* ContactLite.swift */,
 				C03D2D5F23D4AF300057F44F /* CustomDomain.swift */,
+				C0333B9A25F0378E005E8278 /* CustomDomainArray.swift */,
 				C0D069AA2406BE7800EBAC10 /* Directory.swift */,
 				C0CD8FAB25607F9B003DB787 /* DomainLite.swift */,
 				C0D8C4B2246AF132008BB8D2 /* ErrorMessage.swift */,
@@ -1534,6 +1543,8 @@
 				C013BB3E254F1665004B7FE5 /* Contact.json */,
 				C013BB59254F351F004B7FE5 /* ContactArray.json */,
 				C0475C8A254E000B0018F081 /* ContactLite.json */,
+				C0333BA725F039BE005E8278 /* CustomDomain.json */,
+				C0A51EA425F0364C00A8F111 /* CustomDomainArray.json */,
 				C0CD8F9B25607E3B003DB787 /* DomainLite.json */,
 				C0CD8FB8256083DE003DB787 /* DomainLites.json */,
 				C0EBF968254C503C002FF72C /* DummyData.json */,
@@ -1559,6 +1570,7 @@
 				C013BB46254F16CD004B7FE5 /* ContactTests.swift */,
 				C013BB69254F3892004B7FE5 /* ContactArrayTests.swift */,
 				C0475C7F254DFDEA0018F081 /* ContactLiteTests.swift */,
+				C0333BA225F039A7005E8278 /* CustomDomainTests.swift */,
 				C0CD8FA325607E9A003DB787 /* DomainLiteTests.swift */,
 				C0EBF9D0254CA76C002FF72C /* ErrorMessageTests.swift */,
 				C013BB25254EF9B9004B7FE5 /* MailboxTests.swift */,
@@ -1737,6 +1749,7 @@
 				C044FC47254EF9550047F859 /* MailboxArray.json in Resources */,
 				C0475C64254DFAF80018F081 /* AliasMailbox.json in Resources */,
 				C0CD8F9C25607E3B003DB787 /* DomainLite.json in Resources */,
+				C0333BA825F039BE005E8278 /* CustomDomain.json in Resources */,
 				C013BB5A254F351F004B7FE5 /* ContactArray.json in Resources */,
 				C0EBF9D6254CA7DB002FF72C /* ErrorMessage.json in Resources */,
 				C0C786F8255F335C000D9AB1 /* UserSettings.json in Resources */,
@@ -1753,6 +1766,7 @@
 				C0DDB6CF2552F39B0032828D /* UserOptions.json in Resources */,
 				C06BFF742550510B00256DAC /* Ok.json in Resources */,
 				C0EBF991254C77B8002FF72C /* UserInfo.json in Resources */,
+				C0A51EA525F0364C00A8F111 /* CustomDomainArray.json in Resources */,
 				C0CD8FB9256083DE003DB787 /* DomainLites.json in Resources */,
 				C0C67C442551A1F1004BBC7F /* Updated.json in Resources */,
 				C044FBFE254EC5A20047F859 /* AliasActivity.json in Resources */,
@@ -1919,6 +1933,7 @@
 				C09CDF2725542DC20093D6C9 /* Suffix+random.swift in Sources */,
 				C0CD8FA425607E9A003DB787 /* DomainLiteTests.swift in Sources */,
 				C0475CA9254E023D0018F081 /* LatestActivityTests.swift in Sources */,
+				C0333BA325F039A7005E8278 /* CustomDomainTests.swift in Sources */,
 				C013BB6A254F3892004B7FE5 /* ContactArrayTests.swift in Sources */,
 				C0CD8FC4256088AB003DB787 /* UserSettingsOptionTests.swift in Sources */,
 				C0475CCE254E0E010018F081 /* AliasTests.swift in Sources */,
@@ -2080,6 +2095,7 @@
 				C0A726FA23EC131900A62A22 /* LoadingFooterView.swift in Sources */,
 				C0D6A27D23D0790D00EF21B8 /* PricingAndBlogTableViewCell.swift in Sources */,
 				C0F84B2323D4BAA200E0852C /* DomainInfoTableViewCell.swift in Sources */,
+				C0333B9B25F0378E005E8278 /* CustomDomainArray.swift in Sources */,
 				C0D5D5332469EA4200B64B8B /* ChangeApiUrlViewController.swift in Sources */,
 				C0F6AEEF256AF06500790FD1 /* SenderFormat.swift in Sources */,
 				C0D6A28623D09EC800EF21B8 /* BorderedShadowedView.swift in Sources */,

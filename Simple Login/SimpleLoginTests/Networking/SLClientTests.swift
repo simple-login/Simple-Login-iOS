@@ -837,4 +837,26 @@ extension SLClientTests {
         XCTAssertNotNil(storedUserInfo)
         XCTAssertNil(storedError)
     }
+
+    func testFetchCustomDomains() throws {
+        // given
+        let engine = try NetworkEngineMock.givenEngineWithDataFromFile("CustomDomainArray")
+
+        // when
+        var storedCustomDomainArray: CustomDomainArray?
+        var storedError: SLError?
+
+        let client = try SLClient(engine: engine)
+        client.fetchCustomDomains(apiKey: ApiKey.random()) { result in
+            switch result {
+            case .success(let customDomainArray): storedCustomDomainArray = customDomainArray
+            case .failure(let error): storedError = error
+            }
+        }
+
+        // then
+        XCTAssertNotNil(storedCustomDomainArray)
+        XCTAssertEqual(storedCustomDomainArray?.customDomains.count, 2)
+        XCTAssertNil(storedError)
+    }
 }

@@ -2,5 +2,5 @@
     "alias_generator": "word",
     "notification": true,
     "random_alias_default_domain": "example.com",
-    "sender_format": "VIA"
+    "sender_format": "AT"
 }

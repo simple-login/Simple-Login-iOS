@@ -50,6 +50,7 @@ enum SLEndpoint {
     case createAlias(baseUrl: URL, apiKey: ApiKey, aliasCreationRequest: AliasCreationRequest)
     case createContact(baseUrl: URL, apiKey: ApiKey, aliasId: Int, email: String)
     case createMailbox(baseUrl: URL, apiKey: ApiKey, email: String)
+    case customDomains(baseUrl: URL, apiKey: ApiKey)
     case deleteAlias(baseUrl: URL, apiKey: ApiKey, aliasId: Int)
     case deleteContact(baseUrl: URL, apiKey: ApiKey, contactId: Int)
     case deleteMailbox(baseUrl: URL, apiKey: ApiKey, mailboxId: Int)
@@ -84,6 +85,7 @@ enum SLEndpoint {
         case .createAlias: return "/api/v3/alias/custom/new"
         case .createContact(_, _, let aliasId, _): return "/api/aliases/\(aliasId)/contacts"
         case .createMailbox: return "/api/mailboxes"
+        case .customDomains: return "/api/custom_domains"
         case .deleteAlias(_, _, let aliasId): return "/api/aliases/\(aliasId)"
         case .deleteContact(_, _, let contactId): return "/api/contacts/\(contactId)"
         case .deleteMailbox(_, _, let mailboxId): return "/api/mailboxes/\(mailboxId)"
@@ -133,6 +135,9 @@ enum SLEndpoint {
 
         case let .createMailbox(baseUrl, apiKey, email):
             return createMailboxRequest(baseUrl: baseUrl, apiKey: apiKey, email: email)
+
+        case let .customDomains(baseUrl, apiKey):
+            return customDomainsRequest(baseUrl: baseUrl, apiKey: apiKey)
 
         case let .deleteAlias(baseUrl, apiKey, _):
             return deleteRequest(baseUrl: baseUrl, apiKey: apiKey)
@@ -298,6 +303,16 @@ extension SLEndpoint {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.post
         request.addJsonRequestBody(["email": email])
+        request.addApiKeyToHeaders(apiKey)
+
+        return request
+    }
+
+    private func customDomainsRequest(baseUrl: URL, apiKey: ApiKey) -> URLRequest {
+        let url = baseUrl.append(path: path)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.get
         request.addApiKeyToHeaders(apiKey)
 
         return request
