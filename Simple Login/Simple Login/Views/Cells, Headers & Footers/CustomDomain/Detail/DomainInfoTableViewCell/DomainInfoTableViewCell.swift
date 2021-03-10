@@ -29,7 +29,7 @@ final class DomainInfoTableViewCell: UITableViewCell, RegisterableCell {
     }
 
     func bind(with customDomain: CustomDomain) {
-        domainNameLabel.text = customDomain.name + (customDomain.isVerified ? " ✅" : " 🚫")
+        domainNameLabel.text = customDomain.domainName + (customDomain.isVerified ? " ✅" : " 🚫")
         creationLabel.text = customDomain.creationTimestampString
         countLabel.attributedText = customDomain.countAttributedString
     }
