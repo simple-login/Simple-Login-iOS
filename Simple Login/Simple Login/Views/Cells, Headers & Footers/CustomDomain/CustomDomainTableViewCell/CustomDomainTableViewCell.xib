@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,15 +18,15 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVT-C7-UtJ" customClass="BorderedShadowedView" customModule="SimpleLogin" customModuleProvider="target">
-                        <rect key="frame" x="10" y="10" width="421" height="93"/>
+                        <rect key="frame" x="10" y="5" width="421" height="103"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LqU-56-YS1">
-                                <rect key="frame" x="387" y="34.5" width="24" height="24"/>
+                                <rect key="frame" x="387" y="39.5" width="24" height="24"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="RightArrow"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="emd-T9-yDZ">
-                                <rect key="frame" x="10" y="10" width="367" height="73"/>
+                                <rect key="frame" x="10" y="10" width="367" height="83"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="example.com" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRs-fb-3AR">
                                         <rect key="frame" x="0.0" y="0.0" width="367" height="18"/>
@@ -34,13 +35,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0 aliases" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXw-5W-G8D">
-                                        <rect key="frame" x="0.0" y="28" width="367" height="17"/>
+                                        <rect key="frame" x="0.0" y="28" width="367" height="27"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="lxo-u4-S5A">
-                                        <rect key="frame" x="0.0" y="55" width="367" height="18"/>
+                                        <rect key="frame" x="0.0" y="65" width="367" height="18"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="251" image="ClockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="L0d-bV-uxO">
                                                 <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
@@ -57,7 +58,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="LqU-56-YS1" firstAttribute="leading" secondItem="emd-T9-yDZ" secondAttribute="trailing" constant="10" id="A5V-hG-CmT"/>
                             <constraint firstItem="LqU-56-YS1" firstAttribute="centerY" secondItem="DVT-C7-UtJ" secondAttribute="centerY" id="E8B-nc-8mK"/>
@@ -71,8 +72,8 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="DVT-C7-UtJ" secondAttribute="trailing" constant="10" id="Ae2-Dv-C7W"/>
-                    <constraint firstItem="DVT-C7-UtJ" firstAttribute="top" secondItem="2OF-3v-tUX" secondAttribute="top" constant="10" id="CvO-Dn-cjJ"/>
-                    <constraint firstAttribute="bottom" secondItem="DVT-C7-UtJ" secondAttribute="bottom" constant="10" id="gah-gD-G2R"/>
+                    <constraint firstItem="DVT-C7-UtJ" firstAttribute="top" secondItem="2OF-3v-tUX" secondAttribute="top" constant="5" id="CvO-Dn-cjJ"/>
+                    <constraint firstAttribute="bottom" secondItem="DVT-C7-UtJ" secondAttribute="bottom" constant="5" id="gah-gD-G2R"/>
                     <constraint firstItem="DVT-C7-UtJ" firstAttribute="leading" secondItem="2OF-3v-tUX" secondAttribute="leading" constant="10" id="kHy-Zd-R03"/>
                 </constraints>
             </tableViewCellContentView>
@@ -91,5 +92,8 @@
     <resources>
         <image name="ClockIcon" width="18" height="18"/>
         <image name="RightArrow" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

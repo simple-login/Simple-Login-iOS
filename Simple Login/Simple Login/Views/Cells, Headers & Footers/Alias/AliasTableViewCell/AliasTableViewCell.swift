@@ -36,7 +36,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = UITableViewCell.SelectionStyle.none
+        selectionStyle = .none
         backgroundColor = .clear
         contentView.backgroundColor = .clear
 
