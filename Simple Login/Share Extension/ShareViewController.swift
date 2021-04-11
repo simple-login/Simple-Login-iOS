@@ -24,7 +24,7 @@ class ShareViewController: BaseApiKeyViewController {
 
     @IBOutlet private var mailboxRelatedLabels: [UILabel]!
 
-    private var isValidEmailPrefix: Bool = false {
+    private var isValidEmailPrefix = false {
         didSet {
             createButton.isEnabled = isValidEmailPrefix
             prefixTextField.textColor = isValidEmailPrefix ? SLColor.textColor : SLColor.negativeColor

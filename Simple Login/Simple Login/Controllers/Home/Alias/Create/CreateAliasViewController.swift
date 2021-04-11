@@ -24,7 +24,7 @@ final class CreateAliasViewController: BaseApiKeyViewController {
 
     @IBOutlet private var mailboxRelatedLabels: [UILabel]!
 
-    private var isValidEmailPrefix: Bool = false {
+    private var isValidEmailPrefix = false {
         didSet {
             createButton.isEnabled = isValidEmailPrefix
             createButton.alpha = isValidEmailPrefix ? 1 : 0.3

@@ -23,7 +23,7 @@ final class LoginViewController: BaseViewController, Storyboarded {
         }
     }
 
-    private var isValidEmailAddress: Bool = true {
+    private var isValidEmailAddress = true {
         didSet {
             loginButton.isEnabled = isValidEmailAddress
         }

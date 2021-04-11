@@ -15,7 +15,7 @@ final class ForgotPasswordViewController: BaseViewController {
     @IBOutlet private weak var emailTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var resetButton: UIButton!
 
-    private var isValidEmailAddress: Bool = false {
+    private var isValidEmailAddress = false {
         didSet {
             if isValidEmailAddress {
                 resetButton.isEnabled = true

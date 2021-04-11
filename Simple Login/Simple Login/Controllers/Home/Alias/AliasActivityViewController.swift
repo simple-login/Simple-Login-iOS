@@ -22,9 +22,9 @@ final class AliasActivityViewController: BaseApiKeyViewController {
 
     private var activities: [AliasActivity] = []
 
-    private var fetchedPage: Int = -1
-    private var isFetching: Bool = false
-    private var moreToLoad: Bool = true
+    private var fetchedPage = -1
+    private var isFetching = false
+    private var moreToLoad = true
 
     override func viewDidLoad() {
         super.viewDidLoad()

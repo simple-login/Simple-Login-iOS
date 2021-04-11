@@ -21,7 +21,7 @@ final class HomeNavigationController: UINavigationController, Storyboarded {
     var userInfo: UserInfo?
     private var observers: [Any?] = []
 
-    private var leftMenuIsShown: Bool = false
+    private var leftMenuIsShown = false
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if leftMenuIsShown {
@@ -90,7 +90,7 @@ final class HomeNavigationController: UINavigationController, Storyboarded {
         switch segue.destination {
         case let sideMenuNavigationController as SideMenuNavigationController:
             SideMenuManager.default.leftMenuNavigationController = sideMenuNavigationController
-            //SideMenuManager.default.addPanGestureToPresent(toView: navigationBar)
+            // SideMenuManager.default.addPanGestureToPresent(toView: navigationBar)
             SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: view, forMenu: .left)
 
             sideMenuNavigationController.presentationStyle = .menuSlideIn
