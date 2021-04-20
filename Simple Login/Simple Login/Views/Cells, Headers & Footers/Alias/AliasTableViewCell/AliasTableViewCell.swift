@@ -29,7 +29,7 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
 
     weak var alias: Alias?
 
-    var didToggleStatus: ((_ enabled: Bool) -> Void)?
+    var didToggleStatus: (() -> Void)?
     var didTapCopyButton: (() -> Void)?
     var didTapSendButton: (() -> Void)?
     var didTapRightArrowButton: (() -> Void)?
@@ -93,19 +93,11 @@ final class AliasTableViewCell: UITableViewCell, RegisterableCell {
         }
     }
 
-    @IBAction private func enabledSwitchValueChanged() {
-        didToggleStatus?(enabledSwitch.isOn)
-    }
+    @IBAction private func enabledSwitchValueChanged() { didToggleStatus?() }
 
-    @IBAction private func copyButtonTapped() {
-        didTapCopyButton?()
-    }
+    @IBAction private func copyButtonTapped() { didTapCopyButton?() }
 
-    @IBAction private func sendButtonTapped() {
-        didTapSendButton?()
-    }
+    @IBAction private func sendButtonTapped() { didTapSendButton?() }
 
-    @IBAction private func rightArrowButtonTapped() {
-        didTapRightArrowButton?()
-    }
+    @IBAction private func rightArrowButtonTapped() { didTapRightArrowButton?() }
 }

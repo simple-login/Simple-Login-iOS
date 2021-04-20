@@ -17,11 +17,11 @@ final class AliasSearchViewController: BaseApiKeyViewController {
     private var aliases: [Alias] = []
 
     private var searchTerm: String?
-    private var fetchedPage: Int = -1
-    private var isFetching: Bool = false
-    private var moreToLoad: Bool = true
+    private var fetchedPage = -1
+    private var isFetching = false
+    private var moreToLoad = true
 
-    private var noAlias: Bool = false {
+    private var noAlias = false {
         didSet {
             tableView.isHidden = noAlias
         }
@@ -233,7 +233,7 @@ extension AliasSearchViewController: UITableViewDataSource {
 
         cell.bind(with: alias)
 
-        cell.didToggleStatus = { [unowned self] isEnabled in
+        cell.didToggleStatus = { [unowned self] in
             self.toggle(alias: alias)
         }
 

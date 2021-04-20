@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class Contact: Decodable {
+struct Contact: Decodable {
     typealias Identifier = Int
 
     let id: Identifier
@@ -20,16 +20,14 @@ final class Contact: Decodable {
     let lastEmailSentDate: String?
     let lastEmailSentTimestamp: TimeInterval?
 
-    // TODO: to be removed
-    lazy var creationTimestampString: String = {
+    var creationTimestampString: String {
         let date = Date(timeIntervalSince1970: creationTimestamp)
         let preciseDateAndTime = kPreciseDateFormatter.string(from: date)
         let (value, unit) = date.distanceFromNow()
         return "Created on \(preciseDateAndTime) (\(value) \(unit) ago)"
-    }()
+    }
 
-    // TODO: to be removed
-    lazy var lastEmailSentTimestampString: String? = {
+    var lastEmailSentTimestampString: String? {
         guard let lastEmailSentTimestamp = lastEmailSentTimestamp else {
             return nil
         }
@@ -38,7 +36,7 @@ final class Contact: Decodable {
         let preciseDateAndTime = kPreciseDateFormatter.string(from: date)
         let (value, unit) = date.distanceFromNow()
         return "Last sent on \(preciseDateAndTime) (\(value) \(unit) ago)"
-    }()
+    }
 
     // swiftlint:disable:next type_name
     private enum Key: String, CodingKey {

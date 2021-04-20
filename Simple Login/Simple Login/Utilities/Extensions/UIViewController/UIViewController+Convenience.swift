@@ -23,16 +23,20 @@ extension UIViewController {
                                       message: "From: \"\(from)\"\nTo: \"\(to)\"",
                                       preferredStyle: style)
 
-        let copyWithDisplayNameAction = UIAlertAction(title: "Copy reverse-alias (w/ display name)", style: .default) { _ in
-            UIPasteboard.general.string = reverseAlias
-            Toast.displayShortly(message: "Copied \(reverseAlias)")
-        }
+        let copyWithDisplayNameAction =
+            UIAlertAction(title: "Copy reverse-alias (w/ display name)",
+                          style: .default) { _ in
+                UIPasteboard.general.string = reverseAlias
+                Toast.displayShortly(message: "Copied \(reverseAlias)")
+            }
         alert.addAction(copyWithDisplayNameAction)
 
-        let copyWithoutDisplayNameAction = UIAlertAction(title: "Copy reverse-alias (w/o display name)", style: .default) { _ in
-            UIPasteboard.general.string = reverseAliasAddress
-            Toast.displayShortly(message: "Copied \(reverseAliasAddress)")
-        }
+        let copyWithoutDisplayNameAction =
+            UIAlertAction(title: "Copy reverse-alias (w/o display name)",
+                          style: .default) { _ in
+                UIPasteboard.general.string = reverseAliasAddress
+                Toast.displayShortly(message: "Copied \(reverseAliasAddress)")
+            }
         alert.addAction(copyWithoutDisplayNameAction)
 
         let openEmaiAction = UIAlertAction(title: "Begin composing with default email",
