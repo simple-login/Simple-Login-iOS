@@ -14,8 +14,7 @@ extension UIViewController {
     func presentReverseAliasAlert(from: String,
                                   to: String,
                                   reverseAlias: String,
-                                  reverseAliasAddress: String,
-                                  mailComposerVCDelegate: MFMailComposeViewControllerDelegate) {
+                                  reverseAliasAddress: String) {
         let style: UIAlertController.Style =
             UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
 
@@ -41,17 +40,9 @@ extension UIViewController {
 
         let openEmaiAction = UIAlertAction(title: "Begin composing with default email",
                                            style: .default) { _ in
-            let mailComposerVC = MFMailComposeViewController()
-            mailComposerVC.view.tintColor = SLColor.tintColor
-
-            if mailComposerVC.view == nil {
-                return
+            if let mailToUrl = URL(string: "mailto:\(reverseAlias)") {
+                UIApplication.shared.open(mailToUrl)
             }
-
-            mailComposerVC.mailComposeDelegate = mailComposerVCDelegate
-            mailComposerVC.setToRecipients([reverseAlias])
-
-            self.present(mailComposerVC, animated: true, completion: nil)
         }
         alert.addAction(openEmaiAction)
 

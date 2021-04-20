@@ -170,9 +170,8 @@ extension ContactViewController: UITableViewDelegate {
         let contact = contacts[indexPath.row]
         presentReverseAliasAlert(from: alias.email,
                                  to: contact.email,
-                                 reverseAlias: contact.reverseAlias,
-                                 reverseAliasAddress: contact.reverseAliasAddress,
-                                 mailComposerVCDelegate: self)
+                                 reverseAlias: contact.reverseAliasAddress,
+                                 reverseAliasAddress: contact.reverseAliasAddress)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -225,14 +224,5 @@ extension ContactViewController: UITableViewDataSource {
         let cell = ContactTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.bind(with: contacts[indexPath.row])
         return cell
-    }
-}
-
-// MARK: - MFMailComposeViewControllerDelegate
-extension ContactViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController,
-                               didFinishWith result: MFMailComposeResult,
-                               error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
     }
 }
