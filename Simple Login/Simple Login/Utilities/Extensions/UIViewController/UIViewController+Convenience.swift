@@ -40,7 +40,7 @@ extension UIViewController {
 
         let openEmaiAction = UIAlertAction(title: "Begin composing with default email",
                                            style: .default) { _ in
-            if let mailToUrl = URL(string: "mailto:\(reverseAlias)") {
+            if let mailToUrl = URL(string: "mailto:\(reverseAliasAddress)") {
                 UIApplication.shared.open(mailToUrl)
             }
         }

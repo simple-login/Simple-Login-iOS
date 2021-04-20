@@ -285,13 +285,13 @@ extension AliasActivityViewController: UITableViewDelegate {
         case .forward, .block, .bounced:
             presentReverseAliasAlert(from: activity.to,
                                      to: activity.from,
-                                     reverseAlias: activity.reverseAliasAddress,
+                                     reverseAlias: activity.reverseAlias,
                                      reverseAliasAddress: activity.reverseAliasAddress)
 
         case .reply:
             presentReverseAliasAlert(from: activity.from,
                                      to: activity.to,
-                                     reverseAlias: activity.reverseAliasAddress,
+                                     reverseAlias: activity.reverseAlias,
                                      reverseAliasAddress: activity.reverseAliasAddress)
         }
     }
