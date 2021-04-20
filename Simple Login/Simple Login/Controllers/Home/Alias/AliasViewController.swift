@@ -25,9 +25,9 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
     private var activeAliases: [Alias] = []
     private var inactiveAliases: [Alias] = []
 
-    private var fetchedPage: Int = -1
-    private var isFetching: Bool = false
-    private var moreToLoad: Bool = true
+    private var fetchedPage = -1
+    private var isFetching = false
+    private var moreToLoad = true
 
     private var currentAliasType: AliasType = .all {
         didSet {
@@ -53,7 +53,7 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
             default: break
             }
 
-            var scrollToTop: Bool = false
+            var scrollToTop = false
             switch currentAliasType {
             case .all: scrollToTop = !aliases.isEmpty
             case .active: scrollToTop = !activeAliases.isEmpty
@@ -66,7 +66,7 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
         }
     }
 
-    private var noAlias: Bool = false {
+    private var noAlias = false {
         didSet {
             tableView.isHidden = noAlias
         }
@@ -482,7 +482,7 @@ extension AliasViewController: UITableViewDataSource {
 
         cell.bind(with: alias)
 
-        cell.didToggleStatus = { [unowned self] isEnabled in
+        cell.didToggleStatus = { [unowned self] in
             self.toggle(alias: alias, at: indexPath)
         }
 

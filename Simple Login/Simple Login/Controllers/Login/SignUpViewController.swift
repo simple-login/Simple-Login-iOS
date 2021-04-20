@@ -14,19 +14,19 @@ final class SignUpViewController: BaseViewController, Storyboarded {
     @IBOutlet private weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet private weak var signUpButton: UIButton!
 
-    private var isValidEmailAddress: Bool = false {
+    private var isValidEmailAddress = false {
         didSet {
             isSignUpable = isValidEmailAddress && isValidPassword
         }
     }
 
-    private var isValidPassword: Bool = false {
+    private var isValidPassword = false {
         didSet {
             isSignUpable = isValidEmailAddress && isValidPassword
         }
     }
 
-    private var isSignUpable: Bool = false {
+    private var isSignUpable = false {
         didSet {
             if isSignUpable {
                 signUpButton.isEnabled = true

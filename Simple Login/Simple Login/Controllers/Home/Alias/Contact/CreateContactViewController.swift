@@ -19,7 +19,7 @@ final class CreateContactViewController: BaseApiKeyViewController {
 
     var didCreateContact: (() -> Void)?
 
-    private var isValidEmailAddress: Bool = false {
+    private var isValidEmailAddress = false {
         didSet {
             destinationEmailTextField.textColor = isValidEmailAddress ? SLColor.textColor : SLColor.negativeColor
             createButton.isEnabled = isValidEmailAddress

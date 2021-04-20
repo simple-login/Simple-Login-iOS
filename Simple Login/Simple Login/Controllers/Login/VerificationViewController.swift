@@ -41,6 +41,9 @@ final class VerificationViewController: BaseViewController, Storyboarded {
     @IBOutlet private weak var fourthNumberLabel: UILabel!
     @IBOutlet private weak var fifthNumberLabel: UILabel!
     @IBOutlet private weak var sixthNumberLabel: UILabel!
+    private lazy var numberLabels: [UILabel] =
+        [firstNumberLabel, secondNumberLabel, thirdNumberLabel,
+         fourthNumberLabel, fifthNumberLabel, sixthNumberLabel]
 
     @IBOutlet private weak var errorLabel: UILabel!
 
@@ -63,6 +66,7 @@ final class VerificationViewController: BaseViewController, Storyboarded {
 
     var mode: VerificationMode!
     private var observers: [Any?] = []
+    private let numberPlaceholder = "-"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,7 +129,7 @@ final class VerificationViewController: BaseViewController, Storyboarded {
     private func pasteAndVerify() {
         guard let copiedCode = UIPasteboard.retrieveCopiedCode() else { return }
 
-        showErrorLabel(false)
+        showErrorLabel(nil)
 
         firstNumberLabel.text = String(copiedCode[0])
         secondNumberLabel.text = String(copiedCode[1])
@@ -142,7 +146,7 @@ final class VerificationViewController: BaseViewController, Storyboarded {
     }
 
     private func verify(code: String) {
-        showErrorLabel(false)
+        showErrorLabel(nil)
         MBProgressHUD.showAdded(to: view, animated: true)
 
         switch mode {
@@ -161,7 +165,7 @@ final class VerificationViewController: BaseViewController, Storyboarded {
                         }
 
                     case .failure(let error):
-                        self.showErrorLabel(true, errorMessage: error.description)
+                        self.showErrorLabel(error.description)
                         self.reset()
                     }
                 }
@@ -183,11 +187,8 @@ final class VerificationViewController: BaseViewController, Storyboarded {
                         switch error {
                         // TODO: unreachable case
                         case .reactivationNeeded: self.showReactivateAlert(email: email)
-
-                        default:
-                            self.showErrorLabel(true, errorMessage: error.description)
+                        default: self.showErrorLabel(error.description)
                         }
-
                         self.reset()
                     }
                 }
@@ -197,14 +198,13 @@ final class VerificationViewController: BaseViewController, Storyboarded {
         }
     }
 
-    private func showErrorLabel(_ show: Bool, errorMessage: String? = nil) {
-        if show {
+    private func showErrorLabel(_ errorMessage: String?) {
+        if let errorMessage = errorMessage {
             errorLabel.text = errorMessage
             errorLabel.alpha = 1
             errorLabel.shake()
         } else {
             if errorLabel.alpha == 0 { return }
-
             UIView.animate(withDuration: 0.35) { [unowned self] in
                 self.errorLabel.alpha = 0
             }
@@ -239,7 +239,7 @@ final class VerificationViewController: BaseViewController, Storyboarded {
                     Toast.displayLongly(message: "Check your inbox for new activation code")
 
                 case .failure(let error):
-                    self.showErrorLabel(true, errorMessage: error.description)
+                    self.showErrorLabel(error.description)
                 }
             }
         }
@@ -249,97 +249,48 @@ final class VerificationViewController: BaseViewController, Storyboarded {
 // MARK: - Button actions
 extension VerificationViewController {
     private func addNumber(_ number: String) {
-        if firstNumberLabel.text == "-" {
-            firstNumberLabel.text = number
-            showErrorLabel(false)
-        } else if secondNumberLabel.text == "-" {
-            secondNumberLabel.text = number
-        } else if thirdNumberLabel.text == "-" {
-            thirdNumberLabel.text = number
-        } else if fourthNumberLabel.text == "-" {
-            fourthNumberLabel.text = number
-        } else if fifthNumberLabel.text == "-" {
-            fifthNumberLabel.text = number
-        } else if sixthNumberLabel.text == "-" {
-            sixthNumberLabel.text = number
-            var code = ""
-            code += firstNumberLabel.text ?? ""
-            code += secondNumberLabel.text ?? ""
-            code += thirdNumberLabel.text ?? ""
-            code += fourthNumberLabel.text ?? ""
-            code += fifthNumberLabel.text ?? ""
-            code += sixthNumberLabel.text ?? ""
-
-            verify(code: code)
+        for numberLabel in numberLabels {
+            guard numberLabel.text == numberPlaceholder else { continue }
+            numberLabel.text = number
+            switch numberLabel {
+            case firstNumberLabel:
+                showErrorLabel(nil)
+            case sixthNumberLabel:
+                let code = numberLabels.compactMap { $0.text }.reduce(into: "") { $0 += $1 }
+                verify(code: code)
+            default: break
+            }
+            return
         }
     }
 
     private func deleteLastNumber() {
-        if sixthNumberLabel.text != "-" {
-            sixthNumberLabel.text = "-"
-        } else if fifthNumberLabel.text != "-" {
-            fifthNumberLabel.text = "-"
-        } else if fourthNumberLabel.text != "-" {
-            fourthNumberLabel.text = "-"
-        } else if thirdNumberLabel.text != "-" {
-            thirdNumberLabel.text = "-"
-        } else if secondNumberLabel.text != "-" {
-            secondNumberLabel.text = "-"
-        } else if firstNumberLabel.text != "-" {
-            firstNumberLabel.text = "-"
+        if let lastEnteredNumberLabel = numberLabels.last(where: { $0.text != numberPlaceholder }) {
+            lastEnteredNumberLabel.text = numberPlaceholder
         }
     }
 
-    private func reset() {
-        firstNumberLabel.text = "-"
-        secondNumberLabel.text = "-"
-        thirdNumberLabel.text = "-"
-        fourthNumberLabel.text = "-"
-        fifthNumberLabel.text = "-"
-        sixthNumberLabel.text = "-"
-    }
+    private func reset() { numberLabels.forEach { $0.text = numberPlaceholder } }
 
-    @IBAction private func deleteButtonTapped() {
-        deleteLastNumber()
-    }
+    @IBAction private func deleteButtonTapped() { deleteLastNumber() }
 
-    @IBAction private func zeroButtonTapped() {
-        addNumber("0")
-    }
+    @IBAction private func zeroButtonTapped() { addNumber("0") }
 
-    @IBAction private func oneButtonTapped() {
-        addNumber("1")
-    }
+    @IBAction private func oneButtonTapped() { addNumber("1") }
 
-    @IBAction private func twoButtonTapped() {
-        addNumber("2")
-    }
+    @IBAction private func twoButtonTapped() { addNumber("2") }
 
-    @IBAction private func threeButtonTapped() {
-        addNumber("3")
-    }
+    @IBAction private func threeButtonTapped() { addNumber("3") }
 
-    @IBAction private func fourButtonTapped() {
-        addNumber("4")
-    }
+    @IBAction private func fourButtonTapped() { addNumber("4") }
 
-    @IBAction private func fiveButtonTapped() {
-        addNumber("5")
-    }
+    @IBAction private func fiveButtonTapped() { addNumber("5") }
 
-    @IBAction private func sixButtonTapped() {
-        addNumber("6")
-    }
+    @IBAction private func sixButtonTapped() { addNumber("6") }
 
-    @IBAction private func sevenButtonTapped() {
-        addNumber("7")
-    }
+    @IBAction private func sevenButtonTapped() { addNumber("7") }
 
-    @IBAction private func eightButtonTapped() {
-        addNumber("8")
-    }
+    @IBAction private func eightButtonTapped() { addNumber("8") }
 
-    @IBAction private func nineButtonTapped() {
-        addNumber("9")
-    }
+    @IBAction private func nineButtonTapped() { addNumber("9") }
 }

@@ -23,7 +23,7 @@ final class LoginViewController: BaseViewController, Storyboarded {
         }
     }
 
-    private var isValidEmailAddress: Bool = true {
+    private var isValidEmailAddress = true {
         didSet {
             loginButton.isEnabled = isValidEmailAddress
         }
@@ -107,10 +107,30 @@ final class LoginViewController: BaseViewController, Storyboarded {
                     }
 
                 case .failure(let error):
-                    Toast.displayShortly(message: error.description)
+                    switch error {
+                    case let .unknownErrorWithStatusCode(statusCode) where statusCode == 403:
+                        self.alertWebAuthnNotSupported()
+                    default:
+                        Toast.displayShortly(message: error.description)
+                    }
                 }
             }
         }
+    }
+
+    private func alertWebAuthnNotSupported() {
+        let alert = UIAlertController(
+            title: "WebAuthn currently not supported",
+            message: "Please log in using API key while we are working on supporting WebAuthn on mobile.",
+            preferredStyle: .alert)
+        let apiKeyAction = UIAlertAction(title: "Enter API key",
+                                         style: .default) { [unowned self] _ in
+            self.signInWithApiKeyButtonTapped()
+        }
+        alert.addAction(apiKeyAction)
+        let closeAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(closeAction)
+        present(alert, animated: true, completion: nil)
     }
 
     private func verifyEmailAddress() {
@@ -138,7 +158,7 @@ final class LoginViewController: BaseViewController, Storyboarded {
             message: "To get your API key, you have to sign in SimpleLogin via a browser then navigate to \"API Key\" tab",
             preferredStyle: .alert)
         alert.addTextField { textField in
-            textField.placeholder = "API Key"
+            textField.placeholder = "API key"
         }
 
         let setAction = UIAlertAction(title: "Set API key", style: .default) { [unowned self] _ in
@@ -257,13 +277,11 @@ extension LoginViewController: UITextFieldDelegate {
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == emailTextField {
-            passwordTextField.becomeFirstResponder()
-            verifyEmailAddress()
-        } else if textField == passwordTextField {
-            login()
+        switch textField {
+        case emailTextField: passwordTextField.becomeFirstResponder(); verifyEmailAddress()
+        case passwordTextField: login()
+        default: break
         }
-
         return true
     }
 }

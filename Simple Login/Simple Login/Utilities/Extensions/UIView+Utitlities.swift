@@ -16,4 +16,15 @@ extension UIView {
         animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0]
         layer.add(animation, forKey: "shake")
     }
+
+    func animateHidden(_ hidden: Bool) {
+        guard isHidden != hidden else { return }
+        isHidden = false
+        // swiftlint:disable:next multiline_arguments
+        UIView.animate(withDuration: 0.35) { [unowned self] in
+            self.alpha = isHidden ? 0 : 1
+        } completion: { [unowned self] _ in
+            self.isHidden = hidden
+        }
+    }
 }

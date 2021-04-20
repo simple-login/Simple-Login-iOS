@@ -13,7 +13,7 @@ final class DirectoryViewController: BaseApiKeyLeftMenuButtonViewController, Sto
 
     private let refreshControl = UIRefreshControl()
 
-    private var noDirectory: Bool = false {
+    private var noDirectory = false {
         didSet {
             tableView.isHidden = noDirectory
         }

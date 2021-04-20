@@ -8,10 +8,7 @@
 
 import Foundation
 
-// TODO: use struct instead
-final class AliasActivity: Decodable {
-    static var jsonRootKey = "activities"
-
+struct AliasActivity: Decodable {
     let action: Action
     let reverseAlias: String
     let reverseAliasAddress: String
@@ -19,12 +16,12 @@ final class AliasActivity: Decodable {
     let to: String
     let timestamp: TimeInterval
 
-    lazy var timestampString: String = {
+    var timestampString: String {
         let date = Date(timeIntervalSince1970: timestamp)
         let preciseDateAndTime = kPreciseDateFormatter.string(from: date)
         let (value, unit) = date.distanceFromNow()
         return "\(preciseDateAndTime) (\(value) \(unit) ago)"
-    }()
+    }
 
     // swiftlint:disable:next type_name
     private enum Key: String, CodingKey {
