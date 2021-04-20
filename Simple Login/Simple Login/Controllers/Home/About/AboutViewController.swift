@@ -55,19 +55,6 @@ final class AboutViewController: BaseLeftMenuButtonViewController, Storyboarded 
         default: return
         }
     }
-
-    private func openContactForm() {
-        let mailComposerVC = MFMailComposeViewController()
-
-        if mailComposerVC.view == nil {
-            return
-        }
-
-        mailComposerVC.mailComposeDelegate = self
-        mailComposerVC.setToRecipients(["hi@simplelogin.io"])
-
-        present(mailComposerVC, animated: true, completion: nil)
-    }
 }
 
 // MARK: - UITableViewDataSource
@@ -151,14 +138,5 @@ extension AboutViewController: UITableViewDataSource {
 
         default: return UITableViewCell()
         }
-    }
-}
-
-// MARK: - MFMailComposeViewControllerDelegate
-extension AboutViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController,
-                               didFinishWith result: MFMailComposeResult,
-                               error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
     }
 }
