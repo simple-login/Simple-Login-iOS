@@ -243,6 +243,7 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
         let okAction = UIAlertAction(title: "Yes, sign me out", style: .destructive) { [unowned self] _ in
             do {
                 try SLKeychainService.removeApiKey()
+                UserDefaults.deactivateBiometricAuth()
                 SideMenuManager.default.leftMenuNavigationController?.dismiss(animated: true) {
                     self.dismiss(animated: true, completion: nil)
                 }

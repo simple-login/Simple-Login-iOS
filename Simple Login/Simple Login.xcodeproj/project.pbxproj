@@ -224,6 +224,7 @@
 		C0CD8FAC25607F9B003DB787 /* DomainLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8FAB25607F9B003DB787 /* DomainLite.swift */; };
 		C0CD8FB9256083DE003DB787 /* DomainLites.json in Resources */ = {isa = PBXBuildFile; fileRef = C0CD8FB8256083DE003DB787 /* DomainLites.json */; };
 		C0CD8FC4256088AB003DB787 /* UserSettingsOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8FC3256088AB003DB787 /* UserSettingsOptionTests.swift */; };
+		C0CDACE22632089600468A1A /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDACE12632089600468A1A /* Vibration.swift */; };
 		C0D0500E23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D0500F23FED26900B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D069992406798600EBAC10 /* Directory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0D069982406798600EBAC10 /* Directory.storyboard */; };
@@ -533,6 +534,7 @@
 		C0CD8FAB25607F9B003DB787 /* DomainLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLite.swift; sourceTree = "<group>"; };
 		C0CD8FB8256083DE003DB787 /* DomainLites.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DomainLites.json; sourceTree = "<group>"; };
 		C0CD8FC3256088AB003DB787 /* UserSettingsOptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsOptionTests.swift; sourceTree = "<group>"; };
+		C0CDACE12632089600468A1A /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
 		C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience+AllTarget.swift"; sourceTree = "<group>"; };
 		C0D069982406798600EBAC10 /* Directory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Directory.storyboard; sourceTree = "<group>"; };
 		C0D0699B24067AC700EBAC10 /* DirectoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
@@ -860,6 +862,7 @@
 				C052F0D323C7DDDC00EB5D98 /* Statics.swift */,
 				C00BC55923FDA10900E66FFE /* BaseUrlStatic.swift */,
 				C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */,
+				C0CDACE12632089600468A1A /* Vibration.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2112,6 +2115,7 @@
 				C066AC16256B183600BAF722 /* RandomAliasTableViewCell.swift in Sources */,
 				C0BE665923CA7AC100602FB7 /* Toast+Convenience.swift in Sources */,
 				C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */,
+				C0CDACE22632089600468A1A /* Vibration.swift in Sources */,
 				C067EDC7248408ED00A89C75 /* HowToUseMailboxesViewController.swift in Sources */,
 				C0D069B42406CFDE00EBAC10 /* DeletedAlias.swift in Sources */,
 				C0D069AE2406BFC800EBAC10 /* DirectoryTableViewCell.swift in Sources */,

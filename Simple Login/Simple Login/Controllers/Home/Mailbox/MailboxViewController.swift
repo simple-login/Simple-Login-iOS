@@ -79,7 +79,7 @@ final class MailboxViewController: BaseApiKeyLeftMenuButtonViewController, Story
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
-
+        Vibration.rigid.vibrate()
         present(alert, animated: true, completion: nil)
     }
 
@@ -97,6 +97,13 @@ final class MailboxViewController: BaseApiKeyLeftMenuButtonViewController, Story
                 case .failure(let error): Toast.displayError(error)
                 }
             }
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.destination {
+        case _ as HowToUseMailboxesViewController: Vibration.soft.vibrate()
+        default: break
         }
     }
 }
@@ -205,13 +212,14 @@ extension MailboxViewController: UITableViewDelegate {
 
         let deleteAction =
             UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] _, indexPath in
-            self.presentDeleteConfirmationAlert(mailbox, at: indexPath)
-        }
+                Vibration.warning.vibrate()
+                self.presentDeleteConfirmationAlert(mailbox, at: indexPath)
+            }
 
         let setAsDefaultAction =
             UITableViewRowAction(style: .normal, title: "Set as default") { [unowned self] _, _ in
-            self.presentMakeDefaultConfirmationAlert(mailbox)
-        }
+                self.presentMakeDefaultConfirmationAlert(mailbox)
+            }
 
         return [deleteAction, setAsDefaultAction]
     }

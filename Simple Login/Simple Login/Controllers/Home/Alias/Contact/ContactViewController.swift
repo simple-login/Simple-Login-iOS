@@ -109,12 +109,14 @@ final class ContactViewController: BaseApiKeyViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.destination {
         case let createContactViewController as CreateContactViewController:
+            Vibration.rigid.vibrate()
             createContactViewController.alias = alias
             createContactViewController.didCreateContact = { [unowned self] in
                 self.refreshControl.beginRefreshing()
                 self.refresh()
             }
 
+        case _ as HowToSendEmailViewController: Vibration.soft.vibrate()
         default: return
         }
     }
@@ -205,6 +207,7 @@ extension ContactViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction =
             UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] _, indexPath in
+                Vibration.warning.vibrate()
                 self.presentAlertConfirmDeleteContact(at: indexPath)
             }
 

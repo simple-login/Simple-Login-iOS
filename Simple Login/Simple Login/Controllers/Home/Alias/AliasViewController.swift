@@ -108,6 +108,7 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
             }
 
         case let createAliasViewController as CreateAliasViewController:
+            Vibration.rigid.vibrate()
             createAliasViewController.showPremiumFeatures = { [unowned self] in
                 let iapViewController = IapViewController.instantiate(storyboardName: "Settings")
                 self.navigationController?.pushViewController(iapViewController, animated: true)
@@ -124,6 +125,7 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
             }
 
         case let aliasSearchNavigationController as AliasSearchNavigationController:
+            Vibration.soft.vibrate()
             // swiftlint:disable:next line_length
             guard let aliasSearchViewController = aliasSearchNavigationController.viewControllers[0] as? AliasSearchViewController else { return }
 
@@ -337,6 +339,7 @@ extension AliasViewController {
 // MARK: - SegmentedControl actions
 extension AliasViewController {
     @IBAction private func segmentedControlValueChanged() {
+        Vibration.selection.vibrate()
         switch segmentedControl.selectedSegmentIndex {
         case 0: currentAliasType = .all
         case 1: currentAliasType = .active
@@ -451,8 +454,9 @@ extension AliasViewController: UITableViewDelegate {
 
         let deleteAction =
             UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] _, indexPath in
-            self.presentAlertConfirmDelete(alias: alias, at: indexPath)
-        }
+                Vibration.warning.vibrate()
+                self.presentAlertConfirmDelete(alias: alias, at: indexPath)
+            }
 
         return [deleteAction]
     }
@@ -487,6 +491,7 @@ extension AliasViewController: UITableViewDataSource {
         }
 
         cell.didTapCopyButton = {
+            Vibration.soft.vibrate()
             UIPasteboard.general.string = alias.email
             Toast.displayShortly(message: "Copied \"\(alias.email)\"")
         }
