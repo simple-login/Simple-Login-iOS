@@ -115,8 +115,6 @@ final class ContactViewController: BaseApiKeyViewController {
                 self.refreshControl.beginRefreshing()
                 self.refresh()
             }
-
-        case _ as HowToSendEmailViewController: Vibration.soft.vibrate()
         default: return
         }
     }
@@ -172,7 +170,7 @@ extension ContactViewController: UITableViewDelegate {
         let contact = contacts[indexPath.row]
         presentReverseAliasAlert(from: alias.email,
                                  to: contact.email,
-                                 reverseAlias: contact.reverseAliasAddress,
+                                 reverseAlias: contact.reverseAlias,
                                  reverseAliasAddress: contact.reverseAliasAddress)
     }
 

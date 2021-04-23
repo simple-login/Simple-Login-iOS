@@ -125,7 +125,6 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
             }
 
         case let aliasSearchNavigationController as AliasSearchNavigationController:
-            Vibration.soft.vibrate()
             // swiftlint:disable:next line_length
             guard let aliasSearchViewController = aliasSearchNavigationController.viewControllers[0] as? AliasSearchViewController else { return }
 
@@ -339,7 +338,6 @@ extension AliasViewController {
 // MARK: - SegmentedControl actions
 extension AliasViewController {
     @IBAction private func segmentedControlValueChanged() {
-        Vibration.selection.vibrate()
         switch segmentedControl.selectedSegmentIndex {
         case 0: currentAliasType = .all
         case 1: currentAliasType = .active
@@ -490,10 +488,11 @@ extension AliasViewController: UITableViewDataSource {
             self.toggle(alias: alias, at: indexPath)
         }
 
-        cell.didTapCopyButton = {
+        cell.didTapCopyButton = { [unowned self] in
             Vibration.soft.vibrate()
             UIPasteboard.general.string = alias.email
-            Toast.displayShortly(message: "Copied \"\(alias.email)\"")
+            MBProgressHUD.showCheckmarkHud(in: self.navigationController?.view ?? self.view,
+                                           text: "Copied\n\(alias.email)")
         }
 
         cell.didTapSendButton = { [unowned self] in

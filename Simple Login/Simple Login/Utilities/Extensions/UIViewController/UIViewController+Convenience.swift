@@ -6,6 +6,7 @@
 //  Copyright © 2020 SimpleLogin. All rights reserved.
 //
 
+import MBProgressHUD
 import MessageUI
 import Toaster
 import UIKit
@@ -24,17 +25,17 @@ extension UIViewController {
 
         let copyWithDisplayNameAction =
             UIAlertAction(title: "Copy reverse-alias (w/ display name)",
-                          style: .default) { _ in
+                          style: .default) { [unowned self] _ in
                 UIPasteboard.general.string = reverseAlias
-                Toast.displayShortly(message: "Copied \(reverseAlias)")
+                MBProgressHUD.showCheckmarkHud(in: self.view, text: "Copied\n\(reverseAlias)")
             }
         alert.addAction(copyWithDisplayNameAction)
 
         let copyWithoutDisplayNameAction =
             UIAlertAction(title: "Copy reverse-alias (w/o display name)",
-                          style: .default) { _ in
+                          style: .default) { [unowned self] _ in
                 UIPasteboard.general.string = reverseAliasAddress
-                Toast.displayShortly(message: "Copied \(reverseAliasAddress)")
+                MBProgressHUD.showCheckmarkHud(in: self.view, text: "Copied\n\(reverseAliasAddress)")
             }
         alert.addAction(copyWithoutDisplayNameAction)
 

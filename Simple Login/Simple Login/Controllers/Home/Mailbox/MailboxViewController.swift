@@ -99,13 +99,6 @@ final class MailboxViewController: BaseApiKeyLeftMenuButtonViewController, Story
             }
         }
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.destination {
-        case _ as HowToUseMailboxesViewController: Vibration.soft.vibrate()
-        default: break
-        }
-    }
 }
 
 // MARK: - Make default mailbox
