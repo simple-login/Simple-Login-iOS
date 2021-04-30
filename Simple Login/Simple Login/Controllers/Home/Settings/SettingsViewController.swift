@@ -476,10 +476,10 @@ extension SettingsViewController {
                     if success {
                         if isOn {
                             UserDefaults.activateBiometricAuth()
-                            Toast.displayShortly(message: "\(self.biometryType.description) deactivated")
+                            Toast.displayShortly(message: "\(self.biometryType.description) activated")
                         } else {
                             UserDefaults.deactivateBiometricAuth()
-                            Toast.displayShortly(message: "\(self.biometryType.description) activated")
+                            Toast.displayShortly(message: "\(self.biometryType.description) deactivated")
                         }
                     } else if let error = error {
                         Toast.displayShortly(message: error.localizedDescription)
