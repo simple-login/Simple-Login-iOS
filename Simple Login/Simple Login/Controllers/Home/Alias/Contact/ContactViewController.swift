@@ -109,12 +109,12 @@ final class ContactViewController: BaseApiKeyViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.destination {
         case let createContactViewController as CreateContactViewController:
+            Vibration.rigid.vibrate()
             createContactViewController.alias = alias
             createContactViewController.didCreateContact = { [unowned self] in
                 self.refreshControl.beginRefreshing()
                 self.refresh()
             }
-
         default: return
         }
     }
@@ -170,7 +170,7 @@ extension ContactViewController: UITableViewDelegate {
         let contact = contacts[indexPath.row]
         presentReverseAliasAlert(from: alias.email,
                                  to: contact.email,
-                                 reverseAlias: contact.reverseAliasAddress,
+                                 reverseAlias: contact.reverseAlias,
                                  reverseAliasAddress: contact.reverseAliasAddress)
     }
 
@@ -205,6 +205,7 @@ extension ContactViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction =
             UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] _, indexPath in
+                Vibration.warning.vibrate()
                 self.presentAlertConfirmDeleteContact(at: indexPath)
             }
 

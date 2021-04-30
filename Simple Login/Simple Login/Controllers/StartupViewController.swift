@@ -53,6 +53,7 @@ final class StartupViewController: BaseViewController {
             localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { [unowned self] success, _ in
                 DispatchQueue.main.async {
                     if success {
+                        Vibration.success.vibrate()
                         self.fetchUserInfoAndProceed(apiKey: apiKey)
                     } else {
                         self.handleErrorDeviceOwnerAuthentication()

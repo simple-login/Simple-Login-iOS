@@ -79,7 +79,7 @@ final class MailboxViewController: BaseApiKeyLeftMenuButtonViewController, Story
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
-
+        Vibration.rigid.vibrate()
         present(alert, animated: true, completion: nil)
     }
 
@@ -205,13 +205,14 @@ extension MailboxViewController: UITableViewDelegate {
 
         let deleteAction =
             UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] _, indexPath in
-            self.presentDeleteConfirmationAlert(mailbox, at: indexPath)
-        }
+                Vibration.warning.vibrate()
+                self.presentDeleteConfirmationAlert(mailbox, at: indexPath)
+            }
 
         let setAsDefaultAction =
             UITableViewRowAction(style: .normal, title: "Set as default") { [unowned self] _, _ in
-            self.presentMakeDefaultConfirmationAlert(mailbox)
-        }
+                self.presentMakeDefaultConfirmationAlert(mailbox)
+            }
 
         return [deleteAction, setAsDefaultAction]
     }

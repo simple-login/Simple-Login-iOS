@@ -212,8 +212,9 @@ extension AliasSearchViewController: UITableViewDelegate {
 
         let deleteAction =
             UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] _, indexPath in
-            self.presentAlertConfirmDelete(alias: alias, at: indexPath)
-        }
+                Vibration.warning.vibrate()
+                self.presentAlertConfirmDelete(alias: alias, at: indexPath)
+            }
 
         return [deleteAction]
     }
