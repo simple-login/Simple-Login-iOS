@@ -108,6 +108,7 @@ final class AliasViewController: BaseApiKeyLeftMenuButtonViewController, Storybo
             }
 
         case let createAliasViewController as CreateAliasViewController:
+            Vibration.rigid.vibrate()
             createAliasViewController.showPremiumFeatures = { [unowned self] in
                 let iapViewController = IapViewController.instantiate(storyboardName: "Settings")
                 self.navigationController?.pushViewController(iapViewController, animated: true)
@@ -451,8 +452,9 @@ extension AliasViewController: UITableViewDelegate {
 
         let deleteAction =
             UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] _, indexPath in
-            self.presentAlertConfirmDelete(alias: alias, at: indexPath)
-        }
+                Vibration.warning.vibrate()
+                self.presentAlertConfirmDelete(alias: alias, at: indexPath)
+            }
 
         return [deleteAction]
     }
@@ -486,9 +488,11 @@ extension AliasViewController: UITableViewDataSource {
             self.toggle(alias: alias, at: indexPath)
         }
 
-        cell.didTapCopyButton = {
+        cell.didTapCopyButton = { [unowned self] in
+            Vibration.soft.vibrate()
             UIPasteboard.general.string = alias.email
-            Toast.displayShortly(message: "Copied \"\(alias.email)\"")
+            MBProgressHUD.showCheckmarkHud(in: self.navigationController?.view ?? self.view,
+                                           text: "Copied\n\(alias.email)")
         }
 
         cell.didTapSendButton = { [unowned self] in

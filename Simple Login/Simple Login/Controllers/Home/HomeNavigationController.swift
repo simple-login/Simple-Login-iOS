@@ -123,8 +123,13 @@ final class HomeNavigationController: UINavigationController, Storyboarded {
         }
         alert.addAction(okayAction)
 
-        let cancelAction = UIAlertAction(title: "Remind me later", style: .cancel)
-        alert.addAction(cancelAction)
+        let remindLaterAction = UIAlertAction(title: "Remind me later", style: .cancel)
+        alert.addAction(remindLaterAction)
+
+        let doNotRemindAction = UIAlertAction(title: "Do not remind me again", style: .destructive) { _ in
+            UserDefaults.setDidMakeAReview()
+        }
+        alert.addAction(doNotRemindAction)
 
         present(alert, animated: true, completion: nil)
     }
@@ -243,6 +248,7 @@ extension HomeNavigationController: LeftMenuViewControllerDelegate {
         let okAction = UIAlertAction(title: "Yes, sign me out", style: .destructive) { [unowned self] _ in
             do {
                 try SLKeychainService.removeApiKey()
+                UserDefaults.deactivateBiometricAuth()
                 SideMenuManager.default.leftMenuNavigationController?.dismiss(animated: true) {
                     self.dismiss(animated: true, completion: nil)
                 }

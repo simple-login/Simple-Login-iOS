@@ -169,6 +169,7 @@
 		C097A9F323C7988300EC1EFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C097A9F123C7988300EC1EFE /* LaunchScreen.storyboard */; };
 		C099C94B2554375800451558 /* AliasCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CDF16255429960093D6C9 /* AliasCreationRequest.swift */; };
 		C099C9582554385F00451558 /* AliasCreationRequest+random.swift in Sources */ = {isa = PBXBuildFile; fileRef = C099C9572554385F00451558 /* AliasCreationRequest+random.swift */; };
+		C09A87F32633684100E9DBC6 /* MBProgressHUDExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09A87F22633684100E9DBC6 /* MBProgressHUDExtension.swift */; };
 		C09ABE0D23D3B5FA00D5B731 /* CustomDomain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */; };
 		C09ABE1023D3B8B200D5B731 /* CustomDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */; };
 		C09ABE1223D3BA9600D5B731 /* CustomDomainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */; };
@@ -228,6 +229,7 @@
 		C0CD8FAC25607F9B003DB787 /* DomainLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8FAB25607F9B003DB787 /* DomainLite.swift */; };
 		C0CD8FB9256083DE003DB787 /* DomainLites.json in Resources */ = {isa = PBXBuildFile; fileRef = C0CD8FB8256083DE003DB787 /* DomainLites.json */; };
 		C0CD8FC4256088AB003DB787 /* UserSettingsOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD8FC3256088AB003DB787 /* UserSettingsOptionTests.swift */; };
+		C0CDACE22632089600468A1A /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDACE12632089600468A1A /* Vibration.swift */; };
 		C0D0500E23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D0500F23FED26900B13221 /* UIViewController+Convenience+AllTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */; };
 		C0D069992406798600EBAC10 /* Directory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0D069982406798600EBAC10 /* Directory.storyboard */; };
@@ -487,6 +489,7 @@
 		C097A9F223C7988300EC1EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C097A9F423C7988400EC1EFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C099C9572554385F00451558 /* AliasCreationRequest+random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AliasCreationRequest+random.swift"; sourceTree = "<group>"; };
+		C09A87F22633684100E9DBC6 /* MBProgressHUDExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBProgressHUDExtension.swift; sourceTree = "<group>"; };
 		C09ABE0C23D3B5FA00D5B731 /* CustomDomain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CustomDomain.storyboard; sourceTree = "<group>"; };
 		C09ABE0F23D3B8B200D5B731 /* CustomDomainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainTableViewCell.swift; sourceTree = "<group>"; };
 		C09ABE1123D3BA9600D5B731 /* CustomDomainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomDomainTableViewCell.xib; sourceTree = "<group>"; };
@@ -541,6 +544,7 @@
 		C0CD8FAB25607F9B003DB787 /* DomainLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLite.swift; sourceTree = "<group>"; };
 		C0CD8FB8256083DE003DB787 /* DomainLites.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DomainLites.json; sourceTree = "<group>"; };
 		C0CD8FC3256088AB003DB787 /* UserSettingsOptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsOptionTests.swift; sourceTree = "<group>"; };
+		C0CDACE12632089600468A1A /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
 		C0D0500D23FED25D00B13221 /* UIViewController+Convenience+AllTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience+AllTarget.swift"; sourceTree = "<group>"; };
 		C0D069982406798600EBAC10 /* Directory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Directory.storyboard; sourceTree = "<group>"; };
 		C0D0699B24067AC700EBAC10 /* DirectoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
@@ -868,6 +872,7 @@
 				C052F0D323C7DDDC00EB5D98 /* Statics.swift */,
 				C00BC55923FDA10900E66FFE /* BaseUrlStatic.swift */,
 				C0D9B66223CBC80F009A6699 /* RegexHelpers.swift */,
+				C0CDACE12632089600468A1A /* Vibration.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -908,6 +913,7 @@
 				C05CD31923CA4040007F1C9E /* Date+Distance.swift */,
 				C0BE665823CA7AC100602FB7 /* Toast+Convenience.swift */,
 				C0D9B66423CBC838009A6699 /* String+Utilities.swift */,
+				C09A87F22633684100E9DBC6 /* MBProgressHUDExtension.swift */,
 				C07B41F723EB1BC4002E6223 /* Notification+Name.swift */,
 				C07B41FB23EB555C002E6223 /* UIView+Utitlities.swift */,
 				C032D6EC2419830300C06EB7 /* UIAlertController+Convenience.swift */,
@@ -2083,6 +2089,7 @@
 				C05CD31823CA3F0A007F1C9E /* AliasTableViewCell.swift in Sources */,
 				C097A9E723C7987F00EC1EFE /* AppDelegate.swift in Sources */,
 				C0D6A28B23D0A89500EF21B8 /* WhatTableViewCell.swift in Sources */,
+				C09A87F32633684100E9DBC6 /* MBProgressHUDExtension.swift in Sources */,
 				C02646FF23D0F4F600E9932B /* AvatarImageView.swift in Sources */,
 				C0D8C4A8246ADA00008BB8D2 /* BaseApiKeyViewController.swift in Sources */,
 				C0747EE923CCFAFE008035E9 /* AliasActivityTableViewCell.swift in Sources */,
@@ -2128,6 +2135,7 @@
 				C066AC16256B183600BAF722 /* RandomAliasTableViewCell.swift in Sources */,
 				C0BE665923CA7AC100602FB7 /* Toast+Convenience.swift in Sources */,
 				C0B76DEF23D0DE1E003AAB7E /* ProfileAndMembershipTableViewCell.swift in Sources */,
+				C0CDACE22632089600468A1A /* Vibration.swift in Sources */,
 				C067EDC7248408ED00A89C75 /* HowToUseMailboxesViewController.swift in Sources */,
 				C0D069B42406CFDE00EBAC10 /* DeletedAlias.swift in Sources */,
 				C0D069AE2406BFC800EBAC10 /* DirectoryTableViewCell.swift in Sources */,
@@ -2263,7 +2271,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.share-extension";
 				PRODUCT_NAME = "SimpleLogin Share Extension";
 				SKIP_INSTALL = YES;
@@ -2287,7 +2295,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.share-extension";
 				PRODUCT_NAME = "SimpleLogin Share Extension";
 				SKIP_INSTALL = YES;
@@ -2428,7 +2436,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D HOSTAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = SimpleLogin;
@@ -2453,7 +2461,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D HOSTAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = SimpleLogin;

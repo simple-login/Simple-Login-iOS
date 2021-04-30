@@ -146,15 +146,31 @@ extension LeftMenuViewController: UITableViewDelegate {
         let option = options[indexPath.section][indexPath.row]
 
         switch option {
-        case .alias: delegate?.didSelectAlias()
-        case .mailbox: delegate?.didSelectMailbox()
-        case .aliasDirectory: delegate?.didSelectDirectory()
-        case .customDomains: delegate?.didSelectCustomDomain()
-        case .settings: delegate?.didSelectSettings()
-        case .about: delegate?.didSelectAbout()
-        case .rateUs: delegate?.didSelectRateUs()
-        case .signOut: delegate?.didSelectSignOut()
-        case .separator: return
+        case .alias:
+            Vibration.selection.vibrate()
+            delegate?.didSelectAlias()
+        case .mailbox:
+            Vibration.selection.vibrate()
+            delegate?.didSelectMailbox()
+        case .aliasDirectory:
+            Vibration.selection.vibrate()
+            delegate?.didSelectDirectory()
+        case .customDomains:
+            Vibration.selection.vibrate()
+            delegate?.didSelectCustomDomain()
+        case .settings:
+            Vibration.selection.vibrate()
+            delegate?.didSelectSettings()
+        case .about:
+            Vibration.selection.vibrate()
+            delegate?.didSelectAbout()
+        case .rateUs:
+            Vibration.selection.vibrate()
+            delegate?.didSelectRateUs()
+        case .signOut:
+            Vibration.warning.vibrate()
+            delegate?.didSelectSignOut()
+        case .separator: break
         }
     }
 

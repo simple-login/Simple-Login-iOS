@@ -286,15 +286,13 @@ extension AliasActivityViewController: UITableViewDelegate {
             presentReverseAliasAlert(from: activity.to,
                                      to: activity.from,
                                      reverseAlias: activity.reverseAlias,
-                                     reverseAliasAddress: activity.reverseAliasAddress,
-                                     mailComposerVCDelegate: self)
+                                     reverseAliasAddress: activity.reverseAliasAddress)
 
         case .reply:
             presentReverseAliasAlert(from: activity.from,
                                      to: activity.to,
                                      reverseAlias: activity.reverseAlias,
-                                     reverseAliasAddress: activity.reverseAliasAddress,
-                                     mailComposerVCDelegate: self)
+                                     reverseAliasAddress: activity.reverseAliasAddress)
         }
     }
 
@@ -352,14 +350,5 @@ extension AliasActivityViewController: UITableViewDataSource {
         let cell = AliasActivityTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.bind(with: activities[indexPath.row])
         return cell
-    }
-}
-
-// MARK: - MFMailComposeViewControllerDelegate
-extension AliasActivityViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController,
-                               didFinishWith result: MFMailComposeResult,
-                               error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
     }
 }

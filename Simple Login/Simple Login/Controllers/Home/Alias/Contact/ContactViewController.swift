@@ -109,12 +109,12 @@ final class ContactViewController: BaseApiKeyViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.destination {
         case let createContactViewController as CreateContactViewController:
+            Vibration.rigid.vibrate()
             createContactViewController.alias = alias
             createContactViewController.didCreateContact = { [unowned self] in
                 self.refreshControl.beginRefreshing()
                 self.refresh()
             }
-
         default: return
         }
     }
@@ -171,8 +171,7 @@ extension ContactViewController: UITableViewDelegate {
         presentReverseAliasAlert(from: alias.email,
                                  to: contact.email,
                                  reverseAlias: contact.reverseAlias,
-                                 reverseAliasAddress: contact.reverseAliasAddress,
-                                 mailComposerVCDelegate: self)
+                                 reverseAliasAddress: contact.reverseAliasAddress)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -206,6 +205,7 @@ extension ContactViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction =
             UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] _, indexPath in
+                Vibration.warning.vibrate()
                 self.presentAlertConfirmDeleteContact(at: indexPath)
             }
 
@@ -225,14 +225,5 @@ extension ContactViewController: UITableViewDataSource {
         let cell = ContactTableViewCell.dequeueFrom(tableView, forIndexPath: indexPath)
         cell.bind(with: contacts[indexPath.row])
         return cell
-    }
-}
-
-// MARK: - MFMailComposeViewControllerDelegate
-extension ContactViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController,
-                               didFinishWith result: MFMailComposeResult,
-                               error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
     }
 }
