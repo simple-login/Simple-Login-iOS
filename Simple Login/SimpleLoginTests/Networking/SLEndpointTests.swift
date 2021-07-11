@@ -10,6 +10,7 @@
 import XCTest
 
 // swiftlint:disable type_body_length
+// swiftlint:disable file_length
 class SLEndpointTests: XCTestCase {
     private let scheme = "https"
     private let host = "example.com"
@@ -689,5 +690,20 @@ class SLEndpointTests: XCTestCase {
         XCTAssertEqual(updateNameRequest.httpMethod, HTTPMethod.patch)
         XCTAssertEqual(updateNameHttpBody, expectedBody)
         assertProperlyAttachedApiKey(updateNameRequest, apiKey: apiKey)
+    }
+
+    func testGenerateGetCustomDomainsRequest() throws {
+        // given
+        let apiKey = ApiKey.random()
+        let expectedUrl = baseUrl.append(path: "/api/custom_domains")
+
+        // when
+        let getCustomDomainsRequest =
+            SLEndpoint.customDomains(baseUrl: baseUrl, apiKey: apiKey).urlRequest
+
+        // then
+        XCTAssertEqual(getCustomDomainsRequest.url, expectedUrl)
+        XCTAssertEqual(getCustomDomainsRequest.httpMethod, HTTPMethod.get)
+        assertProperlyAttachedApiKey(getCustomDomainsRequest, apiKey: apiKey)
     }
 }

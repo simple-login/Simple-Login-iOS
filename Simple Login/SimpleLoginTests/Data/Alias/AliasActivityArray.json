@@ -4,6 +4,7 @@
             "action": "forward",
             "from": "reply+bepwqfxpdsdthrn@example.com",
             "reverse_alias": "\"John Doe\" <reply+mxzjdzsxgwlndsdwdsydlqlbgany@sldev.ovh>",
+            "reverse_alias_address": "reply+mxzjdzsxgwlndsdwdsydlqlbgany@sldev.ovh",
             "timestamp": 1591239162,
             "to": "jane.doe@example.com"
         },
@@ -11,6 +12,7 @@
             "action": "forward",
             "from": "reply+bepwqfxpdsdthrn@example.com",
             "reverse_alias": "\"John Doe\" <reply+mxzjdzsxgwlndsdwdsydlqlbgany@sldev.ovh>",
+            "reverse_alias_address": "reply+mxzjdzsxgwlndsdwdsydlqlbgany@sldev.ovh",
             "timestamp": 1591239162,
             "to": "jane.doe@example.com"
         },
@@ -18,6 +20,7 @@
             "action": "forward",
             "from": "reply+bepwqfxpdsdthrn@example.com",
             "reverse_alias": "\"John Doe\" <reply+mxzjdzsxgwlndsdwdsydlqlbgany@sldev.ovh>",
+            "reverse_alias_address": "reply+mxzjdzsxgwlndsdwdsydlqlbgany@sldev.ovh",
             "timestamp": 1591239162,
             "to": "jane.doe@example.com"
         }

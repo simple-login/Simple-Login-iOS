@@ -18,24 +18,18 @@ final class CustomDomainTableViewCell: UITableViewCell, RegisterableCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = UITableViewCell.SelectionStyle.none
+        selectionStyle = .none
         backgroundColor = .clear
         contentView.backgroundColor = .clear
-
         domainNameLabel.textColor = SLColor.textColor
-
         clockImageView.tintColor = SLColor.titleColor
         creationDateLabel.textColor = SLColor.titleColor
-
         rightArrowButton.tintColor = SLColor.titleColor
     }
 
     func bind(with customDomain: CustomDomain) {
-        domainNameLabel.text = customDomain.name
+        domainNameLabel.text = customDomain.domainName + (customDomain.isVerified ? " ✅" : " 🚫")
         creationDateLabel.text = customDomain.creationTimestampString
         countLabel.attributedText = customDomain.countAttributedString
-
-        rootView.backgroundColor = customDomain.isVerified ?
-            SLColor.premiumColor.withAlphaComponent(0.2) : SLColor.negativeColor.withAlphaComponent(0.2)
     }
 }

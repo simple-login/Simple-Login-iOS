@@ -30,7 +30,7 @@ final class LeftMenuViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
 
     private var options: [[LeftMenuOption]] {
-        let options: [[LeftMenuOption]] = [[.alias, .mailbox], [.separator], [.settings, .about], [.separator]]
+        let options: [[LeftMenuOption]] = [[.alias, .mailbox, .customDomains], [.separator], [.settings, .about], [.separator]]
         if UserDefaults.didMakeAReview() {
             return options + [[.signOut]]
         }
