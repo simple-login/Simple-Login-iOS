@@ -85,6 +85,9 @@ struct LogInView: View {
                         .fontWeight(.bold)
                 }
             })
+            .sheet(isPresented: $showAbout) {
+                AboutView()
+            }
         }
         .padding(.trailing)
     }
