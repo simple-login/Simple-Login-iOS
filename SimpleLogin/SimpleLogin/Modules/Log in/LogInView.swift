@@ -13,6 +13,7 @@ struct LogInView: View {
     @State private var apiKey = ""
     @State private var showAbout = false
     @State private var mode: LogInMode = .emailPassword
+    @State private var isLoading = true
 
     var body: some View {
         GeometryReader { geometry in
@@ -21,7 +22,9 @@ struct LogInView: View {
                 Color.gray.opacity(0.01)
 
                 VStack {
-                    aboutView
+                    if !isLoading {
+                        aboutView
+                    }
 
                     Spacer()
 
@@ -30,25 +33,38 @@ struct LogInView: View {
                         .scaledToFit()
                         .frame(width: min(geometry.size.width / 3, 150))
 
-                    switch mode {
-                    case .emailPassword:
-                        EmailPasswordView(email: $email, password: $password)
-                            .padding()
-                    case .apiKey:
-                        ApiKeyView(apiKey: $apiKey)
-                            .padding()
-                    }
+                    if !isLoading {
+                        switch mode {
+                        case .emailPassword:
+                            EmailPasswordView(email: $email, password: $password)
+                                .padding()
+                        case .apiKey:
+                            ApiKeyView(apiKey: $apiKey)
+                                .padding()
+                        }
 
-                    logInModeView
-                        .padding(.vertical)
+                        logInModeView
+                            .padding(.vertical)
+                    } else {
+                        ProgressView()
+                    }
 
                     Spacer()
 
-                    signUpView
+                    if !isLoading {
+                        signUpView
+                    }
                 }
             }
             .onTapGesture {
                 UIApplication.shared.endEditing()
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                withAnimation {
+                    isLoading.toggle()
+                }
             }
         }
     }

@@ -141,19 +141,19 @@
 			isa = PBXGroup;
 			children = (
 				C03488BA268A719E008D9629 /* Main */,
-				C03488B9268A701B008D9629 /* LogIn */,
+				C03488B9268A701B008D9629 /* Log in */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		C03488B9268A701B008D9629 /* LogIn */ = {
+		C03488B9268A701B008D9629 /* Log in */ = {
 			isa = PBXGroup;
 			children = (
 				C0CBE93E26B9D1DD004833F6 /* ApiKeyView.swift */,
 				C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */,
 				C079864926B34D5F006C9FC0 /* LogInView.swift */,
 			);
-			path = LogIn;
+			path = "Log in";
 			sourceTree = "<group>";
 		};
 		C03488BA268A719E008D9629 /* Main */ = {
