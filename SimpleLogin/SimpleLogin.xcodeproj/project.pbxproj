@@ -13,6 +13,9 @@
 		C03488A0268A6F2E008D9629 /* SimpleLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C034889F268A6F2E008D9629 /* SimpleLoginTests.swift */; };
 		C03488AB268A6F2E008D9629 /* SimpleLoginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03488AA268A6F2E008D9629 /* SimpleLoginUITests.swift */; };
 		C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C079864926B34D5F006C9FC0 /* LogInView.swift */; };
+		C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */; };
+		C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */; };
+		C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93E26B9D1DD004833F6 /* ApiKeyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,9 @@
 		C03488AA268A6F2E008D9629 /* SimpleLoginUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLoginUITests.swift; sourceTree = "<group>"; };
 		C03488AC268A6F2E008D9629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C079864926B34D5F006C9FC0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailPasswordView.swift; sourceTree = "<group>"; };
+		C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
+		C0CBE93E26B9D1DD004833F6 /* ApiKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,7 @@
 			children = (
 				C034888D268A6F29008D9629 /* SimpleLoginApp.swift */,
 				C03488B8268A7005008D9629 /* Modules */,
+				C0CBE93B26B9D067004833F6 /* Utils */,
 				C0348891268A6F2D008D9629 /* Assets.xcassets */,
 				C0348896268A6F2D008D9629 /* Info.plist */,
 				C0348893268A6F2D008D9629 /* Preview Content */,
@@ -142,6 +149,8 @@
 		C03488B9268A701B008D9629 /* LogIn */ = {
 			isa = PBXGroup;
 			children = (
+				C0CBE93E26B9D1DD004833F6 /* ApiKeyView.swift */,
+				C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */,
 				C079864926B34D5F006C9FC0 /* LogInView.swift */,
 			);
 			path = LogIn;
@@ -152,6 +161,14 @@
 			children = (
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		C0CBE93B26B9D067004833F6 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,8 +300,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */,
 				C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */,
+				C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */,
 				C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */,
+				C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
