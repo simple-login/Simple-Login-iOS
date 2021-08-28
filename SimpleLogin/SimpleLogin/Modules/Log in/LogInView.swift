@@ -11,6 +11,7 @@ struct LogInView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var apiKey = ""
+    @State private var showApiUrl = false
     @State private var showAbout = false
     @State private var mode: LogInMode = .emailPassword
     @State private var isLoading = true
@@ -24,7 +25,7 @@ struct LogInView: View {
 
                 VStack {
                     if !isLoading {
-                        aboutView
+                        topView
                     }
 
                     Spacer()
@@ -72,9 +73,27 @@ struct LogInView: View {
         }
     }
 
-    private var aboutView: some View {
+    private var topView: some View {
         HStack {
+            Button(action: {
+                showApiUrl.toggle()
+            }, label: {
+                HStack {
+                    Image(systemName: "link.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 18)
+                    Text("API URL")
+                        .font(.caption)
+                        .fontWeight(.bold)
+                }
+            })
+            .fullScreenCover(isPresented: $showApiUrl) {
+                ApiUrlView(apiUrl: "https://app.simplelogin.io")
+            }
+
             Spacer()
+
             Button(action: {
                 showAbout.toggle()
             }, label: {
@@ -92,7 +111,7 @@ struct LogInView: View {
                 AboutView()
             }
         }
-        .padding(.trailing)
+        .padding(.horizontal)
     }
 
     private var logInModeView: some View {
