@@ -48,12 +48,12 @@ struct EmailPasswordView: View {
                                 TextField("Password", text: $password)
                                     .autocapitalization(.none)
                                     .disableAutocorrection(true)
-                                    .padding(.trailing, 24)
+                                    .padding(.trailing, 30)
                             } else {
                                 SecureField("Password", text: $password)
                                     .autocapitalization(.none)
                                     .disableAutocorrection(true)
-                                    .padding(.trailing, 24)
+                                    .padding(.trailing, 30)
                             }
                         }
 
@@ -86,7 +86,7 @@ struct EmailPasswordView: View {
                 }
             }, label: {
                 Text(forgotPassword ? "Return to log in" : "Forgot password")
-                    .font(.footnote)
+                    .font(.callout)
             })
 
         }

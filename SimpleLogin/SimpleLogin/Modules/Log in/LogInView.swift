@@ -14,6 +14,7 @@ struct LogInView: View {
     @State private var showAbout = false
     @State private var mode: LogInMode = .emailPassword
     @State private var isLoading = true
+    @State private var showSignUp = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -52,7 +53,9 @@ struct LogInView: View {
                     Spacer()
 
                     if !isLoading {
-                        signUpView
+                        bottomView
+                            .fixedSize(horizontal: false, vertical: true)
+                            .fullScreenCover(isPresented: $showSignUp, content: SignUpView.init)
                     }
                 }
             }
@@ -61,7 +64,7 @@ struct LogInView: View {
             }
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 withAnimation {
                     isLoading.toggle()
                 }
@@ -99,22 +102,45 @@ struct LogInView: View {
             }
         }, label: {
             Label(mode.title, systemImage: mode.systemImageName)
-                .font(.caption)
+                .font(.callout)
         })
     }
 
-    private var signUpView: some View {
-        HStack(spacing: 2) {
-            Text("I don't have an account.")
+    private var bottomView: some View {
+        VStack {
+            GeometryReader { geometry in
+                HStack {
+                    Spacer()
+
+                    let lineWidth = geometry.size.width / 5
+                    horizontalLine
+                        .frame(width: lineWidth)
+
+                    Text("OR")
+                        .font(.caption2)
+                        .fontWeight(.medium)
+
+                    horizontalLine
+                        .frame(width: lineWidth)
+
+                    Spacer()
+                }
+            }
+
             Button(action: {
-                print("Create account")
+                showSignUp.toggle()
             }, label: {
-                Text("Sign up")
-                    .fontWeight(.bold)
+                Text("Create new account")
+                    .font(.callout)
             })
         }
-        .font(.callout)
         .padding(.bottom)
+    }
+
+    private var horizontalLine: some View {
+        Color.secondary
+            .opacity(0.5)
+            .frame(height: 1)
     }
 }
 
