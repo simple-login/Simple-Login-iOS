@@ -18,6 +18,7 @@
 		C0348895268A6F2D008D9629 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0348894268A6F2D008D9629 /* Preview Assets.xcassets */; };
 		C03488A0268A6F2E008D9629 /* SimpleLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C034889F268A6F2E008D9629 /* SimpleLoginTests.swift */; };
 		C03488AB268A6F2E008D9629 /* SimpleLoginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03488AA268A6F2E008D9629 /* SimpleLoginUITests.swift */; };
+		C044BA7D26DBD03300CAB46F /* LoadableToastableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */; };
 		C059553A26B9DEBA009FA3F8 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059553926B9DEBA009FA3F8 /* AboutView.swift */; };
 		C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C079864926B34D5F006C9FC0 /* LogInView.swift */; };
 		C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */; };
@@ -60,6 +61,7 @@
 		C03488A6268A6F2E008D9629 /* SimpleLoginUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleLoginUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03488AA268A6F2E008D9629 /* SimpleLoginUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLoginUITests.swift; sourceTree = "<group>"; };
 		C03488AC268A6F2E008D9629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableToastableViewModifier.swift; sourceTree = "<group>"; };
 		C059553926B9DEBA009FA3F8 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		C079864926B34D5F006C9FC0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailPasswordView.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		C0CBE93B26B9D067004833F6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */,
 				C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */,
 				C02F967126DB78CF000B100C /* ShakeEffect.swift */,
 				C0259EAE26DA55CD0056A977 /* StringExtensions.swift */,
@@ -337,6 +340,7 @@
 				C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */,
 				C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */,
 				C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */,
+				C044BA7D26DBD03300CAB46F /* LoadableToastableViewModifier.swift in Sources */,
 				C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */,
 				C059553A26B9DEBA009FA3F8 /* AboutView.swift in Sources */,
 				C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */,
