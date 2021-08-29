@@ -10,6 +10,7 @@ import SwiftUI
 struct EmailPasswordView: View {
     @State private var showPassword = false
     @State private var forgotPassword = false
+    @ObservedObject var viewModel: LogInViewModel
     @Binding var email: String
     @Binding var password: String
 
@@ -96,13 +97,13 @@ struct EmailPasswordView: View {
         if forgotPassword {
             print("Reset password")
         } else {
-            print("Log in")
+            viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
         }
     }
 }
 
 struct EmailPasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        EmailPasswordView(email: .constant(""), password: .constant(""))
+        EmailPasswordView(viewModel: .init(apiUrl: ""), email: .constant(""), password: .constant(""))
     }
 }

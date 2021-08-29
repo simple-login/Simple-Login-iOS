@@ -5,10 +5,14 @@
 //  Created by Thanh-Nhon Nguyen on 29/07/2021.
 //
 
+import Combine
 import SwiftUI
 
 struct LogInView: View {
     @EnvironmentObject private var preferences: Preferences
+    @Environment(\.loadingMode) private var loadingMode
+    @Environment(\.toastMessage) private var toastMessage
+    @StateObject private var viewModel = LogInViewModel(apiUrl: kDefaultApiUrlString)
     @State private var email = ""
     @State private var password = ""
     @State private var apiKey = ""
@@ -17,6 +21,7 @@ struct LogInView: View {
     @State private var mode: LogInMode = .emailPassword
     @State private var isLoading = true
     @State private var showSignUp = false
+    @State private var showOtpView = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -39,8 +44,14 @@ struct LogInView: View {
                     if !isLoading {
                         switch mode {
                         case .emailPassword:
-                            EmailPasswordView(email: $email, password: $password)
+                            EmailPasswordView(viewModel: viewModel,
+                                              email: $email,
+                                              password: $password)
                                 .padding()
+                                .fullScreenCover(isPresented: $showOtpView) {
+                                    OtpView(mfaKey: viewModel.userLogin?.mfaKey ?? "",
+                                            client: viewModel.client)
+                                }
                         case .apiKey:
                             ApiKeyView(apiKey: $apiKey)
                                 .padding()
@@ -65,7 +76,31 @@ struct LogInView: View {
                 UIApplication.shared.endEditing()
             }
         }
+        .onReceive(Just(preferences.apiUrl)) { apiUrl in
+            viewModel.updateApiUrl(apiUrl)
+        }
+        .onReceive(Just(viewModel.error)) { error in
+            if let error = error {
+                toastMessage.wrappedValue = error
+                viewModel.handledError()
+            }
+        }
+        .onReceive(Just(viewModel.isLoading)) { isLoading in
+            if isLoading {
+                loadingMode.wrappedValue.startLoading()
+            } else {
+                loadingMode.wrappedValue.stopLoading()
+            }
+        }
+        .onReceive(Just(viewModel.userLogin)) { userLogin in
+            if let userLogin = userLogin,
+               userLogin.isMfaEnabled {
+                showOtpView = true
+                viewModel.handledUserLogin()
+            }
+        }
         .onAppear {
+            viewModel.updateApiUrl(preferences.apiUrl)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 withAnimation {
                     isLoading.toggle()

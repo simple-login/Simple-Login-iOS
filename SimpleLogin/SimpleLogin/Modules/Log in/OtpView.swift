@@ -5,11 +5,17 @@
 //  Created by Thanh-Nhon Nguyen on 28/08/2021.
 //
 
+import SimpleLoginPackage
 import SwiftUI
 
 struct OtpView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject private var viewModel = OtpViewModel()
+    @StateObject private var viewModel: OtpViewModel
+
+    init(mfaKey: String, client: SLClient?) {
+        self._viewModel = StateObject(wrappedValue: .init(mfaKey: mfaKey,
+                                                          client: client))
+    }
 
     var body: some View {
         NavigationView {
@@ -155,7 +161,7 @@ struct OtpView: View {
 
 struct OtpView_Previews: PreviewProvider {
     static var previews: some View {
-        OtpView()
+        OtpView(mfaKey: "", client: .init(session: .shared))
     }
 }
 
@@ -204,6 +210,14 @@ private final class OtpViewModel: ObservableObject {
     @Published private(set) var sixthDigit = Digit.none
     @Published private(set) var errorMessage: String?
     @Published private(set) var attempts: CGFloat = 0
+
+    private let mfaKey: String
+    private let client: SLClient?
+
+    init(mfaKey: String, client: SLClient?) {
+        self.mfaKey = mfaKey
+        self.client = client
+    }
 
     func delete() {
         if sixthDigit != .none {
