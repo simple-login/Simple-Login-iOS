@@ -9,10 +9,12 @@ import SwiftUI
 
 @main
 struct SimpleLoginApp: App {
+    @State private var preferences = Preferences.shared
     var body: some Scene {
         WindowGroup {
             LogInView()
                 .loadableToastable()
+                .environmentObject(preferences)
         }
     }
 }

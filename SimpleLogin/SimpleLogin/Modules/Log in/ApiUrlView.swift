@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-let kDefaultApiUrlString = "https://app.simplelogin.io/"
-
 struct ApiUrlView: View {
+    @EnvironmentObject private var preferences: Preferences
     @Environment(\.presentationMode) private var presentationMode
     @State private var isEditing = false
     @State private var currentApiUrl: String
@@ -94,7 +93,7 @@ struct ApiUrlView: View {
     }
 
     private func save() {
-
+        preferences.apiUrl = currentApiUrl
     }
 }
 

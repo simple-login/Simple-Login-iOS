@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LogInView: View {
+    @EnvironmentObject private var preferences: Preferences
     @State private var email = ""
     @State private var password = ""
     @State private var apiKey = ""
@@ -89,7 +90,7 @@ struct LogInView: View {
                 }
             })
             .fullScreenCover(isPresented: $showApiUrl) {
-                ApiUrlView(apiUrl: "https://app.simplelogin.io")
+                ApiUrlView(apiUrl: preferences.apiUrl)
             }
 
             Spacer()
