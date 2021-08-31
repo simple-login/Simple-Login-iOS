@@ -6,6 +6,7 @@
 //
 
 import Combine
+import SimpleLoginPackage
 import SwiftUI
 
 struct LogInView: View {
@@ -21,7 +22,9 @@ struct LogInView: View {
     @State private var mode: LogInMode = .emailPassword
     @State private var isLoading = true
     @State private var showSignUp = false
+    @State private var mfaKey = ""
     @State private var showOtpView = false
+    let onComplete: (ApiKey) -> Void
 
     var body: some View {
         GeometryReader { geometry in
@@ -49,8 +52,12 @@ struct LogInView: View {
                                               password: $password)
                                 .padding()
                                 .fullScreenCover(isPresented: $showOtpView) {
-                                    OtpView(mfaKey: viewModel.userLogin?.mfaKey ?? "",
-                                            client: viewModel.client)
+                                    OtpView(mfaKey: mfaKey,
+                                            client: viewModel.client!) { apiKey in
+                                        showOtpView = false
+                                        onComplete(apiKey)
+                                    }
+                                    .loadableToastable()
                                 }
                         case .apiKey:
                             ApiKeyView(apiKey: $apiKey)
@@ -96,6 +103,7 @@ struct LogInView: View {
             if let userLogin = userLogin,
                userLogin.isMfaEnabled {
                 showOtpView = true
+                mfaKey = viewModel.userLogin?.mfaKey ?? ""
                 viewModel.handledUserLogin()
             }
         }
@@ -201,7 +209,7 @@ struct LogInView: View {
 
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView()
+        LogInView(onComplete: { _ in })
     }
 }
 

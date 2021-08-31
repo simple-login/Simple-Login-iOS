@@ -5,16 +5,22 @@
 //  Created by Thanh-Nhon Nguyen on 28/08/2021.
 //
 
+import Combine
 import SimpleLoginPackage
 import SwiftUI
 
 struct OtpView: View {
+    @Environment(\.loadingMode) private var loadingMode
     @Environment(\.presentationMode) private var presentationMode
     @StateObject private var viewModel: OtpViewModel
+    let onVerification: (ApiKey) -> Void
 
-    init(mfaKey: String, client: SLClient?) {
+    init(mfaKey: String,
+         client: SLClient,
+         onVerification: @escaping (ApiKey) -> Void) {
         self._viewModel = StateObject(wrappedValue: .init(mfaKey: mfaKey,
                                                           client: client))
+        self.onVerification = onVerification
     }
 
     var body: some View {
@@ -148,6 +154,18 @@ struct OtpView: View {
             .navigationBarTitle("Enter OTP", displayMode: .inline)
             .navigationBarItems(leading: closeButton)
         }
+        .onReceive(Just(viewModel.isLoading)) { isLoading in
+            if isLoading {
+                loadingMode.wrappedValue.startLoading()
+            } else {
+                loadingMode.wrappedValue.stopLoading()
+            }
+        }
+        .onReceive(Just(viewModel.apiKey)) { apiKey in
+            if let apiKey = apiKey {
+                onVerification(apiKey)
+            }
+        }
     }
 
     private var closeButton: some View {
@@ -161,7 +179,9 @@ struct OtpView: View {
 
 struct OtpView_Previews: PreviewProvider {
     static var previews: some View {
-        OtpView(mfaKey: "", client: .init(session: .shared))
+        OtpView(mfaKey: "",
+                client: .init(session: .shared)!,
+                onVerification: { _ in })
     }
 }
 
@@ -210,11 +230,14 @@ private final class OtpViewModel: ObservableObject {
     @Published private(set) var sixthDigit = Digit.none
     @Published private(set) var errorMessage: String?
     @Published private(set) var attempts: CGFloat = 0
+    @Published private(set) var isLoading = false
+    @Published private(set) var apiKey: ApiKey?
 
     private let mfaKey: String
-    private let client: SLClient?
+    private let client: SLClient
+    private var cancellable: AnyCancellable?
 
-    init(mfaKey: String, client: SLClient?) {
+    init(mfaKey: String, client: SLClient) {
         self.mfaKey = mfaKey
         self.client = client
     }
@@ -249,10 +272,43 @@ private final class OtpViewModel: ObservableObject {
             fifthDigit = digit
         } else if sixthDigit == .none {
             sixthDigit = digit
-            errorMessage = "Wrong OTP token"
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.attempts += 1
-            }
+            verify()
         }
+    }
+
+    private func verify() {
+        guard !isLoading else { return }
+        isLoading = true
+        let token =
+            [firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit, sixthDigit]
+            .map({ $0.rawValue })
+            .reduce("", +)
+        cancellable = client.mfa(token: token, key: mfaKey, device: UIDevice.current.name)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                defer { self.isLoading = false }
+                switch completion {
+                case .failure(let error):
+                    self.errorMessage = error.description
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.attempts += 1
+                    }
+                    self.reset()
+                case .finished: break
+                }
+            } receiveValue: { [weak self] apiKey in
+                guard let self = self else { return }
+                self.apiKey = apiKey
+            }
+    }
+
+    private func reset() {
+        firstDigit = .none
+        secondDigit = .none
+        thirdDigit = .none
+        fourthDigit = .none
+        fifthDigit = .none
+        sixthDigit = .none
     }
 }
