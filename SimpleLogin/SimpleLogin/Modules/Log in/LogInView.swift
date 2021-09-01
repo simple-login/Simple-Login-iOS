@@ -53,6 +53,7 @@ struct LogInView: View {
                                 .padding()
                                 .fullScreenCover(isPresented: $showOtpView) {
                                     OtpView(mfaKey: mfaKey,
+                                            // swiftlint:disable:next force_unwrapping
                                             client: viewModel.client!) { apiKey in
                                         showOtpView = false
                                         onComplete(apiKey)
@@ -209,7 +210,7 @@ struct LogInView: View {
 
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView(onComplete: { _ in })
+        LogInView { _ in }
     }
 }
 

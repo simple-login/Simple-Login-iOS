@@ -6,5 +6,9 @@
 	<array>
 		<string>group.io.simplelogin.ios-app</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)975H7B86B7.io.simplelogin.ios-app.shared</string>
+	</array>
 </dict>
 </plist>

@@ -89,7 +89,6 @@ struct EmailPasswordView: View {
                 Text(forgotPassword ? "Return to log in" : "Forgot password")
                     .font(.callout)
             })
-
         }
     }
 

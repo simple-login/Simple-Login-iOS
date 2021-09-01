@@ -21,7 +21,7 @@ struct SimpleLoginApp: App {
                     .animation(.default)
                     .transition(.opacity)
             } else {
-                LogInView() { apiKey in
+                LogInView { apiKey in
                     self.apiKey = apiKey
                 }
                 .loadableToastable()

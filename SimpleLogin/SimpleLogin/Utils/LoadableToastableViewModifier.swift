@@ -10,7 +10,7 @@ import SwiftUI
 struct LoadableToastableViewModifier: ViewModifier {
     @Environment(\.colorScheme) private var colorScheme
     @State private var loadingMode = LoadingMode(isLoading: false)
-    @State private var toastMessage: String? = nil
+    @State private var toastMessage: String?
     private let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
 
     func body(content: Content) -> some View {

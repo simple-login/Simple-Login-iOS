@@ -12,6 +12,7 @@ struct SignUpView: View {
     @State private var email = ""
     @State private var selectedTab = Tab.email
 
+    // swiftlint:disable:next type_name
     enum Tab {
         case email, password
     }

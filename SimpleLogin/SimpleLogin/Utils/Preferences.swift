@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-fileprivate let sharedUserDefaults = UserDefaults(suiteName: "group.io.simplelogin.ios-app")
 let kDefaultApiUrlString = "https://app.simplelogin.io/"
 
 final class Preferences: ObservableObject {
     private init() {}
+
     static let shared = Preferences()
 
     @UserDefault("api_url", defaultValue: kDefaultApiUrlString) var apiUrl: String {

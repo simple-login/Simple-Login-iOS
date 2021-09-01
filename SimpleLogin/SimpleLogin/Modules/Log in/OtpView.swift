@@ -64,69 +64,69 @@ struct OtpView: View {
                 HStack {
                     CircleButton(action: {
                         viewModel.add(digit: .one)
-                    }) {
+                    }, content: {
                         Text("1")
-                    }
+                    })
                     .frame(width: buttonWidth, height: buttonWidth)
 
                     CircleButton(action: {
                         viewModel.add(digit: .two)
-                    }) {
+                    }, content: {
                         Text("2")
-                    }
+                    })
                     .frame(width: buttonWidth, height: buttonWidth)
 
                     CircleButton(action: {
                         viewModel.add(digit: .three)
-                    }) {
+                    }, content: {
                         Text("3")
-                    }
+                    })
                     .frame(width: buttonWidth, height: buttonWidth)
                 }
 
                 HStack {
                     CircleButton(action: {
                         viewModel.add(digit: .four)
-                    }) {
+                    }, content: {
                         Text("4")
-                    }
+                    })
                     .frame(width: buttonWidth, height: buttonWidth)
 
                     CircleButton(action: {
                         viewModel.add(digit: .five)
-                    }) {
+                    }, content: {
                         Text("5")
-                    }
+                    })
                     .frame(width: buttonWidth, height: buttonWidth)
 
                     CircleButton(action: {
                         viewModel.add(digit: .six)
-                    }) {
+                    }, content: {
                         Text("6")
-                    }
+                    })
                     .frame(width: buttonWidth, height: buttonWidth)
                 }
 
                 HStack {
                     CircleButton(action: {
                         viewModel.add(digit: .seven)
-                    }) {
+                    }, content: {
                         Text("7")
-                    }
+                    })
                     .frame(width: buttonWidth, height: buttonWidth)
 
                     CircleButton(action: {
                         viewModel.add(digit: .eighth)
-                    }) {
+                    }, content: {
                         Text("8")
-                    }
+                    })
                     .frame(width: buttonWidth, height: buttonWidth)
 
                     CircleButton(action: {
                         viewModel.add(digit: .nine)
-                    }) {
+                    }, content: {
                         Text("9")
-                    }
+                    })
                     .frame(width: buttonWidth, height: buttonWidth)
                 }
 
@@ -136,16 +136,16 @@ struct OtpView: View {
 
                     CircleButton(action: {
                         viewModel.add(digit: .zero)
-                    }) {
+                    }, content: {
                         Text("0")
-                    }
+                    })
                     .frame(width: buttonWidth, height: buttonWidth)
 
                     CircleButton(action: {
                         viewModel.delete()
-                    }) {
+                    }, content: {
                         Image(systemName: "delete.left.fill")
-                    }
+                    })
                     .frame(width: buttonWidth, height: buttonWidth)
                 }
 
@@ -179,9 +179,8 @@ struct OtpView: View {
 
 struct OtpView_Previews: PreviewProvider {
     static var previews: some View {
-        OtpView(mfaKey: "",
-                client: .init(session: .shared)!,
-                onVerification: { _ in })
+        // swiftlint:disable:next force_unwrapping
+        OtpView(mfaKey: "", client: .init(session: .shared)!) { _ in }
     }
 }
 
@@ -281,8 +280,8 @@ private final class OtpViewModel: ObservableObject {
         isLoading = true
         let token =
             [firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit, sixthDigit]
-            .map({ $0.rawValue })
-            .reduce("", +)
+            .map { $0.rawValue }
+            .reduce(into: "") { $0 += "\($1)" }
         cancellable = client.mfa(token: token, key: mfaKey, device: UIDevice.current.name)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
