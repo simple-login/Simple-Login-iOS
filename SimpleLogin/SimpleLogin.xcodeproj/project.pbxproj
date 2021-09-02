@@ -20,10 +20,17 @@
 		C03760F326DC0BA000E5ECAC /* SimpleLoginPackage in Frameworks */ = {isa = PBXBuildFile; productRef = C03760F226DC0BA000E5ECAC /* SimpleLoginPackage */; };
 		C03760F826DC0D6A00E5ECAC /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03760F726DC0D6A00E5ECAC /* LogInViewModel.swift */; };
 		C03760FA26DC0F0200E5ECAC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03760F926DC0F0200E5ECAC /* Preferences.swift */; };
+		C03F4F1526E15ADD00BBF2A8 /* AliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */; };
+		C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */; };
+		C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */; };
+		C03F4F2526E1665D00BBF2A8 /* OthersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2426E1665D00BBF2A8 /* OthersView.swift */; };
+		C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */; };
+		C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */; };
+		C03F4F2B26E171B300BBF2A8 /* OthersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2A26E171B300BBF2A8 /* OthersViewModel.swift */; };
+		C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */; };
 		C043D41426E01DBF0051B282 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C043D41326E01DBF0051B282 /* KeychainAccess */; };
 		C043D41626E01E280051B282 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C043D41526E01E280051B282 /* KeychainService.swift */; };
 		C044BA7D26DBD03300CAB46F /* LoadableToastableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */; };
-		C059553A26B9DEBA009FA3F8 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059553926B9DEBA009FA3F8 /* AboutView.swift */; };
 		C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C079864926B34D5F006C9FC0 /* LogInView.swift */; };
 		C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */; };
 		C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */; };
@@ -67,9 +74,16 @@
 		C03760F726DC0D6A00E5ECAC /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		C03760F926DC0F0200E5ECAC /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		C03760FB26DC0F7300E5ECAC /* SimpleLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleLogin.entitlements; sourceTree = "<group>"; };
+		C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesView.swift; sourceTree = "<group>"; };
+		C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
+		C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		C03F4F2426E1665D00BBF2A8 /* OthersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersView.swift; sourceTree = "<group>"; };
+		C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		C03F4F2A26E171B300BBF2A8 /* OthersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersViewModel.swift; sourceTree = "<group>"; };
+		C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		C043D41526E01E280051B282 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableToastableViewModifier.swift; sourceTree = "<group>"; };
-		C059553926B9DEBA009FA3F8 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		C079864926B34D5F006C9FC0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailPasswordView.swift; sourceTree = "<group>"; };
 		C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
@@ -164,7 +178,6 @@
 		C03488B8268A7005008D9629 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				C059553826B9DEAD009FA3F8 /* About */,
 				C03488BA268A719E008D9629 /* Main */,
 				C03488B9268A701B008D9629 /* Log in */,
 			);
@@ -188,15 +201,46 @@
 		C03488BA268A719E008D9629 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				C03F4F3126E1736500BBF2A8 /* About */,
+				C03F4F3026E1735B00BBF2A8 /* Account */,
+				C03F4F2E26E1733200BBF2A8 /* Aliases */,
+				C03F4F2F26E1735100BBF2A8 /* Others */,
 				C0100B2F26DEC46900085C24 /* MainView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
 		};
-		C059553826B9DEAD009FA3F8 /* About */ = {
+		C03F4F2E26E1733200BBF2A8 /* Aliases */ = {
 			isa = PBXGroup;
 			children = (
-				C059553926B9DEBA009FA3F8 /* AboutView.swift */,
+				C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */,
+				C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */,
+			);
+			path = Aliases;
+			sourceTree = "<group>";
+		};
+		C03F4F2F26E1735100BBF2A8 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				C03F4F2426E1665D00BBF2A8 /* OthersView.swift */,
+				C03F4F2A26E171B300BBF2A8 /* OthersViewModel.swift */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		C03F4F3026E1735B00BBF2A8 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */,
+				C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		C03F4F3126E1736500BBF2A8 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -204,6 +248,7 @@
 		C0CBE93B26B9D067004833F6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */,
 				C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */,
 				C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */,
 				C043D41526E01E280051B282 /* KeychainService.swift */,
@@ -374,20 +419,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				C03760F826DC0D6A00E5ECAC /* LogInViewModel.swift in Sources */,
+				C03F4F2B26E171B300BBF2A8 /* OthersViewModel.swift in Sources */,
 				C0259EAF26DA55CD0056A977 /* StringExtensions.swift in Sources */,
 				C043D41626E01E280051B282 /* KeychainService.swift in Sources */,
+				C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */,
+				C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */,
 				C03760FA26DC0F0200E5ECAC /* Preferences.swift in Sources */,
 				C00A563426DABC3900A550A2 /* ErrorMessageModifier.swift in Sources */,
 				C02F967226DB78D0000B100C /* ShakeEffect.swift in Sources */,
+				C03F4F1526E15ADD00BBF2A8 /* AliasesView.swift in Sources */,
+				C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */,
+				C03F4F2526E1665D00BBF2A8 /* OthersView.swift in Sources */,
 				C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */,
 				C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */,
 				C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */,
 				C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */,
+				C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */,
+				C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */,
 				C0100B3026DEC46900085C24 /* MainView.swift in Sources */,
 				C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */,
 				C044BA7D26DBD03300CAB46F /* LoadableToastableViewModifier.swift in Sources */,
 				C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */,
-				C059553A26B9DEBA009FA3F8 /* AboutView.swift in Sources */,
 				C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */,
 				C00A563626DAC6D000A550A2 /* ApiUrlView.swift in Sources */,
 			);

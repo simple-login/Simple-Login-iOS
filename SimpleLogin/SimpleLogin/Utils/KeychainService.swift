@@ -6,11 +6,23 @@
 //
 
 import KeychainAccess
+import SimpleLoginPackage
 
-final class KeychainService {
+private let kApiKey = "API_KEY"
+
+struct KeychainService {
     private let keychain = Keychain(service: "975H7B86B7.io.simplelogin.ios-app.shared")
 
     private init() {}
 
     static let shared = KeychainService()
+
+    func setApiKey(_ apiKey: ApiKey) throws {
+        try keychain.set(apiKey.value, key: kApiKey)
+    }
+
+    func getApiKey() -> ApiKey? {
+        guard let apiKeyValue = try? keychain.getString(kApiKey) else { return nil }
+        return ApiKey(value: apiKeyValue)
+    }
 }

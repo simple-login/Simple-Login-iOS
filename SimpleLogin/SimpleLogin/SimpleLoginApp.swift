@@ -12,17 +12,21 @@ import SwiftUI
 struct SimpleLoginApp: App {
     @State private var preferences = Preferences.shared
     @State private var apiKey: ApiKey?
+    @State private var client: SLClient?
 
     var body: some Scene {
         WindowGroup {
-            if let apiKey = apiKey {
-                MainView(apiKey: apiKey)
+            if let apiKey = apiKey, let client = client {
+                MainView(apiKey: apiKey, client: client)
                     .environmentObject(preferences)
                     .animation(.default)
                     .transition(.opacity)
             } else {
-                LogInView { apiKey in
-                    self.apiKey = apiKey
+                LogInView { apiKey, client in
+                    withAnimation {
+                        self.apiKey = apiKey
+                        self.client = client
+                    }
                 }
                 .loadableToastable()
                 .environmentObject(preferences)

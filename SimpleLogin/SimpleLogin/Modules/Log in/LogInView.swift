@@ -14,7 +14,7 @@ struct LogInView: View {
     @Environment(\.loadingMode) private var loadingMode
     @Environment(\.toastMessage) private var toastMessage
     @StateObject private var viewModel = LogInViewModel(apiUrl: kDefaultApiUrlString)
-    @State private var email = ""
+    @AppStorage("Email") private var email = ""
     @State private var password = ""
     @State private var apiKey = ""
     @State private var showApiUrl = false
@@ -24,7 +24,7 @@ struct LogInView: View {
     @State private var showSignUp = false
     @State private var mfaKey = ""
     @State private var showOtpView = false
-    let onComplete: (ApiKey) -> Void
+    let onComplete: (ApiKey, SLClient) -> Void
 
     var body: some View {
         GeometryReader { geometry in
@@ -56,7 +56,8 @@ struct LogInView: View {
                                             // swiftlint:disable:next force_unwrapping
                                             client: viewModel.client!) { apiKey in
                                         showOtpView = false
-                                        onComplete(apiKey)
+                                        // swiftlint:disable:next force_unwrapping
+                                        onComplete(apiKey, viewModel.client!)
                                     }
                                     .loadableToastable()
                                 }
@@ -210,7 +211,7 @@ struct LogInView: View {
 
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView { _ in }
+        LogInView { _, _ in }
     }
 }
 
