@@ -19,19 +19,13 @@ struct SimpleLoginApp: App {
             if let apiKey = apiKey, let client = client {
                 MainView(apiKey: apiKey, client: client)
                     .environmentObject(preferences)
-                    .animation(.default)
-                    .transition(.opacity)
             } else {
-                LogInView { apiKey, client in
-                    withAnimation {
-                        self.apiKey = apiKey
-                        self.client = client
-                    }
+                LogInView(apiUrl: preferences.apiUrl) { apiKey, client in
+                    self.apiKey = apiKey
+                    self.client = client
                 }
                 .loadableToastable()
                 .environmentObject(preferences)
-                .animation(.default)
-                .transition(.opacity)
             }
         }
     }

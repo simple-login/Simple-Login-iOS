@@ -13,18 +13,23 @@ struct LogInView: View {
     @EnvironmentObject private var preferences: Preferences
     @Environment(\.loadingMode) private var loadingMode
     @Environment(\.toastMessage) private var toastMessage
-    @StateObject private var viewModel = LogInViewModel(apiUrl: kDefaultApiUrlString)
+    @StateObject private var viewModel: LogInViewModel
     @AppStorage("Email") private var email = ""
     @State private var password = ""
     @State private var apiKey = ""
     @State private var showApiUrl = false
     @State private var showAbout = false
     @State private var mode: LogInMode = .emailPassword
-    @State private var isLoading = true
+    @State private var isLaunching = true
     @State private var showSignUp = false
     @State private var mfaKey = ""
     @State private var showOtpView = false
     let onComplete: (ApiKey, SLClient) -> Void
+
+    init(apiUrl: String, onComplete: @escaping (ApiKey, SLClient) -> Void) {
+        _viewModel = StateObject(wrappedValue: .init(apiUrl: apiUrl))
+        self.onComplete = onComplete
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -33,7 +38,7 @@ struct LogInView: View {
                 Color.gray.opacity(0.01)
 
                 VStack {
-                    if !isLoading {
+                    if !isLaunching {
                         topView
                     }
 
@@ -44,7 +49,7 @@ struct LogInView: View {
                         .scaledToFit()
                         .frame(width: min(geometry.size.width / 3, 150))
 
-                    if !isLoading {
+                    if !isLaunching {
                         switch mode {
                         case .emailPassword:
                             EmailPasswordView(viewModel: viewModel,
@@ -74,7 +79,7 @@ struct LogInView: View {
 
                     Spacer()
 
-                    if !isLoading {
+                    if !isLaunching {
                         bottomView
                             .fixedSize(horizontal: false, vertical: true)
                             .fullScreenCover(isPresented: $showSignUp, content: SignUpView.init)
@@ -110,10 +115,14 @@ struct LogInView: View {
             }
         }
         .onAppear {
-            viewModel.updateApiUrl(preferences.apiUrl)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                withAnimation {
-                    isLoading.toggle()
+            if let apiKey = KeychainService.shared.getApiKey(),
+               let client = viewModel.client {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    onComplete(apiKey, client)
+                }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    isLaunching = false
                 }
             }
         }
@@ -206,12 +215,6 @@ struct LogInView: View {
         Color.secondary
             .opacity(0.5)
             .frame(height: 1)
-    }
-}
-
-struct LogInView_Previews: PreviewProvider {
-    static var previews: some View {
-        LogInView { _, _ in }
     }
 }
 
