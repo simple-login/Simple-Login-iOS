@@ -19,7 +19,7 @@ enum AliasStatus: CustomStringConvertible, CaseIterable {
     }
 }
 
-struct AliasesToolbar: View {
+struct AliasesViewToolbar: View {
     @Binding var selectedStatus: AliasStatus
     let onSearch: () -> Void
     let onRandomAlias: () -> Void
@@ -75,7 +75,7 @@ struct AliasesToolbar: View {
 
 struct AliasesToolbar_Previews: PreviewProvider {
     static var previews: some View {
-        AliasesToolbar(selectedStatus: .constant(.all),
+        AliasesViewToolbar(selectedStatus: .constant(.all),
                        onSearch: {},
                        onRandomAlias: {},
                        onCreateAlias: {})

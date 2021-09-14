@@ -22,19 +22,19 @@ struct AliasesView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                AliasesToolbar(selectedStatus: $selectedStatus,
-                               onSearch: { showSearchView.toggle() },
-                               onRandomAlias: { showRandomAliasBottomSheet.toggle() },
-                               onCreateAlias: { showCreateAliasView.toggle() })
+                AliasesViewToolbar(selectedStatus: $selectedStatus,
+                                   onSearch: { showSearchView.toggle() },
+                                   onRandomAlias: { showRandomAliasBottomSheet.toggle() },
+                                   onCreateAlias: { showCreateAliasView.toggle() })
 
                 EmptyView()
                     .fullScreenCover(isPresented: $showSearchView) {
-                        Text("Search view")
+                        AliasesSearchView()
                     }
 
                 EmptyView()
                     .fullScreenCover(isPresented: $showCreateAliasView) {
-                        Text("Create alias view")
+                        CreateAliasView()
                     }
 
                 ScrollView {
