@@ -27,36 +27,34 @@ struct MainView: View {
     let client: SLClient
 
     var body: some View {
-        NavigationView {
-            TabView(selection: $selectedTab) {
-                AliasesView(apiKey: apiKey, client: client)
-                    .tabItem {
-                        Image(systemName: "at")
-                        Text(MainViewTab.aliases.title)
-                    }
-                    .tag(MainViewTab.aliases)
+        TabView(selection: $selectedTab) {
+            AliasesView(apiKey: apiKey, client: client)
+                .tabItem {
+                    Image(systemName: "at")
+                    Text(MainViewTab.aliases.title)
+                }
+                .tag(MainViewTab.aliases)
 
-                OthersView(apiKey: apiKey, client: client)
-                    .tabItem {
-                        Image(systemName: selectedTab == .others ? "tray.2.fill" : "tray.2")
-                        Text(MainViewTab.others.title)
-                    }
-                    .tag(MainViewTab.others)
+            OthersView(apiKey: apiKey, client: client)
+                .tabItem {
+                    Image(systemName: selectedTab == .others ? "tray.2.fill" : "tray.2")
+                    Text(MainViewTab.others.title)
+                }
+                .tag(MainViewTab.others)
 
-                AccountView(apiKey: apiKey, client: client)
-                    .tabItem {
-                        Image(systemName: selectedTab == .account ? "person.fill" : "person")
-                        Text(MainViewTab.account.title)
-                    }
-                    .tag(MainViewTab.account)
+            AccountView(apiKey: apiKey, client: client)
+                .tabItem {
+                    Image(systemName: selectedTab == .account ? "person.fill" : "person")
+                    Text(MainViewTab.account.title)
+                }
+                .tag(MainViewTab.account)
 
-                AboutView()
-                    .tabItem {
-                        Image(systemName: selectedTab == .about ? "info.circle.fill" : "info.circle")
-                        Text(MainViewTab.about.title)
-                    }
-                    .tag(MainViewTab.about)
-            }
+            AboutView()
+                .tabItem {
+                    Image(systemName: selectedTab == .about ? "info.circle.fill" : "info.circle")
+                    Text(MainViewTab.about.title)
+                }
+                .tag(MainViewTab.about)
         }
     }
 }

@@ -32,6 +32,8 @@
 		C043D41626E01E280051B282 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C043D41526E01E280051B282 /* KeychainService.swift */; };
 		C044BA7D26DBD03300CAB46F /* LoadableToastableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */; };
 		C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C079864926B34D5F006C9FC0 /* LogInView.swift */; };
+		C0AAE98E26E4152A00247742 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAE98D26E4152A00247742 /* Blur.swift */; };
+		C0AAE99426E41F3500247742 /* AliasesToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAE99326E41F3500247742 /* AliasesToolbar.swift */; };
 		C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */; };
 		C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */; };
 		C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93E26B9D1DD004833F6 /* ApiKeyView.swift */; };
@@ -85,6 +87,8 @@
 		C043D41526E01E280051B282 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableToastableViewModifier.swift; sourceTree = "<group>"; };
 		C079864926B34D5F006C9FC0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		C0AAE98D26E4152A00247742 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
+		C0AAE99326E41F3500247742 /* AliasesToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesToolbar.swift; sourceTree = "<group>"; };
 		C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailPasswordView.swift; sourceTree = "<group>"; };
 		C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
 		C0CBE93E26B9D1DD004833F6 /* ApiKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyView.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 				C03760FB26DC0F7300E5ECAC /* SimpleLogin.entitlements */,
 				C034888D268A6F29008D9629 /* SimpleLoginApp.swift */,
 				C03488B8268A7005008D9629 /* Modules */,
+				C0AAE98C26E4150200247742 /* Supporting Views */,
 				C0CBE93B26B9D067004833F6 /* Utils */,
 				C0348891268A6F2D008D9629 /* Assets.xcassets */,
 				C0348896268A6F2D008D9629 /* Info.plist */,
@@ -215,6 +220,7 @@
 			children = (
 				C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */,
 				C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */,
+				C0AAE99326E41F3500247742 /* AliasesToolbar.swift */,
 			);
 			path = Aliases;
 			sourceTree = "<group>";
@@ -245,15 +251,23 @@
 			path = About;
 			sourceTree = "<group>";
 		};
+		C0AAE98C26E4150200247742 /* Supporting Views */ = {
+			isa = PBXGroup;
+			children = (
+				C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */,
+				C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */,
+				C02F967126DB78CF000B100C /* ShakeEffect.swift */,
+				C0AAE98D26E4152A00247742 /* Blur.swift */,
+			);
+			path = "Supporting Views";
+			sourceTree = "<group>";
+		};
 		C0CBE93B26B9D067004833F6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */,
-				C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */,
-				C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */,
 				C043D41526E01E280051B282 /* KeychainService.swift */,
 				C03760F926DC0F0200E5ECAC /* Preferences.swift */,
-				C02F967126DB78CF000B100C /* ShakeEffect.swift */,
 				C0259EAE26DA55CD0056A977 /* StringExtensions.swift */,
 				C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */,
 			);
@@ -420,11 +434,13 @@
 			files = (
 				C03760F826DC0D6A00E5ECAC /* LogInViewModel.swift in Sources */,
 				C03F4F2B26E171B300BBF2A8 /* OthersViewModel.swift in Sources */,
+				C0AAE98E26E4152A00247742 /* Blur.swift in Sources */,
 				C0259EAF26DA55CD0056A977 /* StringExtensions.swift in Sources */,
 				C043D41626E01E280051B282 /* KeychainService.swift in Sources */,
 				C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */,
 				C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */,
 				C03760FA26DC0F0200E5ECAC /* Preferences.swift in Sources */,
+				C0AAE99426E41F3500247742 /* AliasesToolbar.swift in Sources */,
 				C00A563426DABC3900A550A2 /* ErrorMessageModifier.swift in Sources */,
 				C02F967226DB78D0000B100C /* ShakeEffect.swift in Sources */,
 				C03F4F1526E15ADD00BBF2A8 /* AliasesView.swift in Sources */,

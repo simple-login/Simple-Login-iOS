@@ -17,5 +17,6 @@ struct OthersView: View {
 
     var body: some View {
         Text("Others")
+            .navigationTitle("Others")
     }
 }

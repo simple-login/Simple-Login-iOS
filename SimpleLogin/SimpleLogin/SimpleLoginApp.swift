@@ -14,6 +14,11 @@ struct SimpleLoginApp: App {
     @State private var apiKey: ApiKey?
     @State private var client: SLClient?
 
+    init() {
+        UIView.appearance(whenContainedInInstancesOf:
+                            [UIAlertController.self]).tintColor = UIColor(named: "AccentColor")
+    }
+
     var body: some Scene {
         WindowGroup {
             if let apiKey = apiKey, let client = client {

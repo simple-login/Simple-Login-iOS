@@ -10,12 +10,63 @@ import SwiftUI
 
 struct AliasesView: View {
     @StateObject private var viewModel: AliasesViewModel
+    @State private var selectedStatus: AliasStatus = .all
+    @State private var showSearchView = false
+    @State private var showRandomAliasBottomSheet = false
+    @State private var showCreateAliasView = false
 
     init(apiKey: ApiKey, client: SLClient) {
         _viewModel = StateObject(wrappedValue: .init(apiKey: apiKey, client: client))
     }
 
     var body: some View {
-        Text("Aliases")
+        NavigationView {
+            VStack(spacing: 0) {
+                AliasesToolbar(selectedStatus: $selectedStatus,
+                               onSearch: { showSearchView.toggle() },
+                               onRandomAlias: { showRandomAliasBottomSheet.toggle() },
+                               onCreateAlias: { showCreateAliasView.toggle() })
+
+                EmptyView()
+                    .fullScreenCover(isPresented: $showSearchView) {
+                        Text("Search view")
+                    }
+
+                EmptyView()
+                    .fullScreenCover(isPresented: $showCreateAliasView) {
+                        Text("Create alias view")
+                    }
+
+                ScrollView {
+                    LazyVStack {
+                        ForEach(0...100, id: \.self) { number in
+                            NavigationLink(destination: Text("#\(number)")) {
+                                Text("#\(number)")
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Aliases")
+            .navigationBarHidden(true)
+            .ignoresSafeArea(.all, edges: .top)
+            .actionSheet(isPresented: $showRandomAliasBottomSheet) {
+                randomAliasActionSheet
+            }
+        }
+    }
+
+    private var randomAliasActionSheet: ActionSheet {
+        ActionSheet(title: Text("New alias"),
+                    message: Text("Randomly create an alias"),
+                    buttons: [
+                        .default(Text("By random words")) {
+                            print("random words")
+                        },
+                        .default(Text("By UUID")) {
+                            print("uuid")
+                        },
+                        .cancel(Text("Cancel"))
+                    ])
     }
 }
