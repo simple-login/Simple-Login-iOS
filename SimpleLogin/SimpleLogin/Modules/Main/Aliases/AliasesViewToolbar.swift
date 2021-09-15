@@ -76,8 +76,8 @@ struct AliasesViewToolbar: View {
 struct AliasesToolbar_Previews: PreviewProvider {
     static var previews: some View {
         AliasesViewToolbar(selectedStatus: .constant(.all),
-                       onSearch: {},
-                       onRandomAlias: {},
-                       onCreateAlias: {})
+                           onSearch: {},
+                           onRandomAlias: {},
+                           onCreateAlias: {})
     }
 }
