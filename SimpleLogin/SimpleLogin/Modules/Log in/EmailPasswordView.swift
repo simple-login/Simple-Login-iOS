@@ -9,10 +9,9 @@ import SwiftUI
 
 struct EmailPasswordView: View {
     @State private var showPassword = false
-    @State private var forgotPassword = false
-    @ObservedObject var viewModel: LogInViewModel
     @Binding var email: String
     @Binding var password: String
+    let onLogIn: () -> Void
 
     var body: some View {
         VStack {
@@ -36,35 +35,33 @@ struct EmailPasswordView: View {
                     })
                 }
 
-                if !forgotPassword {
-                    Color.gray.opacity(0.2)
-                        .frame(height: 1)
-                        .padding(.horizontal, -16)
+                Color.gray.opacity(0.2)
+                    .frame(height: 1)
+                    .padding(.horizontal, -16)
 
-                    ZStack(alignment: .trailing) {
-                        HStack {
-                            Image(systemName: "lock.circle")
-                                .foregroundColor(.accentColor)
-                            if showPassword {
-                                TextField("Password", text: $password)
-                                    .autocapitalization(.none)
-                                    .disableAutocorrection(true)
-                                    .padding(.trailing, 30)
-                            } else {
-                                SecureField("Password", text: $password)
-                                    .autocapitalization(.none)
-                                    .disableAutocorrection(true)
-                                    .padding(.trailing, 30)
-                            }
+                ZStack(alignment: .trailing) {
+                    HStack {
+                        Image(systemName: "lock.circle")
+                            .foregroundColor(.accentColor)
+                        if showPassword {
+                            TextField("Password", text: $password)
+                                .autocapitalization(.none)
+                                .disableAutocorrection(true)
+                                .padding(.trailing, 30)
+                        } else {
+                            SecureField("Password", text: $password)
+                                .autocapitalization(.none)
+                                .disableAutocorrection(true)
+                                .padding(.trailing, 30)
                         }
-
-                        Button(action: {
-                            showPassword.toggle()
-                        }, label: {
-                            Image(systemName: showPassword ? "eye.slash" : "eye")
-                                .foregroundColor(Color.gray)
-                        })
                     }
+
+                    Button(action: {
+                        showPassword.toggle()
+                    }, label: {
+                        Image(systemName: showPassword ? "eye.slash" : "eye")
+                            .foregroundColor(Color.gray)
+                    })
                 }
             }
             .padding(16)
@@ -73,36 +70,20 @@ struct EmailPasswordView: View {
                     .stroke(Color.gray.opacity(0.2), lineWidth: 1)
             )
 
-            Button(action: logInOrResetPassword) {
-                Text(forgotPassword ? "Reset password" : "Log in")
+            Button(action: onLogIn) {
+                Text("Log in")
                     .font(.headline)
                     .fontWeight(.bold)
             }
             .padding(.vertical, 4)
-            .disabled(!forgotPassword && (email.isEmpty || password.isEmpty))
-
-            Button(action: {
-                withAnimation {
-                    forgotPassword.toggle()
-                }
-            }, label: {
-                Text(forgotPassword ? "Return to log in" : "Forgot password")
-                    .font(.callout)
-            })
-        }
-    }
-
-    private func logInOrResetPassword() {
-        if forgotPassword {
-            print("Reset password")
-        } else {
-            viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
+            .disabled(email.isEmpty || password.isEmpty)
         }
     }
 }
 
 struct EmailPasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        EmailPasswordView(viewModel: .init(apiUrl: ""), email: .constant(""), password: .constant(""))
+        EmailPasswordView(email: .constant(""),
+                          password: .constant("")) {}
     }
 }

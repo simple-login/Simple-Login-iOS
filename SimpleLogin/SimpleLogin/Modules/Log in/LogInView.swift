@@ -19,7 +19,6 @@ struct LogInView: View {
     @State private var apiKey = ""
     @State private var showApiUrl = false
     @State private var showAbout = false
-    @State private var mode: LogInMode = .emailPassword
     @State private var isLaunching = true
     @State private var showSignUp = false
     @State private var mfaKey = ""
@@ -50,29 +49,20 @@ struct LogInView: View {
                         .frame(width: min(geometry.size.width / 3, 150))
 
                     if !isLaunching {
-                        switch mode {
-                        case .emailPassword:
-                            EmailPasswordView(viewModel: viewModel,
-                                              email: $email,
-                                              password: $password)
-                                .padding()
-                                .fullScreenCover(isPresented: $showOtpView) {
-                                    OtpView(mfaKey: mfaKey,
-                                            // swiftlint:disable:next force_unwrapping
-                                            client: viewModel.client!) { apiKey in
-                                        showOtpView = false
-                                        // swiftlint:disable:next force_unwrapping
-                                        onComplete(apiKey, viewModel.client!)
-                                    }
-                                    .loadableToastable()
-                                }
-                        case .apiKey:
-                            ApiKeyView(apiKey: $apiKey)
-                                .padding()
+                        EmailPasswordView(email: $email, password: $password) {
+                            viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
                         }
-
-                        logInModeView
-                            .padding(.vertical)
+                        .padding()
+                        .fullScreenCover(isPresented: $showOtpView) {
+                            OtpView(mfaKey: mfaKey,
+                                    // swiftlint:disable:next force_unwrapping
+                                    client: viewModel.client!) { apiKey in
+                                showOtpView = false
+                                // swiftlint:disable:next force_unwrapping
+                                onComplete(apiKey, viewModel.client!)
+                            }
+                            .loadableToastable()
+                        }
                     } else {
                         ProgressView()
                     }
@@ -122,7 +112,9 @@ struct LogInView: View {
                 }
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    isLaunching = false
+                    withAnimation {
+                        isLaunching = false
+                    }
                 }
             }
         }
@@ -178,17 +170,6 @@ struct LogInView: View {
         .padding()
     }
 
-    private var logInModeView: some View {
-        Button(action: {
-            withAnimation {
-                mode = mode.oppositeMode()
-            }
-        }, label: {
-            Label(mode.title, systemImage: mode.systemImageName)
-                .font(.callout)
-        })
-    }
-
     private var bottomView: some View {
         VStack {
             GeometryReader { geometry in
@@ -224,31 +205,6 @@ struct LogInView: View {
         Color.secondary
             .opacity(0.5)
             .frame(height: 1)
-    }
-}
-
-enum LogInMode {
-    case emailPassword, apiKey
-
-    func oppositeMode() -> LogInMode {
-        switch self {
-        case .emailPassword: return .apiKey
-        case .apiKey: return .emailPassword
-        }
-    }
-
-    var title: String {
-        switch self {
-        case .emailPassword: return "Log in using API key"
-        case .apiKey: return "Log in using email & password"
-        }
-    }
-
-    var systemImageName: String {
-        switch self {
-        case .emailPassword: return "arrow.forward.circle.fill"
-        case .apiKey: return "arrow.backward.circle.fill"
-        }
     }
 }
 
