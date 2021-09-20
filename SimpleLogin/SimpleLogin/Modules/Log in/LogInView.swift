@@ -129,44 +129,53 @@ struct LogInView: View {
     }
 
     private var topView: some View {
-        HStack {
-            Button(action: {
-                showApiUrl.toggle()
-            }, label: {
-                HStack {
-                    Image(systemName: "link.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18)
-                    Text("API URL")
-                        .font(.caption)
-                        .fontWeight(.bold)
+        let optionBinding = Binding<LogInOption>(
+            get: {
+                return .none
+            },
+            set: {
+                switch $0 {
+                case .about: showAbout = true
+                case .apiKey: break
+                case .apiUrl: showApiUrl = true
+                case .forgotPassword: break
+                default: break
                 }
-            })
-            .fullScreenCover(isPresented: $showApiUrl) {
-                ApiUrlView(apiUrl: preferences.apiUrl)
             }
+        )
+        let options: [LogInOption] = [.about, .apiKey, .apiUrl, .forgotPassword]
+
+        return HStack {
+            EmptyView()
+                .fullScreenCover(isPresented: $showApiUrl) {
+                    ApiUrlView(apiUrl: preferences.apiUrl)
+                }
+
+            EmptyView()
+                .sheet(isPresented: $showAbout) {
+                    AboutView()
+                }
 
             Spacer()
 
-            Button(action: {
-                showAbout.toggle()
-            }, label: {
-                HStack {
-                    Image(systemName: "info.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18)
-                    Text("About")
-                        .font(.caption)
-                        .fontWeight(.bold)
+            Picker(
+                selection: optionBinding,
+                label:
+                    HStack(spacing: 4) {
+                        Image(systemName: "ellipsis.circle.fill")
+                        Text("More")
+                    }) {
+                ForEach(options, id: \.self) { option in
+                    HStack {
+                        Text(option.title)
+                        Image(systemName: option.systemImageName)
+                    }
+                    .tag(option)
                 }
-            })
-            .sheet(isPresented: $showAbout) {
-                AboutView()
             }
+            .pickerStyle(MenuPickerStyle())
         }
-        .padding(.horizontal)
+        .padding()
     }
 
     private var logInModeView: some View {
@@ -239,6 +248,30 @@ enum LogInMode {
         switch self {
         case .emailPassword: return "arrow.forward.circle.fill"
         case .apiKey: return "arrow.backward.circle.fill"
+        }
+    }
+}
+
+private enum LogInOption: CaseIterable {
+    case about, apiKey, apiUrl, forgotPassword, none
+
+    var title: String {
+        switch self {
+        case .about: return "About SimpleLogin"
+        case .apiKey: return "Log in using API key"
+        case .apiUrl: return "Edit API URL"
+        case .forgotPassword: return "Reset forgotten password"
+        case .none: return ""
+        }
+    }
+
+    var systemImageName: String {
+        switch self {
+        case .about: return "info.circle.fill"
+        case .apiKey: return "arrow.forward.circle.fill"
+        case .apiUrl: return "link.circle.fill"
+        case .forgotPassword: return "lock.circle.fill"
+        case .none: return ""
         }
     }
 }
