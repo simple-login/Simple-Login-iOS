@@ -33,6 +33,7 @@
 		C043D41426E01DBF0051B282 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C043D41326E01DBF0051B282 /* KeychainAccess */; };
 		C043D41626E01E280051B282 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C043D41526E01E280051B282 /* KeychainService.swift */; };
 		C044BA7D26DBD03300CAB46F /* LoadableToastableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */; };
+		C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CC54A26FBCAAE003BC32D /* ResetPasswordView.swift */; };
 		C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C079864926B34D5F006C9FC0 /* LogInView.swift */; };
 		C0AAE98E26E4152A00247742 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAE98D26E4152A00247742 /* Blur.swift */; };
 		C0AAE99426E41F3500247742 /* AliasesViewToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAE99326E41F3500247742 /* AliasesViewToolbar.swift */; };
@@ -90,6 +91,7 @@
 		C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		C043D41526E01E280051B282 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableToastableViewModifier.swift; sourceTree = "<group>"; };
+		C05CC54A26FBCAAE003BC32D /* ResetPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		C079864926B34D5F006C9FC0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		C0AAE98D26E4152A00247742 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		C0AAE99326E41F3500247742 /* AliasesViewToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewToolbar.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				C079864926B34D5F006C9FC0 /* LogInView.swift */,
 				C03760F726DC0D6A00E5ECAC /* LogInViewModel.swift */,
 				C00A563726DAD9E000A550A2 /* OtpView.swift */,
+				C05CC54A26FBCAAE003BC32D /* ResetPasswordView.swift */,
 				C0259EAC26DA30D70056A977 /* SignUpView.swift */,
 			);
 			path = "Log in";
@@ -465,6 +468,7 @@
 				C044BA7D26DBD03300CAB46F /* LoadableToastableViewModifier.swift in Sources */,
 				C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */,
 				C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */,
+				C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */,
 				C00A563626DAC6D000A550A2 /* ApiUrlView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

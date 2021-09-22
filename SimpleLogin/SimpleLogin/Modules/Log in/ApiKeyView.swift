@@ -9,7 +9,6 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct ApiKeyView: View {
-    @EnvironmentObject private var preferences: Preferences
     @Environment(\.presentationMode) private var presentationMode
     @State private var value = ""
     let onSetApiKey: (ApiKey) -> Void
@@ -19,7 +18,7 @@ struct ApiKeyView: View {
             List {
                 Section(header: Text(""),
                         footer: footerText) {
-                    TextField("API Key", text: $value)
+                    TextField("Enter API Key", text: $value)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
                 }

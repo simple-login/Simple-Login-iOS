@@ -21,6 +21,7 @@ struct LogInView: View {
     @State private var showAboutView = false
     @State private var showApiKeyView = false
     @State private var showApiUrlView = false
+    @State private var showResetPasswordView = false
 
     @State private var isLaunching = true
     @State private var showSignUpView = false
@@ -135,12 +136,12 @@ struct LogInView: View {
                 case .about: showAboutView = true
                 case .apiKey: showApiKeyView = true
                 case .apiUrl: showApiUrlView = true
-                case .forgotPassword: break
+                case .resetPassword: showResetPasswordView = true
                 default: break
                 }
             }
         )
-        let options: [LogInOption] = [.about, .apiKey, .apiUrl, .forgotPassword]
+        let options: [LogInOption] = [.about, .apiKey, .apiUrl, .resetPassword]
 
         return HStack {
             EmptyView()
@@ -162,6 +163,13 @@ struct LogInView: View {
             EmptyView()
                 .fullScreenCover(isPresented: $showApiUrlView) {
                     ApiUrlView(apiUrl: preferences.apiUrl)
+                }
+
+            EmptyView()
+                .sheet(isPresented: $showResetPasswordView) {
+                    ResetPasswordView { email in
+                        // TODO: Reset password
+                    }
                 }
 
             Spacer()
@@ -225,14 +233,14 @@ struct LogInView: View {
 }
 
 private enum LogInOption: CaseIterable {
-    case about, apiKey, apiUrl, forgotPassword, none
+    case about, apiKey, apiUrl, resetPassword, none
 
     var title: String {
         switch self {
         case .about: return "About SimpleLogin"
         case .apiKey: return "Log in using API key"
         case .apiUrl: return "Edit API URL"
-        case .forgotPassword: return "Reset forgotten password"
+        case .resetPassword: return "Reset forgotten password"
         case .none: return ""
         }
     }
@@ -242,7 +250,7 @@ private enum LogInOption: CaseIterable {
         case .about: return "info.circle.fill"
         case .apiKey: return "arrow.forward.circle.fill"
         case .apiUrl: return "link.circle.fill"
-        case .forgotPassword: return "lock.circle.fill"
+        case .resetPassword: return "lock.circle.fill"
         case .none: return ""
         }
     }
