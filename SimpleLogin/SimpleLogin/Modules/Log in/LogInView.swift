@@ -14,15 +14,20 @@ struct LogInView: View {
     @Environment(\.loadingMode) private var loadingMode
     @Environment(\.toastMessage) private var toastMessage
     @StateObject private var viewModel: LogInViewModel
+
     @AppStorage("Email") private var email = ""
     @State private var password = ""
-    @State private var apiKey = ""
-    @State private var showApiUrl = false
-    @State private var showAbout = false
+
+    @State private var showAboutView = false
+    @State private var showApiKeyView = false
+    @State private var showApiUrlView = false
+
     @State private var isLaunching = true
-    @State private var showSignUp = false
+    @State private var showSignUpView = false
+
     @State private var mfaKey = ""
     @State private var showOtpView = false
+
     let onComplete: (ApiKey, SLClient) -> Void
 
     init(apiUrl: String, onComplete: @escaping (ApiKey, SLClient) -> Void) {
@@ -72,7 +77,7 @@ struct LogInView: View {
                     if !isLaunching {
                         bottomView
                             .fixedSize(horizontal: false, vertical: true)
-                            .fullScreenCover(isPresented: $showSignUp, content: SignUpView.init)
+                            .fullScreenCover(isPresented: $showSignUpView, content: SignUpView.init)
                     }
                 }
             }
@@ -127,9 +132,9 @@ struct LogInView: View {
             },
             set: {
                 switch $0 {
-                case .about: showAbout = true
-                case .apiKey: break
-                case .apiUrl: showApiUrl = true
+                case .about: showAboutView = true
+                case .apiKey: showApiKeyView = true
+                case .apiUrl: showApiUrlView = true
                 case .forgotPassword: break
                 default: break
                 }
@@ -139,13 +144,24 @@ struct LogInView: View {
 
         return HStack {
             EmptyView()
-                .fullScreenCover(isPresented: $showApiUrl) {
-                    ApiUrlView(apiUrl: preferences.apiUrl)
+                .sheet(isPresented: $showAboutView) {
+                    AboutView()
                 }
 
             EmptyView()
-                .sheet(isPresented: $showAbout) {
-                    AboutView()
+                .sheet(isPresented: $showApiKeyView) {
+                    ApiKeyView { apiKey in
+                        if let client = viewModel.client {
+                            onComplete(apiKey, client)
+                        } else {
+                            toastMessage.wrappedValue = "Invalid API URL"
+                        }
+                    }
+                }
+
+            EmptyView()
+                .fullScreenCover(isPresented: $showApiUrlView) {
+                    ApiUrlView(apiUrl: preferences.apiUrl)
                 }
 
             Spacer()
@@ -192,7 +208,7 @@ struct LogInView: View {
             }
 
             Button(action: {
-                showSignUp.toggle()
+                showSignUpView.toggle()
             }, label: {
                 Text("Create new account")
                     .font(.callout)
