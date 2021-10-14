@@ -10,7 +10,7 @@ import Foundation
 
 extension String {
     func isValidEmailPrefix() -> Bool {
-        if RegexHelpers.firstMatch(for: #"([^0-9|A-Z|a-z|\-|_])"#, inString: self) != nil {
+        if RegexHelpers.firstMatch(for: #"([^0-9|A-Z|a-z|\-|_|\.])"#, inString: self) != nil {
             return false
         }
 
