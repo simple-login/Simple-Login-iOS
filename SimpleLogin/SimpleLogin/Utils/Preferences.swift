@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-let kDefaultApiUrlString = "https://app.simplelogin.io/"
+let kDefaultApiUrlString = "https://app.sldev.ovh/"
 
 final class Preferences: ObservableObject {
     private init() {}

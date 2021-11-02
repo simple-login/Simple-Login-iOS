@@ -154,6 +154,7 @@ struct OtpView: View {
             .navigationBarTitle("Enter OTP", displayMode: .inline)
             .navigationBarItems(leading: closeButton)
         }
+        .accentColor(.slPurple)
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             if isLoading {
                 loadingMode.wrappedValue.startLoading()

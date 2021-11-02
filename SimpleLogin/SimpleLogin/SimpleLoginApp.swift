@@ -16,13 +16,14 @@ struct SimpleLoginApp: App {
 
     init() {
         UIView.appearance(whenContainedInInstancesOf:
-                            [UIAlertController.self]).tintColor = UIColor(named: "AccentColor")
+                            [UIAlertController.self]).tintColor = .slPurple
     }
 
     var body: some Scene {
         WindowGroup {
             if let apiKey = apiKey, let client = client {
                 MainView(apiKey: apiKey, client: client)
+                    .accentColor(.slPurple)
                     .environmentObject(preferences)
             } else {
                 LogInView(apiUrl: preferences.apiUrl) { apiKey, client in
@@ -30,6 +31,7 @@ struct SimpleLoginApp: App {
                     self.client = client
                 }
                 .loadableToastable()
+                .accentColor(.slPurple)
                 .environmentObject(preferences)
             }
         }
