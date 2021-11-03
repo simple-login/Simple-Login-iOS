@@ -9,6 +9,7 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct AliasesView: View {
+    @Environment(\.toastMessage) private var toastMessage
     @StateObject private var viewModel: AliasesViewModel
     @State private var selectedStatus: AliasStatus = .all
     @State private var showSearchView = false
@@ -41,27 +42,17 @@ struct AliasesView: View {
                     LazyVStack {
                         ForEach(0...100, id: \.self) { number in
                             NavigationLink(destination: Text("#\(number)")) {
-                                if number.isMultiple(of: 2) {
-                                    AliasCompactView(
-                                        alias: .claypool,
-                                        onCopy: {
-                                            print("Copy: \(number)")
-                                        },
-                                        onSendMail: {
-                                            print("Send mail: \(number)")
-                                        })
-                                        .padding(.horizontal, 4)
-                                } else {
-                                    AliasCompactView(
-                                        alias: .ccohen,
-                                        onCopy: {
-                                            print("Copy: \(number)")
-                                        },
-                                        onSendMail: {
-                                            print("Send mail: \(number)")
-                                        })
-                                        .padding(.horizontal, 4)
-                                }
+                                let alias: Alias = number.isMultiple(of: 2) ? .claypool : .ccohen
+                                AliasCompactView(
+                                    alias: alias,
+                                    onCopy: {
+                                        toastMessage.wrappedValue = "Copied \(alias.email)"
+                                        UIPasteboard.general.string = alias.email
+                                    },
+                                    onSendMail: {
+                                        print("Send mail: \(number)")
+                                    })
+                                    .padding(.horizontal, 4)
                             }
                             .buttonStyle(FlatLinkButtonStyle())
                         }
