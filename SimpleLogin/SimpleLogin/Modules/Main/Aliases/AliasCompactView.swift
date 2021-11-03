@@ -15,7 +15,7 @@ struct AliasCompactView: View {
     let onSendMail: () -> Void
 
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             Color(enabled ? .slPurple : (.darkGray))
                 .frame(width: 4)
 
@@ -25,7 +25,7 @@ struct AliasCompactView: View {
                 ActivityView(alias: alias)
                 ActionsView(enabled: $enabled, onCopy: onCopy, onSendMail: onSendMail)
             }
-            .padding(.vertical, 8)
+            .padding(8)
         }
         .background(enabled ? Color.slPurple.opacity(0.05) : Color(.darkGray).opacity(0.05))
         .fixedSize(horizontal: false, vertical: true)
@@ -76,56 +76,36 @@ private struct ActivityView: View {
     var body: some View {
         HStack(spacing: 12) {
             // Forward
-            section(title: "Forward",
-                    titleColor: .green,
+            section(action: .forward,
                     detail: "\(alias.forwardCount)")
 
             Divider()
 
             // Reply
-            section(title: "Reply",
-                    titleColor: .blue,
+            section(action: .reply,
                     detail: "\(alias.replyCount)")
 
             Divider()
 
             // Block
-            section(title: "Block",
-                    titleColor: .red,
+            section(action: .block,
                     detail: "\(alias.blockCount)")
-
-            if let latestActivity = alias.latestActivity {
-                Divider()
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Yesterday")
-                        .font(.caption2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.accentColor)
-
-                    HStack(spacing: 2) {
-                        Image(systemName: latestActivity.action.iconSystemName)
-                            .foregroundColor(latestActivity.action.color)
-                        Text(latestActivity.contact.email)
-                        Spacer()
-                    }
-                    .font(.caption)
-
-                    Spacer()
-                }
-            }
 
             Spacer()
         }
         .fixedSize(horizontal: false, vertical: true)
     }
 
-    private func section(title: String, titleColor: Color, detail: String) -> some View {
+    private func section(action: ActivityAction, detail: String) -> some View {
         VStack {
-            Text(title)
-                .font(.caption2)
-                .fontWeight(.semibold)
-                .foregroundColor(titleColor)
+            Label {
+                Text(action.title)
+                    .fontWeight(.semibold)
+            } icon: {
+                Image(systemName: action.iconSystemName)
+            }
+            .font(.caption2)
+            .foregroundColor(action.color)
 
             Text(detail)
                 .font(.headline)
@@ -144,15 +124,6 @@ private struct ActionsView: View {
     var body: some View {
         HStack {
             Button {
-                enabled.toggle()
-            } label: {
-                Label("Active", systemImage: enabled ? "checkmark.circle.fill" : "circle.dashed")
-                    .foregroundColor(enabled ? .accentColor : Color(.darkGray))
-            }
-
-            Spacer()
-
-            Button {
                 onCopy()
             } label: {
                 Label("Copy", systemImage: "doc.on.doc")
@@ -165,10 +136,20 @@ private struct ActionsView: View {
             } label: {
                 Label("Send email", systemImage: "paperplane")
             }
+
+            Spacer()
+
+            Button {
+                enabled.toggle()
+            } label: {
+                Label("Active", systemImage: enabled ? "checkmark.circle.fill" : "circle.dashed")
+                    .foregroundColor(enabled ? .accentColor : Color(.darkGray))
+            }
+
+            Spacer()
         }
         .font(.subheadline)
         .foregroundColor(.accentColor)
-        .padding(.horizontal)
     }
 }
 

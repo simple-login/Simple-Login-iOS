@@ -24,4 +24,13 @@ extension ActivityAction {
         case .forward: return .green
         }
     }
+
+    var title: String {
+        switch self {
+        case .forward: return "Forward"
+        case .reply: return "Reply"
+        case .block: return "Block"
+        case .bounced: return "Bounced"
+        }
+    }
 }
