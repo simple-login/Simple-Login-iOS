@@ -40,9 +40,8 @@ struct AliasesView: View {
 
                 ScrollView {
                     LazyVStack {
-                        ForEach(0...100, id: \.self) { number in
-                            NavigationLink(destination: Text("#\(number)")) {
-                                let alias: Alias = number.isMultiple(of: 2) ? .claypool : .ccohen
+                        ForEach(viewModel.aliases, id: \.id) { alias in
+                            NavigationLink(destination: Text(alias.email)) {
                                 AliasCompactView(
                                     alias: alias,
                                     onCopy: {
@@ -50,7 +49,7 @@ struct AliasesView: View {
                                         UIPasteboard.general.string = alias.email
                                     },
                                     onSendMail: {
-                                        print("Send mail: \(number)")
+                                        print("Send mail: \(alias.email)")
                                     })
                                     .padding(.horizontal, 4)
                             }
@@ -65,6 +64,9 @@ struct AliasesView: View {
             .actionSheet(isPresented: $showRandomAliasBottomSheet) {
                 randomAliasActionSheet
             }
+        }
+        .onAppear {
+            viewModel.fetchMoreAliases()
         }
     }
 

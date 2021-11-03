@@ -5,10 +5,9 @@
 //  Created by Thanh-Nhon Nguyen on 02/09/2021.
 //
 
-import Combine
 import SimpleLoginPackage
 
-class BaseViewModel: ObservableObject {
+class BaseViewModel {
     let apiKey: ApiKey
     let client: SLClient
 

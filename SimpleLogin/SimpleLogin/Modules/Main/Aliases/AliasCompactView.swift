@@ -30,6 +30,9 @@ struct AliasCompactView: View {
         .background(enabled ? Color.slPurple.opacity(0.05) : Color(.darkGray).opacity(0.05))
         .fixedSize(horizontal: false, vertical: true)
         .clipShape(RoundedRectangle(cornerRadius: 4))
+        .onAppear {
+            enabled = alias.enabled
+        }
     }
 }
 

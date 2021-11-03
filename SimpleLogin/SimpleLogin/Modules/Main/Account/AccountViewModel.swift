@@ -7,4 +7,4 @@
 
 import Combine
 
-final class AccountViewModel: BaseViewModel {}
+final class AccountViewModel: BaseViewModel, ObservableObject {}
