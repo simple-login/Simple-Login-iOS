@@ -55,7 +55,7 @@ private struct EmailAndCreationDateView: View {
             Spacer()
 
             Group {
-                Text("3 days ago")
+                Text(alias.relativeCreationDateString)
                 Image(systemName: "chevron.right")
             }
             .font(.subheadline)
