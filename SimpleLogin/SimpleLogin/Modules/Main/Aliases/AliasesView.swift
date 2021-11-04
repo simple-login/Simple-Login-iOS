@@ -9,16 +9,13 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct AliasesView: View {
+    @EnvironmentObject private var session: Session
     @Environment(\.toastMessage) private var toastMessage
-    @StateObject private var viewModel: AliasesViewModel
+    @StateObject private var viewModel = AliasesViewModel()
     @State private var selectedStatus: AliasStatus = .all
     @State private var showSearchView = false
     @State private var showRandomAliasBottomSheet = false
     @State private var showCreateAliasView = false
-
-    init(apiKey: ApiKey, client: SLClient) {
-        _viewModel = StateObject(wrappedValue: .init(apiKey: apiKey, client: client))
-    }
 
     var body: some View {
         NavigationView {
@@ -53,7 +50,7 @@ struct AliasesView: View {
                                     })
                                     .padding(.horizontal, 4)
                                     .onAppear {
-                                        viewModel.getMoreAliasesIfNeed(currentAlias: alias)
+                                        viewModel.getMoreAliasesIfNeed(session: session, currentAlias: alias)
                                     }
                             }
                             .buttonStyle(FlatLinkButtonStyle())
@@ -72,6 +69,9 @@ struct AliasesView: View {
             .actionSheet(isPresented: $showRandomAliasBottomSheet) {
                 randomAliasActionSheet
             }
+        }
+        .onAppear {
+            viewModel.getMoreAliasesIfNeed(session: session, currentAlias: nil)
         }
     }
 

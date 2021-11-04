@@ -9,34 +9,29 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class AliasesViewModel: BaseViewModel, ObservableObject {
+final class AliasesViewModel: ObservableObject {
     @Published private(set) var aliases: [Alias] = []
     @Published private(set) var isLoading = false
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
     private var canLoadMorePages = true
 
-    override init(apiKey: ApiKey, client: SLClient) {
-        super.init(apiKey: apiKey, client: client)
-        getMoreAliases()
-    }
-
-    func getMoreAliasesIfNeed(currentAlias alias: Alias?) {
+    func getMoreAliasesIfNeed(session: Session, currentAlias alias: Alias?) {
         guard let alias = alias else {
-            getMoreAliases()
+            getMoreAliases(session: session)
             return
         }
 
         let thresholdIndex = aliases.index(aliases.endIndex, offsetBy: -5)
         if aliases.firstIndex(where: { $0.id == alias.id }) == thresholdIndex {
-            getMoreAliases()
+            getMoreAliases(session: session)
         }
     }
 
-    private func getMoreAliases() {
+    private func getMoreAliases(session: Session) {
         guard !isLoading && canLoadMorePages else { return }
         isLoading = true
-        client.getAliases(apiKey: apiKey, page: currentPage)
+        session.client.getAliases(apiKey: session.apiKey, page: currentPage)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }

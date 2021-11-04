@@ -26,6 +26,7 @@ struct SimpleLoginApp: App {
                     .loadableToastable()
                     .accentColor(.slPurple)
                     .environmentObject(preferences)
+                    .environmentObject(Session(apiKey: apiKey, client: client))
             } else {
                 LogInView(apiUrl: preferences.apiUrl) { apiKey, client in
                     self.apiKey = apiKey

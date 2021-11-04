@@ -28,7 +28,7 @@ struct MainView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            AliasesView(apiKey: apiKey, client: client)
+            AliasesView()
                 .tabItem {
                     Image(systemName: "at")
                     Text(MainViewTab.aliases.title)
