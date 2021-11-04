@@ -37,6 +37,10 @@ struct AliasesView: View {
 
                 ScrollView {
                     LazyVStack {
+                        // Upper spacer
+                        Spacer()
+                            .frame(height: 8)
+
                         ForEach(viewModel.aliases, id: \.id) { alias in
                             NavigationLink(destination: Text(alias.email)) {
                                 AliasCompactView(
@@ -60,6 +64,10 @@ struct AliasesView: View {
                             ProgressView()
                                 .padding()
                         }
+
+                        // Lower spacer
+                        Spacer()
+                            .frame(height: 8)
                     }
                 }
             }

@@ -22,7 +22,7 @@ struct SimpleLoginApp: App {
     var body: some Scene {
         WindowGroup {
             if let apiKey = apiKey, let client = client {
-                MainView(apiKey: apiKey, client: client)
+                MainView()
                     .loadableToastable()
                     .accentColor(.slPurple)
                     .environmentObject(preferences)

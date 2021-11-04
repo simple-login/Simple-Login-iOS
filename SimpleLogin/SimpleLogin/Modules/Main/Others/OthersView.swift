@@ -9,11 +9,7 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct OthersView: View {
-    @StateObject private var viewModel: OthersViewModel
-
-    init(apiKey: ApiKey, client: SLClient) {
-        _viewModel = StateObject(wrappedValue: .init(apiKey: apiKey, client: client))
-    }
+    @StateObject private var viewModel = OthersViewModel()
 
     var body: some View {
         Text("Others")

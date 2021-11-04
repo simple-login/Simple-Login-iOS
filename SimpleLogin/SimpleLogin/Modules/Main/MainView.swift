@@ -23,8 +23,6 @@ enum MainViewTab {
 
 struct MainView: View {
     @State private var selectedTab: MainViewTab = .aliases
-    let apiKey: ApiKey
-    let client: SLClient
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -35,14 +33,14 @@ struct MainView: View {
                 }
                 .tag(MainViewTab.aliases)
 
-            OthersView(apiKey: apiKey, client: client)
+            OthersView()
                 .tabItem {
                     Image(systemName: selectedTab == .others ? "tray.2.fill" : "tray.2")
                     Text(MainViewTab.others.title)
                 }
                 .tag(MainViewTab.others)
 
-            AccountView(apiKey: apiKey, client: client)
+            AccountView()
                 .tabItem {
                     Image(systemName: selectedTab == .account ? "person.fill" : "person")
                     Text(MainViewTab.account.title)

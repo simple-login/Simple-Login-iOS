@@ -9,11 +9,7 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct AccountView: View {
-    @StateObject private var viewModel: AccountViewModel
-
-    init(apiKey: ApiKey, client: SLClient) {
-        _viewModel = StateObject(wrappedValue: .init(apiKey: apiKey, client: client))
-    }
+    @StateObject private var viewModel = AccountViewModel()
 
     var body: some View {
         Text("Account")
