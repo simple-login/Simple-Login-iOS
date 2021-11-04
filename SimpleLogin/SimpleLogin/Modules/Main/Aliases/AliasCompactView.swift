@@ -9,10 +9,19 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct AliasCompactView: View {
-    @State private var enabled = false
+    @State private var enabled: Bool
     let alias: Alias
     let onCopy: () -> Void
     let onSendMail: () -> Void
+
+    init(alias: Alias,
+         onCopy: @escaping () -> Void,
+         onSendMail: @escaping () -> Void) {
+        self.alias = alias
+        self.onCopy = onCopy
+        self.onSendMail = onSendMail
+        _enabled = State(initialValue: alias.enabled)
+    }
 
     var body: some View {
         HStack(spacing: 0) {
@@ -30,9 +39,6 @@ struct AliasCompactView: View {
         .background(enabled ? Color.slPurple.opacity(0.05) : Color(.darkGray).opacity(0.05))
         .fixedSize(horizontal: false, vertical: true)
         .clipShape(RoundedRectangle(cornerRadius: 4))
-        .onAppear {
-            enabled = alias.enabled
-        }
     }
 }
 
@@ -80,39 +86,37 @@ private struct ActivityView: View {
         HStack(spacing: 12) {
             // Forward
             section(action: .forward,
-                    detail: "\(alias.forwardCount)")
+                    count: alias.forwardCount)
 
             Divider()
 
             // Reply
             section(action: .reply,
-                    detail: "\(alias.replyCount)")
+                    count: alias.replyCount)
 
             Divider()
 
             // Block
             section(action: .block,
-                    detail: "\(alias.blockCount)")
+                    count: alias.blockCount)
 
             Spacer()
         }
         .fixedSize(horizontal: false, vertical: true)
     }
 
-    private func section(action: ActivityAction, detail: String) -> some View {
+    private func section(action: ActivityAction, count: Int) -> some View {
         VStack {
-            Label {
-                Text(action.title)
-                    .fontWeight(.semibold)
-            } icon: {
-                Image(systemName: action.iconSystemName)
-            }
-            .font(.caption2)
-            .foregroundColor(action.color)
+            Text(action.title)
+                .fontWeight(.semibold)
+                .font(.caption2)
+                .foregroundColor(action.color)
 
-            Text(detail)
+            Text("\(count)")
                 .font(.headline)
                 .fontWeight(.bold)
+                // swiftlint:disable:next empty_count
+                .opacity(count == 0 ? 0.5 : 1)
 
             Spacer()
         }
