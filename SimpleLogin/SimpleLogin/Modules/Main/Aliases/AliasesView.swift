@@ -52,8 +52,16 @@ struct AliasesView: View {
                                         print("Send mail: \(alias.email)")
                                     })
                                     .padding(.horizontal, 4)
+                                    .onAppear {
+                                        viewModel.getMoreAliasesIfNeed(currentAlias: alias)
+                                    }
                             }
                             .buttonStyle(FlatLinkButtonStyle())
+                        }
+
+                        if viewModel.isLoading {
+                            ProgressView()
+                                .padding()
                         }
                     }
                 }
@@ -64,9 +72,6 @@ struct AliasesView: View {
             .actionSheet(isPresented: $showRandomAliasBottomSheet) {
                 randomAliasActionSheet
             }
-        }
-        .onAppear {
-            viewModel.fetchMoreAliases()
         }
     }
 

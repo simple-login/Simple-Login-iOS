@@ -11,14 +11,36 @@ import SwiftUI
 
 final class AliasesViewModel: BaseViewModel, ObservableObject {
     @Published private(set) var aliases: [Alias] = []
+    @Published private(set) var isLoading = false
     private var cancellables = Set<AnyCancellable>()
-    private var cancellable: AnyCancellable?
-    private var page = 0
+    private var currentPage = 0
+    private var canLoadMorePages = true
 
-    func fetchMoreAliases() {
-        client.getAliases(apiKey: apiKey, page: page)
+    override init(apiKey: ApiKey, client: SLClient) {
+        super.init(apiKey: apiKey, client: client)
+        getMoreAliases()
+    }
+
+    func getMoreAliasesIfNeed(currentAlias alias: Alias?) {
+        guard let alias = alias else {
+            getMoreAliases()
+            return
+        }
+
+        let thresholdIndex = aliases.index(aliases.endIndex, offsetBy: -5)
+        if aliases.firstIndex(where: { $0.id == alias.id }) == thresholdIndex {
+            getMoreAliases()
+        }
+    }
+
+    private func getMoreAliases() {
+        guard !isLoading && canLoadMorePages else { return }
+        isLoading = true
+        client.getAliases(apiKey: apiKey, page: currentPage)
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(let error): break
@@ -26,8 +48,8 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
             } receiveValue: { [weak self] aliasArray in
                 guard let self = self else { return }
                 self.aliases.append(contentsOf: aliasArray.aliases)
-                print("Fetched \(self.aliases.count)")
-                self.page += 1
+                self.currentPage += 1
+                self.canLoadMorePages = aliasArray.aliases.count == 20
             }
             .store(in: &cancellables)
     }
