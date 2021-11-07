@@ -22,13 +22,13 @@ struct AliasDetailView: View {
             Group {
                 CreationDateSection(alias: viewModel.alias)
                 Divider()
-                MailboxesSection(alias: viewModel.alias)
+                MailboxesSection(viewModel: viewModel)
                 Divider()
                 NameSection(name: viewModel.alias.name)
                 Divider()
                 NotesSection(notes: viewModel.alias.note)
                 Divider()
-                ActivitiesView(viewModel: viewModel)
+                ActivitiesSection(viewModel: viewModel)
             }
             .padding(.horizontal)
         }
@@ -106,6 +106,7 @@ struct AliasDetailView: View {
     }
 }
 
+// MARK: - Sections
 private struct CreationDateSection: View {
     let alias: Alias
 
@@ -125,8 +126,9 @@ private struct CreationDateSection: View {
 }
 
 private struct MailboxesSection: View {
+    @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var showingEditMailboxesView = false
     @State private var dummyItem = ""
-    let alias: Alias
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -143,7 +145,7 @@ private struct MailboxesSection: View {
                 Spacer()
 
                 Button(action: {
-                    //
+                    showingEditMailboxesView = true
                 }, label: {
                     Text("Edit")
                 })
@@ -151,13 +153,13 @@ private struct MailboxesSection: View {
             .padding(.vertical, 8)
 
             VStack(alignment: .leading) {
-                ForEach(0..<min(3, alias.mailboxes.count), id: \.self) { index in
-                    let mailbox = alias.mailboxes[index]
+                ForEach(0..<min(3, viewModel.alias.mailboxes.count), id: \.self) { index in
+                    let mailbox = viewModel.alias.mailboxes[index]
                     Text(mailbox.email)
                 }
             }
 
-            if alias.mailboxes.count > 3 {
+            if viewModel.alias.mailboxes.count > 3 {
                 HStack {
                     Spacer()
                     Image(systemName: "ellipsis")
@@ -165,6 +167,9 @@ private struct MailboxesSection: View {
                 }
                 .padding(.vertical, 4)
             }
+        }
+        .sheet(isPresented: $showingEditMailboxesView) {
+            EditMailboxesView(viewModel: viewModel)
         }
     }
 }
@@ -235,7 +240,7 @@ private struct NotesSection: View {
     }
 }
 
-private struct ActivitiesView: View {
+private struct ActivitiesSection: View {
     @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
 
@@ -282,7 +287,7 @@ private struct ActivitiesView: View {
                     }
                 }
 
-                if viewModel.isLoading {
+                if viewModel.isLoadingActivities {
                     ProgressView()
                         .padding()
                 }
@@ -332,6 +337,76 @@ private struct ActivityView: View {
     }
 }
 
+// MARK: - Edit modal views
+private struct EditMailboxesView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var session: Session
+    @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var selectedIds: [Int] = []
+
+    var body: some View {
+        NavigationView {
+            Group {
+                if viewModel.isLoadingMailboxes {
+                    ProgressView()
+                } else if !viewModel.mailboxes.isEmpty {
+                    mailboxesList
+                } else {
+                    // TODO: Reload mailboxes here
+                }
+            }
+            .navigationTitle("Mailboxes")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(leading: cancelButton, trailing: doneButton)
+        }
+        .onAppear {
+            selectedIds = viewModel.alias.mailboxes.map { $0.id }
+            viewModel.getMailboxes(session: session)
+        }
+    }
+
+    private var cancelButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Cancel")
+        })
+    }
+
+    private var doneButton: some View {
+        Button(action: {}, label: {
+            Text("Done")
+        })
+    }
+
+    private var mailboxesList: some View {
+        List {
+            Section(header: Text(viewModel.alias.email)) {
+                ForEach(viewModel.mailboxes, id: \.id) { mailbox in
+                    HStack {
+                        Text(mailbox.email)
+                        Spacer()
+                        if selectedIds.contains(mailbox.id) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.accentColor)
+                        }
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        if selectedIds.contains(mailbox.id) && selectedIds.count > 1 {
+                            selectedIds.removeAll { $0 == mailbox.id }
+                        } else if !selectedIds.contains(mailbox.id) {
+                            selectedIds.append(mailbox.id)
+                        }
+                    }
+                }
+            }
+        }
+        .listStyle(InsetGroupedListStyle())
+    }
+}
+
+// MARK: - Previews
 struct AliasDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {

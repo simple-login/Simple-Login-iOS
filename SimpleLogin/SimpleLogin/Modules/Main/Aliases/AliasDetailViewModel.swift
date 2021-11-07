@@ -12,7 +12,9 @@ import SwiftUI
 final class AliasDetailViewModel: ObservableObject {
     @Published private(set) var alias: Alias
     @Published private(set) var activities: [AliasActivity] = []
-    @Published private(set) var isLoading = false
+    @Published private(set) var isLoadingActivities = false
+    @Published private(set) var mailboxes: [Mailbox] = []
+    @Published private(set) var isLoadingMailboxes = false
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
     private var canLoadMorePages = true
@@ -34,13 +36,13 @@ final class AliasDetailViewModel: ObservableObject {
     }
 
     private func getMoreActivities(session: Session) {
-        guard !isLoading && canLoadMorePages else { return }
-        isLoading = true
+        guard !isLoadingActivities && canLoadMorePages else { return }
+        isLoadingActivities = true
         session.client.getAliasActivities(apiKey: session.apiKey, id: alias.id, page: currentPage)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-                self.isLoading = false
+                self.isLoadingActivities = false
                 switch completion {
                 case .finished: break
                 case .failure(let error):
@@ -52,6 +54,27 @@ final class AliasDetailViewModel: ObservableObject {
                 self.activities.append(contentsOf: activityArray.activities)
                 self.currentPage += 1
                 self.canLoadMorePages = activityArray.activities.count == 20
+            }
+            .store(in: &cancellables)
+    }
+
+    func getMailboxes(session: Session) {
+        guard !isLoadingMailboxes else { return }
+        isLoadingMailboxes = true
+        session.client.getMailboxes(apiKey: session.apiKey)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoadingMailboxes = false
+                switch completion {
+                case .finished: break
+                case .failure(let error):
+                    // TODO: Handle error
+                    break
+                }
+            } receiveValue: { [weak self] mailboxArray in
+                guard let self = self else { return }
+                self.mailboxes = mailboxArray.mailboxes
             }
             .store(in: &cancellables)
     }
