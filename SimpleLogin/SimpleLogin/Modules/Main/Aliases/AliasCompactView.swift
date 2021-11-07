@@ -84,22 +84,11 @@ private struct ActivityView: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            // Forward
-            section(action: .forward,
-                    count: alias.forwardCount)
-
+            section(action: .forward, count: alias.forwardCount)
             Divider()
-
-            // Reply
-            section(action: .reply,
-                    count: alias.replyCount)
-
+            section(action: .reply, count: alias.replyCount)
             Divider()
-
-            // Block
-            section(action: .block,
-                    count: alias.blockCount)
-
+            section(action: .block, count: alias.blockCount)
             Spacer()
         }
         .fixedSize(horizontal: false, vertical: true)

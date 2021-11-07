@@ -46,6 +46,8 @@
 		C0D1D5A7272BCCA000F5CFC5 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */; };
 		C0D1D5A9272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */; };
 		C0F1963C273483CC0062B418 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963B273483CC0062B418 /* Session.swift */; };
+		C0F1963E27348EA10062B418 /* AliasDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963D27348EA10062B418 /* AliasDetailView.swift */; };
+		C0F1964027348EDA0062B418 /* AliasDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +112,8 @@
 		C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatLinkButtonStyle.swift; sourceTree = "<group>"; };
 		C0F1963B273483CC0062B418 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		C0F1963D27348EA10062B418 /* AliasDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailView.swift; sourceTree = "<group>"; };
+		C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,10 +242,12 @@
 		C03F4F2E26E1733200BBF2A8 /* Aliases */ = {
 			isa = PBXGroup;
 			children = (
-				C03B518D27288F2700C54130 /* AliasCompactView.swift */,
 				C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */,
 				C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */,
 				C0AAE99326E41F3500247742 /* AliasesViewToolbar.swift */,
+				C03B518D27288F2700C54130 /* AliasCompactView.swift */,
+				C0F1963D27348EA10062B418 /* AliasDetailView.swift */,
+				C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */,
 				C029769126F1406D0014DC3B /* AliasesSearchView.swift */,
 				C029769326F141A60014DC3B /* CreateAliasView.swift */,
 			);
@@ -483,12 +489,14 @@
 				C029769426F141A60014DC3B /* CreateAliasView.swift in Sources */,
 				C0AAE99426E41F3500247742 /* AliasesViewToolbar.swift in Sources */,
 				C00A563426DABC3900A550A2 /* ErrorMessageModifier.swift in Sources */,
+				C0F1963E27348EA10062B418 /* AliasDetailView.swift in Sources */,
 				C02F967226DB78D0000B100C /* ShakeEffect.swift in Sources */,
 				C03F4F1526E15ADD00BBF2A8 /* AliasesView.swift in Sources */,
 				C064797F272B3357009CA1F8 /* Alias.swift in Sources */,
 				C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */,
 				C03F4F2526E1665D00BBF2A8 /* OthersView.swift in Sources */,
 				C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */,
+				C0F1964027348EDA0062B418 /* AliasDetailViewModel.swift in Sources */,
 				C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */,
 				C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */,
 				C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */,

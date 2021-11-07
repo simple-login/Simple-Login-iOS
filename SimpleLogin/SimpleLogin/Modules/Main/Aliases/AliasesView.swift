@@ -42,7 +42,7 @@ struct AliasesView: View {
                             .frame(height: 8)
 
                         ForEach(viewModel.aliases, id: \.id) { alias in
-                            NavigationLink(destination: Text(alias.email)) {
+                            NavigationLink(destination: AliasDetailView(alias: alias)) {
                                 AliasCompactView(
                                     alias: alias,
                                     onCopy: {
