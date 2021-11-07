@@ -26,7 +26,7 @@ struct AliasDetailView: View {
                 Divider()
                 NameSection(viewModel: viewModel)
                 Divider()
-                NotesSection(notes: viewModel.alias.note)
+                NotesSection(viewModel: viewModel)
                 Divider()
                 ActivitiesSection(viewModel: viewModel)
             }
@@ -180,7 +180,7 @@ private struct NameSection: View {
     @State private var dummyItem = ""
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 Text("Display name")
                     .font(.title2)
@@ -212,11 +212,12 @@ private struct NameSection: View {
 }
 
 private struct NotesSection: View {
+    @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var showingEditNotesView = false
     @State private var dummyItem = ""
-    let notes: String?
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 Text("Notes")
                     .font(.title2)
@@ -230,16 +231,19 @@ private struct NotesSection: View {
                 Spacer()
 
                 Button(action: {
-                    //
+                    showingEditNotesView = true
                 }, label: {
-                    Text(notes == nil ? "Add" : "Edit")
+                    Text(viewModel.alias.note == nil ? "Add" : "Edit")
                 })
             }
             .padding(.vertical, 8)
 
-            if let notes = notes {
+            if let notes = viewModel.alias.note {
                 Text(notes)
             }
+        }
+        .sheet(isPresented: $showingEditNotesView) {
+            EditNotesView(viewModel: viewModel)
         }
     }
 }
@@ -433,6 +437,46 @@ private struct EditDisplayNameView: View {
         }
         .onAppear {
             displayName = viewModel.alias.name ?? ""
+        }
+    }
+
+    private var cancelButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Cancel")
+        })
+    }
+
+    private var doneButton: some View {
+        Button(action: {}, label: {
+            Text("Done")
+        })
+    }
+}
+
+private struct EditNotesView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var session: Session
+    @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var notes = ""
+
+    var body: some View {
+        NavigationView {
+            List {
+                Section(header: Text(viewModel.alias.email)) {
+                    TextEditor(text: $notes)
+                        .autocapitalization(.words)
+                        .disableAutocorrection(true)
+                }
+            }
+            .listStyle(InsetGroupedListStyle())
+            .navigationTitle("Notes")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(leading: cancelButton, trailing: doneButton)
+        }
+        .onAppear {
+            notes = viewModel.alias.note ?? ""
         }
     }
 
