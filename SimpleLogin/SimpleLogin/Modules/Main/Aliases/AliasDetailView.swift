@@ -39,11 +39,26 @@ struct AliasDetailView: View {
         .navigationBarItems(trailing: trailingButton)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(viewModel.alias.email)
-                    .font(.headline)
-                    .truncationMode(.middle)
-                    .frame(maxWidth: 280)
-                    .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
+                VStack(spacing: 0) {
+                    Text(viewModel.alias.email)
+                        .font(.headline)
+                        .truncationMode(.middle)
+                        .frame(maxWidth: 280)
+                        .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
+
+                    HStack {
+                        if viewModel.alias.pinned {
+                            Image(systemName: "bookmark.fill")
+                                .foregroundColor(.accentColor)
+
+                            Divider()
+                        }
+
+                        Text(viewModel.alias.enabled ? "Active" : "Inactive")
+                            .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
+                    }
+                    .font(.footnote)
+                }
             }
         }
         .onAppear {
