@@ -31,7 +31,9 @@ struct AliasCompactView: View {
             VStack(spacing: 4) {
                 EmailAndCreationDateView(enabled: $enabled, alias: alias)
                 AliasMailboxesView(alias: alias)
-                ActivitiesView(alias: alias)
+                if !alias.noActivities {
+                    ActivitiesView(alias: alias)
+                }
                 ActionsView(enabled: $enabled, onCopy: onCopy, onSendMail: onSendMail)
             }
             .padding(8)
