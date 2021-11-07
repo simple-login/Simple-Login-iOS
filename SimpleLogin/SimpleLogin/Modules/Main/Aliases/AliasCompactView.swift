@@ -50,9 +50,16 @@ private struct EmailAndCreationDateView: View {
 
     var body: some View {
         HStack {
-            Text(alias.email)
-                .font(.headline)
-                .foregroundColor(enabled ? .primary : .secondary)
+            Label {
+                Text(alias.email)
+                    .foregroundColor(enabled ? .primary : .secondary)
+            } icon: {
+                if alias.pinned {
+                    Image(systemName: "bookmark.fill")
+                        .foregroundColor(.accentColor)
+                }
+            }
+            .font(.headline)
 
             Spacer()
 
