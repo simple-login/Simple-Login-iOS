@@ -24,7 +24,7 @@ struct AliasDetailView: View {
                 Divider()
                 MailboxesSection(viewModel: viewModel)
                 Divider()
-                NameSection(name: viewModel.alias.name)
+                NameSection(viewModel: viewModel)
                 Divider()
                 NotesSection(notes: viewModel.alias.note)
                 Divider()
@@ -175,8 +175,9 @@ private struct MailboxesSection: View {
 }
 
 private struct NameSection: View {
+    @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var showingEditDisplayNameView = false
     @State private var dummyItem = ""
-    let name: String?
 
     var body: some View {
         VStack {
@@ -193,16 +194,19 @@ private struct NameSection: View {
                 Spacer()
 
                 Button(action: {
-                    //
+                    showingEditDisplayNameView = true
                 }, label: {
-                    Text(name == nil ? "Add" : "Edit")
+                    Text(viewModel.alias.name == nil ? "Add" : "Edit")
                 })
             }
             .padding(.vertical, 8)
 
-            if let name = name {
+            if let name = viewModel.alias.name {
                 Text(name)
             }
+        }
+        .sheet(isPresented: $showingEditDisplayNameView) {
+            EditDisplayNameView(viewModel: viewModel)
         }
     }
 }
@@ -403,6 +407,47 @@ private struct EditMailboxesView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
+    }
+}
+
+private struct EditDisplayNameView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var session: Session
+    @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var displayName = ""
+
+    var body: some View {
+        NavigationView {
+            List {
+                Section(header: Text(viewModel.alias.email)) {
+                    TextField("", text: $displayName)
+                        .labelsHidden()
+                        .autocapitalization(.words)
+                        .disableAutocorrection(true)
+                }
+            }
+            .listStyle(InsetGroupedListStyle())
+            .navigationTitle("Display name")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(leading: cancelButton, trailing: doneButton)
+        }
+        .onAppear {
+            displayName = viewModel.alias.name ?? ""
+        }
+    }
+
+    private var cancelButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Cancel")
+        })
+    }
+
+    private var doneButton: some View {
+        Button(action: {}, label: {
+            Text("Done")
+        })
     }
 }
 
