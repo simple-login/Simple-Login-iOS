@@ -27,7 +27,7 @@ struct AliasDetailView: View {
             Divider()
             NotesSection(notes: viewModel.alias.note)
             Divider()
-            ActivityView(alias: viewModel.alias)
+            ActivitiesView(alias: viewModel.alias)
         }
         .actionSheet(isPresented: $showingActionSheet) {
             actionSheet
@@ -215,21 +215,56 @@ private struct NotesSection: View {
     }
 }
 
-private struct ActivityView: View {
+private struct ActivitiesView: View {
     let alias: Alias
 
     var body: some View {
-        HStack {
-            section(action: .forward, count: alias.forwardCount)
-            section(action: .reply, count: alias.replyCount)
-            section(action: .block, count: alias.blockCount)
+        VStack(alignment: .leading) {
+            HStack {
+                Text("Last 14 days activities")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                Spacer()
+            }
+            .padding(.vertical, 8)
+
+            if alias.noActivities {
+                Text("No activities")
+                    .foregroundColor(.secondary)
+            } else {
+                HStack {
+                    Spacer()
+                    section(action: .forward, count: alias.forwardCount)
+                    Spacer()
+                    Divider()
+                    Spacer()
+                    section(action: .reply, count: alias.replyCount)
+                    Spacer()
+                    Divider()
+                    section(action: .block, count: alias.blockCount)
+                    Spacer()
+                }
+            }
         }
     }
 
     private func section(action: ActivityAction, count: Int) -> some View {
         VStack {
-            Text(action.title)
+            Label {
+                Text(action.title)
+                    .fontWeight(.semibold)
+            } icon: {
+                Image(systemName: action.iconSystemName)
+            }
+            .foregroundColor(action.color)
+
             Text("\(count)")
+                .font(.title2)
+                .fontWeight(.bold)
+                // swiftlint:disable:next empty_count
+                .opacity(count == 0 ? 0.5 : 1)
+
+            Spacer()
         }
     }
 }

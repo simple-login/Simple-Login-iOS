@@ -31,7 +31,7 @@ struct AliasCompactView: View {
             VStack(spacing: 4) {
                 EmailAndCreationDateView(enabled: $enabled, alias: alias)
                 AliasMailboxesView(alias: alias)
-                ActivityView(alias: alias)
+                ActivitiesView(alias: alias)
                 ActionsView(enabled: $enabled, onCopy: onCopy, onSendMail: onSendMail)
             }
             .padding(8)
@@ -79,7 +79,7 @@ private struct AliasMailboxesView: View {
     }
 }
 
-private struct ActivityView: View {
+private struct ActivitiesView: View {
     let alias: Alias
 
     var body: some View {

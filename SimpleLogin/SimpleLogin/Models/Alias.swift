@@ -30,4 +30,8 @@ extension Alias {
         formatter.dateTimeStyle = .named
         return formatter.string(for: creationDate) ?? ""
     }
+
+    var noActivities: Bool {
+        forwardCount + replyCount + blockCount == 0
+    }
 }
