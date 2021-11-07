@@ -38,7 +38,9 @@ final class AliasesViewModel: ObservableObject {
                 self.isLoading = false
                 switch completion {
                 case .finished: break
-                case .failure(let error): break
+                case .failure(let error):
+                    // TODO: Handle error
+                    break
                 }
             } receiveValue: { [weak self] aliasArray in
                 guard let self = self else { return }

@@ -9,6 +9,7 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct AliasDetailView: View {
+    @EnvironmentObject private var session: Session
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingActionSheet = false
 
@@ -18,21 +19,22 @@ struct AliasDetailView: View {
 
     var body: some View {
         ScrollView {
-            Divider()
-            CreationDateSection(alias: viewModel.alias)
-            Divider()
-            MailboxesSection(alias: viewModel.alias)
-            Divider()
-            NameSection(name: viewModel.alias.name)
-            Divider()
-            NotesSection(notes: viewModel.alias.note)
-            Divider()
-            ActivitiesView(alias: viewModel.alias)
+            Group {
+                CreationDateSection(alias: viewModel.alias)
+                Divider()
+                MailboxesSection(alias: viewModel.alias)
+                Divider()
+                NameSection(name: viewModel.alias.name)
+                Divider()
+                NotesSection(notes: viewModel.alias.note)
+                Divider()
+                ActivitiesView(viewModel: viewModel)
+            }
+            .padding(.horizontal)
         }
         .actionSheet(isPresented: $showingActionSheet) {
             actionSheet
         }
-        .padding(.horizontal)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: trailingButton)
         .toolbar {
@@ -43,6 +45,9 @@ struct AliasDetailView: View {
                     .frame(maxWidth: 280)
                     .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
             }
+        }
+        .onAppear {
+            viewModel.getMoreActivitiesIfNeed(session: session, currentActivity: nil)
         }
     }
 
@@ -71,12 +76,27 @@ struct AliasDetailView: View {
             print("Deactivea \(viewModel.alias.email)")
         }
 
+        let pinAction = ActionSheet.Button.default(Text("Pin")) {
+            // TODO: Pin alias
+            print("Pin \(viewModel.alias.email)")
+        }
+
+        let unpinAction = ActionSheet.Button.default(Text("Unpin")) {
+            // TODO: Unpin alias
+            print("Unpin \(viewModel.alias.email)")
+        }
+
         var buttons: [ActionSheet.Button] = []
         buttons.append(copyAction)
         if viewModel.alias.enabled {
             buttons.append(deactiveAction)
         } else {
             buttons.append(activateAction)
+        }
+        if viewModel.alias.pinned {
+            buttons.append(unpinAction)
+        } else {
+            buttons.append(pinAction)
         }
         buttons.append(.cancel())
 
@@ -216,10 +236,11 @@ private struct NotesSection: View {
 }
 
 private struct ActivitiesView: View {
-    let alias: Alias
+    @EnvironmentObject private var session: Session
+    @ObservedObject var viewModel: AliasDetailViewModel
 
     var body: some View {
-        VStack(alignment: .leading) {
+        LazyVStack {
             HStack {
                 Text("Last 14 days activities")
                     .font(.title2)
@@ -228,21 +249,42 @@ private struct ActivitiesView: View {
             }
             .padding(.vertical, 8)
 
-            if alias.noActivities {
+            if viewModel.alias.noActivities {
                 Text("No activities")
                     .foregroundColor(.secondary)
             } else {
                 HStack {
                     Spacer()
-                    section(action: .forward, count: alias.forwardCount)
+                    section(action: .forward,
+                            count: viewModel.alias.forwardCount)
                     Spacer()
                     Divider()
                     Spacer()
-                    section(action: .reply, count: alias.replyCount)
+                    section(action: .reply,
+                            count: viewModel.alias.replyCount)
                     Spacer()
                     Divider()
-                    section(action: .block, count: alias.blockCount)
+                    section(action: .block,
+                            count: viewModel.alias.blockCount)
                     Spacer()
+                }
+
+                ForEach(0..<viewModel.activities.count, id: \.self) { index in
+                    let activity = viewModel.activities[index]
+                    ActivityView(activity: activity)
+                        .padding(.vertical, 4)
+                        .onAppear {
+                            viewModel.getMoreActivitiesIfNeed(session: session, currentActivity: activity)
+                        }
+
+                    if index < viewModel.activities.count - 1 {
+                        Divider()
+                    }
+                }
+
+                if viewModel.isLoading {
+                    ProgressView()
+                        .padding()
                 }
             }
         }
@@ -266,6 +308,27 @@ private struct ActivitiesView: View {
 
             Spacer()
         }
+    }
+}
+
+private struct ActivityView: View {
+    let activity: AliasActivity
+
+    var body: some View {
+        HStack {
+            Image(systemName: activity.action.iconSystemName)
+                .foregroundColor(activity.action.color)
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(activity.action == .reply ? activity.to : activity.from)
+                Text("\(activity.dateString) (\(activity.relativeDateString))")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+            }
+
+            Spacer()
+        }
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 
