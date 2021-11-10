@@ -34,6 +34,7 @@
 		C043D41426E01DBF0051B282 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C043D41326E01DBF0051B282 /* KeychainAccess */; };
 		C043D41626E01E280051B282 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C043D41526E01E280051B282 /* KeychainService.swift */; };
 		C044BA7D26DBD03300CAB46F /* LoadableToastableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */; };
+		C05A4CDE273C6C73005F8CC5 /* AutoFocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */; };
 		C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CC54A26FBCAAE003BC32D /* ResetPasswordView.swift */; };
 		C064797D272B331D009CA1F8 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C064797C272B331D009CA1F8 /* Action.swift */; };
 		C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C079864926B34D5F006C9FC0 /* LogInView.swift */; };
@@ -99,6 +100,7 @@
 		C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		C043D41526E01E280051B282 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableToastableViewModifier.swift; sourceTree = "<group>"; };
+		C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFocusTextField.swift; sourceTree = "<group>"; };
 		C05CC54A26FBCAAE003BC32D /* ResetPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		C064797C272B331D009CA1F8 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		C079864926B34D5F006C9FC0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 		C0AAE98C26E4150200247742 /* Supporting Views */ = {
 			isa = PBXGroup;
 			children = (
+				C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */,
 				C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */,
 				C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */,
 				C044BA7C26DBD03300CAB46F /* LoadableToastableViewModifier.swift */,
@@ -505,6 +508,7 @@
 				C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */,
 				C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */,
 				C0D1D5A9272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift in Sources */,
+				C05A4CDE273C6C73005F8CC5 /* AutoFocusTextField.swift in Sources */,
 				C00A563626DAC6D000A550A2 /* ApiUrlView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

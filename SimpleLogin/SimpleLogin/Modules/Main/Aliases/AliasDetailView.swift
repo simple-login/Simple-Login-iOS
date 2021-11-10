@@ -417,8 +417,7 @@ private struct EditMailboxesView: View {
                     // TODO: Reload mailboxes here
                 }
             }
-            .navigationTitle("Mailboxes")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(viewModel.alias.email)
             .navigationBarItems(leading: cancelButton, trailing: doneButton)
         }
         .accentColor(.slPurple)
@@ -443,8 +442,8 @@ private struct EditMailboxesView: View {
     }
 
     private var mailboxesList: some View {
-        List {
-            Section(header: Text(viewModel.alias.email)) {
+        Form {
+            Section(header: Text("Mailboxes")) {
                 ForEach(viewModel.mailboxes, id: \.id) { mailbox in
                     HStack {
                         Text(mailbox.email)
@@ -465,7 +464,6 @@ private struct EditMailboxesView: View {
                 }
             }
         }
-        .listStyle(InsetGroupedListStyle())
     }
 }
 
@@ -477,17 +475,18 @@ private struct EditDisplayNameView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                Section(header: Text(viewModel.alias.email)) {
-                    TextField("", text: $displayName)
-                        .labelsHidden()
-                        .autocapitalization(.words)
-                        .disableAutocorrection(true)
+            Form {
+                Section(header: Text("Display name")) {
+                    if #available(iOS 15, *) {
+                        AutoFocusTextField(text: $displayName)
+                    } else {
+                        TextField("", text: $displayName)
+                            .autocapitalization(.words)
+                            .disableAutocorrection(true)
+                    }
                 }
             }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Display name")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(viewModel.alias.email)
             .navigationBarItems(leading: cancelButton, trailing: doneButton)
         }
         .accentColor(.slPurple)
@@ -519,16 +518,18 @@ private struct EditNotesView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                Section(header: Text(viewModel.alias.email)) {
-                    TextEditor(text: $notes)
-                        .autocapitalization(.words)
-                        .disableAutocorrection(true)
+            Form {
+                Section(header: Text("Notes")) {
+                    if #available(iOS 15, *) {
+                        AutoFocusTextEditor(text: $notes)
+                    } else {
+                        TextEditor(text: $notes)
+                            .autocapitalization(.words)
+                            .disableAutocorrection(true)
+                    }
                 }
             }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Notes")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(viewModel.alias.email)
             .navigationBarItems(leading: cancelButton, trailing: doneButton)
         }
         .accentColor(.slPurple)
