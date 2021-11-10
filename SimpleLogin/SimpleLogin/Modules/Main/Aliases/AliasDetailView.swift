@@ -142,8 +142,8 @@ private struct CreationDateSection: View {
 
 private struct MailboxesSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var showingExplication = false
     @State private var showingEditMailboxesView = false
-    @State private var dummyItem = ""
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -152,10 +152,15 @@ private struct MailboxesSection: View {
                     .font(.title2)
                     .fontWeight(.bold)
 
-                Picker("ⓘ", selection: $dummyItem) {
-                    Text("The mailboxes that receive emails sent to this alias")
+                if !showingExplication {
+                    Button(action: {
+                        withAnimation {
+                            showingExplication = true
+                        }
+                    }, label: {
+                        Text("ⓘ")
+                    })
                 }
-                .pickerStyle(MenuPickerStyle())
 
                 Spacer()
 
@@ -165,7 +170,15 @@ private struct MailboxesSection: View {
                     Text("Edit")
                 })
             }
-            .padding(.vertical, 8)
+            .padding(.top, 8)
+            .padding(.bottom, showingExplication ? 2 : 8)
+
+            if showingExplication {
+                Text("The mailboxes that receive emails sent to this alias")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                    .padding(.bottom, 4)
+            }
 
             VStack(alignment: .leading) {
                 ForEach(0..<min(3, viewModel.alias.mailboxes.count), id: \.self) { index in
@@ -191,8 +204,8 @@ private struct MailboxesSection: View {
 
 private struct NameSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var showingExplication = false
     @State private var showingEditDisplayNameView = false
-    @State private var dummyItem = ""
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -201,10 +214,15 @@ private struct NameSection: View {
                     .font(.title2)
                     .fontWeight(.bold)
 
-                Picker("ⓘ", selection: $dummyItem) {
-                    Text("Your display name when sending emails from this alias")
+                if !showingExplication {
+                    Button(action: {
+                        withAnimation {
+                            showingExplication = true
+                        }
+                    }, label: {
+                        Text("ⓘ")
+                    })
                 }
-                .pickerStyle(MenuPickerStyle())
 
                 Spacer()
 
@@ -214,7 +232,15 @@ private struct NameSection: View {
                     Text(viewModel.alias.name == nil ? "Add" : "Edit")
                 })
             }
-            .padding(.vertical, 8)
+            .padding(.top, 8)
+            .padding(.bottom, showingExplication ? 2 : 8)
+
+            if showingExplication {
+                Text("Your display name when sending emails from this alias")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                    .padding(.bottom, 4)
+            }
 
             if let name = viewModel.alias.name {
                 Text(name)
@@ -228,8 +254,8 @@ private struct NameSection: View {
 
 private struct NotesSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var showingExplication = false
     @State private var showingEditNotesView = false
-    @State private var dummyItem = ""
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -238,10 +264,15 @@ private struct NotesSection: View {
                     .font(.title2)
                     .fontWeight(.bold)
 
-                Picker("ⓘ", selection: $dummyItem) {
-                    Text("Something to remind you about the usage of this alias")
+                if !showingExplication {
+                    Button(action: {
+                        withAnimation {
+                            showingExplication = true
+                        }
+                    }, label: {
+                        Text("ⓘ")
+                    })
                 }
-                .pickerStyle(MenuPickerStyle())
 
                 Spacer()
 
@@ -251,7 +282,15 @@ private struct NotesSection: View {
                     Text(viewModel.alias.note == nil ? "Add" : "Edit")
                 })
             }
-            .padding(.vertical, 8)
+            .padding(.top, 8)
+            .padding(.bottom, showingExplication ? 2 : 8)
+
+            if showingExplication {
+                Text("Something to remind you about the usage of this alias")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                    .padding(.bottom, 4)
+            }
 
             if let notes = viewModel.alias.note {
                 Text(notes)
@@ -382,6 +421,7 @@ private struct EditMailboxesView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(leading: cancelButton, trailing: doneButton)
         }
+        .accentColor(.slPurple)
         .onAppear {
             selectedIds = viewModel.alias.mailboxes.map { $0.id }
             viewModel.getMailboxes(session: session)
@@ -450,6 +490,7 @@ private struct EditDisplayNameView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(leading: cancelButton, trailing: doneButton)
         }
+        .accentColor(.slPurple)
         .onAppear {
             displayName = viewModel.alias.name ?? ""
         }
@@ -490,6 +531,7 @@ private struct EditNotesView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(leading: cancelButton, trailing: doneButton)
         }
+        .accentColor(.slPurple)
         .onAppear {
             notes = viewModel.alias.note ?? ""
         }

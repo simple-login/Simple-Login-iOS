@@ -12,6 +12,10 @@ struct AccountView: View {
     @StateObject private var viewModel = AccountViewModel()
 
     var body: some View {
-        Text("Account")
+        Button(action: {
+            try? KeychainService.shared.setApiKey(nil)
+        }, label: {
+            Text("Log out")
+        })
     }
 }

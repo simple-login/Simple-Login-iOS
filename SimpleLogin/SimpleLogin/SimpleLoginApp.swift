@@ -29,6 +29,7 @@ struct SimpleLoginApp: App {
                     .environmentObject(Session(apiKey: apiKey, client: client))
             } else {
                 LogInView(apiUrl: preferences.apiUrl) { apiKey, client in
+                    try? KeychainService.shared.setApiKey(apiKey)
                     self.apiKey = apiKey
                     self.client = client
                 }
