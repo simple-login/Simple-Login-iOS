@@ -15,7 +15,7 @@ struct ApiKeyView: View {
 
     var body: some View {
         NavigationView {
-            List {
+            Form {
                 Section(header: Text(""),
                         footer: footerText) {
                     TextField("Enter API Key", text: $value)
@@ -33,7 +33,6 @@ struct ApiKeyView: View {
                     })
                 }
             }
-            .listStyle(GroupedListStyle())
             .navigationBarTitle("Log in using API key", displayMode: .inline)
             .navigationBarItems(leading: Button(action: {
                 presentationMode.wrappedValue.dismiss()
@@ -41,6 +40,7 @@ struct ApiKeyView: View {
                 Text("Close")
             }))
         }
+        .accentColor(.slPurple)
     }
 
     private var footerText: some View {

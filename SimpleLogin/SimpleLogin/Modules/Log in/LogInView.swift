@@ -18,13 +18,14 @@ struct LogInView: View {
     @AppStorage("Email") private var email = ""
     @State private var password = ""
 
-    @State private var showAboutView = false
-    @State private var showApiKeyView = false
-    @State private var showApiUrlView = false
-    @State private var showResetPasswordView = false
+    @State private var showingOptionActionSheet = false
+    @State private var showingAboutView = false
+    @State private var showingApiKeyView = false
+    @State private var showingApiUrlView = false
+    @State private var showingResetPasswordView = false
 
-    @State private var isLaunching = true
-    @State private var showSignUpView = false
+    @State private var launching = true
+    @State private var showingSignUpView = false
 
     @State private var mfaKey = ""
     @State private var showOtpView = false
@@ -43,7 +44,7 @@ struct LogInView: View {
                 Color.gray.opacity(0.01)
 
                 VStack {
-                    if !isLaunching {
+                    if !launching {
                         topView
                     }
 
@@ -54,7 +55,7 @@ struct LogInView: View {
                         .scaledToFit()
                         .frame(width: min(geometry.size.width / 3, 150))
 
-                    if !isLaunching {
+                    if !launching {
                         EmailPasswordView(email: $email, password: $password) {
                             viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
                         }
@@ -75,10 +76,10 @@ struct LogInView: View {
 
                     Spacer()
 
-                    if !isLaunching {
+                    if !launching {
                         bottomView
                             .fixedSize(horizontal: false, vertical: true)
-                            .fullScreenCover(isPresented: $showSignUpView, content: SignUpView.init)
+                            .fullScreenCover(isPresented: $showingSignUpView, content: SignUpView.init)
                     }
                 }
             }
@@ -119,38 +120,47 @@ struct LogInView: View {
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     withAnimation {
-                        isLaunching = false
+                        launching = false
                     }
                 }
             }
         }
     }
 
-    private var topView: some View {
-        let optionBinding = Binding<LogInOption>(
-            get: {
-                return .none
-            },
-            set: {
-                switch $0 {
-                case .about: showAboutView = true
-                case .apiKey: showApiKeyView = true
-                case .apiUrl: showApiUrlView = true
-                case .resetPassword: showResetPasswordView = true
-                default: break
-                }
-            }
-        )
-        let options: [LogInOption] = [.about, .apiKey, .apiUrl, .resetPassword]
+    private var optionActionSheet: ActionSheet {
+        var buttons: [ActionSheet.Button] = []
+        buttons.append(ActionSheet.Button.default(Text("About SimpleLogin")) {
+            showingAboutView = true
+        })
 
-        return HStack {
-            EmptyView()
-                .sheet(isPresented: $showAboutView) {
+        buttons.append(ActionSheet.Button.default(Text("Log in using API key")) {
+            showingApiKeyView = true
+        })
+
+        buttons.append(ActionSheet.Button.default(Text("Edit API URL")) {
+            showingApiUrlView = true
+        })
+
+        buttons.append(ActionSheet.Button.default(Text("Reset forgotten password")) {
+            showingResetPasswordView = true
+        })
+
+        buttons.append(.cancel())
+
+        return ActionSheet(title: Text("SimpleLogin"), buttons: buttons)
+    }
+
+    private var topView: some View {
+        HStack {
+            Color.clear
+                .frame(width: 0, height: 0)
+                .sheet(isPresented: $showingAboutView) {
                     AboutView()
                 }
 
-            EmptyView()
-                .sheet(isPresented: $showApiKeyView) {
+            Color.clear
+                .frame(width: 0, height: 0)
+                .sheet(isPresented: $showingApiKeyView) {
                     ApiKeyView { apiKey in
                         if let client = viewModel.client {
                             onComplete(apiKey, client)
@@ -160,13 +170,15 @@ struct LogInView: View {
                     }
                 }
 
-            EmptyView()
-                .fullScreenCover(isPresented: $showApiUrlView) {
+            Color.clear
+                .frame(width: 0, height: 0)
+                .sheet(isPresented: $showingApiUrlView) {
                     ApiUrlView(apiUrl: preferences.apiUrl)
                 }
 
-            EmptyView()
-                .sheet(isPresented: $showResetPasswordView) {
+            Color.clear
+                .frame(width: 0, height: 0)
+                .sheet(isPresented: $showingResetPasswordView) {
                     ResetPasswordView { email in
                         // TODO: Reset password
                     }
@@ -174,24 +186,21 @@ struct LogInView: View {
 
             Spacer()
 
-            Picker(
-                selection: optionBinding,
-                label:
-                    HStack(spacing: 4) {
-                        Image(systemName: "ellipsis.circle.fill")
-                        Text("More")
-                    }) {
-                ForEach(options, id: \.self) { option in
-                    HStack {
-                        Text(option.title)
-                        Image(systemName: option.systemImageName)
-                    }
-                    .tag(option)
+            Button(action: {
+                showingOptionActionSheet = true
+            }, label: {
+                if #available(iOS 15, *) {
+                    Image(systemName: "list.bullet.circle.fill")
+                } else {
+                    Image(systemName: "list.bullet")
                 }
-            }
-            .pickerStyle(MenuPickerStyle())
+            })
+                .font(.title2)
         }
         .padding()
+        .actionSheet(isPresented: $showingOptionActionSheet) {
+            optionActionSheet
+        }
     }
 
     private var bottomView: some View {
@@ -216,7 +225,7 @@ struct LogInView: View {
             }
 
             Button(action: {
-                showSignUpView.toggle()
+                showingSignUpView.toggle()
             }, label: {
                 Text("Create new account")
                     .font(.callout)
@@ -229,29 +238,5 @@ struct LogInView: View {
         Color.secondary
             .opacity(0.5)
             .frame(height: 1)
-    }
-}
-
-private enum LogInOption: CaseIterable {
-    case about, apiKey, apiUrl, resetPassword, none
-
-    var title: String {
-        switch self {
-        case .about: return "About SimpleLogin"
-        case .apiKey: return "Log in using API key"
-        case .apiUrl: return "Edit API URL"
-        case .resetPassword: return "Reset forgotten password"
-        case .none: return ""
-        }
-    }
-
-    var systemImageName: String {
-        switch self {
-        case .about: return "info.circle.fill"
-        case .apiKey: return "arrow.forward.circle.fill"
-        case .apiUrl: return "link.circle.fill"
-        case .resetPassword: return "lock.circle.fill"
-        case .none: return ""
-        }
     }
 }

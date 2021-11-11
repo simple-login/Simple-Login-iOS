@@ -640,8 +640,7 @@ private struct EditNotesView: View {
         NavigationView {
             ZStack {
                 Form {
-                    Section(header: Text("Notes"),
-                            footer: Text(viewModel.error?.description ?? "")) {
+                    Section(header: Text("Notes")) {
                         if #available(iOS 15, *) {
                             AutoFocusTextEditor(text: $notes)
                                 .disabled(viewModel.isUpdating)

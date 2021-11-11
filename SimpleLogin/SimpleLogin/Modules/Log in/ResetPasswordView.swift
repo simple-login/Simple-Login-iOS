@@ -14,7 +14,7 @@ struct ResetPasswordView: View {
 
     var body: some View {
         NavigationView {
-            List {
+            Form {
                 Section(header: Text("")) {
                     TextField("Enter your email", text: $email)
                         .keyboardType(.emailAddress)
@@ -32,7 +32,6 @@ struct ResetPasswordView: View {
                     })
                 }
             }
-            .listStyle(GroupedListStyle())
             .navigationBarTitle("Reset forgotten password", displayMode: .inline)
             .navigationBarItems(leading: Button(action: {
                 presentationMode.wrappedValue.dismiss()
@@ -40,6 +39,7 @@ struct ResetPasswordView: View {
                 Text("Close")
             }))
         }
+        .accentColor(.slPurple)
     }
 }
 

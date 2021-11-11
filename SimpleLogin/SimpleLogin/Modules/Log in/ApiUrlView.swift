@@ -21,7 +21,7 @@ struct ApiUrlView: View {
 
     var body: some View {
         NavigationView {
-            List {
+            Form {
                 Section(header: Text("Current API URL"),
                         footer: warningView) {
                     if isEditing {
@@ -46,11 +46,11 @@ struct ApiUrlView: View {
                     })
                 }
             }
-            .listStyle(GroupedListStyle())
             .navigationBarTitle("API URL", displayMode: .inline)
             .navigationBarItems(leading: closeOrCancelButton,
                                 trailing: editOrDoneButton)
         }
+        .accentColor(.slPurple)
     }
 
     private var defaultApiUrlView: some View {
