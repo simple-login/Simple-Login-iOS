@@ -511,19 +511,27 @@ private struct EditDisplayNameView: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var didPressDoneButton = false
     @State private var displayName = ""
 
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Display name")) {
-                    if #available(iOS 15, *) {
-                        AutoFocusTextField(text: $displayName)
-                    } else {
-                        TextField("", text: $displayName)
-                            .autocapitalization(.words)
-                            .disableAutocorrection(true)
+            ZStack {
+                Form {
+                    Section(header: Text("Display name")) {
+                        if #available(iOS 15, *) {
+                            AutoFocusTextField(text: $displayName)
+                        } else {
+                            TextField("", text: $displayName)
+                                .autocapitalization(.words)
+                                .disableAutocorrection(true)
+                        }
                     }
+                }
+
+                if viewModel.isUpdating {
+                    ProgressView()
+                        .animation(.default)
                 }
             }
             .navigationTitle(viewModel.alias.email)
@@ -532,6 +540,11 @@ private struct EditDisplayNameView: View {
         .accentColor(.slPurple)
         .onAppear {
             displayName = viewModel.alias.name ?? ""
+        }
+        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+            if didPressDoneButton && !isUpdating && viewModel.updateError == nil {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
 
@@ -544,7 +557,11 @@ private struct EditDisplayNameView: View {
     }
 
     private var doneButton: some View {
-        Button(action: {}, label: {
+        Button(action: {
+            didPressDoneButton = true
+            viewModel.update(session: session,
+                             option: .name(displayName.isEmpty ? nil : displayName))
+        }, label: {
             Text("Done")
         })
     }
