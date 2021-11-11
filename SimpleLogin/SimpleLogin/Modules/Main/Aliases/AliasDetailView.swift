@@ -184,6 +184,7 @@ private struct MailboxesSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
     @State private var showingExplication = false
     @State private var showingEditMailboxesView = false
+    @State private var showingAllMailboxes = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -234,11 +235,45 @@ private struct MailboxesSection: View {
                     Spacer()
                 }
                 .padding(.vertical, 4)
+                .onTapGesture {
+                    showingAllMailboxes = true
+                }
+                .sheet(isPresented: $showingAllMailboxes) {
+                    AllMailboxesView(viewModel: viewModel)
+                }
             }
         }
         .sheet(isPresented: $showingEditMailboxesView) {
             EditMailboxesView(viewModel: viewModel)
         }
+    }
+}
+
+private struct AllMailboxesView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    @ObservedObject var viewModel: AliasDetailViewModel
+
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Mailboxes")) {
+                    ForEach(viewModel.alias.mailboxes, id: \.id) { mailbox in
+                        Text(mailbox.email)
+                    }
+                }
+            }
+            .navigationBarTitle(viewModel.alias.email)
+            .navigationBarItems(leading: closeButton)
+        }
+        .accentColor(.slPurple)
+    }
+
+    private var closeButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Close")
+        })
     }
 }
 
@@ -444,17 +479,28 @@ private struct EditMailboxesView: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var didPressDoneButton = false
     @State private var selectedIds: [Int] = []
 
     var body: some View {
         NavigationView {
-            Group {
-                if viewModel.isLoadingMailboxes {
+            ZStack {
+                Group {
+                    if viewModel.isLoadingMailboxes {
+                        ProgressView()
+                    } else if !viewModel.mailboxes.isEmpty {
+                        mailboxesList
+                    } else {
+                        EmptyView()
+                            .onAppear {
+                                viewModel.getMailboxes(session: session)
+                            }
+                    }
+                }
+
+                if viewModel.isUpdating {
                     ProgressView()
-                } else if !viewModel.mailboxes.isEmpty {
-                    mailboxesList
-                } else {
-                    // TODO: Reload mailboxes here
+                        .animation(.default)
                 }
             }
             .navigationTitle(viewModel.alias.email)
@@ -464,6 +510,11 @@ private struct EditMailboxesView: View {
         .onAppear {
             selectedIds = viewModel.alias.mailboxes.map { $0.id }
             viewModel.getMailboxes(session: session)
+        }
+        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+            if didPressDoneButton && !isUpdating && viewModel.updateError == nil {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
 
@@ -476,7 +527,11 @@ private struct EditMailboxesView: View {
     }
 
     private var doneButton: some View {
-        Button(action: {}, label: {
+        Button(action: {
+            didPressDoneButton = true
+            viewModel.update(session: session,
+                             option: .mailboxIds(selectedIds))
+        }, label: {
             Text("Done")
         })
     }
