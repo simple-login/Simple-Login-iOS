@@ -77,7 +77,7 @@ final class AliasDetailViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] mailboxArray in
                 guard let self = self else { return }
-                self.mailboxes = mailboxArray.mailboxes
+                self.mailboxes = mailboxArray.mailboxes.sorted(by: { $0.id < $1.id })
             }
             .store(in: &cancellables)
     }
