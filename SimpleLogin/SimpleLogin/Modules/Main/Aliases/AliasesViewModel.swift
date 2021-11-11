@@ -54,4 +54,9 @@ final class AliasesViewModel: ObservableObject {
     func refresh() {
 
     }
+
+    func update(alias: Alias) {
+        guard let index = aliases.firstIndex(where: { $0.id == alias.id }) else { return }
+        aliases[index] = alias
+    }
 }

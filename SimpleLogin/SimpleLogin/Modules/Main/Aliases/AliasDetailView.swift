@@ -15,9 +15,11 @@ struct AliasDetailView: View {
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingActionSheet = false
     private let refresher = Refresher()
+    var onUpdateAlias: (Alias) -> Void
 
-    init(alias: Alias) {
+    init(alias: Alias, onUpdateAlias: @escaping (Alias) -> Void) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias))
+        self.onUpdateAlias = onUpdateAlias
     }
 
     var body: some View {
@@ -71,6 +73,9 @@ struct AliasDetailView: View {
             if !isRefreshing {
                 refresher.endRefreshing()
             }
+        }
+        .onDisappear {
+            onUpdateAlias(viewModel.alias)
         }
         .onAppear {
             refresher.parent = self
@@ -592,7 +597,7 @@ private struct EditNotesView: View {
 struct AliasDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AliasDetailView(alias: .claypool)
+            AliasDetailView(alias: .claypool) { _ in }
         }
     }
 }
