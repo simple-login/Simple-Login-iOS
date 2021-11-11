@@ -10,6 +10,7 @@ import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
+// swiftlint:disable file_length
 struct AliasDetailView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel: AliasDetailViewModel
@@ -23,22 +24,30 @@ struct AliasDetailView: View {
     }
 
     var body: some View {
-        ScrollView {
-            Group {
-                CreationDateSection(alias: viewModel.alias)
-                Divider()
-                MailboxesSection(viewModel: viewModel)
-                Divider()
-                NameSection(viewModel: viewModel)
-                Divider()
-                NotesSection(viewModel: viewModel)
-                Divider()
-                ActivitiesSection(viewModel: viewModel)
+        ZStack {
+            ScrollView {
+                Group {
+                    CreationDateSection(alias: viewModel.alias)
+                    Divider()
+                    MailboxesSection(viewModel: viewModel)
+                    Divider()
+                    NameSection(viewModel: viewModel)
+                    Divider()
+                    NotesSection(viewModel: viewModel)
+                    Divider()
+                    ActivitiesSection(viewModel: viewModel)
+                }
+                .padding(.horizontal)
+                .disabled(viewModel.isUpdating || viewModel.isRefreshing)
             }
-            .padding(.horizontal)
-        }
-        .introspectScrollView { scrollView in
-            scrollView.refreshControl = refresher.control
+            .introspectScrollView { scrollView in
+                scrollView.refreshControl = refresher.control
+            }
+
+            if viewModel.isUpdating {
+                ProgressView()
+                    .animation(.default)
+            }
         }
         .actionSheet(isPresented: $showingActionSheet) {
             actionSheet
@@ -102,13 +111,11 @@ struct AliasDetailView: View {
         }
 
         let activateAction = ActionSheet.Button.default(Text("Activate")) {
-            // TODO: Activate alias
-            print("Activea \(viewModel.alias.email)")
+            viewModel.toggle(session: session)
         }
 
         let deactiveAction = ActionSheet.Button.default(Text("Deactivate")) {
-            // TODO: Deactive alias
-            print("Deactivea \(viewModel.alias.email)")
+            viewModel.toggle(session: session)
         }
 
         let pinAction = ActionSheet.Button.default(Text("Pin")) {
@@ -512,7 +519,7 @@ private struct EditMailboxesView: View {
             viewModel.getMailboxes(session: session)
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
-            if didPressDoneButton && !isUpdating && viewModel.updateError == nil {
+            if didPressDoneButton && !isUpdating && viewModel.error == nil {
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -597,7 +604,7 @@ private struct EditDisplayNameView: View {
             displayName = viewModel.alias.name ?? ""
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
-            if didPressDoneButton && !isUpdating && viewModel.updateError == nil {
+            if didPressDoneButton && !isUpdating && viewModel.error == nil {
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -634,7 +641,7 @@ private struct EditNotesView: View {
             ZStack {
                 Form {
                     Section(header: Text("Notes"),
-                            footer: Text(viewModel.updateError?.description ?? "")) {
+                            footer: Text(viewModel.error?.description ?? "")) {
                         if #available(iOS 15, *) {
                             AutoFocusTextEditor(text: $notes)
                                 .disabled(viewModel.isUpdating)
@@ -660,7 +667,7 @@ private struct EditNotesView: View {
             notes = viewModel.alias.note ?? ""
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
-            if didPressDoneButton && !isUpdating && viewModel.updateError == nil {
+            if didPressDoneButton && !isUpdating && viewModel.error == nil {
                 presentationMode.wrappedValue.dismiss()
             }
         }
