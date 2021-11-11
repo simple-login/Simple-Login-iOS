@@ -554,19 +554,30 @@ private struct EditNotesView: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var didPressDoneButton = false
     @State private var notes = ""
 
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Notes")) {
-                    if #available(iOS 15, *) {
-                        AutoFocusTextEditor(text: $notes)
-                    } else {
-                        TextEditor(text: $notes)
-                            .autocapitalization(.words)
-                            .disableAutocorrection(true)
+            ZStack {
+                Form {
+                    Section(header: Text("Notes"),
+                            footer: Text(viewModel.updateError?.description ?? "")) {
+                        if #available(iOS 15, *) {
+                            AutoFocusTextEditor(text: $notes)
+                                .disabled(viewModel.isUpdating)
+                        } else {
+                            TextEditor(text: $notes)
+                                .autocapitalization(.words)
+                                .disableAutocorrection(true)
+                                .disabled(viewModel.isUpdating)
+                        }
                     }
+                }
+
+                if viewModel.isUpdating {
+                    ProgressView()
+                        .animation(.default)
                 }
             }
             .navigationTitle(viewModel.alias.email)
@@ -575,6 +586,11 @@ private struct EditNotesView: View {
         .accentColor(.slPurple)
         .onAppear {
             notes = viewModel.alias.note ?? ""
+        }
+        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+            if didPressDoneButton && !isUpdating && viewModel.updateError == nil {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
 
@@ -587,9 +603,14 @@ private struct EditNotesView: View {
     }
 
     private var doneButton: some View {
-        Button(action: {}, label: {
+        Button(action: {
+            didPressDoneButton = true
+            viewModel.update(session: session,
+                             option: .note(notes.isEmpty ? nil : notes))
+        }, label: {
             Text("Done")
         })
+            .disabled(viewModel.isUpdating)
     }
 }
 

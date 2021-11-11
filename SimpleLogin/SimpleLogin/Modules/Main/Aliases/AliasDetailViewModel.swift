@@ -20,6 +20,8 @@ final class AliasDetailViewModel: ObservableObject {
     @Published private(set) var mailboxes: [Mailbox] = []
     @Published private(set) var isLoadingMailboxes = false
     @Published private(set) var isRefreshing = false
+    @Published private(set) var isUpdating = false
+    @Published private(set) var updateError: SLClientError?
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
     private var canLoadMorePages = true
@@ -108,6 +110,35 @@ final class AliasDetailViewModel: ObservableObject {
                 self.activities = result.1.activities
                 self.currentPage = 1
                 self.canLoadMorePages = result.1.activities.count == 20
+            }
+            .store(in: &cancellables)
+    }
+
+    func update(session: Session, option: AliasUpdateOption) {
+        guard !isUpdating else { return }
+        print("Updating \(alias.email)")
+        isUpdating = true
+        updateError = nil
+        session.client.updateAlias(apiKey: session.apiKey, id: alias.id, option: option)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isUpdating = false
+                switch completion {
+                case .finished:
+                    print("Finish updating \(self.alias.email)")
+                case .failure(let error):
+                    // TODO: Handle error
+                    print("Error updating \(self.alias.email): \(error.description)")
+                    self.updateError = error
+                }
+            } receiveValue: { [weak self] okResponse in
+                guard let self = self else { return }
+                if okResponse.value {
+                    self.refresh(session: session)
+                } else {
+                    // TODO: Handle error
+                }
             }
             .store(in: &cancellables)
     }
