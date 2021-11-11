@@ -10,11 +10,16 @@ import SimpleLoginPackage
 import SwiftUI
 
 final class AliasDetailViewModel: ObservableObject {
+    deinit {
+        print("\(Self.self) deallocated: \(alias.email)")
+    }
+
     @Published private(set) var alias: Alias
     @Published private(set) var activities: [AliasActivity] = []
     @Published private(set) var isLoadingActivities = false
     @Published private(set) var mailboxes: [Mailbox] = []
     @Published private(set) var isLoadingMailboxes = false
+    @Published private(set) var isRefreshing = false
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
     private var canLoadMorePages = true
@@ -75,6 +80,34 @@ final class AliasDetailViewModel: ObservableObject {
             } receiveValue: { [weak self] mailboxArray in
                 guard let self = self else { return }
                 self.mailboxes = mailboxArray.mailboxes
+            }
+            .store(in: &cancellables)
+    }
+
+    func refresh(session: Session) {
+        guard !isRefreshing else { return }
+        print("Refreshing \(alias.email)")
+        isRefreshing = true
+        let refreshAlias = session.client.getAlias(apiKey: session.apiKey, id: alias.id)
+        let refreshActivities = session.client.getAliasActivities(apiKey: session.apiKey, id: alias.id, page: 0)
+        Publishers.Zip(refreshAlias, refreshActivities)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isRefreshing = false
+                switch completion {
+                case .finished:
+                    print("Finish refreshing \(self.alias.email)")
+                case .failure(let error):
+                    // TODO: Handle error
+                    print("Error refreshing \(self.alias.email)")
+                }
+            } receiveValue: { [weak self] result in
+                guard let self = self else { return }
+                self.alias = result.0
+                self.activities = result.1.activities
+                self.currentPage = 1
+                self.canLoadMorePages = result.1.activities.count == 20
             }
             .store(in: &cancellables)
     }

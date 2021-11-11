@@ -5,6 +5,8 @@
 //  Created by Thanh-Nhon Nguyen on 04/11/2021.
 //
 
+import Combine
+import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
@@ -12,6 +14,7 @@ struct AliasDetailView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingActionSheet = false
+    private let refresher = Refresher()
 
     init(alias: Alias) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias))
@@ -31,6 +34,9 @@ struct AliasDetailView: View {
                 ActivitiesSection(viewModel: viewModel)
             }
             .padding(.horizontal)
+        }
+        .introspectScrollView { scrollView in
+            scrollView.refreshControl = refresher.control
         }
         .actionSheet(isPresented: $showingActionSheet) {
             actionSheet
@@ -61,7 +67,16 @@ struct AliasDetailView: View {
                 }
             }
         }
+        .onReceive(Just(viewModel.isRefreshing)) { isRefreshing in
+            if !isRefreshing {
+                refresher.endRefreshing()
+            }
+        }
         .onAppear {
+            refresher.parent = self
+            let control = UIRefreshControl()
+            control.addTarget(refresher, action: #selector(Refresher.beginRefreshing), for: .valueChanged)
+            refresher.control = control
             viewModel.getMoreActivitiesIfNeed(session: session, currentActivity: nil)
         }
     }
@@ -118,6 +133,26 @@ struct AliasDetailView: View {
         return ActionSheet(title: Text(""),
                            message: Text(viewModel.alias.email),
                            buttons: buttons)
+    }
+
+    private func refresh() {
+        viewModel.refresh(session: session)
+    }
+}
+
+private extension AliasDetailView {
+    class Refresher {
+        var parent: AliasDetailView?
+        var control: UIRefreshControl?
+
+        @objc
+        func beginRefreshing() {
+            parent?.refresh()
+        }
+
+        func endRefreshing() {
+            control?.endRefreshing()
+        }
     }
 }
 
