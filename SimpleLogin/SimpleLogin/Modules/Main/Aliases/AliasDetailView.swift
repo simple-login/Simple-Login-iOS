@@ -119,13 +119,13 @@ struct AliasDetailView: View {
         }
 
         let pinAction = ActionSheet.Button.default(Text("Pin")) {
-            // TODO: Pin alias
-            print("Pin \(viewModel.alias.email)")
+            viewModel.update(session: session,
+                             option: .pinned(true))
         }
 
         let unpinAction = ActionSheet.Button.default(Text("Unpin")) {
-            // TODO: Unpin alias
-            print("Unpin \(viewModel.alias.email)")
+            viewModel.update(session: session,
+                             option: .pinned(false))
         }
 
         var buttons: [ActionSheet.Button] = []
