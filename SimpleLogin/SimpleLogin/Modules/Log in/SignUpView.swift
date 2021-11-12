@@ -52,6 +52,7 @@ struct SignUpView: View {
                 .padding(.vertical)
             }
         }
+        .accentColor(.slPurple)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }

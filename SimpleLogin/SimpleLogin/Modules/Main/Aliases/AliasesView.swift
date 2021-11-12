@@ -5,33 +5,34 @@
 //  Created by Thanh-Nhon Nguyen on 02/09/2021.
 //
 
+import AlertToast
 import SimpleLoginPackage
 import SwiftUI
 
 struct AliasesView: View {
     @EnvironmentObject private var session: Session
-    @Environment(\.toastMessage) private var toastMessage
     @StateObject private var viewModel = AliasesViewModel()
     @State private var selectedStatus: AliasStatus = .all
-    @State private var showSearchView = false
-    @State private var showRandomAliasBottomSheet = false
-    @State private var showCreateAliasView = false
+    @State private var showingSearchView = false
+    @State private var showingRandomAliasBottomSheet = false
+    @State private var showingCreateAliasView = false
+    @State private var showingCopyAliasHud = false
 
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
                 AliasesViewToolbar(selectedStatus: $selectedStatus,
-                                   onSearch: { showSearchView.toggle() },
-                                   onRandomAlias: { showRandomAliasBottomSheet.toggle() },
-                                   onCreateAlias: { showCreateAliasView.toggle() })
+                                   onSearch: { showingSearchView.toggle() },
+                                   onRandomAlias: { showingRandomAliasBottomSheet.toggle() },
+                                   onCreateAlias: { showingCreateAliasView.toggle() })
 
                 EmptyView()
-                    .fullScreenCover(isPresented: $showSearchView) {
+                    .fullScreenCover(isPresented: $showingSearchView) {
                         AliasesSearchView()
                     }
 
                 EmptyView()
-                    .fullScreenCover(isPresented: $showCreateAliasView) {
+                    .fullScreenCover(isPresented: $showingCreateAliasView) {
                         CreateAliasView()
                     }
 
@@ -49,13 +50,20 @@ struct AliasesView: View {
                                 AliasCompactView(
                                     alias: alias,
                                     onCopy: {
-                                        toastMessage.wrappedValue = "Copied \(alias.email)"
+                                        showingCopyAliasHud = true
                                         UIPasteboard.general.string = alias.email
                                     },
                                     onSendMail: {
                                         print("Send mail: \(alias.email)")
                                     })
                                     .padding(.horizontal, 4)
+                                    .toast(isPresenting: $showingCopyAliasHud) {
+                                        AlertToast(displayMode: .hud,
+                                                   type: .systemImage("doc.on.doc", .green),
+                                                   title: "Copied",
+                                                   subTitle: alias.email,
+                                                   style: nil)
+                                    }
                                     .onAppear {
                                         viewModel.getMoreAliasesIfNeed(session: session, currentAlias: alias)
                                     }
@@ -77,7 +85,7 @@ struct AliasesView: View {
             .navigationTitle("Aliases")
             .navigationBarHidden(true)
             .ignoresSafeArea(.all, edges: .top)
-            .actionSheet(isPresented: $showRandomAliasBottomSheet) {
+            .actionSheet(isPresented: $showingRandomAliasBottomSheet) {
                 randomAliasActionSheet
             }
         }

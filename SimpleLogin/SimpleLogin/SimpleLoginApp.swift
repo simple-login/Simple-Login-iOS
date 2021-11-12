@@ -23,7 +23,6 @@ struct SimpleLoginApp: App {
         WindowGroup {
             if let apiKey = apiKey, let client = client {
                 MainView()
-                    .loadableToastable()
                     .accentColor(.slPurple)
                     .environmentObject(preferences)
                     .environmentObject(Session(apiKey: apiKey, client: client))
@@ -33,7 +32,6 @@ struct SimpleLoginApp: App {
                     self.apiKey = apiKey
                     self.client = client
                 }
-                .loadableToastable()
                 .accentColor(.slPurple)
                 .environmentObject(preferences)
             }

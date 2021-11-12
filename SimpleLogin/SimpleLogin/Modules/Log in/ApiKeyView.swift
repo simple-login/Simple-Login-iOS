@@ -5,15 +5,26 @@
 //  Created by Thanh-Nhon Nguyen on 03/08/2021.
 //
 
+import AlertToast
+import Combine
 import SimpleLoginPackage
 import SwiftUI
 
 struct ApiKeyView: View {
     @Environment(\.presentationMode) private var presentationMode
+    @ObservedObject private var viewModel = ApiKeyViewModel()
     @State private var value = ""
+    let client: SLClient?
     let onSetApiKey: (ApiKey) -> Void
 
     var body: some View {
+        let showingErrorToast = Binding<Bool>(get: {
+            viewModel.error != nil
+        }, set: { showing in
+            if !showing {
+                viewModel.handledError()
+            }
+        })
         NavigationView {
             Form {
                 Section(header: Text(""),
@@ -25,7 +36,7 @@ struct ApiKeyView: View {
 
                 Section {
                     Button(action: {
-                        onSetApiKey(ApiKey(value: value))
+                        viewModel.checkApiKey(apiKey: ApiKey(value: value))
                     }, label: {
                         Text("Set API Key")
                             .frame(maxWidth: .infinity)
@@ -41,6 +52,17 @@ struct ApiKeyView: View {
             }))
         }
         .accentColor(.slPurple)
+        .onReceive(Just(viewModel.apiKey)) { apiKey in
+            if let apiKey = apiKey {
+                onSetApiKey(apiKey)
+            }
+        }
+        .onAppear {
+            viewModel.client = client
+        }
+        .toast(isPresenting: showingErrorToast) {
+            AlertToast(displayMode: .banner(.pop), type: .regular, title: viewModel.error)
+        }
     }
 
     private var footerText: some View {
@@ -52,6 +74,6 @@ struct ApiKeyView: View {
 
 struct ApiKeyView_Previews: PreviewProvider {
     static var previews: some View {
-        ApiKeyView { _ in }
+        ApiKeyView(client: nil) { _ in }
     }
 }

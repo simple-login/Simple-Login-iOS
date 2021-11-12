@@ -5,14 +5,15 @@
 //  Created by Thanh-Nhon Nguyen on 28/08/2021.
 //
 
+import AlertToast
 import Combine
 import SimpleLoginPackage
 import SwiftUI
 
 struct OtpView: View {
-    @Environment(\.loadingMode) private var loadingMode
     @Environment(\.presentationMode) private var presentationMode
     @StateObject private var viewModel: OtpViewModel
+    @State private var showingLoadingHud = false
     let onVerification: (ApiKey) -> Void
 
     init(mfaKey: String,
@@ -155,12 +156,11 @@ struct OtpView: View {
             .navigationBarItems(leading: closeButton)
         }
         .accentColor(.slPurple)
+        .toast(isPresenting: $showingLoadingHud) {
+            AlertToast(displayMode: .hud, type: .loading)
+        }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
-            if isLoading {
-                loadingMode.wrappedValue.startLoading()
-            } else {
-                loadingMode.wrappedValue.stopLoading()
-            }
+            showingLoadingHud = isLoading
         }
         .onReceive(Just(viewModel.apiKey)) { apiKey in
             if let apiKey = apiKey {

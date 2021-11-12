@@ -5,14 +5,13 @@
 //  Created by Thanh-Nhon Nguyen on 29/07/2021.
 //
 
+import AlertToast
 import Combine
 import SimpleLoginPackage
 import SwiftUI
 
 struct LogInView: View {
     @EnvironmentObject private var preferences: Preferences
-    @Environment(\.loadingMode) private var loadingMode
-    @Environment(\.toastMessage) private var toastMessage
     @StateObject private var viewModel: LogInViewModel
 
     @AppStorage("Email") private var email = ""
@@ -30,6 +29,8 @@ struct LogInView: View {
     @State private var mfaKey = ""
     @State private var showOtpView = false
 
+    @State private var showingLoadingHud = false
+
     let onComplete: (ApiKey, SLClient) -> Void
 
     init(apiUrl: String, onComplete: @escaping (ApiKey, SLClient) -> Void) {
@@ -38,6 +39,13 @@ struct LogInView: View {
     }
 
     var body: some View {
+        let showingErrorToast = Binding<Bool>(get: {
+            viewModel.error != nil
+        }, set: { showing in
+            if !showing {
+                viewModel.handledError()
+            }
+        })
         GeometryReader { geometry in
             ZStack {
                 // A vary pale color to make background tappable
@@ -68,7 +76,6 @@ struct LogInView: View {
                                 // swiftlint:disable:next force_unwrapping
                                 onComplete(apiKey, viewModel.client!)
                             }
-                            .loadableToastable()
                         }
                     } else {
                         ProgressView()
@@ -90,18 +97,8 @@ struct LogInView: View {
         .onReceive(Just(preferences.apiUrl)) { apiUrl in
             viewModel.updateApiUrl(apiUrl)
         }
-        .onReceive(Just(viewModel.error)) { error in
-            if let error = error {
-                toastMessage.wrappedValue = error
-                viewModel.handledError()
-            }
-        }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
-            if isLoading {
-                loadingMode.wrappedValue.startLoading()
-            } else {
-                loadingMode.wrappedValue.stopLoading()
-            }
+            showingLoadingHud = isLoading
         }
         .onReceive(Just(viewModel.userLogin)) { userLogin in
             if let userLogin = userLogin,
@@ -124,6 +121,12 @@ struct LogInView: View {
                     }
                 }
             }
+        }
+        .toast(isPresenting: $showingLoadingHud) {
+            AlertToast(type: .loading)
+        }
+        .toast(isPresenting: showingErrorToast) {
+            AlertToast(displayMode: .banner(.pop), type: .regular, title: viewModel.error)
         }
     }
 
@@ -161,12 +164,9 @@ struct LogInView: View {
             Color.clear
                 .frame(width: 0, height: 0)
                 .sheet(isPresented: $showingApiKeyView) {
-                    ApiKeyView { apiKey in
-                        if let client = viewModel.client {
-                            onComplete(apiKey, client)
-                        } else {
-                            toastMessage.wrappedValue = "Invalid API URL"
-                        }
+                    ApiKeyView(client: viewModel.client) { apiKey in
+                        // swiftlint:disable:next force_unwrapping
+                        onComplete(apiKey, viewModel.client!)
                     }
                 }
 
