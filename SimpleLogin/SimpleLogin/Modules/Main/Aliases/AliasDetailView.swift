@@ -15,6 +15,7 @@ import SwiftUI
 struct AliasDetailView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel: AliasDetailViewModel
+    @State private var showingLoadingAlert = false
     @State private var showingActionSheet = false
     @State private var showingCopyAlert = false
     private let refresher = Refresher()
@@ -44,11 +45,6 @@ struct AliasDetailView: View {
             }
             .introspectScrollView { scrollView in
                 scrollView.refreshControl = refresher.control
-            }
-
-            if viewModel.isUpdating {
-                ProgressView()
-                    .animation(.default)
             }
         }
         .actionSheet(isPresented: $showingActionSheet) {
@@ -85,6 +81,9 @@ struct AliasDetailView: View {
                 refresher.endRefreshing()
             }
         }
+        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+            showingLoadingAlert = isUpdating
+        }
         .onDisappear {
             onUpdateAlias(viewModel.alias)
         }
@@ -94,6 +93,9 @@ struct AliasDetailView: View {
             control.addTarget(refresher, action: #selector(Refresher.beginRefreshing), for: .valueChanged)
             refresher.control = control
             viewModel.getMoreActivitiesIfNeed(session: session, currentActivity: nil)
+        }
+        .toast(isPresenting: $showingLoadingAlert) {
+            AlertToast(type: .loading)
         }
         .toast(isPresenting: $showingCopyAlert) {
             AlertToast(displayMode: .alert,

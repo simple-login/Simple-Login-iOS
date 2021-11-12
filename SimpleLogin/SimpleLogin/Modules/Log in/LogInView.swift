@@ -29,7 +29,7 @@ struct LogInView: View {
     @State private var mfaKey = ""
     @State private var showingOtpView = false
 
-    @State private var showingLoadingHud = false
+    @State private var showingLoadingAlert = false
 
     let onComplete: (ApiKey, SLClient) -> Void
 
@@ -98,7 +98,7 @@ struct LogInView: View {
             viewModel.updateApiUrl(apiUrl)
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
-            showingLoadingHud = isLoading
+            showingLoadingAlert = isLoading
         }
         .onReceive(Just(viewModel.userLogin)) { userLogin in
             guard let userLogin = userLogin else { return }
@@ -125,7 +125,7 @@ struct LogInView: View {
                 }
             }
         }
-        .toast(isPresenting: $showingLoadingHud) {
+        .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
         }
         .toast(isPresenting: showingErrorToast) {
