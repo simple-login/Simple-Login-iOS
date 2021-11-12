@@ -589,27 +589,22 @@ private struct EditDisplayNameView: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var showingLoadingAlert = false
     @State private var didPressDoneButton = false
     @State private var displayName = ""
 
     var body: some View {
         NavigationView {
-            ZStack {
-                Form {
-                    Section(header: Text("Display name")) {
-                        if #available(iOS 15, *) {
-                            AutoFocusTextField(text: $displayName)
-                        } else {
-                            TextField("", text: $displayName)
-                                .autocapitalization(.words)
-                                .disableAutocorrection(true)
-                        }
+            Form {
+                Section(header: Text("Display name")) {
+                    if #available(iOS 15, *) {
+                        AutoFocusTextField(text: $displayName)
+                    } else {
+                        TextField("", text: $displayName)
+                            .labelsHidden()
+                            .autocapitalization(.words)
+                            .disableAutocorrection(true)
                     }
-                }
-
-                if viewModel.isUpdating {
-                    ProgressView()
-                        .animation(.default)
                 }
             }
             .navigationTitle(viewModel.alias.email)
@@ -620,9 +615,13 @@ private struct EditDisplayNameView: View {
             displayName = viewModel.alias.name ?? ""
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+            showingLoadingAlert = isUpdating
             if didPressDoneButton && !isUpdating && viewModel.error == nil {
                 presentationMode.wrappedValue.dismiss()
             }
+        }
+        .toast(isPresenting: $showingLoadingAlert) {
+            AlertToast(type: .loading)
         }
     }
 
@@ -649,29 +648,23 @@ private struct EditNotesView: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var showingLoadingAlert = false
     @State private var didPressDoneButton = false
     @State private var notes = ""
 
     var body: some View {
         NavigationView {
-            ZStack {
-                Form {
-                    Section(header: Text("Notes")) {
-                        if #available(iOS 15, *) {
-                            AutoFocusTextEditor(text: $notes)
-                                .disabled(viewModel.isUpdating)
-                        } else {
-                            TextEditor(text: $notes)
-                                .autocapitalization(.words)
-                                .disableAutocorrection(true)
-                                .disabled(viewModel.isUpdating)
-                        }
+            Form {
+                Section(header: Text("Notes")) {
+                    if #available(iOS 15, *) {
+                        AutoFocusTextEditor(text: $notes)
+                            .disabled(viewModel.isUpdating)
+                    } else {
+                        TextEditor(text: $notes)
+                            .autocapitalization(.words)
+                            .disableAutocorrection(true)
+                            .disabled(viewModel.isUpdating)
                     }
-                }
-
-                if viewModel.isUpdating {
-                    ProgressView()
-                        .animation(.default)
                 }
             }
             .navigationTitle(viewModel.alias.email)
@@ -682,9 +675,13 @@ private struct EditNotesView: View {
             notes = viewModel.alias.note ?? ""
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+            showingLoadingAlert = isUpdating
             if didPressDoneButton && !isUpdating && viewModel.error == nil {
                 presentationMode.wrappedValue.dismiss()
             }
+        }
+        .toast(isPresenting: $showingLoadingAlert) {
+            AlertToast(type: .loading)
         }
     }
 
