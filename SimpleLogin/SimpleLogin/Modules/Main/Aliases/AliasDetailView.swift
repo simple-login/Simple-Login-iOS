@@ -16,10 +16,14 @@ struct AliasDetailView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
-    @State private var showingActionSheet = false
-    @State private var showingCopyAlert = false
+    @State private var selectedSheet: Sheet?
+    @State private var copiedText: String?
     private let refresher = Refresher()
     var onUpdateAlias: (Alias) -> Void
+
+    private enum Sheet {
+        case actions, activity(AliasActivity)
+    }
 
     init(alias: Alias, onUpdateAlias: @escaping (Alias) -> Void) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias))
@@ -27,6 +31,22 @@ struct AliasDetailView: View {
     }
 
     var body: some View {
+        let showingSheet = Binding<Bool>(get: {
+            selectedSheet != nil
+        }, set: { isShowing in
+            if !isShowing {
+                selectedSheet = nil
+            }
+        })
+
+        let showingCopyAlert = Binding<Bool>(get: {
+            copiedText != nil
+        }, set: { isShowing in
+            if !isShowing {
+                copiedText = nil
+            }
+        })
+
         ZStack {
             ScrollView {
                 Group {
@@ -38,7 +58,9 @@ struct AliasDetailView: View {
                     Divider()
                     NotesSection(viewModel: viewModel)
                     Divider()
-                    ActivitiesSection(viewModel: viewModel)
+                    ActivitiesSection(viewModel: viewModel) { activity in
+                        selectedSheet = .activity(activity)
+                    }
                 }
                 .padding(.horizontal)
                 .disabled(viewModel.isUpdating || viewModel.isRefreshing)
@@ -47,8 +69,13 @@ struct AliasDetailView: View {
                 scrollView.refreshControl = refresher.control
             }
         }
-        .actionSheet(isPresented: $showingActionSheet) {
-            actionSheet
+        .actionSheet(isPresented: showingSheet) {
+            switch selectedSheet {
+            case .activity(let activity):
+                return activitySheet(activity: activity)
+            default:
+                return actionsSheet
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: trailingButton)
@@ -97,63 +124,98 @@ struct AliasDetailView: View {
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
         }
-        .toast(isPresenting: $showingCopyAlert) {
+        .toast(isPresenting: showingCopyAlert) {
             AlertToast(displayMode: .alert,
                        type: .systemImage("doc.on.doc", .secondary),
                        title: "Copied",
-                       subTitle: viewModel.alias.email)
+                       subTitle: copiedText)
         }
     }
 
     private var trailingButton: some View {
         Button(action: {
-            showingActionSheet = true
+            selectedSheet = .actions
         }, label: {
             Image(systemName: "ellipsis")
         })
             .frame(minWidth: 24, minHeight: 24)
     }
 
-    private var actionSheet: ActionSheet {
-        let copyAction = ActionSheet.Button.default(Text("Copy")) {
-            showingCopyAlert = true
-            UIPasteboard.general.string = viewModel.alias.email
-        }
-
-        let activateAction = ActionSheet.Button.default(Text("Activate")) {
-            viewModel.toggle(session: session)
-        }
-
-        let deactiveAction = ActionSheet.Button.default(Text("Deactivate")) {
-            viewModel.toggle(session: session)
-        }
-
-        let pinAction = ActionSheet.Button.default(Text("Pin")) {
-            viewModel.update(session: session,
-                             option: .pinned(true))
-        }
-
-        let unpinAction = ActionSheet.Button.default(Text("Unpin")) {
-            viewModel.update(session: session,
-                             option: .pinned(false))
-        }
-
+    private var actionsSheet: ActionSheet {
         var buttons: [ActionSheet.Button] = []
-        buttons.append(copyAction)
+
+        buttons.append(
+            ActionSheet.Button.default(Text("Copy")) {
+                copiedText = viewModel.alias.email
+                UIPasteboard.general.string = viewModel.alias.email
+            }
+        )
+
         if viewModel.alias.enabled {
-            buttons.append(deactiveAction)
+            buttons.append(
+                ActionSheet.Button.default(Text("Deactivate")) {
+                    viewModel.toggle(session: session)
+                }
+            )
         } else {
-            buttons.append(activateAction)
+            buttons.append(
+                ActionSheet.Button.default(Text("Activate")) {
+                    viewModel.toggle(session: session)
+                }
+            )
         }
+
         if viewModel.alias.pinned {
-            buttons.append(unpinAction)
+            buttons.append(
+                ActionSheet.Button.default(Text("Unpin")) {
+                    viewModel.update(session: session,
+                                     option: .pinned(false))
+                }
+            )
         } else {
-            buttons.append(pinAction)
+            buttons.append(
+                ActionSheet.Button.default(Text("Pin")) {
+                    viewModel.update(session: session,
+                                     option: .pinned(true))
+                }
+            )
         }
         buttons.append(.cancel())
 
         return ActionSheet(title: Text(""),
                            message: Text(viewModel.alias.email),
+                           buttons: buttons)
+    }
+
+    private func activitySheet(activity: AliasActivity) -> ActionSheet {
+        var buttons: [ActionSheet.Button] = []
+
+        buttons.append(
+            ActionSheet.Button.default(Text("Copy reverse-alias (w/ display name)")) {
+                copiedText = activity.reverseAlias
+            }
+        )
+
+        buttons.append(
+            ActionSheet.Button.default(Text("Copy reverse-alias (w/o display name)")) {
+                copiedText = activity.reverseAliasAddress
+            }
+        )
+
+        buttons.append(
+            ActionSheet.Button.default(Text("Open default email client")) {
+                if let mailToUrl = URL(string: "mailto:\(activity.reverseAliasAddress)") {
+                    UIApplication.shared.open(mailToUrl)
+                }
+            }
+        )
+
+        buttons.append(.cancel())
+
+        let fromAddress = activity.action == .reply ? activity.from : activity.to
+        let toAddress = activity.action == .reply ? activity.to : activity.from
+        return ActionSheet(title: Text("Compose and send email"),
+                           message: Text("From: \"\(fromAddress)\"\nTo: \"\(toAddress)\""),
                            buttons: buttons)
     }
 
@@ -408,6 +470,7 @@ private struct NotesSection: View {
 private struct ActivitiesSection: View {
     @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
+    var onSelectActivity: (AliasActivity) -> Void
 
     var body: some View {
         LazyVStack {
@@ -445,6 +508,10 @@ private struct ActivitiesSection: View {
                         .padding(.vertical, 4)
                         .onAppear {
                             viewModel.getMoreActivitiesIfNeed(session: session, currentActivity: activity)
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            onSelectActivity(activity)
                         }
 
                     if index < viewModel.activities.count - 1 {
