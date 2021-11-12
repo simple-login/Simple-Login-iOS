@@ -496,32 +496,20 @@ private struct EditMailboxesView: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var showingLoadingAlert = false
     @State private var didPressDoneButton = false
     @State private var selectedIds: [Int] = []
 
     var body: some View {
         NavigationView {
-            ZStack {
-                Group {
-                    if viewModel.isLoadingMailboxes {
-                        ProgressView()
-                    } else if !viewModel.mailboxes.isEmpty {
-                        mailboxesList
-                    } else {
-                        EmptyView()
-                            .onAppear {
-                                viewModel.getMailboxes(session: session)
-                            }
-                    }
-                }
-
-                if viewModel.isUpdating {
-                    ProgressView()
-                        .animation(.default)
+            Group {
+                if !viewModel.mailboxes.isEmpty {
+                    mailboxesList
                 }
             }
             .navigationTitle(viewModel.alias.email)
             .navigationBarItems(leading: cancelButton, trailing: doneButton)
+            .disabled(viewModel.isUpdating)
         }
         .accentColor(.slPurple)
         .onAppear {
@@ -529,9 +517,16 @@ private struct EditMailboxesView: View {
             viewModel.getMailboxes(session: session)
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+            showingLoadingAlert = isUpdating
             if didPressDoneButton && !isUpdating && viewModel.error == nil {
                 presentationMode.wrappedValue.dismiss()
             }
+        }
+        .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
+            showingLoadingAlert = isLoadingMailboxes
+        }
+        .toast(isPresenting: $showingLoadingAlert) {
+            AlertToast(type: .loading)
         }
     }
 
