@@ -27,7 +27,7 @@ struct LogInView: View {
     @State private var showingSignUpView = false
 
     @State private var mfaKey = ""
-    @State private var showOtpView = false
+    @State private var showingOtpView = false
 
     @State private var showingLoadingHud = false
 
@@ -68,11 +68,11 @@ struct LogInView: View {
                             viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
                         }
                         .padding()
-                        .fullScreenCover(isPresented: $showOtpView) {
+                        .fullScreenCover(isPresented: $showingOtpView) {
                             OtpView(mfaKey: mfaKey,
                                     // swiftlint:disable:next force_unwrapping
                                     client: viewModel.client!) { apiKey in
-                                showOtpView = false
+                                showingOtpView = false
                                 // swiftlint:disable:next force_unwrapping
                                 onComplete(apiKey, viewModel.client!)
                             }
@@ -101,12 +101,15 @@ struct LogInView: View {
             showingLoadingHud = isLoading
         }
         .onReceive(Just(viewModel.userLogin)) { userLogin in
-            if let userLogin = userLogin,
-               userLogin.isMfaEnabled {
-                showOtpView = true
+            guard let userLogin = userLogin else { return }
+            if userLogin.isMfaEnabled {
+                showingOtpView = true
                 mfaKey = viewModel.userLogin?.mfaKey ?? ""
-                viewModel.handledUserLogin()
+            } else if let apiKey = userLogin.apiKey {
+                // swiftlint:disable:next force_unwrapping
+                onComplete(apiKey, viewModel.client!)
             }
+            viewModel.handledUserLogin()
         }
         .onAppear {
             if let apiKey = KeychainService.shared.getApiKey(),

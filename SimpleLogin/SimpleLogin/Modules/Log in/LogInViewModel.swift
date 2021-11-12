@@ -46,10 +46,10 @@ final class LogInViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-                defer { self.isLoading = false }
+                self.isLoading = false
                 switch completion {
-                case .failure(let error): self.error = error.description
                 case .finished: break
+                case .failure(let error): self.error = error.description
                 }
             } receiveValue: { [weak self] userLogin in
                 guard let self = self else { return }
