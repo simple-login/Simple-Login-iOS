@@ -200,10 +200,20 @@ private struct CreationDateSection: View {
 private struct MailboxesSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
     @State private var showingExplication = false
-    @State private var showingEditMailboxesView = false
-    @State private var showingAllMailboxes = false
+    @State private var selectedSheet: Sheet?
+
+    private enum Sheet {
+        case edit, view
+    }
 
     var body: some View {
+        let showingSheet = Binding<Bool>(get: {
+            selectedSheet != nil
+        }, set: { showing in
+            if !showing {
+                selectedSheet = nil
+            }
+        })
         VStack(alignment: .leading) {
             HStack {
                 Text("Mailboxes")
@@ -223,7 +233,7 @@ private struct MailboxesSection: View {
                 Spacer()
 
                 Button(action: {
-                    showingEditMailboxesView = true
+                    selectedSheet = .edit
                 }, label: {
                     Text("Edit")
                 })
@@ -253,15 +263,16 @@ private struct MailboxesSection: View {
                 }
                 .padding(.vertical, 4)
                 .onTapGesture {
-                    showingAllMailboxes = true
-                }
-                .sheet(isPresented: $showingAllMailboxes) {
-                    AllMailboxesView(viewModel: viewModel)
+                    selectedSheet = .view
                 }
             }
         }
-        .sheet(isPresented: $showingEditMailboxesView) {
-            EditMailboxesView(viewModel: viewModel)
+        .sheet(isPresented: showingSheet) {
+            switch selectedSheet {
+            case .edit: EditMailboxesView(viewModel: viewModel)
+            case .view: AllMailboxesView(viewModel: viewModel)
+            default: EmptyView()
+            }
         }
     }
 }
