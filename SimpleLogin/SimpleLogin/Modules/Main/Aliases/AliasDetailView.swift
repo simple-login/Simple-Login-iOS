@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 04/11/2021.
 //
 
+import AlertToast
 import Combine
 import Introspect
 import SimpleLoginPackage
@@ -15,6 +16,7 @@ struct AliasDetailView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingActionSheet = false
+    @State private var showingCopyAlert = false
     private let refresher = Refresher()
     var onUpdateAlias: (Alias) -> Void
 
@@ -93,6 +95,12 @@ struct AliasDetailView: View {
             refresher.control = control
             viewModel.getMoreActivitiesIfNeed(session: session, currentActivity: nil)
         }
+        .toast(isPresenting: $showingCopyAlert) {
+            AlertToast(displayMode: .alert,
+                       type: .systemImage("doc.on.doc", .secondary),
+                       title: "Copied",
+                       subTitle: viewModel.alias.email)
+        }
     }
 
     private var trailingButton: some View {
@@ -106,8 +114,8 @@ struct AliasDetailView: View {
 
     private var actionSheet: ActionSheet {
         let copyAction = ActionSheet.Button.default(Text("Copy")) {
-            // TODO: Copy to clipboard
-            print("Copy \(viewModel.alias.email)")
+            showingCopyAlert = true
+            UIPasteboard.general.string = viewModel.alias.email
         }
 
         let activateAction = ActionSheet.Button.default(Text("Activate")) {

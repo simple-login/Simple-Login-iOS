@@ -96,8 +96,7 @@ struct AliasesView: View {
             AlertToast(displayMode: .alert,
                        type: .systemImage("doc.on.doc", .secondary),
                        title: "Copied",
-                       subTitle: copiedEmail ?? "",
-                       style: .style(subTitleColor: .yellow))
+                       subTitle: copiedEmail ?? "")
         }
     }
 
