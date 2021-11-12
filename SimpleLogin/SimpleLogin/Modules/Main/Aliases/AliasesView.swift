@@ -16,9 +16,16 @@ struct AliasesView: View {
     @State private var showingSearchView = false
     @State private var showingRandomAliasBottomSheet = false
     @State private var showingCreateAliasView = false
-    @State private var showingCopyAliasHud = false
+    @State private var copiedEmail: String?
 
     var body: some View {
+        let showingCopiedEmailAlert = Binding<Bool>(get: {
+            copiedEmail != nil
+        }, set: { showing in
+            if !showing {
+                copiedEmail = nil
+            }
+        })
         NavigationView {
             VStack(spacing: 0) {
                 AliasesViewToolbar(selectedStatus: $selectedStatus,
@@ -50,20 +57,13 @@ struct AliasesView: View {
                                 AliasCompactView(
                                     alias: alias,
                                     onCopy: {
-                                        showingCopyAliasHud = true
+                                        copiedEmail = alias.email
                                         UIPasteboard.general.string = alias.email
                                     },
                                     onSendMail: {
                                         print("Send mail: \(alias.email)")
                                     })
                                     .padding(.horizontal, 4)
-                                    .toast(isPresenting: $showingCopyAliasHud) {
-                                        AlertToast(displayMode: .hud,
-                                                   type: .systemImage("doc.on.doc", .green),
-                                                   title: "Copied",
-                                                   subTitle: alias.email,
-                                                   style: nil)
-                                    }
                                     .onAppear {
                                         viewModel.getMoreAliasesIfNeed(session: session, currentAlias: alias)
                                     }
@@ -91,6 +91,13 @@ struct AliasesView: View {
         }
         .onAppear {
             viewModel.getMoreAliasesIfNeed(session: session, currentAlias: nil)
+        }
+        .toast(isPresenting: showingCopiedEmailAlert) {
+            AlertToast(displayMode: .alert,
+                       type: .systemImage("doc.on.doc", .secondary),
+                       title: "Copied",
+                       subTitle: copiedEmail ?? "",
+                       style: .style(subTitleColor: .yellow))
         }
     }
 
