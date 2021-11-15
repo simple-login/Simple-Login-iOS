@@ -54,6 +54,14 @@ struct AliasDetailView: View {
             }
         })
 
+        let showingErrorAlert = Binding<Bool>(get: {
+            viewModel.error != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledError()
+            }
+        })
+
         ZStack {
             ScrollView {
                 Group {
@@ -148,6 +156,11 @@ struct AliasDetailView: View {
                        type: .systemImage("doc.on.doc", .secondary),
                        title: "Copied",
                        subTitle: copiedText)
+        }
+        .toast(isPresenting: showingErrorAlert) {
+            AlertToast(displayMode: .banner(.pop),
+                       type: .error(.red),
+                       title: viewModel.error?.description)
         }
         .alert(isPresented: $showingDeletionAlert) {
             deletionAlert

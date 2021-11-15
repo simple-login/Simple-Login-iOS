@@ -31,6 +31,10 @@ final class AliasDetailViewModel: ObservableObject {
         self.alias = alias
     }
 
+    func handledError() {
+        error = nil
+    }
+
     func getMoreActivitiesIfNeed(session: Session, currentActivity activity: AliasActivity?) {
         guard let activity = activity else {
             getMoreActivities(session: session)
