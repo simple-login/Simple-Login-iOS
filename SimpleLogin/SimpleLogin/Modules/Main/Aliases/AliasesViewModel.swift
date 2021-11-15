@@ -59,4 +59,8 @@ final class AliasesViewModel: ObservableObject {
         guard let index = aliases.firstIndex(where: { $0.id == alias.id }) else { return }
         aliases[index] = alias
     }
+
+    func delete(alias: Alias) {
+        aliases.removeAll(where: { $0.id == alias.id })
+    }
 }

@@ -13,21 +13,27 @@ import SwiftUI
 
 // swiftlint:disable file_length
 struct AliasDetailView: View {
+    @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
+    @State private var showingDeletionAlert = false
     @State private var selectedSheet: Sheet?
     @State private var copiedText: String?
     private let refresher = Refresher()
     var onUpdateAlias: (Alias) -> Void
+    var onDeleteAlias: () -> Void
 
     private enum Sheet {
         case actions, activity(AliasActivity)
     }
 
-    init(alias: Alias, onUpdateAlias: @escaping (Alias) -> Void) {
+    init(alias: Alias,
+         onUpdateAlias: @escaping (Alias) -> Void,
+         onDeleteAlias: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias))
         self.onUpdateAlias = onUpdateAlias
+        self.onDeleteAlias = onDeleteAlias
     }
 
     var body: some View {
@@ -111,6 +117,12 @@ struct AliasDetailView: View {
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
         }
+        .onReceive(Just(viewModel.isDeleted)) { isDeleted in
+            if isDeleted {
+                onDeleteAlias()
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
         .onDisappear {
             onUpdateAlias(viewModel.alias)
         }
@@ -129,6 +141,9 @@ struct AliasDetailView: View {
                        type: .systemImage("doc.on.doc", .secondary),
                        title: "Copied",
                        subTitle: copiedText)
+        }
+        .alert(isPresented: $showingDeletionAlert) {
+            deletionAlert
         }
     }
 
@@ -180,11 +195,27 @@ struct AliasDetailView: View {
                 }
             )
         }
+
+        buttons.append(
+            ActionSheet.Button.destructive(Text("Delete")) {
+                showingDeletionAlert = true
+            }
+        )
+
         buttons.append(.cancel())
 
         return ActionSheet(title: Text(""),
                            message: Text(viewModel.alias.email),
                            buttons: buttons)
+    }
+
+    private var deletionAlert: Alert {
+        Alert(title: Text("Delete \(viewModel.alias.email)?"),
+              message: Text("This can not be undone. Please confirm"),
+              primaryButton: .destructive(Text("Yes, delete this alias")) {
+            viewModel.delete(session: session)
+        },
+              secondaryButton: .cancel())
     }
 
     private func activitySheet(activity: AliasActivity) -> ActionSheet {
@@ -776,7 +807,9 @@ private struct EditNotesView: View {
 struct AliasDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AliasDetailView(alias: .claypool) { _ in }
+            AliasDetailView(alias: .claypool,
+                            onUpdateAlias: { _ in },
+                            onDeleteAlias: {})
         }
     }
 }

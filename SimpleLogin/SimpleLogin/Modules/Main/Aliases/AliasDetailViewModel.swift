@@ -21,6 +21,7 @@ final class AliasDetailViewModel: ObservableObject {
     @Published private(set) var isLoadingMailboxes = false
     @Published private(set) var isRefreshing = false
     @Published private(set) var isUpdating = false
+    @Published private(set) var isDeleted = false
     @Published private(set) var error: SLClientError? // TODO: Handle error
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
@@ -148,6 +149,25 @@ final class AliasDetailViewModel: ObservableObject {
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }
                 self.refresh(session: session)
+            }
+            .store(in: &cancellables)
+    }
+
+    func delete(session: Session) {
+        guard !isUpdating else { return }
+        isUpdating = true
+        session.client.deleteAlias(apiKey: session.apiKey, id: alias.id)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isUpdating = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error
+                }
+            } receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.isDeleted = true
             }
             .store(in: &cancellables)
     }

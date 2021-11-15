@@ -51,9 +51,15 @@ struct AliasesView: View {
 
                         ForEach(viewModel.aliases, id: \.id) { alias in
                             NavigationLink(destination:
-                                            AliasDetailView(alias: alias) { updatedAlias in
-                                viewModel.update(alias: updatedAlias)
-                            }) {
+                                            AliasDetailView(
+                                                alias: alias,
+                                                onUpdateAlias: { updatedAlias in
+                                                    viewModel.update(alias: updatedAlias)
+                                                },
+                                                onDeleteAlias: {
+                                                    viewModel.delete(alias: alias)
+                                                })
+                            ) {
                                 AliasCompactView(
                                     alias: alias,
                                     onCopy: {
