@@ -18,6 +18,7 @@ struct AliasDetailView: View {
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
     @State private var showingDeletionAlert = false
+    @State private var showingAliasEmailSheet = false
     @State private var selectedSheet: Sheet?
     @State private var copiedText: String?
     private let refresher = Refresher()
@@ -57,6 +58,9 @@ struct AliasDetailView: View {
             ScrollView {
                 Group {
                     CreationDateSection(alias: viewModel.alias)
+                        .sheet(isPresented: $showingAliasEmailSheet) {
+                            AliasEmailView(alias: viewModel.alias)
+                        }
                     Divider()
                     MailboxesSection(viewModel: viewModel)
                     Divider()
@@ -106,6 +110,9 @@ struct AliasDetailView: View {
                             .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
                     }
                     .font(.footnote)
+                }
+                .onTapGesture {
+                    showingAliasEmailSheet = true
                 }
             }
         }
@@ -800,6 +807,37 @@ private struct EditNotesView: View {
             Text("Done")
         })
             .disabled(viewModel.isUpdating)
+    }
+}
+
+private struct AliasEmailView: View {
+    @State private var originalBrightness: CGFloat = 0.5
+    @State private var percentage: Double = 0.5
+    let alias: Alias
+
+    var body: some View {
+        VStack {
+            Spacer()
+            Text(alias.email)
+                .font(.system(size: (percentage + 1) * 24))
+                .fontWeight(.semibold)
+            Spacer()
+            HStack {
+                Text("A")
+                Slider(value: $percentage)
+                Text("A")
+                    .font(.title)
+            }
+        }
+        .accentColor(.slPurple)
+        .padding()
+        .onAppear {
+            originalBrightness = UIScreen.main.brightness
+            UIScreen.main.brightness = CGFloat(1.0)
+        }
+        .onDisappear {
+            UIScreen.main.brightness = originalBrightness
+        }
     }
 }
 
