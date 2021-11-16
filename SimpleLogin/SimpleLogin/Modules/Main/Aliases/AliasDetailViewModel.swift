@@ -20,9 +20,14 @@ final class AliasDetailViewModel: ObservableObject {
     @Published private(set) var mailboxes: [Mailbox] = []
     @Published private(set) var isLoadingMailboxes = false
     @Published private(set) var isRefreshing = false
-    @Published private(set) var isUpdating = false
     @Published private(set) var isDeleted = false
-    @Published private(set) var error: SLClientError? // TODO: Handle error
+    @Published private(set) var error: SLClientError?
+
+    // Updating mailboxes, display name & notes
+    @Published private(set) var isUpdating = false
+    @Published private(set) var isUpdated = false
+    @Published private(set) var updatingError: SLClientError?
+
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
     private var canLoadMorePages = true
@@ -33,6 +38,14 @@ final class AliasDetailViewModel: ObservableObject {
 
     func handledError() {
         error = nil
+    }
+
+    func handledUpdatingError() {
+        updatingError = nil
+    }
+
+    func handledIsUpdatedBoolean() {
+        isUpdated = false
     }
 
     func getMoreActivitiesIfNeed(session: Session, currentActivity activity: AliasActivity?) {
@@ -82,7 +95,7 @@ final class AliasDetailViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] mailboxArray in
                 guard let self = self else { return }
-                self.mailboxes = mailboxArray.mailboxes.sorted(by: { $0.id < $1.id })
+                self.mailboxes = mailboxArray.mailboxes.sorted { $0.id < $1.id }
             }
             .store(in: &cancellables)
     }
@@ -119,6 +132,7 @@ final class AliasDetailViewModel: ObservableObject {
         guard !isUpdating else { return }
         print("Updating \(alias.email)")
         isUpdating = true
+        isUpdated = false
         session.client.updateAlias(apiKey: session.apiKey, id: alias.id, option: option)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -127,9 +141,10 @@ final class AliasDetailViewModel: ObservableObject {
                 switch completion {
                 case .finished:
                     print("Finish updating \(self.alias.email)")
+                    self.isUpdated = true
                 case .failure(let error):
                     print("Error updating \(self.alias.email): \(error.description)")
-                    self.error = error
+                    self.updatingError = error
                 }
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }

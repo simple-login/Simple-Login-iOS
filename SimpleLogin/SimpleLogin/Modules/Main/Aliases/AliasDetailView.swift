@@ -626,10 +626,17 @@ private struct EditMailboxesView: View {
     @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
-    @State private var didPressDoneButton = false
     @State private var selectedIds: [Int] = []
 
     var body: some View {
+        let showingErrorAlert = Binding<Bool>(get: {
+            viewModel.updatingError != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledUpdatingError()
+            }
+        })
+
         NavigationView {
             Group {
                 if !viewModel.mailboxes.isEmpty {
@@ -647,8 +654,11 @@ private struct EditMailboxesView: View {
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
-            if didPressDoneButton && !isUpdating && viewModel.error == nil {
+        }
+        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
+            if isUpdated {
                 presentationMode.wrappedValue.dismiss()
+                viewModel.handledIsUpdatedBoolean()
             }
         }
         .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
@@ -656,6 +666,11 @@ private struct EditMailboxesView: View {
         }
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
+        }
+        .toast(isPresenting: showingErrorAlert) {
+            AlertToast(displayMode: .banner(.pop),
+                       type: .error(.red),
+                       title: viewModel.updatingError?.description)
         }
     }
 
@@ -669,7 +684,6 @@ private struct EditMailboxesView: View {
 
     private var doneButton: some View {
         Button(action: {
-            didPressDoneButton = true
             viewModel.update(session: session,
                              option: .mailboxIds(selectedIds))
         }, label: {
@@ -708,10 +722,17 @@ private struct EditDisplayNameView: View {
     @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
-    @State private var didPressDoneButton = false
     @State private var displayName = ""
 
     var body: some View {
+        let showingErrorAlert = Binding<Bool>(get: {
+            viewModel.updatingError != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledUpdatingError()
+            }
+        })
+
         NavigationView {
             Form {
                 Section(header: Text("Display name")) {
@@ -734,12 +755,20 @@ private struct EditDisplayNameView: View {
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
-            if didPressDoneButton && !isUpdating && viewModel.error == nil {
+        }
+        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
+            if isUpdated {
                 presentationMode.wrappedValue.dismiss()
+                viewModel.handledIsUpdatedBoolean()
             }
         }
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
+        }
+        .toast(isPresenting: showingErrorAlert) {
+            AlertToast(displayMode: .banner(.pop),
+                       type: .error(.red),
+                       title: viewModel.updatingError?.description)
         }
     }
 
@@ -753,7 +782,6 @@ private struct EditDisplayNameView: View {
 
     private var doneButton: some View {
         Button(action: {
-            didPressDoneButton = true
             viewModel.update(session: session,
                              option: .name(displayName.isEmpty ? nil : displayName))
         }, label: {
@@ -767,10 +795,17 @@ private struct EditNotesView: View {
     @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
-    @State private var didPressDoneButton = false
     @State private var notes = ""
 
     var body: some View {
+        let showingErrorAlert = Binding<Bool>(get: {
+            viewModel.updatingError != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledUpdatingError()
+            }
+        })
+
         NavigationView {
             Form {
                 Section(header: Text("Notes")) {
@@ -794,12 +829,20 @@ private struct EditNotesView: View {
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
-            if didPressDoneButton && !isUpdating && viewModel.error == nil {
+        }
+        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
+            if isUpdated {
                 presentationMode.wrappedValue.dismiss()
+                viewModel.handledIsUpdatedBoolean()
             }
         }
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
+        }
+        .toast(isPresenting: showingErrorAlert) {
+            AlertToast(displayMode: .banner(.pop),
+                       type: .error(.red),
+                       title: viewModel.updatingError?.description)
         }
     }
 
@@ -813,7 +856,6 @@ private struct EditNotesView: View {
 
     private var doneButton: some View {
         Button(action: {
-            didPressDoneButton = true
             viewModel.update(session: session,
                              option: .note(notes.isEmpty ? nil : notes))
         }, label: {
