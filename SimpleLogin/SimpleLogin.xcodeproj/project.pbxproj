@@ -13,7 +13,7 @@
 		C0100B3026DEC46900085C24 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0100B2F26DEC46900085C24 /* MainView.swift */; };
 		C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0259EAC26DA30D70056A977 /* SignUpView.swift */; };
 		C0259EAF26DA55CD0056A977 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0259EAE26DA55CD0056A977 /* StringExtensions.swift */; };
-		C029769226F1406D0014DC3B /* AliasesSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C029769126F1406D0014DC3B /* AliasesSearchView.swift */; };
+		C029769226F1406D0014DC3B /* SearchAliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C029769126F1406D0014DC3B /* SearchAliasesView.swift */; };
 		C029769426F141A60014DC3B /* CreateAliasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C029769326F141A60014DC3B /* CreateAliasView.swift */; };
 		C02F967226DB78D0000B100C /* ShakeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F967126DB78CF000B100C /* ShakeEffect.swift */; };
 		C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C034888D268A6F29008D9629 /* SimpleLoginApp.swift */; };
@@ -41,7 +41,6 @@
 		C07EA68B273E4DEA00C7D69C /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = C07EA68A273E4DEA00C7D69C /* AlertToast */; };
 		C07EA68D273E57AA00C7D69C /* ApiKeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07EA68C273E57AA00C7D69C /* ApiKeyViewModel.swift */; };
 		C0AAE98E26E4152A00247742 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAE98D26E4152A00247742 /* Blur.swift */; };
-		C0AAE99426E41F3500247742 /* AliasesViewToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAE99326E41F3500247742 /* AliasesViewToolbar.swift */; };
 		C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */; };
 		C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */; };
 		C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93E26B9D1DD004833F6 /* ApiKeyView.swift */; };
@@ -76,7 +75,7 @@
 		C0100B2F26DEC46900085C24 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C0259EAC26DA30D70056A977 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		C0259EAE26DA55CD0056A977 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
-		C029769126F1406D0014DC3B /* AliasesSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesSearchView.swift; sourceTree = "<group>"; };
+		C029769126F1406D0014DC3B /* SearchAliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAliasesView.swift; sourceTree = "<group>"; };
 		C029769326F141A60014DC3B /* CreateAliasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasView.swift; sourceTree = "<group>"; };
 		C02F967126DB78CF000B100C /* ShakeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeEffect.swift; sourceTree = "<group>"; };
 		C034888A268A6F29008D9629 /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,7 +106,6 @@
 		C079864926B34D5F006C9FC0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		C07EA68C273E57AA00C7D69C /* ApiKeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyViewModel.swift; sourceTree = "<group>"; };
 		C0AAE98D26E4152A00247742 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
-		C0AAE99326E41F3500247742 /* AliasesViewToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewToolbar.swift; sourceTree = "<group>"; };
 		C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailPasswordView.swift; sourceTree = "<group>"; };
 		C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
 		C0CBE93E26B9D1DD004833F6 /* ApiKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyView.swift; sourceTree = "<group>"; };
@@ -249,12 +247,11 @@
 			children = (
 				C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */,
 				C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */,
-				C0AAE99326E41F3500247742 /* AliasesViewToolbar.swift */,
 				C03B518D27288F2700C54130 /* AliasCompactView.swift */,
 				C0F1963D27348EA10062B418 /* AliasDetailView.swift */,
 				C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */,
-				C029769126F1406D0014DC3B /* AliasesSearchView.swift */,
 				C029769326F141A60014DC3B /* CreateAliasView.swift */,
+				C029769126F1406D0014DC3B /* SearchAliasesView.swift */,
 			);
 			path = Aliases;
 			sourceTree = "<group>";
@@ -491,11 +488,10 @@
 				C043D41626E01E280051B282 /* KeychainService.swift in Sources */,
 				C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */,
 				C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */,
-				C029769226F1406D0014DC3B /* AliasesSearchView.swift in Sources */,
+				C029769226F1406D0014DC3B /* SearchAliasesView.swift in Sources */,
 				C03760FA26DC0F0200E5ECAC /* Preferences.swift in Sources */,
 				C0D1D5A7272BCCA000F5CFC5 /* ColorExtensions.swift in Sources */,
 				C029769426F141A60014DC3B /* CreateAliasView.swift in Sources */,
-				C0AAE99426E41F3500247742 /* AliasesViewToolbar.swift in Sources */,
 				C00A563426DABC3900A550A2 /* ErrorMessageModifier.swift in Sources */,
 				C0F1963E27348EA10062B418 /* AliasDetailView.swift in Sources */,
 				C02F967226DB78D0000B100C /* ShakeEffect.swift in Sources */,

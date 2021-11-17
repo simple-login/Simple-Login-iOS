@@ -1,5 +1,5 @@
 //
-//  AliasesSearchView.swift
+//  SearchAliasesView.swift
 //  SimpleLogin
 //
 //  Created by Thanh-Nhon Nguyen on 14/09/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AliasesSearchView: View {
+struct SearchAliasesView: View {
     @Environment(\.presentationMode) private var presentationMode
 
     var body: some View {
@@ -21,11 +21,12 @@ struct AliasesSearchView: View {
                                             Text("Close")
                                         }))
         }
+        .accentColor(.slPurple)
     }
 }
 
-struct AliasesSearchView_Previews: PreviewProvider {
+struct SearchAliasesView_Previews: PreviewProvider {
     static var previews: some View {
-        AliasesSearchView()
+        SearchAliasesView()
     }
 }

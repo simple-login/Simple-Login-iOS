@@ -21,6 +21,7 @@ struct CreateAliasView: View {
                                             Text("Close")
                                         }))
         }
+        .accentColor(.slPurple)
     }
 }
 
