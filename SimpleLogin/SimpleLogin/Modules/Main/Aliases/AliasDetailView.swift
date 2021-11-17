@@ -21,7 +21,7 @@ struct AliasDetailView: View {
     @State private var showingAliasEmailSheet = false
     @State private var selectedSheet: Sheet?
     @State private var copiedText: String?
-    private let refresher = Refresher()
+    private let refreshControl = UIRefreshControl()
     var onUpdateAlias: (Alias) -> Void
     var onDeleteAlias: () -> Void
 
@@ -84,7 +84,10 @@ struct AliasDetailView: View {
                 .disabled(viewModel.isUpdating || viewModel.isRefreshing)
             }
             .introspectScrollView { scrollView in
-                scrollView.refreshControl = refresher.control
+                refreshControl.addAction(UIAction { _ in
+                    viewModel.refresh(session: session)
+                }, for: .valueChanged)
+                scrollView.refreshControl = refreshControl
             }
         }
         .actionSheet(isPresented: showingSheet) {
@@ -126,7 +129,7 @@ struct AliasDetailView: View {
         }
         .onReceive(Just(viewModel.isRefreshing)) { isRefreshing in
             if !isRefreshing {
-                refresher.endRefreshing()
+                refreshControl.endRefreshing()
             }
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
@@ -142,10 +145,6 @@ struct AliasDetailView: View {
             onUpdateAlias(viewModel.alias)
         }
         .onAppear {
-            refresher.parent = self
-            let control = UIRefreshControl()
-            control.addTarget(refresher, action: #selector(Refresher.beginRefreshing), for: .valueChanged)
-            refresher.control = control
             viewModel.getMoreActivitiesIfNeed(session: session, currentActivity: nil)
         }
         .toast(isPresenting: $showingLoadingAlert) {
@@ -268,26 +267,6 @@ struct AliasDetailView: View {
         return ActionSheet(title: Text("Compose and send email"),
                            message: Text("From: \"\(fromAddress)\"\nTo: \"\(toAddress)\""),
                            buttons: buttons)
-    }
-
-    private func refresh() {
-        viewModel.refresh(session: session)
-    }
-}
-
-private extension AliasDetailView {
-    class Refresher {
-        var parent: AliasDetailView?
-        var control: UIRefreshControl?
-
-        @objc
-        func beginRefreshing() {
-            parent?.refresh()
-        }
-
-        func endRefreshing() {
-            control?.endRefreshing()
-        }
     }
 }
 
