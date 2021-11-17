@@ -28,13 +28,14 @@ struct AliasCompactView: View {
             Color(enabled ? .slPurple : (.darkGray))
                 .frame(width: 4)
 
-            VStack(spacing: 4) {
+            VStack(spacing: 8) {
                 EmailAndCreationDateView(enabled: $enabled, alias: alias)
                 AliasMailboxesView(alias: alias)
                 if !alias.noActivities {
                     ActivitiesView(alias: alias)
                 }
                 ActionsView(enabled: $enabled, onCopy: onCopy, onSendMail: onSendMail)
+                    .padding(.top, 8)
             }
             .padding(8)
         }
