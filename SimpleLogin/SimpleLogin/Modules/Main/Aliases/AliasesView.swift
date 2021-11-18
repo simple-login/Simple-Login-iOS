@@ -14,7 +14,6 @@ import SwiftUI
 struct AliasesView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel = AliasesViewModel()
-    @State private var selectedStatus: AliasStatus = .all
     @State private var showingRandomAliasBottomSheet = false
     @State private var selectedModal: Modal?
     @State private var copiedEmail: String?
@@ -52,7 +51,7 @@ struct AliasesView: View {
         NavigationView {
             ScrollView {
                 LazyVStack {
-                    ForEach(viewModel.aliases, id: \.id) { alias in
+                    ForEach(viewModel.filteredAliases, id: \.id) { alias in
                         NavigationLink(destination:
                                         AliasDetailView(
                                             alias: alias,
@@ -86,11 +85,12 @@ struct AliasesView: View {
                     }
                 }
                 .padding(.vertical, 8)
+                .animation(.default)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
-                    AliasesViewToolbar(selectedStatus: $selectedStatus,
+                    AliasesViewToolbar(selectedStatus: $viewModel.selectedStatus,
                                        onSearch: { selectedModal = .search },
                                        onRandomAlias: { showingRandomAliasBottomSheet.toggle() },
                                        onCreateAlias: { selectedModal = .create })

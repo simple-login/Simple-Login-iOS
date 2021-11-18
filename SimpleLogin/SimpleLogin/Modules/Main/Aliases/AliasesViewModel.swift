@@ -11,13 +11,11 @@ import SwiftUI
 
 final class AliasesViewModel: ObservableObject {
     @Published var selectedStatus: AliasStatus = .all {
-        willSet {
-            if selectedStatus != newValue {
-                updateFilteredAliases()
-            }
+        didSet {
+            updateFilteredAliases()
         }
     }
-    @Published private(set) var aliases: [Alias] = [] {
+    @Published private var aliases: [Alias] = [] {
         didSet {
             updateFilteredAliases()
         }
@@ -40,8 +38,8 @@ final class AliasesViewModel: ObservableObject {
             return
         }
 
-        let thresholdIndex = aliases.index(aliases.endIndex, offsetBy: -5)
-        if aliases.firstIndex(where: { $0.id == alias.id }) == thresholdIndex {
+        let thresholdIndex = filteredAliases.index(filteredAliases.endIndex, offsetBy: -1)
+        if filteredAliases.firstIndex(where: { $0.id == alias.id }) == thresholdIndex {
             getMoreAliases(session: session)
         }
     }
@@ -68,7 +66,13 @@ final class AliasesViewModel: ObservableObject {
     }
 
     private func updateFilteredAliases() {
-        
+        filteredAliases = aliases.filter { alias in
+            switch selectedStatus {
+            case .all: return true
+            case .active: return alias.enabled
+            case .inactive: return !alias.enabled
+            }
+        }
     }
 
     func refresh(session: Session) {
