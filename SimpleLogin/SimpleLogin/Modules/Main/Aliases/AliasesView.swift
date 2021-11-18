@@ -14,7 +14,7 @@ import SwiftUI
 struct AliasesView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel = AliasesViewModel()
-    @State private var showingRandomAliasBottomSheet = false
+    @State private var showingRandomAliasActionSheet = false
     @State private var showingUpdatingAlert = false
     @State private var selectedModal: Modal?
     @State private var copiedEmail: String?
@@ -96,7 +96,7 @@ struct AliasesView: View {
                 ToolbarItem {
                     AliasesViewToolbar(selectedStatus: $viewModel.selectedStatus,
                                        onSearch: { selectedModal = .search },
-                                       onRandomAlias: { showingRandomAliasBottomSheet.toggle() },
+                                       onRandomAlias: { showingRandomAliasActionSheet.toggle() },
                                        onCreateAlias: { selectedModal = .create })
                 }
             }
@@ -106,7 +106,7 @@ struct AliasesView: View {
                 }, for: .valueChanged)
                 scrollView.refreshControl = refreshControl
             }
-            .actionSheet(isPresented: $showingRandomAliasBottomSheet) {
+            .actionSheet(isPresented: $showingRandomAliasActionSheet) {
                 randomAliasActionSheet
             }
             .fullScreenCover(isPresented: showingFullScreenModal) {
@@ -147,10 +147,10 @@ struct AliasesView: View {
                     message: Text("Randomly create an alias"),
                     buttons: [
                         .default(Text("By random words")) {
-                            print("random words")
+                            viewModel.random(mode: .word, session: session)
                         },
                         .default(Text("By UUID")) {
-                            print("uuid")
+                            viewModel.random(mode: .uuid, session: session)
                         },
                         .cancel(Text("Cancel"))
                     ])

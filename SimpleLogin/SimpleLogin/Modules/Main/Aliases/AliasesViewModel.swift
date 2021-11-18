@@ -138,4 +138,23 @@ final class AliasesViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+
+    func random(mode: RandomMode, session: Session) {
+        guard !isUpdating else { return }
+        isUpdating = true
+        session.client.randomAlias(apiKey: session.apiKey, options: AliasRandomOptions(mode: mode))
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isUpdating = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error
+                }
+            } receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.refresh(session: session)
+            }
+            .store(in: &cancellables)
+    }
 }
