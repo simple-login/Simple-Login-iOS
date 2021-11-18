@@ -15,6 +15,7 @@ struct AliasesView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel = AliasesViewModel()
     @State private var showingRandomAliasBottomSheet = false
+    @State private var showingUpdatingAlert = false
     @State private var selectedModal: Modal?
     @State private var copiedEmail: String?
     private let refreshControl = UIRefreshControl()
@@ -70,6 +71,9 @@ struct AliasesView: View {
                                 },
                                 onSendMail: {
                                     print("Send mail: \(alias.email)")
+                                },
+                                onToggle: {
+                                    viewModel.toggle(alias: alias, session: session)
                                 })
                                 .padding(.horizontal, 4)
                                 .onAppear {
@@ -121,6 +125,9 @@ struct AliasesView: View {
                 refreshControl.endRefreshing()
             }
         }
+        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+            showingUpdatingAlert = isUpdating
+        }
         .toast(isPresenting: showingCopiedEmailAlert) {
             AlertToast(displayMode: .alert,
                        type: .systemImage("doc.on.doc", .secondary),
@@ -129,6 +136,9 @@ struct AliasesView: View {
         }
         .toast(isPresenting: showingErrorAlert) {
             AlertToast.errorAlert(message: viewModel.error?.description)
+        }
+        .toast(isPresenting: $showingUpdatingAlert) {
+            AlertToast(type: .loading)
         }
     }
 

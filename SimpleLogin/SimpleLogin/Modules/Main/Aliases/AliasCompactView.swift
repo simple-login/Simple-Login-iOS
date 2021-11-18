@@ -9,51 +9,54 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct AliasCompactView: View {
-    @State private var enabled: Bool
     let alias: Alias
     let onCopy: () -> Void
     let onSendMail: () -> Void
+    let onToggle: () -> Void
 
     init(alias: Alias,
          onCopy: @escaping () -> Void,
-         onSendMail: @escaping () -> Void) {
+         onSendMail: @escaping () -> Void,
+         onToggle: @escaping () -> Void) {
         self.alias = alias
         self.onCopy = onCopy
         self.onSendMail = onSendMail
-        _enabled = State(initialValue: alias.enabled)
+        self.onToggle = onToggle
     }
 
     var body: some View {
         HStack(spacing: 0) {
-            Color(enabled ? .slPurple : (.darkGray))
+            Color(alias.enabled ? .slPurple : (.darkGray))
                 .frame(width: 4)
 
             VStack(spacing: 8) {
-                EmailAndCreationDateView(enabled: $enabled, alias: alias)
+                EmailAndCreationDateView(alias: alias)
                 AliasMailboxesView(alias: alias)
                 if !alias.noActivities {
                     ActivitiesView(alias: alias)
                 }
-                ActionsView(enabled: $enabled, onCopy: onCopy, onSendMail: onSendMail)
+                ActionsView(alias: alias,
+                            onCopy: onCopy,
+                            onSendMail: onSendMail,
+                            onToggle: onToggle)
                     .padding(.top, 8)
             }
             .padding(8)
         }
-        .background(enabled ? Color.slPurple.opacity(0.05) : Color(.darkGray).opacity(0.05))
+        .background(alias.enabled ? Color.slPurple.opacity(0.05) : Color(.darkGray).opacity(0.05))
         .fixedSize(horizontal: false, vertical: true)
         .clipShape(RoundedRectangle(cornerRadius: 4))
     }
 }
 
 private struct EmailAndCreationDateView: View {
-    @Binding var enabled: Bool
     let alias: Alias
 
     var body: some View {
         HStack {
             Label {
                 Text(alias.email)
-                    .foregroundColor(enabled ? .primary : .secondary)
+                    .foregroundColor(alias.enabled ? .primary : .secondary)
             } icon: {
                 if alias.pinned {
                     Image(systemName: "bookmark.fill")
@@ -123,9 +126,10 @@ private struct ActivitiesView: View {
 }
 
 private struct ActionsView: View {
-    @Binding var enabled: Bool
+    let alias: Alias
     let onCopy: () -> Void
     let onSendMail: () -> Void
+    let onToggle: () -> Void
 
     var body: some View {
         HStack {
@@ -146,10 +150,10 @@ private struct ActionsView: View {
             Spacer()
 
             Button {
-                enabled.toggle()
+                onToggle()
             } label: {
-                Label("Active", systemImage: enabled ? "checkmark.circle.fill" : "circle.dashed")
-                    .foregroundColor(enabled ? .accentColor : Color(.darkGray))
+                Label("Active", systemImage: alias.enabled ? "checkmark.circle.fill" : "circle.dashed")
+                    .foregroundColor(alias.enabled ? .accentColor : Color(.darkGray))
             }
 
             Spacer()
@@ -162,8 +166,8 @@ private struct ActionsView: View {
 struct AliasCompactView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            AliasCompactView(alias: .ccohen, onCopy: {}, onSendMail: {})
-            AliasCompactView(alias: .claypool, onCopy: {}, onSendMail: {})
+            AliasCompactView(alias: .ccohen, onCopy: {}, onSendMail: {}, onToggle: {})
+            AliasCompactView(alias: .claypool, onCopy: {}, onSendMail: {}, onToggle: {})
         }
         .accentColor(.slPurple)
     }

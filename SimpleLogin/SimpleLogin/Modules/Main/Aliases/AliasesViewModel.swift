@@ -23,6 +23,7 @@ final class AliasesViewModel: ObservableObject {
     @Published private(set) var filteredAliases: [Alias] = []
     @Published private(set) var isLoading = false
     @Published private(set) var isRefreshing = false
+    @Published private(set) var isUpdating = false
     @Published private(set) var error: SLClientError?
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
@@ -103,5 +104,38 @@ final class AliasesViewModel: ObservableObject {
 
     func delete(alias: Alias) {
         aliases.removeAll { $0.id == alias.id }
+    }
+
+    func toggle(alias: Alias, session: Session) {
+        guard !isUpdating else { return }
+        isUpdating = true
+        session.client.toggleAliasStatus(apiKey: session.apiKey, id: alias.id)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isUpdating = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error
+                }
+            } receiveValue: { [weak self] enabledResponse in
+                guard let self = self else { return }
+                guard let index = self.aliases.firstIndex(where: { $0.id == alias.id }) else { return }
+                self.aliases[index] = Alias(id: alias.id,
+                                            email: alias.email,
+                                            name: alias.name,
+                                            enabled: enabledResponse.value,
+                                            creationTimestamp: alias.creationTimestamp,
+                                            blockCount: alias.blockCount,
+                                            forwardCount: alias.forwardCount,
+                                            replyCount: alias.replyCount,
+                                            note: alias.note,
+                                            pgpSupported: alias.pgpSupported,
+                                            pgpDisabled: alias.pgpDisabled,
+                                            mailboxes: alias.mailboxes,
+                                            latestActivity: alias.latestActivity,
+                                            pinned: alias.pinned)
+            }
+            .store(in: &cancellables)
     }
 }
