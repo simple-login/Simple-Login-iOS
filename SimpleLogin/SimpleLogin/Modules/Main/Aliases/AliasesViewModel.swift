@@ -10,11 +10,29 @@ import SimpleLoginPackage
 import SwiftUI
 
 final class AliasesViewModel: ObservableObject {
-    @Published private(set) var aliases: [Alias] = []
+    @Published var selectedStatus: AliasStatus = .all {
+        willSet {
+            if selectedStatus != newValue {
+                updateFilteredAliases()
+            }
+        }
+    }
+    @Published private(set) var aliases: [Alias] = [] {
+        didSet {
+            updateFilteredAliases()
+        }
+    }
+    @Published private(set) var filteredAliases: [Alias] = []
     @Published private(set) var isLoading = false
+    @Published private(set) var isRefreshing = false
+    @Published private(set) var error: SLClientError?
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
     private var canLoadMorePages = true
+
+    func handledError() {
+        self.error = nil
+    }
 
     func getMoreAliasesIfNeed(session: Session, currentAlias alias: Alias?) {
         guard let alias = alias else {
@@ -38,9 +56,7 @@ final class AliasesViewModel: ObservableObject {
                 self.isLoading = false
                 switch completion {
                 case .finished: break
-                case .failure(let error):
-                    // TODO: Handle error
-                    break
+                case .failure(let error): self.error = error
                 }
             } receiveValue: { [weak self] aliasArray in
                 guard let self = self else { return }
@@ -51,8 +67,29 @@ final class AliasesViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func refresh() {
+    private func updateFilteredAliases() {
+        
+    }
 
+    func refresh(session: Session) {
+        guard !isRefreshing else { return }
+        isRefreshing = true
+        session.client.getAliases(apiKey: session.apiKey, page: 0)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isRefreshing = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error
+                }
+            } receiveValue: { [weak self] aliasArray in
+                guard let self = self else { return }
+                self.aliases = aliasArray.aliases
+                self.currentPage = 1
+                self.canLoadMorePages = aliasArray.aliases.count == 20
+            }
+            .store(in: &cancellables)
     }
 
     func update(alias: Alias) {
@@ -61,6 +98,6 @@ final class AliasesViewModel: ObservableObject {
     }
 
     func delete(alias: Alias) {
-        aliases.removeAll(where: { $0.id == alias.id })
+        aliases.removeAll { $0.id == alias.id }
     }
 }

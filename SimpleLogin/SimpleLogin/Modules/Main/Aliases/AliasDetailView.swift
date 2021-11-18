@@ -157,9 +157,7 @@ struct AliasDetailView: View {
                        subTitle: copiedText)
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast(displayMode: .banner(.pop),
-                       type: .error(.red),
-                       title: viewModel.error?.description)
+            AlertToast.errorAlert(message: viewModel.error?.description)
         }
         .alert(isPresented: $showingDeletionAlert) {
             deletionAlert

@@ -6,6 +6,8 @@
 //
 
 import AlertToast
+import Combine
+import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
@@ -16,6 +18,7 @@ struct AliasesView: View {
     @State private var showingRandomAliasBottomSheet = false
     @State private var selectedModal: Modal?
     @State private var copiedEmail: String?
+    private let refreshControl = UIRefreshControl()
 
     enum Modal {
         case search, create
@@ -38,13 +41,17 @@ struct AliasesView: View {
             }
         })
 
+        let showingErrorAlert = Binding<Bool>(get: {
+            viewModel.error != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledError()
+            }
+        })
+
         NavigationView {
             ScrollView {
                 LazyVStack {
-                    // Upper spacer
-                    Spacer()
-                        .frame(height: 8)
-
                     ForEach(viewModel.aliases, id: \.id) { alias in
                         NavigationLink(destination:
                                         AliasDetailView(
@@ -78,6 +85,7 @@ struct AliasesView: View {
                             .padding()
                     }
                 }
+                .padding(.vertical, 8)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -87,6 +95,12 @@ struct AliasesView: View {
                                        onRandomAlias: { showingRandomAliasBottomSheet.toggle() },
                                        onCreateAlias: { selectedModal = .create })
                 }
+            }
+            .introspectScrollView { scrollView in
+                refreshControl.addAction(UIAction { _ in
+                    viewModel.refresh(session: session)
+                }, for: .valueChanged)
+                scrollView.refreshControl = refreshControl
             }
             .actionSheet(isPresented: $showingRandomAliasBottomSheet) {
                 randomAliasActionSheet
@@ -102,11 +116,19 @@ struct AliasesView: View {
         .onAppear {
             viewModel.getMoreAliasesIfNeed(session: session, currentAlias: nil)
         }
+        .onReceive(Just(viewModel.isRefreshing)) { isRefreshing in
+            if !isRefreshing {
+                refreshControl.endRefreshing()
+            }
+        }
         .toast(isPresenting: showingCopiedEmailAlert) {
             AlertToast(displayMode: .alert,
                        type: .systemImage("doc.on.doc", .secondary),
                        title: "Copied",
                        subTitle: copiedEmail ?? "")
+        }
+        .toast(isPresenting: showingErrorAlert) {
+            AlertToast.errorAlert(message: viewModel.error?.description)
         }
     }
 
