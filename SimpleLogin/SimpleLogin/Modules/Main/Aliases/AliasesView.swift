@@ -112,7 +112,9 @@ struct AliasesView: View {
             .fullScreenCover(isPresented: showingFullScreenModal) {
                 switch selectedModal {
                 case .search: SearchAliasesView()
-                case .create: CreateAliasView()
+                case .create: CreateAliasView { _ in
+                    viewModel.refresh(session: session)
+                }
                 default: EmptyView()
                 }
             }
