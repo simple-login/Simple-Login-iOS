@@ -15,6 +15,11 @@ struct CreateAliasView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel = CreateAliasViewModel()
     @State private var showingLoadingAlert = false
+    @State private var prefix = ""
+    @State private var suffix = ""
+    @State private var mailboxIds = [Int]()
+    @State private var notes = ""
+    @State private var name = ""
 
     let onCreateAlias: (Alias) -> Void
 
@@ -30,10 +35,12 @@ struct CreateAliasView: View {
         NavigationView {
             Group {
                 if let options = viewModel.options {
-                    ContentView(options: options) { aliasCreationOptions in
-                        viewModel.createAlias(session: session,
-                                              aliasCreationOptions: aliasCreationOptions)
-                    }
+                    ContentView(prefix: $prefix,
+                                suffix: $suffix,
+                                mailboxIds: $mailboxIds,
+                                notes: $notes,
+                                name: $name,
+                                options: options)
                 } else if !viewModel.isLoading {
                     Button(action: {
                         viewModel.fetchOptions(session: session)
@@ -43,7 +50,7 @@ struct CreateAliasView: View {
                 }
             }
             .navigationBarTitle("Create an alias", displayMode: .inline)
-            .navigationBarItems(leading: cancelButton)
+            .navigationBarItems(leading: cancelButton, trailing: createButton)
         }
         .accentColor(.slPurple)
         .onAppear {
@@ -56,6 +63,13 @@ struct CreateAliasView: View {
             if let createdAlias = createdAlias {
                 onCreateAlias(createdAlias)
                 presentationMode.wrappedValue.dismiss()
+            }
+        }
+        .onReceive(Just(viewModel.options)) { options in
+            if let options = options {
+                if !options.canCreate {
+                    // TODO: Ask for premium subscription
+                }
             }
         }
         .toast(isPresenting: $showingLoadingAlert) {
@@ -73,13 +87,79 @@ struct CreateAliasView: View {
             Text("Cancel")
         })
     }
+
+    private var createButton: some View {
+        Button(action: {
+            print("Create")
+        }, label: {
+            Text("Create")
+        })
+    }
 }
 
 private struct ContentView: View {
+    @Binding var prefix: String
+    @Binding var suffix: String
+    @Binding var mailboxIds: [Int]
+    @Binding var notes: String
+    @Binding var name: String
     let options: AliasOptions
-    let onCreate: (AliasCreationOptions) -> Void
 
     var body: some View {
-        Text("Content view")
+        Form {
+            Section(footer: Text("Only lowercase letters, numbers, dot (.), dashes (-) & underscore are supported.")) {
+                prefixAndSuffixView
+            }
+
+            Section(header: Text("Mailboxes"),
+                    footer: Text("The mailboxes that receive emails sent to this alias")) {
+                Text("abc@gmail.com")
+            }
+
+            Section(header: Text("Display name"),
+                    footer: Text("Your display name when sending emails from this alias")) {
+                TextField("Ex: John Doe", text: $name)
+                    .autocapitalization(.words)
+                    .disableAutocorrection(true)
+            }
+
+            Section(header: Text("Notes"),
+                    footer: Text("Something to remind you about the usage of this alias")) {
+                TextField("Ex: For online shopping", text: $notes)
+            }
+        }
+        .onAppear {
+            suffix = options.suffixes.map { $0.value }.first ?? ""
+        }
+    }
+
+    private var prefixAndSuffixView: some View {
+        HStack(spacing: 2) {
+            TextField("custom_prefix", text: $prefix)
+                .labelsHidden()
+                .multilineTextAlignment(.trailing)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+
+            if #available(iOS 15, *) {
+                Picker("", selection: $suffix) {
+                    pickerBody
+                }
+            } else {
+                Picker(selection: $suffix, label: Text(suffix)) {
+                    pickerBody
+                }
+            }
+        }
+        .labelsHidden()
+        .pickerStyle(MenuPickerStyle())
+    }
+
+    private var pickerBody: some View {
+        let suffixValues = options.suffixes.map { $0.value }
+        return ForEach(suffixValues, id: \.self) { value in
+            Text(value)
+                .tag(value)
+        }
     }
 }

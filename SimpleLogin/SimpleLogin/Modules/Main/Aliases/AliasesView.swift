@@ -16,7 +16,8 @@ struct AliasesView: View {
     @StateObject private var viewModel = AliasesViewModel()
     @State private var showingRandomAliasActionSheet = false
     @State private var showingUpdatingAlert = false
-    @State private var selectedModal: Modal?
+    @State private var showingSearchView = false
+    @State private var showingCreateView = false
     @State private var copiedEmail: String?
     private let refreshControl = UIRefreshControl()
 
@@ -30,14 +31,6 @@ struct AliasesView: View {
         }, set: { isShowing in
             if !isShowing {
                 copiedEmail = nil
-            }
-        })
-
-        let showingFullScreenModal = Binding<Bool>(get: {
-            selectedModal != nil
-        }, set: { isShowing in
-            if !isShowing {
-                selectedModal = nil
             }
         })
 
@@ -95,9 +88,9 @@ struct AliasesView: View {
             .toolbar {
                 ToolbarItem {
                     AliasesViewToolbar(selectedStatus: $viewModel.selectedStatus,
-                                       onSearch: { selectedModal = .search },
+                                       onSearch: { showingSearchView = true },
                                        onRandomAlias: { showingRandomAliasActionSheet.toggle() },
-                                       onCreateAlias: { selectedModal = .create })
+                                       onCreateAlias: { showingCreateView = true })
                 }
             }
             .introspectScrollView { scrollView in
@@ -109,14 +102,8 @@ struct AliasesView: View {
             .actionSheet(isPresented: $showingRandomAliasActionSheet) {
                 randomAliasActionSheet
             }
-            .fullScreenCover(isPresented: showingFullScreenModal) {
-                switch selectedModal {
-                case .search: SearchAliasesView()
-                case .create: CreateAliasView { _ in
-                    viewModel.refresh(session: session)
-                }
-                default: EmptyView()
-                }
+            .fullScreenCover(isPresented: $showingSearchView) {
+                SearchAliasesView()
             }
         }
         .onAppear {
@@ -129,6 +116,11 @@ struct AliasesView: View {
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingUpdatingAlert = isUpdating
+        }
+        .sheet(isPresented: $showingCreateView) {
+            CreateAliasView { _ in
+                viewModel.refresh(session: session)
+            }
         }
         .toast(isPresenting: showingCopiedEmailAlert) {
             AlertToast(displayMode: .alert,
