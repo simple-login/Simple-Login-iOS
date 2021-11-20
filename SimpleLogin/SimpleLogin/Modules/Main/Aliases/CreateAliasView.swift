@@ -94,6 +94,7 @@ struct CreateAliasView: View {
         }, label: {
             Text("Create")
         })
+            .disabled(!prefix.isValidPrefix || mailboxIds.isEmpty)
     }
 }
 
@@ -107,7 +108,8 @@ private struct ContentView: View {
 
     var body: some View {
         Form {
-            Section(footer: Text("Only lowercase letters, numbers, dot (.), dashes (-) & underscore are supported.")) {
+            Section(header: Text("Address"),
+                    footer: Text("Only lowercase letters, numbers, dot (.), dashes (-) & underscore are supported.")) {
                 prefixAndSuffixView
             }
 
@@ -118,14 +120,14 @@ private struct ContentView: View {
 
             Section(header: Text("Display name"),
                     footer: Text("Your display name when sending emails from this alias")) {
-                TextField("Ex: John Doe", text: $name)
+                TextField("(Optional) Ex: John Doe", text: $name)
                     .autocapitalization(.words)
                     .disableAutocorrection(true)
             }
 
             Section(header: Text("Notes"),
                     footer: Text("Something to remind you about the usage of this alias")) {
-                TextField("Ex: For online shopping", text: $notes)
+                TextField("(Optional) Ex: For online shopping", text: $notes)
             }
         }
         .onAppear {
@@ -140,6 +142,8 @@ private struct ContentView: View {
                 .multilineTextAlignment(.trailing)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
+                .foregroundColor(prefix.isValidPrefix ? .primary : .red)
+                .frame(minWidth: 50)
 
             Picker(selection: $suffix, label: Text(suffix)) {
                 let suffixValues = options.suffixes.map { $0.value }
