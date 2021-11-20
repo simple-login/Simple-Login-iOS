@@ -19,6 +19,7 @@ struct AliasesView: View {
     @State private var showingSearchView = false
     @State private var showingCreateView = false
     @State private var copiedEmail: String?
+    @State private var createdAlias: Alias?
     private let refreshControl = UIRefreshControl()
 
     enum Modal {
@@ -39,6 +40,14 @@ struct AliasesView: View {
         }, set: { isShowing in
             if !isShowing {
                 viewModel.handledError()
+            }
+        })
+
+        let showingCreatedAliasAlert = Binding<Bool>(get: {
+            createdAlias != nil
+        }, set: { isShowing in
+            if !isShowing {
+                createdAlias = nil
             }
         })
 
@@ -118,7 +127,8 @@ struct AliasesView: View {
             showingUpdatingAlert = isUpdating
         }
         .sheet(isPresented: $showingCreateView) {
-            CreateAliasView { _ in
+            CreateAliasView { createdAlias in
+                self.createdAlias = createdAlias
                 viewModel.refresh(session: session)
             }
         }
@@ -133,6 +143,12 @@ struct AliasesView: View {
         }
         .toast(isPresenting: $showingUpdatingAlert) {
             AlertToast(type: .loading)
+        }
+        .toast(isPresenting: showingCreatedAliasAlert) {
+            AlertToast(displayMode: .alert,
+                       type: .complete(.green),
+                       title: "Created",
+                       subTitle: createdAlias?.email ?? "")
         }
     }
 
