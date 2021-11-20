@@ -16,6 +16,7 @@ final class CreateAliasViewModel: ObservableObject {
 
     @Published private(set) var isLoading = false
     @Published private(set) var options: AliasOptions?
+    @Published private(set) var mailboxes: [Mailbox]?
     @Published private(set) var error: SLClientError?
     @Published private(set) var createdAlias: Alias?
 
@@ -25,10 +26,12 @@ final class CreateAliasViewModel: ObservableObject {
         error = nil
     }
 
-    func fetchOptions(session: Session) {
+    func fetchOptionsAndMailboxes(session: Session) {
         guard !isLoading else { return }
         isLoading = true
-        session.client.getAliasOptions(apiKey: session.apiKey, hostname: nil)
+        let getOptions = session.client.getAliasOptions(apiKey: session.apiKey, hostname: nil)
+        let getMailboxes = session.client.getMailboxes(apiKey: session.apiKey)
+        Publishers.Zip(getOptions, getMailboxes)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
@@ -37,9 +40,10 @@ final class CreateAliasViewModel: ObservableObject {
                 case .finished: break
                 case .failure(let error): self.error = error
                 }
-            } receiveValue: { [weak self] options in
+            } receiveValue: { [weak self] result in
                 guard let self = self else { return }
-                self.options = options
+                self.options = result.0
+                self.mailboxes = result.1.mailboxes.sorted { $0.id < $1.id }
             }
             .store(in: &cancellables)
     }

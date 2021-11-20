@@ -34,16 +34,18 @@ struct CreateAliasView: View {
 
         NavigationView {
             Group {
-                if let options = viewModel.options {
+                if let options = viewModel.options,
+                   let mailboxes = viewModel.mailboxes {
                     ContentView(prefix: $prefix,
                                 suffix: $suffix,
                                 mailboxIds: $mailboxIds,
                                 notes: $notes,
                                 name: $name,
-                                options: options)
+                                options: options,
+                                mailboxes: mailboxes)
                 } else if !viewModel.isLoading {
                     Button(action: {
-                        viewModel.fetchOptions(session: session)
+                        viewModel.fetchOptionsAndMailboxes(session: session)
                     }, label: {
                         Label("Retry", systemImage: "gobackward")
                     })
@@ -54,7 +56,7 @@ struct CreateAliasView: View {
         }
         .accentColor(.slPurple)
         .onAppear {
-            viewModel.fetchOptions(session: session)
+            viewModel.fetchOptionsAndMailboxes(session: session)
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
@@ -99,12 +101,14 @@ struct CreateAliasView: View {
 }
 
 private struct ContentView: View {
+    @State private var showingEditMailboxesView = false
     @Binding var prefix: String
     @Binding var suffix: String
     @Binding var mailboxIds: [Int]
     @Binding var notes: String
     @Binding var name: String
     let options: AliasOptions
+    let mailboxes: [Mailbox]
 
     var body: some View {
         Form {
@@ -115,7 +119,7 @@ private struct ContentView: View {
 
             Section(header: Text("Mailboxes"),
                     footer: Text("The mailboxes that receive emails sent to this alias")) {
-                Text("abc@gmail.com")
+                mailboxesView
             }
 
             Section(header: Text("Display name"),
@@ -132,6 +136,12 @@ private struct ContentView: View {
         }
         .onAppear {
             suffix = options.suffixes.map { $0.value }.first ?? ""
+            if let defaultMailbox = mailboxes.first(where: { $0.default }) ?? mailboxes.first {
+                mailboxIds.append(defaultMailbox.id)
+            }
+        }
+        .sheet(isPresented: $showingEditMailboxesView) {
+            EditMailboxesView(mailboxIds: $mailboxIds, mailboxes: mailboxes)
         }
     }
 
@@ -154,5 +164,67 @@ private struct ContentView: View {
             }
             .pickerStyle(MenuPickerStyle())
         }
+    }
+
+    private var mailboxesView: some View {
+        VStack {
+            ForEach(mailboxIds, id: \.self) { id in
+                if let mailbox = mailboxes.first { $0.id == id } {
+                    HStack {
+                        Text(mailbox.email)
+                        Spacer()
+                    }
+                }
+            }
+        }
+        .contentShape(Rectangle())
+        .frame(maxWidth: .infinity)
+        .onTapGesture {
+            showingEditMailboxesView = true
+        }
+    }
+}
+
+private struct EditMailboxesView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    @Binding var mailboxIds: [Int]
+    let mailboxes: [Mailbox]
+
+    var body: some View {
+        NavigationView {
+            Form {
+                Section {
+                    ForEach(mailboxes, id: \.id) { mailbox in
+                        HStack {
+                            Text(mailbox.email)
+                            Spacer()
+                            if mailboxIds.contains(mailbox.id) {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(.accentColor)
+                            }
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            if mailboxIds.contains(mailbox.id) && mailboxIds.count > 1 {
+                                mailboxIds.removeAll { $0 == mailbox.id }
+                            } else if !mailboxIds.contains(mailbox.id) {
+                                mailboxIds.append(mailbox.id)
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Mailboxes")
+            .navigationBarItems(trailing: doneButton)
+        }
+        .accentColor(.slPurple)
+    }
+
+    private var doneButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Done")
+        })
     }
 }
