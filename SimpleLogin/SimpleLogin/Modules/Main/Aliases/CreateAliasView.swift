@@ -141,25 +141,14 @@ private struct ContentView: View {
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
 
-            if #available(iOS 15, *) {
-                Picker("", selection: $suffix) {
-                    pickerBody
-                }
-            } else {
-                Picker(selection: $suffix, label: Text(suffix)) {
-                    pickerBody
+            Picker(selection: $suffix, label: Text(suffix)) {
+                let suffixValues = options.suffixes.map { $0.value }
+                ForEach(suffixValues, id: \.self) { value in
+                    Text(value)
+                        .tag(value)
                 }
             }
-        }
-        .labelsHidden()
-        .pickerStyle(MenuPickerStyle())
-    }
-
-    private var pickerBody: some View {
-        let suffixValues = options.suffixes.map { $0.value }
-        return ForEach(suffixValues, id: \.self) { value in
-            Text(value)
-                .tag(value)
+            .pickerStyle(MenuPickerStyle())
         }
     }
 }
