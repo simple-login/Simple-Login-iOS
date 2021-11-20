@@ -92,7 +92,15 @@ struct CreateAliasView: View {
 
     private var createButton: some View {
         Button(action: {
-            print("Create")
+            guard let options = viewModel.options,
+                  let suffixObject = options.suffixes.first(where: { $0.value == suffix }) else { return }
+            let creationOptions = AliasCreationOptions(hostname: nil,
+                                                       prefix: prefix,
+                                                       suffix: suffixObject,
+                                                       mailboxIds: mailboxIds,
+                                                       note: notes.isEmpty ? nil : notes,
+                                                       name: name.isEmpty ? nil : name)
+            viewModel.createAlias(session: session, aliasCreationOptions: creationOptions)
         }, label: {
             Text("Create")
         })
