@@ -183,6 +183,12 @@ struct AliasDetailView: View {
             }
         )
 
+        buttons.append(
+            ActionSheet.Button.default(Text("Enter Full Screen")) {
+                showingAliasEmailSheet = true
+            }
+        )
+
         if viewModel.alias.enabled {
             buttons.append(
                 ActionSheet.Button.default(Text("Deactivate")) {
