@@ -56,28 +56,27 @@ struct AliasesView: View {
 
         NavigationView {
             ScrollView {
+                NavigationLink(
+                    isActive: $showingAliasDetail,
+                    destination: {
+                        AliasDetailView(
+                            alias: selectedAlias,
+                            onUpdateAlias: { updatedAlias in
+                                viewModel.update(alias: updatedAlias)
+                            },
+                            onDeleteAlias: {
+                                viewModel.delete(alias: selectedAlias)
+                            })
+                    },
+                    label: { EmptyView() })
+
+                NavigationLink(
+                    isActive: $showingAliasContacts,
+                    destination: {
+                        AliasContactsView(alias: selectedAlias)
+                    },
+                    label: { EmptyView() })
                 LazyVStack {
-                    NavigationLink(
-                        isActive: $showingAliasDetail,
-                        destination: {
-                            AliasDetailView(
-                                alias: selectedAlias,
-                                onUpdateAlias: { updatedAlias in
-                                    viewModel.update(alias: updatedAlias)
-                                },
-                                onDeleteAlias: {
-                                    viewModel.delete(alias: selectedAlias)
-                                })
-                        },
-                        label: { EmptyView() })
-
-                    NavigationLink(
-                        isActive: $showingAliasContacts,
-                        destination: {
-                            AliasContactsView(alias: selectedAlias)
-                        },
-                        label: { EmptyView() })
-
                     ForEach(viewModel.filteredAliases, id: \.id) { alias in
                         AliasCompactView(
                             alias: alias,
