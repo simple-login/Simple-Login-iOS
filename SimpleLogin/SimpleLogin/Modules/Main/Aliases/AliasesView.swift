@@ -20,6 +20,9 @@ struct AliasesView: View {
     @State private var showingCreateView = false
     @State private var copiedEmail: String?
     @State private var createdAlias: Alias?
+    @State private var showingAliasDetail = false
+    @State private var showingAliasContacts = false
+    @State private var selectedAlias: Alias = .ccohen
     private let refreshControl = UIRefreshControl()
 
     enum Modal {
@@ -54,35 +57,49 @@ struct AliasesView: View {
         NavigationView {
             ScrollView {
                 LazyVStack {
-                    ForEach(viewModel.filteredAliases, id: \.id) { alias in
-                        NavigationLink(destination:
-                                        AliasDetailView(
-                                            alias: alias,
-                                            onUpdateAlias: { updatedAlias in
-                                                viewModel.update(alias: updatedAlias)
-                                            },
-                                            onDeleteAlias: {
-                                                viewModel.delete(alias: alias)
-                                            })
-                        ) {
-                            AliasCompactView(
-                                alias: alias,
-                                onCopy: {
-                                    copiedEmail = alias.email
-                                    UIPasteboard.general.string = alias.email
+                    NavigationLink(
+                        isActive: $showingAliasDetail,
+                        destination: {
+                            AliasDetailView(
+                                alias: selectedAlias,
+                                onUpdateAlias: { updatedAlias in
+                                    viewModel.update(alias: updatedAlias)
                                 },
-                                onSendMail: {
-                                    print("Send mail: \(alias.email)")
-                                },
-                                onToggle: {
-                                    viewModel.toggle(alias: alias, session: session)
+                                onDeleteAlias: {
+                                    viewModel.delete(alias: selectedAlias)
                                 })
-                                .padding(.horizontal, 4)
-                                .onAppear {
-                                    viewModel.getMoreAliasesIfNeed(session: session, currentAlias: alias)
-                                }
-                        }
-                        .buttonStyle(FlatLinkButtonStyle())
+                        },
+                        label: { EmptyView() })
+
+                    NavigationLink(
+                        isActive: $showingAliasContacts,
+                        destination: {
+                            AliasContactsView(alias: selectedAlias)
+                        },
+                        label: { EmptyView() })
+
+                    ForEach(viewModel.filteredAliases, id: \.id) { alias in
+                        AliasCompactView(
+                            alias: alias,
+                            onCopy: {
+                                copiedEmail = alias.email
+                                UIPasteboard.general.string = alias.email
+                            },
+                            onSendMail: {
+                                selectedAlias = alias
+                                showingAliasContacts = true
+                            },
+                            onToggle: {
+                                viewModel.toggle(alias: alias, session: session)
+                            })
+                            .padding(.horizontal, 4)
+                            .onAppear {
+                                viewModel.getMoreAliasesIfNeed(session: session, currentAlias: alias)
+                            }
+                            .onTapGesture {
+                                selectedAlias = alias
+                                showingAliasDetail = true
+                            }
                     }
 
                     if viewModel.isLoading {
