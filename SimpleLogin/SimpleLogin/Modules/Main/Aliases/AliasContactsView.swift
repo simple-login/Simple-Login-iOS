@@ -63,28 +63,22 @@ struct AliasContactsView: View {
                     Text("Add contact")
                     Image(systemName: "arrow.turn.right.up")
                 }
-                .padding(.trailing)
+                .padding()
                 .foregroundColor(.secondary)
             }
 
-            GeometryReader { geometry in
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Image(systemName: "person.crop.square.filled.and.at.rectangle")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geometry.size.width / 4)
-                            .foregroundColor(Color(.systemGray4))
-                        Spacer()
-                    }
-                    Text(viewModel.alias.email)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-                    Spacer()
-                }
+            ZStack {
+                Image(systemName: "at")
+                    .resizable()
+                    .padding()
+                    .scaledToFit()
+                    .foregroundColor(.slPurple)
+                    .opacity(0.03)
+                Text(viewModel.alias.email)
+                    .font(.title2)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                    .foregroundColor(.secondary)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
