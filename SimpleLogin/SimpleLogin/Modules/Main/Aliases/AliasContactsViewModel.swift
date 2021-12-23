@@ -12,8 +12,9 @@ import SwiftUI
 final class AliasContactsViewModel: ObservableObject {
     let alias: Alias
 
-    @Published private(set) var isLoadingContacts = false
-    @Published private(set) var isCreatingContact = false
+    @Published private(set) var isFetchingContacts = false
+    @Published private(set) var isLoading = false
+    @Published private(set) var isRefreshing = false
     @Published private(set) var contacts: [Contact]?
     @Published private(set) var error: SLClientError?
 
@@ -42,13 +43,13 @@ final class AliasContactsViewModel: ObservableObject {
     }
 
     private func getMoreContacts(session: Session) {
-        guard !isLoadingContacts && canLoadMorePages else { return }
-        isLoadingContacts = true
+        guard !isFetchingContacts && canLoadMorePages else { return }
+        isFetchingContacts = true
         session.client.getAliasContacts(apiKey: session.apiKey, id: alias.id, page: currentPage)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-                self.isLoadingContacts = false
+                self.isFetchingContacts = false
                 switch completion {
                 case .finished: break
                 case .failure(let error): self.error = error
@@ -65,11 +66,76 @@ final class AliasContactsViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func toggle(contact: Contact) {
-
+    func refreshContacts(session: Session) {
+        guard !isRefreshing else { return }
+        isRefreshing = true
+        session.client.getAliasContacts(apiKey: session.apiKey, id: alias.id, page: 0)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isRefreshing = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error
+                }
+            } receiveValue: { [weak self] contactArray in
+                guard let self = self else { return }
+                self.contacts = contactArray.contacts
+                self.currentPage = 1
+                self.canLoadMorePages = contactArray.contacts.count == 20
+            }
+            .store(in: &cancellables)
     }
 
-    func delete(contact: Contact) {
-        
+    func toggleContact(session: Session, contact: Contact) {
+        guard !isLoading else { return }
+        isLoading = true
+        session.client.toggleContact(apiKey: session.apiKey, id: contact.id)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error
+                }
+            } receiveValue: { [weak self] blockForward in
+                guard let self = self else { return }
+                self.update(contact: .init(id: contact.id,
+                                           email: contact.email,
+                                           creationTimestamp: contact.creationTimestamp,
+                                           lastEmailSentTimestamp: contact.lastEmailSentTimestamp,
+                                           reverseAlias: contact.reverseAlias,
+                                           reverseAliasAddress: contact.reverseAliasAddress,
+                                           existed: contact.existed,
+                                           blockForward: blockForward.value))
+            }
+            .store(in: &cancellables)
+    }
+
+    func deleteContact(session: Session, contact: Contact) {
+        guard !isLoading else { return }
+        isLoading = true
+        session.client.deleteContact(apiKey: session.apiKey, id: contact.id)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error
+                }
+            } receiveValue: { [weak self] deletedResponse in
+                guard let self = self else { return }
+                if deletedResponse.value {
+                    self.refreshContacts(session: session)
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    private func update(contact: Contact) {
+        guard let index = contacts?.firstIndex(where: { $0.id == contact.id }) else { return }
+        contacts?[index] = contact
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import AlertToast
+import Combine
 import SimpleLoginPackage
 import SwiftUI
 
@@ -14,6 +15,7 @@ struct AliasContactsView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel: AliasContactsViewModel
     @State private var showingHelperText = false
+    @State private var showingLoadingAlert = false
     @State private var selectedContact: Contact?
     @State private var copiedText: String?
 
@@ -39,7 +41,7 @@ struct AliasContactsView: View {
         })
 
         ScrollView {
-            LazyVStack {
+            LazyVStack(spacing: 8) {
                 if let contacts = viewModel.contacts {
                     ForEach(contacts, id: \.id) { contact in
                         ContactView(contact: contact)
@@ -50,7 +52,7 @@ struct AliasContactsView: View {
                     }
                 }
 
-                if viewModel.isLoadingContacts {
+                if viewModel.isFetchingContacts {
                     ProgressView()
                         .padding()
                 }
@@ -68,6 +70,9 @@ struct AliasContactsView: View {
             noContactView
                 .navigationBarItems(trailing: plusButton)
         }
+        .onReceive(Just(viewModel.isLoading)) { isLoading in
+            showingLoadingAlert = isLoading
+        }
         .actionSheet(isPresented: showingActionSheet) {
             actionsSheet
         }
@@ -76,6 +81,9 @@ struct AliasContactsView: View {
                        type: .systemImage("doc.on.doc", .secondary),
                        title: "Copied",
                        subTitle: copiedText)
+        }
+        .toast(isPresenting: $showingLoadingAlert) {
+            AlertToast(type: .loading)
         }
     }
 
@@ -155,13 +163,13 @@ struct AliasContactsView: View {
 
         buttons.append(
             ActionSheet.Button.default(Text(selectedContact.blockForward ? "Unblock" : "Block")) {
-                viewModel.toggle(contact: selectedContact)
+                viewModel.toggleContact(session: session, contact: selectedContact)
             }
         )
 
         buttons.append(
             ActionSheet.Button.destructive(Text("Delete")) {
-                viewModel.delete(contact: selectedContact)
+                viewModel.deleteContact(session: session, contact: selectedContact)
             }
         )
 
