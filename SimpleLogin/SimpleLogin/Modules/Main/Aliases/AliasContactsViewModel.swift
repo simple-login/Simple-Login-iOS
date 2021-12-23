@@ -64,4 +64,12 @@ final class AliasContactsViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+
+    func toggle(contact: Contact) {
+
+    }
+
+    func delete(contact: Contact) {
+        
+    }
 }

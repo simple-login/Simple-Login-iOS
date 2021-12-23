@@ -13,18 +13,30 @@ struct AliasContactsView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel: AliasContactsViewModel
     @State private var showingHelperText = false
+    @State private var selectedContact: Contact?
+    @State private var copiedText: String?
 
     init(alias: Alias) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias))
     }
 
     var body: some View {
+        let showingActionSheet = Binding<Bool>(get: {
+            selectedContact != nil
+        }, set: { isShowing in
+            if !isShowing {
+                selectedContact = nil
+            }
+        })
         ScrollView {
             LazyVStack {
                 if let contacts = viewModel.contacts {
                     ForEach(contacts, id: \.id) { contact in
                         ContactView(contact: contact)
                             .padding(.horizontal, 4)
+                            .onTapGesture {
+                                selectedContact = contact
+                            }
                     }
                 }
 
@@ -45,6 +57,9 @@ struct AliasContactsView: View {
         .emptyPlaceholder(isEmpty: viewModel.contacts?.isEmpty == true) {
             noContactView
                 .navigationBarItems(trailing: plusButton)
+        }
+        .actionSheet(isPresented: showingActionSheet) {
+            actionsSheet
         }
     }
 
@@ -91,6 +106,54 @@ struct AliasContactsView: View {
                 }
             }
         }
+    }
+
+    private var actionsSheet: ActionSheet {
+        guard let selectedContact = selectedContact else {
+            return ActionSheet(title: Text("selectedContact is nil"))
+        }
+
+        var buttons: [ActionSheet.Button] = []
+
+        buttons.append(
+            ActionSheet.Button.default(Text("Copy reverse-alias (w/ display name)")) {
+                copiedText = selectedContact.reverseAlias
+                UIPasteboard.general.string = selectedContact.reverseAlias
+            }
+        )
+
+        buttons.append(
+            ActionSheet.Button.default(Text("Copy reverse-alias (w/o display name)")) {
+                copiedText = selectedContact.reverseAliasAddress
+                UIPasteboard.general.string = selectedContact.reverseAliasAddress
+            }
+        )
+
+        buttons.append(
+            ActionSheet.Button.default(Text("Compose email in default email client")) {
+                if let mailToUrl = URL(string: "mailto:\(selectedContact.reverseAliasAddress)") {
+                    UIApplication.shared.open(mailToUrl)
+                }
+            }
+        )
+
+        buttons.append(
+            ActionSheet.Button.default(Text(selectedContact.blockForward ? "Unblock" : "Block")) {
+                viewModel.toggle(contact: selectedContact)
+            }
+        )
+
+        buttons.append(
+            ActionSheet.Button.destructive(Text("Delete")) {
+                viewModel.delete(contact: selectedContact)
+            }
+        )
+
+        buttons.append(.cancel())
+
+        return ActionSheet(title: Text(selectedContact.email),
+                           message: Text(selectedContact.reverseAlias),
+                           buttons: buttons)
     }
 }
 
