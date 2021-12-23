@@ -23,7 +23,8 @@ struct AliasContactsView: View {
             LazyVStack {
                 if let contacts = viewModel.contacts {
                     ForEach(contacts, id: \.id) { contact in
-                        Text(contact.email)
+                        ContactView(contact: contact)
+                            .padding(.horizontal, 4)
                     }
                 }
 
@@ -32,6 +33,7 @@ struct AliasContactsView: View {
                         .padding()
                 }
             }
+            .padding(.vertical, 8)
         }
         .navigationBarTitle(viewModel.contacts?.isEmpty == false ? viewModel.alias.email : "",
                             displayMode: viewModel.contacts?.isEmpty == false ? .large : .automatic)
@@ -89,5 +91,38 @@ struct AliasContactsView: View {
                 }
             }
         }
+    }
+}
+
+private struct ContactView: View {
+    let contact: Contact
+
+    var body: some View {
+        HStack(spacing: 0) {
+            Color(contact.blockForward ? (.darkGray) : .slPurple)
+                .frame(width: 4)
+
+            VStack(spacing: 8) {
+                VStack(alignment: .leading) {
+                    Text(contact.email)
+                        .font(.headline)
+                        .fixedSize(horizontal: false, vertical: false)
+                    Text("\(contact.creationDateString) (\(contact.relativeCreationDateString))")
+                        .fixedSize(horizontal: false, vertical: false)
+                }
+            }
+            .padding(8)
+
+            Spacer()
+
+            if contact.blockForward {
+                Text("⛔")
+                    .font(.title)
+                    .padding(.trailing)
+            }
+        }
+        .background(contact.blockForward ? Color(.darkGray).opacity(0.05) : Color.slPurple.opacity(0.05))
+        .fixedSize(horizontal: false, vertical: true)
+        .clipShape(RoundedRectangle(cornerRadius: 4))
     }
 }
