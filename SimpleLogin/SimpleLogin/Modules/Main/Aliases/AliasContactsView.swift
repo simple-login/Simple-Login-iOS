@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 20/11/2021.
 //
 
+import AlertToast
 import SimpleLoginPackage
 import SwiftUI
 
@@ -28,6 +29,15 @@ struct AliasContactsView: View {
                 selectedContact = nil
             }
         })
+
+        let showingCopyAlert = Binding<Bool>(get: {
+            copiedText != nil
+        }, set: { isShowing in
+            if !isShowing {
+                copiedText = nil
+            }
+        })
+
         ScrollView {
             LazyVStack {
                 if let contacts = viewModel.contacts {
@@ -60,6 +70,12 @@ struct AliasContactsView: View {
         }
         .actionSheet(isPresented: showingActionSheet) {
             actionsSheet
+        }
+        .toast(isPresenting: showingCopyAlert) {
+            AlertToast(displayMode: .alert,
+                       type: .systemImage("doc.on.doc", .secondary),
+                       title: "Copied",
+                       subTitle: copiedText)
         }
     }
 
