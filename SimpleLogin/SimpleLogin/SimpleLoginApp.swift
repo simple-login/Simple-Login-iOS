@@ -22,10 +22,14 @@ struct SimpleLoginApp: App {
     var body: some Scene {
         WindowGroup {
             if let apiKey = apiKey, let client = client {
-                MainView()
-                    .accentColor(.slPurple)
-                    .environmentObject(preferences)
-                    .environmentObject(Session(apiKey: apiKey, client: client))
+                MainView {
+                    try? KeychainService.shared.setApiKey(nil)
+                    self.apiKey = nil
+                    self.client = nil
+                }
+                .accentColor(.slPurple)
+                .environmentObject(preferences)
+                .environmentObject(Session(apiKey: apiKey, client: client))
             } else {
                 LogInView(apiUrl: preferences.apiUrl) { apiKey, client in
                     try? KeychainService.shared.setApiKey(apiKey)

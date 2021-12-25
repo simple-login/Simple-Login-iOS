@@ -23,6 +23,7 @@ enum MainViewTab {
 
 struct MainView: View {
     @State private var selectedTab: MainViewTab = .aliases
+    let onLogOut: () -> Void
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -40,7 +41,7 @@ struct MainView: View {
                 }
                 .tag(MainViewTab.others)
 
-            AccountView()
+            AccountView(onLogOut: onLogOut)
                 .tabItem {
                     Image(systemName: selectedTab == .account ? "person.fill" : "person")
                     Text(MainViewTab.account.title)
