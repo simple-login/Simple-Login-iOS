@@ -10,6 +10,10 @@ import SimpleLoginPackage
 import SwiftUI
 
 final class AliasContactsViewModel: ObservableObject {
+    deinit {
+        print("\(Self.self) is deallocated")
+    }
+
     let alias: Alias
 
     @Published private(set) var isFetchingContacts = false

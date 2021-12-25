@@ -16,6 +16,7 @@ struct AliasContactsView: View {
     @StateObject private var viewModel: AliasContactsViewModel
     @State private var showingHelperText = false
     @State private var showingLoadingAlert = false
+    @State private var showingCreateContactView = false
     @State private var selectedContact: Contact?
     @State private var copiedText: String?
 
@@ -37,6 +38,14 @@ struct AliasContactsView: View {
         }, set: { isShowing in
             if !isShowing {
                 copiedText = nil
+            }
+        })
+
+        let showingErrorAlert = Binding<Bool>(get: {
+            viewModel.error != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledError()
             }
         })
 
@@ -76,11 +85,19 @@ struct AliasContactsView: View {
         .actionSheet(isPresented: showingActionSheet) {
             actionsSheet
         }
+        .sheet(isPresented: $showingCreateContactView) {
+            CreateContactView(alias: viewModel.alias) {
+                viewModel.refreshContacts(session: session)
+            }
+        }
         .toast(isPresenting: showingCopyAlert) {
             AlertToast(displayMode: .alert,
                        type: .systemImage("doc.on.doc", .secondary),
                        title: "Copied",
                        subTitle: copiedText)
+        }
+        .toast(isPresenting: showingErrorAlert) {
+            AlertToast.errorAlert(message: viewModel.error?.description)
         }
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
@@ -89,7 +106,7 @@ struct AliasContactsView: View {
 
     var plusButton: some View {
         Button(action: {
-            print("add")
+            showingCreateContactView = true
         }, label: {
             Image(systemName: "plus")
         })
