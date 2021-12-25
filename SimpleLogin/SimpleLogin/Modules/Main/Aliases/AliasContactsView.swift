@@ -7,6 +7,7 @@
 
 import AlertToast
 import Combine
+import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
@@ -19,6 +20,7 @@ struct AliasContactsView: View {
     @State private var showingCreateContactView = false
     @State private var selectedContact: Contact?
     @State private var copiedText: String?
+    private let refreshControl = UIRefreshControl()
 
     init(alias: Alias) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias))
@@ -68,6 +70,12 @@ struct AliasContactsView: View {
             }
             .padding(.vertical, 8)
         }
+        .introspectScrollView { scrollView in
+            refreshControl.addAction(UIAction { _ in
+                viewModel.refresh(session: session)
+            }, for: .valueChanged)
+            scrollView.refreshControl = refreshControl
+        }
         .navigationBarTitle(viewModel.contacts?.isEmpty == false ? viewModel.alias.email : "",
                             displayMode: viewModel.contacts?.isEmpty == false ? .large : .automatic)
         .navigationBarItems(trailing: plusButton)
@@ -82,12 +90,17 @@ struct AliasContactsView: View {
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
+        .onReceive(Just(viewModel.isRefreshing)) { isRefreshing in
+            if !isRefreshing {
+                refreshControl.endRefreshing()
+            }
+        }
         .actionSheet(isPresented: showingActionSheet) {
             actionsSheet
         }
         .sheet(isPresented: $showingCreateContactView) {
             CreateContactView(alias: viewModel.alias) {
-                viewModel.refreshContacts(session: session)
+                viewModel.refresh(session: session)
             }
         }
         .toast(isPresenting: showingCopyAlert) {

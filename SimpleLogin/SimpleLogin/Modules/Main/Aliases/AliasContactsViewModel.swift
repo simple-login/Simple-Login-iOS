@@ -70,7 +70,7 @@ final class AliasContactsViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func refreshContacts(session: Session) {
+    func refresh(session: Session) {
         guard !isRefreshing else { return }
         isRefreshing = true
         session.client.getAliasContacts(apiKey: session.apiKey, id: alias.id, page: 0)
@@ -132,7 +132,7 @@ final class AliasContactsViewModel: ObservableObject {
             } receiveValue: { [weak self] deletedResponse in
                 guard let self = self else { return }
                 if deletedResponse.value {
-                    self.refreshContacts(session: session)
+                    self.refresh(session: session)
                 }
             }
             .store(in: &cancellables)
