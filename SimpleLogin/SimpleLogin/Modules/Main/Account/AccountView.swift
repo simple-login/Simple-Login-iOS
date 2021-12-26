@@ -19,10 +19,9 @@ struct AccountView: View {
 
     var body: some View {
         NavigationView {
-            if let userInfo = viewModel.userInfo,
-               let userSettings = viewModel.userSettings {
+            if viewModel.isInitialized {
                 Form {
-                    UserInfoSection(userInfo: userInfo,
+                    UserInfoSection(userInfo: viewModel.userInfo,
                                     onModifyProfilePhoto: { photoBase64String in
 
                     },
@@ -34,7 +33,11 @@ struct AccountView: View {
                         BiometricAuthenticationSection(biometryType: viewModel.biometryType)
                     }
 
-                    NewslettersSection()
+                    NewslettersSection(notification: $viewModel.notification)
+
+                    RandomAliasSection(randomMode: $viewModel.randomMode,
+                                       randomAliasDefaultDomain: $viewModel.randomAliasDefaultDomain,
+                                       usableDomains: viewModel.usableDomains)
 
                     SenderFormatSection(senderFormat: $viewModel.senderFormat)
 
@@ -51,7 +54,7 @@ struct AccountView: View {
             }
         }
         .onAppear {
-            viewModel.getUserInfoAndSettings(session: session)
+            viewModel.getRequiredInformation(session: session)
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
@@ -140,13 +143,56 @@ private struct BiometricAuthenticationSection: View {
 }
 
 private struct NewslettersSection: View {
+    @Binding var notification: Bool
+
     var body: some View {
         Section(footer: Text("We will occasionally send you emails with new feature announcements")) {
             HStack {
                 Label("Newsletters", systemImage: "newspaper")
                 Spacer()
-                Toggle("", isOn: .constant(true))
+                Toggle("", isOn: $notification)
                     .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+            }
+        }
+    }
+}
+
+private struct RandomAliasSection: View {
+    @Binding var randomMode: RandomMode
+    @Binding var randomAliasDefaultDomain: String
+    let usableDomains: [UsableDomain]
+
+    var body: some View {
+        Section {
+            VStack {
+                HStack {
+                    Label("Random alias", systemImage: "shuffle")
+                    Spacer()
+                }
+
+                Picker(selection: $randomMode, label: Text(randomMode.description)) {
+                    ForEach(RandomMode.allCases, id: \.self) { mode in
+                        Text(mode.description)
+                            .tag(mode)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+
+                Divider()
+
+                HStack {
+                    Text("Default domain")
+                    Spacer()
+                    Picker(selection: $randomAliasDefaultDomain, label: Text(randomAliasDefaultDomain)) {
+                        ForEach(usableDomains, id: \.domain) { usableDomain in
+                            VStack {
+                                Text(usableDomain.domain + (usableDomain.isCustom ? " 🟢" : ""))
+                            }
+                            .tag(usableDomain.domain)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                }
             }
         }
     }
