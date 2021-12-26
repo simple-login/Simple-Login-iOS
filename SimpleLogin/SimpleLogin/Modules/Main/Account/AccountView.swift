@@ -7,6 +7,7 @@
 
 import AlertToast
 import Combine
+import LocalAuthentication
 import SimpleLoginPackage
 import SwiftUI
 
@@ -21,19 +22,21 @@ struct AccountView: View {
             if let userInfo = viewModel.userInfo,
                let userSettings = viewModel.userSettings {
                 Form {
-                    Section {
-                        UserInfoView(userInfo: userInfo,
-                                     onModifyProfilePhoto: { photoBase64String in
+                    UserInfoSection(userInfo: userInfo,
+                                    onModifyProfilePhoto: { photoBase64String in
 
-                        },
-                                     onModifyDisplayName: { displayName in
+                    },
+                                    onModifyDisplayName: { displayName in
 
-                        })
+                    })
+
+                    if viewModel.biometryType == .touchID || viewModel.biometryType == .faceID {
+                        BiometricAuthenticationSection(biometryType: viewModel.biometryType)
                     }
 
-                    Section {
-                        LogOutView(onLogOut: onLogOut)
-                    }
+                    NewslettersSection()
+
+                    LogOutSection(onLogOut: onLogOut)
                 }
                 .navigationTitle("My account")
             } else {
@@ -57,16 +60,18 @@ struct AccountView: View {
     }
 }
 
-private struct UserInfoView: View {
+private struct UserInfoSection: View {
     let userInfo: UserInfo
     let onModifyProfilePhoto: (String?) -> Void
     let onModifyDisplayName: (String?) -> Void
 
     var body: some View {
-        VStack {
-            personalInfoView
-            Divider()
-            membershipView
+        Section {
+            VStack {
+                personalInfoView
+                Divider()
+                membershipView
+            }
         }
     }
 
@@ -117,23 +122,53 @@ private struct UserInfoView: View {
     }
 }
 
-private struct LogOutView: View {
+private struct BiometricAuthenticationSection: View {
+    let biometryType: LABiometryType
+
+    var body: some View {
+        Section(footer: Text("Restrict unwanted access to your SimpleLogin account on this device")) {
+            HStack {
+                Label(biometryType.description, systemImage: biometryType.systemImageName)
+                Spacer()
+                Toggle("", isOn: .constant(false))
+                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+            }
+        }
+    }
+}
+
+private struct NewslettersSection: View {
+    var body: some View {
+        Section(footer: Text("We will occasionally send you emails with new feature announcements")) {
+            HStack {
+                Label("Newsletters", systemImage: "newspaper")
+                Spacer()
+                Toggle("", isOn: .constant(true))
+                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+            }
+        }
+    }
+}
+
+private struct LogOutSection: View {
     @State private var isShowingAlert = false
     var onLogOut: () -> Void
 
     var body: some View {
-        Button(action: {
-            isShowingAlert = true
-        }, label: {
-            Text("Log out")
-                .fontWeight(.semibold)
-                .foregroundColor(.red)
-        })
-            .alert(isPresented: $isShowingAlert) {
-                Alert(title: Text("You will be logged out"),
-                      message: Text("Please confirm"),
-                      primaryButton: .destructive(Text("Yes, log me out"), action: onLogOut),
-                      secondaryButton: .cancel())
-            }
+        Section {
+            Button(action: {
+                isShowingAlert = true
+            }, label: {
+                Text("Log out")
+                    .fontWeight(.semibold)
+                    .foregroundColor(.red)
+            })
+                .alert(isPresented: $isShowingAlert) {
+                    Alert(title: Text("You will be logged out"),
+                          message: Text("Please confirm"),
+                          primaryButton: .destructive(Text("Yes, log me out"), action: onLogOut),
+                          secondaryButton: .cancel())
+                }
+        }
     }
 }
