@@ -54,7 +54,8 @@ struct AccountView: View {
             }
         }
         .onAppear {
-            viewModel.getRequiredInformation(session: session)
+            viewModel.setSession(session)
+            viewModel.getRequiredInformation()
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading

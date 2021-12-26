@@ -22,6 +22,7 @@ final class AccountViewModel: ObservableObject {
     @Published private(set) var isInitialized = false
     @Published private(set) var isLoading = false
     private var cancellables = Set<AnyCancellable>()
+    private var session: Session?
 
     init() {
         let localAuthenticationContext = LAContext()
@@ -33,7 +34,7 @@ final class AccountViewModel: ObservableObject {
             .sink { [weak self] selectedNotification in
                 guard let self = self else { return }
                 if self.isInitialized, selectedNotification != self.notification {
-                    print("Notification changed: \(selectedNotification.description)")
+                    self.update(option: .notification(selectedNotification))
                 }
             }
             .store(in: &cancellables)
@@ -42,7 +43,7 @@ final class AccountViewModel: ObservableObject {
             .sink { [weak self] selectedRandomMode in
                 guard let self = self else { return }
                 if self.isInitialized, selectedRandomMode != self.randomMode {
-                    print("Random mode changed: \(selectedRandomMode.rawValue)")
+                    self.update(option: .randomMode(selectedRandomMode))
                 }
             }
             .store(in: &cancellables)
@@ -51,7 +52,7 @@ final class AccountViewModel: ObservableObject {
             .sink { [weak self] selectedRandomAliasDefaultDomain in
                 guard let self = self else { return }
                 if self.isInitialized, selectedRandomAliasDefaultDomain != self.randomAliasDefaultDomain {
-                    print("Default domain changed: \(selectedRandomAliasDefaultDomain)")
+                    self.update(option: .randomAliasDefaultDomain(selectedRandomAliasDefaultDomain))
                 }
             }
             .store(in: &cancellables)
@@ -60,13 +61,18 @@ final class AccountViewModel: ObservableObject {
             .sink { [weak self] selectedSenderFormat in
                 guard let self = self else { return }
                 if self.isInitialized, selectedSenderFormat != self.senderFormat {
-                    print("Sender format changed: \(selectedSenderFormat.description)")
+                    self.update(option: .senderFormat(selectedSenderFormat))
                 }
             }
             .store(in: &cancellables)
     }
 
-    func getRequiredInformation(session: Session) {
+    func setSession(_ session: Session) {
+        self.session = session
+    }
+
+    func getRequiredInformation() {
+        guard let session = session else { return }
         guard !isLoading && !isInitialized else { return }
         isLoading = true
         let getUserInfo = session.client.getUserInfo(apiKey: session.apiKey)
@@ -84,14 +90,37 @@ final class AccountViewModel: ObservableObject {
             } receiveValue: { [weak self] result in
                 guard let self = self else { return }
                 self.userInfo = result.0
-                let userSettings = result.1
-                self.notification = userSettings.notification
-                self.randomMode = userSettings.randomMode
-                self.randomAliasDefaultDomain = userSettings.randomAliasDefaultDomain
-                self.senderFormat = userSettings.senderFormat
+                self.bind(userSettings: result.1)
                 self.usableDomains = result.2
             }
             .store(in: &cancellables)
+    }
+
+    private func update(option: UserSettingsUpdateOption) {
+        guard let session = session else { return }
+        guard !isLoading else { return }
+        isLoading = true
+        session.client.updateUserSettings(apiKey: session.apiKey, option: option)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error
+                }
+            } receiveValue: { [weak self] userSettings in
+                guard let self = self else { return }
+                self.bind(userSettings: userSettings)
+            }
+            .store(in: &cancellables)
+    }
+
+    private func bind(userSettings: UserSettings) {
+        self.notification = userSettings.notification
+        self.randomMode = userSettings.randomMode
+        self.randomAliasDefaultDomain = userSettings.randomAliasDefaultDomain
+        self.senderFormat = userSettings.senderFormat
     }
 }
 
