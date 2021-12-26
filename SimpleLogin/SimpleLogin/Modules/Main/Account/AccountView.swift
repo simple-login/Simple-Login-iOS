@@ -36,6 +36,8 @@ struct AccountView: View {
 
                     NewslettersSection()
 
+                    SenderFormatSection(senderFormat: $viewModel.senderFormat)
+
                     LogOutSection(onLogOut: onLogOut)
                 }
                 .navigationTitle("My account")
@@ -145,6 +147,28 @@ private struct NewslettersSection: View {
                 Spacer()
                 Toggle("", isOn: .constant(true))
                     .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+            }
+        }
+    }
+}
+
+private struct SenderFormatSection: View {
+    @Binding var senderFormat: SenderFormat
+
+    var body: some View {
+        Section(footer: Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")) {
+            VStack {
+                HStack {
+                    Label("Sender address format", systemImage: "square.and.at.rectangle")
+                    Spacer()
+                }
+                Picker(selection: $senderFormat, label: Text(senderFormat.description)) {
+                    ForEach(SenderFormat.allCases, id: \.self) { format in
+                        Text(format.description)
+                            .tag(format)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
             }
         }
     }

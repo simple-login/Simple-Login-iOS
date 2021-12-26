@@ -13,6 +13,7 @@ import SwiftUI
 final class AccountViewModel: ObservableObject {
     @Published private(set) var userInfo: UserInfo?
     @Published private(set) var userSettings: UserSettings?
+    @Published var senderFormat: SenderFormat = .a
     @Published private(set) var biometryType: LABiometryType = .none
     @Published private(set) var error: SLClientError?
     @Published private(set) var isLoading = false
@@ -23,6 +24,14 @@ final class AccountViewModel: ObservableObject {
         if localAuthenticationContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil) {
             biometryType = localAuthenticationContext.biometryType
         }
+        $senderFormat
+            .sink { [weak self] selectedSenderFormat in
+                guard let self = self else { return }
+                if selectedSenderFormat != self.senderFormat {
+                    print("Selected: \(selectedSenderFormat.description)")
+                }
+            }
+            .store(in: &cancellables)
     }
 
     func getUserInfoAndSettings(session: Session) {
@@ -44,6 +53,7 @@ final class AccountViewModel: ObservableObject {
                 guard let self = self else { return }
                 self.userInfo = result.0
                 self.userSettings = result.1
+                self.senderFormat = result.1.senderFormat
             }
             .store(in: &cancellables)
     }
