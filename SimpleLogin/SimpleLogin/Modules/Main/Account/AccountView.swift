@@ -29,28 +29,16 @@ struct AccountView: View {
         NavigationView {
             if viewModel.isInitialized {
                 Form {
-                    UserInfoSection(userInfo: viewModel.userInfo,
-                                    onModifyProfilePhoto: { photoBase64String in
-
-                    },
-                                    onModifyDisplayName: { displayName in
-
-                    })
-
+                    UserInfoSection()
                     if viewModel.biometryType == .touchID || viewModel.biometryType == .faceID {
-                        BiometricAuthenticationSection(biometryType: viewModel.biometryType)
+                        BiometricAuthenticationSection()
                     }
-
-                    NewslettersSection(notification: $viewModel.notification)
-
-                    RandomAliasSection(randomMode: $viewModel.randomMode,
-                                       randomAliasDefaultDomain: $viewModel.randomAliasDefaultDomain,
-                                       usableDomains: viewModel.usableDomains)
-
-                    SenderFormatSection(senderFormat: $viewModel.senderFormat)
-
+                    NewslettersSection()
+                    RandomAliasSection()
+                    SenderFormatSection()
                     LogOutSection(onLogOut: onLogOut)
                 }
+                .environmentObject(viewModel)
                 .navigationTitle("My account")
             } else {
                 Image(systemName: "person.fill")
@@ -78,9 +66,7 @@ struct AccountView: View {
 }
 
 private struct UserInfoSection: View {
-    let userInfo: UserInfo
-    let onModifyProfilePhoto: (String?) -> Void
-    let onModifyDisplayName: (String?) -> Void
+    @EnvironmentObject private var viewModel: AccountViewModel
 
     var body: some View {
         Section {
@@ -101,24 +87,25 @@ private struct UserInfoSection: View {
                 .frame(width: min(64, UIScreen.main.bounds.width / 7))
 
             VStack {
-                if !userInfo.name.isEmpty {
-                    Text(userInfo.name)
+                if !viewModel.userInfo.name.isEmpty {
+                    Text(viewModel.userInfo.name)
                         .fontWeight(.semibold)
                 }
-                Text(userInfo.email)
+                Text(viewModel.userInfo.email)
             }
 
             Spacer()
         }
     }
 
+    // swiftlint:disable:next let_var_whitespace
     @ViewBuilder
     private var membershipView: some View {
         HStack {
-            if userInfo.inTrial {
+            if viewModel.userInfo.inTrial {
                 Text("Premium trial membership")
                     .foregroundColor(.blue)
-            } else if userInfo.isPremium {
+            } else if viewModel.userInfo.isPremium {
                 Text("Premium membership")
                     .foregroundColor(.green)
             } else {
@@ -127,52 +114,53 @@ private struct UserInfoSection: View {
 
             Spacer()
 
-            if !userInfo.inTrial && !userInfo.isPremium {
+            if !viewModel.userInfo.inTrial && !viewModel.userInfo.isPremium {
                 Button(action: {
                     // TODO: Upgrade
                 }, label: {
                     Label("Upgrade", systemImage: "sparkles")
                         .foregroundColor(.blue)
                 })
+                    .disabled(viewModel.isLoading)
             }
         }
     }
 }
 
 private struct BiometricAuthenticationSection: View {
-    let biometryType: LABiometryType
+    @EnvironmentObject private var viewModel: AccountViewModel
 
     var body: some View {
         Section(footer: Text("Restrict unwanted access to your SimpleLogin account on this device")) {
             HStack {
-                Label(biometryType.description, systemImage: biometryType.systemImageName)
+                Label(viewModel.biometryType.description, systemImage: viewModel.biometryType.systemImageName)
                 Spacer()
                 Toggle("", isOn: .constant(false))
                     .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+                    .disabled(viewModel.isLoading)
             }
         }
     }
 }
 
 private struct NewslettersSection: View {
-    @Binding var notification: Bool
+    @EnvironmentObject private var viewModel: AccountViewModel
 
     var body: some View {
         Section(footer: Text("We will occasionally send you emails with new feature announcements")) {
             HStack {
                 Label("Newsletters", systemImage: "newspaper")
                 Spacer()
-                Toggle("", isOn: $notification)
+                Toggle("", isOn: $viewModel.notification)
                     .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+                    .disabled(viewModel.isLoading)
             }
         }
     }
 }
 
 private struct RandomAliasSection: View {
-    @Binding var randomMode: RandomMode
-    @Binding var randomAliasDefaultDomain: String
-    let usableDomains: [UsableDomain]
+    @EnvironmentObject private var viewModel: AccountViewModel
 
     var body: some View {
         Section {
@@ -182,21 +170,22 @@ private struct RandomAliasSection: View {
                     Spacer()
                 }
 
-                Picker(selection: $randomMode, label: Text(randomMode.description)) {
+                Picker(selection: $viewModel.randomMode, label: Text(viewModel.randomMode.description)) {
                     ForEach(RandomMode.allCases, id: \.self) { mode in
                         Text(mode.description)
                             .tag(mode)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
+                .disabled(viewModel.isLoading)
 
                 Divider()
 
                 HStack {
                     Text("Default domain")
                     Spacer()
-                    Picker(selection: $randomAliasDefaultDomain, label: Text(randomAliasDefaultDomain)) {
-                        ForEach(usableDomains, id: \.domain) { usableDomain in
+                    Picker(selection: $viewModel.randomAliasDefaultDomain, label: Text(viewModel.randomAliasDefaultDomain)) {
+                        ForEach(viewModel.usableDomains, id: \.domain) { usableDomain in
                             VStack {
                                 Text(usableDomain.domain + (usableDomain.isCustom ? " 🟢" : ""))
                             }
@@ -204,6 +193,7 @@ private struct RandomAliasSection: View {
                         }
                     }
                     .pickerStyle(MenuPickerStyle())
+                    .disabled(viewModel.isLoading)
                 }
             }
         }
@@ -211,7 +201,7 @@ private struct RandomAliasSection: View {
 }
 
 private struct SenderFormatSection: View {
-    @Binding var senderFormat: SenderFormat
+    @EnvironmentObject private var viewModel: AccountViewModel
 
     var body: some View {
         Section(footer: Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")) {
@@ -220,20 +210,21 @@ private struct SenderFormatSection: View {
                     Label("Sender address format", systemImage: "square.and.at.rectangle")
                     Spacer()
                 }
-                Picker(selection: $senderFormat, label: Text(senderFormat.description)) {
+                Picker(selection: $viewModel.senderFormat, label: Text(viewModel.senderFormat.description)) {
                     ForEach(SenderFormat.allCases, id: \.self) { format in
                         Text(format.description)
                             .tag(format)
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
+                .disabled(viewModel.isLoading)
             }
         }
     }
 }
 
 private struct LogOutSection: View {
-    @Environment(\.isEnabled) private var isEnabled
+    @EnvironmentObject private var viewModel: AccountViewModel
     @State private var isShowingAlert = false
     var onLogOut: () -> Void
 
@@ -245,8 +236,9 @@ private struct LogOutSection: View {
                 Text("Log out")
                     .fontWeight(.semibold)
                     .foregroundColor(.red)
-                    .opacity(isEnabled ? 1.0 : 0.5)
             })
+                .disabled(viewModel.isLoading)
+                .opacity(viewModel.isLoading ? 0.5 : 1.0)
                 .alert(isPresented: $isShowingAlert) {
                     Alert(title: Text("You will be logged out"),
                           message: Text("Please confirm"),
