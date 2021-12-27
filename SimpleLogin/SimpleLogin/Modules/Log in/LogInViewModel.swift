@@ -18,11 +18,13 @@ final class LogInViewModel: ObservableObject {
     private(set) var client: SLClient?
 
     init(apiUrl: String) {
-        client = .init(session: .shared, baseUrlString: apiUrl)
+        updateApiUrl(apiUrl)
     }
 
     func updateApiUrl(_ apiUrl: String) {
-        client = .init(session: .shared, baseUrlString: apiUrl)
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 10
+        client = .init(session: .init(configuration: config), baseUrlString: apiUrl)
     }
 
     func handledError() {

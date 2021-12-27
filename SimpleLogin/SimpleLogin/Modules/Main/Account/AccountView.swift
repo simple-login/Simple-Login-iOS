@@ -18,6 +18,14 @@ struct AccountView: View {
     let onLogOut: () -> Void
 
     var body: some View {
+        let showingErrorAlert = Binding<Bool>(get: {
+            viewModel.error != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledError()
+            }
+        })
+
         NavigationView {
             if viewModel.isInitialized {
                 Form {
@@ -62,6 +70,9 @@ struct AccountView: View {
         }
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
+        }
+        .toast(isPresenting: showingErrorAlert) {
+            AlertToast.errorAlert(message: viewModel.error?.description)
         }
     }
 }
@@ -222,6 +233,7 @@ private struct SenderFormatSection: View {
 }
 
 private struct LogOutSection: View {
+    @Environment(\.isEnabled) private var isEnabled
     @State private var isShowingAlert = false
     var onLogOut: () -> Void
 
@@ -233,6 +245,7 @@ private struct LogOutSection: View {
                 Text("Log out")
                     .fontWeight(.semibold)
                     .foregroundColor(.red)
+                    .opacity(isEnabled ? 1.0 : 0.5)
             })
                 .alert(isPresented: $isShowingAlert) {
                     Alert(title: Text("You will be logged out"),

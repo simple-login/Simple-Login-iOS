@@ -13,6 +13,7 @@ import SwiftUI
 final class AccountViewModel: ObservableObject {
     private(set) var userInfo: UserInfo = .empty
     private(set) var usableDomains: [UsableDomain] = []
+    private var lastKnownUserSettings: UserSettings?
     @Published var notification = false
     @Published var randomMode: RandomMode = .uuid
     @Published var randomAliasDefaultDomain = ""
@@ -30,10 +31,14 @@ final class AccountViewModel: ObservableObject {
             biometryType = localAuthenticationContext.biometryType
         }
 
+        let shouldUpdateUserSettings: () -> Bool = { [unowned self] in
+            self.isInitialized && self.error == nil
+        }
+
         $notification
             .sink { [weak self] selectedNotification in
                 guard let self = self else { return }
-                if self.isInitialized, selectedNotification != self.notification {
+                if shouldUpdateUserSettings(), selectedNotification != self.notification {
                     self.update(option: .notification(selectedNotification))
                 }
             }
@@ -42,7 +47,7 @@ final class AccountViewModel: ObservableObject {
         $randomMode
             .sink { [weak self] selectedRandomMode in
                 guard let self = self else { return }
-                if self.isInitialized, selectedRandomMode != self.randomMode {
+                if shouldUpdateUserSettings(), selectedRandomMode != self.randomMode {
                     self.update(option: .randomMode(selectedRandomMode))
                 }
             }
@@ -51,7 +56,7 @@ final class AccountViewModel: ObservableObject {
         $randomAliasDefaultDomain
             .sink { [weak self] selectedRandomAliasDefaultDomain in
                 guard let self = self else { return }
-                if self.isInitialized, selectedRandomAliasDefaultDomain != self.randomAliasDefaultDomain {
+                if shouldUpdateUserSettings(), selectedRandomAliasDefaultDomain != self.randomAliasDefaultDomain {
                     self.update(option: .randomAliasDefaultDomain(selectedRandomAliasDefaultDomain))
                 }
             }
@@ -60,7 +65,7 @@ final class AccountViewModel: ObservableObject {
         $senderFormat
             .sink { [weak self] selectedSenderFormat in
                 guard let self = self else { return }
-                if self.isInitialized, selectedSenderFormat != self.senderFormat {
+                if shouldUpdateUserSettings(), selectedSenderFormat != self.senderFormat {
                     self.update(option: .senderFormat(selectedSenderFormat))
                 }
             }
@@ -69,6 +74,10 @@ final class AccountViewModel: ObservableObject {
 
     func setSession(_ session: Session) {
         self.session = session
+    }
+
+    func handledError() {
+        self.error = nil
     }
 
     func getRequiredInformation() {
@@ -107,7 +116,11 @@ final class AccountViewModel: ObservableObject {
                 self.isLoading = false
                 switch completion {
                 case .finished: break
-                case .failure(let error): self.error = error
+                case .failure(let error):
+                    self.error = error
+                    if let lastKnownUserSettings = self.lastKnownUserSettings {
+                        self.bind(userSettings: lastKnownUserSettings)
+                    }
                 }
             } receiveValue: { [weak self] userSettings in
                 guard let self = self else { return }
@@ -121,6 +134,7 @@ final class AccountViewModel: ObservableObject {
         self.randomMode = userSettings.randomMode
         self.randomAliasDefaultDomain = userSettings.randomAliasDefaultDomain
         self.senderFormat = userSettings.senderFormat
+        self.lastKnownUserSettings = userSettings
     }
 }
 
