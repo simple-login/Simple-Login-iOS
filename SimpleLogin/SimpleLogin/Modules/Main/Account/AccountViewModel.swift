@@ -10,6 +10,8 @@ import LocalAuthentication
 import SimpleLoginPackage
 import SwiftUI
 
+let kBiometricAuthEnabled = "BiometricAuthEnabled"
+
 final class AccountViewModel: ObservableObject {
     private(set) var userInfo: UserInfo = .empty
     private(set) var usableDomains: [UsableDomain] = []
@@ -22,6 +24,13 @@ final class AccountViewModel: ObservableObject {
     @Published private(set) var error: SLClientError?
     @Published private(set) var isInitialized = false
     @Published private(set) var isLoading = false
+    @Published private(set) var message: String?
+    @Published private(set) var isBiometricallyAuthenticating = false
+    @AppStorage(kBiometricAuthEnabled) var biometricAuthEnabled = false {
+        didSet {
+            biometricallyAuthenticate()
+        }
+    }
     private var cancellables = Set<AnyCancellable>()
     private var session: Session?
 
@@ -80,6 +89,10 @@ final class AccountViewModel: ObservableObject {
         self.error = nil
     }
 
+    func handledMessage() {
+        self.message = nil
+    }
+
     func getRequiredInformation() {
         guard let session = session else { return }
         guard !isLoading && !isInitialized else { return }
@@ -135,6 +148,38 @@ final class AccountViewModel: ObservableObject {
         self.randomAliasDefaultDomain = userSettings.randomAliasDefaultDomain
         self.senderFormat = userSettings.senderFormat
         self.lastKnownUserSettings = userSettings
+    }
+
+    private func biometricallyAuthenticate() {
+        guard !isBiometricallyAuthenticating else { return }
+        isBiometricallyAuthenticating = true
+        let context = LAContext()
+        context.localizedFallbackTitle = "Or use your passcode"
+        let reason = biometricAuthEnabled ?
+        "Please authenticate to activate \(biometryType.description)" :
+        "Please authenticate to deactivate \(biometryType.description)"
+        context.evaluatePolicy(.deviceOwnerAuthentication,
+                               localizedReason: reason) { [weak self] success, error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                defer {
+                    self.isBiometricallyAuthenticating = false
+                }
+                if success {
+                    self.message = self.biometricAuthEnabled ?
+                    "\(self.biometryType.description) activated" :
+                    "\(self.biometryType.description) deactivated"
+                    return
+                }
+
+                if let error = error {
+                    self.error = .other(error)
+                } else {
+                    self.error = .unknown(statusCode: 999)
+                }
+                self.biometricAuthEnabled.toggle()
+            }
+        }
     }
 }
 

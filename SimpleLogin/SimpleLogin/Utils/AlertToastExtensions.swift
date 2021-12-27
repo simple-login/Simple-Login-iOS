@@ -13,4 +13,10 @@ extension AlertToast {
                    type: .error(.red),
                    title: message)
     }
+
+    static func messageAlert(message: String?) -> AlertToast {
+        AlertToast(displayMode: .banner(.pop),
+                   type: .regular,
+                   title: message)
+    }
 }

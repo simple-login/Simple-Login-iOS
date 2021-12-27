@@ -26,6 +26,14 @@ struct AccountView: View {
             }
         })
 
+        let showingMessageAlert = Binding<Bool>(get: {
+            viewModel.message != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledMessage()
+            }
+        })
+
         NavigationView {
             if viewModel.isInitialized {
                 Form {
@@ -61,6 +69,9 @@ struct AccountView: View {
         }
         .toast(isPresenting: showingErrorAlert) {
             AlertToast.errorAlert(message: viewModel.error?.description)
+        }
+        .toast(isPresenting: showingMessageAlert) {
+            AlertToast.messageAlert(message: viewModel.message)
         }
     }
 }
@@ -135,9 +146,9 @@ private struct BiometricAuthenticationSection: View {
             HStack {
                 Label(viewModel.biometryType.description, systemImage: viewModel.biometryType.systemImageName)
                 Spacer()
-                Toggle("", isOn: .constant(false))
+                Toggle("", isOn: $viewModel.biometricAuthEnabled)
                     .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-                    .disabled(viewModel.isLoading)
+                    .disabled(viewModel.isBiometricallyAuthenticating)
             }
         }
     }
