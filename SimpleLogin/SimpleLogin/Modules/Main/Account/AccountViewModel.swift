@@ -10,7 +10,8 @@ import LocalAuthentication
 import SimpleLoginPackage
 import SwiftUI
 
-let kBiometricAuthEnabled = "BiometricAuthEnabled"
+// Not so great key name but need to keep it because of legacy reason
+let kBiometricAuthEnabled = "ActiveBiometricAuthKey"
 
 final class AccountViewModel: ObservableObject {
     private(set) var userInfo: UserInfo = .empty

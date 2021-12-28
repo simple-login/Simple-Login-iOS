@@ -13,6 +13,7 @@ struct SimpleLoginApp: App {
     @State private var preferences = Preferences.shared
     @State private var apiKey: ApiKey?
     @State private var client: SLClient?
+    @AppStorage(kBiometricAuthEnabled) var biometricAuthEnabled = false
 
     init() {
         UIView.appearance(whenContainedInInstancesOf:
@@ -26,6 +27,7 @@ struct SimpleLoginApp: App {
                     try? KeychainService.shared.setApiKey(nil)
                     self.apiKey = nil
                     self.client = nil
+                    self.biometricAuthEnabled = false
                 }
                 .accentColor(.slPurple)
                 .environmentObject(preferences)

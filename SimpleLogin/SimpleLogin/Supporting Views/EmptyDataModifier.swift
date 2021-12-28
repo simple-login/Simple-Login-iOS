@@ -21,6 +21,7 @@ struct EmptyDataModifier: ViewModifier {
 }
 
 extension View {
+    @ViewBuilder
     func emptyPlaceholder<PlaceholderView: View>(isEmpty: Bool, placeholder: @escaping () -> PlaceholderView) -> some View {
         modifier(EmptyDataModifier(isEmpty: isEmpty, placeholder: AnyView(placeholder())))
     }
