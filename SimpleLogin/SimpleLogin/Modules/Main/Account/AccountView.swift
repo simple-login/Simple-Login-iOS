@@ -109,7 +109,7 @@ private struct UserInfoSection: View {
         }
     }
 
-    // swiftlint:disable:next let_var_whitespace
+    // swiftlint:disable let_var_whitespace
     @ViewBuilder
     private var membershipView: some View {
         HStack {
@@ -136,6 +136,7 @@ private struct UserInfoSection: View {
             }
         }
     }
+    // swiftlint:enable let_var_whitespace
 }
 
 private struct BiometricAuthenticationSection: View {
@@ -152,7 +153,7 @@ private struct BiometricAuthenticationSection: View {
 
                 if viewModel.biometricAuthEnabled {
                     Divider()
-                    Toggle(isOn: .constant(false)) {
+                    Toggle(isOn: $viewModel.ultraProtectionEnabled) {
                         Label {
                             Text("Ultra-protection")
                         } icon: {

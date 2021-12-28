@@ -24,6 +24,7 @@ enum MainViewTab {
 }
 
 struct MainView: View {
+    @Environment(\.scenePhase) var scenePhase
     @StateObject private var viewModel = MainViewModel()
     @State private var selectedTab: MainViewTab = .aliases
     let onLogOut: () -> Void
@@ -80,6 +81,11 @@ struct MainView: View {
                     biometricAuthFailureAlert
                 }
         }
+        .onChange(of: scenePhase) { newPhase in
+            if scenePhase == .background, newPhase == .inactive {
+                viewModel.requestAuthenticationIfNeeded()
+            }
+        }
     }
 
     private var biometricAuthFailureAlert: Alert {
@@ -94,6 +100,7 @@ final class MainViewModel: ObservableObject {
     @Published private(set) var canShowDetails = false
     @Published private(set) var biometricAuthFailed = false
     @AppStorage(kBiometricAuthEnabled) private var biometricAuthEnabled = false
+    @AppStorage(kUltraProtectionEnabled) private var ultraProtectionEnabled = false
 
     init() {
         canShowDetails = !biometricAuthEnabled
@@ -117,5 +124,9 @@ final class MainViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+    func requestAuthenticationIfNeeded() {
+        canShowDetails = !(biometricAuthEnabled && ultraProtectionEnabled)
     }
 }
