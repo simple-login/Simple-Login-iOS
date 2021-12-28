@@ -5,8 +5,8 @@
 //  Created by Thanh-Nhon Nguyen on 31/08/2021.
 //
 
-import LocalAuthentication
 import AlertToast
+import LocalAuthentication
 import SimpleLoginPackage
 import SwiftUI
 

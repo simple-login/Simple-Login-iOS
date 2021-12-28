@@ -142,13 +142,33 @@ private struct BiometricAuthenticationSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
 
     var body: some View {
-        Section(footer: Text("Restrict unwanted access to your SimpleLogin account on this device")) {
-            HStack {
-                Label(viewModel.biometryType.description, systemImage: viewModel.biometryType.systemImageName)
-                Spacer()
-                Toggle("", isOn: $viewModel.biometricAuthEnabled)
+        Section(header: Text("Local authentication"),
+                footer: Text("Restrict unwanted access to your SimpleLogin account on this device")) {
+            VStack {
+                Toggle(isOn: $viewModel.biometricAuthEnabled) {
+                    Label(viewModel.biometryType.description, systemImage: viewModel.biometryType.systemImageName)
+                }
+                .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+
+                if viewModel.biometricAuthEnabled {
+                    Divider()
+                    Toggle(isOn: .constant(false)) {
+                        Label {
+                            Text("Ultra-protection")
+                        } icon: {
+                            if #available(iOS 15, *) {
+                                Image(systemName: "bolt.shield")
+                            } else {
+                                Image(systemName: "shield")
+                            }
+                        }
+                    }
                     .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-                    .disabled(viewModel.isBiometricallyAuthenticating)
+
+                    Text("Request authentication everytime the app goes in foreground")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
             }
         }
     }
@@ -159,13 +179,10 @@ private struct NewslettersSection: View {
 
     var body: some View {
         Section(footer: Text("We will occasionally send you emails with new feature announcements")) {
-            HStack {
+            Toggle(isOn: $viewModel.notification) {
                 Label("Newsletters", systemImage: "newspaper")
-                Spacer()
-                Toggle("", isOn: $viewModel.notification)
-                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-                    .disabled(viewModel.isLoading)
             }
+            .toggleStyle(SwitchToggleStyle(tint: .slPurple))
         }
     }
 }
