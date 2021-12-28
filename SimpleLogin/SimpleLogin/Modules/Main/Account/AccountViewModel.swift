@@ -22,6 +22,7 @@ final class AccountViewModel: ObservableObject {
     @Published var randomMode: RandomMode = .uuid
     @Published var randomAliasDefaultDomain = ""
     @Published var senderFormat: SenderFormat = .a
+    @Published var randomAliasSuffix: RandomAliasSuffix = .word
     @Published private(set) var biometryType: LABiometryType = .none
     @Published private(set) var error: SLClientError?
     @Published private(set) var isInitialized = false
@@ -79,6 +80,15 @@ final class AccountViewModel: ObservableObject {
                 guard let self = self else { return }
                 if shouldUpdateUserSettings(), selectedSenderFormat != self.senderFormat {
                     self.update(option: .senderFormat(selectedSenderFormat))
+                }
+            }
+            .store(in: &cancellables)
+
+        $randomAliasSuffix
+            .sink { [weak self] selectedRandomAliasSuffix in
+                guard let self = self else { return }
+                if shouldUpdateUserSettings(), selectedRandomAliasSuffix != self.randomAliasSuffix {
+                    self.update(option: .randomAliasSuffix(selectedRandomAliasSuffix))
                 }
             }
             .store(in: &cancellables)
@@ -150,6 +160,7 @@ final class AccountViewModel: ObservableObject {
         self.randomMode = userSettings.randomMode
         self.randomAliasDefaultDomain = userSettings.randomAliasDefaultDomain
         self.senderFormat = userSettings.senderFormat
+        self.randomAliasSuffix = userSettings.randomAliasSuffix
         self.lastKnownUserSettings = userSettings
     }
 
@@ -216,6 +227,29 @@ extension RandomMode: CustomStringConvertible {
         switch self {
         case .uuid: return "UUID"
         case .word: return "Random words"
+        }
+    }
+
+    var example: String {
+        switch self {
+        case .uuid: return "hdy792o-ydy8-269d-ojan@example.com"
+        case .word: return "meaningless_random@example.com"
+        }
+    }
+}
+
+extension RandomAliasSuffix: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .word: return "Random word"
+        case .randomString: return "Random 5 characters"
+        }
+    }
+
+    var example: String {
+        switch self {
+        case .word: return ".meaningless@example.com"
+        case .randomString: return ".u9jnqn@example.com"
         }
     }
 }

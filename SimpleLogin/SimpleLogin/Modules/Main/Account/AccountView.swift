@@ -42,7 +42,7 @@ struct AccountView: View {
                         BiometricAuthenticationSection()
                     }
                     NewslettersSection()
-                    RandomAliasSection()
+                    AliasesSection()
                     SenderFormatSection()
                     LogOutSection(onLogOut: onLogOut)
                 }
@@ -188,32 +188,39 @@ private struct NewslettersSection: View {
     }
 }
 
-private struct RandomAliasSection: View {
+private struct AliasesSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
 
     var body: some View {
-        Section {
-            VStack {
-                HStack {
-                    Label("Random alias", systemImage: "shuffle")
-                    Spacer()
-                }
+        Section(header: Text("Aliases")) {
+            VStack(alignment: .leading) {
+                // Random mode
+                Text("Random mode")
+                    .fixedSize(horizontal: false, vertical: false)
 
-                Picker(selection: $viewModel.randomMode, label: Text(viewModel.randomMode.description)) {
+                Picker(selection: $viewModel.randomMode,
+                       label: Text(viewModel.randomMode.description)) {
                     ForEach(RandomMode.allCases, id: \.self) { mode in
                         Text(mode.description)
                             .tag(mode)
                     }
                 }
-                .pickerStyle(SegmentedPickerStyle())
-                .disabled(viewModel.isLoading)
+                       .pickerStyle(SegmentedPickerStyle())
+                       .disabled(viewModel.isLoading)
+
+                Text("Ex: \(viewModel.randomMode.example)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: false)
 
                 Divider()
 
+                // Default domain
                 HStack {
                     Text("Default domain")
                     Spacer()
-                    Picker(selection: $viewModel.randomAliasDefaultDomain, label: Text(viewModel.randomAliasDefaultDomain)) {
+                    Picker(selection: $viewModel.randomAliasDefaultDomain,
+                           label: Text(viewModel.randomAliasDefaultDomain)) {
                         ForEach(viewModel.usableDomains, id: \.domain) { usableDomain in
                             VStack {
                                 Text(usableDomain.domain + (usableDomain.isCustom ? " 🟢" : ""))
@@ -221,9 +228,30 @@ private struct RandomAliasSection: View {
                             .tag(usableDomain.domain)
                         }
                     }
-                    .pickerStyle(MenuPickerStyle())
-                    .disabled(viewModel.isLoading)
+                           .pickerStyle(MenuPickerStyle())
+                           .disabled(viewModel.isLoading)
                 }
+
+                Divider()
+
+                // Random alias suffix
+                Text("Random alias suffix")
+                    .fixedSize(horizontal: false, vertical: false)
+
+                Picker(selection: $viewModel.randomAliasSuffix,
+                       label: Text(viewModel.randomAliasSuffix.description)) {
+                    ForEach(RandomAliasSuffix.allCases, id: \.self) { mode in
+                        Text(mode.description)
+                            .tag(mode)
+                    }
+                }
+                       .pickerStyle(SegmentedPickerStyle())
+                       .disabled(viewModel.isLoading)
+
+                Text("Ex: \(viewModel.randomAliasSuffix.example)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: false)
             }
         }
     }
