@@ -11,9 +11,11 @@ import LocalAuthentication
 import SimpleLoginPackage
 import SwiftUI
 
+// swiftlint:disable let_var_whitespace
 struct AccountView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel = AccountViewModel()
+    @State private var showingUpgradeView = false
     @State private var showingLoadingAlert = false
     let onLogOut: () -> Void
 
@@ -36,17 +38,24 @@ struct AccountView: View {
 
         NavigationView {
             if viewModel.isInitialized {
-                Form {
-                    UserInfoSection()
-                    if viewModel.biometryType == .touchID || viewModel.biometryType == .faceID {
-                        BiometricAuthenticationSection()
+                ZStack {
+                    NavigationLink(
+                        isActive: $showingUpgradeView,
+                        destination: { UpgradeView() },
+                        label: { EmptyView() })
+
+                    Form {
+                        UserInfoSection(showingUpgradeView: $showingUpgradeView)
+                        if viewModel.biometryType == .touchID || viewModel.biometryType == .faceID {
+                            BiometricAuthenticationSection()
+                        }
+                        NewslettersSection()
+                        AliasesSection()
+                        SenderFormatSection()
+                        LogOutSection(onLogOut: onLogOut)
                     }
-                    NewslettersSection()
-                    AliasesSection()
-                    SenderFormatSection()
-                    LogOutSection(onLogOut: onLogOut)
+                    .environmentObject(viewModel)
                 }
-                .environmentObject(viewModel)
                 .navigationTitle("My account")
             } else {
                 Image(systemName: "person.fill")
@@ -78,6 +87,7 @@ struct AccountView: View {
 
 private struct UserInfoSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
+    @Binding var showingUpgradeView: Bool
 
     var body: some View {
         Section {
@@ -109,7 +119,6 @@ private struct UserInfoSection: View {
         }
     }
 
-    // swiftlint:disable let_var_whitespace
     @ViewBuilder
     private var membershipView: some View {
         HStack {
@@ -127,7 +136,7 @@ private struct UserInfoSection: View {
 
             if !viewModel.userInfo.inTrial && !viewModel.userInfo.isPremium {
                 Button(action: {
-                    // TODO: Upgrade
+                    showingUpgradeView = true
                 }, label: {
                     Label("Upgrade", systemImage: "sparkles")
                         .foregroundColor(.blue)
@@ -136,7 +145,6 @@ private struct UserInfoSection: View {
             }
         }
     }
-    // swiftlint:enable let_var_whitespace
 }
 
 private struct BiometricAuthenticationSection: View {
