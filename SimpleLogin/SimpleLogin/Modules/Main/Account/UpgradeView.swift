@@ -33,6 +33,9 @@ struct UpgradeView: View {
         .navigationBarTitle("Upgrade for more features", displayMode: .inline)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(gradientBackground)
+        .onAppear {
+            viewModel.retrieveProductsInfo()
+        }
     }
 
     private var gradientBackground: some View {
@@ -105,13 +108,18 @@ struct UpgradeView: View {
             Button(action: {
                 viewModel.subscribeYearly()
             }, label: {
-                Text("Subscribe yearly $29.99/year")
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
+                if let yearlySubscription = viewModel.yearlySubscription {
+                    Text("Subscribe yearly \(yearlySubscription.localizedPrice)/year")
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                } else {
+                    ProgressView()
+                }
             })
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.slPurple)
+                .disabled(viewModel.yearlySubscription == nil)
 
             Text("Save 2 months by subcribing yearly.")
                 .font(.callout)
@@ -125,13 +133,18 @@ struct UpgradeView: View {
             Button(action: {
                 viewModel.subscribeMonthly()
             }, label: {
-                Text("Subscribe monthly $3.99/month")
-                    .fontWeight(.bold)
-                    .foregroundColor(.slPurple)
+                if let monthlySubscription = viewModel.monthlySubscription {
+                    Text("Subscribe monthly \(monthlySubscription.localizedPrice)/month")
+                        .fontWeight(.bold)
+                        .foregroundColor(.slPurple)
+                } else {
+                    ProgressView()
+                }
             })
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .border(Color.slPurple, width: 2)
+                .disabled(viewModel.monthlySubscription == nil)
 
             Text("A cup of ☕ per month to improve your privacy.")
                 .font(.callout)
