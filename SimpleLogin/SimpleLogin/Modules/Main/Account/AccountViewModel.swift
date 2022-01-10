@@ -131,6 +131,11 @@ final class AccountViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
+    func forceRefresh() {
+        isInitialized = false
+        getRequiredInformation()
+    }
+
     private func update(option: UserSettingsUpdateOption) {
         guard let session = session else { return }
         guard !isLoading else { return }

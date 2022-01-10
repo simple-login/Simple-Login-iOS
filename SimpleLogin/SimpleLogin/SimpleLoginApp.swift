@@ -10,15 +10,11 @@ import SwiftUI
 
 @main
 struct SimpleLoginApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var preferences = Preferences.shared
     @State private var apiKey: ApiKey?
     @State private var client: SLClient?
     @AppStorage(kBiometricAuthEnabled) var biometricAuthEnabled = false
-
-    init() {
-        UIView.appearance(whenContainedInInstancesOf:
-                            [UIAlertController.self]).tintColor = .slPurple
-    }
 
     var body: some Scene {
         WindowGroup {

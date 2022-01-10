@@ -7,35 +7,88 @@
 
 import Combine
 import StoreKit
+import SwiftyStoreKit
 
 final class UpgradeViewModel: NSObject, ObservableObject {
+    @Published private(set) var isLoading = false
+    @Published private(set) var error: String?
     @Published private(set) var monthlySubscription: SKProduct?
     @Published private(set) var yearlySubscription: SKProduct?
+    @Published private(set) var isSubscribed = false
+    private var cancellables = Set<AnyCancellable>()
 
-    func retrieveProductsInfo() {
-        let request = SKProductsRequest(productIdentifiers: Set(Subscription.allCases.map { $0.productId }))
-        request.delegate = self
-        request.start()
+    func handledError() {
+        self.error = nil
     }
 
-    func subscribeYearly() {}
-
-    func subscribeMonthly() {}
-
-    func restorePurchase() {}
-}
-
-// MARK: - SKProductsRequestDelegate
-extension UpgradeViewModel: SKProductsRequestDelegate {
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            for product in response.products {
-                switch product.productIdentifier {
-                case Subscription.monthly.productId: self.monthlySubscription = product
-                case Subscription.yearly.productId: self.yearlySubscription = product
-                default: break
+    func retrieveProductsInfo() {
+        let productIds = Set(Subscription.allCases.map { $0.productId })
+        SwiftyStoreKit.retrieveProductsInfo(productIds) { result in
+            if let error = result.error {
+                self.error = error.localizedDescription
+            } else {
+                for product in result.retrievedProducts {
+                    switch product.productIdentifier {
+                    case Subscription.monthly.productId: self.monthlySubscription = product
+                    case Subscription.yearly.productId: self.yearlySubscription = product
+                    default: break
+                    }
                 }
+            }
+        }
+    }
+
+    func subscribeYearly(session: Session) {
+        purchase(yearlySubscription, session: session)
+    }
+
+    func subscribeMonthly(session: Session) {
+        purchase(monthlySubscription, session: session)
+    }
+
+    func restorePurchase(session: Session) {
+        fetchAndSendReceiptToBackend(session: session)
+    }
+
+    private func purchase(_ product: SKProduct?, session: Session) {
+        guard let product = product, !isLoading else { return }
+        isLoading = true
+        SwiftyStoreKit.purchaseProduct(product) { [weak self] result in
+            guard let self = self else { return }
+            self.isLoading = false
+            switch result {
+            case .success: self.fetchAndSendReceiptToBackend(session: session)
+            case .error(let error): self.error = error.localizedDescription
+            case .deferred: break
+            }
+        }
+    }
+
+    private func fetchAndSendReceiptToBackend(session: Session) {
+        isLoading = true
+        SwiftyStoreKit.fetchReceipt(forceRefresh: false) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let receiptData):
+                let encryptedReceipt = receiptData.base64EncodedString()
+                session.client.processPayment(apiKey: session.apiKey,
+                                              receiptData: encryptedReceipt,
+                                              isMacApp: false)
+                    .receive(on: DispatchQueue.main)
+                    .sink { [weak self] completion in
+                        guard let self = self else { return }
+                        self.isLoading = false
+                        switch completion {
+                        case .finished: break
+                        case .failure(let error): self.error = error.description
+                        }
+                    } receiveValue: { [weak self] okResponse in
+                        self?.isSubscribed = okResponse.value
+                    }
+                    .store(in: &self.cancellables)
+
+            case .error(let error):
+                self.error = error.localizedDescription
             }
         }
     }

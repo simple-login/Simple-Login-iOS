@@ -41,7 +41,11 @@ struct AccountView: View {
                 ZStack {
                     NavigationLink(
                         isActive: $showingUpgradeView,
-                        destination: { UpgradeView() },
+                        destination: {
+                            UpgradeView {
+                                viewModel.forceRefresh()
+                            }
+                        },
                         label: { EmptyView() })
 
                     Form {

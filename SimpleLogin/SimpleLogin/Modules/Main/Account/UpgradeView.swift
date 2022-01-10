@@ -5,13 +5,28 @@
 //  Created by Thanh-Nhon Nguyen on 28/12/2021.
 //
 
+import AlertToast
+import Combine
 import SwiftUI
 
 // swiftlint:disable let_var_whitespace
 struct UpgradeView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var session: Session
     @StateObject private var viewModel = UpgradeViewModel()
+    @State private var showingLoadingAlert = false
+
+    var onSubscription: () -> Void
 
     var body: some View {
+        let showingErrorAlert = Binding<Bool>(get: {
+            viewModel.error != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledError()
+            }
+        })
+
         ScrollView {
             VStack(alignment: .leading) {
                 freePlanSection
@@ -35,6 +50,21 @@ struct UpgradeView: View {
         .background(gradientBackground)
         .onAppear {
             viewModel.retrieveProductsInfo()
+        }
+        .onReceive(Just(viewModel.isSubscribed)) { isSubscribed in
+            if isSubscribed {
+                onSubscription()
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+        .onReceive(Just(viewModel.isLoading)) { isLoading in
+            showingLoadingAlert = isLoading
+        }
+        .toast(isPresenting: showingErrorAlert) {
+            AlertToast.errorAlert(message: viewModel.error?.description)
+        }
+        .toast(isPresenting: $showingLoadingAlert) {
+            AlertToast(type: .loading)
         }
     }
 
@@ -106,7 +136,7 @@ struct UpgradeView: View {
     private var yearlyButton: some View {
         VStack(alignment: .leading) {
             Button(action: {
-                viewModel.subscribeYearly()
+                viewModel.subscribeYearly(session: session)
             }, label: {
                 if let yearlySubscription = viewModel.yearlySubscription {
                     Text("Subscribe yearly \(yearlySubscription.localizedPrice)/year")
@@ -131,7 +161,7 @@ struct UpgradeView: View {
     private var monthlyButton: some View {
         VStack(alignment: .leading) {
             Button(action: {
-                viewModel.subscribeMonthly()
+                viewModel.subscribeMonthly(session: session)
             }, label: {
                 if let monthlySubscription = viewModel.monthlySubscription {
                     Text("Subscribe monthly \(monthlySubscription.localizedPrice)/month")
@@ -155,7 +185,7 @@ struct UpgradeView: View {
 
     private var restoreButton: some View {
         Button(action: {
-            viewModel.restorePurchase()
+            viewModel.restorePurchase(session: session)
         }, label: {
             Text("Restore purchase")
                 .fontWeight(.bold)
@@ -202,7 +232,7 @@ struct UpgradeView: View {
 struct UpgradeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            UpgradeView()
+            UpgradeView { }
         }
     }
 }
