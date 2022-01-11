@@ -60,7 +60,7 @@ struct AccountView: View {
                     }
                     .environmentObject(viewModel)
                 }
-                .navigationTitle("My account")
+                .navigationTitle(viewModel.navigationTitle)
             } else {
                 Image(systemName: "person.fill")
                     .resizable()

@@ -23,6 +23,7 @@ final class AccountViewModel: ObservableObject {
     @Published var randomAliasDefaultDomain = ""
     @Published var senderFormat: SenderFormat = .a
     @Published var randomAliasSuffix: RandomAliasSuffix = .word
+    @Published private(set) var navigationTitle = ""
     @Published private(set) var biometryType: LABiometryType = .none
     @Published private(set) var error: SLClientError?
     @Published private(set) var isInitialized = false
@@ -127,6 +128,7 @@ final class AccountViewModel: ObservableObject {
                 self.userInfo = result.0
                 self.bind(userSettings: result.1)
                 self.usableDomains = result.2
+                self.navigationTitle = self.userInfo.name.isEmpty ? self.userInfo.email : self.userInfo.name
             }
             .store(in: &cancellables)
     }
