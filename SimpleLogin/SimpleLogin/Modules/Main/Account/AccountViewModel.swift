@@ -24,7 +24,6 @@ final class AccountViewModel: ObservableObject {
     @Published var senderFormat: SenderFormat = .a
     @Published var randomAliasSuffix: RandomAliasSuffix = .word
     @Published var askingForSettings = false
-    @Published private(set) var navigationTitle = ""
     @Published private(set) var biometryType: LABiometryType = .none
     @Published private(set) var error: SLClientError?
     @Published private(set) var isInitialized = false
@@ -129,7 +128,6 @@ final class AccountViewModel: ObservableObject {
                 self.userInfo = result.0
                 self.bind(userSettings: result.1)
                 self.usableDomains = result.2
-                self.navigationTitle = self.userInfo.name.isEmpty ? self.userInfo.email : self.userInfo.name
             }
             .store(in: &cancellables)
     }
@@ -236,6 +234,25 @@ final class AccountViewModel: ObservableObject {
         guard let url = URL(string: UIApplication.openSettingsURLString),
               UIApplication.shared.canOpenURL(url) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
+    func updateDisplayName(_ displayName: String) {
+        guard let session = session, !isLoading else { return }
+        isLoading = true
+        session.client.updateProfileName(apiKey: session.apiKey, name: displayName)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error
+                }
+            } receiveValue: { [weak self] userInfo in
+                guard let self = self else { return }
+                self.userInfo = userInfo
+            }
+            .store(in: &cancellables)
     }
 }
 

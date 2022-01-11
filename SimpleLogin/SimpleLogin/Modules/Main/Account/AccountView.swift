@@ -36,6 +36,8 @@ struct AccountView: View {
             }
         })
 
+        let navigationTitle = viewModel.userInfo.name.isEmpty ? viewModel.userInfo.email : viewModel.userInfo.name
+
         NavigationView {
             if viewModel.isInitialized {
                 ZStack {
@@ -60,7 +62,7 @@ struct AccountView: View {
                     }
                     .environmentObject(viewModel)
                 }
-                .navigationTitle(viewModel.navigationTitle)
+                .navigationTitle(navigationTitle)
             } else {
                 Image(systemName: "person.fill")
                     .resizable()
@@ -93,14 +95,26 @@ private struct UserInfoSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
     @State private var showingEditActionSheet = false
     @State private var showingPhotoPickerSheet = false
+    @State private var showingEditDisplayNameSheet = false
     @Binding var showingUpgradeView: Bool
 
     var body: some View {
         Section {
             VStack {
                 personalInfoView
+                    .sheet(isPresented: $showingPhotoPickerSheet) {
+                        PhotoPickerView { pickedImage in
+                            viewModel.uploadNewProfilePhoto(pickedImage)
+                        }
+                    }
                 Divider()
                 membershipView
+                    .sheet(isPresented: $showingEditDisplayNameSheet) {
+                        EditDisplayNameView { displayName in
+                            viewModel.updateDisplayName(displayName)
+                        }
+                        .environmentObject(viewModel)
+                    }
             }
         }
     }
@@ -113,7 +127,7 @@ private struct UserInfoSection: View {
                 .foregroundColor(.slPurple)
                 .frame(width: min(64, UIScreen.main.bounds.width / 7))
 
-            VStack {
+            VStack(alignment: .leading) {
                 if !viewModel.userInfo.name.isEmpty {
                     Text(viewModel.userInfo.name)
                         .fontWeight(.semibold)
@@ -128,17 +142,13 @@ private struct UserInfoSection: View {
             }, label: {
                 Image(systemName: "square.and.pencil")
                     .foregroundColor(.slPurple)
+                    .font(.title3)
             })
                 .buttonStyle(PlainButtonStyle())
                 .disabled(viewModel.isLoading)
         }
         .actionSheet(isPresented: $showingEditActionSheet) {
             editActionSheet
-        }
-        .sheet(isPresented: $showingPhotoPickerSheet) {
-            PhotoPickerView { pickedImage in
-                viewModel.uploadNewProfilePhoto(pickedImage)
-            }
         }
         .alert(isPresented: $viewModel.askingForSettings) {
             settingsAlert
@@ -182,7 +192,7 @@ private struct UserInfoSection: View {
             viewModel.removeProfilePhoto()
         })
         buttons.append(.default(Text("Modify display name")) {
-            print("Modify display name")
+            showingEditDisplayNameSheet = true
         })
         buttons.append(.cancel())
         return ActionSheet(title: Text("Modify profile information"), message: nil, buttons: buttons)
@@ -362,5 +372,52 @@ private struct LogOutSection: View {
                           secondaryButton: .cancel())
                 }
         }
+    }
+}
+
+private struct EditDisplayNameView: View {
+    @EnvironmentObject private var viewModel: AccountViewModel
+    @Environment(\.presentationMode) private var presentationMode
+    @State private var displayName = ""
+    var onEnterDisplayName: (String) -> Void
+
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Display name")) {
+                    if #available(iOS 15, *) {
+                        AutoFocusTextField(text: $displayName)
+                    } else {
+                        TextField("", text: $displayName)
+                            .labelsHidden()
+                            .autocapitalization(.words)
+                            .disableAutocorrection(true)
+                    }
+                }
+            }
+            .navigationTitle(viewModel.userInfo.email)
+            .navigationBarItems(leading: cancelButton, trailing: doneButton)
+        }
+        .accentColor(.slPurple)
+        .onAppear {
+            displayName = viewModel.userInfo.name
+        }
+    }
+
+    private var cancelButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Cancel")
+        })
+    }
+
+    private var doneButton: some View {
+        Button(action: {
+            onEnterDisplayName(displayName)
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Done")
+        })
     }
 }
