@@ -47,7 +47,7 @@ final class UpgradeViewModel: NSObject, ObservableObject {
     }
 
     func restorePurchase(session: Session) {
-        fetchAndSendReceiptToBackend(session: session)
+        fetchAndSendReceipt(session: session)
     }
 
     private func purchase(_ product: SKProduct?, session: Session) {
@@ -57,14 +57,14 @@ final class UpgradeViewModel: NSObject, ObservableObject {
             guard let self = self else { return }
             self.isLoading = false
             switch result {
-            case .success: self.fetchAndSendReceiptToBackend(session: session)
-            case .error(let error): self.error = error.localizedDescription
+            case .success: self.fetchAndSendReceipt(session: session)
+            case .error(let error): self.error = error.code.localizedDescription
             case .deferred: break
             }
         }
     }
 
-    private func fetchAndSendReceiptToBackend(session: Session) {
+    private func fetchAndSendReceipt(session: Session) {
         isLoading = true
         SwiftyStoreKit.fetchReceipt(forceRefresh: false) { [weak self] result in
             guard let self = self else { return }
@@ -111,5 +111,56 @@ extension SKProduct {
         formatter.numberStyle = .currency
         formatter.locale = priceLocale
         return formatter.string(from: price) ?? "\(price)"
+    }
+}
+
+extension SKError.Code {
+    var localizedDescription: String {
+        switch self {
+        case .clientInvalid:
+            return "You are not allowed to perform the attempted action"
+        case .paymentCancelled:
+            return "Payment request canceled"
+        case .paymentInvalid:
+            return "One of the payment parameters was not recognized by the App Store"
+        case .paymentNotAllowed:
+            return "You are not allowed to authorize payments"
+        case .storeProductNotAvailable:
+            return "The requested product is not available in the store"
+        case .cloudServicePermissionDenied:
+            return "You have not allowed access to Cloud service information"
+        case .cloudServiceNetworkConnectionFailed:
+            return "The device could not connect to the network"
+        case .cloudServiceRevoked:
+            return "You have revoked permission to use this cloud service"
+        case .privacyAcknowledgementRequired:
+            return "You have not yet acknowledged Apple’s privacy policy for Apple Music"
+        case .unauthorizedRequestData:
+            return "The app is attempting to use a property for which it does not have the required entitlement"
+        case .invalidOfferIdentifier:
+            return "The offer identifier cannot be found or is not active"
+        case .invalidOfferPrice:
+            return "The price in App Store Connect is no longer valid"
+        case .invalidSignature:
+            return "The signature in a payment discount is not valid"
+        case .missingOfferParams:
+            return "Parameters are missing in a payment discount"
+        case .ineligibleForOffer:
+            return "You are not ineligible for the subscription offer"
+        case .overlayCancelled:
+            return "Overlay cancelled"
+        case .overlayInvalidConfiguration:
+            return "The overlay’s configuration is invalid"
+        case .overlayPresentedInBackgroundScene:
+            return "Overlay presented in background scene"
+        case .overlayTimeout:
+            return "Overlay timeout"
+        case .unsupportedPlatform:
+            return "The current platform does not support overlays"
+        case .unknown:
+            return "Unknown SKError (\(self.rawValue))"
+        @unknown default:
+            return "Unknown default SKError (\(self.rawValue))"
+        }
     }
 }
