@@ -7,6 +7,7 @@
 
 import AlertToast
 import Combine
+import Kingfisher
 import LocalAuthentication
 import SimpleLoginPackage
 import SwiftUI
@@ -121,11 +122,18 @@ private struct UserInfoSection: View {
 
     private var personalInfoView: some View {
         HStack {
-            Image(systemName: "person.crop.circle.fill")
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(.slPurple)
-                .frame(width: min(64, UIScreen.main.bounds.width / 7))
+            let imageWidth = min(64, UIScreen.main.bounds.width / 7)
+            if let profilePictureUrl = viewModel.userInfo.profilePictureUrl {
+                KFImage.url(URL(string: profilePictureUrl))
+                    .placeholder { defaultAvatarImage }
+                    .loadDiskFileSynchronously()
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: imageWidth, height: imageWidth)
+                    .clipShape(Circle())
+            } else {
+                defaultAvatarImage
+            }
 
             VStack(alignment: .leading) {
                 if !viewModel.userInfo.name.isEmpty {
@@ -153,6 +161,14 @@ private struct UserInfoSection: View {
         .alert(isPresented: $viewModel.askingForSettings) {
             settingsAlert
         }
+    }
+
+    private var defaultAvatarImage: some View {
+        Image(systemName: "person.crop.circle.fill")
+            .resizable()
+            .scaledToFit()
+            .foregroundColor(.slPurple)
+            .frame(width: min(64, UIScreen.main.bounds.width / 7))
     }
 
     @ViewBuilder

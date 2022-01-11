@@ -19,6 +19,7 @@
 		C02F4CAF27483B390019F965 /* CreateAliasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */; };
 		C02F967226DB78D0000B100C /* ShakeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F967126DB78CF000B100C /* ShakeEffect.swift */; };
 		C02FCF8D278E2FB200F32BED /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FCF8C278E2FB200F32BED /* PhotoPickerView.swift */; };
+		C02FCF90278E3C3000F32BED /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C02FCF8F278E3C3000F32BED /* Kingfisher */; };
 		C030EB39277D1410007E2FF8 /* UpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C030EB38277D1410007E2FF8 /* UpgradeViewModel.swift */; };
 		C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C034888D268A6F29008D9629 /* SimpleLoginApp.swift */; };
 		C0348892268A6F2D008D9629 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0348891268A6F2D008D9629 /* Assets.xcassets */; };
@@ -146,6 +147,7 @@
 			files = (
 				C043D41426E01DBF0051B282 /* KeychainAccess in Frameworks */,
 				C07EA68B273E4DEA00C7D69C /* AlertToast in Frameworks */,
+				C02FCF90278E3C3000F32BED /* Kingfisher in Frameworks */,
 				C05A4CE1273C76BC005F8CC5 /* Introspect in Frameworks */,
 				C04848A7278CD99000702E8E /* SwiftyStoreKit in Frameworks */,
 				C04848A4278CD00500702E8E /* StoreKit.framework in Frameworks */,
@@ -383,6 +385,7 @@
 				C05A4CE0273C76BC005F8CC5 /* Introspect */,
 				C07EA68A273E4DEA00C7D69C /* AlertToast */,
 				C04848A6278CD99000702E8E /* SwiftyStoreKit */,
+				C02FCF8F278E3C3000F32BED /* Kingfisher */,
 			);
 			productName = SimpleLogin;
 			productReference = C034888A268A6F29008D9629 /* SimpleLogin.app */;
@@ -461,6 +464,7 @@
 				C05A4CDF273C76BB005F8CC5 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				C07EA689273E4DEA00C7D69C /* XCRemoteSwiftPackageReference "AlertToast" */,
 				C04848A5278CD99000702E8E /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
+				C02FCF8E278E3C3000F32BED /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = C034888B268A6F29008D9629 /* Products */;
 			projectDirPath = "";
@@ -895,6 +899,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C02FCF8E278E3C3000F32BED /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		C03760F126DC0BA000E5ECAC /* XCRemoteSwiftPackageReference "swift-package" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/simple-login/swift-package";
@@ -938,6 +950,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C02FCF8F278E3C3000F32BED /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C02FCF8E278E3C3000F32BED /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		C03760F226DC0BA000E5ECAC /* SimpleLoginPackage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C03760F126DC0BA000E5ECAC /* XCRemoteSwiftPackageReference "swift-package" */;
