@@ -18,6 +18,7 @@
 		C029769426F141A60014DC3B /* CreateAliasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C029769326F141A60014DC3B /* CreateAliasView.swift */; };
 		C02F4CAF27483B390019F965 /* CreateAliasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */; };
 		C02F967226DB78D0000B100C /* ShakeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F967126DB78CF000B100C /* ShakeEffect.swift */; };
+		C02FCF8D278E2FB200F32BED /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FCF8C278E2FB200F32BED /* PhotoPickerView.swift */; };
 		C030EB39277D1410007E2FF8 /* UpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C030EB38277D1410007E2FF8 /* UpgradeViewModel.swift */; };
 		C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C034888D268A6F29008D9629 /* SimpleLoginApp.swift */; };
 		C0348892268A6F2D008D9629 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0348891268A6F2D008D9629 /* Assets.xcassets */; };
@@ -91,6 +92,7 @@
 		C029769326F141A60014DC3B /* CreateAliasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasView.swift; sourceTree = "<group>"; };
 		C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasViewModel.swift; sourceTree = "<group>"; };
 		C02F967126DB78CF000B100C /* ShakeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeEffect.swift; sourceTree = "<group>"; };
+		C02FCF8C278E2FB200F32BED /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
 		C030EB38277D1410007E2FF8 /* UpgradeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeViewModel.swift; sourceTree = "<group>"; };
 		C034888A268A6F29008D9629 /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C034888D268A6F29008D9629 /* SimpleLoginApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLoginApp.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */,
 				C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */,
 				C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */,
+				C02FCF8C278E2FB200F32BED /* PhotoPickerView.swift */,
 				C02F967126DB78CF000B100C /* ShakeEffect.swift */,
 			);
 			path = "Supporting Views";
@@ -550,6 +553,7 @@
 				C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */,
 				C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */,
 				C02F4CAF27483B390019F965 /* CreateAliasViewModel.swift in Sources */,
+				C02FCF8D278E2FB200F32BED /* PhotoPickerView.swift in Sources */,
 				C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */,
 				C08BD81B2746E58300759E43 /* AlertToastExtensions.swift in Sources */,
 				C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */,

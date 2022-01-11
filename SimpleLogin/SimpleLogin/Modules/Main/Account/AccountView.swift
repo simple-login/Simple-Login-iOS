@@ -91,6 +91,8 @@ struct AccountView: View {
 
 private struct UserInfoSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
+    @State private var showingEditActionSheet = false
+    @State private var showingPhotoPickerSheet = false
     @Binding var showingUpgradeView: Bool
 
     var body: some View {
@@ -120,6 +122,26 @@ private struct UserInfoSection: View {
             }
 
             Spacer()
+
+            Button(action: {
+                showingEditActionSheet = true
+            }, label: {
+                Image(systemName: "square.and.pencil")
+                    .foregroundColor(.slPurple)
+            })
+                .buttonStyle(PlainButtonStyle())
+                .disabled(viewModel.isLoading)
+        }
+        .actionSheet(isPresented: $showingEditActionSheet) {
+            editActionSheet
+        }
+        .sheet(isPresented: $showingPhotoPickerSheet) {
+            PhotoPickerView { pickedImage in
+                viewModel.uploadNewProfilePhoto(pickedImage)
+            }
+        }
+        .alert(isPresented: $viewModel.askingForSettings) {
+            settingsAlert
         }
     }
 
@@ -145,9 +167,34 @@ private struct UserInfoSection: View {
                     Label("Upgrade", systemImage: "sparkles")
                         .foregroundColor(.blue)
                 })
+                    .buttonStyle(PlainButtonStyle())
                     .disabled(viewModel.isLoading)
             }
         }
+    }
+
+    private var editActionSheet: ActionSheet {
+        var buttons = [ActionSheet.Button]()
+        buttons.append(.default(Text("Upload new profile photo")) {
+            showingPhotoPickerSheet = true
+        })
+        buttons.append(.destructive(Text("Remove profile photo")) {
+            viewModel.removeProfilePhoto()
+        })
+        buttons.append(.default(Text("Modify display name")) {
+            print("Modify display name")
+        })
+        buttons.append(.cancel())
+        return ActionSheet(title: Text("Modify profile information"), message: nil, buttons: buttons)
+    }
+
+    private var settingsAlert: Alert {
+        Alert(title: Text("Please allow access to photo library"),
+              message: nil,
+              primaryButton: .default(Text("Open Settings")) {
+            viewModel.openAppSettings()
+        },
+              secondaryButton: .cancel())
     }
 }
 

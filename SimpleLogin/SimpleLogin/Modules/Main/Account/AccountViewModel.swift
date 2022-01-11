@@ -15,7 +15,7 @@ let kBiometricAuthEnabled = "ActiveBiometricAuthKey"
 let kUltraProtectionEnabled = "UltraProtectionEnabled"
 
 final class AccountViewModel: ObservableObject {
-    private(set) var userInfo: UserInfo = .empty
+    @Published private(set) var userInfo: UserInfo = .empty
     private(set) var usableDomains: [UsableDomain] = []
     private var lastKnownUserSettings: UserSettings?
     @Published var notification = false
@@ -23,6 +23,7 @@ final class AccountViewModel: ObservableObject {
     @Published var randomAliasDefaultDomain = ""
     @Published var senderFormat: SenderFormat = .a
     @Published var randomAliasSuffix: RandomAliasSuffix = .word
+    @Published var askingForSettings = false
     @Published private(set) var navigationTitle = ""
     @Published private(set) var biometryType: LABiometryType = .none
     @Published private(set) var error: SLClientError?
@@ -201,6 +202,40 @@ final class AccountViewModel: ObservableObject {
                 self.biometricAuthEnabled.toggle()
             }
         }
+    }
+
+    func uploadNewProfilePhoto(_ image: UIImage) {
+        guard let base64String = image.jpegData(compressionQuality: 0.5)?.base64EncodedString() else { return }
+        updateProfilePicture(base64String: base64String)
+    }
+
+    func removeProfilePhoto() {
+        updateProfilePicture(base64String: nil)
+    }
+
+    private func updateProfilePicture(base64String: String?) {
+        guard let session = session, !isLoading else { return }
+        isLoading = true
+        session.client.updateProfilePicture(apiKey: session.apiKey, base64ProfilePicture: base64String)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error
+                }
+            } receiveValue: { [weak self] userInfo in
+                guard let self = self else { return }
+                self.userInfo = userInfo
+            }
+            .store(in: &cancellables)
+    }
+
+    func openAppSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString),
+              UIApplication.shared.canOpenURL(url) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
 
