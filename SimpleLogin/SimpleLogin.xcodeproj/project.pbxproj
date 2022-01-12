@@ -62,6 +62,7 @@
 		C0F1963C273483CC0062B418 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963B273483CC0062B418 /* Session.swift */; };
 		C0F1963E27348EA10062B418 /* AliasDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963D27348EA10062B418 /* AliasDetailView.swift */; };
 		C0F1964027348EDA0062B418 /* AliasDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */; };
+		C0F732B1278F6674004608DB /* URLButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F732B0278F6674004608DB /* URLButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,7 @@
 		C0F1963B273483CC0062B418 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		C0F1963D27348EA10062B418 /* AliasDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailView.swift; sourceTree = "<group>"; };
 		C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailViewModel.swift; sourceTree = "<group>"; };
+		C0F732B0278F6674004608DB /* URLButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +346,7 @@
 				C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */,
 				C02FCF8C278E2FB200F32BED /* PhotoPickerView.swift */,
 				C02F967126DB78CF000B100C /* ShakeEffect.swift */,
+				C0F732B0278F6674004608DB /* URLButton.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */,
 				C0D1D5A9272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift in Sources */,
 				C08A5D8727499A6100BE889B /* AliasContactsViewModel.swift in Sources */,
+				C0F732B1278F6674004608DB /* URLButton.swift in Sources */,
 				C05A4CDE273C6C73005F8CC5 /* AutoFocusTextField.swift in Sources */,
 				C00A563626DAC6D000A550A2 /* ApiUrlView.swift in Sources */,
 				C02309CE2762AD6B00B6EC37 /* EmptyDataModifier.swift in Sources */,
@@ -740,7 +744,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -765,7 +769,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
