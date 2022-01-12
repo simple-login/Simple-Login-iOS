@@ -41,14 +41,6 @@ struct AboutView: View {
                         Label("Website", systemImage: "globe")
                     }
 
-                    URLButton(urlString: "https://forum.simplelogin.io/") {
-                        Label {
-                            Text("Discourse forum")
-                        } icon: {
-                            prefixIcon("Discourse")
-                        }
-                    }
-
                     URLButton(urlString: "https://github.com/simple-login/app/discussions") {
                         Label {
                             Text("Github forum")
