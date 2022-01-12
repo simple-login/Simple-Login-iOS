@@ -10,9 +10,33 @@ import SwiftUI
 
 struct OthersView: View {
     @StateObject private var viewModel = OthersViewModel()
+    @State private var showingMailboxesView = false
+    @State private var showingCustomDomainsView = false
 
     var body: some View {
-        Text("Others")
-            .navigationTitle("Others")
+        NavigationView {
+            Form {
+                Section(footer: Text("The mailboxes that receive and send emails")) {
+                    NavigationLink(isActive: $showingMailboxesView,
+                                   destination: { MailboxesView() },
+                                   label: { Label("Mailboxes",
+                                                  systemImage: "tray.2.fill") })
+                }
+
+                Section(footer: Text("The domains that you own")) {
+                    NavigationLink(isActive: $showingCustomDomainsView,
+                                   destination: { CustomDomainsView() },
+                                   label: { Label("Custom domains",
+                                                  systemImage: "globe") })
+                }
+            }
+            .navigationTitle("Other functionalities")
+        }
+    }
+}
+
+struct OthersView_Previews: PreviewProvider {
+    static var previews: some View {
+        OthersView()
     }
 }

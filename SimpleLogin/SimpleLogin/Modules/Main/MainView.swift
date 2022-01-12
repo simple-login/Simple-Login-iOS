@@ -48,7 +48,7 @@ struct MainView: View {
 
             OthersView()
                 .tabItem {
-                    Image(systemName: selectedTab == .others ? "tray.2.fill" : "tray.2")
+                    Image(systemName: selectedTab == .others ? "circle.grid.cross.fill" : "circle.grid.cross")
                     Text(MainViewTab.others.title)
                 }
                 .tag(MainViewTab.others)
