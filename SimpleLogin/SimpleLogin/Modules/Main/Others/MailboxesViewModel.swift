@@ -10,6 +10,10 @@ import SimpleLoginPackage
 import SwiftUI
 
 final class MailboxesViewModel: ObservableObject {
+    deinit {
+        print("\(Self.self) is deallocated")
+    }
+
     @Published private(set) var mailboxes = [Mailbox]()
     @Published private(set) var isLoading = false
     @Published private(set) var error: String?

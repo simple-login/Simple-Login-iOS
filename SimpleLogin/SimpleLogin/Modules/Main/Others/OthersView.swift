@@ -9,7 +9,6 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct OthersView: View {
-    @StateObject private var viewModel = OthersViewModel()
     @State private var showingMailboxesView = false
     @State private var showingCustomDomainsView = false
 
