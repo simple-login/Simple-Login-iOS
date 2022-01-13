@@ -10,10 +10,11 @@ import SwiftUI
 @available(iOS 15, *)
 struct AutoFocusTextField: View {
     @FocusState private var isFocused: Bool
+    var placeholder: String?
     @Binding var text: String
 
     var body: some View {
-        TextField("", text: $text)
+        TextField(placeholder ?? "", text: $text)
             .labelsHidden()
             .disableAutocorrection(true)
             .focused($isFocused)

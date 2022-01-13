@@ -77,4 +77,23 @@ final class MailboxesViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+
+    func addMailbox(email: String, session: Session) {
+        guard !isLoading else { return }
+        isLoading = true
+        session.client.createMailbox(apiKey: session.apiKey, email: email)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error.description
+                }
+            } receiveValue: { [weak self] mailbox in
+                guard let self = self else { return }
+                self.mailboxes.append(mailbox)
+            }
+            .store(in: &cancellables)
+    }
 }
