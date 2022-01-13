@@ -47,6 +47,7 @@
 		C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A9B14277BB996003FD0A7 /* UpgradeView.swift */; };
 		C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CC54A26FBCAAE003BC32D /* ResetPasswordView.swift */; };
 		C064797D272B331D009CA1F8 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C064797C272B331D009CA1F8 /* Action.swift */; };
+		C06CEAF2279018B100736920 /* MailboxesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06CEAF1279018B100736920 /* MailboxesViewModel.swift */; };
 		C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C079864926B34D5F006C9FC0 /* LogInView.swift */; };
 		C07EA68B273E4DEA00C7D69C /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = C07EA68A273E4DEA00C7D69C /* AlertToast */; };
 		C07EA68D273E57AA00C7D69C /* ApiKeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07EA68C273E57AA00C7D69C /* ApiKeyViewModel.swift */; };
@@ -127,6 +128,7 @@
 		C05A9B14277BB996003FD0A7 /* UpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
 		C05CC54A26FBCAAE003BC32D /* ResetPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		C064797C272B331D009CA1F8 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		C06CEAF1279018B100736920 /* MailboxesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxesViewModel.swift; sourceTree = "<group>"; };
 		C079864926B34D5F006C9FC0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		C07EA68C273E57AA00C7D69C /* ApiKeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyViewModel.swift; sourceTree = "<group>"; };
 		C08A5D8427499A0200BE889B /* AliasContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasContactsView.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 			children = (
 				C0F732B6278F854F004608DB /* CustomDomainsView.swift */,
 				C0F732B4278F842A004608DB /* MailboxesView.swift */,
+				C06CEAF1279018B100736920 /* MailboxesViewModel.swift */,
 				C03F4F2426E1665D00BBF2A8 /* OthersView.swift */,
 				C03F4F2A26E171B300BBF2A8 /* OthersViewModel.swift */,
 			);
@@ -566,6 +569,7 @@
 				C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */,
 				C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */,
 				C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */,
+				C06CEAF2279018B100736920 /* MailboxesViewModel.swift in Sources */,
 				C02F4CAF27483B390019F965 /* CreateAliasViewModel.swift in Sources */,
 				C0F732B5278F842A004608DB /* MailboxesView.swift in Sources */,
 				C02FCF8D278E2FB200F32BED /* PhotoPickerView.swift in Sources */,
