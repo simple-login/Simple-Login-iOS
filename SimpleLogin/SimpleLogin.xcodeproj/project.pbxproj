@@ -30,6 +30,7 @@
 		C03760F826DC0D6A00E5ECAC /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03760F726DC0D6A00E5ECAC /* LogInViewModel.swift */; };
 		C03760FA26DC0F0200E5ECAC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03760F926DC0F0200E5ECAC /* Preferences.swift */; };
 		C03B518E27288F2700C54130 /* AliasCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B518D27288F2700C54130 /* AliasCompactView.swift */; };
+		C03D292D279215EE0041FB60 /* DomainDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D292C279215EE0041FB60 /* DomainDetailViewModel.swift */; };
 		C03F4F1526E15ADD00BBF2A8 /* AliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */; };
 		C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */; };
 		C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */; };
@@ -115,6 +116,7 @@
 		C03760F926DC0F0200E5ECAC /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		C03760FB26DC0F7300E5ECAC /* SimpleLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleLogin.entitlements; sourceTree = "<group>"; };
 		C03B518D27288F2700C54130 /* AliasCompactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasCompactView.swift; sourceTree = "<group>"; };
+		C03D292C279215EE0041FB60 /* DomainDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainDetailViewModel.swift; sourceTree = "<group>"; };
 		C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesView.swift; sourceTree = "<group>"; };
 		C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
 		C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -303,8 +305,9 @@
 			isa = PBXGroup;
 			children = (
 				C0F732B6278F854F004608DB /* CustomDomainsView.swift */,
-				C00DF9A9279175770065A602 /* DomainDetailView.swift */,
 				C0E9C3E02790D57A00D1A463 /* CustomDomainsViewModel.swift */,
+				C00DF9A9279175770065A602 /* DomainDetailView.swift */,
+				C03D292C279215EE0041FB60 /* DomainDetailViewModel.swift */,
 				C0F732B4278F842A004608DB /* MailboxesView.swift */,
 				C06CEAF1279018B100736920 /* MailboxesViewModel.swift */,
 				C03F4F2426E1665D00BBF2A8 /* OthersView.swift */,
@@ -556,6 +559,7 @@
 				C0F732B7278F854F004608DB /* CustomDomainsView.swift in Sources */,
 				C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */,
 				C029769226F1406D0014DC3B /* SearchAliasesView.swift in Sources */,
+				C03D292D279215EE0041FB60 /* DomainDetailViewModel.swift in Sources */,
 				C03760FA26DC0F0200E5ECAC /* Preferences.swift in Sources */,
 				C0D1D5A7272BCCA000F5CFC5 /* ColorExtensions.swift in Sources */,
 				C029769426F141A60014DC3B /* CreateAliasView.swift in Sources */,
