@@ -28,9 +28,9 @@ struct CustomDomainsView: View {
             ForEach(viewModel.domains, id: \.id) { domain in
                 NavigationLink(destination: {
                     DomainDetailView(domain: domain)
-                }) {
+                }, label: {
                     DomainView(domain: domain)
-                }
+                })
             }
         }
         .listStyle(InsetGroupedListStyle())

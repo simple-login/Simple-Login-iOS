@@ -23,7 +23,8 @@ final class MailboxesViewModel: ObservableObject {
         error = nil
     }
 
-    func getMailboxes(session: Session) {
+    func refreshMailboxes(session: Session, isForced: Bool) {
+        if !isForced, !mailboxes.isEmpty { return }
         isLoading = true
         session.client.getMailboxes(apiKey: session.apiKey)
             .receive(on: DispatchQueue.main)
@@ -56,7 +57,7 @@ final class MailboxesViewModel: ObservableObject {
                 case .failure(let error): self.error = error.description
                 }
             } receiveValue: { [weak self] _ in
-                self?.getMailboxes(session: session)
+                self?.refreshMailboxes(session: session, isForced: true)
             }
             .store(in: &cancellables)
     }

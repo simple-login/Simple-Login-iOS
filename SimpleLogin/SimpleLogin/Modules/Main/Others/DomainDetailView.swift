@@ -12,12 +12,19 @@ struct DomainDetailView: View {
     let domain: CustomDomain
 
     var body: some View {
-        Text(domain.domainName)
+        Form {
+            Section {
+                
+            }
+        }
+        .navigationTitle(domain.domainName)
     }
 }
 
 struct DomainDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DomainDetailView(domain: .verified)
+        NavigationView {
+            DomainDetailView(domain: .verified)
+        }
     }
 }

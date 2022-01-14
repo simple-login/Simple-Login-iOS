@@ -26,10 +26,6 @@ final class CustomDomainsViewModel: ObservableObject {
 
     func refreshCustomDomains(session: Session, isForced: Bool) {
         if !isForced, !domains.isEmpty { return }
-        getCustomDomains(session: session)
-    }
-
-    private func getCustomDomains(session: Session) {
         isLoading = true
         session.client.getCustomDomains(apiKey: session.apiKey)
             .receive(on: DispatchQueue.main)

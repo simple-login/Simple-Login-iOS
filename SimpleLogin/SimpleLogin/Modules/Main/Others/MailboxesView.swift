@@ -65,7 +65,8 @@ struct MailboxesView: View {
             }
         }
         .onAppear {
-            viewModel.getMailboxes(session: session)
+            viewModel.refreshMailboxes(session: session,
+                                       isForced: false)
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
