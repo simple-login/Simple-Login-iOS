@@ -5,17 +5,29 @@
 //  Created by Thanh-Nhon Nguyen on 14/01/2022.
 //
 
+import AlertToast
+import Combine
 import SimpleLoginPackage
 import SwiftUI
 
 struct DomainDetailView: View {
+    @EnvironmentObject private var session: Session
     @StateObject private var viewModel: DomainDetailViewModel
+    @State private var showingLoadingAlert = false
 
     init(domain: CustomDomain) {
         _viewModel = StateObject(wrappedValue: .init(domain: domain))
     }
 
     var body: some View {
+        let showingErrorAlert = Binding<Bool>(get: {
+            viewModel.error != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledError()
+            }
+        })
+
         let domain = viewModel.domain
         ScrollView {
             Group {
@@ -52,6 +64,18 @@ struct DomainDetailView: View {
                     .font(.footnote)
                 }
             }
+        }
+        .onAppear {
+            viewModel.setSession(session)
+        }
+        .onReceive(Just(viewModel.isLoading)) { isLoading in
+            showingLoadingAlert = isLoading
+        }
+        .toast(isPresenting: showingErrorAlert) {
+            AlertToast.errorAlert(message: viewModel.error)
+        }
+        .toast(isPresenting: $showingLoadingAlert) {
+            AlertToast(type: .loading)
         }
     }
 
@@ -108,12 +132,6 @@ private struct CatchAllSection: View {
                 }
 
                 Spacer()
-
-//                Button(action: {
-//                    showingEditDisplayNameView = true
-//                }, label: {
-//                    Text(viewModel.alias.name == nil ? "Add" : "Edit")
-//                })
             }
             .padding(.top, 8)
             .padding(.bottom, showingExplication ? 2 : 8)
@@ -218,7 +236,7 @@ private struct RandomPrefixSection: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("Random Prefix Generation")
+                Text("Random prefix generation")
                     .font(.title2)
                     .fontWeight(.bold)
 

@@ -17,33 +17,66 @@ final class DomainDetailViewModel: ObservableObject {
     @Published private(set) var domain: CustomDomain = .empty
     @Published var catchAll = false
     @Published var randomPrefixGeneration = false
+    @Published private(set) var isLoading = false
+    @Published private(set) var error: String?
     private var cancellables = Set<AnyCancellable>()
+    private var session: Session?
 
     init(domain: CustomDomain) {
         bind(domain: domain)
 
         $catchAll
-            .sink { [weak self] catchAll in
+            .sink { [weak self] selectedCatchAll in
                 guard let self = self else { return }
-//                if shouldUpdateUserSettings(), selectedNotification != self.notification {
-//                    self.update(option: .notification(selectedNotification))
-//                }
-                print(catchAll)
+                if selectedCatchAll != self.catchAll {
+                    self.update(option: .catchAll(selectedCatchAll))
+                }
             }
             .store(in: &cancellables)
 
         $randomPrefixGeneration
-            .sink { [weak self] randomPrefixGeneration in
+            .sink { [weak self] selectedRandomPrefixGeneration in
                 guard let self = self else { return }
-                print(randomPrefixGeneration)
+                if selectedRandomPrefixGeneration != self.randomPrefixGeneration {
+                    self.update(option: .randomPrefixGeneration(selectedRandomPrefixGeneration))
+                }
             }
             .store(in: &cancellables)
+    }
+
+    func setSession(_ session: Session) {
+        self.session = session
+    }
+
+    func handledError() {
+        self.error = nil
     }
 
     private func bind(domain: CustomDomain) {
         self.domain = domain
         self.catchAll = domain.catchAll
         self.randomPrefixGeneration = domain.randomPrefixGeneration
+    }
+
+    private func update(option: CustomDomainUpdateOption) {
+        guard let session = session else { return }
+        guard !isLoading else { return }
+        isLoading = true
+        session.client.updateCustomDomain(apiKey: session.apiKey,
+                                          id: domain.id,
+                                          option: option)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error.description
+                }
+            } receiveValue: { [weak self] customDomain in
+                self?.bind(domain: customDomain)
+            }
+            .store(in: &cancellables)
     }
 }
 
