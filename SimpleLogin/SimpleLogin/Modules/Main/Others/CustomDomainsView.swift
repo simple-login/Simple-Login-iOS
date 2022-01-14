@@ -5,14 +5,49 @@
 //  Created by Thanh-Nhon Nguyen on 12/01/2022.
 //
 
+import AlertToast
+import Combine
 import SimpleLoginPackage
 import SwiftUI
 
 struct CustomDomainsView: View {
+    @EnvironmentObject private var session: Session
     @StateObject private var viewModel = CustomDomainsViewModel()
+    @State private var showingLoadingAlert = false
 
     var body: some View {
-        Text("Custom domains view")
+        let showingErrorAlert = Binding<Bool>(get: {
+            viewModel.error != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledError()
+            }
+        })
+
+        List {
+            ForEach(viewModel.domains, id: \.id) { domain in
+                NavigationLink(destination: {
+                    DomainDetailView(domain: domain)
+                }) {
+                    DomainView(domain: domain)
+                }
+            }
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("Custom domains")
+        .onAppear {
+            viewModel.refreshCustomDomains(session: session,
+                                           isForced: false)
+        }
+        .onReceive(Just(viewModel.isLoading)) { isLoading in
+            showingLoadingAlert = isLoading
+        }
+        .toast(isPresenting: $showingLoadingAlert) {
+            AlertToast(type: .loading)
+        }
+        .toast(isPresenting: showingErrorAlert) {
+            AlertToast.errorAlert(message: viewModel.error?.description)
+        }
     }
 }
 

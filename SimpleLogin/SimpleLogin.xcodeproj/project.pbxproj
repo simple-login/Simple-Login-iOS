@@ -10,6 +10,7 @@
 		C00A563426DABC3900A550A2 /* ErrorMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */; };
 		C00A563626DAC6D000A550A2 /* ApiUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563526DAC6D000A550A2 /* ApiUrlView.swift */; };
 		C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563726DAD9E000A550A2 /* OtpView.swift */; };
+		C00DF9AA279175770065A602 /* DomainDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00DF9A9279175770065A602 /* DomainDetailView.swift */; };
 		C0100B3026DEC46900085C24 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0100B2F26DEC46900085C24 /* MainView.swift */; };
 		C02309CE2762AD6B00B6EC37 /* EmptyDataModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */; };
 		C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0259EAC26DA30D70056A977 /* SignUpView.swift */; };
@@ -89,6 +90,7 @@
 		C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageModifier.swift; sourceTree = "<group>"; };
 		C00A563526DAC6D000A550A2 /* ApiUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUrlView.swift; sourceTree = "<group>"; };
 		C00A563726DAD9E000A550A2 /* OtpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpView.swift; sourceTree = "<group>"; };
+		C00DF9A9279175770065A602 /* DomainDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainDetailView.swift; sourceTree = "<group>"; };
 		C0100B2F26DEC46900085C24 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDataModifier.swift; sourceTree = "<group>"; };
 		C0259EAC26DA30D70056A977 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				C0F732B6278F854F004608DB /* CustomDomainsView.swift */,
+				C00DF9A9279175770065A602 /* DomainDetailView.swift */,
 				C0E9C3E02790D57A00D1A463 /* CustomDomainsViewModel.swift */,
 				C0F732B4278F842A004608DB /* MailboxesView.swift */,
 				C06CEAF1279018B100736920 /* MailboxesViewModel.swift */,
@@ -581,6 +584,7 @@
 				C07EA68D273E57AA00C7D69C /* ApiKeyViewModel.swift in Sources */,
 				C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */,
 				C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */,
+				C00DF9AA279175770065A602 /* DomainDetailView.swift in Sources */,
 				C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */,
 				C0D1D5A9272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift in Sources */,
 				C08A5D8727499A6100BE889B /* AliasContactsViewModel.swift in Sources */,
