@@ -11,6 +11,7 @@
 		C00A563626DAC6D000A550A2 /* ApiUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563526DAC6D000A550A2 /* ApiUrlView.swift */; };
 		C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563726DAD9E000A550A2 /* OtpView.swift */; };
 		C00DF9AA279175770065A602 /* DomainDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00DF9A9279175770065A602 /* DomainDetailView.swift */; };
+		C00E66692792C687002DBA67 /* ClearButtonModeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E66682792C687002DBA67 /* ClearButtonModeModifier.swift */; };
 		C0100B3026DEC46900085C24 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0100B2F26DEC46900085C24 /* MainView.swift */; };
 		C02309CE2762AD6B00B6EC37 /* EmptyDataModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */; };
 		C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0259EAC26DA30D70056A977 /* SignUpView.swift */; };
@@ -92,6 +93,7 @@
 		C00A563526DAC6D000A550A2 /* ApiUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUrlView.swift; sourceTree = "<group>"; };
 		C00A563726DAD9E000A550A2 /* OtpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpView.swift; sourceTree = "<group>"; };
 		C00DF9A9279175770065A602 /* DomainDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainDetailView.swift; sourceTree = "<group>"; };
+		C00E66682792C687002DBA67 /* ClearButtonModeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButtonModeModifier.swift; sourceTree = "<group>"; };
 		C0100B2F26DEC46900085C24 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDataModifier.swift; sourceTree = "<group>"; };
 		C0259EAC26DA30D70056A977 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 			children = (
 				C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */,
 				C0AAE98D26E4152A00247742 /* Blur.swift */,
+				C00E66682792C687002DBA67 /* ClearButtonModeModifier.swift */,
 				C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */,
 				C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */,
 				C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */,
@@ -573,6 +576,7 @@
 				C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */,
 				C0F1964027348EDA0062B418 /* AliasDetailViewModel.swift in Sources */,
 				C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */,
+				C00E66692792C687002DBA67 /* ClearButtonModeModifier.swift in Sources */,
 				C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */,
 				C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */,
 				C06CEAF2279018B100736920 /* MailboxesViewModel.swift in Sources */,

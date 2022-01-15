@@ -18,6 +18,7 @@ final class DomainDetailViewModel: ObservableObject {
     @Published var catchAll = false
     @Published var randomPrefixGeneration = false
     @Published private(set) var isLoading = false
+    @Published private(set) var isUpdated = false
     @Published private(set) var error: String?
     private var cancellables = Set<AnyCancellable>()
     private var session: Session?
@@ -52,13 +53,17 @@ final class DomainDetailViewModel: ObservableObject {
         self.error = nil
     }
 
+    func handledIsUpdatedBoolean() {
+        isUpdated = false
+    }
+
     private func bind(domain: CustomDomain) {
         self.domain = domain
         self.catchAll = domain.catchAll
         self.randomPrefixGeneration = domain.randomPrefixGeneration
     }
 
-    private func update(option: CustomDomainUpdateOption) {
+    func update(option: CustomDomainUpdateOption) {
         guard let session = session else { return }
         guard !isLoading else { return }
         isLoading = true

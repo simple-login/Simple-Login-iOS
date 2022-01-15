@@ -43,7 +43,6 @@ struct DomainDetailView: View {
 //            .disabled(viewModel.isUpdating || viewModel.isRefreshing)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing: trailingButton)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 VStack(spacing: 0) {
@@ -77,15 +76,6 @@ struct DomainDetailView: View {
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
         }
-    }
-
-    private var trailingButton: some View {
-        Button(action: {
-//            selectedSheet = .actions
-        }, label: {
-            Image(systemName: "ellipsis")
-        })
-            .frame(minWidth: 24, minHeight: 24)
     }
 }
 
@@ -223,11 +213,86 @@ private struct DefaultDisplayNameSection: View {
                 Text(name)
             }
         }
-//        .sheet(isPresented: $showingEditDisplayNameView) {
-//            EditDisplayNameView(viewModel: viewModel)
-//        }
+        .sheet(isPresented: $showingEditDisplayNameView) {
+            EditDisplayNameView(viewModel: viewModel)
+        }
     }
 }
+
+private struct EditDisplayNameView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    @ObservedObject var viewModel: DomainDetailViewModel
+    @State private var showingLoadingAlert = false
+    @State private var displayName = ""
+
+    var body: some View {
+        let showingErrorAlert = Binding<Bool>(get: {
+            viewModel.error != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledError()
+            }
+        })
+
+        NavigationView {
+            Form {
+                Section(header: Text("Display name"),
+                        footer: Text("You can remove display name by leaving this field blank")) {
+                    if #available(iOS 15, *) {
+                        AutoFocusTextField(text: $displayName)
+                            .modifier(ClearButtonModeModifier(mode: .whileEditing))
+                    } else {
+                        TextField("", text: $displayName)
+                            .labelsHidden()
+                            .autocapitalization(.words)
+                            .disableAutocorrection(true)
+                            .modifier(ClearButtonModeModifier(mode: .whileEditing))
+                    }
+                }
+            }
+            .navigationTitle(viewModel.domain.domainName)
+            .navigationBarItems(leading: cancelButton, trailing: doneButton)
+        }
+        .accentColor(.slPurple)
+        .onAppear {
+            displayName = viewModel.domain.name ?? ""
+        }
+        .onReceive(Just(viewModel.isLoading)) { isLoading in
+            showingLoadingAlert = isLoading
+        }
+        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
+            if isUpdated {
+                presentationMode.wrappedValue.dismiss()
+                viewModel.handledIsUpdatedBoolean()
+            }
+        }
+        .toast(isPresenting: $showingLoadingAlert) {
+            AlertToast(type: .loading)
+        }
+        .toast(isPresenting: showingErrorAlert) {
+            AlertToast(displayMode: .banner(.pop),
+                       type: .error(.red),
+                       title: viewModel.error)
+        }
+    }
+
+    private var cancelButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Cancel")
+        })
+    }
+
+    private var doneButton: some View {
+        Button(action: {
+            viewModel.update(option: .name(displayName.isEmpty ? nil : displayName))
+        }, label: {
+            Text("Done")
+        })
+    }
+}
+
 
 private struct RandomPrefixSection: View {
     @ObservedObject var viewModel: DomainDetailViewModel
