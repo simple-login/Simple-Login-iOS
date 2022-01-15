@@ -14,6 +14,7 @@ struct CustomDomainsView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel = CustomDomainsViewModel()
     @State private var showingLoadingAlert = false
+    @State private var selectedUnverifiedDomain: CustomDomain?
 
     var body: some View {
         let showingErrorAlert = Binding<Bool>(get: {
@@ -24,13 +25,28 @@ struct CustomDomainsView: View {
             }
         })
 
+        let showingUnverifiedDomainAlert = Binding<Bool>(get: {
+            selectedUnverifiedDomain != nil
+        }, set: { isShowing in
+            if !isShowing {
+                selectedUnverifiedDomain = nil
+            }
+        })
+
         List {
             ForEach(viewModel.domains, id: \.id) { domain in
-                NavigationLink(destination: {
-                    DomainDetailView(domain: domain)
-                }, label: {
+                if domain.verified {
+                    NavigationLink(destination: {
+                        DomainDetailView(domain: domain)
+                    }, label: {
+                        DomainView(domain: domain)
+                    })
+                } else {
                     DomainView(domain: domain)
-                })
+                        .onTapGesture {
+                            selectedUnverifiedDomain = domain
+                        }
+                }
             }
         }
         .listStyle(InsetGroupedListStyle())
@@ -42,12 +58,26 @@ struct CustomDomainsView: View {
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
+        .alert(isPresented: showingUnverifiedDomainAlert) {
+            unverifiedDomainAlert
+        }
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
         }
         .toast(isPresenting: showingErrorAlert) {
             AlertToast.errorAlert(message: viewModel.error?.description)
         }
+    }
+
+    private var unverifiedDomainAlert: Alert {
+        guard let selectedUnverifiedDomain = selectedUnverifiedDomain else {
+            return .init(title: Text("selectedUnverifiedDomain is nil"),
+                         message: nil,
+                         dismissButton: .cancel())
+        }
+        return .init(title: Text("\(selectedUnverifiedDomain.domainName) is not verified"),
+                     message: Text("You can only verify this domain in our web app"),
+                     dismissButton: .default(Text("OK")))
     }
 }
 

@@ -293,7 +293,6 @@ private struct EditDisplayNameView: View {
     }
 }
 
-
 private struct RandomPrefixSection: View {
     @ObservedObject var viewModel: DomainDetailViewModel
     @State private var showingExplication = false
