@@ -92,3 +92,4 @@ SLOAuth.plist
 GoogleService-Info.plist
 Sentry.plist
 .DS_Store
+*.xcworkspacedata

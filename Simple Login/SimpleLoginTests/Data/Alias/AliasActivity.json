@@ -1,7 +1,0 @@
-{
-    "action": "forward",
-    "from": "reply+bepwqfxpdsdthrn@example.com",
-    "reverse_alias": "\"John Doe\" <reply+mxzjdzsxgwlndsdwdsydlqlbgany@sldev.ovh>",
-    "timestamp": 1591239162,
-    "to": "jane.doe@example.com"
-}
