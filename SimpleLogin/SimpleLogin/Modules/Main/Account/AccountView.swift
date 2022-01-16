@@ -16,6 +16,7 @@ import SwiftUI
 struct AccountView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel = AccountViewModel()
+    @State private var confettiCounter = 0
     @State private var showingUpgradeView = false
     @State private var showingLoadingAlert = false
     let onLogOut: () -> Void
@@ -46,6 +47,7 @@ struct AccountView: View {
                         isActive: $showingUpgradeView,
                         destination: {
                             UpgradeView {
+                                confettiCounter += 1
                                 viewModel.forceRefresh()
                             }
                         },
@@ -81,6 +83,7 @@ struct AccountView: View {
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
+        .modifier(ConfettiableModifier(counter: $confettiCounter))
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
         }

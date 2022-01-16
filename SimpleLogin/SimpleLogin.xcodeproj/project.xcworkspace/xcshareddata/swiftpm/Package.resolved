@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "ConfettiSwiftUI",
+        "repositoryURL": "https://github.com/simibac/ConfettiSwiftUI.git",
+        "state": {
+          "branch": null,
+          "revision": "7d07b954afdeffeac7c3ed913296f7d73b600003",
+          "version": "0.3.0"
+        }
+      },
+      {
         "package": "KeychainAccess",
         "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess",
         "state": {
