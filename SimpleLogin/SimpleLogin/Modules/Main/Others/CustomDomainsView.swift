@@ -55,6 +55,9 @@ struct CustomDomainsView: View {
             viewModel.refreshCustomDomains(session: session,
                                            isForced: false)
         }
+        .emptyPlaceholder(isEmpty: viewModel.domains.isEmpty && !viewModel.isLoading) {
+            noDomainView
+        }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
@@ -67,6 +70,23 @@ struct CustomDomainsView: View {
         .toast(isPresenting: showingErrorAlert) {
             AlertToast.errorAlert(message: viewModel.error?.description)
         }
+    }
+
+    var noDomainView: some View {
+        ZStack {
+            Image(systemName: "globe")
+                .resizable()
+                .padding()
+                .scaledToFit()
+                .foregroundColor(.slPurple)
+                .opacity(0.03)
+            Text("You currently don't have any custom domain. You can only add custom domains using our web app.")
+                .font(.title2)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+                .foregroundColor(.secondary)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     private var unverifiedDomainAlert: Alert {

@@ -223,12 +223,12 @@ struct AliasesViewToolbar: View {
                 .fixedSize()
                 .padding(.horizontal, 16)
 
-            Button(action: onSearch) {
-                Image(systemName: "magnifyingglass")
-            }
-
-            Spacer()
-                .frame(width: 24)
+//            Button(action: onSearch) {
+//                Image(systemName: "magnifyingglass")
+//            }
+//
+//            Spacer()
+//                .frame(width: 24)
 
             Button(action: onRandomAlias) {
                 Image(systemName: "shuffle")
