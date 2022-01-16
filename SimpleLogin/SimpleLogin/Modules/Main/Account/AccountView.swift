@@ -56,6 +56,7 @@ struct AccountView: View {
                         if viewModel.biometryType == .touchID || viewModel.biometryType == .faceID {
                             BiometricAuthenticationSection()
                         }
+                        LocalSettingsSection()
                         NewslettersSection()
                         AliasesSection()
                         SenderFormatSection()
@@ -256,6 +257,18 @@ private struct BiometricAuthenticationSection: View {
                         .foregroundColor(.secondary)
                 }
             }
+        }
+    }
+}
+
+/// For settings that are local like haptic effect & dark mode
+private struct LocalSettingsSection: View {
+    @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
+
+    var body: some View {
+        Section {
+            Toggle("Haptic feedback", isOn: $hapticEffectEnabled)
+                .toggleStyle(SwitchToggleStyle(tint: .slPurple))
         }
     }
 }

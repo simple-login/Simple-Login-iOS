@@ -13,6 +13,7 @@ import SwiftUI
 
 struct AliasesView: View {
     @EnvironmentObject private var session: Session
+    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel = AliasesViewModel()
     @State private var showingRandomAliasActionSheet = false
     @State private var showingUpdatingAlert = false
@@ -81,6 +82,9 @@ struct AliasesView: View {
                         AliasCompactView(
                             alias: alias,
                             onCopy: {
+                                if hapticFeedbackEnabled {
+                                    Vibration.soft.vibrate()
+                                }
                                 copiedEmail = alias.email
                                 UIPasteboard.general.string = alias.email
                             },
@@ -196,6 +200,7 @@ enum AliasStatus: CustomStringConvertible, CaseIterable {
 }
 
 struct AliasesViewToolbar: View {
+    @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
     @Binding var selectedStatus: AliasStatus
     let onSearch: () -> Void
     let onRandomAlias: () -> Void
@@ -230,9 +235,14 @@ struct AliasesViewToolbar: View {
             Spacer()
                 .frame(width: 24)
 
-            Button(action: onCreateAlias) {
+            Button(action: {
+                if hapticEffectEnabled {
+                    Vibration.light.vibrate()
+                }
+                onCreateAlias()
+            }, label: {
                 Image(systemName: "plus")
-            }
+            })
         }
         .padding(.vertical, 8)
         .padding(.horizontal)

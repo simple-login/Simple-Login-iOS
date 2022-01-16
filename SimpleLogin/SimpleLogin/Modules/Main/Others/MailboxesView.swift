@@ -12,6 +12,7 @@ import SwiftUI
 
 struct MailboxesView: View {
     @EnvironmentObject private var session: Session
+    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel = MailboxesViewModel()
     @State private var showingAddMailboxView = false
     @State private var showingLoadingAlert = false
@@ -58,6 +59,9 @@ struct MailboxesView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
+                    if hapticFeedbackEnabled {
+                        Vibration.light.vibrate()
+                    }
                     showingAddMailboxView = true
                 }, label: {
                     Image(systemName: "plus")
@@ -108,6 +112,9 @@ struct MailboxesView: View {
             })
         }
         buttons.append(.destructive(Text("Delete")) {
+            if hapticFeedbackEnabled {
+                Vibration.warning.vibrate(fallBackToOldSchool: true)
+            }
             mailboxToBeDeleted = selectedMailbox
         })
         buttons.append(.cancel())

@@ -10,8 +10,12 @@ import SimpleLoginPackage
 import SwiftUI
 
 final class AliasesViewModel: ObservableObject {
+    @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
     @Published var selectedStatus: AliasStatus = .all {
         didSet {
+            if hapticEffectEnabled {
+                Vibration.selection.vibrate()
+            }
             updateFilteredAliases()
         }
     }

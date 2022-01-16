@@ -39,6 +39,7 @@
 		C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */; };
 		C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */; };
 		C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */; };
+		C04266D327944E130053451B /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04266D227944E130053451B /* Vibration.swift */; };
 		C043D41426E01DBF0051B282 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C043D41326E01DBF0051B282 /* KeychainAccess */; };
 		C043D41626E01E280051B282 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C043D41526E01E280051B282 /* KeychainService.swift */; };
 		C04848A4278CD00500702E8E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C04848A3278CD00500702E8E /* StoreKit.framework */; };
@@ -126,6 +127,7 @@
 		C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
+		C04266D227944E130053451B /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
 		C043D41526E01E280051B282 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		C04848A3278CD00500702E8E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C04848A8278CE50700702E8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				C03760F926DC0F0200E5ECAC /* Preferences.swift */,
 				C0259EAE26DA55CD0056A977 /* StringExtensions.swift */,
 				C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */,
+				C04266D227944E130053451B /* Vibration.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */,
 				C03F4F2526E1665D00BBF2A8 /* OthersView.swift in Sources */,
 				C030EB39277D1410007E2FF8 /* UpgradeViewModel.swift in Sources */,
+				C04266D327944E130053451B /* Vibration.swift in Sources */,
 				C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */,
 				C0F1964027348EDA0062B418 /* AliasDetailViewModel.swift in Sources */,
 				C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */,

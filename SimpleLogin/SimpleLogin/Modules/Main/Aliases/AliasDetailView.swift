@@ -15,6 +15,7 @@ import SwiftUI
 struct AliasDetailView: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var session: Session
+    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
     @State private var showingDeletionAlert = false
@@ -221,6 +222,9 @@ struct AliasDetailView: View {
 
         buttons.append(
             ActionSheet.Button.destructive(Text("Delete")) {
+                if hapticFeedbackEnabled {
+                    Vibration.warning.vibrate(fallBackToOldSchool: true)
+                }
                 showingDeletionAlert = true
             }
         )

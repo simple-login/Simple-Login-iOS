@@ -12,6 +12,7 @@ import SwiftUI
 
 // Not so great key name but need to keep it because of legacy reason
 let kBiometricAuthEnabled = "ActiveBiometricAuthKey"
+let kHapticFeedbackEnabled = "HapticFeedbackEnabled"
 let kUltraProtectionEnabled = "UltraProtectionEnabled"
 
 final class AccountViewModel: ObservableObject {
