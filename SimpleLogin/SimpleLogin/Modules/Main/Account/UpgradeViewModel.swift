@@ -88,6 +88,7 @@ final class UpgradeViewModel: NSObject, ObservableObject {
                     .store(in: &self.cancellables)
 
             case .error(let error):
+                self.isLoading = false
                 self.error = error.localizedDescription
             }
         }
