@@ -26,6 +26,7 @@ struct SimpleLoginApp: App {
                     self.apiKey = nil
                     self.client = nil
                     self.biometricAuthEnabled = false
+                    self.forceDarkMode = false
                 }
                 .accentColor(.slPurple)
                 .environmentObject(preferences)
@@ -39,7 +40,7 @@ struct SimpleLoginApp: App {
                 }
                 .accentColor(.slPurple)
                 .environmentObject(preferences)
-                .forceDarkModeIfApplicable()
+                .preferredColorScheme(forceDarkMode ? .dark : colorScheme)
             }
         }
     }
