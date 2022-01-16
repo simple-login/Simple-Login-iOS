@@ -69,6 +69,7 @@ struct AliasDetailView: View {
                     CreationDateSection(alias: viewModel.alias)
                         .sheet(isPresented: $showingAliasEmailSheet) {
                             AliasEmailView(alias: viewModel.alias)
+                                .forceDarkModeIfApplicable()
                         }
                     Divider()
                     MailboxesSection(viewModel: viewModel)
@@ -179,6 +180,9 @@ struct AliasDetailView: View {
 
         buttons.append(
             ActionSheet.Button.default(Text("Copy")) {
+                if hapticFeedbackEnabled {
+                    Vibration.soft.vibrate()
+                }
                 copiedText = viewModel.alias.email
                 UIPasteboard.general.string = viewModel.alias.email
             }
@@ -369,8 +373,12 @@ private struct MailboxesSection: View {
         }
         .sheet(isPresented: showingSheet) {
             switch selectedSheet {
-            case .edit: EditMailboxesView(viewModel: viewModel)
-            case .view: AllMailboxesView(viewModel: viewModel)
+            case .edit:
+                EditMailboxesView(viewModel: viewModel)
+                    .forceDarkModeIfApplicable()
+            case .view:
+                AllMailboxesView(viewModel: viewModel)
+                    .forceDarkModeIfApplicable()
             default: EmptyView()
             }
         }
@@ -451,6 +459,7 @@ private struct NameSection: View {
         }
         .sheet(isPresented: $showingEditDisplayNameView) {
             EditDisplayNameView(viewModel: viewModel)
+                .forceDarkModeIfApplicable()
         }
     }
 }
@@ -501,6 +510,7 @@ private struct NotesSection: View {
         }
         .sheet(isPresented: $showingEditNotesView) {
             EditNotesView(viewModel: viewModel)
+                .forceDarkModeIfApplicable()
         }
     }
 }

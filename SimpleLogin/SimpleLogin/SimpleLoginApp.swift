@@ -10,11 +10,13 @@ import SwiftUI
 
 @main
 struct SimpleLoginApp: App {
+    @Environment(\.colorScheme) private var colorScheme
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    @AppStorage(kBiometricAuthEnabled) var biometricAuthEnabled = false
+    @AppStorage(kForceDarkMode) private var forceDarkMode = false
     @State private var preferences = Preferences.shared
     @State private var apiKey: ApiKey?
     @State private var client: SLClient?
-    @AppStorage(kBiometricAuthEnabled) var biometricAuthEnabled = false
 
     var body: some Scene {
         WindowGroup {
@@ -28,6 +30,7 @@ struct SimpleLoginApp: App {
                 .accentColor(.slPurple)
                 .environmentObject(preferences)
                 .environmentObject(Session(apiKey: apiKey, client: client))
+                .preferredColorScheme(forceDarkMode ? .dark : colorScheme)
             } else {
                 LogInView(apiUrl: preferences.apiUrl) { apiKey, client in
                     try? KeychainService.shared.setApiKey(apiKey)
@@ -36,6 +39,7 @@ struct SimpleLoginApp: App {
                 }
                 .accentColor(.slPurple)
                 .environmentObject(preferences)
+                .forceDarkModeIfApplicable()
             }
         }
     }

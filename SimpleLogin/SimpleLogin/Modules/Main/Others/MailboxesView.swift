@@ -80,6 +80,7 @@ struct MailboxesView: View {
                 viewModel.addMailbox(email: newMailbox,
                                      session: session)
             }
+            .forceDarkModeIfApplicable()
         }
         .actionSheet(isPresented: showingOptionsActionSheet) {
             optionsActionSheet

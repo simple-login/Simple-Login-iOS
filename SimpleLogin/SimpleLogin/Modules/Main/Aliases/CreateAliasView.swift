@@ -150,6 +150,7 @@ private struct ContentView: View {
         }
         .sheet(isPresented: $showingEditMailboxesView) {
             EditMailboxesView(mailboxIds: $mailboxIds, mailboxes: mailboxes)
+                .forceDarkModeIfApplicable()
         }
     }
 

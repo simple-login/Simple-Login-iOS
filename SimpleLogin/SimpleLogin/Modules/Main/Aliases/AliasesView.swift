@@ -133,6 +133,7 @@ struct AliasesView: View {
             }
             .fullScreenCover(isPresented: $showingSearchView) {
                 SearchAliasesView()
+                    .forceDarkModeIfApplicable()
             }
         }
         .onAppear {
@@ -151,6 +152,7 @@ struct AliasesView: View {
                 self.createdAlias = createdAlias
                 viewModel.refresh(session: session)
             }
+            .forceDarkModeIfApplicable()
         }
         .toast(isPresenting: showingCopiedEmailAlert) {
             AlertToast(displayMode: .alert,

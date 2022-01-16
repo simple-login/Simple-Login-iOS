@@ -14,6 +14,7 @@ import SwiftUI
 struct AliasContactsView: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var session: Session
+    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel: AliasContactsViewModel
     @State private var showingHelperText = false
     @State private var showingLoadingAlert = false
@@ -102,6 +103,7 @@ struct AliasContactsView: View {
             CreateContactView(alias: viewModel.alias) {
                 viewModel.refresh(session: session)
             }
+            .forceDarkModeIfApplicable()
         }
         .toast(isPresenting: showingCopyAlert) {
             AlertToast(displayMode: .alert,
@@ -171,6 +173,9 @@ struct AliasContactsView: View {
 
         buttons.append(
             ActionSheet.Button.default(Text("Copy reverse-alias (w/ display name)")) {
+                if hapticFeedbackEnabled {
+                    Vibration.soft.vibrate()
+                }
                 copiedText = selectedContact.reverseAlias
                 UIPasteboard.general.string = selectedContact.reverseAlias
             }
@@ -178,6 +183,9 @@ struct AliasContactsView: View {
 
         buttons.append(
             ActionSheet.Button.default(Text("Copy reverse-alias (w/o display name)")) {
+                if hapticFeedbackEnabled {
+                    Vibration.soft.vibrate()
+                }
                 copiedText = selectedContact.reverseAliasAddress
                 UIPasteboard.general.string = selectedContact.reverseAliasAddress
             }

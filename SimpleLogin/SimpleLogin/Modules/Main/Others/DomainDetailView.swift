@@ -215,6 +215,7 @@ private struct DefaultDisplayNameSection: View {
         }
         .sheet(isPresented: $showingEditDisplayNameView) {
             EditDisplayNameView(viewModel: viewModel)
+                .forceDarkModeIfApplicable()
         }
     }
 }

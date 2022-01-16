@@ -108,6 +108,7 @@ private struct UserInfoSection: View {
                         PhotoPickerView { pickedImage in
                             viewModel.uploadNewProfilePhoto(pickedImage)
                         }
+                        .forceDarkModeIfApplicable()
                     }
                 Divider()
                 membershipView
@@ -116,6 +117,7 @@ private struct UserInfoSection: View {
                             viewModel.updateDisplayName(displayName)
                         }
                         .environmentObject(viewModel)
+                        .forceDarkModeIfApplicable()
                     }
             }
         }
@@ -264,10 +266,14 @@ private struct BiometricAuthenticationSection: View {
 /// For settings that are local like haptic effect & dark mode
 private struct LocalSettingsSection: View {
     @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
+    @AppStorage(kForceDarkMode) private var forceDarkMode = false
 
     var body: some View {
         Section {
             Toggle("Haptic feedback", isOn: $hapticEffectEnabled)
+                .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+
+            Toggle("Force dark mode", isOn: $forceDarkMode)
                 .toggleStyle(SwitchToggleStyle(tint: .slPurple))
         }
     }
