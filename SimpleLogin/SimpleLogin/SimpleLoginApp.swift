@@ -14,6 +14,7 @@ struct SimpleLoginApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @AppStorage(kBiometricAuthEnabled) var biometricAuthEnabled = false
     @AppStorage(kForceDarkMode) private var forceDarkMode = false
+    @AppStorage(kAliasDisplayMode) private var displayMode: AliasDisplayMode = .default
     @State private var preferences = Preferences.shared
     @State private var apiKey: ApiKey?
     @State private var client: SLClient?
@@ -27,6 +28,7 @@ struct SimpleLoginApp: App {
                     self.client = nil
                     self.biometricAuthEnabled = false
                     self.forceDarkMode = false
+                    self.displayMode = .default
                 }
                 .accentColor(.slPurple)
                 .environmentObject(preferences)

@@ -61,6 +61,7 @@
 		C08A5D8727499A6100BE889B /* AliasContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A5D8627499A6100BE889B /* AliasContactsViewModel.swift */; };
 		C08BD81B2746E58300759E43 /* AlertToastExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08BD81A2746E58300759E43 /* AlertToastExtensions.swift */; };
 		C0AAE98E26E4152A00247742 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAE98D26E4152A00247742 /* Blur.swift */; };
+		C0B1600B279DFA1E00641216 /* AliasDisplayModePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1600A279DFA1E00641216 /* AliasDisplayModePreview.swift */; };
 		C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */; };
 		C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */; };
 		C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93E26B9D1DD004833F6 /* ApiKeyView.swift */; };
@@ -147,6 +148,7 @@
 		C08A5D8627499A6100BE889B /* AliasContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasContactsViewModel.swift; sourceTree = "<group>"; };
 		C08BD81A2746E58300759E43 /* AlertToastExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastExtensions.swift; sourceTree = "<group>"; };
 		C0AAE98D26E4152A00247742 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
+		C0B1600A279DFA1E00641216 /* AliasDisplayModePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDisplayModePreview.swift; sourceTree = "<group>"; };
 		C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailPasswordView.swift; sourceTree = "<group>"; };
 		C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
 		C0CBE93E26B9D1DD004833F6 /* ApiKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyView.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 			children = (
 				C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */,
 				C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */,
+				C0B1600A279DFA1E00641216 /* AliasDisplayModePreview.swift */,
 				C05A9B14277BB996003FD0A7 /* UpgradeView.swift */,
 				C030EB38277D1410007E2FF8 /* UpgradeViewModel.swift */,
 			);
@@ -575,6 +578,7 @@
 				C0F732B7278F854F004608DB /* CustomDomainsView.swift in Sources */,
 				C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */,
 				C029769226F1406D0014DC3B /* SearchAliasesView.swift in Sources */,
+				C0B1600B279DFA1E00641216 /* AliasDisplayModePreview.swift in Sources */,
 				C03D292D279215EE0041FB60 /* DomainDetailViewModel.swift in Sources */,
 				C03760FA26DC0F0200E5ECAC /* Preferences.swift in Sources */,
 				C0D1D5A7272BCCA000F5CFC5 /* ColorExtensions.swift in Sources */,

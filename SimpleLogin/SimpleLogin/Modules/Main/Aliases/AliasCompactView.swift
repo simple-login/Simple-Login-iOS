@@ -9,6 +9,7 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct AliasCompactView: View {
+    @AppStorage(kAliasDisplayMode) private var displayMode: AliasDisplayMode = .default
     let alias: Alias
     let onCopy: () -> Void
     let onSendMail: () -> Void
@@ -31,8 +32,10 @@ struct AliasCompactView: View {
 
             VStack(spacing: 8) {
                 EmailAndCreationDateView(alias: alias)
-                AliasMailboxesView(alias: alias)
-                if !alias.noActivities {
+                if displayMode != .compact {
+                    AliasMailboxesView(alias: alias)
+                }
+                if !alias.noActivities && displayMode == .default {
                     ActivitiesView(alias: alias)
                 }
                 ActionsView(alias: alias,
@@ -50,6 +53,7 @@ struct AliasCompactView: View {
 }
 
 private struct EmailAndCreationDateView: View {
+    @AppStorage(kAliasDisplayMode) private var displayMode: AliasDisplayMode = .default
     let alias: Alias
 
     var body: some View {
@@ -67,12 +71,14 @@ private struct EmailAndCreationDateView: View {
 
             Spacer()
 
-            Group {
-                Text(alias.relativeCreationDateString)
-                Image(systemName: "chevron.right")
+            if displayMode != .compact {
+                Group {
+                    Text(alias.relativeCreationDateString)
+                    Image(systemName: "chevron.right")
+                }
+                .font(.subheadline)
+                .foregroundColor(.secondary)
             }
-            .font(.subheadline)
-            .foregroundColor(.secondary)
         }
     }
 }

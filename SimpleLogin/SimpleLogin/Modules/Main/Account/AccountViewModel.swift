@@ -15,6 +15,7 @@ let kBiometricAuthEnabled = "ActiveBiometricAuthKey"
 let kForceDarkMode = "kForceDarkMode"
 let kHapticFeedbackEnabled = "HapticFeedbackEnabled"
 let kUltraProtectionEnabled = "UltraProtectionEnabled"
+let kAliasDisplayMode = "AliasDisplayMode"
 
 final class AccountViewModel: ObservableObject {
     @Published private(set) var userInfo: UserInfo = .empty
@@ -38,6 +39,7 @@ final class AccountViewModel: ObservableObject {
         }
     }
     @AppStorage(kUltraProtectionEnabled) var ultraProtectionEnabled = false
+    @AppStorage(kAliasDisplayMode) var aliasDisplayMode: AliasDisplayMode = .default
     private var cancellables = Set<AnyCancellable>()
     private var session: Session?
 
