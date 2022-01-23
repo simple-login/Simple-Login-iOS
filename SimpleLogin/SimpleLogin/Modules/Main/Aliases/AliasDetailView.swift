@@ -20,6 +20,7 @@ struct AliasDetailView: View {
     @State private var showingLoadingAlert = false
     @State private var showingDeletionAlert = false
     @State private var showingAliasEmailSheet = false
+    @State private var showingAliasContacts = false
     @State private var selectedSheet: Sheet?
     @State private var copiedText: String?
     private let refreshControl = UIRefreshControl()
@@ -64,6 +65,9 @@ struct AliasDetailView: View {
         })
 
         ZStack {
+            NavigationLink(isActive: $showingAliasContacts,
+                           destination: { AliasContactsView(alias: viewModel.alias) },
+                           label: { EmptyView() })
             ScrollView {
                 Group {
                     CreationDateSection(alias: viewModel.alias)
@@ -185,6 +189,15 @@ struct AliasDetailView: View {
                 }
                 copiedText = viewModel.alias.email
                 UIPasteboard.general.string = viewModel.alias.email
+            }
+        )
+
+        buttons.append(
+            ActionSheet.Button.default(Text("Send email")) {
+                if hapticFeedbackEnabled {
+                    Vibration.soft.vibrate()
+                }
+                showingAliasContacts = true
             }
         )
 
