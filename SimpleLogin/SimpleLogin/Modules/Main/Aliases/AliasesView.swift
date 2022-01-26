@@ -62,6 +62,7 @@ struct AliasesView: View {
                     destination: {
                         AliasDetailView(
                             alias: selectedAlias,
+                            session: session,
                             onUpdateAlias: { updatedAlias in
                                 viewModel.update(alias: updatedAlias)
                             },

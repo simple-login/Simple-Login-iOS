@@ -9,7 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class AliasDetailViewModel: ObservableObject {
+final class AliasDetailViewModel: BaseViewModel, ObservableObject {
     deinit {
         print("\(Self.self) deallocated: \(alias.email)")
     }
@@ -32,8 +32,9 @@ final class AliasDetailViewModel: ObservableObject {
     private var currentPage = 0
     private var canLoadMorePages = true
 
-    init(alias: Alias) {
+    init(alias: Alias, session: Session) {
         self.alias = alias
+        super.init(session: session)
     }
 
     func handledError() {
@@ -48,19 +49,19 @@ final class AliasDetailViewModel: ObservableObject {
         isUpdated = false
     }
 
-    func getMoreActivitiesIfNeed(session: Session, currentActivity activity: AliasActivity?) {
+    func getMoreActivitiesIfNeed(currentActivity activity: AliasActivity?) {
         guard let activity = activity else {
-            getMoreActivities(session: session)
+            getMoreActivities()
             return
         }
 
         let thresholdIndex = activities.index(activities.endIndex, offsetBy: -5)
         if activities.firstIndex(where: { $0.timestamp == activity.timestamp }) == thresholdIndex {
-            getMoreActivities(session: session)
+            getMoreActivities()
         }
     }
 
-    private func getMoreActivities(session: Session) {
+    private func getMoreActivities() {
         guard !isLoadingActivities && canLoadMorePages else { return }
         isLoadingActivities = true
         session.client.getAliasActivities(apiKey: session.apiKey, id: alias.id, page: currentPage)
@@ -81,7 +82,7 @@ final class AliasDetailViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func getMailboxes(session: Session) {
+    func getMailboxes() {
         guard !isLoadingMailboxes else { return }
         isLoadingMailboxes = true
         session.client.getMailboxes(apiKey: session.apiKey)
@@ -100,8 +101,7 @@ final class AliasDetailViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func refresh(session: Session) {
-        guard !isRefreshing else { return }
+    override func refresh() {
         print("Refreshing \(alias.email)")
         isRefreshing = true
         let refreshAlias = session.client.getAlias(apiKey: session.apiKey, id: alias.id)
@@ -111,6 +111,7 @@ final class AliasDetailViewModel: ObservableObject {
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 self.isRefreshing = false
+                self.refreshControl.endRefreshing()
                 switch completion {
                 case .finished:
                     print("Finish refreshing \(self.alias.email)")
@@ -148,13 +149,12 @@ final class AliasDetailViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                self.refresh(session: session)
+                self.refresh()
             }
             .store(in: &cancellables)
     }
 
-    func toggle(session: Session) {
-        guard !isUpdating else { return }
+    func toggle() {
         isUpdating = true
         session.client.toggleAliasStatus(apiKey: session.apiKey, id: alias.id)
             .receive(on: DispatchQueue.main)
@@ -167,13 +167,12 @@ final class AliasDetailViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                self.refresh(session: session)
+                self.refresh()
             }
             .store(in: &cancellables)
     }
 
-    func delete(session: Session) {
-        guard !isUpdating else { return }
+    func delete() {
         isUpdating = true
         session.client.deleteAlias(apiKey: session.apiKey, id: alias.id)
             .receive(on: DispatchQueue.main)

@@ -23,7 +23,6 @@ struct AliasDetailView: View {
     @State private var showingAliasContacts = false
     @State private var selectedSheet: Sheet?
     @State private var copiedText: String?
-    private let refreshControl = UIRefreshControl()
     var onUpdateAlias: (Alias) -> Void
     var onDeleteAlias: () -> Void
 
@@ -32,9 +31,10 @@ struct AliasDetailView: View {
     }
 
     init(alias: Alias,
+         session: Session,
          onUpdateAlias: @escaping (Alias) -> Void,
          onDeleteAlias: @escaping () -> Void) {
-        _viewModel = StateObject(wrappedValue: .init(alias: alias))
+        _viewModel = StateObject(wrappedValue: .init(alias: alias, session: session))
         self.onUpdateAlias = onUpdateAlias
         self.onDeleteAlias = onDeleteAlias
     }
@@ -90,10 +90,7 @@ struct AliasDetailView: View {
                 .disabled(viewModel.isUpdating || viewModel.isRefreshing)
             }
             .introspectScrollView { scrollView in
-                refreshControl.addAction(UIAction { _ in
-                    viewModel.refresh(session: session)
-                }, for: .valueChanged)
-                scrollView.refreshControl = refreshControl
+                scrollView.refreshControl = viewModel.refreshControl
             }
         }
         .actionSheet(isPresented: showingSheet) {
@@ -133,11 +130,6 @@ struct AliasDetailView: View {
                 }
             }
         }
-        .onReceive(Just(viewModel.isRefreshing)) { isRefreshing in
-            if !isRefreshing {
-                refreshControl.endRefreshing()
-            }
-        }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
         }
@@ -151,7 +143,7 @@ struct AliasDetailView: View {
             onUpdateAlias(viewModel.alias)
         }
         .onAppear {
-            viewModel.getMoreActivitiesIfNeed(session: session, currentActivity: nil)
+            viewModel.getMoreActivitiesIfNeed(currentActivity: nil)
         }
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
@@ -210,13 +202,13 @@ struct AliasDetailView: View {
         if viewModel.alias.enabled {
             buttons.append(
                 ActionSheet.Button.default(Text("Deactivate")) {
-                    viewModel.toggle(session: session)
+                    viewModel.toggle()
                 }
             )
         } else {
             buttons.append(
                 ActionSheet.Button.default(Text("Activate")) {
-                    viewModel.toggle(session: session)
+                    viewModel.toggle()
                 }
             )
         }
@@ -257,7 +249,7 @@ struct AliasDetailView: View {
         Alert(title: Text("Delete \(viewModel.alias.email)?"),
               message: Text("This can not be undone. Please confirm"),
               primaryButton: .destructive(Text("Yes, delete this alias")) {
-            viewModel.delete(session: session)
+            viewModel.delete()
         },
               secondaryButton: .cancel())
     }
@@ -568,7 +560,7 @@ private struct ActivitiesSection: View {
                     ActivityView(activity: activity)
                         .padding(.vertical, 4)
                         .onAppear {
-                            viewModel.getMoreActivitiesIfNeed(session: session, currentActivity: activity)
+                            viewModel.getMoreActivitiesIfNeed(currentActivity: activity)
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
@@ -660,7 +652,7 @@ private struct EditMailboxesView: View {
         .accentColor(.slPurple)
         .onAppear {
             selectedIds = viewModel.alias.mailboxes.map { $0.id }
-            viewModel.getMailboxes(session: session)
+            viewModel.getMailboxes()
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
@@ -907,12 +899,12 @@ private struct AliasEmailView: View {
 }
 
 // MARK: - Previews
-struct AliasDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AliasDetailView(alias: .claypool,
-                            onUpdateAlias: { _ in },
-                            onDeleteAlias: {})
-        }
-    }
-}
+//struct AliasDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            AliasDetailView(alias: .claypool,
+//                            onUpdateAlias: { _ in },
+//                            onDeleteAlias: {})
+//        }
+//    }
+//}
