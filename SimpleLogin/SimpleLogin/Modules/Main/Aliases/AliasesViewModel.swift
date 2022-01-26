@@ -9,7 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class AliasesViewModel: ObservableObject {
+final class AliasesViewModel: BaseViewModel, ObservableObject {
     @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
     @Published var selectedStatus: AliasStatus = .all {
         didSet {
@@ -37,19 +37,19 @@ final class AliasesViewModel: ObservableObject {
         self.error = nil
     }
 
-    func getMoreAliasesIfNeed(session: Session, currentAlias alias: Alias?) {
+    func getMoreAliasesIfNeed(currentAlias alias: Alias?) {
         guard let alias = alias else {
-            getMoreAliases(session: session)
+            getMoreAliases()
             return
         }
 
         let thresholdIndex = filteredAliases.index(filteredAliases.endIndex, offsetBy: -1)
         if filteredAliases.firstIndex(where: { $0.id == alias.id }) == thresholdIndex {
-            getMoreAliases(session: session)
+            getMoreAliases()
         }
     }
 
-    private func getMoreAliases(session: Session) {
+    private func getMoreAliases() {
         guard !isLoading && canLoadMorePages else { return }
         isLoading = true
         session.client.getAliases(apiKey: session.apiKey, page: currentPage)
@@ -80,14 +80,14 @@ final class AliasesViewModel: ObservableObject {
         }
     }
 
-    func refresh(session: Session) {
-        guard !isRefreshing else { return }
+    override func refresh() {
         isRefreshing = true
         session.client.getAliases(apiKey: session.apiKey, page: 0)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 self.isRefreshing = false
+                self.refreshControl.endRefreshing()
                 switch completion {
                 case .finished: break
                 case .failure(let error): self.error = error
@@ -110,7 +110,7 @@ final class AliasesViewModel: ObservableObject {
         aliases.removeAll { $0.id == alias.id }
     }
 
-    func toggle(alias: Alias, session: Session) {
+    func toggle(alias: Alias) {
         guard !isUpdating else { return }
         isUpdating = true
         session.client.toggleAliasStatus(apiKey: session.apiKey, id: alias.id)
@@ -143,7 +143,7 @@ final class AliasesViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func random(mode: RandomMode, session: Session) {
+    func random(mode: RandomMode) {
         guard !isUpdating else { return }
         isUpdating = true
         session.client.randomAlias(apiKey: session.apiKey, options: AliasRandomOptions(mode: mode))
@@ -157,7 +157,7 @@ final class AliasesViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                self.refresh(session: session)
+                self.refresh()
             }
             .store(in: &cancellables)
     }

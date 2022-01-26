@@ -24,6 +24,7 @@ enum MainViewTab {
 }
 
 struct MainView: View {
+    @EnvironmentObject private var session: Session
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var viewModel = MainViewModel()
     @State private var selectedTab: MainViewTab = .aliases
@@ -39,7 +40,7 @@ struct MainView: View {
         })
 
         TabView(selection: $selectedTab) {
-            AliasesView()
+            AliasesView(session: session)
                 .tabItem {
                     Image(systemName: "at")
                     Text(MainViewTab.aliases.title)

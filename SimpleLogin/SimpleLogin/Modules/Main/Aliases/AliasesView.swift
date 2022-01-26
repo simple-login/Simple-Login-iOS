@@ -14,7 +14,7 @@ import SwiftUI
 struct AliasesView: View {
     @EnvironmentObject private var session: Session
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
-    @StateObject private var viewModel = AliasesViewModel()
+    @StateObject private var viewModel: AliasesViewModel
     @State private var showingRandomAliasActionSheet = false
     @State private var showingUpdatingAlert = false
     @State private var showingSearchView = false
@@ -24,10 +24,13 @@ struct AliasesView: View {
     @State private var showingAliasDetail = false
     @State private var showingAliasContacts = false
     @State private var selectedAlias: Alias = .ccohen
-    private let refreshControl = UIRefreshControl()
 
     enum Modal {
         case search, create
+    }
+
+    init(session: Session) {
+        _viewModel = StateObject(wrappedValue: .init(session: session))
     }
 
     var body: some View {
@@ -94,11 +97,11 @@ struct AliasesView: View {
                                 showingAliasContacts = true
                             },
                             onToggle: {
-                                viewModel.toggle(alias: alias, session: session)
+                                viewModel.toggle(alias: alias)
                             })
                             .padding(.horizontal, 4)
                             .onAppear {
-                                viewModel.getMoreAliasesIfNeed(session: session, currentAlias: alias)
+                                viewModel.getMoreAliasesIfNeed(currentAlias: alias)
                             }
                             .onTapGesture {
                                 selectedAlias = alias
@@ -124,10 +127,7 @@ struct AliasesView: View {
                 }
             }
             .introspectScrollView { scrollView in
-                refreshControl.addAction(UIAction { _ in
-                    viewModel.refresh(session: session)
-                }, for: .valueChanged)
-                scrollView.refreshControl = refreshControl
+                scrollView.refreshControl = viewModel.refreshControl
             }
             .actionSheet(isPresented: $showingRandomAliasActionSheet) {
                 randomAliasActionSheet
@@ -138,12 +138,7 @@ struct AliasesView: View {
             }
         }
         .onAppear {
-            viewModel.getMoreAliasesIfNeed(session: session, currentAlias: nil)
-        }
-        .onReceive(Just(viewModel.isRefreshing)) { isRefreshing in
-            if !isRefreshing {
-                refreshControl.endRefreshing()
-            }
+            viewModel.getMoreAliasesIfNeed(currentAlias: nil)
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingUpdatingAlert = isUpdating
@@ -151,7 +146,7 @@ struct AliasesView: View {
         .sheet(isPresented: $showingCreateView) {
             CreateAliasView { createdAlias in
                 self.createdAlias = createdAlias
-                viewModel.refresh(session: session)
+                viewModel.refresh()
             }
             .forceDarkModeIfApplicable()
         }
@@ -180,10 +175,10 @@ struct AliasesView: View {
                     message: Text("Randomly create an alias"),
                     buttons: [
                         .default(Text("By random words")) {
-                            viewModel.random(mode: .word, session: session)
+                            viewModel.random(mode: .word)
                         },
                         .default(Text("By UUID")) {
-                            viewModel.random(mode: .uuid, session: session)
+                            viewModel.random(mode: .uuid)
                         },
                         .cancel(Text("Cancel"))
                     ])
