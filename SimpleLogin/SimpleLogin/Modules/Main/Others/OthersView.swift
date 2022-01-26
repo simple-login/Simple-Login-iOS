@@ -9,6 +9,7 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct OthersView: View {
+    @EnvironmentObject private var session: Session
     @State private var showingMailboxesView = false
     @State private var showingCustomDomainsView = false
 
@@ -23,10 +24,14 @@ struct OthersView: View {
                 }
 
                 Section(footer: Text("The domains that you own")) {
-                    NavigationLink(isActive: $showingCustomDomainsView,
-                                   destination: { CustomDomainsView() },
-                                   label: { Label("Custom domains",
-                                                  systemImage: "globe") })
+                    NavigationLink(
+                        isActive: $showingCustomDomainsView,
+                        destination: {
+                            CustomDomainsView(session: session)
+                        },
+                        label: {
+                            Label("Custom domains", systemImage: "globe")
+                        })
                 }
             }
             .navigationTitle("Other functionalities")

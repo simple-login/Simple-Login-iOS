@@ -6,13 +6,22 @@
 //
 
 import SimpleLoginPackage
+import UIKit
 
 class BaseViewModel {
-    let apiKey: ApiKey
-    let client: SLClient
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addAction(UIAction { [unowned self] _ in
+            self.refresh()
+        }, for: .valueChanged)
+        return refreshControl
+    }()
 
-    init(apiKey: ApiKey, client: SLClient) {
-        self.apiKey = apiKey
-        self.client = client
+    let session: Session
+
+    init(session: Session) {
+        self.session = session
     }
+
+    func refresh() {}
 }

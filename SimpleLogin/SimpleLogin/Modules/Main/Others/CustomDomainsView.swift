@@ -7,14 +7,18 @@
 
 import AlertToast
 import Combine
+import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
 struct CustomDomainsView: View {
-    @EnvironmentObject private var session: Session
-    @StateObject private var viewModel = CustomDomainsViewModel()
+    @StateObject private var viewModel: CustomDomainsViewModel
     @State private var showingLoadingAlert = false
     @State private var selectedUnverifiedDomain: CustomDomain?
+
+    init(session: Session) {
+        _viewModel = StateObject(wrappedValue: .init(session: session))
+    }
 
     var body: some View {
         let showingErrorAlert = Binding<Bool>(get: {
@@ -49,14 +53,16 @@ struct CustomDomainsView: View {
                 }
             }
         }
+        .introspectTableView { tableView in
+            tableView.refreshControl = viewModel.refreshControl
+        }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Custom domains")
-        .onAppear {
-            viewModel.refreshCustomDomains(session: session,
-                                           isForced: false)
-        }
-        .emptyPlaceholder(isEmpty: viewModel.domains.isEmpty && !viewModel.isLoading) {
+        .emptyPlaceholder(isEmpty: viewModel.noDomain) {
             noDomainView
+        }
+        .onAppear {
+            viewModel.fetchCustomDomains(refreshing: false)
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
