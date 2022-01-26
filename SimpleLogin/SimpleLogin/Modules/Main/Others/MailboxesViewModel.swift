@@ -9,7 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class MailboxesViewModel: ObservableObject {
+final class MailboxesViewModel: BaseViewModel, ObservableObject {
     deinit {
         print("\(Self.self) is deallocated")
     }
@@ -23,14 +23,15 @@ final class MailboxesViewModel: ObservableObject {
         error = nil
     }
 
-    func refreshMailboxes(session: Session, isForced: Bool) {
-        if !isForced, !mailboxes.isEmpty { return }
-        isLoading = true
+    func fetchMailboxes(refreshing: Bool) {
+        if !refreshing, !mailboxes.isEmpty { return }
+        isLoading = !refreshing
         session.client.getMailboxes(apiKey: session.apiKey)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 self.isLoading = false
+                self.refreshControl.endRefreshing()
                 switch completion {
                 case .finished: break
                 case .failure(let error): self.error = error.description
@@ -42,8 +43,7 @@ final class MailboxesViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func makeDefault(mailbox: Mailbox, session: Session) {
-        guard !isLoading else { return }
+    func makeDefault(mailbox: Mailbox) {
         isLoading = true
         session.client.updateMailbox(apiKey: session.apiKey,
                                      id: mailbox.id,
@@ -57,13 +57,12 @@ final class MailboxesViewModel: ObservableObject {
                 case .failure(let error): self.error = error.description
                 }
             } receiveValue: { [weak self] _ in
-                self?.refreshMailboxes(session: session, isForced: true)
+                self?.fetchMailboxes(refreshing: true)
             }
             .store(in: &cancellables)
     }
 
-    func delete(mailbox: Mailbox, session: Session) {
-        guard !isLoading else { return }
+    func delete(mailbox: Mailbox) {
         isLoading = true
         session.client.deleteMailbox(apiKey: session.apiKey, id: mailbox.id)
             .receive(on: DispatchQueue.main)
@@ -83,8 +82,7 @@ final class MailboxesViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func addMailbox(email: String, session: Session) {
-        guard !isLoading else { return }
+    func addMailbox(email: String) {
         isLoading = true
         session.client.createMailbox(apiKey: session.apiKey, email: email)
             .receive(on: DispatchQueue.main)
@@ -100,5 +98,9 @@ final class MailboxesViewModel: ObservableObject {
                 self.mailboxes.append(mailbox)
             }
             .store(in: &cancellables)
+    }
+
+    override func refresh() {
+        fetchMailboxes(refreshing: true)
     }
 }

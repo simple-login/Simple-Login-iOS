@@ -17,10 +17,14 @@ struct OthersView: View {
         NavigationView {
             Form {
                 Section(footer: Text("The mailboxes that receive and send emails")) {
-                    NavigationLink(isActive: $showingMailboxesView,
-                                   destination: { MailboxesView() },
-                                   label: { Label("Mailboxes",
-                                                  systemImage: "tray.2.fill") })
+                    NavigationLink(
+                        isActive: $showingMailboxesView,
+                        destination: {
+                            MailboxesView(session: session)
+                        },
+                        label: {
+                            Label("Mailboxes", systemImage: "tray.2.fill")
+                        })
                 }
 
                 Section(footer: Text("The domains that you own")) {

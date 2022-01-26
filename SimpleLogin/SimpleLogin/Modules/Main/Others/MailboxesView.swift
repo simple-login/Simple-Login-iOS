@@ -7,17 +7,21 @@
 
 import AlertToast
 import Combine
+import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
 struct MailboxesView: View {
-    @EnvironmentObject private var session: Session
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
-    @StateObject private var viewModel = MailboxesViewModel()
+    @StateObject private var viewModel: MailboxesViewModel
     @State private var showingAddMailboxView = false
     @State private var showingLoadingAlert = false
     @State private var selectedMailbox: Mailbox?
     @State private var mailboxToBeDeleted: Mailbox?
+
+    init(session: Session) {
+        _viewModel = StateObject(wrappedValue: .init(session: session))
+    }
 
     var body: some View {
         let showingErrorAlert = Binding<Bool>(get: {
@@ -56,6 +60,9 @@ struct MailboxesView: View {
             .navigationBarTitle("Mailboxes")
         }
         .listStyle(InsetGroupedListStyle())
+        .introspectTableView { tableView in
+            tableView.refreshControl = viewModel.refreshControl
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
@@ -69,16 +76,14 @@ struct MailboxesView: View {
             }
         }
         .onAppear {
-            viewModel.refreshMailboxes(session: session,
-                                       isForced: false)
+            viewModel.fetchMailboxes(refreshing: false)
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
         .sheet(isPresented: $showingAddMailboxView) {
             AddMailboxView { newMailbox in
-                viewModel.addMailbox(email: newMailbox,
-                                     session: session)
+                viewModel.addMailbox(email: newMailbox)
             }
             .forceDarkModeIfApplicable()
         }
@@ -108,8 +113,7 @@ struct MailboxesView: View {
         var buttons: [ActionSheet.Button] = []
         if selectedMailbox.verified {
             buttons.append(.default(Text("Set as default")) {
-                viewModel.makeDefault(mailbox: selectedMailbox,
-                                      session: session)
+                viewModel.makeDefault(mailbox: selectedMailbox)
             })
         }
         buttons.append(.destructive(Text("Delete")) {
@@ -131,8 +135,7 @@ struct MailboxesView: View {
                          dismissButton: .cancel())
         }
         let deleteButton = Alert.Button.destructive(Text("Yes, delete this alias")) {
-            viewModel.delete(mailbox: mailboxToBeDeleted,
-                             session: session)
+            viewModel.delete(mailbox: mailboxToBeDeleted)
         }
         return .init(title: Text("Delete \(mailboxToBeDeleted.email)?"),
                      message: Text("Aliases associated with this mailbox will also be deleted. This operation is irreversible. Please confirm."),
