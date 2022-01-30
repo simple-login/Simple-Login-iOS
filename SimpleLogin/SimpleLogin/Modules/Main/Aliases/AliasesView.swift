@@ -12,7 +12,6 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct AliasesView: View {
-    @EnvironmentObject private var session: Session
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel: AliasesViewModel
     @State private var showingRandomAliasActionSheet = false
@@ -65,7 +64,7 @@ struct AliasesView: View {
                     destination: {
                         AliasDetailView(
                             alias: selectedAlias,
-                            session: session,
+                            session: viewModel.session,
                             onUpdateAlias: { updatedAlias in
                                 viewModel.update(alias: updatedAlias)
                             },
@@ -144,7 +143,7 @@ struct AliasesView: View {
             showingUpdatingAlert = isUpdating
         }
         .sheet(isPresented: $showingCreateView) {
-            CreateAliasView { createdAlias in
+            CreateAliasView(session: viewModel.session, url: nil) { createdAlias in
                 self.createdAlias = createdAlias
                 viewModel.refresh()
             }

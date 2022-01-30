@@ -22,7 +22,7 @@ final class Preferences: ObservableObject {
 }
 
 private extension UserDefaults {
-    static let shared = UserDefaults(suiteName: "group.io.simplelogin.ios-app")
+    static let shared = UserDefaults(suiteName: "group.io.simplelogin.ios")
 }
 
 @propertyWrapper

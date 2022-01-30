@@ -12,7 +12,6 @@ import SwiftUI
 
 // Not so great key name but need to keep it because of legacy reason
 let kBiometricAuthEnabled = "ActiveBiometricAuthKey"
-let kForceDarkMode = "kForceDarkMode"
 let kHapticFeedbackEnabled = "HapticFeedbackEnabled"
 let kUltraProtectionEnabled = "UltraProtectionEnabled"
 let kAliasDisplayMode = "AliasDisplayMode"
@@ -33,6 +32,7 @@ final class AccountViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var message: String?
     @Published private(set) var isBiometricallyAuthenticating = false
+    @Published private(set) var shouldLogOut = false
     @AppStorage(kBiometricAuthEnabled) var biometricAuthEnabled = false {
         didSet {
             biometricallyAuthenticate()
@@ -125,7 +125,16 @@ final class AccountViewModel: ObservableObject {
                 self.isLoading = false
                 switch completion {
                 case .finished: self.isInitialized = true
-                case .failure(let error): self.error = error
+                case .failure(let error):
+                    switch error {
+                    case .clientError(let errorResponse):
+                        if errorResponse.statusCode == 401 {
+                            self.shouldLogOut = true
+                        } else {
+                            self.error = error
+                        }
+                    default: self.error = error
+                    }
                 }
             } receiveValue: { [weak self] result in
                 guard let self = self else { return }

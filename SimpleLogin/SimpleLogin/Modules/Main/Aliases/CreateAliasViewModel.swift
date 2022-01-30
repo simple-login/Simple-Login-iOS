@@ -9,7 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class CreateAliasViewModel: ObservableObject {
+final class CreateAliasViewModel: BaseViewModel, ObservableObject {
     deinit {
         print("\(Self.self) is deallocated")
     }
@@ -26,8 +26,7 @@ final class CreateAliasViewModel: ObservableObject {
         error = nil
     }
 
-    func fetchOptionsAndMailboxes(session: Session) {
-        guard !isLoading else { return }
+    func fetchOptionsAndMailboxes() {
         isLoading = true
         let getOptions = session.client.getAliasOptions(apiKey: session.apiKey, hostname: nil)
         let getMailboxes = session.client.getMailboxes(apiKey: session.apiKey)
@@ -48,10 +47,9 @@ final class CreateAliasViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func createAlias(session: Session, aliasCreationOptions: AliasCreationOptions) {
-        guard !isLoading else { return }
+    func createAlias(options: AliasCreationOptions) {
         isLoading = true
-        session.client.createAlias(apiKey: session.apiKey, options: aliasCreationOptions)
+        session.client.createAlias(apiKey: session.apiKey, options: options)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }

@@ -83,6 +83,11 @@ struct AccountView: View {
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
+        .onReceive(Just(viewModel.shouldLogOut)) { shouldLogOut in
+            if shouldLogOut {
+                onLogOut()
+            }
+        }
         .modifier(ConfettiableModifier(counter: $confettiCounter))
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)

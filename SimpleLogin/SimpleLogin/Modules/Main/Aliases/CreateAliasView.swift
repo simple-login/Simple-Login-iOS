@@ -12,8 +12,7 @@ import SwiftUI
 
 struct CreateAliasView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var session: Session
-    @StateObject private var viewModel = CreateAliasViewModel()
+    @StateObject private var viewModel: CreateAliasViewModel
     @State private var showingLoadingAlert = false
     @State private var prefix = ""
     @State private var suffix = ""
@@ -21,7 +20,16 @@ struct CreateAliasView: View {
     @State private var notes = ""
     @State private var name = ""
 
-    let onCreateAlias: (Alias) -> Void
+    private let onCreateAlias: (Alias) -> Void
+    private let url: URL?
+
+    init(session: Session,
+         url: URL?,
+         onCreateAlias: @escaping (Alias) -> Void) {
+        _viewModel = StateObject(wrappedValue: .init(session: session))
+        self.url = url
+        self.onCreateAlias = onCreateAlias
+    }
 
     var body: some View {
         let showingErrorAlert = Binding<Bool>(get: {
@@ -45,7 +53,7 @@ struct CreateAliasView: View {
                                 mailboxes: mailboxes)
                 } else if !viewModel.isLoading {
                     Button(action: {
-                        viewModel.fetchOptionsAndMailboxes(session: session)
+                        viewModel.fetchOptionsAndMailboxes()
                     }, label: {
                         Label("Retry", systemImage: "gobackward")
                     })
@@ -56,7 +64,9 @@ struct CreateAliasView: View {
         }
         .accentColor(.slPurple)
         .onAppear {
-            viewModel.fetchOptionsAndMailboxes(session: session)
+            viewModel.fetchOptionsAndMailboxes()
+            self.prefix = url?.notWwwHostname() ?? ""
+            self.notes = url?.host ?? ""
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
@@ -100,7 +110,7 @@ struct CreateAliasView: View {
                                                        mailboxIds: mailboxIds,
                                                        note: notes.isEmpty ? nil : notes,
                                                        name: name.isEmpty ? nil : name)
-            viewModel.createAlias(session: session, aliasCreationOptions: creationOptions)
+            viewModel.createAlias(options: creationOptions)
         }, label: {
             Text("Create")
         })

@@ -35,6 +35,9 @@
 		C03760FA26DC0F0200E5ECAC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03760F926DC0F0200E5ECAC /* Preferences.swift */; };
 		C03B518E27288F2700C54130 /* AliasCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B518D27288F2700C54130 /* AliasCompactView.swift */; };
 		C03D292D279215EE0041FB60 /* DomainDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D292C279215EE0041FB60 /* DomainDetailViewModel.swift */; };
+		C03E200D27A1F436000D82F6 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E200C27A1F436000D82F6 /* ShareViewController.swift */; };
+		C03E201027A1F436000D82F6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03E200E27A1F436000D82F6 /* MainInterface.storyboard */; };
+		C03E201427A1F436000D82F6 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C03E200A27A1F436000D82F6 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C03F4F1526E15ADD00BBF2A8 /* AliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */; };
 		C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */; };
 		C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */; };
@@ -60,6 +63,23 @@
 		C08A5D8527499A0200BE889B /* AliasContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A5D8427499A0200BE889B /* AliasContactsView.swift */; };
 		C08A5D8727499A6100BE889B /* AliasContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A5D8627499A6100BE889B /* AliasContactsViewModel.swift */; };
 		C08BD81B2746E58300759E43 /* AlertToastExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08BD81A2746E58300759E43 /* AlertToastExtensions.swift */; };
+		C0941EE227A6E606009AAEBC /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C043D41526E01E280051B282 /* KeychainService.swift */; };
+		C0941EE327A6E614009AAEBC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03760F926DC0F0200E5ECAC /* Preferences.swift */; };
+		C0941EE427A6E6DE009AAEBC /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963B273483CC0062B418 /* Session.swift */; };
+		C0941EE627A6E755009AAEBC /* NoSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0941EE527A6E755009AAEBC /* NoSessionView.swift */; };
+		C0941EE927A6E912009AAEBC /* SimpleLoginPackage in Frameworks */ = {isa = PBXBuildFile; productRef = C0941EE827A6E912009AAEBC /* SimpleLoginPackage */; };
+		C0941EEB27A6E917009AAEBC /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C0941EEA27A6E917009AAEBC /* KeychainAccess */; };
+		C0941EEC27A6EEAE009AAEBC /* CreateAliasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */; };
+		C0941EED27A6EEAE009AAEBC /* CreateAliasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C029769326F141A60014DC3B /* CreateAliasView.swift */; };
+		C0941EEE27A6EF78009AAEBC /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */; };
+		C0941EEF27A6EFBF009AAEBC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0259EAE26DA55CD0056A977 /* StringExtensions.swift */; };
+		C0941EF027A6EFD7009AAEBC /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */; };
+		C0941EF127A6EFE1009AAEBC /* ForceDarkModeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02CD1922794AD8100B3115E /* ForceDarkModeModifier.swift */; };
+		C0941EF227A6EFF8009AAEBC /* AlertToastExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08BD81A2746E58300759E43 /* AlertToastExtensions.swift */; };
+		C0941EF427A6F056009AAEBC /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = C0941EF327A6F056009AAEBC /* AlertToast */; };
+		C0941EFA27A70AE6009AAEBC /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0941EF927A70AE6009AAEBC /* URLExtensions.swift */; };
+		C0941EFB27A70AE6009AAEBC /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0941EF927A70AE6009AAEBC /* URLExtensions.swift */; };
+		C0941EFD27A70B15009AAEBC /* URLExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0941EFC27A70B15009AAEBC /* URLExtensionsTests.swift */; };
 		C0AAE98E26E4152A00247742 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAE98D26E4152A00247742 /* Blur.swift */; };
 		C0B1600B279DFA1E00641216 /* AliasDisplayModePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1600A279DFA1E00641216 /* AliasDisplayModePreview.swift */; };
 		C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */; };
@@ -91,7 +111,28 @@
 			remoteGlobalIDString = C0348889268A6F29008D9629;
 			remoteInfo = SimpleLogin;
 		};
+		C03E201227A1F436000D82F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0348882268A6F29008D9629 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C03E200927A1F436000D82F6;
+			remoteInfo = ShareExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C03E201527A1F436000D82F6 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C03E201427A1F436000D82F6 /* ShareExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageModifier.swift; sourceTree = "<group>"; };
@@ -126,6 +167,10 @@
 		C03760FB26DC0F7300E5ECAC /* SimpleLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleLogin.entitlements; sourceTree = "<group>"; };
 		C03B518D27288F2700C54130 /* AliasCompactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasCompactView.swift; sourceTree = "<group>"; };
 		C03D292C279215EE0041FB60 /* DomainDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainDetailViewModel.swift; sourceTree = "<group>"; };
+		C03E200A27A1F436000D82F6 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C03E200C27A1F436000D82F6 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		C03E200F27A1F436000D82F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		C03E201127A1F436000D82F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesView.swift; sourceTree = "<group>"; };
 		C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
 		C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -147,6 +192,10 @@
 		C08A5D8427499A0200BE889B /* AliasContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasContactsView.swift; sourceTree = "<group>"; };
 		C08A5D8627499A6100BE889B /* AliasContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasContactsViewModel.swift; sourceTree = "<group>"; };
 		C08BD81A2746E58300759E43 /* AlertToastExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastExtensions.swift; sourceTree = "<group>"; };
+		C0941EE527A6E755009AAEBC /* NoSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSessionView.swift; sourceTree = "<group>"; };
+		C0941EE727A6E817009AAEBC /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
+		C0941EF927A70AE6009AAEBC /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
+		C0941EFC27A70B15009AAEBC /* URLExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensionsTests.swift; sourceTree = "<group>"; };
 		C0AAE98D26E4152A00247742 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		C0B1600A279DFA1E00641216 /* AliasDisplayModePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDisplayModePreview.swift; sourceTree = "<group>"; };
 		C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailPasswordView.swift; sourceTree = "<group>"; };
@@ -193,6 +242,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C03E200727A1F436000D82F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0941EF427A6F056009AAEBC /* AlertToast in Frameworks */,
+				C0941EEB27A6E917009AAEBC /* KeychainAccess in Frameworks */,
+				C0941EE927A6E912009AAEBC /* SimpleLoginPackage in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -202,6 +261,7 @@
 				C034888C268A6F29008D9629 /* SimpleLogin */,
 				C034889E268A6F2E008D9629 /* SimpleLoginTests */,
 				C03488A9268A6F2E008D9629 /* SimpleLoginUITests */,
+				C03E200B27A1F436000D82F6 /* ShareExtension */,
 				C034888B268A6F29008D9629 /* Products */,
 				C04848A2278CD00500702E8E /* Frameworks */,
 			);
@@ -213,6 +273,7 @@
 				C034888A268A6F29008D9629 /* SimpleLogin.app */,
 				C034889B268A6F2E008D9629 /* SimpleLoginTests.xctest */,
 				C03488A6268A6F2E008D9629 /* SimpleLoginUITests.xctest */,
+				C03E200A27A1F436000D82F6 /* ShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -246,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				C03488A1268A6F2E008D9629 /* Info.plist */,
+				C0941EFC27A70B15009AAEBC /* URLExtensionsTests.swift */,
 			);
 			path = SimpleLoginTests;
 			sourceTree = "<group>";
@@ -293,6 +355,18 @@
 				C0100B2F26DEC46900085C24 /* MainView.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		C03E200B27A1F436000D82F6 /* ShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				C0941EE727A6E817009AAEBC /* ShareExtension.entitlements */,
+				C0941EE527A6E755009AAEBC /* NoSessionView.swift */,
+				C03E200C27A1F436000D82F6 /* ShareViewController.swift */,
+				C03E200E27A1F436000D82F6 /* MainInterface.storyboard */,
+				C03E201127A1F436000D82F6 /* Info.plist */,
+			);
+			path = ShareExtension;
 			sourceTree = "<group>";
 		};
 		C03F4F2E26E1733200BBF2A8 /* Aliases */ = {
@@ -393,6 +467,7 @@
 				C0259EAE26DA55CD0056A977 /* StringExtensions.swift */,
 				C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */,
 				C04266D227944E130053451B /* Vibration.swift */,
+				C0941EF927A70AE6009AAEBC /* URLExtensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -408,10 +483,12 @@
 				C0348887268A6F29008D9629 /* Frameworks */,
 				C0348888268A6F29008D9629 /* Resources */,
 				C043D41726E01EE90051B282 /* ShellScript */,
+				C03E201527A1F436000D82F6 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C03E201327A1F436000D82F6 /* PBXTargetDependency */,
 			);
 			name = SimpleLogin;
 			packageProductDependencies = (
@@ -463,13 +540,35 @@
 			productReference = C03488A6268A6F2E008D9629 /* SimpleLoginUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		C03E200927A1F436000D82F6 /* ShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C03E201827A1F436000D82F6 /* Build configuration list for PBXNativeTarget "ShareExtension" */;
+			buildPhases = (
+				C03E200627A1F436000D82F6 /* Sources */,
+				C03E200727A1F436000D82F6 /* Frameworks */,
+				C03E200827A1F436000D82F6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShareExtension;
+			packageProductDependencies = (
+				C0941EE827A6E912009AAEBC /* SimpleLoginPackage */,
+				C0941EEA27A6E917009AAEBC /* KeychainAccess */,
+				C0941EF327A6F056009AAEBC /* AlertToast */,
+			);
+			productName = ShareExtension;
+			productReference = C03E200A27A1F436000D82F6 /* ShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		C0348882268A6F29008D9629 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					C0348889268A6F29008D9629 = {
@@ -477,11 +576,15 @@
 					};
 					C034889A268A6F2E008D9629 = {
 						CreatedOnToolsVersion = 12.5;
+						LastSwiftMigration = 1310;
 						TestTargetID = C0348889268A6F29008D9629;
 					};
 					C03488A5268A6F2E008D9629 = {
 						CreatedOnToolsVersion = 12.5;
 						TestTargetID = C0348889268A6F29008D9629;
+					};
+					C03E200927A1F436000D82F6 = {
+						CreatedOnToolsVersion = 13.1;
 					};
 				};
 			};
@@ -508,6 +611,7 @@
 			projectRoot = "";
 			targets = (
 				C0348889268A6F29008D9629 /* SimpleLogin */,
+				C03E200927A1F436000D82F6 /* ShareExtension */,
 				C034889A268A6F2E008D9629 /* SimpleLoginTests */,
 				C03488A5268A6F2E008D9629 /* SimpleLoginUITests */,
 			);
@@ -535,6 +639,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C03E200827A1F436000D82F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C03E201027A1F436000D82F6 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,6 +708,7 @@
 				C0F1964027348EDA0062B418 /* AliasDetailViewModel.swift in Sources */,
 				C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */,
 				C00E66692792C687002DBA67 /* ClearButtonModeModifier.swift in Sources */,
+				C0941EFA27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */,
 				C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */,
 				C06CEAF2279018B100736920 /* MailboxesViewModel.swift in Sources */,
@@ -629,6 +742,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0941EFD27A70B15009AAEBC /* URLExtensionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,6 +750,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C03E200627A1F436000D82F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0941EF227A6EFF8009AAEBC /* AlertToastExtensions.swift in Sources */,
+				C0941EE427A6E6DE009AAEBC /* Session.swift in Sources */,
+				C0941EF027A6EFD7009AAEBC /* ColorExtensions.swift in Sources */,
+				C03E200D27A1F436000D82F6 /* ShareViewController.swift in Sources */,
+				C0941EFB27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
+				C0941EED27A6EEAE009AAEBC /* CreateAliasView.swift in Sources */,
+				C0941EEF27A6EFBF009AAEBC /* StringExtensions.swift in Sources */,
+				C0941EE227A6E606009AAEBC /* KeychainService.swift in Sources */,
+				C0941EE627A6E755009AAEBC /* NoSessionView.swift in Sources */,
+				C0941EEE27A6EF78009AAEBC /* BaseViewModel.swift in Sources */,
+				C0941EE327A6E614009AAEBC /* Preferences.swift in Sources */,
+				C0941EF127A6EFE1009AAEBC /* ForceDarkModeModifier.swift in Sources */,
+				C0941EEC27A6EEAE009AAEBC /* CreateAliasViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,7 +786,23 @@
 			target = C0348889268A6F29008D9629 /* SimpleLogin */;
 			targetProxy = C03488A7268A6F2E008D9629 /* PBXContainerItemProxy */;
 		};
+		C03E201327A1F436000D82F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C03E200927A1F436000D82F6 /* ShareExtension */;
+			targetProxy = C03E201227A1F436000D82F6 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C03E200E27A1F436000D82F6 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C03E200F27A1F436000D82F6 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C03488AD268A6F2E008D9629 /* Debug */ = {
@@ -774,6 +924,7 @@
 		C03488B0268A6F2E008D9629 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleLogin/SimpleLogin.entitlements;
@@ -799,6 +950,7 @@
 		C03488B1268A6F2E008D9629 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleLogin/SimpleLogin.entitlements;
@@ -826,8 +978,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 975H7B86B7;
+				DEVELOPMENT_TEAM = 72VC334CSX;
 				INFOPLIST_FILE = SimpleLoginTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -837,6 +990,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.simplelogin.SimpleLoginTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SimpleLogin.app/SimpleLogin";
@@ -848,8 +1002,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 975H7B86B7;
+				DEVELOPMENT_TEAM = 72VC334CSX;
 				INFOPLIST_FILE = SimpleLoginTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -905,6 +1060,62 @@
 			};
 			name = Release;
 		};
+		C03E201627A1F436000D82F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 72VC334CSX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.ShareExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C03E201727A1F436000D82F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 72VC334CSX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.ShareExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -940,6 +1151,15 @@
 			buildConfigurations = (
 				C03488B6268A6F2E008D9629 /* Debug */,
 				C03488B7268A6F2E008D9629 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C03E201827A1F436000D82F6 /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C03E201627A1F436000D82F6 /* Debug */,
+				C03E201727A1F436000D82F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1037,6 +1257,21 @@
 			productName = Introspect;
 		};
 		C07EA68A273E4DEA00C7D69C /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C07EA689273E4DEA00C7D69C /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
+		C0941EE827A6E912009AAEBC /* SimpleLoginPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C03760F126DC0BA000E5ECAC /* XCRemoteSwiftPackageReference "swift-package" */;
+			productName = SimpleLoginPackage;
+		};
+		C0941EEA27A6E917009AAEBC /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C043D41226E01DBF0051B282 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		C0941EF327A6F056009AAEBC /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C07EA689273E4DEA00C7D69C /* XCRemoteSwiftPackageReference "AlertToast" */;
 			productName = AlertToast;

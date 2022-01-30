@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+let kForceDarkMode = "kForceDarkMode"
+
 struct ForceDarkModeModifier: ViewModifier {
     @Environment(\.colorScheme) private var colorScheme
     @AppStorage(kForceDarkMode) private var forceDarkMode = false
