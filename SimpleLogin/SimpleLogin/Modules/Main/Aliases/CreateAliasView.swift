@@ -21,14 +21,17 @@ struct CreateAliasView: View {
     @State private var name = ""
 
     private let onCreateAlias: (Alias) -> Void
+    private let onCancel: (() -> Void)?
     private let url: URL?
 
     init(session: Session,
          url: URL?,
-         onCreateAlias: @escaping (Alias) -> Void) {
+         onCreateAlias: @escaping (Alias) -> Void,
+         onCancel: (() -> Void)?) {
         _viewModel = StateObject(wrappedValue: .init(session: session))
         self.url = url
         self.onCreateAlias = onCreateAlias
+        self.onCancel = onCancel
     }
 
     var body: some View {
@@ -95,6 +98,7 @@ struct CreateAliasView: View {
     private var cancelButton: some View {
         Button(action: {
             presentationMode.wrappedValue.dismiss()
+            onCancel?()
         }, label: {
             Text("Cancel")
         })

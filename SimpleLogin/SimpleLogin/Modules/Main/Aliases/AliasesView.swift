@@ -143,11 +143,16 @@ struct AliasesView: View {
             showingUpdatingAlert = isUpdating
         }
         .sheet(isPresented: $showingCreateView) {
-            CreateAliasView(session: viewModel.session, url: nil) { createdAlias in
-                self.createdAlias = createdAlias
-                viewModel.refresh()
-            }
-            .forceDarkModeIfApplicable()
+            CreateAliasView(
+                session: viewModel.session,
+                url: nil,
+                onCreateAlias: { createdAlias in
+                    self.createdAlias = createdAlias
+                    self.viewModel.refresh()
+                },
+                onCancel: nil
+            )
+                .forceDarkModeIfApplicable()
         }
         .toast(isPresenting: showingCopiedEmailAlert) {
             AlertToast(displayMode: .alert,

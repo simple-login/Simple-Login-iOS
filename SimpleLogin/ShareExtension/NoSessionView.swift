@@ -10,14 +10,18 @@ import SwiftUI
 struct NoSessionView: View {
     var onLogIn: (() -> Void)?
     var body: some View {
-        VStack(alignment: .center) {
-            Text("Please log in in order to use Share Extension")
-            Button(action: {
-
-            }, label: {
-                Text("Log in")
-            })
+        ZStack {
+            Image(systemName: "person.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: UIScreen.main.bounds.width / 2)
+                .foregroundColor(.secondary)
+                .opacity(0.1)
+            Text("This Share Extension helps you create aliases on the fly without leaving your current context.\nPlease open SimpleLogin application and log in first in order to use this feature.")
+                .multilineTextAlignment(.center)
+                .font(.subheadline)
+                .foregroundColor(Color(.darkGray))
+                .padding(.horizontal)
         }
-        .padding(.horizontal)
     }
 }

@@ -38,10 +38,15 @@ final class ShareViewController: UIViewController {
     private func setSession(session: Session?) {
         let subView: UIView
         if let session = session {
-            let createAliasView = CreateAliasView(session: session,
-                                                  url: url) { [unowned self] alias in
-                self.handleAliasCreation(alias: alias)
-            }
+            let createAliasView = CreateAliasView(
+                session: session,
+                url: url,
+                onCreateAlias: { [unowned self] alias in
+                    self.handleAliasCreation(alias: alias)
+                },
+                onCancel: { [unowned self] in
+                    self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                })
             let hostingController = UIHostingController(rootView: createAliasView)
             subView = hostingController.view
             addChild(hostingController)
