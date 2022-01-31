@@ -1,6 +1,6 @@
 //
 //  NoSessionView.swift
-//  ShareExtension
+//  Keyboard Extension
 //
 //  Created by Thanh-Nhon Nguyen on 30/01/2022.
 //
@@ -15,11 +15,13 @@ struct NoSessionView: View {
                 .scaledToFit()
                 .frame(width: UIScreen.main.bounds.width / 2)
                 .opacity(0.1)
-            Text("This Share Extension helps you create aliases on the fly without leaving your current context.\nPlease open SimpleLogin application and log in first in order to use this feature.")
+                .padding()
+            Text("Please open SimpleLogin application and log in. Then go to Settings ➝ General ➝ Keyboard ➝ Keyboards and give SimpleLogin keyboard full access.")
                 .multilineTextAlignment(.center)
                 .font(.subheadline)
                 .foregroundColor(Color(.darkGray))
-                .padding(.horizontal)
+                .padding()
         }
+        .background(Color(.systemGray6))
     }
 }

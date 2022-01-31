@@ -12,6 +12,19 @@
 		C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563726DAD9E000A550A2 /* OtpView.swift */; };
 		C00DF9AA279175770065A602 /* DomainDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00DF9A9279175770065A602 /* DomainDetailView.swift */; };
 		C00E66692792C687002DBA67 /* ClearButtonModeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E66682792C687002DBA67 /* ClearButtonModeModifier.swift */; };
+		C010031527A73637009735CD /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010031427A73637009735CD /* KeyboardViewController.swift */; };
+		C010031927A73637009735CD /* Keyboard Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C010031227A73636009735CD /* Keyboard Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C010031E27A73836009735CD /* NoSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010031D27A73836009735CD /* NoSessionView.swift */; };
+		C010032127A73996009735CD /* SimpleLoginPackage in Frameworks */ = {isa = PBXBuildFile; productRef = C010032027A73996009735CD /* SimpleLoginPackage */; };
+		C010032327A73999009735CD /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C010032227A73999009735CD /* KeychainAccess */; };
+		C010032527A739A5009735CD /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = C010032427A739A5009735CD /* AlertToast */; };
+		C010032627A739CD009735CD /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C043D41526E01E280051B282 /* KeychainService.swift */; };
+		C010032727A739D8009735CD /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03760F926DC0F0200E5ECAC /* Preferences.swift */; };
+		C010032827A73A3F009735CD /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963B273483CC0062B418 /* Session.swift */; };
+		C010032927A73E44009735CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0348891268A6F2D008D9629 /* Assets.xcassets */; };
+		C010032A27A73E44009735CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0348891268A6F2D008D9629 /* Assets.xcassets */; };
+		C010032B27A73EC3009735CD /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */; };
+		C010032D27A7479E009735CD /* AliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010032C27A7479E009735CD /* AliasesView.swift */; };
 		C0100B3026DEC46900085C24 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0100B2F26DEC46900085C24 /* MainView.swift */; };
 		C02309CE2762AD6B00B6EC37 /* EmptyDataModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */; };
 		C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0259EAC26DA30D70056A977 /* SignUpView.swift */; };
@@ -55,6 +68,7 @@
 		C05A4CE1273C76BC005F8CC5 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C05A4CE0273C76BC005F8CC5 /* Introspect */; };
 		C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A9B14277BB996003FD0A7 /* UpgradeView.swift */; };
 		C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05CC54A26FBCAAE003BC32D /* ResetPasswordView.swift */; };
+		C05DB09D27A877BD00200E2D /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */; };
 		C064797D272B331D009CA1F8 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C064797C272B331D009CA1F8 /* Action.swift */; };
 		C06CEAF2279018B100736920 /* MailboxesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06CEAF1279018B100736920 /* MailboxesViewModel.swift */; };
 		C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C079864926B34D5F006C9FC0 /* LogInView.swift */; };
@@ -97,6 +111,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C010031727A73637009735CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0348882268A6F29008D9629 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C010031127A73636009735CD;
+			remoteInfo = "Keyboard Extension";
+		};
 		C034889C268A6F2E008D9629 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C0348882268A6F29008D9629 /* Project object */;
@@ -127,6 +148,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				C010031927A73637009735CD /* Keyboard Extension.appex in Embed App Extensions */,
 				C03E201427A1F436000D82F6 /* ShareExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -140,6 +162,12 @@
 		C00A563726DAD9E000A550A2 /* OtpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpView.swift; sourceTree = "<group>"; };
 		C00DF9A9279175770065A602 /* DomainDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainDetailView.swift; sourceTree = "<group>"; };
 		C00E66682792C687002DBA67 /* ClearButtonModeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButtonModeModifier.swift; sourceTree = "<group>"; };
+		C010031227A73636009735CD /* Keyboard Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Keyboard Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C010031427A73637009735CD /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		C010031627A73637009735CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C010031D27A73836009735CD /* NoSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSessionView.swift; sourceTree = "<group>"; };
+		C010031F27A73962009735CD /* Keyboard Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Keyboard Extension.entitlements"; sourceTree = "<group>"; };
+		C010032C27A7479E009735CD /* AliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesView.swift; sourceTree = "<group>"; };
 		C0100B2F26DEC46900085C24 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDataModifier.swift; sourceTree = "<group>"; };
 		C0259EAC26DA30D70056A977 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -213,6 +241,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C010030F27A73636009735CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C010032527A739A5009735CD /* AlertToast in Frameworks */,
+				C010032327A73999009735CD /* KeychainAccess in Frameworks */,
+				C010032127A73996009735CD /* SimpleLoginPackage in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C0348887268A6F29008D9629 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -255,6 +293,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C010031327A73637009735CD /* Keyboard Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C010031F27A73962009735CD /* Keyboard Extension.entitlements */,
+				C010031D27A73836009735CD /* NoSessionView.swift */,
+				C010032C27A7479E009735CD /* AliasesView.swift */,
+				C010031427A73637009735CD /* KeyboardViewController.swift */,
+				C010031627A73637009735CD /* Info.plist */,
+			);
+			path = "Keyboard Extension";
+			sourceTree = "<group>";
+		};
 		C0348881268A6F29008D9629 = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +312,7 @@
 				C034889E268A6F2E008D9629 /* SimpleLoginTests */,
 				C03488A9268A6F2E008D9629 /* SimpleLoginUITests */,
 				C03E200B27A1F436000D82F6 /* ShareExtension */,
+				C010031327A73637009735CD /* Keyboard Extension */,
 				C034888B268A6F29008D9629 /* Products */,
 				C04848A2278CD00500702E8E /* Frameworks */,
 			);
@@ -274,6 +325,7 @@
 				C034889B268A6F2E008D9629 /* SimpleLoginTests.xctest */,
 				C03488A6268A6F2E008D9629 /* SimpleLoginUITests.xctest */,
 				C03E200A27A1F436000D82F6 /* ShareExtension.appex */,
+				C010031227A73636009735CD /* Keyboard Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -475,6 +527,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C010031127A73636009735CD /* Keyboard Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C010031A27A73637009735CD /* Build configuration list for PBXNativeTarget "Keyboard Extension" */;
+			buildPhases = (
+				C010030E27A73636009735CD /* Sources */,
+				C010030F27A73636009735CD /* Frameworks */,
+				C010031027A73636009735CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Keyboard Extension";
+			packageProductDependencies = (
+				C010032027A73996009735CD /* SimpleLoginPackage */,
+				C010032227A73999009735CD /* KeychainAccess */,
+				C010032427A739A5009735CD /* AlertToast */,
+			);
+			productName = "Keyboard Extension";
+			productReference = C010031227A73636009735CD /* Keyboard Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		C0348889268A6F29008D9629 /* SimpleLogin */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C03488AF268A6F2E008D9629 /* Build configuration list for PBXNativeTarget "SimpleLogin" */;
@@ -489,6 +563,7 @@
 			);
 			dependencies = (
 				C03E201327A1F436000D82F6 /* PBXTargetDependency */,
+				C010031827A73637009735CD /* PBXTargetDependency */,
 			);
 			name = SimpleLogin;
 			packageProductDependencies = (
@@ -571,6 +646,9 @@
 				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					C010031127A73636009735CD = {
+						CreatedOnToolsVersion = 13.1;
+					};
 					C0348889268A6F29008D9629 = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -611,6 +689,7 @@
 			projectRoot = "";
 			targets = (
 				C0348889268A6F29008D9629 /* SimpleLogin */,
+				C010031127A73636009735CD /* Keyboard Extension */,
 				C03E200927A1F436000D82F6 /* ShareExtension */,
 				C034889A268A6F2E008D9629 /* SimpleLoginTests */,
 				C03488A5268A6F2E008D9629 /* SimpleLoginUITests */,
@@ -619,6 +698,14 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C010031027A73636009735CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C010032927A73E44009735CD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C0348888268A6F29008D9629 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -646,6 +733,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C010032A27A73E44009735CD /* Assets.xcassets in Resources */,
 				C03E201027A1F436000D82F6 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -673,6 +761,21 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C010030E27A73636009735CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C010032827A73A3F009735CD /* Session.swift in Sources */,
+				C010031E27A73836009735CD /* NoSessionView.swift in Sources */,
+				C010031527A73637009735CD /* KeyboardViewController.swift in Sources */,
+				C010032727A739D8009735CD /* Preferences.swift in Sources */,
+				C010032627A739CD009735CD /* KeychainService.swift in Sources */,
+				C05DB09D27A877BD00200E2D /* BaseViewModel.swift in Sources */,
+				C010032D27A7479E009735CD /* AliasesView.swift in Sources */,
+				C010032B27A73EC3009735CD /* ColorExtensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C0348886268A6F29008D9629 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -776,6 +879,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C010031827A73637009735CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C010031127A73636009735CD /* Keyboard Extension */;
+			targetProxy = C010031727A73637009735CD /* PBXContainerItemProxy */;
+		};
 		C034889D268A6F2E008D9629 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C0348889268A6F29008D9629 /* SimpleLogin */;
@@ -805,6 +913,62 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C010031B27A73637009735CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = "Keyboard Extension/Keyboard Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 72VC334CSX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Keyboard Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Aliases Keyboard";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.Keyboard-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C010031C27A73637009735CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = "Keyboard Extension/Keyboard Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 72VC334CSX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Keyboard Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Aliases Keyboard";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.Keyboard-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C03488AD268A6F2E008D9629 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1119,6 +1283,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C010031A27A73637009735CD /* Build configuration list for PBXNativeTarget "Keyboard Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C010031B27A73637009735CD /* Debug */,
+				C010031C27A73637009735CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C0348885268A6F29008D9629 /* Build configuration list for PBXProject "SimpleLogin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1226,6 +1399,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C010032027A73996009735CD /* SimpleLoginPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C03760F126DC0BA000E5ECAC /* XCRemoteSwiftPackageReference "swift-package" */;
+			productName = SimpleLoginPackage;
+		};
+		C010032227A73999009735CD /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C043D41226E01DBF0051B282 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		C010032427A739A5009735CD /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C07EA689273E4DEA00C7D69C /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
 		C02CD1952794BA3E00B3115E /* ConfettiSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C02CD1942794BA3E00B3115E /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
