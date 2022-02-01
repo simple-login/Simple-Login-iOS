@@ -54,7 +54,7 @@ struct CreateContactView: View {
             showingLoadingAlert = isLoading
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(message: viewModel.error)
+            AlertToast.errorAlert(viewModel.error)
         }
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
@@ -87,7 +87,7 @@ final class CreateContactViewModel: ObservableObject {
     let alias: Alias
 
     @Published private(set) var isLoading = false
-    @Published private(set) var error: String?
+    @Published private(set) var error: Error?
     @Published private(set) var createdContact: Contact?
     private var cancellables = Set<AnyCancellable>()
 
@@ -108,13 +108,15 @@ final class CreateContactViewModel: ObservableObject {
                 guard let self = self else { return }
                 self.isLoading = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error.description
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] createdContact in
                 guard let self = self else { return }
                 if createdContact.existed {
-                    self.error = "Contact already exists"
+                    self.error = SLError.contactExists
                 } else {
                     self.createdContact = createdContact
                 }

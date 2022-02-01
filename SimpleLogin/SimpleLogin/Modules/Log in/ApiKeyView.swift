@@ -61,7 +61,7 @@ struct ApiKeyView: View {
             viewModel.client = client
         }
         .toast(isPresenting: showingErrorToast) {
-            AlertToast(displayMode: .banner(.pop), type: .regular, title: viewModel.error)
+            AlertToast.errorAlert(viewModel.error)
         }
     }
 

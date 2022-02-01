@@ -112,7 +112,7 @@ struct AliasContactsView: View {
                        subTitle: copiedText)
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(message: viewModel.error?.description)
+            AlertToast.errorAlert(viewModel.error)
         }
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)

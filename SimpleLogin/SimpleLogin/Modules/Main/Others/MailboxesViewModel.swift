@@ -16,7 +16,7 @@ final class MailboxesViewModel: BaseViewModel, ObservableObject {
 
     @Published private(set) var mailboxes = [Mailbox]()
     @Published private(set) var isLoading = false
-    @Published private(set) var error: String?
+    @Published private(set) var error: Error?
     private var cancellables = Set<AnyCancellable>()
 
     func handledError() {
@@ -33,8 +33,10 @@ final class MailboxesViewModel: BaseViewModel, ObservableObject {
                 self.isLoading = false
                 self.refreshControl.endRefreshing()
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error.description
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] mailboxArray in
                 guard let self = self else { return }
@@ -53,8 +55,10 @@ final class MailboxesViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isLoading = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error.description
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] _ in
                 self?.fetchMailboxes(refreshing: true)
@@ -70,8 +74,10 @@ final class MailboxesViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isLoading = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error.description
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] deletedResponse in
                 guard let self = self else { return }
@@ -90,8 +96,10 @@ final class MailboxesViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isLoading = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error.description
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] mailbox in
                 guard let self = self else { return }

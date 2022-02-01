@@ -74,7 +74,7 @@ struct CustomDomainsView: View {
             AlertToast(type: .loading)
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(message: viewModel.error?.description)
+            AlertToast.errorAlert(viewModel.error)
         }
     }
 

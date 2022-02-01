@@ -93,10 +93,10 @@ struct AccountView: View {
             AlertToast(type: .loading)
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(message: viewModel.error?.description)
+            AlertToast.errorAlert(viewModel.error)
         }
         .toast(isPresenting: showingMessageAlert) {
-            AlertToast.messageAlert(message: viewModel.message)
+            AlertToast.messageAlert(viewModel.message)
         }
     }
 }

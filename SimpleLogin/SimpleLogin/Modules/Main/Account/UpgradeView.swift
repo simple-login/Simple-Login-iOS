@@ -61,7 +61,7 @@ struct UpgradeView: View {
             showingLoadingAlert = isLoading
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(message: viewModel.error?.description)
+            AlertToast.errorAlert(viewModel.error)
         }
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)

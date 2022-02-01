@@ -155,7 +155,7 @@ struct AliasDetailView: View {
                        subTitle: copiedText)
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(message: viewModel.error?.description)
+            AlertToast.errorAlert(viewModel.error)
         }
         .alert(isPresented: $showingDeletionAlert) {
             deletionAlert
@@ -670,9 +670,7 @@ private struct EditMailboxesView: View {
             AlertToast(type: .loading)
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast(displayMode: .banner(.pop),
-                       type: .error(.red),
-                       title: viewModel.updatingError?.description)
+            AlertToast.errorAlert(viewModel.updatingError)
         }
     }
 
@@ -768,9 +766,7 @@ private struct EditDisplayNameView: View {
             AlertToast(type: .loading)
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast(displayMode: .banner(.pop),
-                       type: .error(.red),
-                       title: viewModel.updatingError?.description)
+            AlertToast.errorAlert(viewModel.updatingError)
         }
     }
 
@@ -842,9 +838,7 @@ private struct EditNotesView: View {
             AlertToast(type: .loading)
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast(displayMode: .banner(.pop),
-                       type: .error(.red),
-                       title: viewModel.updatingError?.description)
+            AlertToast.errorAlert(viewModel.updatingError)
         }
     }
 

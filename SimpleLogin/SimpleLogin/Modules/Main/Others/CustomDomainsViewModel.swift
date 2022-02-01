@@ -17,7 +17,7 @@ final class CustomDomainsViewModel: BaseViewModel, ObservableObject {
     @Published private(set) var domains: [CustomDomain] = []
     @Published private(set) var noDomain = false
     @Published private(set) var isLoading = false
-    @Published private(set) var error: String?
+    @Published private(set) var error: Error?
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -38,7 +38,7 @@ final class CustomDomainsViewModel: BaseViewModel, ObservableObject {
                 case .finished:
                     self.noDomain = self.domains.isEmpty
                 case .failure(let error):
-                    self.error = error.description
+                    self.error = error
                 }
             } receiveValue: { [weak self] customDomainArray in
                 self?.domains = customDomainArray.customDomains

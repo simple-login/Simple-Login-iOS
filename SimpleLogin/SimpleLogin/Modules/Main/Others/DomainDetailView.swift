@@ -71,7 +71,7 @@ struct DomainDetailView: View {
             showingLoadingAlert = isLoading
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(message: viewModel.error)
+            AlertToast.errorAlert(viewModel.error)
         }
         .toast(isPresenting: $showingLoadingAlert) {
             AlertToast(type: .loading)
@@ -271,9 +271,7 @@ private struct EditDisplayNameView: View {
             AlertToast(type: .loading)
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast(displayMode: .banner(.pop),
-                       type: .error(.red),
-                       title: viewModel.error)
+            AlertToast.errorAlert(viewModel.error)
         }
     }
 

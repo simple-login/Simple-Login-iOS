@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C00874AF27A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
+		C00874B027A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
+		C00874B127A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
+		C00874B327A989D3004F32FA /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874B227A989D3004F32FA /* SLError.swift */; };
+		C00874B427A989D3004F32FA /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874B227A989D3004F32FA /* SLError.swift */; };
+		C00874B527A989D3004F32FA /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874B227A989D3004F32FA /* SLError.swift */; };
 		C00A563426DABC3900A550A2 /* ErrorMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */; };
 		C00A563626DAC6D000A550A2 /* ApiUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563526DAC6D000A550A2 /* ApiUrlView.swift */; };
 		C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563726DAD9E000A550A2 /* OtpView.swift */; };
@@ -157,6 +163,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C00874AE27A98748004F32FA /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
+		C00874B227A989D3004F32FA /* SLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLError.swift; sourceTree = "<group>"; };
 		C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageModifier.swift; sourceTree = "<group>"; };
 		C00A563526DAC6D000A550A2 /* ApiUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUrlView.swift; sourceTree = "<group>"; };
 		C00A563726DAD9E000A550A2 /* OtpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpView.swift; sourceTree = "<group>"; };
@@ -486,6 +494,7 @@
 			children = (
 				C064797C272B331D009CA1F8 /* Action.swift */,
 				C0F1963B273483CC0062B418 /* Session.swift */,
+				C00874B227A989D3004F32FA /* SLError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -520,6 +529,7 @@
 				C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */,
 				C04266D227944E130053451B /* Vibration.swift */,
 				C0941EF927A70AE6009AAEBC /* URLExtensions.swift */,
+				C00874AE27A98748004F32FA /* ErrorExtensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -770,9 +780,11 @@
 				C010031527A73637009735CD /* KeyboardViewController.swift in Sources */,
 				C010032727A739D8009735CD /* Preferences.swift in Sources */,
 				C010032627A739CD009735CD /* KeychainService.swift in Sources */,
+				C00874B427A989D3004F32FA /* SLError.swift in Sources */,
 				C05DB09D27A877BD00200E2D /* BaseViewModel.swift in Sources */,
 				C010032D27A7479E009735CD /* AliasesView.swift in Sources */,
 				C010032B27A73EC3009735CD /* ColorExtensions.swift in Sources */,
+				C00874B027A98748004F32FA /* ErrorExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -824,6 +836,8 @@
 				C0100B3026DEC46900085C24 /* MainView.swift in Sources */,
 				C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */,
 				C03629972777B21200531481 /* CreateContactView.swift in Sources */,
+				C00874AF27A98748004F32FA /* ErrorExtensions.swift in Sources */,
+				C00874B327A989D3004F32FA /* SLError.swift in Sources */,
 				C07EA68D273E57AA00C7D69C /* ApiKeyViewModel.swift in Sources */,
 				C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */,
 				C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */,
@@ -860,6 +874,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C00874B527A989D3004F32FA /* SLError.swift in Sources */,
 				C0941EF227A6EFF8009AAEBC /* AlertToastExtensions.swift in Sources */,
 				C0941EE427A6E6DE009AAEBC /* Session.swift in Sources */,
 				C0941EF027A6EFD7009AAEBC /* ColorExtensions.swift in Sources */,
@@ -868,6 +883,7 @@
 				C0941EED27A6EEAE009AAEBC /* CreateAliasView.swift in Sources */,
 				C0941EEF27A6EFBF009AAEBC /* StringExtensions.swift in Sources */,
 				C0941EE227A6E606009AAEBC /* KeychainService.swift in Sources */,
+				C00874B127A98748004F32FA /* ErrorExtensions.swift in Sources */,
 				C0941EE627A6E755009AAEBC /* NoSessionView.swift in Sources */,
 				C0941EEE27A6EF78009AAEBC /* BaseViewModel.swift in Sources */,
 				C0941EE327A6E614009AAEBC /* Preferences.swift in Sources */,

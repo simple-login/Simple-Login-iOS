@@ -11,19 +11,19 @@ import SwiftUI
 
 final class ApiKeyViewModel: ObservableObject {
     @Published private(set) var isLoading = false
-    @Published private(set) var error: String?
+    @Published private(set) var error: Error?
     @Published private(set) var apiKey: ApiKey?
     private var cancellables = Set<AnyCancellable>()
     var client: SLClient?
 
     func checkApiKey(apiKey: ApiKey) {
         guard let client = client else {
-            error = "Invalid API URL"
+            error = SLError.invalidApiUrl
             return
         }
 
         guard !apiKey.value.isEmpty else {
-            error = "API key is empty"
+            error = SLError.missingApiKey
             return
         }
 
@@ -35,8 +35,10 @@ final class ApiKeyViewModel: ObservableObject {
                 guard let self = self else { return }
                 defer { self.isLoading = false }
                 switch completion {
-                case .failure(let error): self.error = error.description
-                case .finished: break
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }

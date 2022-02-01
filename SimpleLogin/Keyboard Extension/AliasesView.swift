@@ -23,7 +23,7 @@ struct AliasesView: View {
             Color(.systemGray6)
             if let error = viewModel.error {
                 VStack(alignment: .center) {
-                    Text(error.description)
+                    Text(error.safeLocalizedDescription)
                     Button(action: {
                         viewModel.refresh()
                     }, label: {
@@ -88,7 +88,7 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
     @Published private(set) var aliases = [Alias]()
     @Published private(set) var isLoading = false
     @Published private(set) var moreToLoad = true
-    @Published private(set) var error: SLClientError?
+    @Published private(set) var error: Error?
 
     private var currentPage = 0
     private var canLoadMorePages = true
@@ -115,8 +115,10 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isLoading = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] aliasArray in
                 guard let self = self else { return }
@@ -135,8 +137,10 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isLoading = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] aliasArray in
                 guard let self = self else { return }

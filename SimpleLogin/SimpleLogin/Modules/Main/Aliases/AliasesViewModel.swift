@@ -28,7 +28,7 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var isRefreshing = false
     @Published private(set) var isUpdating = false
-    @Published private(set) var error: SLClientError?
+    @Published private(set) var error: Error?
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
     private var canLoadMorePages = true
@@ -58,8 +58,10 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isLoading = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] aliasArray in
                 guard let self = self else { return }
@@ -89,8 +91,10 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
                 self.isRefreshing = false
                 self.refreshControl.endRefreshing()
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] aliasArray in
                 guard let self = self else { return }
@@ -119,8 +123,10 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isUpdating = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] enabledResponse in
                 guard let self = self else { return }
@@ -152,8 +158,10 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isUpdating = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }

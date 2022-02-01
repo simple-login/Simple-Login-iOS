@@ -161,7 +161,7 @@ struct AliasesView: View {
                        subTitle: copiedEmail ?? "")
         }
         .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(message: viewModel.error?.description)
+            AlertToast.errorAlert(viewModel.error)
         }
         .toast(isPresenting: $showingUpdatingAlert) {
             AlertToast(type: .loading)

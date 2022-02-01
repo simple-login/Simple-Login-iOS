@@ -129,7 +129,7 @@ struct LogInView: View {
             AlertToast(type: .loading)
         }
         .toast(isPresenting: showingErrorToast) {
-            AlertToast(displayMode: .banner(.pop), type: .regular, title: viewModel.error)
+            AlertToast.errorAlert(viewModel.error)
         }
     }
 

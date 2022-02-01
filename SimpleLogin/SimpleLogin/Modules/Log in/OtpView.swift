@@ -46,8 +46,8 @@ struct OtpView: View {
                 .padding(.top)
 
                 Group {
-                    if let errorMessage = viewModel.errorMessage {
-                        Text(errorMessage)
+                    if let error = viewModel.error {
+                        Text(error.safeLocalizedDescription)
                             .foregroundColor(.red)
                             .modifier(ShakeEffect(animatableData: viewModel.attempts))
                             .animation(.default)
@@ -228,7 +228,7 @@ private final class OtpViewModel: ObservableObject {
     @Published private(set) var fourthDigit = Digit.none
     @Published private(set) var fifthDigit = Digit.none
     @Published private(set) var sixthDigit = Digit.none
-    @Published private(set) var errorMessage: String?
+    @Published private(set) var error: Error?
     @Published private(set) var attempts: CGFloat = 0
     @Published private(set) var isLoading = false
     @Published private(set) var apiKey: ApiKey?
@@ -256,7 +256,7 @@ private final class OtpViewModel: ObservableObject {
         } else if firstDigit != .none {
             firstDigit = .none
         }
-        errorMessage = nil
+        error = nil
     }
 
     func add(digit: Digit) {
@@ -290,7 +290,7 @@ private final class OtpViewModel: ObservableObject {
                 defer { self.isLoading = false }
                 switch completion {
                 case .failure(let error):
-                    self.errorMessage = error.description
+                    self.error = error
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         self.attempts += 1
                     }

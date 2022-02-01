@@ -17,7 +17,7 @@ final class CreateAliasViewModel: BaseViewModel, ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var options: AliasOptions?
     @Published private(set) var mailboxes: [Mailbox]?
-    @Published private(set) var error: SLClientError?
+    @Published private(set) var error: Error?
     @Published private(set) var createdAlias: Alias?
 
     private var cancellables = Set<AnyCancellable>()
@@ -36,8 +36,10 @@ final class CreateAliasViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isLoading = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] result in
                 guard let self = self else { return }
@@ -55,8 +57,10 @@ final class CreateAliasViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isLoading = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] createdAlias in
                 guard let self = self else { return }

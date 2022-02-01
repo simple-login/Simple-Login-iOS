@@ -27,7 +27,7 @@ final class AccountViewModel: ObservableObject {
     @Published var randomAliasSuffix: RandomAliasSuffix = .word
     @Published var askingForSettings = false
     @Published private(set) var biometryType: LABiometryType = .none
-    @Published private(set) var error: SLClientError?
+    @Published private(set) var error: Error?
     @Published private(set) var isInitialized = false
     @Published private(set) var isLoading = false
     @Published private(set) var message: String?
@@ -126,14 +126,18 @@ final class AccountViewModel: ObservableObject {
                 switch completion {
                 case .finished: self.isInitialized = true
                 case .failure(let error):
-                    switch error {
-                    case .clientError(let errorResponse):
-                        if errorResponse.statusCode == 401 {
-                            self.shouldLogOut = true
-                        } else {
-                            self.error = error
+                    if let slClientEror = error as? SLClientError {
+                        switch slClientEror {
+                        case .clientError(let errorResponse):
+                            if errorResponse.statusCode == 401 {
+                                self.shouldLogOut = true
+                            } else {
+                                fallthrough
+                            }
+                        default: self.error = error
                         }
-                    default: self.error = error
+                    } else {
+                        self.error = error
                     }
                 }
             } receiveValue: { [weak self] result in
@@ -205,11 +209,7 @@ final class AccountViewModel: ObservableObject {
                     return
                 }
 
-                if let error = error {
-                    self.error = .other(error)
-                } else {
-                    self.error = .unknown(statusCode: 999)
-                }
+                self.error = error
                 self.biometricAuthEnabled.toggle()
             }
         }

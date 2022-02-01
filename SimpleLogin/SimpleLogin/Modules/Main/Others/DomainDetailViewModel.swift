@@ -19,7 +19,7 @@ final class DomainDetailViewModel: ObservableObject {
     @Published var randomPrefixGeneration = false
     @Published private(set) var isLoading = false
     @Published private(set) var isUpdated = false
-    @Published private(set) var error: String?
+    @Published private(set) var error: Error?
     private var cancellables = Set<AnyCancellable>()
     private var session: Session?
 
@@ -75,8 +75,10 @@ final class DomainDetailViewModel: ObservableObject {
                 guard let self = self else { return }
                 self.isLoading = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error.description
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] customDomain in
                 self?.bind(domain: customDomain)

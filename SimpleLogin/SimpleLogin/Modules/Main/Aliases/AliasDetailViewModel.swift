@@ -21,12 +21,12 @@ final class AliasDetailViewModel: BaseViewModel, ObservableObject {
     @Published private(set) var isLoadingMailboxes = false
     @Published private(set) var isRefreshing = false
     @Published private(set) var isDeleted = false
-    @Published private(set) var error: SLClientError?
+    @Published private(set) var error: Error?
 
     // Updating mailboxes, display name & notes
     @Published private(set) var isUpdating = false
     @Published private(set) var isUpdated = false
-    @Published private(set) var updatingError: SLClientError?
+    @Published private(set) var updatingError: Error?
 
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
@@ -70,8 +70,10 @@ final class AliasDetailViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isLoadingActivities = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] activityArray in
                 guard let self = self else { return }
@@ -91,8 +93,10 @@ final class AliasDetailViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isLoadingMailboxes = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] mailboxArray in
                 guard let self = self else { return }
@@ -144,7 +148,7 @@ final class AliasDetailViewModel: BaseViewModel, ObservableObject {
                     print("Finish updating \(self.alias.email)")
                     self.isUpdated = true
                 case .failure(let error):
-                    print("Error updating \(self.alias.email): \(error.description)")
+                    print("Error updating \(self.alias.email): \(error.safeLocalizedDescription)")
                     self.updatingError = error
                 }
             } receiveValue: { [weak self] _ in
@@ -162,8 +166,10 @@ final class AliasDetailViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isUpdating = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }
@@ -180,8 +186,10 @@ final class AliasDetailViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.isUpdating = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }

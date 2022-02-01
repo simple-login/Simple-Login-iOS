@@ -8,13 +8,13 @@
 import AlertToast
 
 extension AlertToast {
-    static func errorAlert(message: String?) -> AlertToast {
+    static func errorAlert(_ error: Error?) -> AlertToast {
         AlertToast(displayMode: .banner(.pop),
                    type: .error(.red),
-                   title: message)
+                   title: error?.safeLocalizedDescription)
     }
 
-    static func messageAlert(message: String?) -> AlertToast {
+    static func messageAlert(_ message: String?) -> AlertToast {
         AlertToast(displayMode: .banner(.pop),
                    type: .regular,
                    title: message)

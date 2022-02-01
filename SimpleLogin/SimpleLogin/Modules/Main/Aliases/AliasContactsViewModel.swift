@@ -20,7 +20,7 @@ final class AliasContactsViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var isRefreshing = false
     @Published private(set) var contacts: [Contact]?
-    @Published private(set) var error: SLClientError?
+    @Published private(set) var error: Error?
 
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
@@ -55,8 +55,10 @@ final class AliasContactsViewModel: ObservableObject {
                 guard let self = self else { return }
                 self.isFetchingContacts = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] contactArray in
                 guard let self = self else { return }
@@ -79,8 +81,10 @@ final class AliasContactsViewModel: ObservableObject {
                 guard let self = self else { return }
                 self.isRefreshing = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] contactArray in
                 guard let self = self else { return }
@@ -100,8 +104,10 @@ final class AliasContactsViewModel: ObservableObject {
                 guard let self = self else { return }
                 self.isLoading = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] blockForward in
                 guard let self = self else { return }

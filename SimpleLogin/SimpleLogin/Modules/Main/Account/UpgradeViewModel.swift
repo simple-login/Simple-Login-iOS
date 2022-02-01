@@ -11,7 +11,7 @@ import SwiftyStoreKit
 
 final class UpgradeViewModel: NSObject, ObservableObject {
     @Published private(set) var isLoading = false
-    @Published private(set) var error: String?
+    @Published private(set) var error: Error?
     @Published private(set) var monthlySubscription: SKProduct?
     @Published private(set) var yearlySubscription: SKProduct?
     @Published private(set) var isSubscribed = false
@@ -25,7 +25,7 @@ final class UpgradeViewModel: NSObject, ObservableObject {
         let productIds = Set(Subscription.allCases.map { $0.productId })
         SwiftyStoreKit.retrieveProductsInfo(productIds) { result in
             if let error = result.error {
-                self.error = error.localizedDescription
+                self.error = error
             } else {
                 for product in result.retrievedProducts {
                     switch product.productIdentifier {
@@ -57,9 +57,12 @@ final class UpgradeViewModel: NSObject, ObservableObject {
             guard let self = self else { return }
             self.isLoading = false
             switch result {
-            case .success: self.fetchAndSendReceipt(session: session)
-            case .error(let error): self.error = error.code.localizedDescription
-            case .deferred: break
+            case .success:
+                self.fetchAndSendReceipt(session: session)
+            case .error(let error):
+                self.error = error
+            case .deferred:
+                break
             }
         }
     }
@@ -79,8 +82,10 @@ final class UpgradeViewModel: NSObject, ObservableObject {
                         guard let self = self else { return }
                         self.isLoading = false
                         switch completion {
-                        case .finished: break
-                        case .failure(let error): self.error = error.description
+                        case .finished:
+                            break
+                        case .failure(let error):
+                            self.error = error
                         }
                     } receiveValue: { [weak self] okResponse in
                         self?.isSubscribed = okResponse.value
@@ -89,7 +94,7 @@ final class UpgradeViewModel: NSObject, ObservableObject {
 
             case .error(let error):
                 self.isLoading = false
-                self.error = error.localizedDescription
+                self.error = error
             }
         }
     }

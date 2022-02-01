@@ -11,7 +11,7 @@ import SwiftUI
 
 final class LogInViewModel: ObservableObject {
     @Published private(set) var isLoading = false
-    @Published private(set) var error: String?
+    @Published private(set) var error: Error?
     @Published private(set) var userLogin: UserLogin?
     private var cancellables = Set<AnyCancellable>()
 
@@ -37,7 +37,7 @@ final class LogInViewModel: ObservableObject {
 
     func logIn(email: String, password: String, device: String) {
         guard let client = client else {
-            error = "Invalid API URL"
+            error = SLError.invalidApiUrl
             return
         }
 
@@ -50,8 +50,10 @@ final class LogInViewModel: ObservableObject {
                 guard let self = self else { return }
                 self.isLoading = false
                 switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error.description
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
                 }
             } receiveValue: { [weak self] userLogin in
                 guard let self = self else { return }
