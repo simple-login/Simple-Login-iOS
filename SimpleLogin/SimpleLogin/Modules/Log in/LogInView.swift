@@ -64,7 +64,9 @@ struct LogInView: View {
                         .frame(width: min(geometry.size.width / 3, 150))
 
                     if !launching {
-                        EmailPasswordView(email: $email, password: $password) {
+                        EmailPasswordView(email: $email,
+                                          password: $password,
+                                          mode: .logIn) {
                             viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
                         }
                         .padding()
