@@ -88,7 +88,11 @@ struct LogInView: View {
                     if !launching {
                         bottomView
                             .fixedSize(horizontal: false, vertical: true)
-                            .fullScreenCover(isPresented: $showingSignUpView, content: SignUpView.init)
+                            .fullScreenCover(isPresented: $showingSignUpView) {
+                                if let client = viewModel.client {
+                                    SignUpView(client: client)
+                                }
+                            }
                     }
                 }
             }
