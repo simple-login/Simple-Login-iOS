@@ -23,11 +23,15 @@ enum MainViewTab {
     }
 }
 
+let kDidShowTips = "DidShowTips"
+
 struct MainView: View {
     @EnvironmentObject private var session: Session
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var viewModel = MainViewModel()
     @State private var selectedTab: MainViewTab = .aliases
+    @State private var showingTips = false
+    @AppStorage(kDidShowTips) private var didShowTips = false
     let onLogOut: () -> Void
 
     var body: some View {
@@ -86,6 +90,19 @@ struct MainView: View {
             if scenePhase == .background, newPhase == .inactive {
                 viewModel.requestAuthenticationIfNeeded()
             }
+        }
+        .onAppear {
+            if !didShowTips {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    showingTips = true
+                }
+            }
+        }
+        .sheet(isPresented: $showingTips) {
+            TipsView()
+                .onAppear {
+                    didShowTips = true
+                }
         }
     }
 

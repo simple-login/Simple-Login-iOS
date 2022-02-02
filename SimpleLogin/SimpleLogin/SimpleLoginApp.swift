@@ -15,6 +15,7 @@ struct SimpleLoginApp: App {
     @AppStorage(kBiometricAuthEnabled) var biometricAuthEnabled = false
     @AppStorage(kForceDarkMode) private var forceDarkMode = false
     @AppStorage(kAliasDisplayMode) private var displayMode: AliasDisplayMode = .default
+    @AppStorage(kDidShowTips) private var didShowTips = false
     @State private var preferences = Preferences.shared
     @State private var apiKey: ApiKey?
     @State private var client: SLClient?
@@ -29,6 +30,7 @@ struct SimpleLoginApp: App {
                     self.biometricAuthEnabled = false
                     self.forceDarkMode = false
                     self.displayMode = .default
+                    self.didShowTips = false
                 }
                 .accentColor(.slPurple)
                 .environmentObject(preferences)
