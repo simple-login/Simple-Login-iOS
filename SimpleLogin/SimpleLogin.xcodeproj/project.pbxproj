@@ -18,6 +18,8 @@
 		C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563726DAD9E000A550A2 /* OtpView.swift */; };
 		C00DF9AA279175770065A602 /* DomainDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00DF9A9279175770065A602 /* DomainDetailView.swift */; };
 		C00E66692792C687002DBA67 /* ClearButtonModeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E66682792C687002DBA67 /* ClearButtonModeModifier.swift */; };
+		C00FD7FD27AA70E40072DD67 /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00FD7FC27AA70E40072DD67 /* TipsView.swift */; };
+		C00FD80127AA71E80072DD67 /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00FD80027AA71E80072DD67 /* Tip.swift */; };
 		C010031527A73637009735CD /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010031427A73637009735CD /* KeyboardViewController.swift */; };
 		C010031927A73637009735CD /* Keyboard Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C010031227A73636009735CD /* Keyboard Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C010031E27A73836009735CD /* NoSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010031D27A73836009735CD /* NoSessionView.swift */; };
@@ -108,6 +110,7 @@
 		C0D1D5A7272BCCA000F5CFC5 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */; };
 		C0D1D5A9272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */; };
 		C0E9C3E12790D57A00D1A463 /* CustomDomainsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E9C3E02790D57A00D1A463 /* CustomDomainsViewModel.swift */; };
+		C0F08FB327AB2CB60066A354 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F08FB227AB2CB50066A354 /* ShareSheetView.swift */; };
 		C0F1963C273483CC0062B418 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963B273483CC0062B418 /* Session.swift */; };
 		C0F1963E27348EA10062B418 /* AliasDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963D27348EA10062B418 /* AliasDetailView.swift */; };
 		C0F1964027348EDA0062B418 /* AliasDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */; };
@@ -171,6 +174,8 @@
 		C00A563726DAD9E000A550A2 /* OtpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpView.swift; sourceTree = "<group>"; };
 		C00DF9A9279175770065A602 /* DomainDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainDetailView.swift; sourceTree = "<group>"; };
 		C00E66682792C687002DBA67 /* ClearButtonModeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButtonModeModifier.swift; sourceTree = "<group>"; };
+		C00FD7FC27AA70E40072DD67 /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
+		C00FD80027AA71E80072DD67 /* Tip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
 		C010031227A73636009735CD /* Keyboard Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Keyboard Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C010031427A73637009735CD /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		C010031627A73637009735CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -241,6 +246,7 @@
 		C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatLinkButtonStyle.swift; sourceTree = "<group>"; };
 		C0E9C3E02790D57A00D1A463 /* CustomDomainsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainsViewModel.swift; sourceTree = "<group>"; };
+		C0F08FB227AB2CB50066A354 /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		C0F1963B273483CC0062B418 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		C0F1963D27348EA10062B418 /* AliasDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailView.swift; sourceTree = "<group>"; };
 		C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailViewModel.swift; sourceTree = "<group>"; };
@@ -303,6 +309,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C00FD7FB27AA70CC0072DD67 /* Tips */ = {
+			isa = PBXGroup;
+			children = (
+				C00FD80027AA71E80072DD67 /* Tip.swift */,
+				C00FD7FC27AA70E40072DD67 /* TipsView.swift */,
+			);
+			path = Tips;
+			sourceTree = "<group>";
+		};
 		C010031327A73637009735CD /* Keyboard Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +430,7 @@
 				C03F4F3026E1735B00BBF2A8 /* Account */,
 				C03F4F2E26E1733200BBF2A8 /* Aliases */,
 				C03F4F2F26E1735100BBF2A8 /* Others */,
+				C00FD7FB27AA70CC0072DD67 /* Tips */,
 				C0100B2F26DEC46900085C24 /* MainView.swift */,
 			);
 			path = Main;
@@ -515,6 +531,7 @@
 				C02CD1922794AD8100B3115E /* ForceDarkModeModifier.swift */,
 				C02FCF8C278E2FB200F32BED /* PhotoPickerView.swift */,
 				C02F967126DB78CF000B100C /* ShakeEffect.swift */,
+				C0F08FB227AB2CB50066A354 /* ShareSheetView.swift */,
 				C0F732B0278F6674004608DB /* URLButton.swift */,
 			);
 			path = "Supporting Views";
@@ -819,6 +836,7 @@
 				C02CD1982794C20400B3115E /* ConfettiableModifier.swift in Sources */,
 				C03F4F1526E15ADD00BBF2A8 /* AliasesView.swift in Sources */,
 				C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */,
+				C00FD80127AA71E80072DD67 /* Tip.swift in Sources */,
 				C03F4F2526E1665D00BBF2A8 /* OthersView.swift in Sources */,
 				C030EB39277D1410007E2FF8 /* UpgradeViewModel.swift in Sources */,
 				C04266D327944E130053451B /* Vibration.swift in Sources */,
@@ -829,6 +847,7 @@
 				C0FE7B2D27A9CFD7005D53DF /* SignUpViewModel.swift in Sources */,
 				C0941EFA27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */,
+				C00FD7FD27AA70E40072DD67 /* TipsView.swift in Sources */,
 				C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */,
 				C06CEAF2279018B100736920 /* MailboxesViewModel.swift in Sources */,
 				C02F4CAF27483B390019F965 /* CreateAliasViewModel.swift in Sources */,
@@ -847,6 +866,7 @@
 				C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */,
 				C00DF9AA279175770065A602 /* DomainDetailView.swift in Sources */,
 				C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */,
+				C0F08FB327AB2CB60066A354 /* ShareSheetView.swift in Sources */,
 				C0D1D5A9272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift in Sources */,
 				C08A5D8727499A6100BE889B /* AliasContactsViewModel.swift in Sources */,
 				C0F732B1278F6674004608DB /* URLButton.swift in Sources */,
@@ -939,7 +959,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = "Keyboard Extension/Keyboard Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20002;
+				CURRENT_PROJECT_VERSION = 20003;
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Keyboard Extension/Info.plist";
@@ -967,7 +987,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = "Keyboard Extension/Keyboard Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20002;
+				CURRENT_PROJECT_VERSION = 20003;
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Keyboard Extension/Info.plist";
@@ -1113,7 +1133,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleLogin/SimpleLogin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20002;
+				CURRENT_PROJECT_VERSION = 20003;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleLogin/Preview Content\"";
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				ENABLE_PREVIEWS = YES;
@@ -1139,7 +1159,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleLogin/SimpleLogin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20002;
+				CURRENT_PROJECT_VERSION = 20003;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleLogin/Preview Content\"";
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				ENABLE_PREVIEWS = YES;
@@ -1250,7 +1270,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20002;
+				CURRENT_PROJECT_VERSION = 20003;
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
@@ -1278,7 +1298,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20002;
+				CURRENT_PROJECT_VERSION = 20003;
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;

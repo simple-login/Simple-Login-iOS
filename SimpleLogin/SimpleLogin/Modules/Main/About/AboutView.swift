@@ -13,6 +13,7 @@ private let kBuildNumber =
     (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?"
 
 struct AboutView: View {
+    @State private var showingTipsView = false
     var body: some View {
         NavigationView {
             Form {
@@ -107,6 +108,10 @@ struct AboutView: View {
                 Section(footer: bottomFooterView) {}
             }
             .navigationTitle("About SimpleLogin")
+            .navigationBarItems(trailing: tipsButton)
+            .sheet(isPresented: $showingTipsView) {
+                TipsView()
+            }
         }
     }
 
@@ -132,6 +137,14 @@ SimpleLogin is the product of SimpleLogin SAS, registered in France under the SI
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity, alignment: .center)
+    }
+
+    private var tipsButton: some View {
+        Button(action: {
+            showingTipsView = true
+        }, label: {
+            Label("Tips", systemImage: "lightbulb")
+        })
     }
 }
 

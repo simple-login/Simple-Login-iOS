@@ -72,7 +72,7 @@ struct AliasDetailView: View {
                 Group {
                     CreationDateSection(alias: viewModel.alias)
                         .sheet(isPresented: $showingAliasEmailSheet) {
-                            AliasEmailView(alias: viewModel.alias)
+                            AliasEmailView(email: viewModel.alias.email)
                                 .forceDarkModeIfApplicable()
                         }
                     Divider()
@@ -861,15 +861,15 @@ private struct EditNotesView: View {
     }
 }
 
-private struct AliasEmailView: View {
+struct AliasEmailView: View {
     @State private var originalBrightness: CGFloat = 0.5
     @State private var percentage: Double = 0.5
-    let alias: Alias
+    let email: String
 
     var body: some View {
         VStack {
             Spacer()
-            Text(alias.email)
+            Text(verbatim: email)
                 .font(.system(size: (percentage + 1) * 24))
                 .fontWeight(.semibold)
             Spacer()
