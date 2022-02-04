@@ -15,8 +15,9 @@ struct DomainDetailView: View {
     @StateObject private var viewModel: DomainDetailViewModel
     @State private var showingLoadingAlert = false
 
-    init(domain: CustomDomain) {
-        _viewModel = StateObject(wrappedValue: .init(domain: domain))
+    init(domain: CustomDomain, session: Session) {
+        _viewModel = StateObject(wrappedValue: .init(domain: domain,
+                                                     session: session))
     }
 
     var body: some View {
@@ -40,7 +41,7 @@ struct DomainDetailView: View {
                 RandomPrefixSection(viewModel: viewModel)
             }
             .padding(.horizontal)
-//            .disabled(viewModel.isUpdating || viewModel.isRefreshing)
+            .disabled(viewModel.isLoading)
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -63,9 +64,6 @@ struct DomainDetailView: View {
                     .font(.footnote)
                 }
             }
-        }
-        .onAppear {
-            viewModel.setSession(session)
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
@@ -102,9 +100,21 @@ private struct CatchAllSection: View {
     @ObservedObject var viewModel: DomainDetailViewModel
     @State private var showingExplication = false
     @State private var showingEditMailboxes = false
+    @State private var selectedSheet: Sheet?
+
+    private enum Sheet {
+        case edit, view
+    }
 
     var body: some View {
         let domain = viewModel.domain
+        let showingSheet = Binding<Bool>(get: {
+            selectedSheet != nil
+        }, set: { showing in
+            if !showing {
+                selectedSheet = nil
+            }
+        })
         VStack(alignment: .leading) {
             HStack {
                 Text("Auto create/on the fly alias")
@@ -122,6 +132,14 @@ private struct CatchAllSection: View {
                 }
 
                 Spacer()
+
+                if viewModel.catchAll {
+                    Button(action: {
+                        selectedSheet = .edit
+                    }, label: {
+                        Text("Edit")
+                    })
+                }
             }
             .padding(.top, 8)
             .padding(.bottom, showingExplication ? 2 : 8)
@@ -157,14 +175,143 @@ private struct CatchAllSection: View {
                     }
                     .padding(.vertical, 4)
                     .onTapGesture {
-//                        selectedSheet = .view
+                        selectedSheet = .view
                     }
                 }
             }
         }
-//        .sheet(isPresented: $showingEditDisplayNameView) {
-//            EditDisplayNameView(viewModel: viewModel)
-//        }
+        .sheet(isPresented: showingSheet) {
+            switch selectedSheet {
+            case .edit:
+                EditMailboxesView(viewModel: viewModel)
+                    .forceDarkModeIfApplicable()
+            case .view:
+                AllMailboxesView(viewModel: viewModel)
+                    .forceDarkModeIfApplicable()
+            default: EmptyView()
+            }
+        }
+    }
+}
+
+private struct EditMailboxesView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var session: Session
+    @ObservedObject var viewModel: DomainDetailViewModel
+    @State private var showingLoadingAlert = false
+    @State private var selectedIds: [Int] = []
+
+    var body: some View {
+        let showingErrorAlert = Binding<Bool>(get: {
+            viewModel.error != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledError()
+            }
+        })
+
+        NavigationView {
+            Group {
+                if !viewModel.mailboxes.isEmpty {
+                    mailboxesList
+                }
+            }
+            .navigationTitle(viewModel.domain.domainName)
+            .navigationBarItems(leading: cancelButton, trailing: doneButton)
+            .disabled(viewModel.isLoading)
+        }
+        .accentColor(.slPurple)
+        .onAppear {
+            selectedIds = viewModel.domain.mailboxes.map { $0.id }
+            viewModel.getMailboxes()
+        }
+        .onReceive(Just(viewModel.isLoading)) { isLoading in
+            showingLoadingAlert = isLoading
+        }
+        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
+            if isUpdated {
+                presentationMode.wrappedValue.dismiss()
+                viewModel.handledIsUpdatedBoolean()
+            }
+        }
+        .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
+            showingLoadingAlert = isLoadingMailboxes
+        }
+        .toast(isPresenting: $showingLoadingAlert) {
+            AlertToast(type: .loading)
+        }
+        .toast(isPresenting: showingErrorAlert) {
+            AlertToast.errorAlert(viewModel.error)
+        }
+    }
+
+    private var cancelButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Cancel")
+        })
+    }
+
+    private var doneButton: some View {
+        Button(action: {
+            viewModel.update(option: .mailboxIds(selectedIds))
+        }, label: {
+            Text("Done")
+        })
+    }
+
+    private var mailboxesList: some View {
+        Form {
+            Section(header: Text("Mailboxes")) {
+                ForEach(viewModel.mailboxes, id: \.id) { mailbox in
+                    HStack {
+                        Text(mailbox.email)
+                        Spacer()
+                        if selectedIds.contains(mailbox.id) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.accentColor)
+                        }
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        if selectedIds.contains(mailbox.id) && selectedIds.count > 1 {
+                            selectedIds.removeAll { $0 == mailbox.id }
+                        } else if !selectedIds.contains(mailbox.id) {
+                            selectedIds.append(mailbox.id)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+private struct AllMailboxesView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    @ObservedObject var viewModel: DomainDetailViewModel
+
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Mailboxes")) {
+                    ForEach(viewModel.domain.mailboxes, id: \.id) { mailbox in
+                        Text(mailbox.email)
+                    }
+                }
+            }
+            .navigationBarTitle(viewModel.domain.domainName)
+            .navigationBarItems(leading: closeButton)
+        }
+        .accentColor(.slPurple)
+    }
+
+    private var closeButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Close")
+        })
     }
 }
 
@@ -326,14 +473,6 @@ private struct RandomPrefixSection: View {
 
             Toggle("Enabled", isOn: $viewModel.randomPrefixGeneration)
                 .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-        }
-    }
-}
-
-struct DomainDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            DomainDetailView(domain: .verified)
         }
     }
 }

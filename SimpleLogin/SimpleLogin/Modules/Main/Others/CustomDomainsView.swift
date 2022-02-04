@@ -41,7 +41,8 @@ struct CustomDomainsView: View {
             ForEach(viewModel.domains, id: \.id) { domain in
                 if domain.verified {
                     NavigationLink(destination: {
-                        DomainDetailView(domain: domain)
+                        DomainDetailView(domain: domain,
+                                         session: viewModel.session)
                     }, label: {
                         DomainView(domain: domain)
                     })
