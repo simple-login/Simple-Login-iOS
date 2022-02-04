@@ -11,9 +11,11 @@ struct URLButton<Content: View>: View {
     @Environment(\.openURL) private var openURL
     let urlString: String
     let content: Content
+    let foregroundColor: Color
 
-    init(urlString: String, @ViewBuilder content: () -> Content) {
+    init(urlString: String, foregroundColor: Color = .primary, @ViewBuilder content: () -> Content) {
         self.urlString = urlString
+        self.foregroundColor = foregroundColor
         self.content = content()
     }
 
@@ -25,6 +27,6 @@ struct URLButton<Content: View>: View {
         }, label: {
             content
         })
-        .foregroundColor(.primary)
+        .foregroundColor(foregroundColor)
     }
 }

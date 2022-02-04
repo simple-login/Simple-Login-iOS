@@ -85,6 +85,8 @@ private struct AliasView: View {
 }
 
 final class AliasesViewModel: BaseViewModel, ObservableObject {
+    @AppStorage(kKeyboardExtensionMode, store: .shared)
+    private var keyboardExtensionMode: KeyboardExtensionMode = .all
     @Published private(set) var aliases = [Alias]()
     @Published private(set) var isLoading = false
     @Published private(set) var moreToLoad = true
@@ -109,7 +111,9 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
     private func getMoreAliases() {
         guard !isLoading && canLoadMorePages else { return }
         isLoading = true
-        session.client.getAliases(apiKey: session.apiKey, page: currentPage)
+        session.client.getAliases(apiKey: session.apiKey,
+                                  page: currentPage,
+                                  pinned: keyboardExtensionMode == .pinned)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }

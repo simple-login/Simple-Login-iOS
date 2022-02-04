@@ -23,8 +23,6 @@ enum MainViewTab {
     }
 }
 
-let kDidShowTips = "DidShowTips"
-
 struct MainView: View {
     @EnvironmentObject private var session: Session
     @Environment(\.scenePhase) var scenePhase

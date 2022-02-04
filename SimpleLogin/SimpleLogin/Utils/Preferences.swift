@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-let kDefaultApiUrlString = "https://app.simplelogin.io/"
-
 final class Preferences: ObservableObject {
     private init() {}
 
@@ -21,7 +19,7 @@ final class Preferences: ObservableObject {
     }
 }
 
-private extension UserDefaults {
+extension UserDefaults {
     static let shared = UserDefaults(suiteName: "group.io.simplelogin.ios")
 }
 

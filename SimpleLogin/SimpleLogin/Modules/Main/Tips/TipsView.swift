@@ -89,10 +89,7 @@ private struct TipView: View {
         case .fullScreen, .shareExtension:
             showingSheet = true
         case .keyboardExtension:
-            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
+            UIApplication.shared.openSettings()
         }
     }
 }

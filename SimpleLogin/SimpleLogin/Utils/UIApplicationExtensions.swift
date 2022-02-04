@@ -11,4 +11,11 @@ extension UIApplication {
     func endEditing() {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
+
+    func openSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        if canOpenURL(url) {
+            open(url, options: [:], completionHandler: nil)
+        }
+    }
 }

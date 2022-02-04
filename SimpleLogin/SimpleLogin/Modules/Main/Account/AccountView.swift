@@ -62,6 +62,7 @@ struct AccountView: View {
                         NewslettersSection()
                         AliasesSection()
                         SenderFormatSection()
+                        KeyboardExtensionSection()
                         LogOutSection(onLogOut: onLogOut)
                     }
                     .environmentObject(viewModel)
@@ -389,12 +390,9 @@ private struct SenderFormatSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
 
     var body: some View {
-        Section(footer: Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")) {
+        Section(header: Text("Sender address format"),
+                footer: Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")) {
             VStack {
-                HStack {
-                    Label("Sender address format", systemImage: "square.and.at.rectangle")
-                    Spacer()
-                }
                 Picker(selection: $viewModel.senderFormat, label: Text(viewModel.senderFormat.description)) {
                     ForEach(SenderFormat.allCases, id: \.self) { format in
                         Text(format.description)
@@ -405,6 +403,95 @@ private struct SenderFormatSection: View {
                 .disabled(viewModel.isLoading)
             }
         }
+    }
+}
+
+private struct KeyboardExtensionSection: View {
+    @AppStorage(kKeyboardExtensionMode, store: .shared)
+    private var keyboardExtensionMode: KeyboardExtensionMode = .all
+    @State private var showingExplanation = false
+
+    var body: some View {
+        Section(header: Text("Keyboard extension"),
+                footer: footerView) {
+            Picker(selection: $keyboardExtensionMode,
+                   label: Text(keyboardExtensionMode.title)) {
+                ForEach(KeyboardExtensionMode.allCases, id: \.self) { mode in
+                    Text(mode.title)
+                        .tag(mode)
+                }
+            }
+                   .pickerStyle(SegmentedPickerStyle())
+                   .sheet(isPresented: $showingExplanation) {
+                       KeyboardFullAccessExplanationView()
+                   }
+        }
+    }
+
+    private var footerView: some View {
+        VStack {
+            Text("You need to enable and give the keyboard full access in order to use it.\nGo to Settings ➝ General ➝ Keyboard ➝ Keyboards.")
+            HStack {
+                Button(action: {
+                    UIApplication.shared.openSettings()
+                }, label: {
+                    Text("Open Settings")
+                        .fontWeight(.medium)
+                        .foregroundColor(.slPurple)
+                })
+
+                Text("•")
+
+                Button(action: {
+                    showingExplanation = true
+                }, label: {
+                    Text("Why full access?")
+                        .fontWeight(.medium)
+                        .foregroundColor(.slPurple)
+                })
+
+                Spacer()
+            }
+        }
+    }
+}
+
+private struct KeyboardFullAccessExplanationView: View {
+    @Environment(\.presentationMode) private var presentationMode
+
+    var body: some View {
+        NavigationView {
+            ScrollView {
+                VStack {
+                    Text("""
+        Most of the functionalities of this application are based on making requests to our server. Every request is attached with an API key in order for our server to authenticate you.
+
+        When you successfully log in, our server sends a valid API key to the application. The application then saves this API key to a Keychain Group in order to reuse it in next sessions without asking you to authenticate again.
+
+        The keyboard extension needs to use the API key saved in Keychain Group by the host application to make requests by itself. Such access to Keychain Group requires full access. The keyboard extension does not record nor share anything you type.
+        """)
+
+                    HStack {
+                        Text("Need more information?")
+                        URLButton(urlString: "mailto:hi@simplelogin.io", foregroundColor: .slPurple) {
+                            Label("Email us", systemImage: "envelope.fill")
+                        }
+                    }
+                    .padding(.top)
+                }
+                    .padding()
+            }
+            .navigationTitle("Why full access?")
+            .navigationBarItems(leading: closeButton)
+        }
+    }
+
+    private var closeButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Close")
+        })
     }
 }
 

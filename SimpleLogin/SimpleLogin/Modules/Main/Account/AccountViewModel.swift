@@ -10,12 +10,6 @@ import LocalAuthentication
 import SimpleLoginPackage
 import SwiftUI
 
-// Not so great key name but need to keep it because of legacy reason
-let kBiometricAuthEnabled = "ActiveBiometricAuthKey"
-let kHapticFeedbackEnabled = "HapticFeedbackEnabled"
-let kUltraProtectionEnabled = "UltraProtectionEnabled"
-let kAliasDisplayMode = "AliasDisplayMode"
-
 final class AccountViewModel: ObservableObject {
     @Published private(set) var userInfo: UserInfo = .empty
     private(set) var usableDomains: [UsableDomain] = []

@@ -72,6 +72,12 @@
 		C04848A4278CD00500702E8E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C04848A3278CD00500702E8E /* StoreKit.framework */; };
 		C04848A7278CD99000702E8E /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = C04848A6278CD99000702E8E /* SwiftyStoreKit */; };
 		C04848A9278CE50700702E8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04848A8278CE50700702E8E /* AppDelegate.swift */; };
+		C04BB63327AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */; };
+		C04BB63427AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */; };
+		C04BB63527AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */; };
+		C04BB63727AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */; };
+		C04BB63827AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */; };
+		C04BB63927AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */; };
 		C05A4CDE273C6C73005F8CC5 /* AutoFocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */; };
 		C05A4CE1273C76BC005F8CC5 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C05A4CE0273C76BC005F8CC5 /* Introspect */; };
 		C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A9B14277BB996003FD0A7 /* UpgradeView.swift */; };
@@ -224,6 +230,8 @@
 		C043D41526E01E280051B282 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		C04848A3278CD00500702E8E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C04848A8278CE50700702E8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStaticStrings.swift; sourceTree = "<group>"; };
+		C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardExtensionMode.swift; sourceTree = "<group>"; };
 		C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFocusTextField.swift; sourceTree = "<group>"; };
 		C05A9B14277BB996003FD0A7 /* UpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
 		C05CC54A26FBCAAE003BC32D /* ResetPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
@@ -512,6 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				C064797C272B331D009CA1F8 /* Action.swift */,
+				C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */,
 				C0F1963B273483CC0062B418 /* Session.swift */,
 				C00874B227A989D3004F32FA /* SLError.swift */,
 			);
@@ -543,6 +552,7 @@
 				C08BD81A2746E58300759E43 /* AlertToastExtensions.swift */,
 				C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */,
 				C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */,
+				C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */,
 				C043D41526E01E280051B282 /* KeychainService.swift */,
 				C03760F926DC0F0200E5ECAC /* Preferences.swift */,
 				C0259EAE26DA55CD0056A977 /* StringExtensions.swift */,
@@ -801,7 +811,9 @@
 				C010032727A739D8009735CD /* Preferences.swift in Sources */,
 				C010032627A739CD009735CD /* KeychainService.swift in Sources */,
 				C00874B427A989D3004F32FA /* SLError.swift in Sources */,
+				C04BB63427AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */,
 				C05DB09D27A877BD00200E2D /* BaseViewModel.swift in Sources */,
+				C04BB63827AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
 				C010032D27A7479E009735CD /* AliasesView.swift in Sources */,
 				C010032B27A73EC3009735CD /* ColorExtensions.swift in Sources */,
 				C00874B027A98748004F32FA /* ErrorExtensions.swift in Sources */,
@@ -813,6 +825,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0F1963C273483CC0062B418 /* Session.swift in Sources */,
+				C04BB63327AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */,
 				C03760F826DC0D6A00E5ECAC /* LogInViewModel.swift in Sources */,
 				C064797D272B331D009CA1F8 /* Action.swift in Sources */,
 				C04848A9278CE50700702E8E /* AppDelegate.swift in Sources */,
@@ -853,6 +866,7 @@
 				C02F4CAF27483B390019F965 /* CreateAliasViewModel.swift in Sources */,
 				C0F732B5278F842A004608DB /* MailboxesView.swift in Sources */,
 				C02FCF8D278E2FB200F32BED /* PhotoPickerView.swift in Sources */,
+				C04BB63727AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
 				C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */,
 				C08BD81B2746E58300759E43 /* AlertToastExtensions.swift in Sources */,
 				C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */,
@@ -903,11 +917,13 @@
 				C0941EE427A6E6DE009AAEBC /* Session.swift in Sources */,
 				C0941EF027A6EFD7009AAEBC /* ColorExtensions.swift in Sources */,
 				C03E200D27A1F436000D82F6 /* ShareViewController.swift in Sources */,
+				C04BB63527AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */,
 				C0941EFB27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				C0941EED27A6EEAE009AAEBC /* CreateAliasView.swift in Sources */,
 				C0941EEF27A6EFBF009AAEBC /* StringExtensions.swift in Sources */,
 				C0941EE227A6E606009AAEBC /* KeychainService.swift in Sources */,
 				C00874B127A98748004F32FA /* ErrorExtensions.swift in Sources */,
+				C04BB63927AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
 				C0941EE627A6E755009AAEBC /* NoSessionView.swift in Sources */,
 				C0941EEE27A6EF78009AAEBC /* BaseViewModel.swift in Sources */,
 				C0941EE327A6E614009AAEBC /* Preferences.swift in Sources */,
@@ -959,7 +975,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = "Keyboard Extension/Keyboard Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20003;
+				CURRENT_PROJECT_VERSION = 20004;
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Keyboard Extension/Info.plist";
@@ -987,7 +1003,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = "Keyboard Extension/Keyboard Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20003;
+				CURRENT_PROJECT_VERSION = 20004;
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Keyboard Extension/Info.plist";
@@ -1133,7 +1149,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleLogin/SimpleLogin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20003;
+				CURRENT_PROJECT_VERSION = 20004;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleLogin/Preview Content\"";
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				ENABLE_PREVIEWS = YES;
@@ -1159,7 +1175,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleLogin/SimpleLogin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20003;
+				CURRENT_PROJECT_VERSION = 20004;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleLogin/Preview Content\"";
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				ENABLE_PREVIEWS = YES;
@@ -1270,7 +1286,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20003;
+				CURRENT_PROJECT_VERSION = 20004;
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
@@ -1298,7 +1314,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20003;
+				CURRENT_PROJECT_VERSION = 20004;
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
