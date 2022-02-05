@@ -34,6 +34,7 @@
 		C010032B27A73EC3009735CD /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */; };
 		C010032D27A7479E009735CD /* AliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010032C27A7479E009735CD /* AliasesView.swift */; };
 		C0100B3026DEC46900085C24 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0100B2F26DEC46900085C24 /* MainView.swift */; };
+		C0126D0027AEA07A00B489E8 /* SearchAliasesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0126CFF27AEA07A00B489E8 /* SearchAliasesViewController.swift */; };
 		C02309CE2762AD6B00B6EC37 /* EmptyDataModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */; };
 		C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0259EAC26DA30D70056A977 /* SignUpView.swift */; };
 		C0259EAF26DA55CD0056A977 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0259EAE26DA55CD0056A977 /* StringExtensions.swift */; };
@@ -72,12 +73,13 @@
 		C04848A4278CD00500702E8E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C04848A3278CD00500702E8E /* StoreKit.framework */; };
 		C04848A7278CD99000702E8E /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = C04848A6278CD99000702E8E /* SwiftyStoreKit */; };
 		C04848A9278CE50700702E8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04848A8278CE50700702E8E /* AppDelegate.swift */; };
-		C04BB63327AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */; };
-		C04BB63427AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */; };
-		C04BB63527AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */; };
+		C04BB63327AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */; };
+		C04BB63427AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */; };
+		C04BB63527AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */; };
 		C04BB63727AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */; };
 		C04BB63827AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */; };
 		C04BB63927AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */; };
+		C0542ABE27AEDF3B00188C63 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */; };
 		C05A4CDE273C6C73005F8CC5 /* AutoFocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */; };
 		C05A4CE1273C76BC005F8CC5 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C05A4CE0273C76BC005F8CC5 /* Introspect */; };
 		C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A9B14277BB996003FD0A7 /* UpgradeView.swift */; };
@@ -88,6 +90,8 @@
 		C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C079864926B34D5F006C9FC0 /* LogInView.swift */; };
 		C07EA68B273E4DEA00C7D69C /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = C07EA68A273E4DEA00C7D69C /* AlertToast */; };
 		C07EA68D273E57AA00C7D69C /* ApiKeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07EA68C273E57AA00C7D69C /* ApiKeyViewModel.swift */; };
+		C087655E27AE798300FF26E6 /* SearchAliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087655D27AE798300FF26E6 /* SearchAliasesViewModel.swift */; };
+		C087656027AE7A5C00FF26E6 /* SearchAliasesResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087655F27AE7A5C00FF26E6 /* SearchAliasesResultView.swift */; };
 		C08A5D8527499A0200BE889B /* AliasContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A5D8427499A0200BE889B /* AliasContactsView.swift */; };
 		C08A5D8727499A6100BE889B /* AliasContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A5D8627499A6100BE889B /* AliasContactsViewModel.swift */; };
 		C08BD81B2746E58300759E43 /* AlertToastExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08BD81A2746E58300759E43 /* AlertToastExtensions.swift */; };
@@ -189,6 +193,7 @@
 		C010031F27A73962009735CD /* Keyboard Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Keyboard Extension.entitlements"; sourceTree = "<group>"; };
 		C010032C27A7479E009735CD /* AliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesView.swift; sourceTree = "<group>"; };
 		C0100B2F26DEC46900085C24 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		C0126CFF27AEA07A00B489E8 /* SearchAliasesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAliasesViewController.swift; sourceTree = "<group>"; };
 		C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDataModifier.swift; sourceTree = "<group>"; };
 		C0259EAC26DA30D70056A977 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		C0259EAE26DA55CD0056A977 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -230,8 +235,9 @@
 		C043D41526E01E280051B282 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		C04848A3278CD00500702E8E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C04848A8278CE50700702E8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStaticStrings.swift; sourceTree = "<group>"; };
+		C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardExtensionMode.swift; sourceTree = "<group>"; };
+		C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFocusTextField.swift; sourceTree = "<group>"; };
 		C05A9B14277BB996003FD0A7 /* UpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
 		C05CC54A26FBCAAE003BC32D /* ResetPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
@@ -239,6 +245,8 @@
 		C06CEAF1279018B100736920 /* MailboxesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxesViewModel.swift; sourceTree = "<group>"; };
 		C079864926B34D5F006C9FC0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		C07EA68C273E57AA00C7D69C /* ApiKeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyViewModel.swift; sourceTree = "<group>"; };
+		C087655D27AE798300FF26E6 /* SearchAliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAliasesViewModel.swift; sourceTree = "<group>"; };
+		C087655F27AE7A5C00FF26E6 /* SearchAliasesResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAliasesResultView.swift; sourceTree = "<group>"; };
 		C08A5D8427499A0200BE889B /* AliasContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasContactsView.swift; sourceTree = "<group>"; };
 		C08A5D8627499A6100BE889B /* AliasContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasContactsViewModel.swift; sourceTree = "<group>"; };
 		C08BD81A2746E58300759E43 /* AlertToastExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastExtensions.swift; sourceTree = "<group>"; };
@@ -459,6 +467,7 @@
 		C03F4F2E26E1733200BBF2A8 /* Aliases */ = {
 			isa = PBXGroup;
 			children = (
+				C087655A27AE740200FF26E6 /* Search */,
 				C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */,
 				C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */,
 				C03B518D27288F2700C54130 /* AliasCompactView.swift */,
@@ -469,7 +478,6 @@
 				C029769326F141A60014DC3B /* CreateAliasView.swift */,
 				C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */,
 				C03629962777B21200531481 /* CreateContactView.swift */,
-				C029769126F1406D0014DC3B /* SearchAliasesView.swift */,
 			);
 			path = Aliases;
 			sourceTree = "<group>";
@@ -527,6 +535,17 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		C087655A27AE740200FF26E6 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				C029769126F1406D0014DC3B /* SearchAliasesView.swift */,
+				C087655D27AE798300FF26E6 /* SearchAliasesViewModel.swift */,
+				C0126CFF27AEA07A00B489E8 /* SearchAliasesViewController.swift */,
+				C087655F27AE7A5C00FF26E6 /* SearchAliasesResultView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		C0AAE98C26E4150200247742 /* Supporting Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -550,9 +569,10 @@
 			isa = PBXGroup;
 			children = (
 				C08BD81A2746E58300759E43 /* AlertToastExtensions.swift */,
+				C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */,
 				C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */,
 				C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */,
-				C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */,
+				C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */,
 				C043D41526E01E280051B282 /* KeychainService.swift */,
 				C03760F926DC0F0200E5ECAC /* Preferences.swift */,
 				C0259EAE26DA55CD0056A977 /* StringExtensions.swift */,
@@ -811,7 +831,7 @@
 				C010032727A739D8009735CD /* Preferences.swift in Sources */,
 				C010032627A739CD009735CD /* KeychainService.swift in Sources */,
 				C00874B427A989D3004F32FA /* SLError.swift in Sources */,
-				C04BB63427AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */,
+				C04BB63427AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */,
 				C05DB09D27A877BD00200E2D /* BaseViewModel.swift in Sources */,
 				C04BB63827AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
 				C010032D27A7479E009735CD /* AliasesView.swift in Sources */,
@@ -825,16 +845,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0F1963C273483CC0062B418 /* Session.swift in Sources */,
-				C04BB63327AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */,
+				C04BB63327AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */,
 				C03760F826DC0D6A00E5ECAC /* LogInViewModel.swift in Sources */,
 				C064797D272B331D009CA1F8 /* Action.swift in Sources */,
 				C04848A9278CE50700702E8E /* AppDelegate.swift in Sources */,
+				C0542ABE27AEDF3B00188C63 /* BaseViewController.swift in Sources */,
 				C03B518E27288F2700C54130 /* AliasCompactView.swift in Sources */,
 				C0AAE98E26E4152A00247742 /* Blur.swift in Sources */,
 				C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */,
+				C0126D0027AEA07A00B489E8 /* SearchAliasesViewController.swift in Sources */,
 				C0259EAF26DA55CD0056A977 /* StringExtensions.swift in Sources */,
 				C043D41626E01E280051B282 /* KeychainService.swift in Sources */,
 				C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */,
+				C087655E27AE798300FF26E6 /* SearchAliasesViewModel.swift in Sources */,
 				C0F732B7278F854F004608DB /* CustomDomainsView.swift in Sources */,
 				C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */,
 				C029769226F1406D0014DC3B /* SearchAliasesView.swift in Sources */,
@@ -857,6 +880,7 @@
 				C0F1964027348EDA0062B418 /* AliasDetailViewModel.swift in Sources */,
 				C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */,
 				C00E66692792C687002DBA67 /* ClearButtonModeModifier.swift in Sources */,
+				C087656027AE7A5C00FF26E6 /* SearchAliasesResultView.swift in Sources */,
 				C0FE7B2D27A9CFD7005D53DF /* SignUpViewModel.swift in Sources */,
 				C0941EFA27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */,
@@ -917,7 +941,7 @@
 				C0941EE427A6E6DE009AAEBC /* Session.swift in Sources */,
 				C0941EF027A6EFD7009AAEBC /* ColorExtensions.swift in Sources */,
 				C03E200D27A1F436000D82F6 /* ShareViewController.swift in Sources */,
-				C04BB63527AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */,
+				C04BB63527AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */,
 				C0941EFB27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				C0941EED27A6EEAE009AAEBC /* CreateAliasView.swift in Sources */,
 				C0941EEF27A6EFBF009AAEBC /* StringExtensions.swift in Sources */,

@@ -9,11 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class MailboxesViewModel: BaseViewModel, ObservableObject {
-    deinit {
-        print("\(Self.self) is deallocated")
-    }
-
+final class MailboxesViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var mailboxes = [Mailbox]()
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?

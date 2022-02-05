@@ -9,11 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class DomainDetailViewModel: BaseViewModel, ObservableObject {
-    deinit {
-        print("\(Self.self) deallocated: \(domain.domainName)")
-    }
-
+final class DomainDetailViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var domain: CustomDomain = .empty
     @Published var catchAll = false
     @Published var randomPrefixGeneration = false

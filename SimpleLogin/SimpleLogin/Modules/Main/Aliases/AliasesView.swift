@@ -77,7 +77,7 @@ struct AliasesView: View {
                 NavigationLink(
                     isActive: $showingAliasContacts,
                     destination: {
-                        AliasContactsView(alias: selectedAlias)
+                        AliasContactsView(alias: selectedAlias, session: viewModel.session)
                     },
                     label: { EmptyView() })
                 LazyVStack {
@@ -131,8 +131,15 @@ struct AliasesView: View {
             .actionSheet(isPresented: $showingRandomAliasActionSheet) {
                 randomAliasActionSheet
             }
-            .fullScreenCover(isPresented: $showingSearchView) {
-                SearchAliasesView()
+            .sheet(isPresented: $showingSearchView) {
+                SearchAliasesView(
+                    session: viewModel.session,
+                    onUpdateAlias: { updatedAlias in
+                        viewModel.update(alias: updatedAlias)
+                    },
+                    onDeleteAlias: { deletedAlias in
+                        viewModel.delete(alias: deletedAlias)
+                    })
                     .forceDarkModeIfApplicable()
             }
         }
@@ -155,10 +162,7 @@ struct AliasesView: View {
                 .forceDarkModeIfApplicable()
         }
         .toast(isPresenting: showingCopiedEmailAlert) {
-            AlertToast(displayMode: .alert,
-                       type: .systemImage("doc.on.doc", .secondary),
-                       title: "Copied",
-                       subTitle: copiedEmail ?? "")
+            AlertToast.copiedAlert(content: copiedEmail)
         }
         .toast(isPresenting: showingErrorAlert) {
             AlertToast.errorAlert(viewModel.error)
@@ -223,12 +227,12 @@ struct AliasesViewToolbar: View {
                 .fixedSize()
                 .padding(.horizontal, 16)
 
-//            Button(action: onSearch) {
-//                Image(systemName: "magnifyingglass")
-//            }
-//
-//            Spacer()
-//                .frame(width: 24)
+            Button(action: onSearch) {
+                Image(systemName: "magnifyingglass")
+            }
+
+            Spacer()
+                .frame(width: 24)
 
             Button(action: onRandomAlias) {
                 Image(systemName: "shuffle")

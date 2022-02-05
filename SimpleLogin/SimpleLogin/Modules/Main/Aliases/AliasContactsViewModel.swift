@@ -9,13 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class AliasContactsViewModel: ObservableObject {
-    deinit {
-        print("\(Self.self) is deallocated")
-    }
-
-    let alias: Alias
-
+final class AliasContactsViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var isFetchingContacts = false
     @Published private(set) var isLoading = false
     @Published private(set) var isRefreshing = false
@@ -26,27 +20,30 @@ final class AliasContactsViewModel: ObservableObject {
     private var currentPage = 0
     private var canLoadMorePages = true
 
-    init(alias: Alias) {
+    let alias: Alias
+
+    init(alias: Alias, session: Session) {
         self.alias = alias
+        super.init(session: session)
     }
 
     func handledError() {
         self.error = nil
     }
 
-    func getMoreContactsIfNeed(session: Session, currentContact: Contact?) {
+    func getMoreContactsIfNeed(currentContact: Contact?) {
         guard let currentContact = currentContact, let contacts = contacts else {
-            getMoreContacts(session: session)
+            getMoreContacts()
             return
         }
 
         let thresholdIndex = contacts.index(contacts.endIndex, offsetBy: -1)
         if contacts.firstIndex(where: { $0.id == currentContact.id }) == thresholdIndex {
-            getMoreContacts(session: session)
+            getMoreContacts()
         }
     }
 
-    private func getMoreContacts(session: Session) {
+    private func getMoreContacts() {
         guard !isFetchingContacts && canLoadMorePages else { return }
         isFetchingContacts = true
         session.client.getAliasContacts(apiKey: session.apiKey, id: alias.id, page: currentPage)
@@ -67,12 +64,12 @@ final class AliasContactsViewModel: ObservableObject {
                 }
                 self.contacts?.append(contentsOf: contactArray.contacts)
                 self.currentPage += 1
-                self.canLoadMorePages = contactArray.contacts.count == 20
+                self.canLoadMorePages = contactArray.contacts.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }
 
-    func refresh(session: Session) {
+    override func refresh() {
         guard !isRefreshing else { return }
         isRefreshing = true
         session.client.getAliasContacts(apiKey: session.apiKey, id: alias.id, page: 0)
@@ -80,6 +77,7 @@ final class AliasContactsViewModel: ObservableObject {
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 self.isRefreshing = false
+                self.refreshControl.endRefreshing()
                 switch completion {
                 case .finished:
                     break
@@ -90,12 +88,12 @@ final class AliasContactsViewModel: ObservableObject {
                 guard let self = self else { return }
                 self.contacts = contactArray.contacts
                 self.currentPage = 1
-                self.canLoadMorePages = contactArray.contacts.count == 20
+                self.canLoadMorePages = contactArray.contacts.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }
 
-    func toggleContact(session: Session, contact: Contact) {
+    func toggleContact(_ contact: Contact) {
         guard !isLoading else { return }
         isLoading = true
         session.client.toggleContact(apiKey: session.apiKey, id: contact.id)
@@ -123,7 +121,7 @@ final class AliasContactsViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func deleteContact(session: Session, contact: Contact) {
+    func deleteContact(_ contact: Contact) {
         guard !isLoading else { return }
         isLoading = true
         session.client.deleteContact(apiKey: session.apiKey, id: contact.id)
@@ -138,7 +136,7 @@ final class AliasContactsViewModel: ObservableObject {
             } receiveValue: { [weak self] deletedResponse in
                 guard let self = self else { return }
                 if deletedResponse.value {
-                    self.refresh(session: session)
+                    self.refresh()
                 }
             }
             .store(in: &cancellables)

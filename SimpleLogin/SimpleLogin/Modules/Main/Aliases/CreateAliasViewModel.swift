@@ -9,11 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class CreateAliasViewModel: BaseViewModel, ObservableObject {
-    deinit {
-        print("\(Self.self) is deallocated")
-    }
-
+final class CreateAliasViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var options: AliasOptions?
     @Published private(set) var mailboxes: [Mailbox]?

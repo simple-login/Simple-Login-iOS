@@ -66,7 +66,7 @@ struct AliasDetailView: View {
 
         ZStack {
             NavigationLink(isActive: $showingAliasContacts,
-                           destination: { AliasContactsView(alias: viewModel.alias) },
+                           destination: { AliasContactsView(alias: viewModel.alias, session: viewModel.session) },
                            label: { EmptyView() })
             ScrollView {
                 Group {
@@ -133,14 +133,17 @@ struct AliasDetailView: View {
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
         }
+        .onReceive(Just(viewModel.isRefreshed)) { isRefreshed in
+            if isRefreshed {
+                onUpdateAlias(viewModel.alias)
+                viewModel.handledIsRefreshedBoolean()
+            }
+        }
         .onReceive(Just(viewModel.isDeleted)) { isDeleted in
             if isDeleted {
                 onDeleteAlias()
                 presentationMode.wrappedValue.dismiss()
             }
-        }
-        .onDisappear {
-            onUpdateAlias(viewModel.alias)
         }
         .onAppear {
             viewModel.getMoreActivitiesIfNeed(currentActivity: nil)
@@ -891,14 +894,3 @@ struct AliasEmailView: View {
         }
     }
 }
-
-// MARK: - Previews
-//struct AliasDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            AliasDetailView(alias: .claypool,
-//                            onUpdateAlias: { _ in },
-//                            onDeleteAlias: {})
-//        }
-//    }
-//}

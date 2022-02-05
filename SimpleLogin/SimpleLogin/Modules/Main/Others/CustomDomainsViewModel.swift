@@ -9,11 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class CustomDomainsViewModel: BaseViewModel, ObservableObject {
-    deinit {
-        print("\(Self.self) is deallocated")
-    }
-
+final class CustomDomainsViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var domains: [CustomDomain] = []
     @Published private(set) var noDomain = false
     @Published private(set) var isLoading = false

@@ -9,17 +9,14 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class AliasDetailViewModel: BaseViewModel, ObservableObject {
-    deinit {
-        print("\(Self.self) deallocated: \(alias.email)")
-    }
-
+final class AliasDetailViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var alias: Alias
     @Published private(set) var activities: [AliasActivity] = []
     @Published private(set) var isLoadingActivities = false
     @Published private(set) var mailboxes: [Mailbox] = []
     @Published private(set) var isLoadingMailboxes = false
     @Published private(set) var isRefreshing = false
+    @Published private(set) var isRefreshed = false
     @Published private(set) var isDeleted = false
     @Published private(set) var error: Error?
 
@@ -47,6 +44,10 @@ final class AliasDetailViewModel: BaseViewModel, ObservableObject {
 
     func handledIsUpdatedBoolean() {
         isUpdated = false
+    }
+
+    func handledIsRefreshedBoolean() {
+        isRefreshed = false
     }
 
     func getMoreActivitiesIfNeed(currentActivity activity: AliasActivity?) {
@@ -79,7 +80,7 @@ final class AliasDetailViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.activities.append(contentsOf: activityArray.activities)
                 self.currentPage += 1
-                self.canLoadMorePages = activityArray.activities.count == 20
+                self.canLoadMorePages = activityArray.activities.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }
@@ -115,6 +116,7 @@ final class AliasDetailViewModel: BaseViewModel, ObservableObject {
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 self.isRefreshing = false
+                self.isRefreshed = true
                 self.refreshControl.endRefreshing()
                 switch completion {
                 case .finished:
@@ -128,7 +130,7 @@ final class AliasDetailViewModel: BaseViewModel, ObservableObject {
                 self.alias = result.0
                 self.activities = result.1.activities
                 self.currentPage = 1
-                self.canLoadMorePages = result.1.activities.count == 20
+                self.canLoadMorePages = result.1.activities.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }

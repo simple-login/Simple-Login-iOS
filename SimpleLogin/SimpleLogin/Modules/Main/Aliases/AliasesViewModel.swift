@@ -9,7 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class AliasesViewModel: BaseViewModel, ObservableObject {
+final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
     @Published var selectedStatus: AliasStatus = .all {
         didSet {
@@ -67,7 +67,7 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.aliases.append(contentsOf: aliasArray.aliases)
                 self.currentPage += 1
-                self.canLoadMorePages = aliasArray.aliases.count == 20
+                self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }
@@ -100,7 +100,7 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.aliases = aliasArray.aliases
                 self.currentPage = 1
-                self.canLoadMorePages = aliasArray.aliases.count == 20
+                self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }

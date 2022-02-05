@@ -84,7 +84,8 @@ private struct AliasView: View {
     }
 }
 
-final class AliasesViewModel: BaseViewModel, ObservableObject {
+// swiftlint:disable let_var_whitespace
+final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     @AppStorage(kKeyboardExtensionMode, store: .shared)
     private var keyboardExtensionMode: KeyboardExtensionMode = .all
     @Published private(set) var aliases = [Alias]()
@@ -128,7 +129,7 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.aliases.append(contentsOf: aliasArray.aliases)
                 self.currentPage += 1
-                self.canLoadMorePages = aliasArray.aliases.count == 20
+                self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }
@@ -150,7 +151,7 @@ final class AliasesViewModel: BaseViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.aliases = aliasArray.aliases
                 self.currentPage = 1
-                self.canLoadMorePages = aliasArray.aliases.count == 20
+                self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }
