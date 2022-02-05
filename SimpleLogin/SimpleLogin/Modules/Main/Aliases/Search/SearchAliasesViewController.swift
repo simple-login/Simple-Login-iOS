@@ -12,10 +12,14 @@ import UIKit
 final class SearchAliasesViewController: BaseViewController {
     private let viewModel: SearchAliasesViewModel
     let onUpdateAlias: (Alias) -> Void
+    let onDeleteAlias: (Alias) -> Void
 
-    init(session: Session, onUpdateAlias: @escaping (Alias) -> Void) {
+    init(session: Session,
+         onUpdateAlias: @escaping (Alias) -> Void,
+         onDeleteAlias: @escaping (Alias) -> Void) {
         self.viewModel = .init(session: session)
         self.onUpdateAlias = onUpdateAlias
+        self.onDeleteAlias = onDeleteAlias
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -66,8 +70,10 @@ final class SearchAliasesViewController: BaseViewController {
                 self.onUpdateAlias(updatedAlias)
                 self.viewModel.update(alias: updatedAlias)
             },
-            onDeleteAlias: {
-
+            onDeleteAlias: { [weak self] in
+                guard let self = self else { return }
+                self.onDeleteAlias(alias)
+                self.viewModel.delete(alias: alias)
             })
         let hostingController = UIHostingController(rootView: aliasDetailView)
         navigationController?.pushViewController(hostingController, animated: true)

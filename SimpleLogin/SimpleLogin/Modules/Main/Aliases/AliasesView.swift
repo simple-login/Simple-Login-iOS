@@ -136,6 +136,9 @@ struct AliasesView: View {
                     session: viewModel.session,
                     onUpdateAlias: { updatedAlias in
                         viewModel.update(alias: updatedAlias)
+                    },
+                    onDeleteAlias: { deletedAlias in
+                        viewModel.delete(alias: deletedAlias)
                     })
                     .forceDarkModeIfApplicable()
             }
