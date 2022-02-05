@@ -155,10 +155,7 @@ struct AliasesView: View {
                 .forceDarkModeIfApplicable()
         }
         .toast(isPresenting: showingCopiedEmailAlert) {
-            AlertToast(displayMode: .alert,
-                       type: .systemImage("doc.on.doc", .secondary),
-                       title: "Copied",
-                       subTitle: copiedEmail ?? "")
+            AlertToast.copiedAlert(content: copiedEmail)
         }
         .toast(isPresenting: showingErrorAlert) {
             AlertToast.errorAlert(viewModel.error)

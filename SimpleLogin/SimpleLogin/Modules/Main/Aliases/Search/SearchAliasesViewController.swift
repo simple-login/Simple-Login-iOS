@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 05/02/2022.
 //
 
+import SimpleLoginPackage
 import SwiftUI
 import UIKit
 
@@ -31,7 +32,9 @@ final class SearchAliasesViewController: BaseViewController {
         navigationItem.titleView = searchBar
         navigationItem.hidesSearchBarWhenScrolling = false
 
-        let searchAliasesResultView = SearchAliasesResultView(viewModel: viewModel)
+        let searchAliasesResultView = SearchAliasesResultView(viewModel: viewModel) { [unowned self] selectedAlias in
+            self.showAliasDetail(selectedAlias)
+        }
         let hostingController = UIHostingController(rootView: searchAliasesResultView)
         addChild(hostingController)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +46,20 @@ final class SearchAliasesViewController: BaseViewController {
             hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         hostingController.didMove(toParent: self)
+    }
+
+    private func showAliasDetail(_ alias: Alias) {
+        let aliasDetailView = AliasDetailView(
+            alias: alias,
+            session: viewModel.session,
+            onUpdateAlias: { updatedAlias in
+
+            },
+            onDeleteAlias: {
+
+            })
+        let hostingController = UIHostingController(rootView: aliasDetailView)
+        navigationController?.pushViewController(hostingController, animated: true)
     }
 }
 

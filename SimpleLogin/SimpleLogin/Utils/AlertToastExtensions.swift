@@ -19,4 +19,11 @@ extension AlertToast {
                    type: .regular,
                    title: message)
     }
+
+    static func copiedAlert(content: String?) -> AlertToast {
+        AlertToast(displayMode: .alert,
+                   type: .systemImage("doc.on.doc", .secondary),
+                   title: "Copied",
+                   subTitle: content ?? "")
+    }
 }
