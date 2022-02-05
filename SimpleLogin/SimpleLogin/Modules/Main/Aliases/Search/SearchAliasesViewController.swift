@@ -11,9 +11,11 @@ import UIKit
 
 final class SearchAliasesViewController: BaseViewController {
     private let viewModel: SearchAliasesViewModel
+    let onUpdateAlias: (Alias) -> Void
 
-    init(session: Session) {
-        viewModel = .init(session: session)
+    init(session: Session, onUpdateAlias: @escaping (Alias) -> Void) {
+        self.viewModel = .init(session: session)
+        self.onUpdateAlias = onUpdateAlias
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -29,6 +31,7 @@ final class SearchAliasesViewController: BaseViewController {
         searchBar.placeholder = "Search term"
         searchBar.becomeFirstResponder()
         searchBar.showsCancelButton = true
+        searchBar.autocapitalizationType = .none
         navigationItem.titleView = searchBar
         navigationItem.hidesSearchBarWhenScrolling = false
 
@@ -39,7 +42,8 @@ final class SearchAliasesViewController: BaseViewController {
             },
             onSendMail: { [unowned self] alias in
                 self.showAliasContacts(alias)
-            })
+            },
+            onUpdate: onUpdateAlias)
         let hostingController = UIHostingController(rootView: searchAliasesResultView)
         addChild(hostingController)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -57,8 +61,8 @@ final class SearchAliasesViewController: BaseViewController {
         let aliasDetailView = AliasDetailView(
             alias: alias,
             session: viewModel.session,
-            onUpdateAlias: { updatedAlias in
-
+            onUpdateAlias: { [unowned self] updatedAlias in
+                self.onUpdateAlias(updatedAlias)
             },
             onDeleteAlias: {
 

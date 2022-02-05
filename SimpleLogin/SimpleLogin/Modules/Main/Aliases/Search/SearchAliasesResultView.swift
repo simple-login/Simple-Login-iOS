@@ -6,15 +6,18 @@
 //
 
 import AlertToast
+import Combine
 import SimpleLoginPackage
 import SwiftUI
 
 struct SearchAliasesResultView: View {
     @ObservedObject var viewModel: SearchAliasesViewModel
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
+    @State private var showingUpdatingAlert = false
     @State private var copiedEmail: String?
     var onSelect: (Alias) -> Void
     var onSendMail: (Alias) -> Void
+    var onUpdate: (Alias) -> Void
 
     var body: some View {
         let showingErrorAlert = Binding<Bool>(get: {
@@ -56,7 +59,7 @@ struct SearchAliasesResultView: View {
                                 onSendMail(alias)
                             },
                             onToggle: {
-
+                                viewModel.toggle(alias: alias)
                             })
                             .padding(.horizontal, 4)
                             .onTapGesture {
@@ -80,11 +83,22 @@ struct SearchAliasesResultView: View {
                 UIApplication.shared.endEditing()
             }
         )
+        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+            showingUpdatingAlert = isUpdating
+        }
+        .onReceive(Just(viewModel.updatedAlias)) { updatedAlias in
+            if let updatedAlias = updatedAlias {
+                onUpdate(updatedAlias)
+            }
+        }
         .toast(isPresenting: showingErrorAlert) {
             AlertToast.errorAlert(viewModel.error)
         }
         .toast(isPresenting: showingCopiedEmailAlert) {
             AlertToast.copiedAlert(content: copiedEmail)
+        }
+        .toast(isPresenting: $showingUpdatingAlert) {
+            AlertToast(type: .loading)
         }
     }
 }

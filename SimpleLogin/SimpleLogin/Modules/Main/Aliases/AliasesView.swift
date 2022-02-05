@@ -132,7 +132,11 @@ struct AliasesView: View {
                 randomAliasActionSheet
             }
             .sheet(isPresented: $showingSearchView) {
-                SearchAliasesView(session: viewModel.session)
+                SearchAliasesView(
+                    session: viewModel.session,
+                    onUpdateAlias: { updatedAlias in
+                        viewModel.update(alias: updatedAlias)
+                    })
                     .forceDarkModeIfApplicable()
             }
         }
