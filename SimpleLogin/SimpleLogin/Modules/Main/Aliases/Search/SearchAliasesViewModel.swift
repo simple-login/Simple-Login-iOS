@@ -8,18 +8,17 @@
 import Combine
 import Foundation
 
-final class SearchAliasesViewModel: ObservableObject {
+final class SearchAliasesViewModel: BaseSessionViewModel, ObservableObject {
     private let searchTermSubject = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
-    private let session: Session
 
-    init(session: Session) {
-        self.session = session
+    override init(session: Session) {
+        super.init(session: session)
         searchTermSubject
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .filter { $0.count >= 2 }
-            .sink { term in
-                print(term)
+            .sink { [unowned self] term in
+                self._search(term: term)
             }
             .store(in: &cancellables)
     }
@@ -27,4 +26,6 @@ final class SearchAliasesViewModel: ObservableObject {
     func search(term: String) {
         searchTermSubject.send(term)
     }
+
+    private func _search(term: String) {}
 }

@@ -126,6 +126,7 @@ final class AccountViewModel: ObservableObject {
                             if errorResponse.statusCode == 401 {
                                 self.shouldLogOut = true
                             } else {
+                                // swiftlint:disable:next fallthrough
                                 fallthrough
                             }
                         default: self.error = error

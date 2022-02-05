@@ -9,7 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class AliasesViewModel: BaseViewModel, ObservableObject {
+final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
     @Published var selectedStatus: AliasStatus = .all {
         didSet {

@@ -84,7 +84,8 @@ private struct AliasView: View {
     }
 }
 
-final class AliasesViewModel: BaseViewModel, ObservableObject {
+// swiftlint:disable let_var_whitespace
+final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     @AppStorage(kKeyboardExtensionMode, store: .shared)
     private var keyboardExtensionMode: KeyboardExtensionMode = .all
     @Published private(set) var aliases = [Alias]()

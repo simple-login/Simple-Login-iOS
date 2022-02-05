@@ -77,7 +77,11 @@ private struct TipView: View {
             case .fullScreen:
                 AliasEmailView(email: "a-long-and-complicated-alias@my-domain.com")
             case .shareExtension:
-                ShareSheetView(activityItems: [URL(string: "https://www.wikipedia.org/")])
+                if let url = URL(string: "https://www.wikipedia.org/") {
+                    ShareSheetView(activityItems: [url])
+                } else {
+                    EmptyView()
+                }
             case .keyboardExtension:
                 EmptyView()
             }

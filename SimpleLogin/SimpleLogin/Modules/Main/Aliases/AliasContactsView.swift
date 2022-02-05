@@ -13,7 +13,6 @@ import SwiftUI
 
 struct AliasContactsView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var session: Session
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel: AliasContactsViewModel
     @State private var showingHelperText = false
@@ -21,10 +20,9 @@ struct AliasContactsView: View {
     @State private var showingCreateContactView = false
     @State private var selectedContact: Contact?
     @State private var copiedText: String?
-    private let refreshControl = UIRefreshControl()
 
-    init(alias: Alias) {
-        _viewModel = StateObject(wrappedValue: .init(alias: alias))
+    init(alias: Alias, session: Session) {
+        _viewModel = StateObject(wrappedValue: .init(alias: alias, session: session))
     }
 
     var body: some View {
@@ -72,17 +70,13 @@ struct AliasContactsView: View {
             .padding(.vertical, 8)
         }
         .introspectScrollView { scrollView in
-            refreshControl.addAction(UIAction { _ in
-                viewModel.refresh(session: session)
-            }, for: .valueChanged)
-            scrollView.refreshControl = refreshControl
+            scrollView.refreshControl = viewModel.refreshControl
         }
         .navigationBarTitle(viewModel.contacts?.isEmpty == false ? viewModel.alias.email : "",
                             displayMode: viewModel.contacts?.isEmpty == false ? .large : .automatic)
         .navigationBarItems(trailing: plusButton)
         .onAppear {
-            viewModel.getMoreContactsIfNeed(session: session,
-                                            currentContact: nil)
+            viewModel.getMoreContactsIfNeed(currentContact: nil)
         }
         .emptyPlaceholder(isEmpty: viewModel.contacts?.isEmpty == true) {
             noContactView
@@ -91,17 +85,12 @@ struct AliasContactsView: View {
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
-        .onReceive(Just(viewModel.isRefreshing)) { isRefreshing in
-            if !isRefreshing {
-                refreshControl.endRefreshing()
-            }
-        }
         .actionSheet(isPresented: showingActionSheet) {
             actionsSheet
         }
         .sheet(isPresented: $showingCreateContactView) {
             CreateContactView(alias: viewModel.alias) {
-                viewModel.refresh(session: session)
+                viewModel.refresh()
             }
             .forceDarkModeIfApplicable()
         }
@@ -201,13 +190,13 @@ struct AliasContactsView: View {
 
         buttons.append(
             ActionSheet.Button.default(Text(selectedContact.blockForward ? "Unblock" : "Block")) {
-                viewModel.toggleContact(session: session, contact: selectedContact)
+                viewModel.toggleContact(selectedContact)
             }
         )
 
         buttons.append(
             ActionSheet.Button.destructive(Text("Delete")) {
-                viewModel.deleteContact(session: session, contact: selectedContact)
+                viewModel.deleteContact(selectedContact)
             }
         )
 

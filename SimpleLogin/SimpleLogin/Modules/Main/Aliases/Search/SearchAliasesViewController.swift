@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-final class SearchAliasesViewController: UIViewController {
+final class SearchAliasesViewController: BaseViewController {
     private let viewModel: SearchAliasesViewModel
 
     init(session: Session) {

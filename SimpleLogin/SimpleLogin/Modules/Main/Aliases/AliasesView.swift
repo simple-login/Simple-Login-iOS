@@ -77,7 +77,7 @@ struct AliasesView: View {
                 NavigationLink(
                     isActive: $showingAliasContacts,
                     destination: {
-                        AliasContactsView(alias: selectedAlias)
+                        AliasContactsView(alias: selectedAlias, session: viewModel.session)
                     },
                     label: { EmptyView() })
                 LazyVStack {

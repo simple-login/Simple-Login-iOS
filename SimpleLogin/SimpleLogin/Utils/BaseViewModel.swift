@@ -9,6 +9,12 @@ import SimpleLoginPackage
 import UIKit
 
 class BaseViewModel {
+    deinit {
+        print("\(Self.self) is deallocated")
+    }
+}
+
+class BaseSessionViewModel: BaseViewModel {
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addAction(UIAction { [unowned self] _ in

@@ -66,7 +66,7 @@ struct AliasDetailView: View {
 
         ZStack {
             NavigationLink(isActive: $showingAliasContacts,
-                           destination: { AliasContactsView(alias: viewModel.alias) },
+                           destination: { AliasContactsView(alias: viewModel.alias, session: viewModel.session) },
                            label: { EmptyView() })
             ScrollView {
                 Group {
@@ -891,14 +891,3 @@ struct AliasEmailView: View {
         }
     }
 }
-
-// MARK: - Previews
-//struct AliasDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            AliasDetailView(alias: .claypool,
-//                            onUpdateAlias: { _ in },
-//                            onDeleteAlias: {})
-//        }
-//    }
-//}
