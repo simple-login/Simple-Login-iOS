@@ -131,8 +131,8 @@ struct AliasesView: View {
             .actionSheet(isPresented: $showingRandomAliasActionSheet) {
                 randomAliasActionSheet
             }
-            .fullScreenCover(isPresented: $showingSearchView) {
-                SearchAliasesView()
+            .sheet(isPresented: $showingSearchView) {
+                SearchAliasesView(session: viewModel.session)
                     .forceDarkModeIfApplicable()
             }
         }
@@ -223,12 +223,12 @@ struct AliasesViewToolbar: View {
                 .fixedSize()
                 .padding(.horizontal, 16)
 
-//            Button(action: onSearch) {
-//                Image(systemName: "magnifyingglass")
-//            }
-//
-//            Spacer()
-//                .frame(width: 24)
+            Button(action: onSearch) {
+                Image(systemName: "magnifyingglass")
+            }
+
+            Spacer()
+                .frame(width: 24)
 
             Button(action: onRandomAlias) {
                 Image(systemName: "shuffle")
