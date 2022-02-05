@@ -64,7 +64,7 @@ final class AliasContactsViewModel: BaseSessionViewModel, ObservableObject {
                 }
                 self.contacts?.append(contentsOf: contactArray.contacts)
                 self.currentPage += 1
-                self.canLoadMorePages = contactArray.contacts.count == 20
+                self.canLoadMorePages = contactArray.contacts.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }
@@ -88,7 +88,7 @@ final class AliasContactsViewModel: BaseSessionViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.contacts = contactArray.contacts
                 self.currentPage = 1
-                self.canLoadMorePages = contactArray.contacts.count == 20
+                self.canLoadMorePages = contactArray.contacts.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }

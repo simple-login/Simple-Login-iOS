@@ -67,7 +67,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.aliases.append(contentsOf: aliasArray.aliases)
                 self.currentPage += 1
-                self.canLoadMorePages = aliasArray.aliases.count == 20
+                self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }
@@ -100,7 +100,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.aliases = aliasArray.aliases
                 self.currentPage = 1
-                self.canLoadMorePages = aliasArray.aliases.count == 20
+                self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }

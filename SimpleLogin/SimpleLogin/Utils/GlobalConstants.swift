@@ -1,5 +1,5 @@
 //
-//  GlobalStaticStrings.swift
+//  GlobalConstants.swift
 //  SimpleLogin
 //
 //  Created by Thanh-Nhon Nguyen on 03/02/2022.
@@ -15,3 +15,5 @@ let kAliasDisplayMode = "AliasDisplayMode"
 let kForceDarkMode = "ForceDarkMode"
 let kDidShowTips = "DidShowTips"
 let kKeyboardExtensionMode = "KeyboardExtensionMode"
+
+let kDefaultPageSize = 20

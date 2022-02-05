@@ -75,7 +75,7 @@ final class AliasDetailViewModel: BaseSessionViewModel, ObservableObject {
                 guard let self = self else { return }
                 self.activities.append(contentsOf: activityArray.activities)
                 self.currentPage += 1
-                self.canLoadMorePages = activityArray.activities.count == 20
+                self.canLoadMorePages = activityArray.activities.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }
@@ -124,7 +124,7 @@ final class AliasDetailViewModel: BaseSessionViewModel, ObservableObject {
                 self.alias = result.0
                 self.activities = result.1.activities
                 self.currentPage = 1
-                self.canLoadMorePages = result.1.activities.count == 20
+                self.canLoadMorePages = result.1.activities.count == kDefaultPageSize
             }
             .store(in: &cancellables)
     }

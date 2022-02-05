@@ -73,9 +73,9 @@
 		C04848A4278CD00500702E8E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C04848A3278CD00500702E8E /* StoreKit.framework */; };
 		C04848A7278CD99000702E8E /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = C04848A6278CD99000702E8E /* SwiftyStoreKit */; };
 		C04848A9278CE50700702E8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04848A8278CE50700702E8E /* AppDelegate.swift */; };
-		C04BB63327AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */; };
-		C04BB63427AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */; };
-		C04BB63527AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */; };
+		C04BB63327AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */; };
+		C04BB63427AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */; };
+		C04BB63527AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */; };
 		C04BB63727AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */; };
 		C04BB63827AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */; };
 		C04BB63927AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */; };
@@ -235,7 +235,7 @@
 		C043D41526E01E280051B282 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		C04848A3278CD00500702E8E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C04848A8278CE50700702E8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStaticStrings.swift; sourceTree = "<group>"; };
+		C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardExtensionMode.swift; sourceTree = "<group>"; };
 		C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFocusTextField.swift; sourceTree = "<group>"; };
@@ -572,7 +572,7 @@
 				C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */,
 				C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */,
 				C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */,
-				C04BB63227AC7D7E00AA29A1 /* GlobalStaticStrings.swift */,
+				C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */,
 				C043D41526E01E280051B282 /* KeychainService.swift */,
 				C03760F926DC0F0200E5ECAC /* Preferences.swift */,
 				C0259EAE26DA55CD0056A977 /* StringExtensions.swift */,
@@ -831,7 +831,7 @@
 				C010032727A739D8009735CD /* Preferences.swift in Sources */,
 				C010032627A739CD009735CD /* KeychainService.swift in Sources */,
 				C00874B427A989D3004F32FA /* SLError.swift in Sources */,
-				C04BB63427AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */,
+				C04BB63427AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */,
 				C05DB09D27A877BD00200E2D /* BaseViewModel.swift in Sources */,
 				C04BB63827AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
 				C010032D27A7479E009735CD /* AliasesView.swift in Sources */,
@@ -845,7 +845,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0F1963C273483CC0062B418 /* Session.swift in Sources */,
-				C04BB63327AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */,
+				C04BB63327AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */,
 				C03760F826DC0D6A00E5ECAC /* LogInViewModel.swift in Sources */,
 				C064797D272B331D009CA1F8 /* Action.swift in Sources */,
 				C04848A9278CE50700702E8E /* AppDelegate.swift in Sources */,
@@ -941,7 +941,7 @@
 				C0941EE427A6E6DE009AAEBC /* Session.swift in Sources */,
 				C0941EF027A6EFD7009AAEBC /* ColorExtensions.swift in Sources */,
 				C03E200D27A1F436000D82F6 /* ShareViewController.swift in Sources */,
-				C04BB63527AC7D7E00AA29A1 /* GlobalStaticStrings.swift in Sources */,
+				C04BB63527AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */,
 				C0941EFB27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				C0941EED27A6EEAE009AAEBC /* CreateAliasView.swift in Sources */,
 				C0941EEF27A6EFBF009AAEBC /* StringExtensions.swift in Sources */,
