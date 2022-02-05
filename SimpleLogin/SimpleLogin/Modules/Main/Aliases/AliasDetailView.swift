@@ -133,14 +133,17 @@ struct AliasDetailView: View {
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
         }
+        .onReceive(Just(viewModel.isRefreshed)) { isRefreshed in
+            if isRefreshed {
+                onUpdateAlias(viewModel.alias)
+                viewModel.handledIsRefreshedBoolean()
+            }
+        }
         .onReceive(Just(viewModel.isDeleted)) { isDeleted in
             if isDeleted {
                 onDeleteAlias()
                 presentationMode.wrappedValue.dismiss()
             }
-        }
-        .onDisappear {
-            onUpdateAlias(viewModel.alias)
         }
         .onAppear {
             viewModel.getMoreActivitiesIfNeed(currentActivity: nil)

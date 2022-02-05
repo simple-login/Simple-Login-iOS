@@ -16,6 +16,7 @@ final class AliasDetailViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var mailboxes: [Mailbox] = []
     @Published private(set) var isLoadingMailboxes = false
     @Published private(set) var isRefreshing = false
+    @Published private(set) var isRefreshed = false
     @Published private(set) var isDeleted = false
     @Published private(set) var error: Error?
 
@@ -43,6 +44,10 @@ final class AliasDetailViewModel: BaseSessionViewModel, ObservableObject {
 
     func handledIsUpdatedBoolean() {
         isUpdated = false
+    }
+
+    func handledIsRefreshedBoolean() {
+        isRefreshed = false
     }
 
     func getMoreActivitiesIfNeed(currentActivity activity: AliasActivity?) {
@@ -111,6 +116,7 @@ final class AliasDetailViewModel: BaseSessionViewModel, ObservableObject {
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 self.isRefreshing = false
+                self.isRefreshed = true
                 self.refreshControl.endRefreshing()
                 switch completion {
                 case .finished:

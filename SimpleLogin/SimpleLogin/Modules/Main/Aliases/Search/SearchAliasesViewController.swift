@@ -37,11 +37,11 @@ final class SearchAliasesViewController: BaseViewController {
 
         let searchAliasesResultView = SearchAliasesResultView(
             viewModel: viewModel,
-            onSelect: { [unowned self] alias in
-                self.showAliasDetail(alias)
+            onSelect: { [weak self] alias in
+                self?.showAliasDetail(alias)
             },
-            onSendMail: { [unowned self] alias in
-                self.showAliasContacts(alias)
+            onSendMail: { [weak self] alias in
+                self?.showAliasContacts(alias)
             },
             onUpdate: onUpdateAlias)
         let hostingController = UIHostingController(rootView: searchAliasesResultView)
@@ -61,8 +61,10 @@ final class SearchAliasesViewController: BaseViewController {
         let aliasDetailView = AliasDetailView(
             alias: alias,
             session: viewModel.session,
-            onUpdateAlias: { [unowned self] updatedAlias in
+            onUpdateAlias: { [weak self] updatedAlias in
+                guard let self = self else { return }
                 self.onUpdateAlias(updatedAlias)
+                self.viewModel.update(alias: updatedAlias)
             },
             onDeleteAlias: {
 
