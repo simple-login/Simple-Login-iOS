@@ -32,9 +32,14 @@ final class SearchAliasesViewController: BaseViewController {
         navigationItem.titleView = searchBar
         navigationItem.hidesSearchBarWhenScrolling = false
 
-        let searchAliasesResultView = SearchAliasesResultView(viewModel: viewModel) { [unowned self] selectedAlias in
-            self.showAliasDetail(selectedAlias)
-        }
+        let searchAliasesResultView = SearchAliasesResultView(
+            viewModel: viewModel,
+            onSelect: { [unowned self] alias in
+                self.showAliasDetail(alias)
+            },
+            onSendMail: { [unowned self] alias in
+                self.showAliasContacts(alias)
+            })
         let hostingController = UIHostingController(rootView: searchAliasesResultView)
         addChild(hostingController)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -59,6 +64,12 @@ final class SearchAliasesViewController: BaseViewController {
 
             })
         let hostingController = UIHostingController(rootView: aliasDetailView)
+        navigationController?.pushViewController(hostingController, animated: true)
+    }
+
+    private func showAliasContacts(_ alias: Alias) {
+        let aliasContactsView = AliasContactsView(alias: alias, session: viewModel.session)
+        let hostingController = UIHostingController(rootView: aliasContactsView)
         navigationController?.pushViewController(hostingController, animated: true)
     }
 }

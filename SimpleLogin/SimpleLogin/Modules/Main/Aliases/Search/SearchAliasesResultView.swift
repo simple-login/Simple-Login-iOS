@@ -13,7 +13,8 @@ struct SearchAliasesResultView: View {
     @ObservedObject var viewModel: SearchAliasesViewModel
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @State private var copiedEmail: String?
-    var onSelectAlias: (Alias) -> Void
+    var onSelect: (Alias) -> Void
+    var onSendMail: (Alias) -> Void
 
     var body: some View {
         let showingErrorAlert = Binding<Bool>(get: {
@@ -52,14 +53,14 @@ struct SearchAliasesResultView: View {
                                 UIPasteboard.general.string = alias.email
                             },
                             onSendMail: {
-                                
+                                onSendMail(alias)
                             },
                             onToggle: {
 
                             })
                             .padding(.horizontal, 4)
                             .onTapGesture {
-                                onSelectAlias(alias)
+                                onSelect(alias)
                             }
                             .onAppear {
                                 viewModel.getMoreAliasesIfNeed(currentAlias: alias)
