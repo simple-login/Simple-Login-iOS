@@ -144,6 +144,7 @@ private struct ActionsView: View {
             } label: {
                 Label("Copy", systemImage: "doc.on.doc")
             }
+            .buttonStyle(.plain)
 
             Spacer()
 
@@ -152,6 +153,7 @@ private struct ActionsView: View {
             } label: {
                 Label("Send email", systemImage: "paperplane")
             }
+            .buttonStyle(.plain)
 
             Spacer()
 
@@ -161,6 +163,7 @@ private struct ActionsView: View {
                 Label("Active", systemImage: alias.enabled ? "checkmark.circle.fill" : "circle.dashed")
                     .foregroundColor(alias.enabled ? .accentColor : Color(.darkGray))
             }
+            .buttonStyle(.plain)
 
             Spacer()
         }

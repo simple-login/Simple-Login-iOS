@@ -13,6 +13,7 @@
 		C00874B327A989D3004F32FA /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874B227A989D3004F32FA /* SLError.swift */; };
 		C00874B427A989D3004F32FA /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874B227A989D3004F32FA /* SLError.swift */; };
 		C00874B527A989D3004F32FA /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874B227A989D3004F32FA /* SLError.swift */; };
+		C00A0DA027AFE9860020C834 /* AliasDetailPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A0D9F27AFE9860020C834 /* AliasDetailPlaceholderView.swift */; };
 		C00A563426DABC3900A550A2 /* ErrorMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */; };
 		C00A563626DAC6D000A550A2 /* ApiUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563526DAC6D000A550A2 /* ApiUrlView.swift */; };
 		C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563726DAD9E000A550A2 /* OtpView.swift */; };
@@ -79,6 +80,7 @@
 		C04BB63727AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */; };
 		C04BB63827AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */; };
 		C04BB63927AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */; };
+		C05424B527B06955008048A5 /* SLNavigationViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05424B427B06955008048A5 /* SLNavigationViewModifier.swift */; };
 		C0542ABE27AEDF3B00188C63 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */; };
 		C05A4CDE273C6C73005F8CC5 /* AutoFocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */; };
 		C05A4CE1273C76BC005F8CC5 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C05A4CE0273C76BC005F8CC5 /* Introspect */; };
@@ -179,6 +181,7 @@
 /* Begin PBXFileReference section */
 		C00874AE27A98748004F32FA /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		C00874B227A989D3004F32FA /* SLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLError.swift; sourceTree = "<group>"; };
+		C00A0D9F27AFE9860020C834 /* AliasDetailPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailPlaceholderView.swift; sourceTree = "<group>"; };
 		C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageModifier.swift; sourceTree = "<group>"; };
 		C00A563526DAC6D000A550A2 /* ApiUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUrlView.swift; sourceTree = "<group>"; };
 		C00A563726DAD9E000A550A2 /* OtpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpView.swift; sourceTree = "<group>"; };
@@ -237,6 +240,7 @@
 		C04848A8278CE50700702E8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardExtensionMode.swift; sourceTree = "<group>"; };
+		C05424B427B06955008048A5 /* SLNavigationViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLNavigationViewModifier.swift; sourceTree = "<group>"; };
 		C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFocusTextField.swift; sourceTree = "<group>"; };
 		C05A9B14277BB996003FD0A7 /* UpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
@@ -475,6 +479,7 @@
 				C08A5D8627499A6100BE889B /* AliasContactsViewModel.swift */,
 				C0F1963D27348EA10062B418 /* AliasDetailView.swift */,
 				C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */,
+				C00A0D9F27AFE9860020C834 /* AliasDetailPlaceholderView.swift */,
 				C029769326F141A60014DC3B /* CreateAliasView.swift */,
 				C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */,
 				C03629962777B21200531481 /* CreateContactView.swift */,
@@ -560,6 +565,7 @@
 				C02FCF8C278E2FB200F32BED /* PhotoPickerView.swift */,
 				C02F967126DB78CF000B100C /* ShakeEffect.swift */,
 				C0F08FB227AB2CB50066A354 /* ShareSheetView.swift */,
+				C05424B427B06955008048A5 /* SLNavigationViewModifier.swift */,
 				C0F732B0278F6674004608DB /* URLButton.swift */,
 			);
 			path = "Supporting Views";
@@ -851,6 +857,7 @@
 				C04848A9278CE50700702E8E /* AppDelegate.swift in Sources */,
 				C0542ABE27AEDF3B00188C63 /* BaseViewController.swift in Sources */,
 				C03B518E27288F2700C54130 /* AliasCompactView.swift in Sources */,
+				C00A0DA027AFE9860020C834 /* AliasDetailPlaceholderView.swift in Sources */,
 				C0AAE98E26E4152A00247742 /* Blur.swift in Sources */,
 				C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */,
 				C0126D0027AEA07A00B489E8 /* SearchAliasesViewController.swift in Sources */,
@@ -877,6 +884,7 @@
 				C030EB39277D1410007E2FF8 /* UpgradeViewModel.swift in Sources */,
 				C04266D327944E130053451B /* Vibration.swift in Sources */,
 				C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */,
+				C05424B527B06955008048A5 /* SLNavigationViewModifier.swift in Sources */,
 				C0F1964027348EDA0062B418 /* AliasDetailViewModel.swift in Sources */,
 				C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */,
 				C00E66692792C687002DBA67 /* ClearButtonModeModifier.swift in Sources */,

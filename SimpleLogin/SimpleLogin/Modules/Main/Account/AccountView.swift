@@ -77,6 +77,7 @@ struct AccountView: View {
                     .opacity(0.1)
             }
         }
+        .navigationViewStyle(.stack)
         .onAppear {
             viewModel.setSession(session)
             viewModel.getRequiredInformation()

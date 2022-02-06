@@ -40,6 +40,7 @@ struct OthersView: View {
             }
             .navigationTitle("Other functionalities")
         }
+        .slNavigationView()
     }
 }
 

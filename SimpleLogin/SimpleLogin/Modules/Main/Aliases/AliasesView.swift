@@ -20,9 +20,7 @@ struct AliasesView: View {
     @State private var showingCreateView = false
     @State private var copiedEmail: String?
     @State private var createdAlias: Alias?
-    @State private var showingAliasDetail = false
-    @State private var showingAliasContacts = false
-    @State private var selectedAlias: Alias = .ccohen
+    @State private var selectedDestinationMode: AliasNavigationLinkDestination.Mode?
 
     enum Modal {
         case search, create
@@ -57,65 +55,59 @@ struct AliasesView: View {
             }
         })
 
-        NavigationView {
-            ScrollView {
-                NavigationLink(
-                    isActive: $showingAliasDetail,
-                    destination: {
-                        AliasDetailView(
-                            alias: selectedAlias,
-                            session: viewModel.session,
-                            onUpdateAlias: { updatedAlias in
-                                viewModel.update(alias: updatedAlias)
-                            },
-                            onDeleteAlias: {
-                                viewModel.delete(alias: selectedAlias)
-                            })
-                    },
-                    label: { EmptyView() })
-
-                NavigationLink(
-                    isActive: $showingAliasContacts,
-                    destination: {
-                        AliasContactsView(alias: selectedAlias, session: viewModel.session)
-                    },
-                    label: { EmptyView() })
-                LazyVStack {
-                    ForEach(viewModel.filteredAliases, id: \.id) { alias in
-                        AliasCompactView(
-                            alias: alias,
-                            onCopy: {
-                                if hapticFeedbackEnabled {
-                                    Vibration.soft.vibrate()
-                                }
-                                copiedEmail = alias.email
-                                UIPasteboard.general.string = alias.email
-                            },
-                            onSendMail: {
-                                selectedAlias = alias
-                                showingAliasContacts = true
-                            },
-                            onToggle: {
-                                viewModel.toggle(alias: alias)
-                            })
-                            .padding(.horizontal, 4)
-                            .onAppear {
-                                viewModel.getMoreAliasesIfNeed(currentAlias: alias)
-                            }
-                            .onTapGesture {
-                                selectedAlias = alias
-                                showingAliasDetail = true
-                            }
-                    }
-
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .padding()
-                    }
-                }
-                .padding(.vertical, 8)
-                .animation(.default)
+        let showingDestination = Binding<Bool>(get: {
+            selectedDestinationMode != nil
+        }, set: { isShowing in
+            if !isShowing {
+                selectedDestinationMode = nil
             }
+        })
+
+        NavigationView {
+            List {
+                ForEach(viewModel.filteredAliases, id: \.id) { alias in
+                    NavigationLink(
+                        isActive: showingDestination,
+                        destination: {
+                            AliasNavigationLinkDestination(
+                                viewModel: viewModel,
+                                mode: selectedDestinationMode ?? .contacts(.ccohen))
+                                .onAppear {
+                                    selectedDestinationMode = nil
+                                }
+                        },
+                        label: {
+                            AliasCompactView(
+                                alias: alias,
+                                onCopy: {
+                                    if hapticFeedbackEnabled {
+                                        Vibration.soft.vibrate()
+                                    }
+                                    copiedEmail = alias.email
+                                    UIPasteboard.general.string = alias.email
+                                },
+                                onSendMail: {
+                                    selectedDestinationMode = .contacts(alias)
+                                },
+                                onToggle: {
+                                    viewModel.toggle(alias: alias)
+                                })
+                                .onAppear {
+                                    viewModel.getMoreAliasesIfNeed(currentAlias: alias)
+                                }
+                                .onTapGesture {
+                                    selectedDestinationMode = .detail(alias)
+                                }
+                        })
+                }
+                if viewModel.isLoading {
+                    ProgressView()
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                }
+            }
+            .listStyle(.sidebar)
+            .animation(.default)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
@@ -125,8 +117,8 @@ struct AliasesView: View {
                                        onCreateAlias: { showingCreateView = true })
                 }
             }
-            .introspectScrollView { scrollView in
-                scrollView.refreshControl = viewModel.refreshControl
+            .introspectTableView { tableView in
+                tableView.refreshControl = viewModel.refreshControl
             }
             .actionSheet(isPresented: $showingRandomAliasActionSheet) {
                 randomAliasActionSheet
@@ -142,7 +134,10 @@ struct AliasesView: View {
                     })
                     .forceDarkModeIfApplicable()
             }
+
+            AliasDetailPlaceholderView()
         }
+        .slNavigationView()
         .onAppear {
             viewModel.getMoreAliasesIfNeed(currentAlias: nil)
         }
@@ -205,7 +200,33 @@ enum AliasStatus: CustomStringConvertible, CaseIterable {
     }
 }
 
-struct AliasesViewToolbar: View {
+private struct AliasNavigationLinkDestination: View {
+    @ObservedObject var viewModel: AliasesViewModel
+    let mode: Mode
+
+    enum Mode {
+        case detail(Alias), contacts(Alias)
+    }
+
+    var body: some View {
+        switch mode {
+        case .detail(let alias):
+            AliasDetailView(
+                alias: alias,
+                session: viewModel.session,
+                onUpdateAlias: { updatedAlias in
+                    viewModel.update(alias: updatedAlias)
+                },
+                onDeleteAlias: {
+                    viewModel.delete(alias: alias)
+                })
+        case .contacts(let alias):
+            AliasContactsView(alias: alias, session: viewModel.session)
+        }
+    }
+}
+
+private struct AliasesViewToolbar: View {
     @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
     @Binding var selectedStatus: AliasStatus
     let onSearch: () -> Void

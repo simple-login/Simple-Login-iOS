@@ -113,6 +113,7 @@ struct AboutView: View {
                 TipsView()
             }
         }
+        .navigationViewStyle(.stack)
     }
 
     private func prefixIcon(_ name: String) -> some View {
