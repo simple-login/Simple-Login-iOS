@@ -62,77 +62,79 @@ struct AliasesView: View {
                 selectedDestinationMode = nil
             }
         })
-
         NavigationView {
-            List {
-                ForEach(viewModel.filteredAliases, id: \.id) { alias in
-                    NavigationLink(
-                        isActive: showingDestination,
-                        destination: {
-                            AliasNavigationLinkDestination(
-                                viewModel: viewModel,
-                                mode: selectedDestinationMode ?? .contacts(.ccohen))
-                                .onAppear {
-                                    selectedDestinationMode = nil
-                                }
-                        },
-                        label: {
-                            AliasCompactView(
-                                alias: alias,
-                                onCopy: {
-                                    if hapticFeedbackEnabled {
-                                        Vibration.soft.vibrate()
-                                    }
-                                    copiedEmail = alias.email
-                                    UIPasteboard.general.string = alias.email
-                                },
-                                onSendMail: {
-                                    selectedDestinationMode = .contacts(alias)
-                                },
-                                onToggle: {
-                                    viewModel.toggle(alias: alias)
-                                })
-                                .onAppear {
-                                    viewModel.getMoreAliasesIfNeed(currentAlias: alias)
-                                }
-                                .onTapGesture {
-                                    selectedDestinationMode = .detail(alias)
-                                }
-                        })
-                }
-                if viewModel.isLoading {
-                    ProgressView()
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                }
-            }
-            .listStyle(.sidebar)
-            .animation(.default)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem {
-                    AliasesViewToolbar(selectedStatus: $viewModel.selectedStatus,
-                                       onSearch: { showingSearchView = true },
-                                       onRandomAlias: { showingRandomAliasActionSheet.toggle() },
-                                       onCreateAlias: { showingCreateView = true })
-                }
-            }
-            .introspectTableView { tableView in
-                tableView.refreshControl = viewModel.refreshControl
-            }
-            .actionSheet(isPresented: $showingRandomAliasActionSheet) {
-                randomAliasActionSheet
-            }
-            .sheet(isPresented: $showingSearchView) {
-                SearchAliasesView(
-                    session: viewModel.session,
-                    onUpdateAlias: { updatedAlias in
-                        viewModel.update(alias: updatedAlias)
+            ZStack {
+                NavigationLink(
+                    isActive: showingDestination,
+                    destination: {
+                        AliasNavigationLinkDestination(
+                            viewModel: viewModel,
+                            mode: selectedDestinationMode ?? .contacts(.ccohen))
+                            .onAppear {
+                                selectedDestinationMode = nil
+                            }
                     },
-                    onDeleteAlias: { deletedAlias in
-                        viewModel.delete(alias: deletedAlias)
+                    label: {
+                        EmptyView()
                     })
-                    .forceDarkModeIfApplicable()
+
+                List {
+                    ForEach(viewModel.filteredAliases, id: \.id) { alias in
+                        AliasCompactView(
+                            alias: alias,
+                            onCopy: {
+                                if hapticFeedbackEnabled {
+                                    Vibration.soft.vibrate()
+                                }
+                                copiedEmail = alias.email
+                                UIPasteboard.general.string = alias.email
+                            },
+                            onSendMail: {
+                                selectedDestinationMode = .contacts(alias)
+                            },
+                            onToggle: {
+                                viewModel.toggle(alias: alias)
+                            })
+                            .onAppear {
+                                viewModel.getMoreAliasesIfNeed(currentAlias: alias)
+                            }
+                            .onTapGesture {
+                                selectedDestinationMode = .detail(alias)
+                            }
+                    }
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                    }
+                }
+                .animation(.default)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem {
+                        AliasesViewToolbar(selectedStatus: $viewModel.selectedStatus,
+                                           onSearch: { showingSearchView = true },
+                                           onRandomAlias: { showingRandomAliasActionSheet.toggle() },
+                                           onCreateAlias: { showingCreateView = true })
+                    }
+                }
+                .introspectTableView { tableView in
+                    tableView.refreshControl = viewModel.refreshControl
+                }
+                .actionSheet(isPresented: $showingRandomAliasActionSheet) {
+                    randomAliasActionSheet
+                }
+                .sheet(isPresented: $showingSearchView) {
+                    SearchAliasesView(
+                        session: viewModel.session,
+                        onUpdateAlias: { updatedAlias in
+                            viewModel.update(alias: updatedAlias)
+                        },
+                        onDeleteAlias: { deletedAlias in
+                            viewModel.delete(alias: deletedAlias)
+                        })
+                        .forceDarkModeIfApplicable()
+                }
             }
 
             AliasDetailPlaceholderView()
