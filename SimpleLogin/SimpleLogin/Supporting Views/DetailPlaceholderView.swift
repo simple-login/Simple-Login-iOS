@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailPlaceholderView: View {
     let systemIconName: String
-    let message: String
+    var message: String?
 
     var body: some View {
         ZStack {
@@ -25,9 +25,11 @@ struct DetailPlaceholderView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
 
-            Text(message)
-                .font(.largeTitle)
-                .foregroundColor(.secondary)
+            if let message = message {
+                Text(message)
+                    .font(.largeTitle)
+                    .foregroundColor(.secondary)
+            }
         }
     }
 }
