@@ -137,7 +137,8 @@ struct AliasesView: View {
                 }
             }
 
-            AliasDetailPlaceholderView()
+            DetailPlaceholderView(systemIconName: "at",
+                                  message: "Select an alias to see its details here")
         }
         .slNavigationView()
         .onAppear {

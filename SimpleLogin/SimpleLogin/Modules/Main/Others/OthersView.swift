@@ -39,6 +39,9 @@ struct OthersView: View {
                 }
             }
             .navigationTitle("Other functionalities")
+
+            DetailPlaceholderView(systemIconName: "circle.grid.cross",
+                                  message: "Select a menu to see its details here")
         }
         .slNavigationView()
     }

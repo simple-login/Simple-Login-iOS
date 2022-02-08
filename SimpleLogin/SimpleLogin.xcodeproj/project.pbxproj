@@ -13,7 +13,6 @@
 		C00874B327A989D3004F32FA /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874B227A989D3004F32FA /* SLError.swift */; };
 		C00874B427A989D3004F32FA /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874B227A989D3004F32FA /* SLError.swift */; };
 		C00874B527A989D3004F32FA /* SLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874B227A989D3004F32FA /* SLError.swift */; };
-		C00A0DA027AFE9860020C834 /* AliasDetailPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A0D9F27AFE9860020C834 /* AliasDetailPlaceholderView.swift */; };
 		C00A563426DABC3900A550A2 /* ErrorMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */; };
 		C00A563626DAC6D000A550A2 /* ApiUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563526DAC6D000A550A2 /* ApiUrlView.swift */; };
 		C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A563726DAD9E000A550A2 /* OtpView.swift */; };
@@ -122,6 +121,7 @@
 		C0D1D5A7272BCCA000F5CFC5 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */; };
 		C0D1D5A9272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */; };
 		C0E9C3E12790D57A00D1A463 /* CustomDomainsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E9C3E02790D57A00D1A463 /* CustomDomainsViewModel.swift */; };
+		C0EA747927B3061100848F58 /* DetailPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA747827B3061100848F58 /* DetailPlaceholderView.swift */; };
 		C0F08FB327AB2CB60066A354 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F08FB227AB2CB50066A354 /* ShareSheetView.swift */; };
 		C0F1963C273483CC0062B418 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963B273483CC0062B418 /* Session.swift */; };
 		C0F1963E27348EA10062B418 /* AliasDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F1963D27348EA10062B418 /* AliasDetailView.swift */; };
@@ -181,7 +181,6 @@
 /* Begin PBXFileReference section */
 		C00874AE27A98748004F32FA /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		C00874B227A989D3004F32FA /* SLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLError.swift; sourceTree = "<group>"; };
-		C00A0D9F27AFE9860020C834 /* AliasDetailPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailPlaceholderView.swift; sourceTree = "<group>"; };
 		C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageModifier.swift; sourceTree = "<group>"; };
 		C00A563526DAC6D000A550A2 /* ApiUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUrlView.swift; sourceTree = "<group>"; };
 		C00A563726DAD9E000A550A2 /* OtpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpView.swift; sourceTree = "<group>"; };
@@ -266,6 +265,7 @@
 		C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatLinkButtonStyle.swift; sourceTree = "<group>"; };
 		C0E9C3E02790D57A00D1A463 /* CustomDomainsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainsViewModel.swift; sourceTree = "<group>"; };
+		C0EA747827B3061100848F58 /* DetailPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlaceholderView.swift; sourceTree = "<group>"; };
 		C0F08FB227AB2CB50066A354 /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		C0F1963B273483CC0062B418 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		C0F1963D27348EA10062B418 /* AliasDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailView.swift; sourceTree = "<group>"; };
@@ -479,7 +479,6 @@
 				C08A5D8627499A6100BE889B /* AliasContactsViewModel.swift */,
 				C0F1963D27348EA10062B418 /* AliasDetailView.swift */,
 				C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */,
-				C00A0D9F27AFE9860020C834 /* AliasDetailPlaceholderView.swift */,
 				C029769326F141A60014DC3B /* CreateAliasView.swift */,
 				C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */,
 				C03629962777B21200531481 /* CreateContactView.swift */,
@@ -558,6 +557,7 @@
 				C0AAE98D26E4152A00247742 /* Blur.swift */,
 				C00E66682792C687002DBA67 /* ClearButtonModeModifier.swift */,
 				C02CD1972794C20400B3115E /* ConfettiableModifier.swift */,
+				C0EA747827B3061100848F58 /* DetailPlaceholderView.swift */,
 				C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */,
 				C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */,
 				C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */,
@@ -857,7 +857,6 @@
 				C04848A9278CE50700702E8E /* AppDelegate.swift in Sources */,
 				C0542ABE27AEDF3B00188C63 /* BaseViewController.swift in Sources */,
 				C03B518E27288F2700C54130 /* AliasCompactView.swift in Sources */,
-				C00A0DA027AFE9860020C834 /* AliasDetailPlaceholderView.swift in Sources */,
 				C0AAE98E26E4152A00247742 /* Blur.swift in Sources */,
 				C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */,
 				C0126D0027AEA07A00B489E8 /* SearchAliasesViewController.swift in Sources */,
@@ -914,6 +913,7 @@
 				C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */,
 				C0F08FB327AB2CB60066A354 /* ShareSheetView.swift in Sources */,
 				C0D1D5A9272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift in Sources */,
+				C0EA747927B3061100848F58 /* DetailPlaceholderView.swift in Sources */,
 				C08A5D8727499A6100BE889B /* AliasContactsViewModel.swift in Sources */,
 				C0F732B1278F6674004608DB /* URLButton.swift in Sources */,
 				C05A4CDE273C6C73005F8CC5 /* AutoFocusTextField.swift in Sources */,
