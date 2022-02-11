@@ -17,7 +17,6 @@ struct LogInView: View {
     @AppStorage("Email") private var email = ""
     @State private var password = ""
 
-    @State private var showingOptionActionSheet = false
     @State private var showingAboutView = false
     @State private var showingApiKeyView = false
     @State private var showingApiUrlView = false
@@ -139,29 +138,6 @@ struct LogInView: View {
         }
     }
 
-    private var optionActionSheet: ActionSheet {
-        var buttons: [ActionSheet.Button] = []
-        buttons.append(ActionSheet.Button.default(Text("About SimpleLogin")) {
-            showingAboutView = true
-        })
-
-        buttons.append(ActionSheet.Button.default(Text("Log in using API key")) {
-            showingApiKeyView = true
-        })
-
-        buttons.append(ActionSheet.Button.default(Text("Edit API URL")) {
-            showingApiUrlView = true
-        })
-
-        buttons.append(ActionSheet.Button.default(Text("Reset forgotten password")) {
-            showingResetPasswordView = true
-        })
-
-        buttons.append(.cancel())
-
-        return ActionSheet(title: Text("SimpleLogin"), buttons: buttons)
-    }
-
     private var topView: some View {
         HStack {
             Color.clear
@@ -195,8 +171,28 @@ struct LogInView: View {
 
             Spacer()
 
-            Button(action: {
-                showingOptionActionSheet = true
+            Menu(content: {
+                Section {
+                    Button(action: {
+                        showingApiKeyView = true
+                    }, label: {
+                        Label("Log in using API key", systemImage: "key.fill")
+                    })
+
+                    Button(action: {
+                        showingApiUrlView = true
+                    }, label: {
+                        Label("Edit API URL", systemImage: "link.circle.fill")
+                    })
+                }
+
+                Section {
+                    Button(action: {
+                        showingAboutView = true
+                    }, label: {
+                        Label("About SimpleLogin", systemImage: "info.circle.fill")
+                    })
+                }
             }, label: {
                 if #available(iOS 15, *) {
                     Image(systemName: "list.bullet.circle.fill")
@@ -204,12 +200,8 @@ struct LogInView: View {
                     Image(systemName: "list.bullet")
                 }
             })
-                .font(.title2)
         }
         .padding()
-        .actionSheet(isPresented: $showingOptionActionSheet) {
-            optionActionSheet
-        }
     }
 
     private var bottomView: some View {
