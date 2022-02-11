@@ -69,15 +69,12 @@ struct AccountView: View {
                 }
                 .navigationTitle(navigationTitle)
             } else {
-                Image(systemName: "person.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: UIScreen.main.bounds.width / 2)
-                    .foregroundColor(.secondary)
-                    .opacity(0.1)
+                EmptyView()
             }
+
+            DetailPlaceholderView(systemIconName: "person")
         }
-        .navigationViewStyle(.stack)
+        .slNavigationView()
         .onAppear {
             viewModel.setSession(session)
             viewModel.getRequiredInformation()
@@ -311,7 +308,7 @@ private struct AliasesSection: View {
                 // Display mode
                 Group {
                     Text("Display mode")
-                        .fixedSize(horizontal: false, vertical: false)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     Picker(selection: $viewModel.aliasDisplayMode,
                            label: Text(viewModel.aliasDisplayMode.description)) {
                         ForEach(AliasDisplayMode.allCases, id: \.self) { mode in
@@ -326,7 +323,7 @@ private struct AliasesSection: View {
 
                 // Random mode
                 Text("Random mode")
-                    .fixedSize(horizontal: false, vertical: false)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
                 Picker(selection: $viewModel.randomMode,
                        label: Text(viewModel.randomMode.description)) {
@@ -341,7 +338,7 @@ private struct AliasesSection: View {
                 Text("Ex: \(viewModel.randomMode.example)")
                     .font(.caption)
                     .foregroundColor(.secondary)
-                    .fixedSize(horizontal: false, vertical: false)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
                 Divider()
 
@@ -366,7 +363,7 @@ private struct AliasesSection: View {
 
                 // Random alias suffix
                 Text("Random alias suffix")
-                    .fixedSize(horizontal: false, vertical: false)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
                 Picker(selection: $viewModel.randomAliasSuffix,
                        label: Text(viewModel.randomAliasSuffix.description)) {
@@ -381,7 +378,7 @@ private struct AliasesSection: View {
                 Text("Ex: \(viewModel.randomAliasSuffix.example)")
                     .font(.caption)
                     .foregroundColor(.secondary)
-                    .fixedSize(horizontal: false, vertical: false)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
     }
