@@ -343,21 +343,21 @@ private struct AliasesSection: View {
                 Divider()
 
                 // Default domain
-                HStack {
-                    Text("Default domain")
-                    Spacer()
-                    Picker(selection: $viewModel.randomAliasDefaultDomain,
-                           label: Text(viewModel.randomAliasDefaultDomain)) {
-                        ForEach(viewModel.usableDomains, id: \.domain) { usableDomain in
-                            VStack {
-                                Text(usableDomain.domain + (usableDomain.isCustom ? " 🟢" : ""))
+                Picker("Default domain", selection: $viewModel.randomAliasDefaultDomain) {
+                    ForEach(viewModel.usableDomains, id: \.domain) { usableDomain in
+                        HStack {
+                            Text(usableDomain.domain)
+                            if usableDomain.isCustom {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20, alignment: .leading)
                             }
-                            .tag(usableDomain.domain)
                         }
+                        .tag(usableDomain.domain)
                     }
-                           .pickerStyle(MenuPickerStyle())
-                           .disabled(viewModel.isLoading)
                 }
+                       .disabled(viewModel.isLoading)
 
                 Divider()
 
@@ -390,16 +390,13 @@ private struct SenderFormatSection: View {
     var body: some View {
         Section(header: Text("Sender address format"),
                 footer: Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")) {
-            VStack {
-                Picker(selection: $viewModel.senderFormat, label: Text(viewModel.senderFormat.description)) {
-                    ForEach(SenderFormat.allCases, id: \.self) { format in
-                        Text(format.description)
-                            .tag(format)
-                    }
+            Picker("Format", selection: $viewModel.senderFormat) {
+                ForEach(SenderFormat.allCases, id: \.self) { format in
+                    Text(format.description)
+                        .tag(format)
                 }
-                .pickerStyle(MenuPickerStyle())
-                .disabled(viewModel.isLoading)
             }
+            .disabled(viewModel.isLoading)
         }
     }
 }

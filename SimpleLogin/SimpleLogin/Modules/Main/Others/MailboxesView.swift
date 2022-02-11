@@ -166,14 +166,7 @@ private struct MailboxView: View {
             Spacer()
 
             if mailbox.default {
-                Text("Default")
-                    .font(.caption2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(Color.slPurple)
-                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                LabelText(text: "Default")
             }
 
             if !mailbox.verified {

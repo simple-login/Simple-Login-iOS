@@ -131,6 +131,7 @@
 		C0F732B5278F842A004608DB /* MailboxesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F732B4278F842A004608DB /* MailboxesView.swift */; };
 		C0F732B7278F854F004608DB /* CustomDomainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F732B6278F854F004608DB /* CustomDomainsView.swift */; };
 		C0FE7B2D27A9CFD7005D53DF /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE7B2C27A9CFD7005D53DF /* SignUpViewModel.swift */; };
+		EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2A37C27B6F3460020E808 /* LabelText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,6 +276,7 @@
 		C0F732B4278F842A004608DB /* MailboxesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxesView.swift; sourceTree = "<group>"; };
 		C0F732B6278F854F004608DB /* CustomDomainsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainsView.swift; sourceTree = "<group>"; };
 		C0FE7B2C27A9CFD7005D53DF /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		EFA2A37C27B6F3460020E808 /* LabelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -560,6 +562,7 @@
 				C00E66682792C687002DBA67 /* ClearButtonModeModifier.swift */,
 				C02CD1972794C20400B3115E /* ConfettiableModifier.swift */,
 				C0EA747827B3061100848F58 /* DetailPlaceholderView.swift */,
+				EFA2A37C27B6F3460020E808 /* LabelText.swift */,
 				C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */,
 				C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */,
 				C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */,
@@ -909,6 +912,7 @@
 				C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */,
 				C03629972777B21200531481 /* CreateContactView.swift in Sources */,
 				C00874AF27A98748004F32FA /* ErrorExtensions.swift in Sources */,
+				EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */,
 				C00874B327A989D3004F32FA /* SLError.swift in Sources */,
 				C07EA68D273E57AA00C7D69C /* ApiKeyViewModel.swift in Sources */,
 				C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */,
