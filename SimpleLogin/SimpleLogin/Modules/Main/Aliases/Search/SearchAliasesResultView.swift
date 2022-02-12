@@ -35,48 +35,48 @@ struct SearchAliasesResultView: View {
             }
         })
 
-        ScrollView {
+        List {
             if viewModel.aliases.isEmpty,
                !viewModel.isLoading,
                let lastSearchTerm = viewModel.lastSearchTerm {
                 Text("No results for \"\(lastSearchTerm)\"")
                     .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .padding()
             } else {
-                LazyVStack {
-                    ForEach(viewModel.aliases, id: \.id) { alias in
-                        AliasCompactView(
-                            alias: alias,
-                            onCopy: {
-                                if hapticFeedbackEnabled {
-                                    Vibration.soft.vibrate()
-                                }
-                                copiedEmail = alias.email
-                                UIPasteboard.general.string = alias.email
-                            },
-                            onSendMail: {
-                                onSendMail(alias)
-                            },
-                            onToggle: {
-                                viewModel.toggle(alias: alias)
-                            })
-                            .padding(.horizontal, 4)
-                            .onTapGesture {
-                                onSelect(alias)
+                ForEach(viewModel.aliases, id: \.id) { alias in
+                    AliasCompactView(
+                        alias: alias,
+                        onCopy: {
+                            if hapticFeedbackEnabled {
+                                Vibration.soft.vibrate()
                             }
-                            .onAppear {
-                                viewModel.getMoreAliasesIfNeed(currentAlias: alias)
-                            }
-                    }
-
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .padding()
-                    }
+                            copiedEmail = alias.email
+                            UIPasteboard.general.string = alias.email
+                        },
+                        onSendMail: {
+                            onSendMail(alias)
+                        },
+                        onToggle: {
+                            viewModel.toggle(alias: alias)
+                        })
+                        .padding(.horizontal, 4)
+                        .onTapGesture {
+                            onSelect(alias)
+                        }
+                        .onAppear {
+                            viewModel.getMoreAliasesIfNeed(currentAlias: alias)
+                        }
                 }
-                .padding(.vertical, 8)
+
+                if viewModel.isLoading {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding()
+                }
             }
         }
+        .listStyle(.plain)
         .simultaneousGesture(
             DragGesture().onChanged { _ in
                 UIApplication.shared.endEditing()

@@ -140,6 +140,7 @@ struct AliasesView: View {
                             .padding()
                     }
                 }
+                .listStyle(.plain)
                 .animation(.default)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
