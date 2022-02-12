@@ -104,10 +104,7 @@ struct AboutView: View {
             }
             .safariView(isPresented: showingUrl) {
                 // swiftlint:disable:next force_unwrapping
-                SafariView(url: URL(string: selectedUrlString ?? "")!,
-                           configuration: .init(entersReaderIfAvailable: true, barCollapsingEnabled: true))
-                    .accentColor(.slPurple)
-                    .dismissButtonStyle(.done)
+                SafariView(url: URL(string: selectedUrlString ?? "")!)
             }
 
             DetailPlaceholderView(systemIconName: "info.circle")

@@ -6,6 +6,7 @@
 //
 
 import AlertToast
+import BetterSafariView
 import Combine
 import SimpleLoginPackage
 import SwiftUI
@@ -15,6 +16,7 @@ struct SignUpView: View {
     @StateObject private var viewModel: SignUpViewModel
     @State private var showingLoadingAlert = false
     @State private var showingRegisteredEmailAlert = false
+    @State private var showingTermsAndConditions = false
     @State private var email = ""
     @State private var password = ""
 
@@ -37,17 +39,31 @@ struct SignUpView: View {
             VStack(spacing: 0) {
                 Spacer()
 
+                LogoView()
+
                 Text("Create an account")
                     .font(.title)
-
-                Spacer()
-                    .frame(height: 40)
-                    .padding(.horizontal)
+                    .padding(.vertical, 20)
 
                 EmailPasswordView(email: $email, password: $password, mode: .signUp) {
                     viewModel.register(email: email, password: password)
                 }
                 .padding(.horizontal)
+
+                Group {
+                    Text("By clicking \"Create account\", you agree to abide by SimpleLogin's Terms & Conditions.")
+                        .padding(.vertical)
+                        .multilineTextAlignment(.center)
+                    Button(action: {
+                        showingTermsAndConditions = true
+                    }, label: {
+                        Text("View Terms & Conditions")
+                    })
+                        .foregroundColor(.blue)
+                }
+                .padding(.horizontal)
+                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ?
+                       UIScreen.main.minLength * 3 / 5 : .infinity)
 
                 Spacer()
 
@@ -61,6 +77,10 @@ struct SignUpView: View {
                 })
                 .padding(.vertical)
             }
+        }
+        .safariView(isPresented: $showingTermsAndConditions) {
+            // swiftlint:disable:next force_unwrapping
+            SafariView(url: URL(string: "https://simplelogin.io/terms/")!)
         }
         .accentColor(.slPurple)
         .onTapGesture {

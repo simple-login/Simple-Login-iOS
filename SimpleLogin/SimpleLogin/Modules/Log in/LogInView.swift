@@ -45,65 +45,60 @@ struct LogInView: View {
                 viewModel.handledError()
             }
         })
-        GeometryReader { geometry in
-            ZStack {
-                // A vary pale color to make background tappable
-                Color.gray.opacity(0.01)
+        ZStack {
+            // A vary pale color to make background tappable
+            Color.gray.opacity(0.01)
 
-                VStack {
-                    if !launching {
-                        topView
+            VStack {
+                if !launching {
+                    topView
+                }
+
+                Spacer()
+
+                LogoView()
+
+                if !launching {
+                    EmailPasswordView(email: $email,
+                                      password: $password,
+                                      mode: .logIn) {
+                        viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
                     }
-
-                    Spacer()
-
-                    Image("LogoWithName")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: min(geometry.size.width / 3, 150))
-
-                    if !launching {
-                        EmailPasswordView(email: $email,
-                                          password: $password,
-                                          mode: .logIn) {
-                            viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
-                        }
-                        .padding()
-                        .fullScreenCover(isPresented: $showingOtpView) {
-                            OtpView(mfaKey: mfaKey,
-                                    // swiftlint:disable:next force_unwrapping
-                                    client: viewModel.client!) { apiKey in
-                                showingOtpView = false
+                    .padding()
+                    .fullScreenCover(isPresented: $showingOtpView) {
+                        OtpView(mfaKey: mfaKey,
                                 // swiftlint:disable:next force_unwrapping
-                                onComplete(apiKey, viewModel.client!)
+                                client: viewModel.client!) { apiKey in
+                            showingOtpView = false
+                            // swiftlint:disable:next force_unwrapping
+                            onComplete(apiKey, viewModel.client!)
+                        }
+                    }
+
+                    Button(action: {
+                        showingResetPasswordView = true
+                    }, label: {
+                        Text("Forgot password?")
+                    })
+                } else {
+                    ProgressView()
+                }
+
+                Spacer()
+
+                if !launching {
+                    bottomView
+                        .fixedSize(horizontal: false, vertical: true)
+                        .fullScreenCover(isPresented: $showingSignUpView) {
+                            if let client = viewModel.client {
+                                SignUpView(client: client)
                             }
                         }
-
-                        Button(action: {
-                            showingResetPasswordView = true
-                        }, label: {
-                            Text("Forgot password?")
-                        })
-                    } else {
-                        ProgressView()
-                    }
-
-                    Spacer()
-
-                    if !launching {
-                        bottomView
-                            .fixedSize(horizontal: false, vertical: true)
-                            .fullScreenCover(isPresented: $showingSignUpView) {
-                                if let client = viewModel.client {
-                                    SignUpView(client: client)
-                                }
-                            }
-                    }
                 }
             }
-            .onTapGesture {
-                UIApplication.shared.endEditing()
-            }
+        }
+        .onTapGesture {
+            UIApplication.shared.endEditing()
         }
         .onReceive(Just(preferences.apiUrl)) { apiUrl in
             viewModel.updateApiUrl(apiUrl)

@@ -14,7 +14,7 @@ extension EmailPasswordView {
         var title: String {
             switch self {
             case .logIn: return "Log in"
-            case .signUp: return "Sign up"
+            case .signUp: return "Create account"
             }
         }
     }
