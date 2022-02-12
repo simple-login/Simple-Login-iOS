@@ -230,6 +230,9 @@ struct AliasDetailView: View {
             }
         }, label: {
             Image(systemName: "ellipsis")
+                .resizable()
+                .scaledToFit()
+                .padding([.vertical, .leading])
         })
     }
 

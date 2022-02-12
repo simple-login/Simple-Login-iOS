@@ -19,10 +19,16 @@ struct AliasesView: View {
     @State private var showingCreateView = false
     @State private var copiedEmail: String?
     @State private var createdAlias: Alias?
-    @State private var selectedDestinationMode: AliasNavigationLinkDestination.Mode?
+    @State private var selectedAlias: Alias?
+    @State private var aliasToShowDetails: Alias?
+    @State private var selectedLink: Link?
 
     enum Modal {
         case search, create
+    }
+
+    enum Link {
+        case details, contacts
     }
 
     init(session: Session) {
@@ -54,24 +60,49 @@ struct AliasesView: View {
             }
         })
 
-        let showingDestination = Binding<Bool>(get: {
-            selectedDestinationMode != nil
-        }, set: { isShowing in
-            if !isShowing {
-                selectedDestinationMode = nil
-            }
-        })
         NavigationView {
             ZStack {
                 NavigationLink(
-                    isActive: showingDestination,
+                    tag: Link.details,
+                    selection: $selectedLink,
                     destination: {
-                        AliasNavigationLinkDestination(
-                            viewModel: viewModel,
-                            mode: selectedDestinationMode ?? .contacts(.ccohen))
-                            .onAppear {
-                                selectedDestinationMode = nil
-                            }
+                        if let selectedAlias = selectedAlias {
+                            AliasDetailView(
+                                alias: selectedAlias,
+                                session: viewModel.session,
+                                onUpdateAlias: { updatedAlias in
+                                    viewModel.update(alias: updatedAlias)
+                                },
+                                onDeleteAlias: {
+                                    viewModel.delete(alias: selectedAlias)
+                                })
+                                .onAppear {
+                                    if UIDevice.current.userInterfaceIdiom != .phone {
+                                        selectedLink = nil
+                                    }
+                                }
+                        } else {
+                            EmptyView()
+                        }
+                    },
+                    label: {
+                        EmptyView()
+                    })
+
+                NavigationLink(
+                    tag: Link.contacts,
+                    selection: $selectedLink,
+                    destination: {
+                        if let selectedAlias = selectedAlias {
+                            AliasContactsView(alias: selectedAlias, session: viewModel.session)
+                                .onAppear {
+                                    if UIDevice.current.userInterfaceIdiom != .phone {
+                                        selectedLink = nil
+                                    }
+                                }
+                        } else {
+                            EmptyView()
+                        }
                     },
                     label: {
                         EmptyView()
@@ -89,7 +120,8 @@ struct AliasesView: View {
                                 UIPasteboard.general.string = alias.email
                             },
                             onSendMail: {
-                                selectedDestinationMode = .contacts(alias)
+                                selectedAlias = alias
+                                selectedLink = .contacts
                             },
                             onToggle: {
                                 viewModel.toggle(alias: alias)
@@ -98,7 +130,8 @@ struct AliasesView: View {
                                 viewModel.getMoreAliasesIfNeed(currentAlias: alias)
                             }
                             .onTapGesture {
-                                selectedDestinationMode = .detail(alias)
+                                selectedAlias = alias
+                                selectedLink = .details
                             }
                     }
                     if viewModel.isLoading {
@@ -189,32 +222,6 @@ enum AliasStatus: CustomStringConvertible, CaseIterable {
         case .all: return "All"
         case .active: return "Active"
         case .inactive: return "Inactive"
-        }
-    }
-}
-
-private struct AliasNavigationLinkDestination: View {
-    @ObservedObject var viewModel: AliasesViewModel
-    let mode: Mode
-
-    enum Mode {
-        case detail(Alias), contacts(Alias)
-    }
-
-    var body: some View {
-        switch mode {
-        case .detail(let alias):
-            AliasDetailView(
-                alias: alias,
-                session: viewModel.session,
-                onUpdateAlias: { updatedAlias in
-                    viewModel.update(alias: updatedAlias)
-                },
-                onDeleteAlias: {
-                    viewModel.delete(alias: alias)
-                })
-        case .contacts(let alias):
-            AliasContactsView(alias: alias, session: viewModel.session)
         }
     }
 }
