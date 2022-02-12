@@ -167,13 +167,13 @@ struct LogInView: View {
                     Button(action: {
                         showingApiKeyView = true
                     }, label: {
-                        Label("Log in using API key", systemImage: "key.fill")
+                        Label("Log in using API key", systemImage: "key")
                     })
 
                     Button(action: {
                         showingApiUrlView = true
                     }, label: {
-                        Label("Edit API URL", systemImage: "link.circle.fill")
+                        Label("Edit API URL", systemImage: "link")
                     })
                 }
 
@@ -181,7 +181,7 @@ struct LogInView: View {
                     Button(action: {
                         showingAboutView = true
                     }, label: {
-                        Label("About SimpleLogin", systemImage: "info.circle.fill")
+                        Label("About SimpleLogin", systemImage: "info.circle")
                     })
                 }
             }, label: {

@@ -19,15 +19,12 @@ struct AliasDetailView: View {
     @State private var showingLoadingAlert = false
     @State private var showingDeletionAlert = false
     @State private var showingAliasEmailSheet = false
+    @State private var showingAliasFullScreen = false
     @State private var showingAliasContacts = false
-    @State private var selectedSheet: Sheet?
+    @State private var selectedActivity: AliasActivity?
     @State private var copiedText: String?
     var onUpdateAlias: (Alias) -> Void
     var onDeleteAlias: () -> Void
-
-    private enum Sheet {
-        case actions, activity(AliasActivity)
-    }
 
     init(alias: Alias,
          session: Session,
@@ -39,11 +36,11 @@ struct AliasDetailView: View {
     }
 
     var body: some View {
-        let showingSheet = Binding<Bool>(get: {
-            selectedSheet != nil
+        let showingSelectedActivityActionSheet = Binding<Bool>(get: {
+            selectedActivity != nil
         }, set: { isShowing in
             if !isShowing {
-                selectedSheet = nil
+                selectedActivity = nil
             }
         })
 
@@ -74,6 +71,10 @@ struct AliasDetailView: View {
                             AliasEmailView(email: viewModel.alias.email)
                                 .forceDarkModeIfApplicable()
                         }
+                        .fullScreenCover(isPresented: $showingAliasFullScreen) {
+                            AliasEmailView(email: viewModel.alias.email)
+                                .forceDarkModeIfApplicable()
+                        }
                     Divider()
                     MailboxesSection(viewModel: viewModel)
                     Divider()
@@ -82,7 +83,7 @@ struct AliasDetailView: View {
                     NotesSection(viewModel: viewModel)
                     Divider()
                     ActivitiesSection(viewModel: viewModel) { activity in
-                        selectedSheet = .activity(activity)
+                        selectedActivity = activity
                     }
                 }
                 .padding(.horizontal)
@@ -92,13 +93,8 @@ struct AliasDetailView: View {
                 scrollView.refreshControl = viewModel.refreshControl
             }
         }
-        .actionSheet(isPresented: showingSheet) {
-            switch selectedSheet {
-            case .activity(let activity):
-                return activitySheet(activity: activity)
-            default:
-                return actionsSheet
-            }
+        .actionSheet(isPresented: showingSelectedActivityActionSheet) {
+            selectedActivityActionSheet
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: trailingButton)
@@ -125,7 +121,7 @@ struct AliasDetailView: View {
                     .font(.footnote)
                 }
                 .onTapGesture {
-                    showingAliasEmailSheet = true
+                    showAliasInFullScreen()
                 }
             }
         }
@@ -156,86 +152,85 @@ struct AliasDetailView: View {
     }
 
     private var trailingButton: some View {
-        Button(action: {
-            selectedSheet = .actions
+        Menu(content: {
+            Section {
+                Button(action: {
+                    if hapticFeedbackEnabled {
+                        Vibration.soft.vibrate()
+                    }
+                    copiedText = viewModel.alias.email
+                    UIPasteboard.general.string = viewModel.alias.email
+                }, label: {
+                    Label("Copy", systemImage: "doc.on.doc")
+                })
+
+                Button(action: {
+                    showAliasInFullScreen()
+                }, label: {
+                    Label("Enter full screen", systemImage: "iphone")
+                })
+            }
+
+            Section {
+                Button(action: {
+                    if hapticFeedbackEnabled {
+                        Vibration.soft.vibrate()
+                    }
+                    showingAliasContacts = true
+                }, label: {
+                    Label("Send email", systemImage: "paperplane")
+                })
+            }
+
+            Section {
+                if viewModel.alias.enabled {
+                    Button(action: {
+                        viewModel.toggle()
+                    }, label: {
+                        Label("Deactivate", systemImage: "circle.dashed")
+                    })
+                } else {
+                    Button(action: {
+                        viewModel.toggle()
+                    }, label: {
+                        Label("Activate", systemImage: "checkmark.circle")
+                    })
+                }
+
+                if viewModel.alias.pinned {
+                    Button(action: {
+                        viewModel.update(session: session, option: .pinned(false))
+                    }, label: {
+                        Label("Unpin", systemImage: "bookmark.slash")
+                    })
+                } else {
+                    Button(action: {
+                        viewModel.update(session: session, option: .pinned(true))
+                    }, label: {
+                        Label("Pin", systemImage: "bookmark")
+                    })
+                }
+            }
+
+            Section {
+                let deleteAction: () -> Void = {
+                    if hapticFeedbackEnabled {
+                        Vibration.warning.vibrate(fallBackToOldSchool: true)
+                    }
+                    showingDeletionAlert = true
+                }
+                let deleteLabel: () -> Label = {
+                    Label("Delete", systemImage: "trash")
+                }
+                if #available(iOS 15.0, *) {
+                    Button(role: .destructive, action: deleteAction, label: deleteLabel)
+                } else {
+                    Button(action: deleteAction, label: deleteLabel)
+                }
+            }
         }, label: {
             Image(systemName: "ellipsis")
         })
-            .frame(minWidth: 24, minHeight: 24)
-    }
-
-    private var actionsSheet: ActionSheet {
-        var buttons: [ActionSheet.Button] = []
-
-        buttons.append(
-            ActionSheet.Button.default(Text("Copy")) {
-                if hapticFeedbackEnabled {
-                    Vibration.soft.vibrate()
-                }
-                copiedText = viewModel.alias.email
-                UIPasteboard.general.string = viewModel.alias.email
-            }
-        )
-
-        buttons.append(
-            ActionSheet.Button.default(Text("Send email")) {
-                if hapticFeedbackEnabled {
-                    Vibration.soft.vibrate()
-                }
-                showingAliasContacts = true
-            }
-        )
-
-        buttons.append(
-            ActionSheet.Button.default(Text("Enter Full Screen")) {
-                showingAliasEmailSheet = true
-            }
-        )
-
-        if viewModel.alias.enabled {
-            buttons.append(
-                ActionSheet.Button.default(Text("Deactivate")) {
-                    viewModel.toggle()
-                }
-            )
-        } else {
-            buttons.append(
-                ActionSheet.Button.default(Text("Activate")) {
-                    viewModel.toggle()
-                }
-            )
-        }
-
-        if viewModel.alias.pinned {
-            buttons.append(
-                ActionSheet.Button.default(Text("Unpin")) {
-                    viewModel.update(session: session,
-                                     option: .pinned(false))
-                }
-            )
-        } else {
-            buttons.append(
-                ActionSheet.Button.default(Text("Pin")) {
-                    viewModel.update(session: session,
-                                     option: .pinned(true))
-                }
-            )
-        }
-
-        buttons.append(
-            ActionSheet.Button.destructive(Text("Delete")) {
-                if hapticFeedbackEnabled {
-                    Vibration.warning.vibrate(fallBackToOldSchool: true)
-                }
-                showingDeletionAlert = true
-            }
-        )
-
-        buttons.append(.cancel())
-
-        return ActionSheet(title: Text(""),
-                           message: Text(viewModel.alias.email),
-                           buttons: buttons)
     }
 
     private var deletionAlert: Alert {
@@ -247,24 +242,28 @@ struct AliasDetailView: View {
               secondaryButton: .cancel())
     }
 
-    private func activitySheet(activity: AliasActivity) -> ActionSheet {
+    private var selectedActivityActionSheet: ActionSheet {
+        guard let selectedActivity = selectedActivity else {
+            return ActionSheet(title: Text(""))
+        }
+
         var buttons: [ActionSheet.Button] = []
 
         buttons.append(
             ActionSheet.Button.default(Text("Copy reverse-alias (w/ display name)")) {
-                copiedText = activity.reverseAlias
+                copiedText = selectedActivity.reverseAlias
             }
         )
 
         buttons.append(
             ActionSheet.Button.default(Text("Copy reverse-alias (w/o display name)")) {
-                copiedText = activity.reverseAliasAddress
+                copiedText = selectedActivity.reverseAliasAddress
             }
         )
 
         buttons.append(
             ActionSheet.Button.default(Text("Open default email client")) {
-                if let mailToUrl = URL(string: "mailto:\(activity.reverseAliasAddress)") {
+                if let mailToUrl = URL(string: "mailto:\(selectedActivity.reverseAliasAddress)") {
                     UIApplication.shared.open(mailToUrl)
                 }
             }
@@ -272,11 +271,19 @@ struct AliasDetailView: View {
 
         buttons.append(.cancel())
 
-        let fromAddress = activity.action == .reply ? activity.from : activity.to
-        let toAddress = activity.action == .reply ? activity.to : activity.from
+        let fromAddress = selectedActivity.action == .reply ? selectedActivity.from : selectedActivity.to
+        let toAddress = selectedActivity.action == .reply ? selectedActivity.to : selectedActivity.from
         return ActionSheet(title: Text("Compose and send email"),
                            message: Text("From: \"\(fromAddress)\"\nTo: \"\(toAddress)\""),
                            buttons: buttons)
+    }
+
+    private func showAliasInFullScreen() {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            showingAliasEmailSheet = true
+        } else {
+            showingAliasFullScreen = true
+        }
     }
 }
 
@@ -843,32 +850,44 @@ private struct EditNotesView: View {
 }
 
 struct AliasEmailView: View {
+    @Environment(\.presentationMode) private var presentationMode
     @State private var originalBrightness: CGFloat = 0.5
     @State private var percentage: Double = 0.5
     let email: String
 
     var body: some View {
-        VStack {
-            Spacer()
-            Text(verbatim: email)
-                .font(.system(size: (percentage + 1) * 24))
-                .fontWeight(.semibold)
-            Spacer()
-            HStack {
-                Text("A")
-                Slider(value: $percentage)
-                Text("A")
-                    .font(.title)
+        NavigationView {
+            VStack {
+                Spacer()
+                Text(verbatim: email)
+                    .font(.system(size: (percentage + 1) * 24))
+                    .fontWeight(.semibold)
+                Spacer()
+                HStack {
+                    Text("A")
+                    Slider(value: $percentage)
+                    Text("A")
+                        .font(.title)
+                }
+            }
+            .accentColor(.slPurple)
+            .padding()
+            .navigationBarItems(leading: closeButton)
+            .onAppear {
+                originalBrightness = UIScreen.main.brightness
+                UIScreen.main.brightness = CGFloat(1.0)
+            }
+            .onDisappear {
+                UIScreen.main.brightness = originalBrightness
             }
         }
-        .accentColor(.slPurple)
-        .padding()
-        .onAppear {
-            originalBrightness = UIScreen.main.brightness
-            UIScreen.main.brightness = CGFloat(1.0)
-        }
-        .onDisappear {
-            UIScreen.main.brightness = originalBrightness
-        }
+    }
+
+    private var closeButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Close")
+        })
     }
 }
