@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 03/08/2021.
 //
 
-import AlertToast
 import Combine
 import SimpleLoginPackage
 import SwiftUI
@@ -13,6 +12,7 @@ import SwiftUI
 struct ApiKeyView: View {
     @Environment(\.presentationMode) private var presentationMode
     @ObservedObject private var viewModel = ApiKeyViewModel()
+    @State private var showingLoadingAlert = false
     @State private var value = ""
     let client: SLClient?
     let onSetApiKey: (ApiKey) -> Void
@@ -42,6 +42,7 @@ struct ApiKeyView: View {
                             .frame(maxWidth: .infinity)
                             .multilineTextAlignment(.center)
                     })
+                        .disabled(value.isEmpty)
                 }
             }
             .navigationBarTitle("Log in using API key", displayMode: .inline)
@@ -52,6 +53,9 @@ struct ApiKeyView: View {
             }))
         }
         .accentColor(.slPurple)
+        .onReceive(Just(viewModel.isLoading)) { isLoading in
+            showingLoadingAlert = isLoading
+        }
         .onReceive(Just(viewModel.apiKey)) { apiKey in
             if let apiKey = apiKey {
                 onSetApiKey(apiKey)
@@ -60,9 +64,8 @@ struct ApiKeyView: View {
         .onAppear {
             viewModel.client = client
         }
-        .toast(isPresenting: showingErrorToast) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
     }
 
     private var footerText: some View {

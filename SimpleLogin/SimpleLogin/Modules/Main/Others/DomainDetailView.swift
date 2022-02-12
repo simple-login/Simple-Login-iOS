@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 14/01/2022.
 //
 
-import AlertToast
 import Combine
 import SimpleLoginPackage
 import SwiftUI
@@ -68,12 +67,8 @@ struct DomainDetailView: View {
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 }
 
@@ -237,12 +232,8 @@ private struct EditMailboxesView: View {
         .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
             showingLoadingAlert = isLoadingMailboxes
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 
     private var cancelButton: some View {
@@ -414,12 +405,8 @@ private struct EditDisplayNameView: View {
                 viewModel.handledIsUpdatedBoolean()
             }
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 
     private var cancelButton: some View {

@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 02/09/2021.
 //
 
-import AlertToast
 import Combine
 import Kingfisher
 import LocalAuthentication
@@ -88,15 +87,9 @@ struct AccountView: View {
             }
         }
         .modifier(ConfettiableModifier(counter: $confettiCounter))
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
-        .toast(isPresenting: showingMessageAlert) {
-            AlertToast.messageAlert(viewModel.message)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastMessage(isPresenting: showingMessageAlert, message: viewModel.message)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 }
 

@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 04/11/2021.
 //
 
-import AlertToast
 import Combine
 import Introspect
 import SimpleLoginPackage
@@ -148,18 +147,9 @@ struct AliasDetailView: View {
         .onAppear {
             viewModel.getMoreActivitiesIfNeed(currentActivity: nil)
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingCopyAlert) {
-            AlertToast(displayMode: .alert,
-                       type: .systemImage("doc.on.doc", .secondary),
-                       title: "Copied",
-                       subTitle: copiedText)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
         .alert(isPresented: $showingDeletionAlert) {
             deletionAlert
         }
@@ -669,12 +659,8 @@ private struct EditMailboxesView: View {
         .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
             showingLoadingAlert = isLoadingMailboxes
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.updatingError)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.updatingError)
     }
 
     private var cancelButton: some View {
@@ -765,12 +751,8 @@ private struct EditDisplayNameView: View {
                 viewModel.handledIsUpdatedBoolean()
             }
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.updatingError)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.updatingError)
     }
 
     private var cancelButton: some View {
@@ -837,12 +819,8 @@ private struct EditNotesView: View {
                 viewModel.handledIsUpdatedBoolean()
             }
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.updatingError)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.updatingError)
     }
 
     private var cancelButton: some View {

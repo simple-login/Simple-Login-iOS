@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 22/09/2021.
 //
 
-import AlertToast
 import Combine
 import SimpleLoginPackage
 import SwiftUI
@@ -74,11 +73,7 @@ struct ResetPasswordView: View {
                   message: Text("Please check the inbox of your email \(viewModel.resetEmail ?? "") and follow the instructions."),
                   dismissButton: .default(Text("OK"), action: { presentationMode.wrappedValue.dismiss() }))
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorToast) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
     }
 }

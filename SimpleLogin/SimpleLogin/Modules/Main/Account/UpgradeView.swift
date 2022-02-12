@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 28/12/2021.
 //
 
-import AlertToast
 import Combine
 import SwiftUI
 
@@ -60,12 +59,8 @@ struct UpgradeView: View {
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 
     private var gradientBackground: some View {

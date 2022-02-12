@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 12/01/2022.
 //
 
-import AlertToast
 import Combine
 import Introspect
 import SimpleLoginPackage
@@ -71,12 +70,8 @@ struct CustomDomainsView: View {
         .alert(isPresented: showingUnverifiedDomainAlert) {
             unverifiedDomainAlert
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 
     var noDomainView: some View {

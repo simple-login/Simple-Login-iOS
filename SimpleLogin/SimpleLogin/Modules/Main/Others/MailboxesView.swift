@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 12/01/2022.
 //
 
-import AlertToast
 import Combine
 import Introspect
 import SimpleLoginPackage
@@ -93,12 +92,8 @@ struct MailboxesView: View {
         .alert(isPresented: showingDeletionAlert) {
             deletionAlert
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 
     private var optionsActionSheet: ActionSheet {

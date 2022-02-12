@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 25/12/2021.
 //
 
-import AlertToast
 import Combine
 import SimpleLoginPackage
 import SwiftUI
@@ -53,12 +52,8 @@ struct CreateContactView: View {
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 
     private var cancelButton: some View {

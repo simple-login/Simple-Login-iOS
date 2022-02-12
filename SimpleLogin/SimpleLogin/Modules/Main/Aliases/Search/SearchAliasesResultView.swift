@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 05/02/2022.
 //
 
-import AlertToast
 import Combine
 import SimpleLoginPackage
 import SwiftUI
@@ -91,14 +90,8 @@ struct SearchAliasesResultView: View {
                 onUpdate(updatedAlias)
             }
         }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
-        .toast(isPresenting: showingCopiedEmailAlert) {
-            AlertToast.copiedAlert(content: copiedEmail)
-        }
-        .toast(isPresenting: $showingUpdatingAlert) {
-            AlertToast(type: .loading)
-        }
+        .alertToastLoading(isPresenting: $showingUpdatingAlert)
+        .alertToastCopyMessage(isPresenting: showingCopiedEmailAlert, message: copiedEmail)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 }

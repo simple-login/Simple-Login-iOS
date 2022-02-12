@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 02/09/2021.
 //
 
-import AlertToast
 import Combine
 import Introspect
 import SimpleLoginPackage
@@ -159,21 +158,12 @@ struct AliasesView: View {
             )
                 .forceDarkModeIfApplicable()
         }
-        .toast(isPresenting: showingCopiedEmailAlert) {
-            AlertToast.copiedAlert(content: copiedEmail)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
-        .toast(isPresenting: $showingUpdatingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingCreatedAliasAlert) {
-            AlertToast(displayMode: .alert,
-                       type: .complete(.green),
-                       title: "Created",
-                       subTitle: createdAlias?.email ?? "")
-        }
+        .alertToastLoading(isPresenting: $showingUpdatingAlert)
+        .alertToastCopyMessage(isPresenting: showingCopiedEmailAlert, message: copiedEmail)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastCompletionMessage(isPresenting: showingCreatedAliasAlert,
+                                     title: "Created",
+                                     subTitle: createdAlias?.email ?? "")
     }
 
     private var randomAliasActionSheet: ActionSheet {

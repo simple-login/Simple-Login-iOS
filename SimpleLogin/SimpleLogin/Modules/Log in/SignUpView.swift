@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 28/08/2021.
 //
 
-import AlertToast
 import BetterSafariView
 import Combine
 import SimpleLoginPackage
@@ -90,12 +89,8 @@ struct SignUpView: View {
                 showingRegisteredEmailAlert = true
             }
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorToast) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
         .alert(isPresented: $showingRegisteredEmailAlert) {
             Alert(title: Text("You are all set"),
                   message: Text("We've sent an email to \(viewModel.registeredEmail ?? ""). Please check your inbox."),

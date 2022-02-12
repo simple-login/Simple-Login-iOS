@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 20/11/2021.
 //
 
-import AlertToast
 import Combine
 import Introspect
 import SimpleLoginPackage
@@ -94,18 +93,9 @@ struct AliasContactsView: View {
             }
             .forceDarkModeIfApplicable()
         }
-        .toast(isPresenting: showingCopyAlert) {
-            AlertToast(displayMode: .alert,
-                       type: .systemImage("doc.on.doc", .secondary),
-                       title: "Copied",
-                       subTitle: copiedText)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
+        .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
     }
 
     var plusButton: some View {

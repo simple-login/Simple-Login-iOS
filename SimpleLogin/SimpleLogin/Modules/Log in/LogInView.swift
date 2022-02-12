@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 29/07/2021.
 //
 
-import AlertToast
 import Combine
 import SimpleLoginPackage
 import SwiftUI
@@ -127,12 +126,8 @@ struct LogInView: View {
                 }
             }
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorToast) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
     }
 
     private var topView: some View {
