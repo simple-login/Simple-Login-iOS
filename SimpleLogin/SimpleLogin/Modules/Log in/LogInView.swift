@@ -187,8 +187,14 @@ struct LogInView: View {
             }, label: {
                 if #available(iOS 15, *) {
                     Image(systemName: "list.bullet.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
                 } else {
                     Image(systemName: "list.bullet")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
                 }
             })
         }

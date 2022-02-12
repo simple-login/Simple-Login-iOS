@@ -229,10 +229,10 @@ struct AliasDetailView: View {
                 }
             }
         }, label: {
-            Image(systemName: "ellipsis")
+            Image(systemName: "ellipsis.circle")
                 .resizable()
                 .scaledToFit()
-                .padding([.vertical, .leading])
+                .frame(width: 24, height: 24)
         })
     }
 
