@@ -60,94 +60,81 @@ struct OtpView: View {
                 .padding()
                 .font(.title)
 
-                let buttonWidth = min(UIScreen.main.bounds.width / 4, 120)
-
                 HStack {
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .one)
-                    }, content: {
+                    }, label: {
                         Text("1")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .two)
-                    }, content: {
+                    }, label: {
                         Text("2")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
-                        viewModel.add(digit: .three)
-                    }, content: {
+                    OtpButton(action: {
+                        viewModel.add(digit: .one)
+                    }, label: {
                         Text("3")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
                 }
 
                 HStack {
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .four)
-                    }, content: {
+                    }, label: {
                         Text("4")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .five)
-                    }, content: {
+                    }, label: {
                         Text("5")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .six)
-                    }, content: {
+                    }, label: {
                         Text("6")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
                 }
 
                 HStack {
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .seven)
-                    }, content: {
+                    }, label: {
                         Text("7")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .eighth)
-                    }, content: {
+                    }, label: {
                         Text("8")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .nine)
-                    }, content: {
+                    }, label: {
                         Text("9")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
                 }
 
                 HStack {
-                    Color.clear
-                        .frame(width: buttonWidth, height: buttonWidth)
+                    OtpButton(action: {}, label: { EmptyView() })
+                        .opacity(0)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .zero)
-                    }, content: {
+                    }, label: {
                         Text("0")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.delete()
-                    }, content: {
+                    }, label: {
                         Image(systemName: "delete.left.fill")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
                 }
 
                 Spacer()
@@ -157,7 +144,7 @@ struct OtpView: View {
         }
         .accentColor(.slPurple)
         .toast(isPresenting: $showingLoadingHud) {
-            AlertToast(displayMode: .hud, type: .loading)
+            AlertToast(type: .loading)
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingHud = isLoading
@@ -185,25 +172,39 @@ struct OtpView_Previews: PreviewProvider {
     }
 }
 
-struct CircleButton<Content: View>: View {
+struct OtpButton<Label: View>: View {
     let action: () -> Void
-    let content: Content
+    let label: () -> Label
 
-    init(action: @escaping () -> Void, @ViewBuilder content: () -> Content) {
+    init(action: @escaping () -> Void,
+         @ViewBuilder label: @escaping () -> Label) {
         self.action = action
-        self.content = content()
+        self.label = label
     }
 
     var body: some View {
+        Button(action: action, label: label)
+            .buttonStyle(.otp)
+    }
+}
+
+private struct OtpButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        let width = min(120, UIScreen.main.minLength / 4)
         ZStack {
             Circle()
-                .foregroundColor(Color(.systemGroupedBackground))
-            content
+                .foregroundColor(Color(.systemGray6))
+            configuration.label
                 .font(.largeTitle)
         }
-        .onTapGesture {
-            action()
-        }
+        .opacity(configuration.isPressed ? 0.5 : 1)
+        .frame(width: width, height: width)
+    }
+}
+
+private extension ButtonStyle where Self == OtpButtonStyle {
+    static var otp: OtpButtonStyle {
+        OtpButtonStyle()
     }
 }
 

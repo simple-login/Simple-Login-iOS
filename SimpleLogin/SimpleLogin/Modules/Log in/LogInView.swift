@@ -25,8 +25,8 @@ struct LogInView: View {
     @State private var launching = true
     @State private var showingSignUpView = false
 
-    @State private var mfaKey = ""
-    @State private var showingOtpView = false
+    @State private var showingOtpViewSheet = false
+    @State private var showingOtpViewFullScreen = false
 
     @State private var showingLoadingAlert = false
 
@@ -65,15 +65,8 @@ struct LogInView: View {
                         viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
                     }
                     .padding()
-                    .fullScreenCover(isPresented: $showingOtpView) {
-                        OtpView(mfaKey: mfaKey,
-                                // swiftlint:disable:next force_unwrapping
-                                client: viewModel.client!) { apiKey in
-                            showingOtpView = false
-                            // swiftlint:disable:next force_unwrapping
-                            onComplete(apiKey, viewModel.client!)
-                        }
-                    }
+                    .sheet(isPresented: $showingOtpViewSheet) { otpView }
+                    .fullScreenCover(isPresented: $showingOtpViewFullScreen) { otpView }
 
                     Button(action: {
                         showingResetPasswordView = true
@@ -109,8 +102,11 @@ struct LogInView: View {
         .onReceive(Just(viewModel.userLogin)) { userLogin in
             guard let userLogin = userLogin else { return }
             if userLogin.isMfaEnabled {
-                showingOtpView = true
-                mfaKey = viewModel.userLogin?.mfaKey ?? ""
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    showingOtpViewFullScreen = true
+                } else {
+                    showingOtpViewSheet = true
+                }
             } else if let apiKey = userLogin.apiKey {
                 // swiftlint:disable:next force_unwrapping
                 onComplete(apiKey, viewModel.client!)
@@ -240,5 +236,14 @@ struct LogInView: View {
         Color.secondary
             .opacity(0.5)
             .frame(height: 1)
+    }
+
+    private var otpView: some View {
+        // swiftlint:disable:next force_unwrapping
+        let client = viewModel.client!
+        return OtpView(mfaKey: viewModel.userLogin?.mfaKey ?? "", client: client) { apiKey in
+            showingOtpViewFullScreen = false
+            onComplete(apiKey, client)
+        }
     }
 }
