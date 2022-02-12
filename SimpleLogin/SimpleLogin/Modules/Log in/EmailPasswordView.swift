@@ -139,10 +139,17 @@ struct EmailPasswordView: View {
                 Text(mode.title)
                     .font(.headline)
                     .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical)
+                    .background(Color.slPurple)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .opacity((email.isEmpty || password.isEmpty) ? 0.5 : 1)
             })
             .padding(.vertical, 4)
             .disabled(email.isEmpty || password.isEmpty)
         }
+        .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? UIScreen.main.minLength * 3 / 5 : .infinity)
     }
 }
 
@@ -151,5 +158,6 @@ struct EmailPasswordView_Previews: PreviewProvider {
         EmailPasswordView(email: .constant(""),
                           password: .constant(""),
                           mode: .logIn) {}
+                          .padding()
     }
 }

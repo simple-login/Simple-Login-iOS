@@ -78,6 +78,12 @@ struct LogInView: View {
                                 onComplete(apiKey, viewModel.client!)
                             }
                         }
+
+                        Button(action: {
+                            showingResetPasswordView = true
+                        }, label: {
+                            Text("Forgot password?")
+                        })
                     } else {
                         ProgressView()
                     }
