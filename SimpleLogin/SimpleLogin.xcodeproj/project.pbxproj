@@ -134,6 +134,7 @@
 		EF5BDFB227B79ABD004B696B /* UIScreenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */; };
 		EF5BDFB427B7AF56004B696B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB327B7AF56004B696B /* LogoView.swift */; };
 		EF5BDFB827B7B5DD004B696B /* BetterSafariViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */; };
+		EF6FEA6C27B813DF00557158 /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6B27B813DF00557158 /* ResetPasswordViewModel.swift */; };
 		EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2A37C27B6F3460020E808 /* LabelText.swift */; };
 /* End PBXBuildFile section */
 
@@ -282,6 +283,7 @@
 		EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreenExtensions.swift; sourceTree = "<group>"; };
 		EF5BDFB327B7AF56004B696B /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewExtensions.swift; sourceTree = "<group>"; };
+		EF6FEA6B27B813DF00557158 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		EFA2A37C27B6F3460020E808 /* LabelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -447,6 +449,7 @@
 				C03760F726DC0D6A00E5ECAC /* LogInViewModel.swift */,
 				C00A563726DAD9E000A550A2 /* OtpView.swift */,
 				C05CC54A26FBCAAE003BC32D /* ResetPasswordView.swift */,
+				EF6FEA6B27B813DF00557158 /* ResetPasswordViewModel.swift */,
 				C0259EAC26DA30D70056A977 /* SignUpView.swift */,
 				C0FE7B2C27A9CFD7005D53DF /* SignUpViewModel.swift */,
 			);
@@ -893,6 +896,7 @@
 				C02F967226DB78D0000B100C /* ShakeEffect.swift in Sources */,
 				C02CD1982794C20400B3115E /* ConfettiableModifier.swift in Sources */,
 				C03F4F1526E15ADD00BBF2A8 /* AliasesView.swift in Sources */,
+				EF6FEA6C27B813DF00557158 /* ResetPasswordViewModel.swift in Sources */,
 				C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */,
 				C00FD80127AA71E80072DD67 /* Tip.swift in Sources */,
 				C03F4F2526E1665D00BBF2A8 /* OthersView.swift in Sources */,

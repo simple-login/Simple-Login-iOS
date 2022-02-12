@@ -161,9 +161,8 @@ struct LogInView: View {
             Color.clear
                 .frame(width: 0, height: 0)
                 .sheet(isPresented: $showingResetPasswordView) {
-                    ResetPasswordView { email in
-                        // TODO: Reset password
-                    }
+                    // swiftlint:disable:next force_unwrapping
+                    ResetPasswordView(client: viewModel.client!)
                 }
 
             Spacer()

@@ -74,7 +74,7 @@ struct OtpView: View {
                     })
 
                     OtpButton(action: {
-                        viewModel.add(digit: .one)
+                        viewModel.add(digit: .three)
                     }, label: {
                         Text("3")
                     })
