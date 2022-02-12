@@ -21,7 +21,9 @@ extension EmailPasswordView {
 }
 
 struct EmailPasswordView: View {
-    @State private var showPassword = false
+    @State private var showingClearEmailButton = false
+    @State private var showingClearPasswordButton = false
+    @State private var showingPassword = false
     @State private var invalidEmail = false
     @State private var invalidPassword = false
     @Binding var email: String
@@ -37,8 +39,9 @@ struct EmailPasswordView: View {
                         HStack {
                             Image(systemName: "person.crop.circle")
                                 .foregroundColor(.accentColor)
-                            TextField("Email", text: $email) { _ in
+                            TextField("Email", text: $email) { changed in
                                 withAnimation {
+                                    showingClearEmailButton = changed
                                     invalidEmail = false
                                 }
                             }
@@ -59,12 +62,14 @@ struct EmailPasswordView: View {
                         }
                     }
 
-                    Button(action: {
-                        email = ""
-                    }, label: {
-                        Image(systemName: "xmark.circle")
-                            .foregroundColor(Color.gray)
-                    })
+                    if showingClearEmailButton {
+                        Button(action: {
+                            email = ""
+                        }, label: {
+                            Image(systemName: "xmark.circle")
+                                .foregroundColor(Color.gray)
+                        })
+                    }
                 }
 
                 Color.gray.opacity(0.2)
@@ -76,9 +81,10 @@ struct EmailPasswordView: View {
                         HStack {
                             Image(systemName: "lock.circle")
                                 .foregroundColor(.accentColor)
-                            if showPassword {
-                                TextField("Password", text: $password) { _ in
+                            if showingPassword {
+                                TextField("Password", text: $password) { changed in
                                     withAnimation {
+                                        showingClearPasswordButton = changed
                                         invalidPassword = false
                                     }
                                 }
@@ -92,6 +98,7 @@ struct EmailPasswordView: View {
                                     .padding(.trailing, 30)
                                     .onTapGesture {
                                         withAnimation {
+                                            showingClearPasswordButton = true
                                             invalidPassword = false
                                         }
                                     }
@@ -108,12 +115,14 @@ struct EmailPasswordView: View {
                         }
                     }
 
-                    Button(action: {
-                        showPassword.toggle()
-                    }, label: {
-                        Image(systemName: showPassword ? "eye.slash" : "eye")
-                            .foregroundColor(Color.gray)
-                    })
+                    if showingClearPasswordButton {
+                        Button(action: {
+                            showingPassword.toggle()
+                        }, label: {
+                            Image(systemName: showingPassword ? "eye.slash" : "eye")
+                                .foregroundColor(Color.gray)
+                        })
+                    }
                 }
             }
             .padding(16)

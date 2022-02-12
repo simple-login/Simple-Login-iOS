@@ -41,14 +41,10 @@ struct SignUpView: View {
 
                 LogoView()
 
-                Text("Create an account")
-                    .font(.title)
-                    .padding(.vertical, 20)
-
                 EmailPasswordView(email: $email, password: $password, mode: .signUp) {
                     viewModel.register(email: email, password: password)
                 }
-                .padding(.horizontal)
+                .padding()
 
                 Group {
                     Text("By clicking \"Create account\", you agree to abide by SimpleLogin's Terms & Conditions.")
