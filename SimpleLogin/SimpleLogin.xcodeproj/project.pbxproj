@@ -132,6 +132,7 @@
 		EF5BDFB227B79ABD004B696B /* UIScreenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */; };
 		EF5BDFB427B7AF56004B696B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB327B7AF56004B696B /* LogoView.swift */; };
 		EF5BDFB827B7B5DD004B696B /* BetterSafariViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */; };
+		EF68E11827B90E9400396472 /* DeleteMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF68E11727B90E9400396472 /* DeleteMenuButton.swift */; };
 		EF6FEA6C27B813DF00557158 /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6B27B813DF00557158 /* ResetPasswordViewModel.swift */; };
 		EF6FEA6E27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
 		EF6FEA6F27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
@@ -282,6 +283,7 @@
 		EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreenExtensions.swift; sourceTree = "<group>"; };
 		EF5BDFB327B7AF56004B696B /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewExtensions.swift; sourceTree = "<group>"; };
+		EF68E11727B90E9400396472 /* DeleteMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteMenuButton.swift; sourceTree = "<group>"; };
 		EF6FEA6B27B813DF00557158 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastModifier.swift; sourceTree = "<group>"; };
 		EFA2A37C27B6F3460020E808 /* LabelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelText.swift; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 				C0AAE98D26E4152A00247742 /* Blur.swift */,
 				C00E66682792C687002DBA67 /* ClearButtonModeModifier.swift */,
 				C02CD1972794C20400B3115E /* ConfettiableModifier.swift */,
+				EF68E11727B90E9400396472 /* DeleteMenuButton.swift */,
 				C0EA747827B3061100848F58 /* DetailPlaceholderView.swift */,
 				C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */,
 				C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */,
@@ -922,6 +925,7 @@
 				C04BB63727AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
 				C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */,
 				C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */,
+				EF68E11827B90E9400396472 /* DeleteMenuButton.swift in Sources */,
 				C0100B3026DEC46900085C24 /* MainView.swift in Sources */,
 				C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */,
 				C03629972777B21200531481 /* CreateContactView.swift in Sources */,

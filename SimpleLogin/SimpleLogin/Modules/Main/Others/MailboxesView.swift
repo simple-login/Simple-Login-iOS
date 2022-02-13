@@ -87,28 +87,22 @@ struct MailboxesView: View {
             }
 
             if !mailbox.default {
-                Section {
-                    Button(action: {
-                        viewModel.makeDefault(mailbox: mailbox)
-                    }, label: {
-                        Text("Set as default")
-                    })
+                if mailbox.verified {
+                    Section {
+                        Button(action: {
+                            viewModel.makeDefault(mailbox: mailbox)
+                        }, label: {
+                            Text("Set as default")
+                        })
+                    }
                 }
 
                 Section {
-                    let deleteAction: () -> Void = {
+                    DeleteMenuButton {
                         if hapticFeedbackEnabled {
                             Vibration.warning.vibrate(fallBackToOldSchool: true)
                         }
                         mailboxToBeDeleted = mailbox
-                    }
-                    let deleteLabel: () -> Label = {
-                        Label("Delete", systemImage: "trash")
-                    }
-                    if #available(iOS 15.0, *) {
-                        Button(role: .destructive, action: deleteAction, label: deleteLabel)
-                    } else {
-                        Button(action: deleteAction, label: deleteLabel)
                     }
                 }
             }

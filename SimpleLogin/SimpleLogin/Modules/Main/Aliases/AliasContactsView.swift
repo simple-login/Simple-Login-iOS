@@ -173,16 +173,8 @@ struct AliasContactsView: View {
             }
 
             Section {
-                let deleteAction: () -> Void = {
+                DeleteMenuButton {
                     viewModel.deleteContact(contact)
-                }
-                let deleteLabel: () -> Label = {
-                    Label("Delete", systemImage: "trash")
-                }
-                if #available(iOS 15.0, *) {
-                    Button(role: .destructive, action: deleteAction, label: deleteLabel)
-                } else {
-                    Button(action: deleteAction, label: deleteLabel)
                 }
             }
         }, label: {
