@@ -29,6 +29,7 @@ struct DetailPlaceholderView: View {
                 Text(message)
                     .font(.largeTitle)
                     .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
             }
         }
     }
