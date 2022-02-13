@@ -34,7 +34,7 @@ struct AboutView: View {
                 }
 
                 Section {
-                    systemImageLabel(title: "Terms and condition",
+                    systemImageLabel(title: "Terms and conditions",
                                      systemImageName: "doc.plaintext.fill",
                                      urlString: "https://simplelogin.io/terms/")
 

@@ -72,7 +72,7 @@ struct AliasContactsView: View {
             scrollView.refreshControl = viewModel.refreshControl
         }
         .navigationBarTitle(viewModel.contacts?.isEmpty == false ? viewModel.alias.email : "",
-                            displayMode: viewModel.contacts?.isEmpty == false ? .large : .automatic)
+                            displayMode: viewModel.contacts?.isEmpty == false ? .large : .inline)
         .navigationBarItems(trailing: plusButton)
         .onAppear {
             viewModel.getMoreContactsIfNeed(currentContact: nil)
@@ -115,24 +115,13 @@ struct AliasContactsView: View {
                     Text("Add contact")
                     Image(systemName: "arrow.turn.right.up")
                 }
-                .padding()
+                .padding(.trailing)
                 .foregroundColor(.secondary)
             }
 
-            ZStack {
-                Image(systemName: "at")
-                    .resizable()
-                    .padding()
-                    .scaledToFit()
-                    .foregroundColor(.slPurple)
-                    .opacity(0.03)
-                Text(viewModel.alias.email)
-                    .font(.title2)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-                    .foregroundColor(.secondary)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            DetailPlaceholderView(systemIconName: "at",
+                                  message: viewModel.alias.email)
+                .padding(.horizontal)
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
