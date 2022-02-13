@@ -18,4 +18,8 @@ extension String {
         return NSPredicate(format: "SELF MATCHES %@", "[0-9a-z-_.]+")
             .evaluate(with: self)
     }
+
+    subscript (idx: Int) -> String {
+        String(self[index(startIndex, offsetBy: idx)])
+    }
 }

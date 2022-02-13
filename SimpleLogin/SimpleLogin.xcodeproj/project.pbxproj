@@ -129,6 +129,7 @@
 		C0F732B5278F842A004608DB /* MailboxesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F732B4278F842A004608DB /* MailboxesView.swift */; };
 		C0F732B7278F854F004608DB /* CustomDomainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F732B6278F854F004608DB /* CustomDomainsView.swift */; };
 		C0FE7B2D27A9CFD7005D53DF /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE7B2C27A9CFD7005D53DF /* SignUpViewModel.swift */; };
+		EF33B7B827B91C6400BD3195 /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */; };
 		EF5BDFB227B79ABD004B696B /* UIScreenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */; };
 		EF5BDFB427B7AF56004B696B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB327B7AF56004B696B /* LogoView.swift */; };
 		EF5BDFB827B7B5DD004B696B /* BetterSafariViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */; };
@@ -280,6 +281,7 @@
 		C0F732B4278F842A004608DB /* MailboxesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxesView.swift; sourceTree = "<group>"; };
 		C0F732B6278F854F004608DB /* CustomDomainsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainsView.swift; sourceTree = "<group>"; };
 		C0FE7B2C27A9CFD7005D53DF /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreenExtensions.swift; sourceTree = "<group>"; };
 		EF5BDFB327B7AF56004B696B /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewExtensions.swift; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 				C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */,
 				EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */,
 				C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */,
+				EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */,
 				C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */,
 				C043D41526E01E280051B282 /* KeychainService.swift */,
 				C03760F926DC0F0200E5ECAC /* Preferences.swift */,
@@ -920,6 +923,7 @@
 				C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */,
 				C06CEAF2279018B100736920 /* MailboxesViewModel.swift in Sources */,
 				C02F4CAF27483B390019F965 /* CreateAliasViewModel.swift in Sources */,
+				EF33B7B827B91C6400BD3195 /* CollectionExtensions.swift in Sources */,
 				C0F732B5278F842A004608DB /* MailboxesView.swift in Sources */,
 				C02FCF8D278E2FB200F32BED /* PhotoPickerView.swift in Sources */,
 				C04BB63727AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,

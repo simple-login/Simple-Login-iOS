@@ -137,6 +137,13 @@ struct OtpView: View {
                     })
                 }
 
+                Button(action: {
+                    viewModel.paste(string: UIPasteboard.general.string ?? "")
+                }, label: {
+                    Label("Paste from clipboard", systemImage: "doc.on.clipboard")
+                })
+                    .padding()
+
                 Spacer()
             }
             .navigationBarTitle("Enter OTP", displayMode: .inline)
@@ -275,6 +282,31 @@ private final class OtpViewModel: ObservableObject {
             sixthDigit = digit
             verify()
         }
+    }
+
+    func paste(string: String) {
+        guard string.count >= 6 else { return }
+        let getDigit: (String?) -> Digit = { digitString in
+            switch digitString {
+            case "0": return .zero
+            case "1": return .one
+            case "2": return .two
+            case "3": return .three
+            case "4": return .four
+            case "5": return .five
+            case "6": return .six
+            case "7": return .seven
+            case "8": return .eighth
+            case "9": return .nine
+            default: return .none
+            }
+        }
+        add(digit: getDigit(string[0]))
+        add(digit: getDigit(string[1]))
+        add(digit: getDigit(string[2]))
+        add(digit: getDigit(string[3]))
+        add(digit: getDigit(string[4]))
+        add(digit: getDigit(string[5]))
     }
 
     private func verify() {
