@@ -110,7 +110,6 @@ struct LogInView: View {
                 // swiftlint:disable:next force_unwrapping
                 onComplete(apiKey, viewModel.client!)
             }
-            viewModel.handledUserLogin()
         }
         .onAppear {
             if let apiKey = KeychainService.shared.getApiKey(),

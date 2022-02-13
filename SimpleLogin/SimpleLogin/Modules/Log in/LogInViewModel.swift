@@ -31,10 +31,6 @@ final class LogInViewModel: ObservableObject {
         error = nil
     }
 
-    func handledUserLogin() {
-        userLogin = nil
-    }
-
     func logIn(email: String, password: String, device: String) {
         guard let client = client else {
             error = SLError.invalidApiUrl
