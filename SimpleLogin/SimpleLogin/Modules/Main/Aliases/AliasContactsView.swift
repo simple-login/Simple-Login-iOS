@@ -17,7 +17,6 @@ struct AliasContactsView: View {
     @State private var showingHelperText = false
     @State private var showingLoadingAlert = false
     @State private var showingCreateContactView = false
-    @State private var selectedContact: Contact?
     @State private var copiedText: String?
 
     init(alias: Alias, session: Session) {
@@ -25,14 +24,6 @@ struct AliasContactsView: View {
     }
 
     var body: some View {
-        let showingActionSheet = Binding<Bool>(get: {
-            selectedContact != nil
-        }, set: { isShowing in
-            if !isShowing {
-                selectedContact = nil
-            }
-        })
-
         let showingCopyAlert = Binding<Bool>(get: {
             copiedText != nil
         }, set: { isShowing in
@@ -55,9 +46,7 @@ struct AliasContactsView: View {
                     ForEach(contacts, id: \.id) { contact in
                         ContactView(contact: contact)
                             .padding(.horizontal, 4)
-                            .onTapGesture {
-                                selectedContact = contact
-                            }
+                            .overlay(menu(for: contact))
                     }
                 }
 
@@ -83,9 +72,6 @@ struct AliasContactsView: View {
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
-        }
-        .actionSheet(isPresented: showingActionSheet) {
-            actionsSheet
         }
         .sheet(isPresented: $showingCreateContactView) {
             CreateContactView(alias: viewModel.alias) {
@@ -132,58 +118,77 @@ struct AliasContactsView: View {
         }
     }
 
-    private var actionsSheet: ActionSheet {
-        guard let selectedContact = selectedContact else {
-            return ActionSheet(title: Text("selectedContact is nil"))
-        }
+    private func menu(for contact: Contact) -> some View {
+        Menu(content: {
+            Section {
+                Text(contact.email)
+            }
 
-        var buttons: [ActionSheet.Button] = []
+            Section {
+                Button(action: {
+                    if hapticFeedbackEnabled {
+                        Vibration.soft.vibrate()
+                    }
+                    copiedText = contact.reverseAlias
+                    UIPasteboard.general.string = contact.reverseAlias
+                }, label: {
+                    Label("Copy reverse-alias\n(with display name)", systemImage: "doc.on.doc")
+                })
 
-        buttons.append(
-            ActionSheet.Button.default(Text("Copy reverse-alias (w/ display name)")) {
-                if hapticFeedbackEnabled {
-                    Vibration.soft.vibrate()
+                Button(action: {
+                    if hapticFeedbackEnabled {
+                        Vibration.soft.vibrate()
+                    }
+                    copiedText = contact.reverseAliasAddress
+                    UIPasteboard.general.string = contact.reverseAliasAddress
+                }, label: {
+                    Label("Copy reverse-alias\n(without display name)", systemImage: "doc.on.doc")
+                })
+            }
+
+            Section {
+                Button(action: {
+                    if let mailToUrl = URL(string: "mailto:\(contact.reverseAliasAddress)") {
+                        UIApplication.shared.open(mailToUrl)
+                    }
+                }, label: {
+                    Label("Send email", systemImage: "paperplane")
+                })
+            }
+
+            Section {
+                if contact.blockForward {
+                    Button(action: {
+                        viewModel.toggleContact(contact)
+                    }, label: {
+                        Label("Unblock", systemImage: "hand.thumbsup")
+                    })
+                } else {
+                    Button(action: {
+                        viewModel.toggleContact(contact)
+                    }, label: {
+                        Label("Block", systemImage: "hand.raised")
+                    })
                 }
-                copiedText = selectedContact.reverseAlias
-                UIPasteboard.general.string = selectedContact.reverseAlias
             }
-        )
 
-        buttons.append(
-            ActionSheet.Button.default(Text("Copy reverse-alias (w/o display name)")) {
-                if hapticFeedbackEnabled {
-                    Vibration.soft.vibrate()
+            Section {
+                let deleteAction: () -> Void = {
+                    viewModel.deleteContact(contact)
                 }
-                copiedText = selectedContact.reverseAliasAddress
-                UIPasteboard.general.string = selectedContact.reverseAliasAddress
-            }
-        )
-
-        buttons.append(
-            ActionSheet.Button.default(Text("Compose email in default email client")) {
-                if let mailToUrl = URL(string: "mailto:\(selectedContact.reverseAliasAddress)") {
-                    UIApplication.shared.open(mailToUrl)
+                let deleteLabel: () -> Label = {
+                    Label("Delete", systemImage: "trash")
+                }
+                if #available(iOS 15.0, *) {
+                    Button(role: .destructive, action: deleteAction, label: deleteLabel)
+                } else {
+                    Button(action: deleteAction, label: deleteLabel)
                 }
             }
-        )
-
-        buttons.append(
-            ActionSheet.Button.default(Text(selectedContact.blockForward ? "Unblock" : "Block")) {
-                viewModel.toggleContact(selectedContact)
-            }
-        )
-
-        buttons.append(
-            ActionSheet.Button.destructive(Text("Delete")) {
-                viewModel.deleteContact(selectedContact)
-            }
-        )
-
-        buttons.append(.cancel())
-
-        return ActionSheet(title: Text(selectedContact.email),
-                           message: Text(selectedContact.reverseAlias),
-                           buttons: buttons)
+        }, label: {
+            Text("")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        })
     }
 }
 
