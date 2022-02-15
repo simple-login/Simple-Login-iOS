@@ -24,8 +24,7 @@ struct LogInView: View {
     @State private var launching = true
     @State private var showingSignUpView = false
 
-    @State private var showingOtpViewSheet = false
-    @State private var showingOtpViewFullScreen = false
+    @State private var otpMode: OtpMode?
 
     @State private var showingLoadingAlert = false
 
@@ -44,6 +43,23 @@ struct LogInView: View {
                 viewModel.handledError()
             }
         })
+
+        let showingOtpViewSheet = Binding<Bool>(get: {
+            otpMode != nil && UIDevice.current.userInterfaceIdiom != .phone
+        }, set: { isShowing in
+            if !isShowing {
+                otpMode = nil
+            }
+        })
+
+        let showingOtpViewFullScreen = Binding<Bool>(get: {
+            otpMode != nil && UIDevice.current.userInterfaceIdiom == .phone
+        }, set: { isShowing in
+            if !isShowing {
+                otpMode = nil
+            }
+        })
+
         ZStack {
             // A vary pale color to make background tappable
             Color.gray.opacity(0.01)
@@ -64,8 +80,8 @@ struct LogInView: View {
                         viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
                     }
                     .padding()
-                    .sheet(isPresented: $showingOtpViewSheet) { otpView }
-                    .fullScreenCover(isPresented: $showingOtpViewFullScreen) { otpView }
+                    .sheet(isPresented: showingOtpViewSheet) { otpView() }
+                    .fullScreenCover(isPresented: showingOtpViewFullScreen) { otpView() }
 
                     Button(action: {
                         showingResetPasswordView = true
@@ -107,14 +123,17 @@ struct LogInView: View {
         .onReceive(Just(viewModel.userLogin)) { userLogin in
             guard let userLogin = userLogin else { return }
             if userLogin.isMfaEnabled {
-                if UIDevice.current.userInterfaceIdiom == .phone {
-                    showingOtpViewFullScreen = true
-                } else {
-                    showingOtpViewSheet = true
-                }
+                otpMode = .logIn(mfaKey: userLogin.mfaKey ?? "")
             } else if let apiKey = userLogin.apiKey {
                 // swiftlint:disable:next force_unwrapping
                 onComplete(apiKey, viewModel.client!)
+            }
+            viewModel.handledUserLogin()
+        }
+        .onReceive(Just(viewModel.shouldActivate)) { shouldActivate in
+            if shouldActivate {
+                otpMode = .activate(email: email)
+                viewModel.handledShouldActivate()
             }
         }
         .onAppear {
@@ -243,18 +262,20 @@ struct LogInView: View {
             .frame(height: 1)
     }
 
-    private var otpView: some View {
-        // swiftlint:disable:next force_unwrapping
+    private func otpView() -> some View {
+        // swiftlint:disable force_unwrapping
         let client = viewModel.client!
-        let otpMode = OtpMode.logIn(mfaKey: viewModel.userLogin?.mfaKey ?? "")
-        // swiftlint:disable trailing_closure
         return OtpView(
-            client: client,
-            mode: otpMode,
+            mode: $otpMode,
+            client: viewModel.client!,
             onVerification: { apiKey in
-            showingOtpViewFullScreen = false
-            onComplete(apiKey, client)
-        })
-        // swiftlint:enable trailing_closure
+                onComplete(apiKey, client)
+            },
+            onActivation: {
+                viewModel.logIn(email: email,
+                                password: password,
+                                device: UIDevice.current.name)
+            })
+        // swiftlint:enable force_unwrapping
     }
 }

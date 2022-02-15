@@ -16,10 +16,9 @@ struct SignUpView: View {
     @State private var showingLoadingAlert = false
     @State private var showingRegisteredEmailAlert = false
     @State private var showingTermsAndConditions = false
-    @State private var showingOtpFullScreen = false
-    @State private var showingOtpSheet = false
     @State private var email = ""
     @State private var password = ""
+    @State private var otpMode: OtpMode?
     let onSignUp: (String, String) -> Void // A closure that holds email & password to send back to log in page
 
     init(client: SLClient,
@@ -34,6 +33,22 @@ struct SignUpView: View {
         }, set: { showing in
             if !showing {
                 viewModel.handledError()
+            }
+        })
+
+        let showingOtpViewSheet = Binding<Bool>(get: {
+            otpMode != nil && UIDevice.current.userInterfaceIdiom != .phone
+        }, set: { isShowing in
+            if !isShowing {
+                otpMode = nil
+            }
+        })
+
+        let showingOtpViewFullScreen = Binding<Bool>(get: {
+            otpMode != nil && UIDevice.current.userInterfaceIdiom == .phone
+        }, set: { isShowing in
+            if !isShowing {
+                otpMode = nil
             }
         })
 
@@ -95,27 +110,23 @@ struct SignUpView: View {
                 viewModel.handledRegisteredEmail()
             }
         }
-        .fullScreenCover(isPresented: $showingOtpFullScreen) { otpView }
-        .sheet(isPresented: $showingOtpSheet) { otpView }
+        .fullScreenCover(isPresented: showingOtpViewFullScreen) { otpView }
+        .sheet(isPresented: showingOtpViewSheet) { otpView }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
         .alert(isPresented: $showingRegisteredEmailAlert) {
             Alert(title: Text("You are all set"),
                   message: Text("We've sent an email to \(viewModel.registeredEmail ?? ""). Please check your inbox."),
                   dismissButton: .default(Text("OK")) {
-                if UIDevice.current.userInterfaceIdiom == .phone {
-                    showingOtpFullScreen = true
-                } else {
-                    showingOtpSheet = true
-                }
+                otpMode = .activate(email: email)
             })
         }
     }
 
     private var otpView: some View {
         // swiftlint:disable trailing_closure
-        OtpView(client: viewModel.client,
-                mode: .activate(email: email),
+        OtpView(mode: $otpMode,
+                client: viewModel.client,
                 onActivation: {
             self.onSignUp(email, password)
             presentationMode.wrappedValue.dismiss()

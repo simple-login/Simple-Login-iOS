@@ -11,18 +11,19 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct OtpView: View {
-    @Environment(\.presentationMode) private var presentationMode
     @StateObject private var viewModel: OtpViewModel
     @State private var showingLoadingHud = false
     @State private var showingReactivateAlert = false
+    @Binding var mode: OtpMode?
     let onVerification: ((ApiKey) -> Void)?
     let onActivation: (() -> Void)?
 
-    init(client: SLClient,
-         mode: OtpMode,
+    init(mode: Binding<OtpMode?>,
+         client: SLClient,
          onVerification: ((ApiKey) -> Void)? = nil,
          onActivation: (() -> Void)? = nil) {
-        self._viewModel = StateObject(wrappedValue: .init(client: client, mode: mode))
+        self._mode = mode
+        self._viewModel = StateObject(wrappedValue: .init(client: client, mode: mode.wrappedValue ?? .logIn(mfaKey: "")))
         self.onVerification = onVerification
         self.onActivation = onActivation
     }
@@ -182,14 +183,14 @@ struct OtpView: View {
         .onReceive(Just(viewModel.activationSuccessful)) { activationSuccessful in
             if activationSuccessful {
                 onActivation?()
-                presentationMode.wrappedValue.dismiss()
+                mode = nil
             }
         }
     }
 
     private var closeButton: some View {
         Button(action: {
-            presentationMode.wrappedValue.dismiss()
+            mode = nil
         }, label: {
             Text("Close")
         })
@@ -205,8 +206,8 @@ struct OtpView: View {
 struct OtpView_Previews: PreviewProvider {
     static var previews: some View {
         // swiftlint:disable:next force_unwrapping
-        OtpView(client: .init(session: .shared)!,
-                mode: .activate(email: "john.doe@example.com"))
+        OtpView(mode: .constant(.activate(email: "john.doe@example.com")),
+                client: .init(session: .shared)!)
     }
 }
 

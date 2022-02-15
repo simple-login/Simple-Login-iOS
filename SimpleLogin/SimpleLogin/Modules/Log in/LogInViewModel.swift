@@ -13,6 +13,7 @@ final class LogInViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?
     @Published private(set) var userLogin: UserLogin?
+    @Published private(set) var shouldActivate = false
     private var cancellables = Set<AnyCancellable>()
 
     private(set) var client: SLClient?
@@ -29,6 +30,14 @@ final class LogInViewModel: ObservableObject {
 
     func handledError() {
         error = nil
+    }
+
+    func handledUserLogin() {
+        userLogin = nil
+    }
+
+    func handledShouldActivate() {
+        shouldActivate = false
     }
 
     func logIn(email: String, password: String, device: String) {
@@ -49,7 +58,21 @@ final class LogInViewModel: ObservableObject {
                 case .finished:
                     break
                 case .failure(let error):
-                    self.error = error
+                    if let slClientError = error as? SLClientError {
+                        switch slClientError {
+                        case .clientError(let errorResponse):
+                            if errorResponse.statusCode == 400 {
+                                self.shouldActivate = true
+                            } else {
+                                // swiftlint:disable:next fallthrough
+                                fallthrough
+                            }
+                        default:
+                            self.error = error
+                        }
+                    } else {
+                        self.error = error
+                    }
                 }
             } receiveValue: { [weak self] userLogin in
                 guard let self = self else { return }
