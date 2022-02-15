@@ -92,6 +92,7 @@ struct SignUpView: View {
         .onReceive(Just(viewModel.registeredEmail)) { registeredEmail in
             if registeredEmail != nil {
                 showingRegisteredEmailAlert = true
+                viewModel.handledRegisteredEmail()
             }
         }
         .fullScreenCover(isPresented: $showingOtpFullScreen) { otpView }

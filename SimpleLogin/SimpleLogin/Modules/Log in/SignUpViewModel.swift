@@ -38,4 +38,8 @@ final class SignUpViewModel: BaseClientViewModel, ObservableObject {
     func handledError() {
         error = nil
     }
+
+    func handledRegisteredEmail() {
+        registeredEmail = nil
+    }
 }

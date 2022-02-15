@@ -14,6 +14,7 @@ struct OtpView: View {
     @Environment(\.presentationMode) private var presentationMode
     @StateObject private var viewModel: OtpViewModel
     @State private var showingLoadingHud = false
+    @State private var showingReactivateAlert = false
     let onVerification: ((ApiKey) -> Void)?
     let onActivation: (() -> Void)?
 
@@ -164,12 +165,18 @@ struct OtpView: View {
         .toast(isPresenting: $showingLoadingHud) {
             AlertToast(type: .loading)
         }
+        .alert(isPresented: $showingReactivateAlert) { reactivateAlert }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingHud = isLoading
         }
         .onReceive(Just(viewModel.apiKey)) { apiKey in
             if let apiKey = apiKey {
                 onVerification?(apiKey)
+            }
+        }
+        .onReceive(Just(viewModel.shouldReactivate)) { shouldReactivate in
+            if shouldReactivate {
+                showingReactivateAlert = true
             }
         }
         .onReceive(Just(viewModel.activationSuccessful)) { activationSuccessful in
@@ -186,6 +193,12 @@ struct OtpView: View {
         }, label: {
             Text("Close")
         })
+    }
+
+    private var reactivateAlert: Alert {
+        Alert(title: Text("Wrong code too many times"),
+              message: Text("The last activation code is disabled. You need to request a new one."),
+              dismissButton: .default(Text("Send me a new code")) { viewModel.reactivate() })
     }
 }
 
@@ -425,5 +438,26 @@ private final class OtpViewModel: ObservableObject {
         fourthDigit = .none
         fifthDigit = .none
         sixthDigit = .none
+    }
+
+    func reactivate() {
+        switch mode {
+        case .logIn:
+            break
+        case .activate(let email):
+            isLoading = true
+            cancellable = client.reactivate(email: email)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] completion in
+                    guard let self = self else { return }
+                    self.isLoading = false
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        self.error = error
+                    }
+                } receiveValue: { _ in }
+        }
     }
 }
