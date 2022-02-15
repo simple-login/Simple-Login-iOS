@@ -95,7 +95,6 @@ struct AccountView: View {
 
 private struct UserInfoSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
-    @State private var showingEditActionSheet = false
     @State private var showingPhotoPickerSheet = false
     @State private var showingEditDisplayNameSheet = false
     @Binding var showingUpgradeView: Bool
@@ -148,18 +147,7 @@ private struct UserInfoSection: View {
 
             Spacer()
 
-            Button(action: {
-                showingEditActionSheet = true
-            }, label: {
-                Image(systemName: "square.and.pencil")
-                    .foregroundColor(.slPurple)
-                    .font(.title3)
-            })
-                .buttonStyle(PlainButtonStyle())
-                .disabled(viewModel.isLoading)
-        }
-        .actionSheet(isPresented: $showingEditActionSheet) {
-            editActionSheet
+            editMenu
         }
         .alert(isPresented: $viewModel.askingForSettings) {
             settingsAlert
@@ -202,19 +190,37 @@ private struct UserInfoSection: View {
         }
     }
 
-    private var editActionSheet: ActionSheet {
-        var buttons = [ActionSheet.Button]()
-        buttons.append(.default(Text("Upload new profile photo")) {
-            showingPhotoPickerSheet = true
+    private var editMenu: some View {
+        Menu(content: {
+            Section {
+                Button(action: {
+                    showingPhotoPickerSheet = true
+                }, label: {
+                    Label("Upload new profile photo", systemImage: "square.and.arrow.up")
+                })
+
+                Button(action: {
+                    viewModel.removeProfilePhoto()
+                }, label: {
+                    Label("Remove profile photo", systemImage: "trash")
+                })
+            }
+
+            Section {
+                Button(action: {
+                    showingEditDisplayNameSheet = true
+                }, label: {
+                    if #available(iOS 15, *) {
+                        Label("Modify display name", systemImage: "person.text.rectangle")
+                    } else {
+                        Label("Modify display name", systemImage: "square.and.at.rectangle")
+                    }
+                })
+            }
+        }, label: {
+            Image(systemName: "square.and.pencil")
         })
-        buttons.append(.destructive(Text("Remove profile photo")) {
-            viewModel.removeProfilePhoto()
-        })
-        buttons.append(.default(Text("Modify display name")) {
-            showingEditDisplayNameSheet = true
-        })
-        buttons.append(.cancel())
-        return ActionSheet(title: Text("Modify profile information"), message: nil, buttons: buttons)
+            .disabled(viewModel.isLoading)
     }
 
     private var settingsAlert: Alert {

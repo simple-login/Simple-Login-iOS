@@ -211,8 +211,14 @@ final class AccountViewModel: ObservableObject {
     }
 
     func uploadNewProfilePhoto(_ image: UIImage) {
-        guard let base64String = image.jpegData(compressionQuality: 0.5)?.base64EncodedString() else { return }
-        updateProfilePicture(base64String: base64String)
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            if let resizedImage = image.resized(toWidth: 500),
+               let base64String = resizedImage.pngData()?.base64EncodedString() {
+                DispatchQueue.main.async {
+                    self?.updateProfilePicture(base64String: base64String)
+                }
+            }
+        }
     }
 
     func removeProfilePhoto() {
