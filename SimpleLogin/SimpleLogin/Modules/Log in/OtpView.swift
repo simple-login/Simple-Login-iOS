@@ -14,20 +14,31 @@ struct OtpView: View {
     @Environment(\.presentationMode) private var presentationMode
     @StateObject private var viewModel: OtpViewModel
     @State private var showingLoadingHud = false
-    let onVerification: (ApiKey) -> Void
+    let onVerification: ((ApiKey) -> Void)?
+    let onActivation: (() -> Void)?
 
-    init(mfaKey: String,
-         client: SLClient,
-         onVerification: @escaping (ApiKey) -> Void) {
-        self._viewModel = StateObject(wrappedValue: .init(mfaKey: mfaKey,
-                                                          client: client))
+    init(client: SLClient,
+         mode: OtpMode,
+         onVerification: ((ApiKey) -> Void)? = nil,
+         onActivation: (() -> Void)? = nil) {
+        self._viewModel = StateObject(wrappedValue: .init(client: client, mode: mode))
         self.onVerification = onVerification
+        self.onActivation = onActivation
     }
 
     var body: some View {
         NavigationView {
             VStack {
                 Spacer()
+
+                if let description = viewModel.mode.description {
+                    Text(description)
+                        .font(.callout)
+                        .foregroundColor(Color(.darkGray))
+                        .multilineTextAlignment(.center)
+                        .padding([.top, .horizontal])
+                        .fixedSize(horizontal: false, vertical: true)
+                }
 
                 HStack(spacing: 18) {
                     Group {
@@ -146,7 +157,7 @@ struct OtpView: View {
 
                 Spacer()
             }
-            .navigationBarTitle("Enter OTP", displayMode: .inline)
+            .navigationBarTitle(viewModel.mode.title, displayMode: .inline)
             .navigationBarItems(leading: closeButton)
         }
         .accentColor(.slPurple)
@@ -158,7 +169,13 @@ struct OtpView: View {
         }
         .onReceive(Just(viewModel.apiKey)) { apiKey in
             if let apiKey = apiKey {
-                onVerification(apiKey)
+                onVerification?(apiKey)
+            }
+        }
+        .onReceive(Just(viewModel.activationSuccessful)) { activationSuccessful in
+            if activationSuccessful {
+                onActivation?()
+                presentationMode.wrappedValue.dismiss()
             }
         }
     }
@@ -175,7 +192,8 @@ struct OtpView: View {
 struct OtpView_Previews: PreviewProvider {
     static var previews: some View {
         // swiftlint:disable:next force_unwrapping
-        OtpView(mfaKey: "", client: .init(session: .shared)!) { _ in }
+        OtpView(client: .init(session: .shared)!,
+                mode: .activate(email: "john.doe@example.com"))
     }
 }
 
@@ -215,6 +233,29 @@ private extension ButtonStyle where Self == OtpButtonStyle {
     }
 }
 
+enum OtpMode {
+    case logIn(mfaKey: String)
+    case activate(email: String)
+
+    var title: String {
+        switch self {
+        case .logIn:
+            return "Enter OTP code"
+        case .activate:
+            return "Enter activation code"
+        }
+    }
+
+    var description: String? {
+        switch self {
+        case .logIn:
+            return nil
+        case .activate(let email):
+            return "Please enter the activation code that we've sent to \(email)"
+        }
+    }
+}
+
 private final class OtpViewModel: ObservableObject {
     enum Digit: String {
         case none = "-"
@@ -240,13 +281,15 @@ private final class OtpViewModel: ObservableObject {
     @Published private(set) var attempts: CGFloat = 0
     @Published private(set) var isLoading = false
     @Published private(set) var apiKey: ApiKey?
+    @Published private(set) var shouldReactivate = false
+    @Published private(set) var activationSuccessful = false
 
-    private let mfaKey: String
+    let mode: OtpMode
     private let client: SLClient
     private var cancellable: AnyCancellable?
 
-    init(mfaKey: String, client: SLClient) {
-        self.mfaKey = mfaKey
+    init(client: SLClient, mode: OtpMode) {
+        self.mode = mode
         self.client = client
     }
 
@@ -316,24 +359,63 @@ private final class OtpViewModel: ObservableObject {
             [firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit, sixthDigit]
             .map { $0.rawValue }
             .reduce(into: "") { $0 += "\($1)" }
-        cancellable = client.mfa(token: token, key: mfaKey, device: UIDevice.current.name)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                defer { self.isLoading = false }
-                switch completion {
-                case .failure(let error):
-                    self.error = error
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        self.attempts += 1
+        switch mode {
+        case .logIn(let mfaKey):
+            cancellable = client.mfa(token: token, key: mfaKey, device: UIDevice.current.name)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] completion in
+                    guard let self = self else { return }
+                    defer { self.isLoading = false }
+                    switch completion {
+                    case .failure(let error):
+                        self.error = error
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.attempts += 1
+                        }
+                        self.reset()
+                    case .finished:
+                        break
                     }
-                    self.reset()
-                case .finished: break
+                } receiveValue: { [weak self] apiKey in
+                    guard let self = self else { return }
+                    self.apiKey = apiKey
                 }
-            } receiveValue: { [weak self] apiKey in
-                guard let self = self else { return }
-                self.apiKey = apiKey
-            }
+
+        case .activate(let email):
+            cancellable = client.activate(email: email, code: token)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] completion in
+                    guard let self = self else { return }
+                    defer { self.isLoading = false }
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.attempts += 1
+                        }
+                        self.reset()
+                        if let slClientError = error as? SLClientError {
+                            switch slClientError {
+                            case .clientError(let errorResponse):
+                                if errorResponse.statusCode == 410 {
+                                    self.shouldReactivate = true
+                                } else {
+                                    // swiftlint:disable:next fallthrough
+                                    fallthrough
+                                }
+                            default:
+                                self.error = slClientError
+                            }
+                        } else {
+                            self.error = error
+                        }
+                    }
+                } receiveValue: { [weak self] _ in
+                    guard let self = self else { return }
+                    self.activationSuccessful = true
+                }
+        }
     }
 
     private func reset() {

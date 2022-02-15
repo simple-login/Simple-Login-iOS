@@ -83,7 +83,13 @@ struct LogInView: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .fullScreenCover(isPresented: $showingSignUpView) {
                             if let client = viewModel.client {
-                                SignUpView(client: client)
+                                SignUpView(client: client) { emai, password in
+                                    self.email = emai
+                                    self.password = password
+                                    self.viewModel.logIn(email: email,
+                                                         password: password,
+                                                         device: UIDevice.current.name)
+                                }
                             }
                         }
                 }
@@ -240,9 +246,15 @@ struct LogInView: View {
     private var otpView: some View {
         // swiftlint:disable:next force_unwrapping
         let client = viewModel.client!
-        return OtpView(mfaKey: viewModel.userLogin?.mfaKey ?? "", client: client) { apiKey in
+        let otpMode = OtpMode.logIn(mfaKey: viewModel.userLogin?.mfaKey ?? "")
+        // swiftlint:disable trailing_closure
+        return OtpView(
+            client: client,
+            mode: otpMode,
+            onVerification: { apiKey in
             showingOtpViewFullScreen = false
             onComplete(apiKey, client)
-        }
+        })
+        // swiftlint:enable trailing_closure
     }
 }

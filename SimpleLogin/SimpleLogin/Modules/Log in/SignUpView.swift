@@ -16,11 +16,16 @@ struct SignUpView: View {
     @State private var showingLoadingAlert = false
     @State private var showingRegisteredEmailAlert = false
     @State private var showingTermsAndConditions = false
+    @State private var showingOtpFullScreen = false
+    @State private var showingOtpSheet = false
     @State private var email = ""
     @State private var password = ""
+    let onSignUp: (String, String) -> Void // A closure that holds email & password to send back to log in page
 
-    init(client: SLClient) {
-        _viewModel = StateObject(wrappedValue: .init(client: client))
+    init(client: SLClient,
+         onSignUp: @escaping (String, String) -> Void) {
+        self._viewModel = StateObject(wrappedValue: .init(client: client))
+        self.onSignUp = onSignUp
     }
 
     var body: some View {
@@ -89,12 +94,31 @@ struct SignUpView: View {
                 showingRegisteredEmailAlert = true
             }
         }
+        .fullScreenCover(isPresented: $showingOtpFullScreen) { otpView }
+        .sheet(isPresented: $showingOtpSheet) { otpView }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
         .alert(isPresented: $showingRegisteredEmailAlert) {
             Alert(title: Text("You are all set"),
                   message: Text("We've sent an email to \(viewModel.registeredEmail ?? ""). Please check your inbox."),
-                  dismissButton: .default(Text("OK")) { presentationMode.wrappedValue.dismiss() })
+                  dismissButton: .default(Text("OK")) {
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    showingOtpFullScreen = true
+                } else {
+                    showingOtpSheet = true
+                }
+            })
         }
+    }
+
+    private var otpView: some View {
+        // swiftlint:disable trailing_closure
+        OtpView(client: viewModel.client,
+                mode: .activate(email: email),
+                onActivation: {
+            self.onSignUp(email, password)
+            presentationMode.wrappedValue.dismiss()
+        })
+        // swiftlint:enable trailing_closure
     }
 }
