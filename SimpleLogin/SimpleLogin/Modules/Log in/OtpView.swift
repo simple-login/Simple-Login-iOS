@@ -325,6 +325,7 @@ private final class OtpViewModel: ObservableObject {
     }
 
     func add(digit: Digit) {
+        error = nil
         if firstDigit == .none {
             firstDigit = digit
         } else if secondDigit == .none {
