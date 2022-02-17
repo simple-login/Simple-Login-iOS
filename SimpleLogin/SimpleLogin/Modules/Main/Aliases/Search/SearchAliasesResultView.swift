@@ -59,6 +59,15 @@ struct SearchAliasesResultView: View {
                         },
                         onToggle: {
                             viewModel.toggle(alias: alias)
+                        },
+                        onPin: {
+
+                        },
+                        onUnpin: {
+
+                        },
+                        onDelete: {
+
                         })
                         .padding(.horizontal, 4)
                         .onTapGesture {

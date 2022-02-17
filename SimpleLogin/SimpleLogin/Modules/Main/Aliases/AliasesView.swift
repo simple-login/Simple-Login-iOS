@@ -125,6 +125,15 @@ struct AliasesView: View {
                             },
                             onToggle: {
                                 viewModel.toggle(alias: alias)
+                            },
+                            onPin: {
+
+                            },
+                            onUnpin: {
+
+                            },
+                            onDelete: {
+                                
                             })
                             .onAppear {
                                 viewModel.getMoreAliasesIfNeed(currentAlias: alias)

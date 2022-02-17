@@ -10,19 +10,30 @@ import SwiftUI
 
 struct AliasCompactView: View {
     @AppStorage(kAliasDisplayMode) private var displayMode: AliasDisplayMode = .default
+    @State private var showingAliasEmailSheet = false
+    @State private var showingAliasEmailFullScreen = false
     let alias: Alias
     let onCopy: () -> Void
     let onSendMail: () -> Void
     let onToggle: () -> Void
+    let onPin: () -> Void
+    let onUnpin: () -> Void
+    let onDelete: () -> Void
 
     init(alias: Alias,
          onCopy: @escaping () -> Void,
          onSendMail: @escaping () -> Void,
-         onToggle: @escaping () -> Void) {
+         onToggle: @escaping () -> Void,
+         onPin: @escaping () -> Void,
+         onUnpin: @escaping () -> Void,
+         onDelete: @escaping () -> Void) {
         self.alias = alias
         self.onCopy = onCopy
         self.onSendMail = onSendMail
         self.onToggle = onToggle
+        self.onPin = onPin
+        self.onUnpin = onUnpin
+        self.onDelete = onDelete
     }
 
     var body: some View {
@@ -49,6 +60,41 @@ struct AliasCompactView: View {
         .background(alias.enabled ? Color.slPurple.opacity(0.05) : Color(.darkGray).opacity(0.05))
         .fixedSize(horizontal: false, vertical: true)
         .clipShape(RoundedRectangle(cornerRadius: 4))
+        .fullScreenCover(isPresented: $showingAliasEmailFullScreen) {
+            AliasEmailView(email: alias.email)
+        }
+        .sheet(isPresented: $showingAliasEmailSheet) {
+            AliasEmailView(email: alias.email)
+        }
+        .contextMenu {
+            Section {
+                Button(action: {
+                    if UIDevice.current.userInterfaceIdiom == .phone {
+                        showingAliasEmailSheet = true
+                    } else {
+                        showingAliasEmailFullScreen = true
+                    }
+                }, label: {
+                    Label("Enter full screen", systemImage: "iphone")
+                })
+            }
+
+            Section {
+                if alias.pinned {
+                    Button(action: onPin) {
+                            Label("Unpin", systemImage: "bookmark.slash")
+                        }
+                } else {
+                    Button(action: onUnpin) {
+                        Label("Pin", systemImage: "bookmark")
+                    }
+                }
+            }
+
+            Section {
+                DeleteMenuButton(action: onDelete)
+            }
+        }
     }
 }
 
@@ -175,8 +221,20 @@ private struct ActionsView: View {
 struct AliasCompactView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            AliasCompactView(alias: .ccohen, onCopy: {}, onSendMail: {}, onToggle: {})
-            AliasCompactView(alias: .claypool, onCopy: {}, onSendMail: {}, onToggle: {})
+            AliasCompactView(alias: .ccohen,
+                             onCopy: {},
+                             onSendMail: {},
+                             onToggle: {},
+                             onPin: {},
+                             onUnpin: {},
+                             onDelete: {})
+            AliasCompactView(alias: .claypool,
+                             onCopy: {},
+                             onSendMail: {},
+                             onToggle: {},
+                             onPin: {},
+                             onUnpin: {},
+                             onDelete: {})
         }
         .accentColor(.slPurple)
     }
