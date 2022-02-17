@@ -11,9 +11,7 @@ struct DeleteMenuButton: View {
     let action: () -> Void
 
     var body: some View {
-        let label: () -> Label = {
-            Label("Delete", systemImage: "trash")
-        }
+        let label: () -> Label = { .delete }
         if #available(iOS 15.0, *) {
             Button(role: .destructive, action: action, label: label)
         } else {

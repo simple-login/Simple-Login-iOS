@@ -127,6 +127,7 @@
 		C0F732B5278F842A004608DB /* MailboxesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F732B4278F842A004608DB /* MailboxesView.swift */; };
 		C0F732B7278F854F004608DB /* CustomDomainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F732B6278F854F004608DB /* CustomDomainsView.swift */; };
 		C0FE7B2D27A9CFD7005D53DF /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE7B2C27A9CFD7005D53DF /* SignUpViewModel.swift */; };
+		EF15C55927BEE4B8008497F2 /* LabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF15C55827BEE4B8008497F2 /* LabelExtensions.swift */; };
 		EF33B7B827B91C6400BD3195 /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */; };
 		EF5BDFB227B79ABD004B696B /* UIScreenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */; };
 		EF5BDFB427B7AF56004B696B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB327B7AF56004B696B /* LogoView.swift */; };
@@ -279,6 +280,7 @@
 		C0F732B4278F842A004608DB /* MailboxesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxesView.swift; sourceTree = "<group>"; };
 		C0F732B6278F854F004608DB /* CustomDomainsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDomainsView.swift; sourceTree = "<group>"; };
 		C0FE7B2C27A9CFD7005D53DF /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		EF15C55827BEE4B8008497F2 /* LabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelExtensions.swift; sourceTree = "<group>"; };
 		EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreenExtensions.swift; sourceTree = "<group>"; };
 		EF5BDFB327B7AF56004B696B /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 				EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */,
 				C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */,
 				C043D41526E01E280051B282 /* KeychainService.swift */,
+				EF15C55827BEE4B8008497F2 /* LabelExtensions.swift */,
 				C03760F926DC0F0200E5ECAC /* Preferences.swift */,
 				C0259EAE26DA55CD0056A977 /* StringExtensions.swift */,
 				C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */,
@@ -890,6 +893,7 @@
 				C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */,
 				C087655E27AE798300FF26E6 /* SearchAliasesViewModel.swift in Sources */,
 				C0F732B7278F854F004608DB /* CustomDomainsView.swift in Sources */,
+				EF15C55927BEE4B8008497F2 /* LabelExtensions.swift in Sources */,
 				C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */,
 				C029769226F1406D0014DC3B /* SearchAliasesView.swift in Sources */,
 				C0B1600B279DFA1E00641216 /* AliasDisplayModePreview.swift in Sources */,

@@ -159,13 +159,13 @@ struct AliasDetailView: View {
                     copiedText = viewModel.alias.email
                     UIPasteboard.general.string = viewModel.alias.email
                 }, label: {
-                    Label("Copy", systemImage: "doc.on.doc")
+                    Label.copy
                 })
 
                 Button(action: {
                     showAliasInFullScreen()
                 }, label: {
-                    Label("Enter full screen", systemImage: "iphone")
+                    Label.enterFullScreen
                 })
             }
 
@@ -176,7 +176,7 @@ struct AliasDetailView: View {
                     }
                     showingAliasContacts = true
                 }, label: {
-                    Label("Send email", systemImage: "paperplane")
+                    Label.sendEmail
                 })
             }
 
@@ -185,13 +185,13 @@ struct AliasDetailView: View {
                     Button(action: {
                         viewModel.toggle()
                     }, label: {
-                        Label("Deactivate", systemImage: "circle.dashed")
+                        Label.deactivate
                     })
                 } else {
                     Button(action: {
                         viewModel.toggle()
                     }, label: {
-                        Label("Activate", systemImage: "checkmark.circle")
+                        Label.activate
                     })
                 }
 
@@ -199,13 +199,13 @@ struct AliasDetailView: View {
                     Button(action: {
                         viewModel.update(session: session, option: .pinned(false))
                     }, label: {
-                        Label("Unpin", systemImage: "bookmark.slash")
+                        Label.unpin
                     })
                 } else {
                     Button(action: {
                         viewModel.update(session: session, option: .pinned(true))
                     }, label: {
-                        Label("Pin", systemImage: "bookmark")
+                        Label.pin
                     })
                 }
             }

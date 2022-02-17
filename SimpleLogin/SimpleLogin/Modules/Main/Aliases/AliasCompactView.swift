@@ -75,18 +75,18 @@ struct AliasCompactView: View {
                         showingAliasEmailFullScreen = true
                     }
                 }, label: {
-                    Label("Enter full screen", systemImage: "iphone")
+                    Label.enterFullScreen
                 })
             }
 
             Section {
                 if alias.pinned {
                     Button(action: onPin) {
-                            Label("Unpin", systemImage: "bookmark.slash")
-                        }
+                        Label.unpin
+                    }
                 } else {
                     Button(action: onUnpin) {
-                        Label("Pin", systemImage: "bookmark")
+                        Label.pin
                     }
                 }
             }
@@ -169,7 +169,7 @@ private struct ActivitiesView: View {
             Text("\(count)")
                 .font(.headline)
                 .fontWeight(.bold)
-                // swiftlint:disable:next empty_count
+            // swiftlint:disable:next empty_count
                 .opacity(count == 0 ? 0.5 : 1)
 
             Spacer()
@@ -188,7 +188,7 @@ private struct ActionsView: View {
             Button {
                 onCopy()
             } label: {
-                Label("Copy", systemImage: "doc.on.doc")
+                Label.copy
             }
             .buttonStyle(.plain)
 
@@ -197,7 +197,7 @@ private struct ActionsView: View {
             Button {
                 onSendMail()
             } label: {
-                Label("Send email", systemImage: "paperplane")
+                Label.sendEmail
             }
             .buttonStyle(.plain)
 
