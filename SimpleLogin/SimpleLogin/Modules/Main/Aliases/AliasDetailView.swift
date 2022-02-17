@@ -13,7 +13,6 @@ import SwiftUI
 // swiftlint:disable file_length
 struct AliasDetailView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var session: Session
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
@@ -197,13 +196,13 @@ struct AliasDetailView: View {
 
                 if viewModel.alias.pinned {
                     Button(action: {
-                        viewModel.update(session: session, option: .pinned(false))
+                        viewModel.update(option: .pinned(false))
                     }, label: {
                         Label.unpin
                     })
                 } else {
                     Button(action: {
-                        viewModel.update(session: session, option: .pinned(true))
+                        viewModel.update(option: .pinned(true))
                     }, label: {
                         Label.pin
                     })
@@ -614,7 +613,6 @@ private struct ActivityView: View {
 // MARK: - Edit modal views
 private struct EditMailboxesView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
     @State private var selectedIds: [Int] = []
@@ -669,8 +667,7 @@ private struct EditMailboxesView: View {
 
     private var doneButton: some View {
         Button(action: {
-            viewModel.update(session: session,
-                             option: .mailboxIds(selectedIds))
+            viewModel.update(option: .mailboxIds(selectedIds))
         }, label: {
             Text("Done")
         })
@@ -761,8 +758,7 @@ private struct EditDisplayNameView: View {
 
     private var doneButton: some View {
         Button(action: {
-            viewModel.update(session: session,
-                             option: .name(displayName.isEmpty ? nil : displayName))
+            viewModel.update(option: .name(displayName.isEmpty ? nil : displayName))
         }, label: {
             Text("Done")
         })
@@ -829,8 +825,7 @@ private struct EditNotesView: View {
 
     private var doneButton: some View {
         Button(action: {
-            viewModel.update(session: session,
-                             option: .note(notes.isEmpty ? nil : notes))
+            viewModel.update(option: .note(notes.isEmpty ? nil : notes))
         }, label: {
             Text("Done")
         })

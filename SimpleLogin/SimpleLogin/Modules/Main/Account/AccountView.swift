@@ -13,12 +13,16 @@ import SwiftUI
 
 // swiftlint:disable let_var_whitespace
 struct AccountView: View {
-    @EnvironmentObject private var session: Session
-    @StateObject private var viewModel = AccountViewModel()
+    @StateObject private var viewModel: AccountViewModel
     @State private var confettiCounter = 0
     @State private var showingUpgradeView = false
     @State private var showingLoadingAlert = false
     let onLogOut: () -> Void
+
+    init(session: Session, onLogOut: @escaping () -> Void) {
+        self._viewModel = StateObject(wrappedValue: .init(session: session))
+        self.onLogOut = onLogOut
+    }
 
     var body: some View {
         let showingErrorAlert = Binding<Bool>(get: {
@@ -75,7 +79,6 @@ struct AccountView: View {
         }
         .slNavigationView()
         .onAppear {
-            viewModel.setSession(session)
             viewModel.getRequiredInformation()
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in

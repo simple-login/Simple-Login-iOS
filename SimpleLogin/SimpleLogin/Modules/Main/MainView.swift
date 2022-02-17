@@ -56,7 +56,7 @@ struct MainView: View {
                 }
                 .tag(MainViewTab.others)
 
-            AccountView(onLogOut: onLogOut)
+            AccountView(session: session, onLogOut: onLogOut)
                 .tabItem {
                     Image(systemName: selectedTab == .account ? "person.fill" : "person")
                     Text(MainViewTab.account.title)

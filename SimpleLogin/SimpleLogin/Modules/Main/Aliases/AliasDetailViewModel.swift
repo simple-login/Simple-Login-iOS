@@ -135,7 +135,7 @@ final class AliasDetailViewModel: BaseSessionViewModel, ObservableObject {
             .store(in: &cancellables)
     }
 
-    func update(session: Session, option: AliasUpdateOption) {
+    func update(option: AliasUpdateOption) {
         guard !isUpdating else { return }
         print("Updating \(alias.email)")
         isUpdating = true

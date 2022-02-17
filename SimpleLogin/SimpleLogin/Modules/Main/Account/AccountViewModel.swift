@@ -10,7 +10,7 @@ import LocalAuthentication
 import SimpleLoginPackage
 import SwiftUI
 
-final class AccountViewModel: ObservableObject {
+final class AccountViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var userInfo: UserInfo = .empty
     private(set) var usableDomains: [UsableDomain] = []
     private var lastKnownUserSettings: UserSettings?
@@ -35,9 +35,9 @@ final class AccountViewModel: ObservableObject {
     @AppStorage(kUltraProtectionEnabled) var ultraProtectionEnabled = false
     @AppStorage(kAliasDisplayMode) var aliasDisplayMode: AliasDisplayMode = .default
     private var cancellables = Set<AnyCancellable>()
-    private var session: Session?
 
-    init() {
+    override init(session: Session) {
+        super.init(session: session)
         let localAuthenticationContext = LAContext()
         if localAuthenticationContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil) {
             biometryType = localAuthenticationContext.biometryType
@@ -93,10 +93,6 @@ final class AccountViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func setSession(_ session: Session) {
-        self.session = session
-    }
-
     func handledError() {
         self.error = nil
     }
@@ -106,7 +102,6 @@ final class AccountViewModel: ObservableObject {
     }
 
     func getRequiredInformation() {
-        guard let session = session else { return }
         guard !isLoading && !isInitialized else { return }
         isLoading = true
         let getUserInfo = session.client.getUserInfo(apiKey: session.apiKey)
@@ -150,7 +145,6 @@ final class AccountViewModel: ObservableObject {
     }
 
     private func update(option: UserSettingsUpdateOption) {
-        guard let session = session else { return }
         guard !isLoading else { return }
         isLoading = true
         session.client.updateUserSettings(apiKey: session.apiKey, option: option)
@@ -226,7 +220,6 @@ final class AccountViewModel: ObservableObject {
     }
 
     private func updateProfilePicture(base64String: String?) {
-        guard let session = session, !isLoading else { return }
         isLoading = true
         session.client.updateProfilePicture(apiKey: session.apiKey, base64ProfilePicture: base64String)
             .receive(on: DispatchQueue.main)
@@ -251,7 +244,7 @@ final class AccountViewModel: ObservableObject {
     }
 
     func updateDisplayName(_ displayName: String) {
-        guard let session = session, !isLoading else { return }
+        guard !isLoading else { return }
         isLoading = true
         session.client.updateProfileName(apiKey: session.apiKey, name: displayName)
             .receive(on: DispatchQueue.main)
