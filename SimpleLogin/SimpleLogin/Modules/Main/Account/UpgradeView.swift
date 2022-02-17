@@ -12,10 +12,15 @@ import SwiftUI
 struct UpgradeView: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var session: Session
-    @StateObject private var viewModel = UpgradeViewModel()
+    @StateObject private var viewModel: UpgradeViewModel
     @State private var showingLoadingAlert = false
 
     var onSubscription: () -> Void
+
+    init(session: Session, onSubscription: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: .init(session: session))
+        self.onSubscription = onSubscription
+    }
 
     var body: some View {
         let showingErrorAlert = Binding<Bool>(get: {
@@ -131,7 +136,7 @@ struct UpgradeView: View {
     private var yearlyButton: some View {
         VStack(alignment: .leading) {
             Button(action: {
-                viewModel.subscribeYearly(session: session)
+                viewModel.subscribeYearly()
             }, label: {
                 if let yearlySubscription = viewModel.yearlySubscription {
                     Text("Subscribe yearly \(yearlySubscription.localizedPrice)/year")
@@ -156,7 +161,7 @@ struct UpgradeView: View {
     private var monthlyButton: some View {
         VStack(alignment: .leading) {
             Button(action: {
-                viewModel.subscribeMonthly(session: session)
+                viewModel.subscribeMonthly()
             }, label: {
                 if let monthlySubscription = viewModel.monthlySubscription {
                     Text("Subscribe monthly \(monthlySubscription.localizedPrice)/month")
@@ -180,7 +185,7 @@ struct UpgradeView: View {
 
     private var restoreButton: some View {
         Button(action: {
-            viewModel.restorePurchase(session: session)
+            viewModel.restorePurchase()
         }, label: {
             Text("Restore purchase")
                 .fontWeight(.bold)
@@ -224,13 +229,14 @@ struct UpgradeView: View {
     }
 }
 
-struct UpgradeView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            UpgradeView { }
-        }
-    }
-}
+// TODO: Use a static session
+//struct UpgradeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            UpgradeView(session: <#T##Session#>) { }
+//        }
+//    }
+//}
 
 private struct Capacity: Identifiable {
     let id = UUID()

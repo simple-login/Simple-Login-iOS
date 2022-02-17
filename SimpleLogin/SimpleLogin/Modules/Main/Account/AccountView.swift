@@ -49,7 +49,7 @@ struct AccountView: View {
                     NavigationLink(
                         isActive: $showingUpgradeView,
                         destination: {
-                            UpgradeView {
+                            UpgradeView(session: viewModel.session) {
                                 confettiCounter += 1
                                 viewModel.forceRefresh()
                             }

@@ -10,7 +10,6 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct DomainDetailView: View {
-    @EnvironmentObject private var session: Session
     @StateObject private var viewModel: DomainDetailViewModel
     @State private var showingLoadingAlert = false
 
@@ -189,7 +188,6 @@ private struct CatchAllSection: View {
 
 private struct EditMailboxesView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: DomainDetailViewModel
     @State private var showingLoadingAlert = false
     @State private var selectedIds: [Int] = []
