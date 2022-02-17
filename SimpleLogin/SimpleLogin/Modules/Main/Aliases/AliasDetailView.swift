@@ -69,11 +69,9 @@ struct AliasDetailView: View {
                     CreationDateSection(alias: viewModel.alias)
                         .sheet(isPresented: $showingAliasEmailSheet) {
                             AliasEmailView(email: viewModel.alias.email)
-                                .forceDarkModeIfApplicable()
                         }
                         .fullScreenCover(isPresented: $showingAliasFullScreen) {
                             AliasEmailView(email: viewModel.alias.email)
-                                .forceDarkModeIfApplicable()
                         }
                     Divider()
                     MailboxesSection(viewModel: viewModel)
@@ -375,10 +373,8 @@ private struct MailboxesSection: View {
             switch selectedSheet {
             case .edit:
                 EditMailboxesView(viewModel: viewModel)
-                    .forceDarkModeIfApplicable()
             case .view:
                 AllMailboxesView(viewModel: viewModel)
-                    .forceDarkModeIfApplicable()
             default: EmptyView()
             }
         }
@@ -459,7 +455,6 @@ private struct NameSection: View {
         }
         .sheet(isPresented: $showingEditDisplayNameView) {
             EditDisplayNameView(viewModel: viewModel)
-                .forceDarkModeIfApplicable()
         }
     }
 }
@@ -510,7 +505,6 @@ private struct NotesSection: View {
         }
         .sheet(isPresented: $showingEditNotesView) {
             EditNotesView(viewModel: viewModel)
-                .forceDarkModeIfApplicable()
         }
     }
 }

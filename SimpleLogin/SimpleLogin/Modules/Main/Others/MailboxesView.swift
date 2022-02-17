@@ -71,7 +71,6 @@ struct MailboxesView: View {
             AddMailboxView { newMailbox in
                 viewModel.addMailbox(email: newMailbox)
             }
-            .forceDarkModeIfApplicable()
         }
         .alert(isPresented: showingDeletionAlert) {
             deletionAlert

@@ -179,10 +179,8 @@ private struct CatchAllSection: View {
             switch selectedSheet {
             case .edit:
                 EditMailboxesView(viewModel: viewModel)
-                    .forceDarkModeIfApplicable()
             case .view:
                 AllMailboxesView(viewModel: viewModel)
-                    .forceDarkModeIfApplicable()
             default: EmptyView()
             }
         }
@@ -353,7 +351,6 @@ private struct DefaultDisplayNameSection: View {
         }
         .sheet(isPresented: $showingEditDisplayNameView) {
             EditDisplayNameView(viewModel: viewModel)
-                .forceDarkModeIfApplicable()
         }
     }
 }

@@ -166,7 +166,6 @@ struct AliasesView: View {
                         onDeleteAlias: { deletedAlias in
                             viewModel.delete(alias: deletedAlias)
                         })
-                        .forceDarkModeIfApplicable()
                 }
             }
 
@@ -190,7 +189,6 @@ struct AliasesView: View {
                 },
                 onCancel: nil
             )
-                .forceDarkModeIfApplicable()
         }
         .alertToastLoading(isPresenting: $showingUpdatingAlert)
         .alertToastCopyMessage(isPresenting: showingCopiedEmailAlert, message: copiedEmail)

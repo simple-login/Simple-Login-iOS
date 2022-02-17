@@ -107,7 +107,6 @@ private struct UserInfoSection: View {
                         PhotoPickerView { pickedImage in
                             viewModel.uploadNewProfilePhoto(pickedImage)
                         }
-                        .forceDarkModeIfApplicable()
                     }
                 Divider()
                 membershipView
@@ -116,7 +115,6 @@ private struct UserInfoSection: View {
                             viewModel.updateDisplayName(displayName)
                         }
                         .environmentObject(viewModel)
-                        .forceDarkModeIfApplicable()
                     }
             }
         }
@@ -276,11 +274,19 @@ private struct LocalSettingsSection: View {
 
     var body: some View {
         Section {
-            Toggle("Haptic feedback", isOn: $hapticEffectEnabled)
-                .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+            VStack {
+                Toggle("Haptic feedback", isOn: $hapticEffectEnabled)
+                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
 
-            Toggle("Force dark mode", isOn: $forceDarkMode)
-                .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+                Divider()
+
+                Toggle("Force dark mode", isOn: $forceDarkMode)
+                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+
+                Text("You need to restart the application for this option to take effect")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
         }
     }
 }

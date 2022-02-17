@@ -77,7 +77,6 @@ struct AliasContactsView: View {
             CreateContactView(alias: viewModel.alias) {
                 viewModel.refresh()
             }
-            .forceDarkModeIfApplicable()
         }
         .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
         .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
