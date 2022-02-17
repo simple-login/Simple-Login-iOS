@@ -67,10 +67,10 @@ struct AliasDetailView: View {
             ScrollView {
                 Group {
                     CreationDateSection(alias: viewModel.alias)
-                        .sheet(isPresented: $showingAliasEmailSheet) {
+                        .fullScreenCover(isPresented: $showingAliasFullScreen) {
                             AliasEmailView(email: viewModel.alias.email)
                         }
-                        .fullScreenCover(isPresented: $showingAliasFullScreen) {
+                        .sheet(isPresented: $showingAliasEmailSheet) {
                             AliasEmailView(email: viewModel.alias.email)
                         }
                     Divider()
