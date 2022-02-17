@@ -74,7 +74,7 @@ struct AliasContactsView: View {
             showingLoadingAlert = isLoading
         }
         .sheet(isPresented: $showingCreateContactView) {
-            CreateContactView(alias: viewModel.alias) {
+            CreateContactView(alias: viewModel.alias, session: viewModel.session) {
                 viewModel.refresh()
             }
         }

@@ -509,7 +509,6 @@ private struct NotesSection: View {
 }
 
 private struct ActivitiesSection: View {
-    @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
     var onSelectActivity: (AliasActivity) -> Void
 
@@ -701,7 +700,6 @@ private struct EditMailboxesView: View {
 
 private struct EditDisplayNameView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
     @State private var displayName = ""
@@ -767,7 +765,6 @@ private struct EditDisplayNameView: View {
 
 private struct EditNotesView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
     @State private var notes = ""

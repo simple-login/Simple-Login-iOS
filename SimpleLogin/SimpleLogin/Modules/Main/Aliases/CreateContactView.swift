@@ -11,14 +11,13 @@ import SwiftUI
 
 struct CreateContactView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var session: Session
     @StateObject private var viewModel: CreateContactViewModel
     @State private var contactEmail: String = ""
     @State private var showingLoadingAlert = false
     private var onCreateContact: () -> Void
 
-    init(alias: Alias, onCreateContact: @escaping () -> Void) {
-        _viewModel = StateObject(wrappedValue: .init(alias: alias))
+    init(alias: Alias, session: Session, onCreateContact: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: .init(alias: alias, session: session))
         self.onCreateContact = onCreateContact
     }
 
@@ -66,7 +65,7 @@ struct CreateContactView: View {
 
     private var createButton: some View {
         Button(action: {
-            viewModel.createContact(session: session, contactEmail: contactEmail)
+            viewModel.createContact(contactEmail: contactEmail)
         }, label: {
             Text("Create")
         })
@@ -74,7 +73,7 @@ struct CreateContactView: View {
     }
 }
 
-final class CreateContactViewModel: ObservableObject {
+final class CreateContactViewModel: BaseSessionViewModel, ObservableObject {
     deinit {
         print("\(Self.self) is deallocated")
     }
@@ -86,15 +85,16 @@ final class CreateContactViewModel: ObservableObject {
     @Published private(set) var createdContact: Contact?
     private var cancellables = Set<AnyCancellable>()
 
-    init(alias: Alias) {
+    init(alias: Alias, session: Session) {
         self.alias = alias
+        super.init(session: session)
     }
 
     func handledError() {
         self.error = nil
     }
 
-    func createContact(session: Session, contactEmail: String) {
+    func createContact(contactEmail: String) {
         guard !isLoading else { return }
         isLoading = true
         session.client.createContact(apiKey: session.apiKey, aliasId: alias.id, contactEmail: contactEmail)
