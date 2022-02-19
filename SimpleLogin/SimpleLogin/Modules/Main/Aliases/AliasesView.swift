@@ -110,38 +110,13 @@ struct AliasesView: View {
 
                 List {
                     ForEach(viewModel.filteredAliases, id: \.id) { alias in
-                        AliasCompactView(
-                            alias: alias,
-                            onCopy: {
-                                if hapticFeedbackEnabled {
-                                    Vibration.soft.vibrate()
-                                }
-                                copiedEmail = alias.email
-                                UIPasteboard.general.string = alias.email
-                            },
-                            onSendMail: {
-                                selectedAlias = alias
-                                selectedLink = .contacts
-                            },
-                            onToggle: {
-                                viewModel.toggle(alias: alias)
-                            },
-                            onPin: {
-
-                            },
-                            onUnpin: {
-
-                            },
-                            onDelete: {
-                                
-                            })
-                            .onAppear {
-                                viewModel.getMoreAliasesIfNeed(currentAlias: alias)
-                            }
-                            .onTapGesture {
-                                selectedAlias = alias
-                                selectedLink = .details
-                            }
+                        // TODO: Workaround a SwiftUI bug that doesn't update AliasCompactView's context menu
+                        // https://stackoverflow.com/a/70159934
+                        if alias.pinned {
+                            aliasCompactView(for: alias)
+                        } else {
+                            aliasCompactView(for: alias)
+                        }
                     }
                     if viewModel.isLoading {
                         ProgressView()
@@ -219,6 +194,41 @@ struct AliasesView: View {
                         },
                         .cancel(Text("Cancel"))
                     ])
+    }
+
+    private func aliasCompactView(for alias: Alias) -> some View {
+        AliasCompactView(
+            alias: alias,
+            onCopy: {
+                if hapticFeedbackEnabled {
+                    Vibration.soft.vibrate()
+                }
+                copiedEmail = alias.email
+                UIPasteboard.general.string = alias.email
+            },
+            onSendMail: {
+                selectedAlias = alias
+                selectedLink = .contacts
+            },
+            onToggle: {
+                viewModel.toggle(alias: alias)
+            },
+            onPin: {
+                viewModel.update(alias: alias, option: .pinned(true))
+            },
+            onUnpin: {
+                viewModel.update(alias: alias, option: .pinned(false))
+            },
+            onDelete: {
+
+            })
+            .onAppear {
+                viewModel.getMoreAliasesIfNeed(currentAlias: alias)
+            }
+            .onTapGesture {
+                selectedAlias = alias
+                selectedLink = .details
+            }
     }
 }
 

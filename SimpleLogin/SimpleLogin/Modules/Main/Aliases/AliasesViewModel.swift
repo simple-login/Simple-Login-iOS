@@ -169,4 +169,44 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
             }
             .store(in: &cancellables)
     }
+
+    func update(alias: Alias, option: AliasUpdateOption) {
+        guard !isUpdating else { return }
+        isUpdating = true
+        session.client.updateAlias(apiKey: session.apiKey, id: alias.id, option: option)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isUpdating = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            } receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                guard let index = self.aliases.firstIndex(where: { $0.id == alias.id }) else { return }
+                switch option {
+                case .pinned(let pinned):
+                    self.aliases[index] = Alias(id: alias.id,
+                                                email: alias.email,
+                                                name: alias.name,
+                                                enabled: alias.enabled,
+                                                creationTimestamp: alias.creationTimestamp,
+                                                blockCount: alias.blockCount,
+                                                forwardCount: alias.forwardCount,
+                                                replyCount: alias.replyCount,
+                                                note: alias.note,
+                                                pgpSupported: alias.pgpSupported,
+                                                pgpDisabled: alias.pgpDisabled,
+                                                mailboxes: alias.mailboxes,
+                                                latestActivity: alias.latestActivity,
+                                                pinned: pinned)
+                default:
+                    break
+                }
+            }
+            .store(in: &cancellables)
+    }
 }

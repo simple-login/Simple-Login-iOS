@@ -81,11 +81,11 @@ struct AliasCompactView: View {
 
             Section {
                 if alias.pinned {
-                    Button(action: onPin) {
+                    Button(action: onUnpin) {
                         Label.unpin
                     }
                 } else {
-                    Button(action: onUnpin) {
+                    Button(action: onPin) {
                         Label.pin
                     }
                 }
