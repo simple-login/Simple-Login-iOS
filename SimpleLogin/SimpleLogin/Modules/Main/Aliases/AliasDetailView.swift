@@ -10,9 +10,48 @@ import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
+// A view that takes an alias as binding to properly show the alias details
+// or a placeholder view when the binding is nil.
+// To achieve the "dismiss" feeling when the alias is deleted in iPad.
+struct AliasDetailWrapperView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    @Binding var selectedAlias: Alias?
+    private let session: Session
+    var onUpdateAlias: (Alias) -> Void
+    var onDeleteAlias: (Alias) -> Void
+
+    init(selectedAlias: Binding<Alias?>,
+         session: Session,
+         onUpdateAlias: @escaping (Alias) -> Void,
+         onDeleteAlias: @escaping (Alias) -> Void) {
+        self._selectedAlias = selectedAlias
+        self.session = session
+        self.onUpdateAlias = onUpdateAlias
+        self.onDeleteAlias = onDeleteAlias
+    }
+
+    var body: some View {
+        if let selectedAlias = selectedAlias {
+            // swiftlint:disable:next trailing_closure
+            AliasDetailView(
+                alias: selectedAlias,
+                session: session,
+                onUpdateAlias: onUpdateAlias,
+                onDeleteAlias: { deletedAlias in
+                    onDeleteAlias(deletedAlias)
+                    // Dismiss when in single view mode (iPhone)
+                    presentationMode.wrappedValue.dismiss()
+                    // Show placeholder view in master detail mode (iPad)
+                    self.selectedAlias = nil
+                })
+        } else {
+            DetailPlaceholderView.aliasDetails
+        }
+    }
+}
+
 // swiftlint:disable file_length
 struct AliasDetailView: View {
-    @Environment(\.presentationMode) private var presentationMode
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
@@ -23,12 +62,12 @@ struct AliasDetailView: View {
     @State private var selectedActivity: AliasActivity?
     @State private var copiedText: String?
     var onUpdateAlias: (Alias) -> Void
-    var onDeleteAlias: () -> Void
+    var onDeleteAlias: (Alias) -> Void
 
     init(alias: Alias,
          session: Session,
          onUpdateAlias: @escaping (Alias) -> Void,
-         onDeleteAlias: @escaping () -> Void) {
+         onDeleteAlias: @escaping (Alias) -> Void) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias, session: session))
         self.onUpdateAlias = onUpdateAlias
         self.onDeleteAlias = onDeleteAlias
@@ -133,8 +172,7 @@ struct AliasDetailView: View {
         }
         .onReceive(Just(viewModel.isDeleted)) { isDeleted in
             if isDeleted {
-                onDeleteAlias()
-                presentationMode.wrappedValue.dismiss()
+                onDeleteAlias(viewModel.alias)
             }
         }
         .onAppear {
@@ -144,7 +182,9 @@ struct AliasDetailView: View {
         .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
         .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
         .alert(isPresented: $showingDeletionAlert) {
-            deletionAlert
+            Alert.deleteConfirmation(alias: viewModel.alias) {
+                viewModel.delete()
+            }
         }
     }
 
@@ -223,15 +263,6 @@ struct AliasDetailView: View {
                 .scaledToFit()
                 .frame(width: 24, height: 24)
         })
-    }
-
-    private var deletionAlert: Alert {
-        Alert(title: Text("Delete \(viewModel.alias.email)?"),
-              message: Text("This can not be undone. Please confirm"),
-              primaryButton: .destructive(Text("Yes, delete this alias")) {
-            viewModel.delete()
-        },
-              secondaryButton: .cancel())
     }
 
     private var selectedActivityActionSheet: ActionSheet {
@@ -645,7 +676,6 @@ private struct EditMailboxesView: View {
         }
         .onReceive(Just(viewModel.isUpdated)) { isUpdated in
             if isUpdated {
-                presentationMode.wrappedValue.dismiss()
                 viewModel.handledIsUpdatedBoolean()
             }
         }

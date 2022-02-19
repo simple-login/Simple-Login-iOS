@@ -34,3 +34,10 @@ struct DetailPlaceholderView: View {
         }
     }
 }
+
+extension DetailPlaceholderView {
+    static var aliasDetails: DetailPlaceholderView {
+        DetailPlaceholderView(systemIconName: "at",
+                              message: "Select an alias to see its details here")
+    }
+}

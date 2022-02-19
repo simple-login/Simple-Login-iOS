@@ -17,6 +17,7 @@ struct AliasesView: View {
     @State private var showingUpdatingAlert = false
     @State private var showingSearchView = false
     @State private var showingCreateView = false
+    @State private var showingDeleteConfirmationAlert = false
     @State private var copiedEmail: String?
     @State private var createdAlias: Alias?
     @State private var selectedAlias: Alias?
@@ -66,24 +67,20 @@ struct AliasesView: View {
                     tag: Link.details,
                     selection: $selectedLink,
                     destination: {
-                        if let selectedAlias = selectedAlias {
-                            AliasDetailView(
-                                alias: selectedAlias,
-                                session: viewModel.session,
-                                onUpdateAlias: { updatedAlias in
-                                    viewModel.update(alias: updatedAlias)
-                                },
-                                onDeleteAlias: {
-                                    viewModel.delete(alias: selectedAlias)
-                                })
-                                .onAppear {
-                                    if UIDevice.current.userInterfaceIdiom != .phone {
-                                        selectedLink = nil
-                                    }
+                        AliasDetailWrapperView(
+                            selectedAlias: $selectedAlias,
+                            session: viewModel.session,
+                            onUpdateAlias: { updatedAlias in
+                                viewModel.update(alias: updatedAlias)
+                            },
+                            onDeleteAlias: { deletedAlias in
+                                viewModel.remove(alias: deletedAlias)
+                            })
+                            .onAppear {
+                                if UIDevice.current.userInterfaceIdiom != .phone {
+                                    selectedLink = nil
                                 }
-                        } else {
-                            EmptyView()
-                        }
+                            }
                     },
                     label: {
                         EmptyView()
@@ -148,13 +145,12 @@ struct AliasesView: View {
                             viewModel.update(alias: updatedAlias)
                         },
                         onDeleteAlias: { deletedAlias in
-                            viewModel.delete(alias: deletedAlias)
+                            viewModel.remove(alias: deletedAlias)
                         })
                 }
             }
 
-            DetailPlaceholderView(systemIconName: "at",
-                                  message: "Select an alias to see its details here")
+            DetailPlaceholderView.aliasDetails
         }
         .slNavigationView()
         .onAppear {
@@ -173,6 +169,15 @@ struct AliasesView: View {
                 },
                 onCancel: nil
             )
+        }
+        .alert(isPresented: $showingDeleteConfirmationAlert) {
+            guard let selectedAlias = selectedAlias else {
+                return Alert(title: Text("selectedAlias is nil"))
+            }
+
+            return Alert.deleteConfirmation(alias: selectedAlias) {
+                viewModel.delete(alias: selectedAlias)
+            }
         }
         .alertToastLoading(isPresenting: $showingUpdatingAlert)
         .alertToastCopyMessage(isPresenting: showingCopiedEmailAlert, message: copiedEmail)
@@ -220,7 +225,8 @@ struct AliasesView: View {
                 viewModel.update(alias: alias, option: .pinned(false))
             },
             onDelete: {
-
+                selectedAlias = alias
+                showingDeleteConfirmationAlert = true
             })
             .onAppear {
                 viewModel.getMoreAliasesIfNeed(currentAlias: alias)

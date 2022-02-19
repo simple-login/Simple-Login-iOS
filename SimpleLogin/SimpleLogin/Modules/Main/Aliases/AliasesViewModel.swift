@@ -110,7 +110,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
         aliases[index] = alias
     }
 
-    func delete(alias: Alias) {
+    func remove(alias: Alias) {
         aliases.removeAll { $0.id == alias.id }
     }
 
@@ -206,6 +206,26 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
                 default:
                     break
                 }
+            }
+            .store(in: &cancellables)
+    }
+
+    func delete(alias: Alias) {
+        isUpdating = true
+        session.client.deleteAlias(apiKey: session.apiKey, id: alias.id)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isUpdating = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            } receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.remove(alias: alias)
             }
             .store(in: &cancellables)
     }
