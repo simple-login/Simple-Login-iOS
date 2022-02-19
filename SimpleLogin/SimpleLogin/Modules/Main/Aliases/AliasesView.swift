@@ -13,7 +13,6 @@ import SwiftUI
 struct AliasesView: View {
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel: AliasesViewModel
-    @State private var showingRandomAliasActionSheet = false
     @State private var showingUpdatingAlert = false
     @State private var showingSearchView = false
     @State private var showingCreateView = false
@@ -128,15 +127,13 @@ struct AliasesView: View {
                     ToolbarItem {
                         AliasesViewToolbar(selectedStatus: $viewModel.selectedStatus,
                                            onSearch: { showingSearchView = true },
-                                           onRandomAlias: { showingRandomAliasActionSheet.toggle() },
+                                           onRandomByWord: { viewModel.random(mode: .word) },
+                                           onRandomByUuid: { viewModel.random(mode: .uuid) },
                                            onCreateAlias: { showingCreateView = true })
                     }
                 }
                 .introspectTableView { tableView in
                     tableView.refreshControl = viewModel.refreshControl
-                }
-                .actionSheet(isPresented: $showingRandomAliasActionSheet) {
-                    randomAliasActionSheet
                 }
                 .sheet(isPresented: $showingSearchView) {
                     SearchAliasesView(
@@ -185,20 +182,6 @@ struct AliasesView: View {
         .alertToastCompletionMessage(isPresenting: showingCreatedAliasAlert,
                                      title: "Created",
                                      subTitle: createdAlias?.email ?? "")
-    }
-
-    private var randomAliasActionSheet: ActionSheet {
-        ActionSheet(title: Text("New alias"),
-                    message: Text("Randomly create an alias"),
-                    buttons: [
-                        .default(Text("By random words")) {
-                            viewModel.random(mode: .word)
-                        },
-                        .default(Text("By UUID")) {
-                            viewModel.random(mode: .uuid)
-                        },
-                        .cancel(Text("Cancel"))
-                    ])
     }
 
     private func aliasCompactView(for alias: Alias) -> some View {
@@ -254,7 +237,8 @@ private struct AliasesViewToolbar: View {
     @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
     @Binding var selectedStatus: AliasStatus
     let onSearch: () -> Void
-    let onRandomAlias: () -> Void
+    let onRandomByWord: () -> Void
+    let onRandomByUuid: () -> Void
     let onCreateAlias: () -> Void
 
     var body: some View {
@@ -270,21 +254,24 @@ private struct AliasesViewToolbar: View {
 
             Divider()
                 .fixedSize()
-                .padding(.horizontal, 16)
+                .padding(.horizontal)
 
             Button(action: onSearch) {
                 Image(systemName: "magnifyingglass")
             }
 
-            Spacer()
-                .frame(width: 24)
+            Menu(content: {
+                Button(action: onRandomByWord) {
+                    Text("Random an alias by word")
+                }
 
-            Button(action: onRandomAlias) {
+                Button(action: onRandomByUuid) {
+                    Text("Random an alias by UUID")
+                }
+            }, label: {
                 Image(systemName: "shuffle")
-            }
-
-            Spacer()
-                .frame(width: 24)
+            })
+                .padding(.horizontal)
 
             Button(action: {
                 if hapticEffectEnabled {
