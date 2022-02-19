@@ -9,10 +9,12 @@ import Foundation
 
 // swiftlint:disable:next type_name
 enum Tip {
-    case fullScreen, shareExtension, keyboardExtension
+    case contextMenu, fullScreen, shareExtension, keyboardExtension
 
     var title: String {
         switch self {
+        case .contextMenu:
+            return "Context menu"
         case .fullScreen:
             return "Full screen mode"
         case .shareExtension:
@@ -24,6 +26,8 @@ enum Tip {
 
     var description: String {
         switch self {
+        case .contextMenu:
+            return "Quickly take action on an alias by long pressing to reveal extra options.\nTry it with the alias below 👇 "
         case .fullScreen:
             return "Show your aliases to other people easily without dictating. In alias detail page, either tap on alias or choose \"Enter Full Screen\" option."
         case .shareExtension:
@@ -33,8 +37,10 @@ enum Tip {
         }
     }
 
-    var action: String {
+    var action: String? {
         switch self {
+        case .contextMenu:
+            return nil
         case .fullScreen, .shareExtension:
             return "Try it"
         case .keyboardExtension:
@@ -44,6 +50,8 @@ enum Tip {
 
     var systemIconName: String {
         switch self {
+        case .contextMenu:
+            return "contextualmenu.and.cursorarrow"
         case .fullScreen:
             return "iphone"
         case .shareExtension:

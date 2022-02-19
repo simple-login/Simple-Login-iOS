@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 02/02/2022.
 //
 
+import SimpleLoginPackage
 import SwiftUI
 
 struct TipsView: View {
@@ -25,6 +26,7 @@ struct TipsView: View {
                         .foregroundColor(.secondary)
                         .padding(.top)
                 }
+                TipView(tip: .contextMenu)
                 TipView(tip: .fullScreen)
                 TipView(tip: .shareExtension)
                 TipView(tip: .keyboardExtension)
@@ -61,12 +63,25 @@ private struct TipView: View {
                     .foregroundColor(.slPurple)
                     .frame(width: 40)
             }
-            Button(action: {
-                handleAction()
-            }, label: {
-                Text(tip.action)
-                    .font(.headline)
-            })
+
+            if let action = tip.action {
+                Button(action: {
+                    handleAction()
+                }, label: {
+                    Text(action)
+                        .font(.headline)
+                })
+            }
+
+            if tip == .contextMenu {
+                AliasCompactView(alias: .sample,
+                                 onCopy: {},
+                                 onSendMail: {},
+                                 onToggle: {},
+                                 onPin: {},
+                                 onUnpin: {},
+                                 onDelete: {})
+            }
         }
         .padding()
         .background(Color(.systemBackground))
@@ -82,7 +97,7 @@ private struct TipView: View {
                 } else {
                     EmptyView()
                 }
-            case .keyboardExtension:
+            default:
                 EmptyView()
             }
         }
@@ -90,10 +105,31 @@ private struct TipView: View {
 
     private func handleAction() {
         switch tip {
+        case .contextMenu:
+            break
         case .fullScreen, .shareExtension:
             showingSheet = true
         case .keyboardExtension:
             UIApplication.shared.openSettings()
         }
+    }
+}
+
+private extension Alias {
+    static var sample: Alias {
+        .init(id: 0,
+              email: "my.alias@example.com",
+              name: nil,
+              enabled: true,
+              creationTimestamp: Date().timeIntervalSince1970,
+              blockCount: 15,
+              forwardCount: 25,
+              replyCount: 35,
+              note: nil,
+              pgpSupported: false,
+              pgpDisabled: false,
+              mailboxes: [],
+              latestActivity: nil,
+              pinned: true)
     }
 }

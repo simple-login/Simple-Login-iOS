@@ -470,7 +470,6 @@
 				C03F4F3026E1735B00BBF2A8 /* Account */,
 				C03F4F2E26E1733200BBF2A8 /* Aliases */,
 				C03F4F2F26E1735100BBF2A8 /* Others */,
-				C00FD7FB27AA70CC0072DD67 /* Tips */,
 				C0100B2F26DEC46900085C24 /* MainView.swift */,
 			);
 			path = Main;
@@ -535,6 +534,7 @@
 		C03F4F3126E1736500BBF2A8 /* About */ = {
 			isa = PBXGroup;
 			children = (
+				C00FD7FB27AA70CC0072DD67 /* Tips */,
 				C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */,
 			);
 			path = About;
