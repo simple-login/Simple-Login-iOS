@@ -251,9 +251,6 @@ struct AliasDetailView: View {
 
             Section {
                 DeleteMenuButton {
-                    if hapticFeedbackEnabled {
-                        Vibration.warning.vibrate(fallBackToOldSchool: true)
-                    }
                     showingDeletionAlert = true
                 }
             }
