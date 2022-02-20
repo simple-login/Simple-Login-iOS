@@ -6,6 +6,7 @@
 //
 
 import Combine
+import SimpleLoginPackage
 import SwiftUI
 
 // swiftlint:disable let_var_whitespace
@@ -229,14 +230,14 @@ struct UpgradeView: View {
     }
 }
 
-// TODO: Use a static session
-//struct UpgradeView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            UpgradeView(session: <#T##Session#>) { }
-//        }
-//    }
-//}
+struct UpgradeView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            UpgradeView(session: .init(apiKey: ApiKey(value: ""),
+                                       client: .default)) {}
+        }
+    }
+}
 
 private struct Capacity: Identifiable {
     let id = UUID()

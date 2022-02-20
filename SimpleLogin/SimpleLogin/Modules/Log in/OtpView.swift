@@ -205,9 +205,8 @@ struct OtpView: View {
 
 struct OtpView_Previews: PreviewProvider {
     static var previews: some View {
-        // swiftlint:disable:next force_unwrapping
         OtpView(mode: .constant(.activate(email: "john.doe@example.com")),
-                client: .init(session: .shared)!)
+                client: .default)
     }
 }
 

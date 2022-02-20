@@ -16,7 +16,7 @@ final class LogInViewModel: ObservableObject {
     @Published private(set) var shouldActivate = false
     private var cancellables = Set<AnyCancellable>()
 
-    private(set) var client: SLClient?
+    private(set) var client: SLClient = .default
 
     init(apiUrl: String) {
         updateApiUrl(apiUrl)
@@ -24,8 +24,8 @@ final class LogInViewModel: ObservableObject {
 
     func updateApiUrl(_ apiUrl: String) {
         let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 10
-        client = .init(session: .init(configuration: config), baseUrlString: apiUrl)
+        config.timeoutIntervalForRequest = 20
+        client = .init(session: .init(configuration: config), baseUrlString: apiUrl) ?? .default
     }
 
     func handledError() {
@@ -41,14 +41,8 @@ final class LogInViewModel: ObservableObject {
     }
 
     func logIn(email: String, password: String, device: String) {
-        guard let client = client else {
-            error = SLError.invalidApiUrl
-            return
-        }
-
         guard !isLoading else { return }
         isLoading = true
-
         client.login(email: email, password: password, device: device)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in

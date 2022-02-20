@@ -125,8 +125,7 @@ struct LogInView: View {
             if userLogin.isMfaEnabled {
                 otpMode = .logIn(mfaKey: userLogin.mfaKey ?? "")
             } else if let apiKey = userLogin.apiKey {
-                // swiftlint:disable:next force_unwrapping
-                onComplete(apiKey, viewModel.client!)
+                onComplete(apiKey, viewModel.client)
             }
             viewModel.handledUserLogin()
         }
@@ -137,10 +136,9 @@ struct LogInView: View {
             }
         }
         .onAppear {
-            if let apiKey = KeychainService.shared.getApiKey(),
-               let client = viewModel.client {
+            if let apiKey = KeychainService.shared.getApiKey() {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    onComplete(apiKey, client)
+                    onComplete(apiKey, viewModel.client)
                 }
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -166,8 +164,7 @@ struct LogInView: View {
                 .frame(width: 0, height: 0)
                 .sheet(isPresented: $showingApiKeyView) {
                     ApiKeyView(client: viewModel.client) { apiKey in
-                        // swiftlint:disable:next force_unwrapping
-                        onComplete(apiKey, viewModel.client!)
+                        onComplete(apiKey, viewModel.client)
                     }
                 }
 
@@ -180,8 +177,7 @@ struct LogInView: View {
             Color.clear
                 .frame(width: 0, height: 0)
                 .sheet(isPresented: $showingResetPasswordView) {
-                    // swiftlint:disable:next force_unwrapping
-                    ResetPasswordView(client: viewModel.client!)
+                    ResetPasswordView(client: viewModel.client)
                 }
 
             Spacer()
@@ -263,19 +259,16 @@ struct LogInView: View {
     }
 
     private func otpView() -> some View {
-        // swiftlint:disable force_unwrapping
-        let client = viewModel.client!
-        return OtpView(
+        OtpView(
             mode: $otpMode,
-            client: viewModel.client!,
+            client: viewModel.client,
             onVerification: { apiKey in
-                onComplete(apiKey, client)
+                onComplete(apiKey, viewModel.client)
             },
             onActivation: {
                 viewModel.logIn(email: email,
                                 password: password,
                                 device: UIDevice.current.name)
             })
-        // swiftlint:enable force_unwrapping
     }
 }

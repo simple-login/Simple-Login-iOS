@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 28/08/2021.
 //
 
+import AlertToast
 import SwiftUI
 
 struct ApiUrlView: View {
@@ -12,6 +13,7 @@ struct ApiUrlView: View {
     @Environment(\.presentationMode) private var presentationMode
     @State private var isEditing = false
     @State private var currentApiUrl: String
+    @State private var showingInvalidApiUrlAlert = false
     let apiUrl: String
 
     init(apiUrl: String) {
@@ -51,6 +53,8 @@ struct ApiUrlView: View {
                                 trailing: editOrDoneButton)
         }
         .accentColor(.slPurple)
+        .alertToastError(isPresenting: $showingInvalidApiUrlAlert,
+                         error: SLError.invalidApiUrl)
     }
 
     private var defaultApiUrlView: some View {
@@ -83,9 +87,10 @@ struct ApiUrlView: View {
 
     private var editOrDoneButton: some View {
         Button(action: {
-            defer { isEditing.toggle() }
             if isEditing {
                 save()
+            } else {
+                isEditing = true
             }
         }, label: {
             Text(isEditing ? "Done" : "Edit")
@@ -93,6 +98,11 @@ struct ApiUrlView: View {
     }
 
     private func save() {
+        guard URL(string: currentApiUrl) != nil else {
+            showingInvalidApiUrlAlert = true
+            return
+        }
+        isEditing = false
         preferences.apiUrl = currentApiUrl
     }
 }
