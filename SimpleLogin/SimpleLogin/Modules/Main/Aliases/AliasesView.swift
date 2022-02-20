@@ -195,10 +195,16 @@ struct AliasesView: View {
                 UIPasteboard.general.string = alias.email
             },
             onSendMail: {
+                if hapticFeedbackEnabled {
+                    Vibration.soft.vibrate()
+                }
                 selectedAlias = alias
                 selectedLink = .contacts
             },
             onToggle: {
+                if hapticFeedbackEnabled {
+                    Vibration.soft.vibrate()
+                }
                 viewModel.toggle(alias: alias)
             },
             onPin: {
@@ -234,7 +240,7 @@ enum AliasStatus: CustomStringConvertible, CaseIterable {
 }
 
 private struct AliasesViewToolbar: View {
-    @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
+    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @Binding var selectedStatus: AliasStatus
     let onSearch: () -> Void
     let onRandomByWord: () -> Void
@@ -256,9 +262,14 @@ private struct AliasesViewToolbar: View {
                 .fixedSize()
                 .padding(.horizontal)
 
-            Button(action: onSearch) {
+            Button(action: {
+                if hapticFeedbackEnabled {
+                    Vibration.light.vibrate()
+                }
+                onSearch()
+            }, label: {
                 Image(systemName: "magnifyingglass")
-            }
+            })
 
             Menu(content: {
                 Button(action: onRandomByWord) {
@@ -274,7 +285,7 @@ private struct AliasesViewToolbar: View {
                 .padding(.horizontal)
 
             Button(action: {
-                if hapticEffectEnabled {
+                if hapticFeedbackEnabled {
                     Vibration.light.vibrate()
                 }
                 onCreateAlias()

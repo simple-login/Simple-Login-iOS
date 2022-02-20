@@ -85,6 +85,9 @@ struct AliasContactsView: View {
 
     var plusButton: some View {
         Button(action: {
+            if hapticFeedbackEnabled {
+                Vibration.light.vibrate()
+            }
             showingCreateContactView = true
         }, label: {
             Image(systemName: "plus")

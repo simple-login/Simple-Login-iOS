@@ -14,6 +14,7 @@ private let kBuildNumber =
     (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?"
 
 struct AboutView: View {
+    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @State private var showingTipsView = false
     @State private var selectedUrlString: String?
     var body: some View {
@@ -131,6 +132,9 @@ SimpleLogin is the product of SimpleLogin SAS, registered in France under the SI
 
     private var tipsButton: some View {
         Button(action: {
+            if hapticFeedbackEnabled {
+                Vibration.soft.vibrate()
+            }
             showingTipsView = true
         }, label: {
             Label("Tips", systemImage: "lightbulb")

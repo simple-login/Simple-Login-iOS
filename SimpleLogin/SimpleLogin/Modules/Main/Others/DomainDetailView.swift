@@ -43,7 +43,7 @@ struct DomainDetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .principal) {
+            ToolbarItem(placement: .navigationBarLeading) {
                 VStack(spacing: 0) {
                     Text(domain.domainName)
                         .font(.headline)

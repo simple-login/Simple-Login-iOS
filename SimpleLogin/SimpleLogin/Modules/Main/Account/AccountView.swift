@@ -500,12 +500,16 @@ private struct KeyboardFullAccessExplanationView: View {
 
 private struct LogOutSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
+    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @State private var isShowingAlert = false
     var onLogOut: () -> Void
 
     var body: some View {
         Section {
             Button(action: {
+                if hapticFeedbackEnabled {
+                    Vibration.rigid.vibrate()
+                }
                 isShowingAlert = true
             }, label: {
                 Text("Log out")
