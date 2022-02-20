@@ -130,6 +130,7 @@
 		EF15C55927BEE4B8008497F2 /* LabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF15C55827BEE4B8008497F2 /* LabelExtensions.swift */; };
 		EF33B7B827B91C6400BD3195 /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */; };
 		EF4F43DF27C15B2D00CD1942 /* AlertExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4F43DE27C15B2D00CD1942 /* AlertExtensions.swift */; };
+		EF509E3427C234D10047A8D1 /* SensitiveContentViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF509E3327C234D10047A8D1 /* SensitiveContentViewModifier.swift */; };
 		EF5BDFB227B79ABD004B696B /* UIScreenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */; };
 		EF5BDFB427B7AF56004B696B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB327B7AF56004B696B /* LogoView.swift */; };
 		EF5BDFB827B7B5DD004B696B /* BetterSafariViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */; };
@@ -284,6 +285,7 @@
 		EF15C55827BEE4B8008497F2 /* LabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelExtensions.swift; sourceTree = "<group>"; };
 		EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		EF4F43DE27C15B2D00CD1942 /* AlertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtensions.swift; sourceTree = "<group>"; };
+		EF509E3327C234D10047A8D1 /* SensitiveContentViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensitiveContentViewModifier.swift; sourceTree = "<group>"; };
 		EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreenExtensions.swift; sourceTree = "<group>"; };
 		EF5BDFB327B7AF56004B696B /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewExtensions.swift; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 				EFA2A37C27B6F3460020E808 /* LabelText.swift */,
 				EF5BDFB327B7AF56004B696B /* LogoView.swift */,
 				C02FCF8C278E2FB200F32BED /* PhotoPickerView.swift */,
+				EF509E3327C234D10047A8D1 /* SensitiveContentViewModifier.swift */,
 				C02F967126DB78CF000B100C /* ShakeEffect.swift */,
 				C0F08FB227AB2CB50066A354 /* ShareSheetView.swift */,
 				C05424B427B06955008048A5 /* SLNavigationViewModifier.swift */,
@@ -950,6 +953,7 @@
 				C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */,
 				EFB3A96727BC404300F82965 /* UIImageExtensions.swift in Sources */,
 				C0F08FB327AB2CB60066A354 /* ShareSheetView.swift in Sources */,
+				EF509E3427C234D10047A8D1 /* SensitiveContentViewModifier.swift in Sources */,
 				C0D1D5A9272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift in Sources */,
 				C0EA747927B3061100848F58 /* DetailPlaceholderView.swift in Sources */,
 				C08A5D8727499A6100BE889B /* AliasContactsViewModel.swift in Sources */,

@@ -35,6 +35,12 @@ struct SimpleLoginApp: App {
                 .accentColor(.slPurple)
                 .environmentObject(preferences)
                 .environmentObject(Session(apiKey: apiKey, client: client))
+                .sensitiveContent {
+                    ZStack {
+                        Color(.systemBackground)
+                        Image("LogoWithName")
+                    }
+                }
             } else {
                 LogInView(apiUrl: preferences.apiUrl) { apiKey, client in
                     try? KeychainService.shared.setApiKey(apiKey)
