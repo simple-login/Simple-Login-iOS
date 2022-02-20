@@ -91,7 +91,9 @@ struct MainView: View {
         }
         .onAppear {
             if !didShowTips {
-                showingTips = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    showingTips = true
+                }
             }
         }
         .sheet(isPresented: $showingTips) {

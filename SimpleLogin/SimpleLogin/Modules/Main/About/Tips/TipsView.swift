@@ -15,7 +15,7 @@ struct TipsView: View {
     var body: some View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(spacing: 20) {
+                VStack(spacing: 20) {
                     VStack {
                         if isFirstTime {
                             Text("👋 Welcome to")
@@ -79,10 +79,12 @@ private struct TipView: View {
                 Text(tip.title)
                     .font(.title3)
                     .fontWeight(.bold)
+                    .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
             HStack {
                 Text(tip.description)
+                    .fixedSize(horizontal: false, vertical: true)
                 Image(systemName: tip.systemIconName)
                     .resizable()
                     .scaledToFit()
