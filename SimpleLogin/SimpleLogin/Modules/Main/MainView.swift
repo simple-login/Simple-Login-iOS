@@ -91,13 +91,11 @@ struct MainView: View {
         }
         .onAppear {
             if !didShowTips {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    showingTips = true
-                }
+                showingTips = true
             }
         }
         .sheet(isPresented: $showingTips) {
-            TipsView()
+            TipsView(isFirstTime: true)
                 .onAppear {
                     didShowTips = true
                 }

@@ -9,37 +9,63 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct TipsView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    let isFirstTime: Bool
+
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack(spacing: 20) {
-                VStack {
-                    Text("Welcome to")
-                        .font(.title)
-                        .fontWeight(.bold)
-                    Text("SimpleLogin")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.slPurple)
-                    Text("Here are some useful tips to help you make the most out of this application.")
-                        .font(.callout)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.secondary)
-                        .padding(.top)
+        NavigationView {
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVStack(spacing: 20) {
+                    VStack {
+                        if isFirstTime {
+                            Text("👋 Welcome to")
+                                .font(.title)
+                                .fontWeight(.bold)
+                            Text("SimpleLogin")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(.slPurple)
+                                .padding(.bottom)
+                        }
+
+                        Text("Here are some useful tips to help you make the most out of this application.")
+                            .font(.callout)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.secondary)
+                    }
+                    TipView(tip: .contextMenu)
+                    TipView(tip: .fullScreen)
+                    TipView(tip: .shareExtension)
+                    TipView(tip: .keyboardExtension)
+
+                    if isFirstTime {
+                        PrimaryButton(title: "Got it 👍") {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
                 }
-                TipView(tip: .contextMenu)
-                TipView(tip: .fullScreen)
-                TipView(tip: .shareExtension)
-                TipView(tip: .keyboardExtension)
+                .padding(.top, 20)
+                .padding()
             }
-            .padding(.top, 20)
-            .padding()
+            .navigationBarHidden(isFirstTime)
+            .navigationTitle("💡 Useful tips")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(leading: closeButton)
         }
+    }
+
+    private var closeButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Close")
+        })
     }
 }
 
 struct TipsView_Previews: PreviewProvider {
     static var previews: some View {
-        TipsView()
+        TipsView(isFirstTime: true)
     }
 }
 

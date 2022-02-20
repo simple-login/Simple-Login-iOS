@@ -27,7 +27,7 @@ enum Tip {
     var description: String {
         switch self {
         case .contextMenu:
-            return "Quickly take action on an alias by long pressing to reveal extra options.\nTry it with the alias below 👇 "
+            return "Quickly take action on an alias by long pressing to reveal extra options.\nTry it with the test alias below 👇"
         case .fullScreen:
             return "Show your aliases to other people easily without dictating. In alias detail page, either tap on alias or choose \"Enter Full Screen\" option."
         case .shareExtension:

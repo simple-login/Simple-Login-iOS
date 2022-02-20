@@ -100,7 +100,7 @@ struct AboutView: View {
             .navigationTitle("About SimpleLogin")
             .navigationBarItems(trailing: tipsButton)
             .sheet(isPresented: $showingTipsView) {
-                TipsView()
+                TipsView(isFirstTime: false)
             }
             .safariView(isPresented: showingUrl) {
                 // swiftlint:disable:next force_unwrapping

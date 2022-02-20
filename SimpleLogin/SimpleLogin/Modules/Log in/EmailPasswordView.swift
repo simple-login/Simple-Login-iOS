@@ -133,7 +133,7 @@ struct EmailPasswordView: View {
                     .stroke(Color.gray.opacity(0.2), lineWidth: 1)
             )
 
-            Button(action: {
+            PrimaryButton(title: mode.title) {
                 switch mode {
                 case .logIn:
                     onAction()
@@ -146,18 +146,9 @@ struct EmailPasswordView: View {
                         onAction()
                     }
                 }
-            }, label: {
-                Text(mode.title)
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical)
-                    .background(Color.slPurple)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .opacity((email.isEmpty || password.isEmpty) ? 0.5 : 1)
-            })
+            }
             .padding(.vertical, 4)
+            .opacity((email.isEmpty || password.isEmpty) ? 0.5 : 1)
             .disabled(email.isEmpty || password.isEmpty)
         }
         .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? UIScreen.main.minLength * 3 / 5 : .infinity)
