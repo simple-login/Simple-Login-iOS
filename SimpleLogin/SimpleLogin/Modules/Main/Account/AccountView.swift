@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 02/09/2021.
 //
 
-import AlertToast
 import Combine
 import Kingfisher
 import LocalAuthentication
@@ -14,12 +13,16 @@ import SwiftUI
 
 // swiftlint:disable let_var_whitespace
 struct AccountView: View {
-    @EnvironmentObject private var session: Session
-    @StateObject private var viewModel = AccountViewModel()
+    @StateObject private var viewModel: AccountViewModel
     @State private var confettiCounter = 0
     @State private var showingUpgradeView = false
     @State private var showingLoadingAlert = false
     let onLogOut: () -> Void
+
+    init(session: Session, onLogOut: @escaping () -> Void) {
+        self._viewModel = StateObject(wrappedValue: .init(session: session))
+        self.onLogOut = onLogOut
+    }
 
     var body: some View {
         let showingErrorAlert = Binding<Bool>(get: {
@@ -46,7 +49,7 @@ struct AccountView: View {
                     NavigationLink(
                         isActive: $showingUpgradeView,
                         destination: {
-                            UpgradeView {
+                            UpgradeView(session: viewModel.session) {
                                 confettiCounter += 1
                                 viewModel.forceRefresh()
                             }
@@ -69,16 +72,13 @@ struct AccountView: View {
                 }
                 .navigationTitle(navigationTitle)
             } else {
-                Image(systemName: "person.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: UIScreen.main.bounds.width / 2)
-                    .foregroundColor(.secondary)
-                    .opacity(0.1)
+                EmptyView()
             }
+
+            DetailPlaceholderView(systemIconName: "person")
         }
+        .slNavigationView()
         .onAppear {
-            viewModel.setSession(session)
             viewModel.getRequiredInformation()
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
@@ -90,21 +90,14 @@ struct AccountView: View {
             }
         }
         .modifier(ConfettiableModifier(counter: $confettiCounter))
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
-        .toast(isPresenting: showingMessageAlert) {
-            AlertToast.messageAlert(viewModel.message)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastMessage(isPresenting: showingMessageAlert, message: viewModel.message)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 }
 
 private struct UserInfoSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
-    @State private var showingEditActionSheet = false
     @State private var showingPhotoPickerSheet = false
     @State private var showingEditDisplayNameSheet = false
     @Binding var showingUpgradeView: Bool
@@ -117,7 +110,6 @@ private struct UserInfoSection: View {
                         PhotoPickerView { pickedImage in
                             viewModel.uploadNewProfilePhoto(pickedImage)
                         }
-                        .forceDarkModeIfApplicable()
                     }
                 Divider()
                 membershipView
@@ -126,7 +118,6 @@ private struct UserInfoSection: View {
                             viewModel.updateDisplayName(displayName)
                         }
                         .environmentObject(viewModel)
-                        .forceDarkModeIfApplicable()
                     }
             }
         }
@@ -157,18 +148,7 @@ private struct UserInfoSection: View {
 
             Spacer()
 
-            Button(action: {
-                showingEditActionSheet = true
-            }, label: {
-                Image(systemName: "square.and.pencil")
-                    .foregroundColor(.slPurple)
-                    .font(.title3)
-            })
-                .buttonStyle(PlainButtonStyle())
-                .disabled(viewModel.isLoading)
-        }
-        .actionSheet(isPresented: $showingEditActionSheet) {
-            editActionSheet
+            editMenu
         }
         .alert(isPresented: $viewModel.askingForSettings) {
             settingsAlert
@@ -211,19 +191,37 @@ private struct UserInfoSection: View {
         }
     }
 
-    private var editActionSheet: ActionSheet {
-        var buttons = [ActionSheet.Button]()
-        buttons.append(.default(Text("Upload new profile photo")) {
-            showingPhotoPickerSheet = true
+    private var editMenu: some View {
+        Menu(content: {
+            Section {
+                Button(action: {
+                    showingPhotoPickerSheet = true
+                }, label: {
+                    Label("Upload new profile photo", systemImage: "square.and.arrow.up")
+                })
+
+                Button(action: {
+                    viewModel.removeProfilePhoto()
+                }, label: {
+                    Label("Remove profile photo", systemImage: "trash")
+                })
+            }
+
+            Section {
+                Button(action: {
+                    showingEditDisplayNameSheet = true
+                }, label: {
+                    if #available(iOS 15, *) {
+                        Label("Modify display name", systemImage: "person.text.rectangle")
+                    } else {
+                        Label("Modify display name", systemImage: "square.and.at.rectangle")
+                    }
+                })
+            }
+        }, label: {
+            Image(systemName: "square.and.pencil")
         })
-        buttons.append(.destructive(Text("Remove profile photo")) {
-            viewModel.removeProfilePhoto()
-        })
-        buttons.append(.default(Text("Modify display name")) {
-            showingEditDisplayNameSheet = true
-        })
-        buttons.append(.cancel())
-        return ActionSheet(title: Text("Modify profile information"), message: nil, buttons: buttons)
+            .disabled(viewModel.isLoading)
     }
 
     private var settingsAlert: Alert {
@@ -279,11 +277,19 @@ private struct LocalSettingsSection: View {
 
     var body: some View {
         Section {
-            Toggle("Haptic feedback", isOn: $hapticEffectEnabled)
-                .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+            VStack {
+                Toggle("Haptic feedback", isOn: $hapticEffectEnabled)
+                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
 
-            Toggle("Force dark mode", isOn: $forceDarkMode)
-                .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+                Divider()
+
+                Toggle("Force dark mode", isOn: $forceDarkMode)
+                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+
+                Text("You need to restart the application for this option to take effect")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
         }
     }
 }
@@ -310,7 +316,7 @@ private struct AliasesSection: View {
                 // Display mode
                 Group {
                     Text("Display mode")
-                        .fixedSize(horizontal: false, vertical: false)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     Picker(selection: $viewModel.aliasDisplayMode,
                            label: Text(viewModel.aliasDisplayMode.description)) {
                         ForEach(AliasDisplayMode.allCases, id: \.self) { mode in
@@ -325,7 +331,7 @@ private struct AliasesSection: View {
 
                 // Random mode
                 Text("Random mode")
-                    .fixedSize(horizontal: false, vertical: false)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
                 Picker(selection: $viewModel.randomMode,
                        label: Text(viewModel.randomMode.description)) {
@@ -340,32 +346,32 @@ private struct AliasesSection: View {
                 Text("Ex: \(viewModel.randomMode.example)")
                     .font(.caption)
                     .foregroundColor(.secondary)
-                    .fixedSize(horizontal: false, vertical: false)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
                 Divider()
 
                 // Default domain
-                HStack {
-                    Text("Default domain")
-                    Spacer()
-                    Picker(selection: $viewModel.randomAliasDefaultDomain,
-                           label: Text(viewModel.randomAliasDefaultDomain)) {
-                        ForEach(viewModel.usableDomains, id: \.domain) { usableDomain in
-                            VStack {
-                                Text(usableDomain.domain + (usableDomain.isCustom ? " 🟢" : ""))
+                Picker("Default domain", selection: $viewModel.randomAliasDefaultDomain) {
+                    ForEach(viewModel.usableDomains, id: \.domain) { usableDomain in
+                        HStack {
+                            Text(usableDomain.domain)
+                            if usableDomain.isCustom {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20, alignment: .leading)
                             }
-                            .tag(usableDomain.domain)
                         }
+                        .tag(usableDomain.domain)
                     }
-                           .pickerStyle(MenuPickerStyle())
-                           .disabled(viewModel.isLoading)
                 }
+                       .disabled(viewModel.isLoading)
 
                 Divider()
 
                 // Random alias suffix
                 Text("Random alias suffix")
-                    .fixedSize(horizontal: false, vertical: false)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
                 Picker(selection: $viewModel.randomAliasSuffix,
                        label: Text(viewModel.randomAliasSuffix.description)) {
@@ -380,7 +386,7 @@ private struct AliasesSection: View {
                 Text("Ex: \(viewModel.randomAliasSuffix.example)")
                     .font(.caption)
                     .foregroundColor(.secondary)
-                    .fixedSize(horizontal: false, vertical: false)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
     }
@@ -392,16 +398,13 @@ private struct SenderFormatSection: View {
     var body: some View {
         Section(header: Text("Sender address format"),
                 footer: Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")) {
-            VStack {
-                Picker(selection: $viewModel.senderFormat, label: Text(viewModel.senderFormat.description)) {
-                    ForEach(SenderFormat.allCases, id: \.self) { format in
-                        Text(format.description)
-                            .tag(format)
-                    }
+            Picker("Format", selection: $viewModel.senderFormat) {
+                ForEach(SenderFormat.allCases, id: \.self) { format in
+                    Text(format.description)
+                        .tag(format)
                 }
-                .pickerStyle(MenuPickerStyle())
-                .disabled(viewModel.isLoading)
             }
+            .disabled(viewModel.isLoading)
         }
     }
 }
@@ -497,12 +500,16 @@ private struct KeyboardFullAccessExplanationView: View {
 
 private struct LogOutSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
+    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @State private var isShowingAlert = false
     var onLogOut: () -> Void
 
     var body: some View {
         Section {
             Button(action: {
+                if hapticFeedbackEnabled {
+                    Vibration.rigid.vibrate()
+                }
                 isShowingAlert = true
             }, label: {
                 Text("Log out")

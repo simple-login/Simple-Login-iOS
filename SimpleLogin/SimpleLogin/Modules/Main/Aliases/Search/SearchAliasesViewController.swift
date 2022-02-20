@@ -70,10 +70,10 @@ final class SearchAliasesViewController: BaseViewController {
                 self.onUpdateAlias(updatedAlias)
                 self.viewModel.update(alias: updatedAlias)
             },
-            onDeleteAlias: { [weak self] in
+            onDeleteAlias: { [weak self] deletedAlias in
                 guard let self = self else { return }
-                self.onDeleteAlias(alias)
-                self.viewModel.delete(alias: alias)
+                self.onDeleteAlias(deletedAlias)
+                self.viewModel.remove(alias: alias)
             })
         let hostingController = UIHostingController(rootView: aliasDetailView)
         navigationController?.pushViewController(hostingController, animated: true)

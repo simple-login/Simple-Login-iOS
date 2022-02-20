@@ -29,22 +29,27 @@ struct AliasDisplayModePreview: View {
                 .frame(width: 4)
 
             VStack(spacing: 8) {
-                HStack {
-                    GrayRectangle()
-                    if displayMode != .compact {
-                        Spacer()
+                GeometryReader { proxy in
+                    HStack {
                         GrayRectangle()
-                            .frame(width: UIScreen.main.bounds.width / 5)
+                            .frame(maxWidth: .infinity)
+                        if displayMode != .compact {
+                            GrayRectangle()
+                                .frame(width: proxy.size.width / 5)
+                        }
                     }
                 }
+
                 if displayMode != .compact {
                     GrayRectangle()
                 }
                 if displayMode == .default {
-                    HStack {
-                        GrayRectangle()
-                            .frame(width: UIScreen.main.bounds.width / 2)
-                        Spacer()
+                    GeometryReader { proxy in
+                        HStack {
+                            GrayRectangle()
+                                .frame(width: proxy.size.width / 2)
+                            Spacer()
+                        }
                     }
                 }
                 HStack(spacing: 20) {

@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 02/09/2021.
 //
 
+import BetterSafariView
 import SwiftUI
 
 private let kVersionName =
@@ -13,8 +14,18 @@ private let kBuildNumber =
     (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "?"
 
 struct AboutView: View {
+    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @State private var showingTipsView = false
+    @State private var selectedUrlString: String?
     var body: some View {
+        let showingUrl = Binding<Bool>(get: {
+            selectedUrlString != nil
+        }, set: { isShowing in
+            if !isShowing {
+                selectedUrlString = nil
+            }
+        })
+
         NavigationView {
             Form {
                 Section(header: Text("How it works")) {
@@ -24,79 +35,59 @@ struct AboutView: View {
                 }
 
                 Section {
-                    URLButton(urlString: "https://simplelogin.io/terms/") {
-                        Label("Terms and condition", systemImage: "doc.plaintext.fill")
-                    }
+                    systemImageLabel(title: "Terms and conditions",
+                                     systemImageName: "doc.plaintext.fill",
+                                     urlString: "https://simplelogin.io/terms/")
 
-                    URLButton(urlString: "https://simplelogin.io/privacy/") {
-                        Label("Privacy policy", systemImage: "hand.raised.fill")
-                    }
+                    systemImageLabel(title: "Privacy policy",
+                                     systemImageName: "hand.raised.fill",
+                                     urlString: "https://simplelogin.io/privacy/")
 
-                    URLButton(urlString: "https://simplelogin.io/security/") {
-                        Label("Security", systemImage: "lock.shield")
-                    }
+                    systemImageLabel(title: "Security",
+                                     systemImageName: "lock.shield",
+                                     urlString: "https://simplelogin.io/security/")
                 }
 
                 Section {
-                    URLButton(urlString: "https://simplelogin.io/") {
-                        Label("Website", systemImage: "globe")
-                    }
+                    systemImageLabel(title: "Website",
+                                     systemImageName: "globe",
+                                     urlString: "https://simplelogin.io/")
 
-                    URLButton(urlString: "https://github.com/simple-login/app/discussions") {
-                        Label {
-                            Text("Github forum")
-                        } icon: {
-                            prefixIcon("Github")
-                        }
-                    }
+                    customImageLabel(title: "Github forum",
+                                     imageName: "Github",
+                                     urlString: "https://github.com/simple-login/app/discussions")
                 }
 
                 Section {
-                    URLButton(urlString: "https://simplelogin.io/faq/") {
-                        Label("Frequently asked questions", systemImage: "person.fill.questionmark")
-                    }
+                    systemImageLabel(title: "Frequently asked questions",
+                                     systemImageName: "person.fill.questionmark",
+                                     urlString: "https://simplelogin.io/faq/")
 
-                    URLButton(urlString: "https://simplelogin.io/blog/") {
-                        Label("Blog", systemImage: "newspaper.fill")
-                    }
+                    systemImageLabel(title: "Blog",
+                                     systemImageName: "newspaper.fill",
+                                     urlString: "https://simplelogin.io/blog/")
 
-                    URLButton(urlString: "https://simplelogin.io/about/") {
-                        Label("Our team", systemImage: "person.3.fill")
-                    }
+                    systemImageLabel(title: "Our team",
+                                     systemImageName: "person.3.fill",
+                                     urlString: "https://simplelogin.io/about/")
                 }
 
                 Section(header: Text("Social networks")) {
-                    URLButton(urlString: "https://github.com/simple-login/") {
-                        Label {
-                            Text("Github")
-                        } icon: {
-                            prefixIcon("Github")
-                        }
-                    }
+                    customImageLabel(title: "Github",
+                                     imageName: "Github",
+                                     urlString: "https://github.com/simple-login/")
 
-                    URLButton(urlString: "https://twitter.com/simple_login") {
-                        Label {
-                            Text("Twitter")
-                        } icon: {
-                            prefixIcon("Twitter")
-                        }
-                    }
+                    customImageLabel(title: "Twitter",
+                                     imageName: "Twitter",
+                                     urlString: "https://twitter.com/simple_login")
 
-                    URLButton(urlString: "https://www.reddit.com/r/Simplelogin/") {
-                        Label {
-                            Text("Reddit")
-                        } icon: {
-                            prefixIcon("Reddit")
-                        }
-                    }
+                    customImageLabel(title: "Reddit",
+                                     imageName: "Reddit",
+                                     urlString: "https://www.reddit.com/r/Simplelogin/")
 
-                    URLButton(urlString: "https://www.producthunt.com/posts/simplelogin") {
-                        Label {
-                            Text("Product Hunt")
-                        } icon: {
-                            prefixIcon("ProductHunt")
-                        }
-                    }
+                    customImageLabel(title: "Product Hunt",
+                                     imageName: "ProductHunt",
+                                     urlString: "https://www.producthunt.com/posts/simplelogin")
                 }
 
                 Section(header: Text("Have a question?")) {
@@ -110,16 +101,16 @@ struct AboutView: View {
             .navigationTitle("About SimpleLogin")
             .navigationBarItems(trailing: tipsButton)
             .sheet(isPresented: $showingTipsView) {
-                TipsView()
+                TipsView(isFirstTime: false)
             }
-        }
-    }
+            .safariView(isPresented: showingUrl) {
+                // swiftlint:disable:next force_unwrapping
+                SafariView(url: URL(string: selectedUrlString ?? "")!)
+            }
 
-    private func prefixIcon(_ name: String) -> some View {
-        Image(name)
-            .resizable()
-            .scaledToFit()
-            .frame(width: 20, height: 20)
+            DetailPlaceholderView(systemIconName: "info.circle")
+        }
+        .slNavigationView()
     }
 
     private var bottomFooterView: some View {
@@ -141,10 +132,43 @@ SimpleLogin is the product of SimpleLogin SAS, registered in France under the SI
 
     private var tipsButton: some View {
         Button(action: {
+            if hapticFeedbackEnabled {
+                Vibration.soft.vibrate()
+            }
             showingTipsView = true
         }, label: {
             Label("Tips", systemImage: "lightbulb")
         })
+    }
+
+    private func systemImageLabel(title: String,
+                                  systemImageName: String,
+                                  urlString: String) -> some View {
+        Label(title, systemImage: systemImageName)
+            .accentColor(Color(.label))
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                selectedUrlString = urlString
+            }
+    }
+
+    private func customImageLabel(title: String,
+                                  imageName: String,
+                                  urlString: String) -> some View {
+        Label(title: {
+            Text(title)
+        }, icon: {
+            Image(imageName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 20, height: 20)
+        })
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                selectedUrlString = urlString
+            }
     }
 }
 

@@ -101,7 +101,7 @@ final class SearchAliasesViewModel: BaseSessionViewModel, ObservableObject {
         aliases[index] = alias
     }
 
-    func delete(alias: Alias) {
+    func remove(alias: Alias) {
         aliases.removeAll { $0.id == alias.id }
     }
 

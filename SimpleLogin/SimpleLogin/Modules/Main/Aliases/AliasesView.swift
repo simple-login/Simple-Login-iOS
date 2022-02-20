@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 02/09/2021.
 //
 
-import AlertToast
 import Combine
 import Introspect
 import SimpleLoginPackage
@@ -14,18 +13,22 @@ import SwiftUI
 struct AliasesView: View {
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel: AliasesViewModel
-    @State private var showingRandomAliasActionSheet = false
     @State private var showingUpdatingAlert = false
     @State private var showingSearchView = false
     @State private var showingCreateView = false
+    @State private var showingDeleteConfirmationAlert = false
     @State private var copiedEmail: String?
     @State private var createdAlias: Alias?
-    @State private var showingAliasDetail = false
-    @State private var showingAliasContacts = false
-    @State private var selectedAlias: Alias = .ccohen
+    @State private var selectedAlias: Alias?
+    @State private var aliasToShowDetails: Alias?
+    @State private var selectedLink: Link?
 
     enum Modal {
         case search, create
+    }
+
+    enum Link {
+        case details, contacts
     }
 
     init(session: Session) {
@@ -58,91 +61,95 @@ struct AliasesView: View {
         })
 
         NavigationView {
-            ScrollView {
+            ZStack {
                 NavigationLink(
-                    isActive: $showingAliasDetail,
+                    tag: Link.details,
+                    selection: $selectedLink,
                     destination: {
-                        AliasDetailView(
-                            alias: selectedAlias,
+                        AliasDetailWrapperView(
+                            selectedAlias: $selectedAlias,
                             session: viewModel.session,
                             onUpdateAlias: { updatedAlias in
                                 viewModel.update(alias: updatedAlias)
                             },
-                            onDeleteAlias: {
-                                viewModel.delete(alias: selectedAlias)
+                            onDeleteAlias: { deletedAlias in
+                                viewModel.remove(alias: deletedAlias)
                             })
+                            .onAppear {
+                                if UIDevice.current.userInterfaceIdiom != .phone {
+                                    selectedLink = nil
+                                }
+                            }
                     },
-                    label: { EmptyView() })
+                    label: {
+                        EmptyView()
+                    })
 
                 NavigationLink(
-                    isActive: $showingAliasContacts,
+                    tag: Link.contacts,
+                    selection: $selectedLink,
                     destination: {
-                        AliasContactsView(alias: selectedAlias, session: viewModel.session)
-                    },
-                    label: { EmptyView() })
-                LazyVStack {
-                    ForEach(viewModel.filteredAliases, id: \.id) { alias in
-                        AliasCompactView(
-                            alias: alias,
-                            onCopy: {
-                                if hapticFeedbackEnabled {
-                                    Vibration.soft.vibrate()
+                        if let selectedAlias = selectedAlias {
+                            AliasContactsView(alias: selectedAlias, session: viewModel.session)
+                                .onAppear {
+                                    if UIDevice.current.userInterfaceIdiom != .phone {
+                                        selectedLink = nil
+                                    }
                                 }
-                                copiedEmail = alias.email
-                                UIPasteboard.general.string = alias.email
-                            },
-                            onSendMail: {
-                                selectedAlias = alias
-                                showingAliasContacts = true
-                            },
-                            onToggle: {
-                                viewModel.toggle(alias: alias)
-                            })
-                            .padding(.horizontal, 4)
-                            .onAppear {
-                                viewModel.getMoreAliasesIfNeed(currentAlias: alias)
-                            }
-                            .onTapGesture {
-                                selectedAlias = alias
-                                showingAliasDetail = true
-                            }
-                    }
+                        } else {
+                            EmptyView()
+                        }
+                    },
+                    label: {
+                        EmptyView()
+                    })
 
+                List {
+                    ForEach(viewModel.filteredAliases, id: \.id) { alias in
+                        // TODO: Workaround a SwiftUI bug that doesn't update AliasCompactView's context menu
+                        // https://stackoverflow.com/a/70159934
+                        if alias.pinned {
+                            aliasCompactView(for: alias)
+                        } else {
+                            aliasCompactView(for: alias)
+                        }
+                    }
                     if viewModel.isLoading {
                         ProgressView()
+                            .frame(maxWidth: .infinity)
                             .padding()
                     }
                 }
-                .padding(.vertical, 8)
+                .listStyle(.plain)
                 .animation(.default)
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem {
-                    AliasesViewToolbar(selectedStatus: $viewModel.selectedStatus,
-                                       onSearch: { showingSearchView = true },
-                                       onRandomAlias: { showingRandomAliasActionSheet.toggle() },
-                                       onCreateAlias: { showingCreateView = true })
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem {
+                        AliasesViewToolbar(selectedStatus: $viewModel.selectedStatus,
+                                           onSearch: { showingSearchView = true },
+                                           onRandomByWord: { viewModel.random(mode: .word) },
+                                           onRandomByUuid: { viewModel.random(mode: .uuid) },
+                                           onCreateAlias: { showingCreateView = true })
+                    }
+                }
+                .introspectTableView { tableView in
+                    tableView.refreshControl = viewModel.refreshControl
+                }
+                .sheet(isPresented: $showingSearchView) {
+                    SearchAliasesView(
+                        session: viewModel.session,
+                        onUpdateAlias: { updatedAlias in
+                            viewModel.update(alias: updatedAlias)
+                        },
+                        onDeleteAlias: { deletedAlias in
+                            viewModel.remove(alias: deletedAlias)
+                        })
                 }
             }
-            .introspectScrollView { scrollView in
-                scrollView.refreshControl = viewModel.refreshControl
-            }
-            .actionSheet(isPresented: $showingRandomAliasActionSheet) {
-                randomAliasActionSheet
-            }
-            .sheet(isPresented: $showingSearchView) {
-                SearchAliasesView(
-                    session: viewModel.session,
-                    onUpdateAlias: { updatedAlias in
-                        viewModel.update(alias: updatedAlias)
-                    },
-                    onDeleteAlias: { deletedAlias in
-                        viewModel.delete(alias: deletedAlias)
-                    })
-                    .forceDarkModeIfApplicable()
-            }
+
+            DetailPlaceholderView.aliasDetails
         }
+        .slNavigationView()
         .onAppear {
             viewModel.getMoreAliasesIfNeed(currentAlias: nil)
         }
@@ -159,37 +166,64 @@ struct AliasesView: View {
                 },
                 onCancel: nil
             )
-                .forceDarkModeIfApplicable()
         }
-        .toast(isPresenting: showingCopiedEmailAlert) {
-            AlertToast.copiedAlert(content: copiedEmail)
+        .alert(isPresented: $showingDeleteConfirmationAlert) {
+            guard let selectedAlias = selectedAlias else {
+                return Alert(title: Text("selectedAlias is nil"))
+            }
+
+            return Alert.deleteConfirmation(alias: selectedAlias) {
+                viewModel.delete(alias: selectedAlias)
+            }
         }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
-        .toast(isPresenting: $showingUpdatingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingCreatedAliasAlert) {
-            AlertToast(displayMode: .alert,
-                       type: .complete(.green),
-                       title: "Created",
-                       subTitle: createdAlias?.email ?? "")
-        }
+        .alertToastLoading(isPresenting: $showingUpdatingAlert)
+        .alertToastCopyMessage(isPresenting: showingCopiedEmailAlert, message: copiedEmail)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastCompletionMessage(isPresenting: showingCreatedAliasAlert,
+                                     title: "Created",
+                                     subTitle: createdAlias?.email ?? "")
     }
 
-    private var randomAliasActionSheet: ActionSheet {
-        ActionSheet(title: Text("New alias"),
-                    message: Text("Randomly create an alias"),
-                    buttons: [
-                        .default(Text("By random words")) {
-                            viewModel.random(mode: .word)
-                        },
-                        .default(Text("By UUID")) {
-                            viewModel.random(mode: .uuid)
-                        },
-                        .cancel(Text("Cancel"))
-                    ])
+    private func aliasCompactView(for alias: Alias) -> some View {
+        AliasCompactView(
+            alias: alias,
+            onCopy: {
+                if hapticFeedbackEnabled {
+                    Vibration.soft.vibrate()
+                }
+                copiedEmail = alias.email
+                UIPasteboard.general.string = alias.email
+            },
+            onSendMail: {
+                if hapticFeedbackEnabled {
+                    Vibration.soft.vibrate()
+                }
+                selectedAlias = alias
+                selectedLink = .contacts
+            },
+            onToggle: {
+                if hapticFeedbackEnabled {
+                    Vibration.soft.vibrate()
+                }
+                viewModel.toggle(alias: alias)
+            },
+            onPin: {
+                viewModel.update(alias: alias, option: .pinned(true))
+            },
+            onUnpin: {
+                viewModel.update(alias: alias, option: .pinned(false))
+            },
+            onDelete: {
+                selectedAlias = alias
+                showingDeleteConfirmationAlert = true
+            })
+            .onAppear {
+                viewModel.getMoreAliasesIfNeed(currentAlias: alias)
+            }
+            .onTapGesture {
+                selectedAlias = alias
+                selectedLink = .details
+            }
     }
 }
 
@@ -205,11 +239,12 @@ enum AliasStatus: CustomStringConvertible, CaseIterable {
     }
 }
 
-struct AliasesViewToolbar: View {
-    @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
+private struct AliasesViewToolbar: View {
+    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @Binding var selectedStatus: AliasStatus
     let onSearch: () -> Void
-    let onRandomAlias: () -> Void
+    let onRandomByWord: () -> Void
+    let onRandomByUuid: () -> Void
     let onCreateAlias: () -> Void
 
     var body: some View {
@@ -225,24 +260,32 @@ struct AliasesViewToolbar: View {
 
             Divider()
                 .fixedSize()
-                .padding(.horizontal, 16)
-
-            Button(action: onSearch) {
-                Image(systemName: "magnifyingglass")
-            }
-
-            Spacer()
-                .frame(width: 24)
-
-            Button(action: onRandomAlias) {
-                Image(systemName: "shuffle")
-            }
-
-            Spacer()
-                .frame(width: 24)
+                .padding(.horizontal)
 
             Button(action: {
-                if hapticEffectEnabled {
+                if hapticFeedbackEnabled {
+                    Vibration.light.vibrate()
+                }
+                onSearch()
+            }, label: {
+                Image(systemName: "magnifyingglass")
+            })
+
+            Menu(content: {
+                Button(action: onRandomByWord) {
+                    Text("Random an alias by word")
+                }
+
+                Button(action: onRandomByUuid) {
+                    Text("Random an alias by UUID")
+                }
+            }, label: {
+                Image(systemName: "shuffle")
+            })
+                .padding(.horizontal)
+
+            Button(action: {
+                if hapticFeedbackEnabled {
                     Vibration.light.vibrate()
                 }
                 onCreateAlias()

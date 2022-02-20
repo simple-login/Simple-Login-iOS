@@ -9,7 +9,7 @@ import Combine
 import StoreKit
 import SwiftyStoreKit
 
-final class UpgradeViewModel: NSObject, ObservableObject {
+final class UpgradeViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?
     @Published private(set) var monthlySubscription: SKProduct?
@@ -38,19 +38,19 @@ final class UpgradeViewModel: NSObject, ObservableObject {
         }
     }
 
-    func subscribeYearly(session: Session) {
-        purchase(yearlySubscription, session: session)
+    func subscribeYearly() {
+        purchase(yearlySubscription)
     }
 
-    func subscribeMonthly(session: Session) {
-        purchase(monthlySubscription, session: session)
+    func subscribeMonthly() {
+        purchase(monthlySubscription)
     }
 
-    func restorePurchase(session: Session) {
-        fetchAndSendReceipt(session: session)
+    func restorePurchase() {
+        fetchAndSendReceipt()
     }
 
-    private func purchase(_ product: SKProduct?, session: Session) {
+    private func purchase(_ product: SKProduct?) {
         guard let product = product, !isLoading else { return }
         isLoading = true
         SwiftyStoreKit.purchaseProduct(product) { [weak self] result in
@@ -58,7 +58,7 @@ final class UpgradeViewModel: NSObject, ObservableObject {
             self.isLoading = false
             switch result {
             case .success:
-                self.fetchAndSendReceipt(session: session)
+                self.fetchAndSendReceipt()
             case .error(let error):
                 self.error = error
             case .deferred:
@@ -67,16 +67,16 @@ final class UpgradeViewModel: NSObject, ObservableObject {
         }
     }
 
-    private func fetchAndSendReceipt(session: Session) {
+    private func fetchAndSendReceipt() {
         isLoading = true
         SwiftyStoreKit.fetchReceipt(forceRefresh: false) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let receiptData):
                 let encryptedReceipt = receiptData.base64EncodedString()
-                session.client.processPayment(apiKey: session.apiKey,
-                                              receiptData: encryptedReceipt,
-                                              isMacApp: false)
+                self.session.client.processPayment(apiKey: self.session.apiKey,
+                                                   receiptData: encryptedReceipt,
+                                                   isMacApp: false)
                     .receive(on: DispatchQueue.main)
                     .sink { [weak self] completion in
                         guard let self = self else { return }

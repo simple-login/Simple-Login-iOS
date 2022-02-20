@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 29/07/2021.
 //
 
-import AlertToast
 import Combine
 import SimpleLoginPackage
 import SwiftUI
@@ -17,7 +16,6 @@ struct LogInView: View {
     @AppStorage("Email") private var email = ""
     @State private var password = ""
 
-    @State private var showingOptionActionSheet = false
     @State private var showingAboutView = false
     @State private var showingApiKeyView = false
     @State private var showingApiUrlView = false
@@ -26,8 +24,7 @@ struct LogInView: View {
     @State private var launching = true
     @State private var showingSignUpView = false
 
-    @State private var mfaKey = ""
-    @State private var showingOtpView = false
+    @State private var otpMode: OtpMode?
 
     @State private var showingLoadingAlert = false
 
@@ -46,59 +43,76 @@ struct LogInView: View {
                 viewModel.handledError()
             }
         })
-        GeometryReader { geometry in
-            ZStack {
-                // A vary pale color to make background tappable
-                Color.gray.opacity(0.01)
 
-                VStack {
-                    if !launching {
-                        topView
+        let showingOtpViewSheet = Binding<Bool>(get: {
+            otpMode != nil && UIDevice.current.userInterfaceIdiom != .phone
+        }, set: { isShowing in
+            if !isShowing {
+                otpMode = nil
+            }
+        })
+
+        let showingOtpViewFullScreen = Binding<Bool>(get: {
+            otpMode != nil && UIDevice.current.userInterfaceIdiom == .phone
+        }, set: { isShowing in
+            if !isShowing {
+                otpMode = nil
+            }
+        })
+
+        ZStack {
+            // A vary pale color to make background tappable
+            Color.gray.opacity(0.01)
+
+            VStack {
+                if !launching {
+                    topView
+                }
+
+                Spacer()
+
+                LogoView()
+
+                if !launching {
+                    EmailPasswordView(email: $email,
+                                      password: $password,
+                                      mode: .logIn) {
+                        viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
                     }
+                    .padding()
+                    .sheet(isPresented: showingOtpViewSheet) { otpView() }
+                    .fullScreenCover(isPresented: showingOtpViewFullScreen) { otpView() }
 
-                    Spacer()
+                    Button(action: {
+                        showingResetPasswordView = true
+                    }, label: {
+                        Text("Forgot password?")
+                    })
+                } else {
+                    ProgressView()
+                }
 
-                    Image("LogoWithName")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: min(geometry.size.width / 3, 150))
+                Spacer()
 
-                    if !launching {
-                        EmailPasswordView(email: $email,
-                                          password: $password,
-                                          mode: .logIn) {
-                            viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
-                        }
-                        .padding()
-                        .fullScreenCover(isPresented: $showingOtpView) {
-                            OtpView(mfaKey: mfaKey,
-                                    // swiftlint:disable:next force_unwrapping
-                                    client: viewModel.client!) { apiKey in
-                                showingOtpView = false
-                                // swiftlint:disable:next force_unwrapping
-                                onComplete(apiKey, viewModel.client!)
-                            }
-                        }
-                    } else {
-                        ProgressView()
-                    }
-
-                    Spacer()
-
-                    if !launching {
-                        bottomView
-                            .fixedSize(horizontal: false, vertical: true)
-                            .fullScreenCover(isPresented: $showingSignUpView) {
-                                if let client = viewModel.client {
-                                    SignUpView(client: client)
+                if !launching {
+                    bottomView
+                        .fixedSize(horizontal: false, vertical: true)
+                        .fullScreenCover(isPresented: $showingSignUpView) {
+                            if let client = viewModel.client {
+                                SignUpView(client: client) { emai, password in
+                                    self.email = emai
+                                    self.password = password
+                                    self.viewModel.logIn(email: email,
+                                                         password: password,
+                                                         device: UIDevice.current.name)
                                 }
                             }
-                    }
+                        }
                 }
             }
-            .onTapGesture {
-                UIApplication.shared.endEditing()
-            }
+        }
+        .onTapGesture {
+            UIApplication.shared.endEditing()
         }
         .onReceive(Just(preferences.apiUrl)) { apiUrl in
             viewModel.updateApiUrl(apiUrl)
@@ -109,19 +123,22 @@ struct LogInView: View {
         .onReceive(Just(viewModel.userLogin)) { userLogin in
             guard let userLogin = userLogin else { return }
             if userLogin.isMfaEnabled {
-                showingOtpView = true
-                mfaKey = viewModel.userLogin?.mfaKey ?? ""
+                otpMode = .logIn(mfaKey: userLogin.mfaKey ?? "")
             } else if let apiKey = userLogin.apiKey {
-                // swiftlint:disable:next force_unwrapping
-                onComplete(apiKey, viewModel.client!)
+                onComplete(apiKey, viewModel.client)
             }
             viewModel.handledUserLogin()
         }
+        .onReceive(Just(viewModel.shouldActivate)) { shouldActivate in
+            if shouldActivate {
+                otpMode = .activate(email: email)
+                viewModel.handledShouldActivate()
+            }
+        }
         .onAppear {
-            if let apiKey = KeychainService.shared.getApiKey(),
-               let client = viewModel.client {
+            if let apiKey = KeychainService.shared.getApiKey() {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    onComplete(apiKey, client)
+                    onComplete(apiKey, viewModel.client)
                 }
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -131,35 +148,8 @@ struct LogInView: View {
                 }
             }
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorToast) {
-            AlertToast.errorAlert(viewModel.error)
-        }
-    }
-
-    private var optionActionSheet: ActionSheet {
-        var buttons: [ActionSheet.Button] = []
-        buttons.append(ActionSheet.Button.default(Text("About SimpleLogin")) {
-            showingAboutView = true
-        })
-
-        buttons.append(ActionSheet.Button.default(Text("Log in using API key")) {
-            showingApiKeyView = true
-        })
-
-        buttons.append(ActionSheet.Button.default(Text("Edit API URL")) {
-            showingApiUrlView = true
-        })
-
-        buttons.append(ActionSheet.Button.default(Text("Reset forgotten password")) {
-            showingResetPasswordView = true
-        })
-
-        buttons.append(.cancel())
-
-        return ActionSheet(title: Text("SimpleLogin"), buttons: buttons)
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
     }
 
     private var topView: some View {
@@ -174,8 +164,7 @@ struct LogInView: View {
                 .frame(width: 0, height: 0)
                 .sheet(isPresented: $showingApiKeyView) {
                     ApiKeyView(client: viewModel.client) { apiKey in
-                        // swiftlint:disable:next force_unwrapping
-                        onComplete(apiKey, viewModel.client!)
+                        onComplete(apiKey, viewModel.client)
                     }
                 }
 
@@ -188,28 +177,48 @@ struct LogInView: View {
             Color.clear
                 .frame(width: 0, height: 0)
                 .sheet(isPresented: $showingResetPasswordView) {
-                    ResetPasswordView { email in
-                        // TODO: Reset password
-                    }
+                    ResetPasswordView(client: viewModel.client)
                 }
 
             Spacer()
 
-            Button(action: {
-                showingOptionActionSheet = true
+            Menu(content: {
+                Section {
+                    Button(action: {
+                        showingApiKeyView = true
+                    }, label: {
+                        Label("Log in using API key", systemImage: "key")
+                    })
+
+                    Button(action: {
+                        showingApiUrlView = true
+                    }, label: {
+                        Label("Edit API URL", systemImage: "link")
+                    })
+                }
+
+                Section {
+                    Button(action: {
+                        showingAboutView = true
+                    }, label: {
+                        Label("About SimpleLogin", systemImage: "info.circle")
+                    })
+                }
             }, label: {
                 if #available(iOS 15, *) {
                     Image(systemName: "list.bullet.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
                 } else {
                     Image(systemName: "list.bullet")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
                 }
             })
-                .font(.title2)
         }
         .padding()
-        .actionSheet(isPresented: $showingOptionActionSheet) {
-            optionActionSheet
-        }
     }
 
     private var bottomView: some View {
@@ -247,5 +256,19 @@ struct LogInView: View {
         Color.secondary
             .opacity(0.5)
             .frame(height: 1)
+    }
+
+    private func otpView() -> some View {
+        OtpView(
+            mode: $otpMode,
+            client: viewModel.client,
+            onVerification: { apiKey in
+                onComplete(apiKey, viewModel.client)
+            },
+            onActivation: {
+                viewModel.logIn(email: email,
+                                password: password,
+                                device: UIDevice.current.name)
+            })
     }
 }

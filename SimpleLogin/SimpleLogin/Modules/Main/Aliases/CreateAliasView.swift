@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 14/09/2021.
 //
 
-import AlertToast
 import Combine
 import SimpleLoginPackage
 import SwiftUI
@@ -87,12 +86,8 @@ struct CreateAliasView: View {
                 }
             }
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 
     private var cancelButton: some View {
@@ -164,7 +159,6 @@ private struct ContentView: View {
         }
         .sheet(isPresented: $showingEditMailboxesView) {
             EditMailboxesView(mailboxIds: $mailboxIds, mailboxes: mailboxes)
-                .forceDarkModeIfApplicable()
         }
     }
 

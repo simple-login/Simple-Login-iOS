@@ -10,19 +10,30 @@ import SwiftUI
 
 struct AliasCompactView: View {
     @AppStorage(kAliasDisplayMode) private var displayMode: AliasDisplayMode = .default
+    @State private var showingAliasEmailSheet = false
+    @State private var showingAliasEmailFullScreen = false
     let alias: Alias
     let onCopy: () -> Void
     let onSendMail: () -> Void
     let onToggle: () -> Void
+    let onPin: () -> Void
+    let onUnpin: () -> Void
+    let onDelete: () -> Void
 
     init(alias: Alias,
          onCopy: @escaping () -> Void,
          onSendMail: @escaping () -> Void,
-         onToggle: @escaping () -> Void) {
+         onToggle: @escaping () -> Void,
+         onPin: @escaping () -> Void,
+         onUnpin: @escaping () -> Void,
+         onDelete: @escaping () -> Void) {
         self.alias = alias
         self.onCopy = onCopy
         self.onSendMail = onSendMail
         self.onToggle = onToggle
+        self.onPin = onPin
+        self.onUnpin = onUnpin
+        self.onDelete = onDelete
     }
 
     var body: some View {
@@ -49,6 +60,41 @@ struct AliasCompactView: View {
         .background(alias.enabled ? Color.slPurple.opacity(0.05) : Color(.darkGray).opacity(0.05))
         .fixedSize(horizontal: false, vertical: true)
         .clipShape(RoundedRectangle(cornerRadius: 4))
+        .fullScreenCover(isPresented: $showingAliasEmailFullScreen) {
+            AliasEmailView(email: alias.email)
+        }
+        .sheet(isPresented: $showingAliasEmailSheet) {
+            AliasEmailView(email: alias.email)
+        }
+        .contextMenu {
+            Section {
+                Button(action: {
+                    if UIDevice.current.userInterfaceIdiom == .phone {
+                        showingAliasEmailSheet = true
+                    } else {
+                        showingAliasEmailFullScreen = true
+                    }
+                }, label: {
+                    Label.enterFullScreen
+                })
+            }
+
+            Section {
+                if alias.pinned {
+                    Button(action: onUnpin) {
+                        Label.unpin
+                    }
+                } else {
+                    Button(action: onPin) {
+                        Label.pin
+                    }
+                }
+            }
+
+            Section {
+                DeleteMenuButton(action: onDelete)
+            }
+        }
     }
 }
 
@@ -123,7 +169,7 @@ private struct ActivitiesView: View {
             Text("\(count)")
                 .font(.headline)
                 .fontWeight(.bold)
-                // swiftlint:disable:next empty_count
+            // swiftlint:disable:next empty_count
                 .opacity(count == 0 ? 0.5 : 1)
 
             Spacer()
@@ -142,16 +188,18 @@ private struct ActionsView: View {
             Button {
                 onCopy()
             } label: {
-                Label("Copy", systemImage: "doc.on.doc")
+                Label.copy
             }
+            .buttonStyle(.plain)
 
             Spacer()
 
             Button {
                 onSendMail()
             } label: {
-                Label("Send email", systemImage: "paperplane")
+                Label.sendEmail
             }
+            .buttonStyle(.plain)
 
             Spacer()
 
@@ -161,6 +209,7 @@ private struct ActionsView: View {
                 Label("Active", systemImage: alias.enabled ? "checkmark.circle.fill" : "circle.dashed")
                     .foregroundColor(alias.enabled ? .accentColor : Color(.darkGray))
             }
+            .buttonStyle(.plain)
 
             Spacer()
         }
@@ -172,8 +221,20 @@ private struct ActionsView: View {
 struct AliasCompactView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            AliasCompactView(alias: .ccohen, onCopy: {}, onSendMail: {}, onToggle: {})
-            AliasCompactView(alias: .claypool, onCopy: {}, onSendMail: {}, onToggle: {})
+            AliasCompactView(alias: .ccohen,
+                             onCopy: {},
+                             onSendMail: {},
+                             onToggle: {},
+                             onPin: {},
+                             onUnpin: {},
+                             onDelete: {})
+            AliasCompactView(alias: .claypool,
+                             onCopy: {},
+                             onSendMail: {},
+                             onToggle: {},
+                             onPin: {},
+                             onUnpin: {},
+                             onDelete: {})
         }
         .accentColor(.slPurple)
     }

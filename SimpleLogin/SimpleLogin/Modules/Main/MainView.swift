@@ -56,7 +56,7 @@ struct MainView: View {
                 }
                 .tag(MainViewTab.others)
 
-            AccountView(onLogOut: onLogOut)
+            AccountView(session: session, onLogOut: onLogOut)
                 .tabItem {
                     Image(systemName: selectedTab == .account ? "person.fill" : "person")
                     Text(MainViewTab.account.title)
@@ -91,13 +91,13 @@ struct MainView: View {
         }
         .onAppear {
             if !didShowTips {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     showingTips = true
                 }
             }
         }
         .sheet(isPresented: $showingTips) {
-            TipsView()
+            TipsView(isFirstTime: true)
                 .onAppear {
                     didShowTips = true
                 }

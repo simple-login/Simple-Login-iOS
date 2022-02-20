@@ -11,23 +11,36 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct OtpView: View {
-    @Environment(\.presentationMode) private var presentationMode
     @StateObject private var viewModel: OtpViewModel
     @State private var showingLoadingHud = false
-    let onVerification: (ApiKey) -> Void
+    @State private var showingReactivateAlert = false
+    @Binding var mode: OtpMode?
+    let onVerification: ((ApiKey) -> Void)?
+    let onActivation: (() -> Void)?
 
-    init(mfaKey: String,
+    init(mode: Binding<OtpMode?>,
          client: SLClient,
-         onVerification: @escaping (ApiKey) -> Void) {
-        self._viewModel = StateObject(wrappedValue: .init(mfaKey: mfaKey,
-                                                          client: client))
+         onVerification: ((ApiKey) -> Void)? = nil,
+         onActivation: (() -> Void)? = nil) {
+        self._mode = mode
+        self._viewModel = StateObject(wrappedValue: .init(client: client, mode: mode.wrappedValue ?? .logIn(mfaKey: "")))
         self.onVerification = onVerification
+        self.onActivation = onActivation
     }
 
     var body: some View {
         NavigationView {
             VStack {
                 Spacer()
+
+                if let description = viewModel.mode.description {
+                    Text(description)
+                        .font(.callout)
+                        .foregroundColor(Color(.darkGray))
+                        .multilineTextAlignment(.center)
+                        .padding([.top, .horizontal])
+                        .fixedSize(horizontal: false, vertical: true)
+                }
 
                 HStack(spacing: 18) {
                     Group {
@@ -60,149 +73,198 @@ struct OtpView: View {
                 .padding()
                 .font(.title)
 
-                let buttonWidth = min(UIScreen.main.bounds.width / 4, 120)
-
                 HStack {
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .one)
-                    }, content: {
+                    }, label: {
                         Text("1")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .two)
-                    }, content: {
+                    }, label: {
                         Text("2")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .three)
-                    }, content: {
+                    }, label: {
                         Text("3")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
                 }
 
                 HStack {
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .four)
-                    }, content: {
+                    }, label: {
                         Text("4")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .five)
-                    }, content: {
+                    }, label: {
                         Text("5")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .six)
-                    }, content: {
+                    }, label: {
                         Text("6")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
                 }
 
                 HStack {
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .seven)
-                    }, content: {
+                    }, label: {
                         Text("7")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .eighth)
-                    }, content: {
+                    }, label: {
                         Text("8")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .nine)
-                    }, content: {
+                    }, label: {
                         Text("9")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
                 }
 
                 HStack {
-                    Color.clear
-                        .frame(width: buttonWidth, height: buttonWidth)
+                    OtpButton(action: {}, label: { EmptyView() })
+                        .opacity(0)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.add(digit: .zero)
-                    }, content: {
+                    }, label: {
                         Text("0")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
 
-                    CircleButton(action: {
+                    OtpButton(action: {
                         viewModel.delete()
-                    }, content: {
+                    }, label: {
                         Image(systemName: "delete.left.fill")
                     })
-                    .frame(width: buttonWidth, height: buttonWidth)
                 }
+
+                Button(action: {
+                    viewModel.paste(string: UIPasteboard.general.string ?? "")
+                }, label: {
+                    Label("Paste from clipboard", systemImage: "doc.on.clipboard")
+                })
+                    .padding()
 
                 Spacer()
             }
-            .navigationBarTitle("Enter OTP", displayMode: .inline)
+            .navigationBarTitle(viewModel.mode.title, displayMode: .inline)
             .navigationBarItems(leading: closeButton)
         }
         .accentColor(.slPurple)
         .toast(isPresenting: $showingLoadingHud) {
-            AlertToast(displayMode: .hud, type: .loading)
+            AlertToast(type: .loading)
         }
+        .alert(isPresented: $showingReactivateAlert) { reactivateAlert }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingHud = isLoading
         }
         .onReceive(Just(viewModel.apiKey)) { apiKey in
             if let apiKey = apiKey {
-                onVerification(apiKey)
+                onVerification?(apiKey)
+            }
+        }
+        .onReceive(Just(viewModel.shouldReactivate)) { shouldReactivate in
+            if shouldReactivate {
+                showingReactivateAlert = true
+            }
+        }
+        .onReceive(Just(viewModel.activationSuccessful)) { activationSuccessful in
+            if activationSuccessful {
+                onActivation?()
+                mode = nil
             }
         }
     }
 
     private var closeButton: some View {
         Button(action: {
-            presentationMode.wrappedValue.dismiss()
+            mode = nil
         }, label: {
             Text("Close")
         })
+    }
+
+    private var reactivateAlert: Alert {
+        Alert(title: Text("Wrong code too many times"),
+              message: Text("The last activation code is disabled. You need to request a new one."),
+              dismissButton: .default(Text("Send me a new code")) { viewModel.reactivate() })
     }
 }
 
 struct OtpView_Previews: PreviewProvider {
     static var previews: some View {
-        // swiftlint:disable:next force_unwrapping
-        OtpView(mfaKey: "", client: .init(session: .shared)!) { _ in }
+        OtpView(mode: .constant(.activate(email: "john.doe@example.com")),
+                client: .default)
     }
 }
 
-struct CircleButton<Content: View>: View {
+struct OtpButton<Label: View>: View {
     let action: () -> Void
-    let content: Content
+    let label: () -> Label
 
-    init(action: @escaping () -> Void, @ViewBuilder content: () -> Content) {
+    init(action: @escaping () -> Void,
+         @ViewBuilder label: @escaping () -> Label) {
         self.action = action
-        self.content = content()
+        self.label = label
     }
 
     var body: some View {
+        Button(action: action, label: label)
+            .buttonStyle(.otp)
+    }
+}
+
+private struct OtpButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        let width = min(120, UIScreen.main.minLength / 4)
         ZStack {
             Circle()
-                .foregroundColor(Color(.systemGroupedBackground))
-            content
+                .foregroundColor(Color(.systemGray6))
+            configuration.label
                 .font(.largeTitle)
         }
-        .onTapGesture {
-            action()
+        .opacity(configuration.isPressed ? 0.5 : 1)
+        .frame(width: width, height: width)
+    }
+}
+
+private extension ButtonStyle where Self == OtpButtonStyle {
+    static var otp: OtpButtonStyle {
+        OtpButtonStyle()
+    }
+}
+
+enum OtpMode {
+    case logIn(mfaKey: String)
+    case activate(email: String)
+
+    var title: String {
+        switch self {
+        case .logIn:
+            return "Enter OTP code"
+        case .activate:
+            return "Enter activation code"
+        }
+    }
+
+    var description: String? {
+        switch self {
+        case .logIn:
+            return nil
+        case .activate(let email):
+            return "Please enter the activation code that we've sent to \(email)"
         }
     }
 }
@@ -232,13 +294,15 @@ private final class OtpViewModel: ObservableObject {
     @Published private(set) var attempts: CGFloat = 0
     @Published private(set) var isLoading = false
     @Published private(set) var apiKey: ApiKey?
+    @Published private(set) var shouldReactivate = false
+    @Published private(set) var activationSuccessful = false
 
-    private let mfaKey: String
+    let mode: OtpMode
     private let client: SLClient
     private var cancellable: AnyCancellable?
 
-    init(mfaKey: String, client: SLClient) {
-        self.mfaKey = mfaKey
+    init(client: SLClient, mode: OtpMode) {
+        self.mode = mode
         self.client = client
     }
 
@@ -260,6 +324,7 @@ private final class OtpViewModel: ObservableObject {
     }
 
     func add(digit: Digit) {
+        error = nil
         if firstDigit == .none {
             firstDigit = digit
         } else if secondDigit == .none {
@@ -276,6 +341,31 @@ private final class OtpViewModel: ObservableObject {
         }
     }
 
+    func paste(string: String) {
+        guard string.count >= 6 else { return }
+        let getDigit: (String?) -> Digit = { digitString in
+            switch digitString {
+            case "0": return .zero
+            case "1": return .one
+            case "2": return .two
+            case "3": return .three
+            case "4": return .four
+            case "5": return .five
+            case "6": return .six
+            case "7": return .seven
+            case "8": return .eighth
+            case "9": return .nine
+            default: return .none
+            }
+        }
+        add(digit: getDigit(string[0]))
+        add(digit: getDigit(string[1]))
+        add(digit: getDigit(string[2]))
+        add(digit: getDigit(string[3]))
+        add(digit: getDigit(string[4]))
+        add(digit: getDigit(string[5]))
+    }
+
     private func verify() {
         guard !isLoading else { return }
         isLoading = true
@@ -283,24 +373,63 @@ private final class OtpViewModel: ObservableObject {
             [firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit, sixthDigit]
             .map { $0.rawValue }
             .reduce(into: "") { $0 += "\($1)" }
-        cancellable = client.mfa(token: token, key: mfaKey, device: UIDevice.current.name)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                defer { self.isLoading = false }
-                switch completion {
-                case .failure(let error):
-                    self.error = error
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        self.attempts += 1
+        switch mode {
+        case .logIn(let mfaKey):
+            cancellable = client.mfa(token: token, key: mfaKey, device: UIDevice.current.name)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] completion in
+                    guard let self = self else { return }
+                    defer { self.isLoading = false }
+                    switch completion {
+                    case .failure(let error):
+                        self.error = error
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.attempts += 1
+                        }
+                        self.reset()
+                    case .finished:
+                        break
                     }
-                    self.reset()
-                case .finished: break
+                } receiveValue: { [weak self] apiKey in
+                    guard let self = self else { return }
+                    self.apiKey = apiKey
                 }
-            } receiveValue: { [weak self] apiKey in
-                guard let self = self else { return }
-                self.apiKey = apiKey
-            }
+
+        case .activate(let email):
+            cancellable = client.activate(email: email, code: token)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] completion in
+                    guard let self = self else { return }
+                    defer { self.isLoading = false }
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.attempts += 1
+                        }
+                        self.reset()
+                        if let slClientError = error as? SLClientError {
+                            switch slClientError {
+                            case .clientError(let errorResponse):
+                                if errorResponse.statusCode == 410 {
+                                    self.shouldReactivate = true
+                                } else {
+                                    // swiftlint:disable:next fallthrough
+                                    fallthrough
+                                }
+                            default:
+                                self.error = slClientError
+                            }
+                        } else {
+                            self.error = error
+                        }
+                    }
+                } receiveValue: { [weak self] _ in
+                    guard let self = self else { return }
+                    self.activationSuccessful = true
+                }
+        }
     }
 
     private func reset() {
@@ -310,5 +439,26 @@ private final class OtpViewModel: ObservableObject {
         fourthDigit = .none
         fifthDigit = .none
         sixthDigit = .none
+    }
+
+    func reactivate() {
+        switch mode {
+        case .logIn:
+            break
+        case .activate(let email):
+            isLoading = true
+            cancellable = client.reactivate(email: email)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] completion in
+                    guard let self = self else { return }
+                    self.isLoading = false
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        self.error = error
+                    }
+                } receiveValue: { _ in }
+        }
     }
 }

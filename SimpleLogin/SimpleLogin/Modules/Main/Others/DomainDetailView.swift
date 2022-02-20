@@ -5,13 +5,11 @@
 //  Created by Thanh-Nhon Nguyen on 14/01/2022.
 //
 
-import AlertToast
 import Combine
 import SimpleLoginPackage
 import SwiftUI
 
 struct DomainDetailView: View {
-    @EnvironmentObject private var session: Session
     @StateObject private var viewModel: DomainDetailViewModel
     @State private var showingLoadingAlert = false
 
@@ -45,7 +43,7 @@ struct DomainDetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .principal) {
+            ToolbarItem(placement: .navigationBarLeading) {
                 VStack(spacing: 0) {
                     Text(domain.domainName)
                         .font(.headline)
@@ -68,12 +66,8 @@ struct DomainDetailView: View {
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 }
 
@@ -184,10 +178,8 @@ private struct CatchAllSection: View {
             switch selectedSheet {
             case .edit:
                 EditMailboxesView(viewModel: viewModel)
-                    .forceDarkModeIfApplicable()
             case .view:
                 AllMailboxesView(viewModel: viewModel)
-                    .forceDarkModeIfApplicable()
             default: EmptyView()
             }
         }
@@ -196,7 +188,6 @@ private struct CatchAllSection: View {
 
 private struct EditMailboxesView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var session: Session
     @ObservedObject var viewModel: DomainDetailViewModel
     @State private var showingLoadingAlert = false
     @State private var selectedIds: [Int] = []
@@ -237,12 +228,8 @@ private struct EditMailboxesView: View {
         .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
             showingLoadingAlert = isLoadingMailboxes
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 
     private var cancelButton: some View {
@@ -362,7 +349,6 @@ private struct DefaultDisplayNameSection: View {
         }
         .sheet(isPresented: $showingEditDisplayNameView) {
             EditDisplayNameView(viewModel: viewModel)
-                .forceDarkModeIfApplicable()
         }
     }
 }
@@ -414,12 +400,8 @@ private struct EditDisplayNameView: View {
                 viewModel.handledIsUpdatedBoolean()
             }
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 
     private var cancelButton: some View {

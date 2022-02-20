@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 12/01/2022.
 //
 
-import AlertToast
 import Combine
 import Introspect
 import SimpleLoginPackage
@@ -60,7 +59,9 @@ struct CustomDomainsView: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Custom domains")
         .emptyPlaceholder(isEmpty: viewModel.noDomain) {
-            noDomainView
+            DetailPlaceholderView(systemIconName: "globe",
+                                  message: "You currently don't have any custom domains. You can only add custom domains using our web app.")
+                .padding(.horizontal)
         }
         .onAppear {
             viewModel.fetchCustomDomains(refreshing: false)
@@ -71,29 +72,8 @@ struct CustomDomainsView: View {
         .alert(isPresented: showingUnverifiedDomainAlert) {
             unverifiedDomainAlert
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
-    }
-
-    var noDomainView: some View {
-        ZStack {
-            Image(systemName: "globe")
-                .resizable()
-                .padding()
-                .scaledToFit()
-                .foregroundColor(.slPurple)
-                .opacity(0.03)
-            Text("You currently don't have any custom domain. You can only add custom domains using our web app.")
-                .font(.title2)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-                .foregroundColor(.secondary)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 
     private var unverifiedDomainAlert: Alert {

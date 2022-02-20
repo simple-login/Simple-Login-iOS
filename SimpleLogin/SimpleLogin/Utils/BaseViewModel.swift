@@ -14,6 +14,14 @@ class BaseViewModel {
     }
 }
 
+class BaseClientViewModel: BaseViewModel {
+    let client: SLClient
+
+    init(client: SLClient) {
+        self.client = client
+    }
+}
+
 class BaseSessionViewModel: BaseViewModel {
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()

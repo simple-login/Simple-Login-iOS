@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 12/01/2022.
 //
 
-import AlertToast
 import Combine
 import Introspect
 import SimpleLoginPackage
@@ -16,7 +15,6 @@ struct MailboxesView: View {
     @StateObject private var viewModel: MailboxesViewModel
     @State private var showingAddMailboxView = false
     @State private var showingLoadingAlert = false
-    @State private var selectedMailbox: Mailbox?
     @State private var mailboxToBeDeleted: Mailbox?
 
     init(session: Session) {
@@ -32,14 +30,6 @@ struct MailboxesView: View {
             }
         })
 
-        let showingOptionsActionSheet = Binding<Bool>(get: {
-            selectedMailbox != nil
-        }, set: { isShowing in
-            if !isShowing {
-                selectedMailbox = nil
-            }
-        })
-
         let showingDeletionAlert = Binding<Bool>(get: {
             mailboxToBeDeleted != nil
         }, set: { isShowing in
@@ -51,11 +41,7 @@ struct MailboxesView: View {
         List {
             ForEach(viewModel.mailboxes, id: \.id) { mailbox in
                 MailboxView(mailbox: mailbox)
-                    .onTapGesture {
-                        if !mailbox.default {
-                            selectedMailbox = mailbox
-                        }
-                    }
+                    .overlay(menu(for: mailbox))
             }
             .navigationBarTitle("Mailboxes")
         }
@@ -85,47 +71,44 @@ struct MailboxesView: View {
             AddMailboxView { newMailbox in
                 viewModel.addMailbox(email: newMailbox)
             }
-            .forceDarkModeIfApplicable()
-        }
-        .actionSheet(isPresented: showingOptionsActionSheet) {
-            optionsActionSheet
         }
         .alert(isPresented: showingDeletionAlert) {
             deletionAlert
         }
-        .toast(isPresenting: $showingLoadingAlert) {
-            AlertToast(type: .loading)
-        }
-        .toast(isPresenting: showingErrorAlert) {
-            AlertToast.errorAlert(viewModel.error)
-        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
     }
 
-    private var optionsActionSheet: ActionSheet {
-        guard let selectedMailbox = selectedMailbox else {
-            return .init(title: Text("selectedMailbox is nil"),
-                         buttons: [.cancel()])
-        }
-        guard !selectedMailbox.default else {
-            return .init(title: Text("No option for default mailbox"),
-                         buttons: [.cancel()])
-        }
-        var buttons: [ActionSheet.Button] = []
-        if selectedMailbox.verified {
-            buttons.append(.default(Text("Set as default")) {
-                viewModel.makeDefault(mailbox: selectedMailbox)
-            })
-        }
-        buttons.append(.destructive(Text("Delete")) {
-            if hapticFeedbackEnabled {
-                Vibration.warning.vibrate(fallBackToOldSchool: true)
+    private func menu(for mailbox: Mailbox) -> some View {
+        Menu(content: {
+            Section {
+                Text(mailbox.email)
             }
-            mailboxToBeDeleted = selectedMailbox
+
+            if !mailbox.default {
+                if mailbox.verified {
+                    Section {
+                        Button(action: {
+                            viewModel.makeDefault(mailbox: mailbox)
+                        }, label: {
+                            Text("Set as default")
+                        })
+                    }
+                }
+
+                Section {
+                    DeleteMenuButton {
+                        if hapticFeedbackEnabled {
+                            Vibration.warning.vibrate(fallBackToOldSchool: true)
+                        }
+                        mailboxToBeDeleted = mailbox
+                    }
+                }
+            }
+        }, label: {
+            Text("")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         })
-        buttons.append(.cancel())
-        return .init(title: Text("Mailbox"),
-                     message: Text("\(selectedMailbox.email)"),
-                     buttons: buttons)
     }
 
     private var deletionAlert: Alert {
@@ -166,14 +149,7 @@ private struct MailboxView: View {
             Spacer()
 
             if mailbox.default {
-                Text("Default")
-                    .font(.caption2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(Color.slPurple)
-                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                LabelText(text: "Default")
             }
 
             if !mailbox.verified {
