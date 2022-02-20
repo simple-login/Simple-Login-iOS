@@ -45,7 +45,7 @@ struct EmailPasswordView: View {
                                     invalidEmail = false
                                 }
                             }
-                            .textContentType(.emailAddress)
+                            .textContentType(.username)
                             .keyboardType(.emailAddress)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
@@ -88,11 +88,13 @@ struct EmailPasswordView: View {
                                         invalidPassword = false
                                     }
                                 }
+                                .textContentType(.password)
                                 .autocapitalization(.none)
                                 .disableAutocorrection(true)
                                 .padding(.trailing, 30)
                             } else {
                                 SecureField("Password", text: $password)
+                                    .textContentType(.password)
                                     .autocapitalization(.none)
                                     .disableAutocorrection(true)
                                     .padding(.trailing, 30)
