@@ -9,10 +9,14 @@ import Foundation
 
 // swiftlint:disable:next type_name
 enum Tip {
-    case contextMenu, fullScreen, shareExtension, keyboardExtension
+    case touchId, faceId, contextMenu, fullScreen, shareExtension, keyboardExtension
 
     var title: String {
         switch self {
+        case .touchId:
+            return "Touch ID"
+        case .faceId:
+            return "Face ID"
         case .contextMenu:
             return "Context menu"
         case .fullScreen:
@@ -26,6 +30,10 @@ enum Tip {
 
     var description: String {
         switch self {
+        case .touchId:
+            return "Restrict unwanted access to your SimpleLogin account on this device with Touch ID."
+        case .faceId:
+            return "Restrict unwanted access to your SimpleLogin account on this device with Face ID."
         case .contextMenu:
             return "Quickly take action on an alias by long pressing to reveal extra options.\nTry it with the test alias below 👇"
         case .fullScreen:
@@ -39,7 +47,7 @@ enum Tip {
 
     var action: String? {
         switch self {
-        case .contextMenu:
+        case .touchId, .faceId, .contextMenu:
             return nil
         case .fullScreen, .shareExtension:
             return "Try it"
@@ -50,6 +58,10 @@ enum Tip {
 
     var systemIconName: String {
         switch self {
+        case .touchId:
+            return "touchid"
+        case .faceId:
+            return "faceid"
         case .contextMenu:
             return "contextualmenu.and.cursorarrow"
         case .fullScreen:

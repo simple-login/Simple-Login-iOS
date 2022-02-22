@@ -13,6 +13,7 @@ struct SimpleLoginApp: App {
     @Environment(\.scenePhase) private var scenePhase
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @AppStorage(kBiometricAuthEnabled) var biometricAuthEnabled = false
+    @AppStorage(kUltraProtectionEnabled) var ultraProtectionEnabled = false
     @AppStorage(kForceDarkMode) private var forceDarkMode = false
     @AppStorage(kAliasDisplayMode) private var displayMode: AliasDisplayMode = .default
     @AppStorage(kDidShowTips) private var didShowTips = false
@@ -28,6 +29,7 @@ struct SimpleLoginApp: App {
                     self.apiKey = nil
                     self.client = nil
                     self.biometricAuthEnabled = false
+                    self.ultraProtectionEnabled = false
                     self.forceDarkMode = false
                     self.displayMode = .default
                     self.didShowTips = false

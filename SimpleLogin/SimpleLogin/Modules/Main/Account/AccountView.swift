@@ -14,6 +14,7 @@ import SwiftUI
 // swiftlint:disable let_var_whitespace
 struct AccountView: View {
     @StateObject private var viewModel: AccountViewModel
+    @StateObject private var localAuthenticator = LocalAuthenticator()
     @State private var confettiCounter = 0
     @State private var showingUpgradeView = false
     @State private var showingLoadingAlert = false
@@ -33,11 +34,27 @@ struct AccountView: View {
             }
         })
 
+        let showingLocalAuthenticationError = Binding<Bool>(get: {
+            localAuthenticator.error != nil
+        }, set: { isShowing in
+            if !isShowing {
+                localAuthenticator.handledError()
+            }
+        })
+
         let showingMessageAlert = Binding<Bool>(get: {
             viewModel.message != nil
         }, set: { isShowing in
             if !isShowing {
                 viewModel.handledMessage()
+            }
+        })
+
+        let showingLocalAuthenticationMessage = Binding<Bool>(get: {
+            localAuthenticator.message != nil
+        }, set: { isShowing in
+            if !isShowing {
+                localAuthenticator.handledMessage()
             }
         })
 
@@ -58,8 +75,9 @@ struct AccountView: View {
 
                     Form {
                         UserInfoSection(showingUpgradeView: $showingUpgradeView)
-                        if viewModel.biometryType == .touchID || viewModel.biometryType == .faceID {
+                        if localAuthenticator.biometryType != .none {
                             BiometricAuthenticationSection()
+                                .environmentObject(localAuthenticator)
                         }
                         LocalSettingsSection()
                         NewslettersSection()
@@ -92,7 +110,9 @@ struct AccountView: View {
         .modifier(ConfettiableModifier(counter: $confettiCounter))
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastMessage(isPresenting: showingMessageAlert, message: viewModel.message)
+        .alertToastMessage(isPresenting: showingLocalAuthenticationMessage, message: localAuthenticator.message)
         .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError(isPresenting: showingLocalAuthenticationError, error: localAuthenticator.error)
     }
 }
 
@@ -236,17 +256,19 @@ private struct UserInfoSection: View {
 
 private struct BiometricAuthenticationSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
+    @EnvironmentObject private var localAuthenticator: LocalAuthenticator
 
     var body: some View {
         Section(header: Text("Local authentication"),
                 footer: Text("Restrict unwanted access to your SimpleLogin account on this device")) {
             VStack {
-                Toggle(isOn: $viewModel.biometricAuthEnabled) {
-                    Label(viewModel.biometryType.description, systemImage: viewModel.biometryType.systemImageName)
+                Toggle(isOn: $localAuthenticator.biometricAuthEnabled) {
+                    Label(localAuthenticator.biometryType.description,
+                          systemImage: localAuthenticator.biometryType.systemImageName)
                 }
                 .toggleStyle(SwitchToggleStyle(tint: .slPurple))
 
-                if viewModel.biometricAuthEnabled {
+                if localAuthenticator.biometricAuthEnabled {
                     Divider()
                     Toggle(isOn: $viewModel.ultraProtectionEnabled) {
                         Label {
@@ -261,7 +283,7 @@ private struct BiometricAuthenticationSection: View {
                     }
                     .toggleStyle(SwitchToggleStyle(tint: .slPurple))
 
-                    Text("Request authentication everytime the app goes in foreground")
+                    Text("Request local authentication everytime the app goes in foreground")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }

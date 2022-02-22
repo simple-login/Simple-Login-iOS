@@ -20,29 +20,17 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
     @Published var senderFormat: SenderFormat = .a
     @Published var randomAliasSuffix: RandomAliasSuffix = .word
     @Published var askingForSettings = false
-    @Published private(set) var biometryType: LABiometryType = .none
     @Published private(set) var error: Error?
     @Published private(set) var isInitialized = false
     @Published private(set) var isLoading = false
     @Published private(set) var message: String?
-    @Published private(set) var isBiometricallyAuthenticating = false
     @Published private(set) var shouldLogOut = false
-    @AppStorage(kBiometricAuthEnabled) var biometricAuthEnabled = false {
-        didSet {
-            biometricallyAuthenticate()
-        }
-    }
     @AppStorage(kUltraProtectionEnabled) var ultraProtectionEnabled = false
     @AppStorage(kAliasDisplayMode) var aliasDisplayMode: AliasDisplayMode = .default
     private var cancellables = Set<AnyCancellable>()
 
     override init(session: Session) {
         super.init(session: session)
-        let localAuthenticationContext = LAContext()
-        if localAuthenticationContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil) {
-            biometryType = localAuthenticationContext.biometryType
-        }
-
         let shouldUpdateUserSettings: () -> Bool = { [unowned self] in
             self.isInitialized && self.error == nil
         }
@@ -176,34 +164,6 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
         self.lastKnownUserSettings = userSettings
     }
 
-    private func biometricallyAuthenticate() {
-        guard !isBiometricallyAuthenticating else { return }
-        isBiometricallyAuthenticating = true
-        let context = LAContext()
-        context.localizedFallbackTitle = "Or use your passcode"
-        let reason = biometricAuthEnabled ?
-        "Please authenticate to activate \(biometryType.description)" :
-        "Please authenticate to deactivate \(biometryType.description)"
-        context.evaluatePolicy(.deviceOwnerAuthentication,
-                               localizedReason: reason) { [weak self] success, error in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                defer {
-                    self.isBiometricallyAuthenticating = false
-                }
-                if success {
-                    self.message = self.biometricAuthEnabled ?
-                    "\(self.biometryType.description) activated" :
-                    "\(self.biometryType.description) deactivated"
-                    return
-                }
-
-                self.error = error
-                self.biometricAuthEnabled.toggle()
-            }
-        }
-    }
-
     func uploadNewProfilePhoto(_ image: UIImage) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             if let resizedImage = image.resized(toWidth: 500),
@@ -260,25 +220,6 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
                 self.userInfo = userInfo
             }
             .store(in: &cancellables)
-    }
-}
-
-extension LABiometryType: CustomStringConvertible {
-    public var description: String {
-        switch self {
-        case .none: return "Biometric authentication not supported"
-        case .touchID: return "Touch ID"
-        case .faceID: return "Face ID"
-        @unknown default: return "Unknown biometric type"
-        }
-    }
-
-    var systemImageName: String {
-        switch self {
-        case .touchID: return "touchid"
-        case .faceID: return "faceid"
-        default: return ""
-        }
     }
 }
 
