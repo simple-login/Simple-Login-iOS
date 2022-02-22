@@ -5,14 +5,32 @@
 //  Created by Thanh-Nhon Nguyen on 02/02/2022.
 //
 
+import LocalAuthentication
 import SimpleLoginPackage
 import SwiftUI
 
 struct TipsView: View {
     @Environment(\.presentationMode) private var presentationMode
+    @StateObject private var localAuthenticator = LocalAuthenticator()
     let isFirstTime: Bool
 
     var body: some View {
+        let showingErrorAlert = Binding<Bool>(get: {
+            localAuthenticator.error != nil
+        }, set: { isShowing in
+            if !isShowing {
+                localAuthenticator.handledError()
+            }
+        })
+
+        let showingMessageAlert = Binding<Bool>(get: {
+            localAuthenticator.message != nil
+        }, set: { isShowing in
+            if !isShowing {
+                localAuthenticator.handledMessage()
+            }
+        })
+
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 20) {
@@ -33,6 +51,16 @@ struct TipsView: View {
                             .multilineTextAlignment(.center)
                             .foregroundColor(.secondary)
                     }
+                    switch localAuthenticator.biometryType {
+                    case .touchID:
+                        TipView(tip: .touchId)
+                            .environmentObject(localAuthenticator)
+                    case .faceID:
+                        TipView(tip: .faceId)
+                            .environmentObject(localAuthenticator)
+                    default:
+                        EmptyView()
+                    }
                     TipView(tip: .contextMenu)
                     TipView(tip: .fullScreen)
                     TipView(tip: .shareExtension)
@@ -52,6 +80,10 @@ struct TipsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(leading: closeButton)
         }
+        .alertToastMessage(isPresenting: showingMessageAlert,
+                           message: localAuthenticator.message)
+        .alertToastError(isPresenting: showingErrorAlert,
+                         error: localAuthenticator.error)
     }
 
     private var closeButton: some View {
@@ -70,18 +102,39 @@ struct TipsView_Previews: PreviewProvider {
 }
 
 private struct TipView: View {
+    @EnvironmentObject var localAuthenticator: LocalAuthenticator
     @State private var showingSheet = false
     let tip: Tip
 
     var body: some View {
         VStack {
             HStack {
-                Text(tip.title)
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .fixedSize(horizontal: false, vertical: true)
-                Spacer()
+                switch tip {
+                case .touchId:
+                    Toggle(isOn: $localAuthenticator.biometricAuthEnabled) {
+                        Text(LABiometryType.touchID.description)
+                            .font(.title3)
+                            .fontWeight(.bold)
+                    }
+                        .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+
+                case .faceId:
+                    Toggle(isOn: $localAuthenticator.biometricAuthEnabled) {
+                        Text(LABiometryType.faceID.description)
+                            .font(.title3)
+                            .fontWeight(.bold)
+                    }
+                        .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+
+                default:
+                    Text(tip.title)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer()
+                }
             }
+
             HStack {
                 Text(tip.description)
                     .fixedSize(horizontal: false, vertical: true)
@@ -133,7 +186,7 @@ private struct TipView: View {
 
     private func handleAction() {
         switch tip {
-        case .contextMenu:
+        case .touchId, .faceId, .contextMenu:
             break
         case .fullScreen, .shareExtension:
             showingSheet = true

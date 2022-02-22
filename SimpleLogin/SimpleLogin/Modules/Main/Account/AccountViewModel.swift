@@ -263,25 +263,6 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
     }
 }
 
-extension LABiometryType: CustomStringConvertible {
-    public var description: String {
-        switch self {
-        case .none: return "Biometric authentication not supported"
-        case .touchID: return "Touch ID"
-        case .faceID: return "Face ID"
-        @unknown default: return "Unknown biometric type"
-        }
-    }
-
-    var systemImageName: String {
-        switch self {
-        case .touchID: return "touchid"
-        case .faceID: return "faceid"
-        default: return ""
-        }
-    }
-}
-
 extension UserInfo {
     static var empty: UserInfo {
         UserInfo(name: "", email: "", profilePictureUrl: nil, isPremium: false, inTrial: false)

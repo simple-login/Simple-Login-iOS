@@ -261,7 +261,7 @@ private struct BiometricAuthenticationSection: View {
                     }
                     .toggleStyle(SwitchToggleStyle(tint: .slPurple))
 
-                    Text("Request authentication everytime the app goes in foreground")
+                    Text("Request local authentication everytime the app goes in foreground")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
