@@ -74,7 +74,7 @@ struct AccountView: View {
                         label: { EmptyView() })
 
                     Form {
-                        UserInfoSection(showingUpgradeView: $showingUpgradeView)
+                        UserInfoSection()
                         if localAuthenticator.biometryType != .none {
                             BiometricAuthenticationSection()
                                 .environmentObject(localAuthenticator)
@@ -89,6 +89,7 @@ struct AccountView: View {
                     .environmentObject(viewModel)
                 }
                 .navigationTitle(navigationTitle)
+                .navigationBarItems(trailing: trailingButton)
             } else {
                 EmptyView()
             }
@@ -98,6 +99,11 @@ struct AccountView: View {
         .slNavigationView()
         .onAppear {
             viewModel.getRequiredInformation()
+        }
+        .onReceive(Just(viewModel.isInitialized)) { isInitialized in
+            if viewModel.isInitialized && (viewModel.userInfo.inTrial || !viewModel.userInfo.isPremium) {
+                showingUpgradeView = UIDevice.current.userInterfaceIdiom != .phone
+            }
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
@@ -114,13 +120,31 @@ struct AccountView: View {
         .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
         .alertToastError(isPresenting: showingLocalAuthenticationError, error: localAuthenticator.error)
     }
+
+    @ViewBuilder
+    private var trailingButton: some View {
+        if !viewModel.userInfo.inTrial && viewModel.userInfo.isPremium {
+            Button(action: {
+                // TODO: Show premium view
+            }, label: {
+                Text("Premium")
+            })
+                .foregroundColor(.green)
+        } else {
+            Button(action: {
+                showingUpgradeView = true
+            }, label: {
+                Text("Upgrade")
+            })
+                .foregroundColor(.blue)
+        }
+    }
 }
 
 private struct UserInfoSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
     @State private var showingPhotoPickerSheet = false
     @State private var showingEditDisplayNameSheet = false
-    @Binding var showingUpgradeView: Bool
 
     var body: some View {
         Section {
@@ -133,6 +157,7 @@ private struct UserInfoSection: View {
                     }
                 Divider()
                 membershipView
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .sheet(isPresented: $showingEditDisplayNameSheet) {
                         EditDisplayNameView { displayName in
                             viewModel.updateDisplayName(displayName)
@@ -185,29 +210,16 @@ private struct UserInfoSection: View {
 
     @ViewBuilder
     private var membershipView: some View {
-        HStack {
-            if viewModel.userInfo.inTrial {
-                Text("Premium trial membership")
-                    .foregroundColor(.blue)
-            } else if viewModel.userInfo.isPremium {
-                Text("Premium membership")
-                    .foregroundColor(.green)
-            } else {
-                Text("Free membership")
-            }
-
-            Spacer()
-
-            if !viewModel.userInfo.inTrial && !viewModel.userInfo.isPremium {
-                Button(action: {
-                    showingUpgradeView = true
-                }, label: {
-                    Label("Upgrade", systemImage: "sparkles")
-                        .foregroundColor(.blue)
-                })
-                    .buttonStyle(PlainButtonStyle())
-                    .disabled(viewModel.isLoading)
-            }
+        if viewModel.userInfo.inTrial {
+            Text("Premium trial membership")
+                .fontWeight(.medium)
+        } else if viewModel.userInfo.isPremium {
+            Text("Premium membership")
+                .fontWeight(.medium)
+        } else {
+            Text("Free membership")
+                .foregroundColor(.secondary)
+                .fontWeight(.medium)
         }
     }
 
