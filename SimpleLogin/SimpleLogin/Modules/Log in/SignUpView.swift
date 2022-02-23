@@ -116,7 +116,7 @@ struct SignUpView: View {
         .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
         .alert(isPresented: $showingRegisteredEmailAlert) {
             Alert(title: Text("You are all set"),
-                  message: Text("We've sent an email to \(viewModel.registeredEmail ?? ""). Please check your inbox."),
+                  message: Text("We've sent an email to \(email). Please check your inbox."),
                   dismissButton: .default(Text("OK")) {
                 otpMode = .activate(email: email)
             })
