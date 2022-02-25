@@ -142,6 +142,11 @@
 		EF72966127C2698300737550 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF72966027C2698300737550 /* PrimaryButton.swift */; };
 		EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2A37C27B6F3460020E808 /* LabelText.swift */; };
 		EFB3A96727BC404300F82965 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB3A96627BC404300F82965 /* UIImageExtensions.swift */; };
+		EFFBBDE227C9661B00C8E6DD /* PremiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */; };
+		EFFBBDE427C96AEB00C8E6DD /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE327C96AEB00C8E6DD /* SecondaryButton.swift */; };
+		EFFBBDE627C96CCA00C8E6DD /* BetterSafariViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */; };
+		EFFBBDE827C96F7000C8E6DD /* CapacityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE727C96F7000C8E6DD /* CapacityView.swift */; };
+		EFFBBDEA27C96FAE00C8E6DD /* Capacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE927C96FAE00C8E6DD /* Capacity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -298,6 +303,11 @@
 		EF72966027C2698300737550 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		EFA2A37C27B6F3460020E808 /* LabelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelText.swift; sourceTree = "<group>"; };
 		EFB3A96627BC404300F82965 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumView.swift; sourceTree = "<group>"; };
+		EFFBBDE327C96AEB00C8E6DD /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
+		EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewModifier.swift; sourceTree = "<group>"; };
+		EFFBBDE727C96F7000C8E6DD /* CapacityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityView.swift; sourceTree = "<group>"; };
+		EFFBBDE927C96FAE00C8E6DD /* Capacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capacity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -531,6 +541,8 @@
 				C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */,
 				C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */,
 				C0B1600A279DFA1E00641216 /* AliasDisplayModePreview.swift */,
+				EFFBBDE727C96F7000C8E6DD /* CapacityView.swift */,
+				EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */,
 				C05A9B14277BB996003FD0A7 /* UpgradeView.swift */,
 				C030EB38277D1410007E2FF8 /* UpgradeViewModel.swift */,
 			);
@@ -558,6 +570,7 @@
 			isa = PBXGroup;
 			children = (
 				C064797C272B331D009CA1F8 /* Action.swift */,
+				EFFBBDE927C96FAE00C8E6DD /* Capacity.swift */,
 				C04BB63627AC7E7000AA29A1 /* KeyboardExtensionMode.swift */,
 				C0F1963B273483CC0062B418 /* Session.swift */,
 				C00874B227A989D3004F32FA /* SLError.swift */,
@@ -581,6 +594,7 @@
 			children = (
 				EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */,
 				C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */,
+				EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */,
 				C0AAE98D26E4152A00247742 /* Blur.swift */,
 				C00E66682792C687002DBA67 /* ClearButtonModeModifier.swift */,
 				C02CD1972794C20400B3115E /* ConfettiableModifier.swift */,
@@ -593,6 +607,7 @@
 				EF5BDFB327B7AF56004B696B /* LogoView.swift */,
 				C02FCF8C278E2FB200F32BED /* PhotoPickerView.swift */,
 				EF72966027C2698300737550 /* PrimaryButton.swift */,
+				EFFBBDE327C96AEB00C8E6DD /* SecondaryButton.swift */,
 				EF509E3327C234D10047A8D1 /* SensitiveContentViewModifier.swift */,
 				C02F967126DB78CF000B100C /* ShakeEffect.swift */,
 				C0F08FB227AB2CB50066A354 /* ShareSheetView.swift */,
@@ -899,12 +914,14 @@
 				EF72966127C2698300737550 /* PrimaryButton.swift in Sources */,
 				C03B518E27288F2700C54130 /* AliasCompactView.swift in Sources */,
 				C0AAE98E26E4152A00247742 /* Blur.swift in Sources */,
+				EFFBBDE427C96AEB00C8E6DD /* SecondaryButton.swift in Sources */,
 				C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */,
 				C0126D0027AEA07A00B489E8 /* SearchAliasesViewController.swift in Sources */,
 				C0259EAF26DA55CD0056A977 /* StringExtensions.swift in Sources */,
 				C043D41626E01E280051B282 /* KeychainService.swift in Sources */,
 				C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */,
 				C087655E27AE798300FF26E6 /* SearchAliasesViewModel.swift in Sources */,
+				EFFBBDEA27C96FAE00C8E6DD /* Capacity.swift in Sources */,
 				C0F732B7278F854F004608DB /* CustomDomainsView.swift in Sources */,
 				EF15C55927BEE4B8008497F2 /* LabelExtensions.swift in Sources */,
 				C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */,
@@ -918,6 +935,7 @@
 				C0F1963E27348EA10062B418 /* AliasDetailView.swift in Sources */,
 				C02F967226DB78D0000B100C /* ShakeEffect.swift in Sources */,
 				C02CD1982794C20400B3115E /* ConfettiableModifier.swift in Sources */,
+				EFFBBDE827C96F7000C8E6DD /* CapacityView.swift in Sources */,
 				C03F4F1526E15ADD00BBF2A8 /* AliasesView.swift in Sources */,
 				EF6FEA6C27B813DF00557158 /* ResetPasswordViewModel.swift in Sources */,
 				C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */,
@@ -945,6 +963,7 @@
 				C04BB63727AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
 				C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */,
 				C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */,
+				EFFBBDE227C9661B00C8E6DD /* PremiumView.swift in Sources */,
 				EF68E11827B90E9400396472 /* DeleteMenuButton.swift in Sources */,
 				C0100B3026DEC46900085C24 /* MainView.swift in Sources */,
 				C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */,
@@ -959,6 +978,7 @@
 				C00DF9AA279175770065A602 /* DomainDetailView.swift in Sources */,
 				C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */,
 				EFB3A96727BC404300F82965 /* UIImageExtensions.swift in Sources */,
+				EFFBBDE627C96CCA00C8E6DD /* BetterSafariViewModifier.swift in Sources */,
 				C0F08FB327AB2CB60066A354 /* ShareSheetView.swift in Sources */,
 				EF509E3427C234D10047A8D1 /* SensitiveContentViewModifier.swift in Sources */,
 				C0D1D5A9272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift in Sources */,

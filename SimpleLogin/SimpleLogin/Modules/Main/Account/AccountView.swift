@@ -16,6 +16,7 @@ struct AccountView: View {
     @StateObject private var viewModel: AccountViewModel
     @StateObject private var localAuthenticator = LocalAuthenticator()
     @State private var confettiCounter = 0
+    @State private var showingPremiumView = false
     @State private var showingUpgradeView = false
     @State private var showingLoadingAlert = false
     let onLogOut: () -> Void
@@ -73,6 +74,13 @@ struct AccountView: View {
                         },
                         label: { EmptyView() })
 
+                    NavigationLink(
+                        isActive: $showingPremiumView,
+                        destination: {
+                            PremiumView()
+                        },
+                        label: { EmptyView() })
+
                     Form {
                         UserInfoSection()
                         if localAuthenticator.biometryType != .none {
@@ -101,8 +109,11 @@ struct AccountView: View {
             viewModel.getRequiredInformation()
         }
         .onReceive(Just(viewModel.isInitialized)) { isInitialized in
-            if viewModel.isInitialized && (viewModel.userInfo.inTrial || !viewModel.userInfo.isPremium) {
+            guard isInitialized else { return }
+            if viewModel.userInfo.inTrial || !viewModel.userInfo.isPremium {
                 showingUpgradeView = UIDevice.current.userInterfaceIdiom != .phone
+            } else {
+                showingPremiumView = true
             }
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
@@ -125,78 +136,82 @@ struct AccountView: View {
     private var trailingButton: some View {
         if !viewModel.userInfo.inTrial && viewModel.userInfo.isPremium {
             Button(action: {
-                // TODO: Show premium view
+                showingPremiumView = true
             }, label: {
                 Text("Premium")
             })
-                .foregroundColor(.green)
         } else {
             Button(action: {
                 showingUpgradeView = true
             }, label: {
                 Text("Upgrade")
             })
-                .foregroundColor(.blue)
         }
     }
 }
 
 private struct UserInfoSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
-    @State private var showingPhotoPickerSheet = false
-    @State private var showingEditDisplayNameSheet = false
+    @State private var selectedSheet: Sheet?
 
-    var body: some View {
-        Section {
-            VStack {
-                personalInfoView
-                    .sheet(isPresented: $showingPhotoPickerSheet) {
-                        PhotoPickerView { pickedImage in
-                            viewModel.uploadNewProfilePhoto(pickedImage)
-                        }
-                    }
-                Divider()
-                membershipView
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .sheet(isPresented: $showingEditDisplayNameSheet) {
-                        EditDisplayNameView { displayName in
-                            viewModel.updateDisplayName(displayName)
-                        }
-                        .environmentObject(viewModel)
-                    }
-            }
-        }
+    private enum Sheet {
+        case photoPicker, editDisplayName
     }
 
-    private var personalInfoView: some View {
-        HStack {
-            let imageWidth = min(64, UIScreen.main.bounds.width / 7)
-            if let profilePictureUrl = viewModel.userInfo.profilePictureUrl {
-                KFImage.url(URL(string: profilePictureUrl))
-                    .placeholder { defaultAvatarImage }
-                    .loadDiskFileSynchronously()
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: imageWidth, height: imageWidth)
-                    .clipShape(Circle())
-            } else {
-                defaultAvatarImage
+    var body: some View {
+        let showingSheet = Binding<Bool>(get: {
+            selectedSheet != nil
+        }, set: { isShowing in
+            if !isShowing {
+                selectedSheet = nil
             }
+        })
 
-            VStack(alignment: .leading) {
-                if !viewModel.userInfo.name.isEmpty {
-                    Text(viewModel.userInfo.name)
-                        .fontWeight(.semibold)
+        Section {
+            HStack {
+                let imageWidth = min(64, UIScreen.main.bounds.width / 7)
+                if let profilePictureUrl = viewModel.userInfo.profilePictureUrl {
+                    KFImage.url(URL(string: profilePictureUrl))
+                        .placeholder { defaultAvatarImage }
+                        .loadDiskFileSynchronously()
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: imageWidth, height: imageWidth)
+                        .clipShape(Circle())
+                } else {
+                    defaultAvatarImage
                 }
-                Text(viewModel.userInfo.email)
+
+                VStack(alignment: .leading) {
+                    if !viewModel.userInfo.name.isEmpty {
+                        Text(viewModel.userInfo.name)
+                            .fontWeight(.semibold)
+                    }
+                    Text(viewModel.userInfo.email)
+                }
+
+                Spacer()
+
+                editMenu
             }
-
-            Spacer()
-
-            editMenu
+            .alert(isPresented: $viewModel.askingForSettings) {
+                settingsAlert
+            }
         }
-        .alert(isPresented: $viewModel.askingForSettings) {
-            settingsAlert
+        .sheet(isPresented: showingSheet) {
+            switch selectedSheet {
+            case .photoPicker:
+                PhotoPickerView { pickedImage in
+                    viewModel.uploadNewProfilePhoto(pickedImage)
+                }
+            case .editDisplayName:
+                EditDisplayNameView { displayName in
+                    viewModel.updateDisplayName(displayName)
+                }
+                .environmentObject(viewModel)
+            default:
+                EmptyView()
+            }
         }
     }
 
@@ -208,26 +223,11 @@ private struct UserInfoSection: View {
             .frame(width: min(64, UIScreen.main.bounds.width / 7))
     }
 
-    @ViewBuilder
-    private var membershipView: some View {
-        if viewModel.userInfo.inTrial {
-            Text("Premium trial membership")
-                .fontWeight(.medium)
-        } else if viewModel.userInfo.isPremium {
-            Text("Premium membership")
-                .fontWeight(.medium)
-        } else {
-            Text("Free membership")
-                .foregroundColor(.secondary)
-                .fontWeight(.medium)
-        }
-    }
-
     private var editMenu: some View {
         Menu(content: {
             Section {
                 Button(action: {
-                    showingPhotoPickerSheet = true
+                    selectedSheet = .photoPicker
                 }, label: {
                     Label("Upload new profile photo", systemImage: "square.and.arrow.up")
                 })
@@ -241,7 +241,7 @@ private struct UserInfoSection: View {
 
             Section {
                 Button(action: {
-                    showingEditDisplayNameSheet = true
+                    selectedSheet = .editDisplayName
                 }, label: {
                     if #available(iOS 15, *) {
                         Label("Modify display name", systemImage: "person.text.rectangle")

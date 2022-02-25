@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 02/09/2021.
 //
 
-import BetterSafariView
 import SwiftUI
 
 private let kVersionName =
@@ -18,14 +17,6 @@ struct AboutView: View {
     @State private var showingTipsView = false
     @State private var selectedUrlString: String?
     var body: some View {
-        let showingUrl = Binding<Bool>(get: {
-            selectedUrlString != nil
-        }, set: { isShowing in
-            if !isShowing {
-                selectedUrlString = nil
-            }
-        })
-
         NavigationView {
             Form {
                 Section(header: Text("How it works")) {
@@ -103,10 +94,7 @@ struct AboutView: View {
             .sheet(isPresented: $showingTipsView) {
                 TipsView(isFirstTime: false)
             }
-            .safariView(isPresented: showingUrl) {
-                // swiftlint:disable:next force_unwrapping
-                SafariView(url: URL(string: selectedUrlString ?? "")!)
-            }
+            .betterSafariView(urlString: $selectedUrlString)
 
             DetailPlaceholderView(systemIconName: "info.circle")
         }
