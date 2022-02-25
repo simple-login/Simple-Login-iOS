@@ -71,7 +71,7 @@ struct OtpView: View {
                     }
                 }
                 .padding()
-                .font(.title)
+                .font(.headline)
 
                 HStack {
                     OtpButton(action: {
@@ -151,7 +151,7 @@ struct OtpView: View {
                 }
 
                 Button(action: {
-                    viewModel.paste(string: UIPasteboard.general.string ?? "")
+                    viewModel.paste(string: UIPasteboard.general.string)
                 }, label: {
                     Label("Paste from clipboard", systemImage: "doc.on.clipboard")
                 })
@@ -341,8 +341,15 @@ private final class OtpViewModel: ObservableObject {
         }
     }
 
-    func paste(string: String) {
-        guard string.count >= 6 else { return }
+    func paste(string: String?) {
+        guard let string = string else {
+            error = SLError.emptyClipboard
+            return
+        }
+        guard string.count == 6 else {
+            error = SLError.invalidValidationCodeSyntax
+            return
+        }
         let getDigit: (String?) -> Digit = { digitString in
             switch digitString {
             case "0": return .zero
@@ -382,6 +389,7 @@ private final class OtpViewModel: ObservableObject {
                     defer { self.isLoading = false }
                     switch completion {
                     case .failure(let error):
+                        Vibration.error.vibrate(fallBackToOldSchool: true)
                         self.error = error
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             self.attempts += 1
@@ -405,6 +413,7 @@ private final class OtpViewModel: ObservableObject {
                     case .finished:
                         break
                     case .failure(let error):
+                        Vibration.error.vibrate(fallBackToOldSchool: true)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             self.attempts += 1
                         }
