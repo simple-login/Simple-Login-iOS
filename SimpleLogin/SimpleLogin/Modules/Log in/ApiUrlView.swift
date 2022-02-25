@@ -25,7 +25,7 @@ struct ApiUrlView: View {
         NavigationView {
             Form {
                 Section(header: Text("Current API URL"),
-                        footer: warningView) {
+                        footer: warningText) {
                     if isEditing {
                         TextField("", text: $currentApiUrl)
                             .keyboardType(.URL)
@@ -39,7 +39,7 @@ struct ApiUrlView: View {
 
                 Section(footer: defaultApiUrlView) {
                     Button(action: {
-                        currentApiUrl = apiUrl
+                        currentApiUrl = kDefaultApiUrlString
                         save()
                     }, label: {
                         Text("Reset to default value")
@@ -63,11 +63,8 @@ struct ApiUrlView: View {
             .fontWeight(.bold)
     }
 
-    private var warningView: some View {
-        Group {
-            Text("⚠️ ") +
-            Text("DO NOT change API URL unless you are hosting SimpleLogin with your own server")
-        }
+    private var warningText: some View {
+        Text("⚠️ Do not change API URL unless you are hosting SimpleLogin with your own server")
         .font(.footnote)
         .foregroundColor(.red)
     }

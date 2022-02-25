@@ -113,7 +113,7 @@ struct AccountView: View {
             if viewModel.userInfo.inTrial || !viewModel.userInfo.isPremium {
                 showingUpgradeView = UIDevice.current.userInterfaceIdiom != .phone
             } else {
-                showingPremiumView = true
+                showingPremiumView = UIDevice.current.userInterfaceIdiom != .phone
             }
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
