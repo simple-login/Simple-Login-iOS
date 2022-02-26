@@ -140,6 +140,8 @@
 		EF6FEA6F27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
 		EF72966127C2698300737550 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF72966027C2698300737550 /* PrimaryButton.swift */; };
 		EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2A37C27B6F3460020E808 /* LabelText.swift */; };
+		EFA52AE827CA39B000994547 /* HowItWorksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA52AE727CA39B000994547 /* HowItWorksView.swift */; };
+		EFA52AEB27CA525700994547 /* HowItWorkStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA52AEA27CA525700994547 /* HowItWorkStep.swift */; };
 		EFB3A96727BC404300F82965 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB3A96627BC404300F82965 /* UIImageExtensions.swift */; };
 		EFFBBDE227C9661B00C8E6DD /* PremiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */; };
 		EFFBBDE427C96AEB00C8E6DD /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE327C96AEB00C8E6DD /* SecondaryButton.swift */; };
@@ -300,6 +302,8 @@
 		EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastModifier.swift; sourceTree = "<group>"; };
 		EF72966027C2698300737550 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		EFA2A37C27B6F3460020E808 /* LabelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelText.swift; sourceTree = "<group>"; };
+		EFA52AE727CA39B000994547 /* HowItWorksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksView.swift; sourceTree = "<group>"; };
+		EFA52AEA27CA525700994547 /* HowItWorkStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorkStep.swift; sourceTree = "<group>"; };
 		EFB3A96627BC404300F82965 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumView.swift; sourceTree = "<group>"; };
 		EFFBBDE327C96AEB00C8E6DD /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
@@ -549,6 +553,7 @@
 		C03F4F3126E1736500BBF2A8 /* About */ = {
 			isa = PBXGroup;
 			children = (
+				EFA52AE927CA524200994547 /* How it works */,
 				C00FD7FB27AA70CC0072DD67 /* Tips */,
 				C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */,
 			);
@@ -637,6 +642,15 @@
 				EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		EFA52AE927CA524200994547 /* How it works */ = {
+			isa = PBXGroup;
+			children = (
+				EFA52AEA27CA525700994547 /* HowItWorkStep.swift */,
+				EFA52AE727CA39B000994547 /* HowItWorksView.swift */,
+			);
+			path = "How it works";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -927,6 +941,7 @@
 				C03D292D279215EE0041FB60 /* DomainDetailViewModel.swift in Sources */,
 				C03760FA26DC0F0200E5ECAC /* Preferences.swift in Sources */,
 				C0D1D5A7272BCCA000F5CFC5 /* ColorExtensions.swift in Sources */,
+				EFA52AEB27CA525700994547 /* HowItWorkStep.swift in Sources */,
 				C029769426F141A60014DC3B /* CreateAliasView.swift in Sources */,
 				C00A563426DABC3900A550A2 /* ErrorMessageModifier.swift in Sources */,
 				C0F1963E27348EA10062B418 /* AliasDetailView.swift in Sources */,
@@ -946,6 +961,7 @@
 				C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */,
 				C00E66692792C687002DBA67 /* ClearButtonModeModifier.swift in Sources */,
 				C087656027AE7A5C00FF26E6 /* SearchAliasesResultView.swift in Sources */,
+				EFA52AE827CA39B000994547 /* HowItWorksView.swift in Sources */,
 				C0FE7B2D27A9CFD7005D53DF /* SignUpViewModel.swift in Sources */,
 				C0941EFA27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				EF5BDFB827B7B5DD004B696B /* BetterSafariViewExtensions.swift in Sources */,

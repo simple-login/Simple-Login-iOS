@@ -130,14 +130,14 @@ private struct TipView: View {
                     Text(tip.title)
                         .font(.title3)
                         .fontWeight(.bold)
-                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer()
                 }
             }
 
             HStack {
                 Text(tip.description)
-                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Image(systemName: tip.systemIconName)
                     .resizable()
                     .scaledToFit()

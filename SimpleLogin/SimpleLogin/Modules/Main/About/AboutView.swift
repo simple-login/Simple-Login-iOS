@@ -16,6 +16,8 @@ struct AboutView: View {
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @State private var showingTipsView = false
     @State private var selectedUrlString: String?
+    @State private var showingHowItWorksView = false
+
     var body: some View {
         NavigationView {
             Form {
@@ -23,6 +25,14 @@ struct AboutView: View {
                     Image("Schema")
                         .resizable()
                         .scaledToFit()
+                    NavigationLink(
+                        isActive: $showingHowItWorksView,
+                        destination: {
+                            HowItWorksView()
+                        },
+                        label: {
+                            Text("More detail")
+                        })
                 }
 
                 Section {
@@ -95,6 +105,11 @@ struct AboutView: View {
                 TipsView(isFirstTime: false)
             }
             .betterSafariView(urlString: $selectedUrlString)
+            .onAppear {
+                if UIDevice.current.userInterfaceIdiom != .phone {
+                    showingHowItWorksView = true
+                }
+            }
 
             DetailPlaceholderView(systemIconName: "info.circle")
         }
