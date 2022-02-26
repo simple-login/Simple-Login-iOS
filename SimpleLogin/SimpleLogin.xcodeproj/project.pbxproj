@@ -50,7 +50,6 @@
 		C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C034888D268A6F29008D9629 /* SimpleLoginApp.swift */; };
 		C0348892268A6F2D008D9629 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0348891268A6F2D008D9629 /* Assets.xcassets */; };
 		C0348895268A6F2D008D9629 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0348894268A6F2D008D9629 /* Preview Assets.xcassets */; };
-		C03629972777B21200531481 /* CreateContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03629962777B21200531481 /* CreateContactView.swift */; };
 		C03760F326DC0BA000E5ECAC /* SimpleLoginPackage in Frameworks */ = {isa = PBXBuildFile; productRef = C03760F226DC0BA000E5ECAC /* SimpleLoginPackage */; };
 		C03760F826DC0D6A00E5ECAC /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03760F726DC0D6A00E5ECAC /* LogInViewModel.swift */; };
 		C03760FA26DC0F0200E5ECAC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03760F926DC0F0200E5ECAC /* Preferences.swift */; };
@@ -232,7 +231,6 @@
 		C03488A1268A6F2E008D9629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C03488A6268A6F2E008D9629 /* SimpleLoginUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleLoginUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03488AC268A6F2E008D9629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C03629962777B21200531481 /* CreateContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactView.swift; sourceTree = "<group>"; };
 		C03760F726DC0D6A00E5ECAC /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		C03760F926DC0F0200E5ECAC /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		C03760FB26DC0F7300E5ECAC /* SimpleLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleLogin.entitlements; sourceTree = "<group>"; };
@@ -516,7 +514,6 @@
 				C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */,
 				C029769326F141A60014DC3B /* CreateAliasView.swift */,
 				C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */,
-				C03629962777B21200531481 /* CreateContactView.swift */,
 			);
 			path = Aliases;
 			sourceTree = "<group>";
@@ -967,7 +964,6 @@
 				EF68E11827B90E9400396472 /* DeleteMenuButton.swift in Sources */,
 				C0100B3026DEC46900085C24 /* MainView.swift in Sources */,
 				C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */,
-				C03629972777B21200531481 /* CreateContactView.swift in Sources */,
 				C00874AF27A98748004F32FA /* ErrorExtensions.swift in Sources */,
 				EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */,
 				C00874B327A989D3004F32FA /* SLError.swift in Sources */,

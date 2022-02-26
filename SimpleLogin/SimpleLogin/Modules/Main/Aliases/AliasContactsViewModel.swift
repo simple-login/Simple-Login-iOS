@@ -15,6 +15,7 @@ final class AliasContactsViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var isRefreshing = false
     @Published private(set) var contacts: [Contact]?
     @Published private(set) var error: Error?
+    @Published private(set) var createdContact: Contact?
 
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
@@ -145,5 +146,35 @@ final class AliasContactsViewModel: BaseSessionViewModel, ObservableObject {
     private func update(contact: Contact) {
         guard let index = contacts?.firstIndex(where: { $0.id == contact.id }) else { return }
         contacts?[index] = contact
+    }
+
+    func createContact(contactEmail: String) {
+        guard !isLoading else { return }
+        isLoading = true
+        session.client.createContact(apiKey: session.apiKey, aliasId: alias.id, contactEmail: contactEmail)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            } receiveValue: { [weak self] createdContact in
+                guard let self = self else { return }
+                if createdContact.existed {
+                    self.error = SLError.contactExists
+                } else {
+                    self.createdContact = createdContact
+                    self.contacts?.insert(createdContact, at: 0)
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    func handledCreatedContact() {
+        self.createdContact = nil
     }
 }

@@ -14,10 +14,10 @@ struct AliasContactsView: View {
     @Environment(\.presentationMode) private var presentationMode
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel: AliasContactsViewModel
-    @State private var showingHelperText = false
     @State private var showingLoadingAlert = false
-    @State private var showingCreateContactView = false
     @State private var copiedText: String?
+    @State private var newContactEmail = ""
+    @State private var selectedUrlString: String?
 
     init(alias: Alias, session: Session) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias, session: session))
@@ -40,84 +40,73 @@ struct AliasContactsView: View {
             }
         })
 
-        ScrollView {
-            LazyVStack(spacing: 8) {
-                if let contacts = viewModel.contacts {
+        let showingCreatedContactAlert = Binding<Bool>(get: {
+            viewModel.createdContact != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledCreatedContact()
+            }
+        })
+
+        Form {
+            Section(header: Text("Create new contact"),
+                    footer: createContactSectionFooter) {
+                HStack {
+                    TextField("Contact email", text: $newContactEmail)
+                        .keyboardType(.emailAddress)
+                        .textContentType(.emailAddress)
+                        .autocapitalization(.none)
+                        .textFieldStyle(.roundedBorder)
+                    Button("Create") {
+                        viewModel.createContact(contactEmail: newContactEmail)
+                    }
+                    .foregroundColor(.slPurple)
+                    .disabled(newContactEmail.isEmpty)
+                }
+                .buttonStyle(.plain)
+            }
+
+            Section {
+                if let contacts = viewModel.contacts, !contacts.isEmpty {
                     ForEach(contacts, id: \.id) { contact in
                         ContactView(contact: contact)
                             .padding(.horizontal, 4)
                             .overlay(menu(for: contact))
                     }
+                } else if !viewModel.isFetchingContacts {
+                    Text("No contacts")
+                        .foregroundColor(.secondary)
+                        .font(.body.italic())
+                        .frame(maxWidth: .infinity, alignment: .center)
                 }
 
                 if viewModel.isFetchingContacts {
                     ProgressView()
+                        .frame(maxWidth: .infinity)
                         .padding()
                 }
             }
-            .padding(.vertical, 8)
         }
-        .introspectScrollView { scrollView in
-            scrollView.refreshControl = viewModel.refreshControl
+        .introspectTableView { tableView in
+            tableView.refreshControl = viewModel.refreshControl
         }
-        .navigationBarTitle(viewModel.contacts?.isEmpty == false ? viewModel.alias.email : "",
-                            displayMode: viewModel.contacts?.isEmpty == false ? .large : .inline)
-        .navigationBarItems(trailing: plusButton)
+        .navigationBarTitle(viewModel.alias.email, displayMode: .inline)
         .onAppear {
             viewModel.getMoreContactsIfNeed(currentContact: nil)
-        }
-        .emptyPlaceholder(isEmpty: viewModel.contacts?.isEmpty == true) {
-            noContactView
-                .navigationBarItems(trailing: plusButton)
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
-        .sheet(isPresented: $showingCreateContactView) {
-            CreateContactView(alias: viewModel.alias, session: viewModel.session) {
-                viewModel.refresh()
+        .onReceive(Just(viewModel.createdContact)) { createdContact in
+            if createdContact != nil {
+                newContactEmail = ""
             }
         }
+        .betterSafariView(urlString: $selectedUrlString)
         .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
         .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-    }
-
-    var plusButton: some View {
-        Button(action: {
-            if hapticFeedbackEnabled {
-                Vibration.light.vibrate()
-            }
-            showingCreateContactView = true
-        }, label: {
-            Image(systemName: "plus")
-        })
-            .frame(minWidth: 24, minHeight: 24)
-    }
-
-    var noContactView: some View {
-        ZStack(alignment: .topTrailing) {
-            if showingHelperText {
-                HStack {
-                    Spacer()
-                    Text("Add contact")
-                    Image(systemName: "arrow.turn.right.up")
-                }
-                .padding(.trailing)
-                .foregroundColor(.secondary)
-            }
-
-            DetailPlaceholderView(systemIconName: "at",
-                                  message: viewModel.alias.email)
-                .padding(.horizontal)
-        }
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                withAnimation {
-                    showingHelperText = true
-                }
-            }
-        }
+        .alertToastMessage(isPresenting: showingCreatedContactAlert, message: "Created new contact")
     }
 
     private func menu(for contact: Contact) -> some View {
@@ -183,6 +172,12 @@ struct AliasContactsView: View {
             Text("")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         })
+    }
+
+    private var createContactSectionFooter: some View {
+        Button("How to send emails from my alias?") {
+            selectedUrlString = "https://simplelogin.io/faq/"
+        }
     }
 }
 
