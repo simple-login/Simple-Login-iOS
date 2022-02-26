@@ -178,6 +178,7 @@ struct AliasContactsView: View {
         Button("How to send emails from your alias?") {
             selectedUrlString = "https://simplelogin.io/docs/getting-started/send-email/"
         }
+        .foregroundColor(.slPurple)
     }
 }
 

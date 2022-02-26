@@ -52,12 +52,14 @@ struct OthersView: View {
         Button("What are mailboxes?") {
             selectedUrlString = "https://simplelogin.io/docs/mailbox/add-mailbox/"
         }
+        .foregroundColor(.slPurple)
     }
 
     private var customDomainsSectionFooter: some View {
         Button("What are custom domains?") {
             selectedUrlString = "https://simplelogin.io/docs/custom-domain/add-domain/"
         }
+        .foregroundColor(.slPurple)
     }
 }
 

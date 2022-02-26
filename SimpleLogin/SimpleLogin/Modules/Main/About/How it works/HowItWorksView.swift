@@ -41,7 +41,7 @@ private struct StepView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             Image(step.imageName)
                 .resizable()
-                .scaledToFill()
+                .scaledToFit()
             Text(step.description)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }

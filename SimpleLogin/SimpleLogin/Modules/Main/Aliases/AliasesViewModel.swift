@@ -50,13 +50,12 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     }
 
     private func getMoreAliases() {
-        guard !isLoading && canLoadMorePages else { return }
+        guard !isLoading, canLoadMorePages else { return }
         isLoading = true
         session.client.getAliases(apiKey: session.apiKey, page: currentPage)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-                self.isLoading = false
                 switch completion {
                 case .finished:
                     break
@@ -65,6 +64,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
                 }
             } receiveValue: { [weak self] aliasArray in
                 guard let self = self else { return }
+                self.isLoading = false
                 self.aliases.append(contentsOf: aliasArray.aliases)
                 self.currentPage += 1
                 self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
