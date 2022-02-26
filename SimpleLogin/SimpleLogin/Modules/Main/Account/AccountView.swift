@@ -109,11 +109,11 @@ struct AccountView: View {
             viewModel.getRequiredInformation()
         }
         .onReceive(Just(viewModel.isInitialized)) { isInitialized in
-            guard isInitialized else { return }
+            guard isInitialized, UIDevice.current.userInterfaceIdiom != .phone else { return }
             if viewModel.userInfo.inTrial || !viewModel.userInfo.isPremium {
-                showingUpgradeView = UIDevice.current.userInterfaceIdiom != .phone
+                showingUpgradeView = true
             } else {
-                showingPremiumView = UIDevice.current.userInterfaceIdiom != .phone
+                showingPremiumView = true
             }
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in

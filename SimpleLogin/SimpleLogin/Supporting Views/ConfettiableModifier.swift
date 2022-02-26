@@ -16,10 +16,11 @@ struct ConfettiableModifier: ViewModifier {
             content
             VStack {
                 ConfettiCannon(counter: $counter,
-                               num: 100,
+                               num: 300,
+                               rainHeight: UIScreen.main.bounds.height,
                                openingAngle: Angle(degrees: 0),
-                               closingAngle: Angle(degrees: 180),
-                               radius: 200)
+                               closingAngle: Angle(degrees: 360),
+                               radius: UIScreen.main.bounds.width / 2)
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -15,6 +15,7 @@ struct UpgradeView: View {
     @EnvironmentObject private var session: Session
     @StateObject private var viewModel: UpgradeViewModel
     @State private var showingLoadingAlert = false
+    @State private var showingThankAlert = false
     @State private var selectedUrlString: String?
 
     var onSubscription: () -> Void
@@ -60,10 +61,7 @@ struct UpgradeView: View {
             viewModel.retrieveProductsInfo()
         }
         .onReceive(Just(viewModel.isSubscribed)) { isSubscribed in
-            if isSubscribed {
-                onSubscription()
-                presentationMode.wrappedValue.dismiss()
-            }
+            showingThankAlert = isSubscribed
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
@@ -71,6 +69,15 @@ struct UpgradeView: View {
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
         .betterSafariView(urlString: $selectedUrlString)
+        .alert(isPresented: $showingThankAlert) {
+            Alert(
+                title: Text("Thank you"),
+                message: Text("You are now a premium user 🎉"),
+                dismissButton: .default(Text("Got it 👍")) {
+                    onSubscription()
+                    presentationMode.wrappedValue.dismiss()
+                })
+        }
     }
 
     private var gradientBackground: some View {
