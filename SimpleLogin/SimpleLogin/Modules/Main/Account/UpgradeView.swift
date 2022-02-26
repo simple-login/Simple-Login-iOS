@@ -155,9 +155,6 @@ struct UpgradeView: View {
 
     private var termsAndPrivacyView: some View {
         HStack {
-            Text("SimpleLogin")
-                .foregroundColor(.secondary)
-
             Button(action: {
                 selectedUrlString = "https://simplelogin.io/terms/"
             }, label: {
@@ -166,7 +163,7 @@ struct UpgradeView: View {
                     .foregroundColor(.slPurple)
             })
 
-            Text("&")
+            Text("•")
                 .foregroundColor(.secondary)
 
             Button(action: {

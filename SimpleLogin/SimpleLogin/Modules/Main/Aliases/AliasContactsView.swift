@@ -175,8 +175,8 @@ struct AliasContactsView: View {
     }
 
     private var createContactSectionFooter: some View {
-        Button("How to send emails from my alias?") {
-            selectedUrlString = "https://simplelogin.io/faq/"
+        Button("How to send emails from your alias?") {
+            selectedUrlString = "https://simplelogin.io/docs/getting-started/send-email/"
         }
     }
 }

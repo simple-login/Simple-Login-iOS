@@ -12,11 +12,12 @@ struct OthersView: View {
     @EnvironmentObject private var session: Session
     @State private var showingMailboxesView = false
     @State private var showingCustomDomainsView = false
+    @State private var selectedUrlString: String?
 
     var body: some View {
         NavigationView {
             Form {
-                Section(footer: Text("The mailboxes that receive and send emails")) {
+                Section(footer: mailboxesSectionFooter) {
                     NavigationLink(
                         isActive: $showingMailboxesView,
                         destination: {
@@ -27,7 +28,7 @@ struct OthersView: View {
                         })
                 }
 
-                Section(footer: Text("The domains that you own")) {
+                Section(footer: customDomainsSectionFooter) {
                     NavigationLink(
                         isActive: $showingCustomDomainsView,
                         destination: {
@@ -44,6 +45,19 @@ struct OthersView: View {
                                   message: "Select a menu to see its details here")
         }
         .slNavigationView()
+        .betterSafariView(urlString: $selectedUrlString)
+    }
+
+    private var mailboxesSectionFooter: some View {
+        Button("What are mailboxes?") {
+            selectedUrlString = "https://simplelogin.io/docs/mailbox/add-mailbox/"
+        }
+    }
+
+    private var customDomainsSectionFooter: some View {
+        Button("What are custom domains?") {
+            selectedUrlString = "https://simplelogin.io/docs/custom-domain/add-domain/"
+        }
     }
 }
 
