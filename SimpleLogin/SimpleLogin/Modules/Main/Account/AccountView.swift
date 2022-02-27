@@ -63,39 +63,20 @@ struct AccountView: View {
 
         NavigationView {
             if viewModel.isInitialized {
-                ZStack {
-                    NavigationLink(
-                        isActive: $showingUpgradeView,
-                        destination: {
-                            UpgradeView(session: viewModel.session) {
-                                confettiCounter += 1
-                                viewModel.forceRefresh()
-                            }
-                        },
-                        label: { EmptyView() })
-
-                    NavigationLink(
-                        isActive: $showingPremiumView,
-                        destination: {
-                            PremiumView()
-                        },
-                        label: { EmptyView() })
-
-                    Form {
-                        UserInfoSection()
-                        if localAuthenticator.biometryType != .none {
-                            BiometricAuthenticationSection()
-                                .environmentObject(localAuthenticator)
-                        }
-                        LocalSettingsSection()
-                        NewslettersSection()
-                        AliasesSection()
-                        SenderFormatSection()
-                        KeyboardExtensionSection()
-                        LogOutSection(onLogOut: onLogOut)
+                Form {
+                    UserInfoSection()
+                    if localAuthenticator.biometryType != .none {
+                        BiometricAuthenticationSection()
+                            .environmentObject(localAuthenticator)
                     }
-                    .environmentObject(viewModel)
+                    LocalSettingsSection()
+                    NewslettersSection()
+                    AliasesSection()
+                    SenderFormatSection()
+                    KeyboardExtensionSection()
+                    LogOutSection(onLogOut: onLogOut)
                 }
+                .environmentObject(viewModel)
                 .navigationTitle(navigationTitle)
                 .navigationBarItems(trailing: trailingButton)
             } else {
@@ -135,17 +116,34 @@ struct AccountView: View {
     @ViewBuilder
     private var trailingButton: some View {
         if !viewModel.userInfo.inTrial && viewModel.userInfo.isPremium {
-            Button(action: {
-                showingPremiumView = true
-            }, label: {
-                Text("Premium")
-            })
+            NavigationLink(
+                isActive: $showingPremiumView,
+                destination: {
+                    PremiumView()
+                },
+                label: {
+                    Button(action: {
+                        showingPremiumView = true
+                    }, label: {
+                        Text("Premium")
+                    })
+                })
         } else {
-            Button(action: {
-                showingUpgradeView = true
-            }, label: {
-                Text("Upgrade")
-            })
+            NavigationLink(
+                isActive: $showingUpgradeView,
+                destination: {
+                    UpgradeView(session: viewModel.session) {
+                        confettiCounter += 1
+                        viewModel.forceRefresh()
+                    }
+                },
+                label: {
+                    Button(action: {
+                        showingUpgradeView = true
+                    }, label: {
+                        Text("Upgrade")
+                    })
+                })
         }
     }
 }

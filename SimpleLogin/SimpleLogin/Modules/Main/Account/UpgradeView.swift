@@ -12,7 +12,6 @@ import SwiftUI
 // swiftlint:disable let_var_whitespace
 struct UpgradeView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var session: Session
     @StateObject private var viewModel: UpgradeViewModel
     @State private var showingLoadingAlert = false
     @State private var showingThankAlert = false
