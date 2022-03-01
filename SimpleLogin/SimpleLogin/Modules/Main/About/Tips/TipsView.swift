@@ -130,6 +130,7 @@ private struct TipView: View {
                     Text(tip.title)
                         .font(.title3)
                         .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
                     Spacer()
                 }
@@ -137,6 +138,7 @@ private struct TipView: View {
 
             HStack {
                 Text(tip.description)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .fixedSize(horizontal: false, vertical: true)
                 Image(systemName: tip.systemIconName)
                     .resizable()

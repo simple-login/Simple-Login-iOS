@@ -5,7 +5,6 @@
 //  Created by Thanh-Nhon Nguyen on 02/09/2021.
 //
 
-import BetterSafariView
 import SwiftUI
 
 private let kVersionName =
@@ -17,21 +16,23 @@ struct AboutView: View {
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @State private var showingTipsView = false
     @State private var selectedUrlString: String?
-    var body: some View {
-        let showingUrl = Binding<Bool>(get: {
-            selectedUrlString != nil
-        }, set: { isShowing in
-            if !isShowing {
-                selectedUrlString = nil
-            }
-        })
+    @State private var showingHowItWorksView = false
 
+    var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("How it works")) {
                     Image("Schema")
                         .resizable()
                         .scaledToFit()
+                    NavigationLink(
+                        isActive: $showingHowItWorksView,
+                        destination: {
+                            HowItWorksView()
+                        },
+                        label: {
+                            Text("More detail")
+                        })
                 }
 
                 Section {
@@ -103,9 +104,11 @@ struct AboutView: View {
             .sheet(isPresented: $showingTipsView) {
                 TipsView(isFirstTime: false)
             }
-            .safariView(isPresented: showingUrl) {
-                // swiftlint:disable:next force_unwrapping
-                SafariView(url: URL(string: selectedUrlString ?? "")!)
+            .betterSafariView(urlString: $selectedUrlString)
+            .onAppear {
+                if UIDevice.current.userInterfaceIdiom != .phone {
+                    showingHowItWorksView = true
+                }
             }
 
             DetailPlaceholderView(systemIconName: "info.circle")

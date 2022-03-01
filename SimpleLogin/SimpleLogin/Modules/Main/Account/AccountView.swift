@@ -16,6 +16,7 @@ struct AccountView: View {
     @StateObject private var viewModel: AccountViewModel
     @StateObject private var localAuthenticator = LocalAuthenticator()
     @State private var confettiCounter = 0
+    @State private var showingPremiumView = false
     @State private var showingUpgradeView = false
     @State private var showingLoadingAlert = false
     let onLogOut: () -> Void
@@ -62,33 +63,22 @@ struct AccountView: View {
 
         NavigationView {
             if viewModel.isInitialized {
-                ZStack {
-                    NavigationLink(
-                        isActive: $showingUpgradeView,
-                        destination: {
-                            UpgradeView(session: viewModel.session) {
-                                confettiCounter += 1
-                                viewModel.forceRefresh()
-                            }
-                        },
-                        label: { EmptyView() })
-
-                    Form {
-                        UserInfoSection(showingUpgradeView: $showingUpgradeView)
-                        if localAuthenticator.biometryType != .none {
-                            BiometricAuthenticationSection()
-                                .environmentObject(localAuthenticator)
-                        }
-                        LocalSettingsSection()
-                        NewslettersSection()
-                        AliasesSection()
-                        SenderFormatSection()
-                        KeyboardExtensionSection()
-                        LogOutSection(onLogOut: onLogOut)
+                Form {
+                    UserInfoSection()
+                    if localAuthenticator.biometryType != .none {
+                        BiometricAuthenticationSection()
+                            .environmentObject(localAuthenticator)
                     }
-                    .environmentObject(viewModel)
+                    LocalSettingsSection()
+                    NewslettersSection()
+                    AliasesSection()
+                    SenderFormatSection()
+                    KeyboardExtensionSection()
+                    LogOutSection(onLogOut: onLogOut)
                 }
+                .environmentObject(viewModel)
                 .navigationTitle(navigationTitle)
+                .navigationBarItems(trailing: trailingButton)
             } else {
                 EmptyView()
             }
@@ -98,6 +88,14 @@ struct AccountView: View {
         .slNavigationView()
         .onAppear {
             viewModel.getRequiredInformation()
+        }
+        .onReceive(Just(viewModel.isInitialized)) { isInitialized in
+            guard isInitialized, UIDevice.current.userInterfaceIdiom != .phone else { return }
+            if viewModel.userInfo.inTrial || !viewModel.userInfo.isPremium {
+                showingUpgradeView = true
+            } else {
+                showingPremiumView = true
+            }
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
@@ -114,64 +112,104 @@ struct AccountView: View {
         .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
         .alertToastError(isPresenting: showingLocalAuthenticationError, error: localAuthenticator.error)
     }
+
+    @ViewBuilder
+    private var trailingButton: some View {
+        if !viewModel.userInfo.inTrial && viewModel.userInfo.isPremium {
+            NavigationLink(
+                isActive: $showingPremiumView,
+                destination: {
+                    PremiumView()
+                },
+                label: {
+                    Button(action: {
+                        showingPremiumView = true
+                    }, label: {
+                        Text("Premium")
+                    })
+                })
+        } else {
+            NavigationLink(
+                isActive: $showingUpgradeView,
+                destination: {
+                    UpgradeView(session: viewModel.session) {
+                        confettiCounter += 1
+                        viewModel.forceRefresh()
+                    }
+                },
+                label: {
+                    Button(action: {
+                        showingUpgradeView = true
+                    }, label: {
+                        Text("Upgrade")
+                    })
+                })
+        }
+    }
 }
 
 private struct UserInfoSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
-    @State private var showingPhotoPickerSheet = false
-    @State private var showingEditDisplayNameSheet = false
-    @Binding var showingUpgradeView: Bool
+    @State private var selectedSheet: Sheet?
 
-    var body: some View {
-        Section {
-            VStack {
-                personalInfoView
-                    .sheet(isPresented: $showingPhotoPickerSheet) {
-                        PhotoPickerView { pickedImage in
-                            viewModel.uploadNewProfilePhoto(pickedImage)
-                        }
-                    }
-                Divider()
-                membershipView
-                    .sheet(isPresented: $showingEditDisplayNameSheet) {
-                        EditDisplayNameView { displayName in
-                            viewModel.updateDisplayName(displayName)
-                        }
-                        .environmentObject(viewModel)
-                    }
-            }
-        }
+    private enum Sheet {
+        case photoPicker, editDisplayName
     }
 
-    private var personalInfoView: some View {
-        HStack {
-            let imageWidth = min(64, UIScreen.main.bounds.width / 7)
-            if let profilePictureUrl = viewModel.userInfo.profilePictureUrl {
-                KFImage.url(URL(string: profilePictureUrl))
-                    .placeholder { defaultAvatarImage }
-                    .loadDiskFileSynchronously()
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: imageWidth, height: imageWidth)
-                    .clipShape(Circle())
-            } else {
-                defaultAvatarImage
+    var body: some View {
+        let showingSheet = Binding<Bool>(get: {
+            selectedSheet != nil
+        }, set: { isShowing in
+            if !isShowing {
+                selectedSheet = nil
             }
+        })
 
-            VStack(alignment: .leading) {
-                if !viewModel.userInfo.name.isEmpty {
-                    Text(viewModel.userInfo.name)
-                        .fontWeight(.semibold)
+        Section {
+            HStack {
+                let imageWidth = min(64, UIScreen.main.bounds.width / 7)
+                if let profilePictureUrl = viewModel.userInfo.profilePictureUrl {
+                    KFImage.url(URL(string: profilePictureUrl))
+                        .placeholder { defaultAvatarImage }
+                        .loadDiskFileSynchronously()
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: imageWidth, height: imageWidth)
+                        .clipShape(Circle())
+                } else {
+                    defaultAvatarImage
                 }
-                Text(viewModel.userInfo.email)
+
+                VStack(alignment: .leading) {
+                    if !viewModel.userInfo.name.isEmpty {
+                        Text(viewModel.userInfo.name)
+                            .fontWeight(.semibold)
+                    }
+                    Text(viewModel.userInfo.email)
+                }
+
+                Spacer()
+
+                editMenu
             }
-
-            Spacer()
-
-            editMenu
+            .alert(isPresented: $viewModel.askingForSettings) {
+                settingsAlert
+            }
         }
-        .alert(isPresented: $viewModel.askingForSettings) {
-            settingsAlert
+        .sheet(isPresented: showingSheet) {
+            switch selectedSheet {
+            case .photoPicker:
+                PhotoPickerView { pickedImage in
+                    viewModel.uploadNewProfilePhoto(pickedImage)
+                }
+            case .editDisplayName:
+                EditDisplayNameView { displayName in
+                    viewModel.updateDisplayName(displayName)
+                }
+                .environmentObject(viewModel)
+            default:
+                EmptyView()
+            }
         }
     }
 
@@ -183,39 +221,11 @@ private struct UserInfoSection: View {
             .frame(width: min(64, UIScreen.main.bounds.width / 7))
     }
 
-    @ViewBuilder
-    private var membershipView: some View {
-        HStack {
-            if viewModel.userInfo.inTrial {
-                Text("Premium trial membership")
-                    .foregroundColor(.blue)
-            } else if viewModel.userInfo.isPremium {
-                Text("Premium membership")
-                    .foregroundColor(.green)
-            } else {
-                Text("Free membership")
-            }
-
-            Spacer()
-
-            if !viewModel.userInfo.inTrial && !viewModel.userInfo.isPremium {
-                Button(action: {
-                    showingUpgradeView = true
-                }, label: {
-                    Label("Upgrade", systemImage: "sparkles")
-                        .foregroundColor(.blue)
-                })
-                    .buttonStyle(PlainButtonStyle())
-                    .disabled(viewModel.isLoading)
-            }
-        }
-    }
-
     private var editMenu: some View {
         Menu(content: {
             Section {
                 Button(action: {
-                    showingPhotoPickerSheet = true
+                    selectedSheet = .photoPicker
                 }, label: {
                     Label("Upload new profile photo", systemImage: "square.and.arrow.up")
                 })
@@ -229,7 +239,7 @@ private struct UserInfoSection: View {
 
             Section {
                 Button(action: {
-                    showingEditDisplayNameSheet = true
+                    selectedSheet = .editDisplayName
                 }, label: {
                     if #available(iOS 15, *) {
                         Label("Modify display name", systemImage: "person.text.rectangle")

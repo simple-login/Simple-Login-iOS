@@ -55,7 +55,7 @@ final class LogInViewModel: ObservableObject {
                     if let slClientError = error as? SLClientError {
                         switch slClientError {
                         case .clientError(let errorResponse):
-                            if errorResponse.statusCode == 400 {
+                            if errorResponse.statusCode == 422 {
                                 self.shouldActivate = true
                             } else {
                                 // swiftlint:disable:next fallthrough

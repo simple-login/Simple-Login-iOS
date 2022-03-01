@@ -117,7 +117,7 @@ struct MailboxesView: View {
                          message: nil,
                          dismissButton: .cancel())
         }
-        let deleteButton = Alert.Button.destructive(Text("Yes, delete this alias")) {
+        let deleteButton = Alert.Button.destructive(Text("Yes, delete this mailbox")) {
             viewModel.delete(mailbox: mailboxToBeDeleted)
         }
         return .init(title: Text("Delete \(mailboxToBeDeleted.email)?"),

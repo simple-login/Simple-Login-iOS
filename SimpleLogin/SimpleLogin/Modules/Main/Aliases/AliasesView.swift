@@ -156,6 +156,12 @@ struct AliasesView: View {
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingUpdatingAlert = isUpdating
         }
+        .onReceive(Just(viewModel.isLoading)) { isLoading in
+            if  !isLoading, UIDevice.current.userInterfaceIdiom != .phone, selectedAlias == nil {
+                selectedAlias = viewModel.filteredAliases.first
+                selectedLink = .details
+            }
+        }
         .sheet(isPresented: $showingCreateView) {
             CreateAliasView(
                 session: viewModel.session,

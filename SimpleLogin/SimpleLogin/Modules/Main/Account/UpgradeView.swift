@@ -12,9 +12,10 @@ import SwiftUI
 // swiftlint:disable let_var_whitespace
 struct UpgradeView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var session: Session
     @StateObject private var viewModel: UpgradeViewModel
     @State private var showingLoadingAlert = false
+    @State private var showingThankAlert = false
+    @State private var selectedUrlString: String?
 
     var onSubscription: () -> Void
 
@@ -40,7 +41,9 @@ struct UpgradeView: View {
                     .padding(.top)
                 monthlyButton
                     .padding(.vertical)
-                restoreButton
+                SecondaryButton(title: "Restore purchasse") {
+                    viewModel.restorePurchase()
+                }
                 Text("Subscription can be managed and canceled at anytime by going to Settings ➝ Your Apple ID ➝ Subscriptions.")
                     .font(.callout)
                     .foregroundColor(.secondary)
@@ -57,21 +60,30 @@ struct UpgradeView: View {
             viewModel.retrieveProductsInfo()
         }
         .onReceive(Just(viewModel.isSubscribed)) { isSubscribed in
-            if isSubscribed {
-                onSubscription()
-                presentationMode.wrappedValue.dismiss()
-            }
+            showingThankAlert = isSubscribed
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .betterSafariView(urlString: $selectedUrlString)
+        .alert(isPresented: $showingThankAlert) {
+            Alert(
+                title: Text("Thank you"),
+                message: Text("You are now a premium user 🎉"),
+                dismissButton: .default(Text("Got it 👍")) {
+                    onSubscription()
+                    presentationMode.wrappedValue.dismiss()
+                })
+        }
     }
 
     private var gradientBackground: some View {
-        LinearGradient(gradient: .init(colors: [.slPurple.opacity(0.2),
-                                                .slPurple.opacity(0.6)]),
+        LinearGradient(gradient: .init(colors: [.slPurple.opacity(0.05),
+                                                .slPurple.opacity(0.1),
+                                                .slPurple.opacity(0.15),
+                                                .slPurple.opacity(0.2)]),
                        startPoint: .top,
                        endPoint: .bottom)
             .edgesIgnoringSafeArea([.leading, .trailing, .bottom])
@@ -88,7 +100,7 @@ struct UpgradeView: View {
 
         VStack(alignment: .leading, spacing: 6) {
             ForEach(kFreeCapacities) {
-                capacityView($0, isPremium: false)
+                CapacityView(capacity: $0, checkmarkColor: nil)
             }
         }
     }
@@ -105,52 +117,22 @@ struct UpgradeView: View {
 
         VStack(alignment: .leading, spacing: 6) {
             ForEach(kPremiumCapacities) {
-                capacityView($0, isPremium: true)
+                CapacityView(capacity: $0, checkmarkColor: .slPurple)
             }
             Text("...and all of our upcoming features.")
         }
     }
 
-    @ViewBuilder
-    private func capacityView(_ capacity: Capacity, isPremium: Bool) -> some View {
-        Label {
-            Text(capacity.description)
-        } icon: {
-            Image(systemName: "checkmark")
-                .foregroundColor(isPremium ? .slPurple : .primary)
-        }
-        .fixedSize(horizontal: false, vertical: true)
-
-        if let detail = capacity.detail {
-            Label {
-                Text(detail)
-                    .font(.callout)
-                    .foregroundColor(.secondary)
-            } icon: {
-                Image(systemName: "circle")
-                    .opacity(0)
-            }
-            .fixedSize(horizontal: false, vertical: true)
-        }
-    }
-
     private var yearlyButton: some View {
         VStack(alignment: .leading) {
-            Button(action: {
-                viewModel.subscribeYearly()
-            }, label: {
-                if let yearlySubscription = viewModel.yearlySubscription {
-                    Text("Subscribe yearly \(yearlySubscription.localizedPrice)/year")
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                } else {
-                    ProgressView()
+            if let yearlySubscription = viewModel.yearlySubscription {
+                PrimaryButton(title: "Subscribe yearly \(yearlySubscription.localizedPrice)/year") {
+                    viewModel.subscribeYearly()
                 }
-            })
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.slPurple)
-                .disabled(viewModel.yearlySubscription == nil)
+            } else {
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
 
             Text("Save 2 months by subcribing yearly.")
                 .font(.callout)
@@ -161,21 +143,14 @@ struct UpgradeView: View {
 
     private var monthlyButton: some View {
         VStack(alignment: .leading) {
-            Button(action: {
-                viewModel.subscribeMonthly()
-            }, label: {
-                if let monthlySubscription = viewModel.monthlySubscription {
-                    Text("Subscribe monthly \(monthlySubscription.localizedPrice)/month")
-                        .fontWeight(.bold)
-                        .foregroundColor(.slPurple)
-                } else {
-                    ProgressView()
+            if let monthlySubscription = viewModel.monthlySubscription {
+                SecondaryButton(title: "Subscribe monthly \(monthlySubscription.localizedPrice)/month") {
+                    viewModel.subscribeMonthly()
                 }
-            })
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .border(Color.slPurple, width: 2)
-                .disabled(viewModel.monthlySubscription == nil)
+            } else {
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
 
             Text("A cup of ☕ per month to improve your privacy.")
                 .font(.callout)
@@ -184,42 +159,21 @@ struct UpgradeView: View {
         }
     }
 
-    private var restoreButton: some View {
-        Button(action: {
-            viewModel.restorePurchase()
-        }, label: {
-            Text("Restore purchase")
-                .fontWeight(.bold)
-                .foregroundColor(.slPurple)
-        })
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .fixedSize(horizontal: false, vertical: true)
-            .border(Color.slPurple, width: 2)
-    }
-
     private var termsAndPrivacyView: some View {
         HStack {
-            Text("SimpleLogin")
-                .foregroundColor(.secondary)
-
             Button(action: {
-                if let url = URL(string: "https://simplelogin.io/terms/") {
-                    UIApplication.shared.open(url, options: [:])
-                }
+                selectedUrlString = "https://simplelogin.io/terms/"
             }, label: {
-                Text("Terms of Use")
+                Text("Terms and condition")
                     .fontWeight(.semibold)
                     .foregroundColor(.slPurple)
             })
 
-            Text("&")
+            Text("•")
                 .foregroundColor(.secondary)
 
             Button(action: {
-                if let url = URL(string: "https://simplelogin.io/privacy/") {
-                    UIApplication.shared.open(url, options: [:])
-                }
+                selectedUrlString = "https://simplelogin.io/privacy/"
             }, label: {
                 Text("Privacy policy")
                     .fontWeight(.semibold)
@@ -239,31 +193,23 @@ struct UpgradeView_Previews: PreviewProvider {
     }
 }
 
-private struct Capacity: Identifiable {
-    let id = UUID()
-    let description: String
-    var detail: String?
-}
-
 private let kFreeCapacities: [Capacity] = [
-    .init(description: "15 aliases"),
-    .init(description: "Unlimited bandwidth"),
-    .init(description: "Unlimited reply/send from alias"),
-    .init(description: "1 mailbox"),
-    .init(description: "Browser extensions", detail: "Chrome, Firefox and Safari"),
-    .init(description: "iOS & Android applications"),
-    .init(description: "Secure your account with TOTP and/or WebAuthn (FIDO)"),
-    .init(description: "Sign in with SimpleLogin")
+    .fifteenAliases,
+    .unlimitedBandWidth,
+    .unlimitedReplySend,
+    .oneMailbox,
+    .browserExtensions,
+    .totp,
+    .signWithSimpleLogin
 ]
 
 private let kPremiumCapacities: [Capacity] = [
-    .init(description: "Everything in the Free Plan"),
-    .init(description: "Unlimited aliases"),
-    .init(description: "Unlimited custom domains",
-          detail: "Bring your own domain to create aliases like contact@your-domain.com"),
-    .init(description: "Catch-all (or wildcard) domain"),
-    .init(description: "5 subdomains"),
-    .init(description: "50 directories/usernames"),
-    .init(description: "Unlimited mailboxes"),
-    .init(description: "PGP encryption")
+    .everythingInFreePlan,
+    .unlimitedAliases,
+    .unlimitedMailboxes,
+    .unlimitedDomains,
+    .catchAllDomain,
+    .fiveSubdomains,
+    .fiftyDirectories,
+    .pgp
 ]
