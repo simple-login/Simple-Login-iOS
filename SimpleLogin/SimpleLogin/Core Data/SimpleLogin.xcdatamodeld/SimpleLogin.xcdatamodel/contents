@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D49" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="LocalAlias" representedClassName="LocalAlias" syncable="YES" codeGenerationType="class">
+        <attribute name="blockCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="creationTimestamp" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="email" attributeType="String"/>
+        <attribute name="enabled" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="forwardCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="pgpDisabled" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="pgpSupported" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="pinned" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="replyCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="mailboxes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LocalMailboxLite" inverseName="alias" inverseEntity="LocalMailboxLite"/>
+    </entity>
+    <entity name="LocalMailboxLite" representedClassName="LocalMailboxLite" syncable="YES" codeGenerationType="class">
+        <attribute name="email" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="alias" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LocalAlias" inverseName="mailboxes" inverseEntity="LocalAlias"/>
+    </entity>
+    <elements>
+        <element name="LocalAlias" positionX="-63" positionY="-18" width="126.7421875" height="238"/>
+        <element name="LocalMailboxLite" positionX="141.19921875" positionY="-14.9765625" width="128" height="88"/>
+    </elements>
+</model>

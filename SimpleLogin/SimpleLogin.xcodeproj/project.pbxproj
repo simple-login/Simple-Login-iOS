@@ -139,10 +139,14 @@
 		EF6FEA6E27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
 		EF6FEA6F27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
 		EF72966127C2698300737550 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF72966027C2698300737550 /* PrimaryButton.swift */; };
+		EF95E13027D6ABBF0033B8E0 /* LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E12F27D6ABBF0033B8E0 /* LocalDatabase.swift */; };
+		EF95E13227D6AF470033B8E0 /* LocalAliasExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */; };
 		EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2A37C27B6F3460020E808 /* LabelText.swift */; };
 		EFA52AE827CA39B000994547 /* HowItWorksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA52AE727CA39B000994547 /* HowItWorksView.swift */; };
 		EFA52AEB27CA525700994547 /* HowItWorkStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA52AEA27CA525700994547 /* HowItWorkStep.swift */; };
+		EFB1F27427CEB99300C8D776 /* SimpleLogin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EFB1F27227CEB99300C8D776 /* SimpleLogin.xcdatamodeld */; };
 		EFB3A96727BC404300F82965 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB3A96627BC404300F82965 /* UIImageExtensions.swift */; };
+		EFD8D85927D7EBA500C733EB /* LocalMailboxLiteExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */; };
 		EFFBBDE227C9661B00C8E6DD /* PremiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */; };
 		EFFBBDE427C96AEB00C8E6DD /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE327C96AEB00C8E6DD /* SecondaryButton.swift */; };
 		EFFBBDE627C96CCA00C8E6DD /* BetterSafariViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */; };
@@ -301,10 +305,14 @@
 		EF6FEA6B27B813DF00557158 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastModifier.swift; sourceTree = "<group>"; };
 		EF72966027C2698300737550 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		EF95E12F27D6ABBF0033B8E0 /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
+		EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAliasExtensions.swift; sourceTree = "<group>"; };
 		EFA2A37C27B6F3460020E808 /* LabelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelText.swift; sourceTree = "<group>"; };
 		EFA52AE727CA39B000994547 /* HowItWorksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksView.swift; sourceTree = "<group>"; };
 		EFA52AEA27CA525700994547 /* HowItWorkStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorkStep.swift; sourceTree = "<group>"; };
+		EFB1F27327CEB99300C8D776 /* SimpleLogin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleLogin.xcdatamodel; sourceTree = "<group>"; };
 		EFB3A96627BC404300F82965 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMailboxLiteExtensions.swift; sourceTree = "<group>"; };
 		EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumView.swift; sourceTree = "<group>"; };
 		EFFBBDE327C96AEB00C8E6DD /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewModifier.swift; sourceTree = "<group>"; };
@@ -418,6 +426,7 @@
 				C03760FB26DC0F7300E5ECAC /* SimpleLogin.entitlements */,
 				C034888D268A6F29008D9629 /* SimpleLoginApp.swift */,
 				C04848A8278CE50700702E8E /* AppDelegate.swift */,
+				EFB1F27127CEB97600C8D776 /* Core Data */,
 				C064797B272B330A009CA1F8 /* Models */,
 				C03488B8268A7005008D9629 /* Modules */,
 				C0AAE98C26E4150200247742 /* Supporting Views */,
@@ -651,6 +660,17 @@
 				EFA52AE727CA39B000994547 /* HowItWorksView.swift */,
 			);
 			path = "How it works";
+			sourceTree = "<group>";
+		};
+		EFB1F27127CEB97600C8D776 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				EFB1F27227CEB99300C8D776 /* SimpleLogin.xcdatamodeld */,
+				EF95E12F27D6ABBF0033B8E0 /* LocalDatabase.swift */,
+				EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */,
+				EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */,
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -952,8 +972,10 @@
 				EF6FEA6C27B813DF00557158 /* ResetPasswordViewModel.swift in Sources */,
 				C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */,
 				C00FD80127AA71E80072DD67 /* Tip.swift in Sources */,
+				EF95E13027D6ABBF0033B8E0 /* LocalDatabase.swift in Sources */,
 				C03F4F2526E1665D00BBF2A8 /* OthersView.swift in Sources */,
 				C030EB39277D1410007E2FF8 /* UpgradeViewModel.swift in Sources */,
+				EFD8D85927D7EBA500C733EB /* LocalMailboxLiteExtensions.swift in Sources */,
 				C04266D327944E130053451B /* Vibration.swift in Sources */,
 				C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */,
 				C05424B527B06955008048A5 /* SLNavigationViewModifier.swift in Sources */,
@@ -980,6 +1002,7 @@
 				EF68E11827B90E9400396472 /* DeleteMenuButton.swift in Sources */,
 				C0100B3026DEC46900085C24 /* MainView.swift in Sources */,
 				C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */,
+				EFB1F27427CEB99300C8D776 /* SimpleLogin.xcdatamodeld in Sources */,
 				C00874AF27A98748004F32FA /* ErrorExtensions.swift in Sources */,
 				EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */,
 				C00874B327A989D3004F32FA /* SLError.swift in Sources */,
@@ -987,6 +1010,7 @@
 				C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */,
 				EF5BDFB227B79ABD004B696B /* UIScreenExtensions.swift in Sources */,
 				C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */,
+				EF95E13227D6AF470033B8E0 /* LocalAliasExtensions.swift in Sources */,
 				C00DF9AA279175770065A602 /* DomainDetailView.swift in Sources */,
 				C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */,
 				EFB3A96727BC404300F82965 /* UIImageExtensions.swift in Sources */,
@@ -1648,6 +1672,19 @@
 			productName = BetterSafariView;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		EFB1F27227CEB99300C8D776 /* SimpleLogin.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EFB1F27327CEB99300C8D776 /* SimpleLogin.xcdatamodel */,
+			);
+			currentVersion = EFB1F27327CEB99300C8D776 /* SimpleLogin.xcdatamodel */;
+			path = SimpleLogin.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C0348882268A6F29008D9629 /* Project object */;
 }
