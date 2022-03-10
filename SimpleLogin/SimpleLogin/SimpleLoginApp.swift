@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 28/06/2021.
 //
 
+import CoreData
 import SimpleLoginPackage
 import SwiftUI
 
@@ -20,12 +21,22 @@ struct SimpleLoginApp: App {
     @State private var preferences = Preferences.shared
     @State private var apiKey: ApiKey?
     @State private var client: SLClient?
+    private let persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "SimpleLogin")
+        container.loadPersistentStores { _, error in
+            if let error = error {
+                print("Unable to load persistent stores: \(error)")
+            }
+        }
+        return container
+    }()
 
     var body: some Scene {
         WindowGroup {
             if let apiKey = apiKey, let client = client {
                 MainView {
                     try? KeychainService.shared.setApiKey(nil)
+                    try? DataController(context: persistentContainer.viewContext).reset()
                     self.apiKey = nil
                     self.client = nil
                     self.biometricAuthEnabled = false
@@ -35,6 +46,7 @@ struct SimpleLoginApp: App {
                     self.didShowTips = false
                 }
                 .accentColor(.slPurple)
+                .environment(\.managedObjectContext, persistentContainer.viewContext)
                 .environmentObject(preferences)
                 .environmentObject(Session(apiKey: apiKey, client: client))
                 .sensitiveContent {

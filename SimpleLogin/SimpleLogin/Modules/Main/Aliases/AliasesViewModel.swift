@@ -34,7 +34,12 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     private var currentPage = 0
     private var canLoadMorePages = true
 
-    private let localDatabase = LocalDatabase()
+    private let dataController: DataController
+
+    init(session: Session, managedObjectContext: NSManagedObjectContext) {
+        self.dataController = .init(context: managedObjectContext)
+        super.init(session: session)
+    }
 
     func handledError() {
         self.error = nil
@@ -72,7 +77,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
                 self.currentPage += 1
                 self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
                 do {
-                    try self.localDatabase.update(aliasArray.aliases)
+                    try self.dataController.update(aliasArray.aliases)
                 } catch {
                     self.error = error
                 }
@@ -110,7 +115,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
                 self.currentPage = 1
                 self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
                 do {
-                    try self.localDatabase.update(aliasArray.aliases)
+                    try self.dataController.update(aliasArray.aliases)
                 } catch {
                     self.error = error
                 }
@@ -122,7 +127,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
         guard let index = aliases.firstIndex(where: { $0.id == alias.id }) else { return }
         aliases[index] = alias
         do {
-            try localDatabase.update(alias)
+            try dataController.update(alias)
         } catch {
             self.error = error
         }
@@ -131,7 +136,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     func remove(alias: Alias) {
         aliases.removeAll { $0.id == alias.id }
         do {
-            try localDatabase.delete(alias)
+            try dataController.delete(alias)
         } catch {
             self.error = error
         }
@@ -170,7 +175,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
                                          pinned: alias.pinned)
                 self.aliases[index] = updatedAlias
                 do {
-                    try self.localDatabase.update(updatedAlias)
+                    try self.dataController.update(updatedAlias)
                 } catch {
                     self.error = error
                 }
@@ -234,7 +239,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
                                              pinned: pinned)
                     self.aliases[index] = updatedAlias
                     do {
-                        try self.localDatabase.update(updatedAlias)
+                        try self.dataController.update(updatedAlias)
                     } catch {
                         self.error = error
                     }

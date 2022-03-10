@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CoreData
 import Introspect
 import SimpleLoginPackage
 import SwiftUI
@@ -31,8 +32,9 @@ struct AliasesView: View {
         case details, contacts
     }
 
-    init(session: Session) {
-        _viewModel = StateObject(wrappedValue: .init(session: session))
+    init(session: Session, managedObjectContext: NSManagedObjectContext) {
+        _viewModel = StateObject(wrappedValue: .init(session: session,
+                                                     managedObjectContext: managedObjectContext))
     }
 
     var body: some View {

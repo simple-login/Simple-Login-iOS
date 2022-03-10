@@ -133,13 +133,14 @@
 		EF5BDFB227B79ABD004B696B /* UIScreenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */; };
 		EF5BDFB427B7AF56004B696B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB327B7AF56004B696B /* LogoView.swift */; };
 		EF5BDFB827B7B5DD004B696B /* BetterSafariViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */; };
+		EF5E150727D94A160047C568 /* AliasExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5E150627D94A160047C568 /* AliasExtensions.swift */; };
 		EF68E11827B90E9400396472 /* DeleteMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF68E11727B90E9400396472 /* DeleteMenuButton.swift */; };
 		EF68F56927C57B5100B555B5 /* LocalAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF68F56827C57B5100B555B5 /* LocalAuthenticator.swift */; };
 		EF6FEA6C27B813DF00557158 /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6B27B813DF00557158 /* ResetPasswordViewModel.swift */; };
 		EF6FEA6E27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
 		EF6FEA6F27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
 		EF72966127C2698300737550 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF72966027C2698300737550 /* PrimaryButton.swift */; };
-		EF95E13027D6ABBF0033B8E0 /* LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E12F27D6ABBF0033B8E0 /* LocalDatabase.swift */; };
+		EF95E13027D6ABBF0033B8E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E12F27D6ABBF0033B8E0 /* DataController.swift */; };
 		EF95E13227D6AF470033B8E0 /* LocalAliasExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */; };
 		EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2A37C27B6F3460020E808 /* LabelText.swift */; };
 		EFA52AE827CA39B000994547 /* HowItWorksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA52AE727CA39B000994547 /* HowItWorksView.swift */; };
@@ -300,12 +301,13 @@
 		EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreenExtensions.swift; sourceTree = "<group>"; };
 		EF5BDFB327B7AF56004B696B /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewExtensions.swift; sourceTree = "<group>"; };
+		EF5E150627D94A160047C568 /* AliasExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasExtensions.swift; sourceTree = "<group>"; };
 		EF68E11727B90E9400396472 /* DeleteMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteMenuButton.swift; sourceTree = "<group>"; };
 		EF68F56827C57B5100B555B5 /* LocalAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthenticator.swift; sourceTree = "<group>"; };
 		EF6FEA6B27B813DF00557158 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastModifier.swift; sourceTree = "<group>"; };
 		EF72966027C2698300737550 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
-		EF95E12F27D6ABBF0033B8E0 /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
+		EF95E12F27D6ABBF0033B8E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAliasExtensions.swift; sourceTree = "<group>"; };
 		EFA2A37C27B6F3460020E808 /* LabelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelText.swift; sourceTree = "<group>"; };
 		EFA52AE727CA39B000994547 /* HowItWorksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksView.swift; sourceTree = "<group>"; };
@@ -631,6 +633,7 @@
 		C0CBE93B26B9D067004833F6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EF5E150627D94A160047C568 /* AliasExtensions.swift */,
 				EF4F43DE27C15B2D00CD1942 /* AlertExtensions.swift */,
 				C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */,
 				C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */,
@@ -666,7 +669,7 @@
 			isa = PBXGroup;
 			children = (
 				EFB1F27227CEB99300C8D776 /* SimpleLogin.xcdatamodeld */,
-				EF95E12F27D6ABBF0033B8E0 /* LocalDatabase.swift */,
+				EF95E12F27D6ABBF0033B8E0 /* DataController.swift */,
 				EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */,
 				EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */,
 			);
@@ -972,8 +975,9 @@
 				EF6FEA6C27B813DF00557158 /* ResetPasswordViewModel.swift in Sources */,
 				C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */,
 				C00FD80127AA71E80072DD67 /* Tip.swift in Sources */,
-				EF95E13027D6ABBF0033B8E0 /* LocalDatabase.swift in Sources */,
+				EF95E13027D6ABBF0033B8E0 /* DataController.swift in Sources */,
 				C03F4F2526E1665D00BBF2A8 /* OthersView.swift in Sources */,
+				EF5E150727D94A160047C568 /* AliasExtensions.swift in Sources */,
 				C030EB39277D1410007E2FF8 /* UpgradeViewModel.swift in Sources */,
 				EFD8D85927D7EBA500C733EB /* LocalMailboxLiteExtensions.swift in Sources */,
 				C04266D327944E130053451B /* Vibration.swift in Sources */,
