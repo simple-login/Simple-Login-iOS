@@ -7,6 +7,7 @@
 
 import Combine
 import CoreData
+import Reachability
 import SimpleLoginPackage
 import SwiftUI
 
@@ -20,7 +21,8 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
             updateFilteredAliases()
         }
     }
-    @Published private var aliases: [Alias] = [] {
+
+    private var aliases: [Alias] = [] {
         didSet {
             updateFilteredAliases()
         }
@@ -35,10 +37,29 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     private var canLoadMorePages = true
 
     private let dataController: DataController
+    private let reachability = try? Reachability()
+    @Published private(set) var reachable = false
 
     init(session: Session, managedObjectContext: NSManagedObjectContext) {
         self.dataController = .init(context: managedObjectContext)
         super.init(session: session)
+        observeReachability()
+    }
+
+    private func observeReachability() {
+        reachability?.whenReachable = { [unowned self] _ in
+            reachable = true
+            if aliases.isEmpty {
+                getMoreAliasesIfNeed(currentAlias: nil)
+            }
+        }
+
+        reachability?.whenUnreachable = { [unowned self] _ in
+            reachable = false
+            print("Lost connection \(self.reachable)")
+        }
+
+        try? reachability?.startNotifier()
     }
 
     func handledError() {
@@ -58,6 +79,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     }
 
     private func getMoreAliases() {
+        guard reachable else { return }
         guard !isLoading, canLoadMorePages else { return }
         isLoading = true
         session.client.getAliases(apiKey: session.apiKey, page: currentPage)
