@@ -49,8 +49,11 @@ struct DataController {
         try context.save()
     }
 
-    func getAllAliases() throws -> [Alias] {
-        let localAliases = try context.fetch(LocalAlias.fetchRequest())
-        return localAliases.compactMap { Alias(from: $0) }
+    func fetchAliases(page: Int) throws -> [Alias] {
+        let fetchRequest = LocalAlias.fetchRequest()
+        fetchRequest.sortDescriptors = [.init(key: "creationTimestamp", ascending: false)]
+        fetchRequest.fetchLimit = kDefaultPageSize
+        fetchRequest.fetchOffset = kDefaultPageSize * page
+        return try context.fetch(fetchRequest).compactMap { Alias(from: $0) }
     }
 }

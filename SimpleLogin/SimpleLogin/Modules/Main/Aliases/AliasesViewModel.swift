@@ -38,7 +38,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
 
     private let dataController: DataController
     private let reachability = try? Reachability()
-    @Published private(set) var reachable = false
+    @Published private(set) var reachable = true
 
     init(session: Session, managedObjectContext: NSManagedObjectContext) {
         self.dataController = .init(context: managedObjectContext)
@@ -51,12 +51,16 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
             reachable = true
             if aliases.isEmpty {
                 getMoreAliasesIfNeed(currentAlias: nil)
+            } else {
+                refresh()
             }
         }
 
         reachability?.whenUnreachable = { [unowned self] _ in
             reachable = false
-            print("Lost connection \(self.reachable)")
+            if aliases.isEmpty {
+                getMoreAliases()
+            }
         }
 
         try? reachability?.startNotifier()
@@ -79,7 +83,21 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     }
 
     private func getMoreAliases() {
-        guard reachable else { return }
+        // Offline
+        if !reachable {
+            guard canLoadMorePages else { return }
+            do {
+                let fetchedAliases = try dataController.fetchAliases(page: currentPage)
+                aliases.append(contentsOf: fetchedAliases)
+                currentPage += 1
+                canLoadMorePages = fetchedAliases.count == kDefaultPageSize
+            } catch {
+                self.error = error
+            }
+            return
+        }
+
+        // Online
         guard !isLoading, canLoadMorePages else { return }
         isLoading = true
         session.client.getAliases(apiKey: session.apiKey, page: currentPage)
