@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 05/02/2022.
 //
 
+import CoreData
 import SimpleLoginPackage
 import SwiftUI
 import UIKit
@@ -15,9 +16,11 @@ final class SearchAliasesViewController: BaseViewController {
     let onDeleteAlias: (Alias) -> Void
 
     init(session: Session,
+         managedObjectContext: NSManagedObjectContext,
          onUpdateAlias: @escaping (Alias) -> Void,
          onDeleteAlias: @escaping (Alias) -> Void) {
-        self.viewModel = .init(session: session)
+        self.viewModel = .init(session: session,
+                               managedObjectContext: managedObjectContext)
         self.onUpdateAlias = onUpdateAlias
         self.onDeleteAlias = onDeleteAlias
         super.init(nibName: nil, bundle: nil)
