@@ -22,5 +22,6 @@ struct SearchAliasesView: UIViewControllerRepresentable {
         return navigationController
     }
 
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
+    func updateUIViewController(_ uiViewController: UINavigationController,
+                                context: Context) {}
 }

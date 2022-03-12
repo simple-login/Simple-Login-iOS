@@ -6,8 +6,9 @@
 //
 
 import Combine
-import Foundation
+import Reachability
 import SimpleLoginPackage
+import SwiftUI
 
 final class SearchAliasesViewModel: BaseSessionViewModel, ObservableObject {
     private let searchTermSubject = PassthroughSubject<String, Never>()
@@ -22,8 +23,12 @@ final class SearchAliasesViewModel: BaseSessionViewModel, ObservableObject {
     private var currentPage = 0
     private var canLoadMorePages = true
 
+    private let reachability = try? Reachability()
+    @Published private(set) var reachable = true
+
     override init(session: Session) {
         super.init(session: session)
+        observeReachability()
         searchTermSubject
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .sink { [unowned self] term in
@@ -35,6 +40,18 @@ final class SearchAliasesViewModel: BaseSessionViewModel, ObservableObject {
                 self.initialSearch(term: term)
             }
             .store(in: &cancellables)
+    }
+
+    private func observeReachability() {
+        reachability?.whenReachable = { [unowned self] _ in
+            reachable = true
+        }
+
+        reachability?.whenUnreachable = { [unowned self] _ in
+            reachable = false
+        }
+
+        try? reachability?.startNotifier()
     }
 
     func handledError() {

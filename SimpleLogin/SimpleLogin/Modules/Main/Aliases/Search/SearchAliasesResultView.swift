@@ -86,6 +86,7 @@ struct SearchAliasesResultView: View {
             }
         }
         .listStyle(.plain)
+        .offlineLabelled(reachable: .constant(viewModel.reachable))
         .simultaneousGesture(
             DragGesture().onChanged { _ in
                 UIApplication.shared.endEditing()

@@ -23,7 +23,6 @@ struct AliasesView: View {
     @State private var selectedAlias: Alias?
     @State private var aliasToShowDetails: Alias?
     @State private var selectedLink: Link?
-    @State private var noConnectionViewSize = CGSize.zero
 
     enum Modal {
         case search, create
@@ -64,7 +63,7 @@ struct AliasesView: View {
         })
 
         NavigationView {
-            ZStack(alignment: .top) {
+            ZStack {
                 NavigationLink(
                     tag: Link.details,
                     selection: $selectedLink,
@@ -126,7 +125,7 @@ struct AliasesView: View {
                 .listStyle(.plain)
                 .animation(.default)
                 .navigationBarTitleDisplayMode(.inline)
-                .padding(.top, viewModel.reachable ? 0 : noConnectionViewSize.height)
+                .offlineLabelled(reachable: .constant(viewModel.reachable))
                 .toolbar {
                     ToolbarItem {
                         AliasesViewToolbar(selectedStatus: $viewModel.selectedStatus,
@@ -148,15 +147,6 @@ struct AliasesView: View {
                         onDeleteAlias: { deletedAlias in
                             viewModel.remove(alias: deletedAlias)
                         })
-                }
-
-                if !viewModel.reachable {
-                    Text("You're offline")
-                        .font(.caption2)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .background(Color(.systemRed))
-                        .bindSize($noConnectionViewSize)
                 }
             }
 
