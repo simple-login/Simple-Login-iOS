@@ -6,10 +6,12 @@
 //
 
 import Combine
+import CoreData
+import Reachability
 import SimpleLoginPackage
 import SwiftUI
 
-final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
+final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject {
     @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
     @Published var selectedStatus: AliasStatus = .all {
         didSet {
@@ -19,7 +21,8 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
             updateFilteredAliases()
         }
     }
-    @Published private var aliases: [Alias] = [] {
+
+    private var aliases: [Alias] = [] {
         didSet {
             updateFilteredAliases()
         }
@@ -32,6 +35,29 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
     private var canLoadMorePages = true
+
+    private let dataController: DataController
+
+    init(session: Session,
+         reachabilityObserver: ReachabilityObserver,
+         managedObjectContext: NSManagedObjectContext) {
+        self.dataController = .init(context: managedObjectContext)
+        super.init(session: session, reachabilityObserver: reachabilityObserver)
+    }
+
+    override func whenReachable() {
+        if aliases.isEmpty {
+            getMoreAliasesIfNeed(currentAlias: nil)
+        } else {
+            refresh()
+        }
+    }
+
+    override func whenUnreachable() {
+        if aliases.isEmpty {
+            getMoreAliases()
+        }
+    }
 
     func handledError() {
         self.error = nil
@@ -50,6 +76,21 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     }
 
     private func getMoreAliases() {
+        // Offline
+        if !reachabilityObserver.reachable {
+            guard canLoadMorePages else { return }
+            do {
+                let fetchedAliases = try dataController.fetchAliases(page: currentPage)
+                aliases.append(contentsOf: fetchedAliases)
+                currentPage += 1
+                canLoadMorePages = fetchedAliases.count == kDefaultPageSize
+            } catch {
+                self.error = error
+            }
+            return
+        }
+
+        // Online
         guard !isLoading, canLoadMorePages else { return }
         isLoading = true
         session.client.getAliases(apiKey: session.apiKey, page: currentPage)
@@ -68,6 +109,11 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
                 self.aliases.append(contentsOf: aliasArray.aliases)
                 self.currentPage += 1
                 self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
+                do {
+                    try self.dataController.update(aliasArray.aliases)
+                } catch {
+                    self.error = error
+                }
             }
             .store(in: &cancellables)
     }
@@ -101,6 +147,11 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
                 self.aliases = aliasArray.aliases
                 self.currentPage = 1
                 self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
+                do {
+                    try self.dataController.update(aliasArray.aliases)
+                } catch {
+                    self.error = error
+                }
             }
             .store(in: &cancellables)
     }
@@ -108,10 +159,20 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     func update(alias: Alias) {
         guard let index = aliases.firstIndex(where: { $0.id == alias.id }) else { return }
         aliases[index] = alias
+        do {
+            try dataController.update(alias)
+        } catch {
+            self.error = error
+        }
     }
 
     func remove(alias: Alias) {
         aliases.removeAll { $0.id == alias.id }
+        do {
+            try dataController.delete(alias)
+        } catch {
+            self.error = error
+        }
     }
 
     func toggle(alias: Alias) {
@@ -131,20 +192,26 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
             } receiveValue: { [weak self] enabledResponse in
                 guard let self = self else { return }
                 guard let index = self.aliases.firstIndex(where: { $0.id == alias.id }) else { return }
-                self.aliases[index] = Alias(id: alias.id,
-                                            email: alias.email,
-                                            name: alias.name,
-                                            enabled: enabledResponse.value,
-                                            creationTimestamp: alias.creationTimestamp,
-                                            blockCount: alias.blockCount,
-                                            forwardCount: alias.forwardCount,
-                                            replyCount: alias.replyCount,
-                                            note: alias.note,
-                                            pgpSupported: alias.pgpSupported,
-                                            pgpDisabled: alias.pgpDisabled,
-                                            mailboxes: alias.mailboxes,
-                                            latestActivity: alias.latestActivity,
-                                            pinned: alias.pinned)
+                let updatedAlias = Alias(id: alias.id,
+                                         email: alias.email,
+                                         name: alias.name,
+                                         enabled: enabledResponse.value,
+                                         creationTimestamp: alias.creationTimestamp,
+                                         blockCount: alias.blockCount,
+                                         forwardCount: alias.forwardCount,
+                                         replyCount: alias.replyCount,
+                                         note: alias.note,
+                                         pgpSupported: alias.pgpSupported,
+                                         pgpDisabled: alias.pgpDisabled,
+                                         mailboxes: alias.mailboxes,
+                                         latestActivity: alias.latestActivity,
+                                         pinned: alias.pinned)
+                self.aliases[index] = updatedAlias
+                do {
+                    try self.dataController.update(updatedAlias)
+                } catch {
+                    self.error = error
+                }
             }
             .store(in: &cancellables)
     }
@@ -189,20 +256,26 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
                 guard let index = self.aliases.firstIndex(where: { $0.id == alias.id }) else { return }
                 switch option {
                 case .pinned(let pinned):
-                    self.aliases[index] = Alias(id: alias.id,
-                                                email: alias.email,
-                                                name: alias.name,
-                                                enabled: alias.enabled,
-                                                creationTimestamp: alias.creationTimestamp,
-                                                blockCount: alias.blockCount,
-                                                forwardCount: alias.forwardCount,
-                                                replyCount: alias.replyCount,
-                                                note: alias.note,
-                                                pgpSupported: alias.pgpSupported,
-                                                pgpDisabled: alias.pgpDisabled,
-                                                mailboxes: alias.mailboxes,
-                                                latestActivity: alias.latestActivity,
-                                                pinned: pinned)
+                    let updatedAlias = Alias(id: alias.id,
+                                             email: alias.email,
+                                             name: alias.name,
+                                             enabled: alias.enabled,
+                                             creationTimestamp: alias.creationTimestamp,
+                                             blockCount: alias.blockCount,
+                                             forwardCount: alias.forwardCount,
+                                             replyCount: alias.replyCount,
+                                             note: alias.note,
+                                             pgpSupported: alias.pgpSupported,
+                                             pgpDisabled: alias.pgpDisabled,
+                                             mailboxes: alias.mailboxes,
+                                             latestActivity: alias.latestActivity,
+                                             pinned: pinned)
+                    self.aliases[index] = updatedAlias
+                    do {
+                        try self.dataController.update(updatedAlias)
+                    } catch {
+                        self.error = error
+                    }
                 default:
                     break
                 }

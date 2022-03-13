@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CoreData
 import Introspect
 import SimpleLoginPackage
 import SwiftUI
@@ -31,8 +32,13 @@ struct AliasesView: View {
         case details, contacts
     }
 
-    init(session: Session) {
-        _viewModel = StateObject(wrappedValue: .init(session: session))
+    init(session: Session,
+         reachabilityObserver: ReachabilityObserver,
+         managedObjectContext: NSManagedObjectContext) {
+        let viewModel = AliasesViewModel(session: session,
+                                         reachabilityObserver: reachabilityObserver,
+                                         managedObjectContext: managedObjectContext)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some View {
@@ -123,6 +129,7 @@ struct AliasesView: View {
                 .listStyle(.plain)
                 .animation(.default)
                 .navigationBarTitleDisplayMode(.inline)
+                .offlineLabelled(reachable: viewModel.reachabilityObserver.reachable)
                 .toolbar {
                     ToolbarItem {
                         AliasesViewToolbar(selectedStatus: $viewModel.selectedStatus,
@@ -150,9 +157,6 @@ struct AliasesView: View {
             DetailPlaceholderView.aliasDetails
         }
         .slNavigationView()
-        .onAppear {
-            viewModel.getMoreAliasesIfNeed(currentAlias: nil)
-        }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingUpdatingAlert = isUpdating
         }

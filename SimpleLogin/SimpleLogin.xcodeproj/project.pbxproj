@@ -133,16 +133,26 @@
 		EF5BDFB227B79ABD004B696B /* UIScreenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */; };
 		EF5BDFB427B7AF56004B696B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB327B7AF56004B696B /* LogoView.swift */; };
 		EF5BDFB827B7B5DD004B696B /* BetterSafariViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */; };
+		EF5E150727D94A160047C568 /* AliasExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5E150627D94A160047C568 /* AliasExtensions.swift */; };
+		EF65890027DA96D100D327C2 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = EF6588FF27DA96D100D327C2 /* Reachability */; };
+		EF65890227DA9EB400D327C2 /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF65890127DA9EB400D327C2 /* SizePreferenceKey.swift */; };
 		EF68E11827B90E9400396472 /* DeleteMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF68E11727B90E9400396472 /* DeleteMenuButton.swift */; };
 		EF68F56927C57B5100B555B5 /* LocalAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF68F56827C57B5100B555B5 /* LocalAuthenticator.swift */; };
 		EF6FEA6C27B813DF00557158 /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6B27B813DF00557158 /* ResetPasswordViewModel.swift */; };
 		EF6FEA6E27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
 		EF6FEA6F27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
 		EF72966127C2698300737550 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF72966027C2698300737550 /* PrimaryButton.swift */; };
+		EF8B1CCC27DDE0FB004D3575 /* ReachabilityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B1CCB27DDE0FB004D3575 /* ReachabilityObserver.swift */; };
+		EF8B1CD027DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */; };
+		EF95E13027D6ABBF0033B8E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E12F27D6ABBF0033B8E0 /* DataController.swift */; };
+		EF95E13227D6AF470033B8E0 /* LocalAliasExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */; };
 		EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2A37C27B6F3460020E808 /* LabelText.swift */; };
 		EFA52AE827CA39B000994547 /* HowItWorksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA52AE727CA39B000994547 /* HowItWorksView.swift */; };
 		EFA52AEB27CA525700994547 /* HowItWorkStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA52AEA27CA525700994547 /* HowItWorkStep.swift */; };
+		EFA9412E27DD3F08009ADD20 /* OfflineLabelledViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA9412D27DD3F08009ADD20 /* OfflineLabelledViewModifier.swift */; };
+		EFB1F27427CEB99300C8D776 /* SimpleLogin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EFB1F27227CEB99300C8D776 /* SimpleLogin.xcdatamodeld */; };
 		EFB3A96727BC404300F82965 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB3A96627BC404300F82965 /* UIImageExtensions.swift */; };
+		EFD8D85927D7EBA500C733EB /* LocalMailboxLiteExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */; };
 		EFFBBDE227C9661B00C8E6DD /* PremiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */; };
 		EFFBBDE427C96AEB00C8E6DD /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE327C96AEB00C8E6DD /* SecondaryButton.swift */; };
 		EFFBBDE627C96CCA00C8E6DD /* BetterSafariViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */; };
@@ -296,15 +306,24 @@
 		EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreenExtensions.swift; sourceTree = "<group>"; };
 		EF5BDFB327B7AF56004B696B /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewExtensions.swift; sourceTree = "<group>"; };
+		EF5E150627D94A160047C568 /* AliasExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasExtensions.swift; sourceTree = "<group>"; };
+		EF65890127DA9EB400D327C2 /* SizePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizePreferenceKey.swift; sourceTree = "<group>"; };
 		EF68E11727B90E9400396472 /* DeleteMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteMenuButton.swift; sourceTree = "<group>"; };
 		EF68F56827C57B5100B555B5 /* LocalAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthenticator.swift; sourceTree = "<group>"; };
 		EF6FEA6B27B813DF00557158 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastModifier.swift; sourceTree = "<group>"; };
 		EF72966027C2698300737550 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		EF8B1CCB27DDE0FB004D3575 /* ReachabilityObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityObserver.swift; sourceTree = "<group>"; };
+		EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseReachabilitySessionViewModel.swift; sourceTree = "<group>"; };
+		EF95E12F27D6ABBF0033B8E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAliasExtensions.swift; sourceTree = "<group>"; };
 		EFA2A37C27B6F3460020E808 /* LabelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelText.swift; sourceTree = "<group>"; };
 		EFA52AE727CA39B000994547 /* HowItWorksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksView.swift; sourceTree = "<group>"; };
 		EFA52AEA27CA525700994547 /* HowItWorkStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorkStep.swift; sourceTree = "<group>"; };
+		EFA9412D27DD3F08009ADD20 /* OfflineLabelledViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLabelledViewModifier.swift; sourceTree = "<group>"; };
+		EFB1F27327CEB99300C8D776 /* SimpleLogin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleLogin.xcdatamodel; sourceTree = "<group>"; };
 		EFB3A96627BC404300F82965 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMailboxLiteExtensions.swift; sourceTree = "<group>"; };
 		EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumView.swift; sourceTree = "<group>"; };
 		EFFBBDE327C96AEB00C8E6DD /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewModifier.swift; sourceTree = "<group>"; };
@@ -334,6 +353,7 @@
 				C05A4CE1273C76BC005F8CC5 /* Introspect in Frameworks */,
 				C04848A7278CD99000702E8E /* SwiftyStoreKit in Frameworks */,
 				C04848A4278CD00500702E8E /* StoreKit.framework in Frameworks */,
+				EF65890027DA96D100D327C2 /* Reachability in Frameworks */,
 				C02CD1962794BA3E00B3115E /* ConfettiSwiftUI in Frameworks */,
 				C03760F326DC0BA000E5ECAC /* SimpleLoginPackage in Frameworks */,
 			);
@@ -418,6 +438,7 @@
 				C03760FB26DC0F7300E5ECAC /* SimpleLogin.entitlements */,
 				C034888D268A6F29008D9629 /* SimpleLoginApp.swift */,
 				C04848A8278CE50700702E8E /* AppDelegate.swift */,
+				EFB1F27127CEB97600C8D776 /* Core Data */,
 				C064797B272B330A009CA1F8 /* Models */,
 				C03488B8268A7005008D9629 /* Modules */,
 				C0AAE98C26E4150200247742 /* Supporting Views */,
@@ -607,6 +628,7 @@
 				C0D1D5A8272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift */,
 				EFA2A37C27B6F3460020E808 /* LabelText.swift */,
 				EF5BDFB327B7AF56004B696B /* LogoView.swift */,
+				EFA9412D27DD3F08009ADD20 /* OfflineLabelledViewModifier.swift */,
 				C02FCF8C278E2FB200F32BED /* PhotoPickerView.swift */,
 				EF72966027C2698300737550 /* PrimaryButton.swift */,
 				EFFBBDE327C96AEB00C8E6DD /* SecondaryButton.swift */,
@@ -622,24 +644,28 @@
 		C0CBE93B26B9D067004833F6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EF5E150627D94A160047C568 /* AliasExtensions.swift */,
 				EF4F43DE27C15B2D00CD1942 /* AlertExtensions.swift */,
 				C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */,
 				C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */,
+				EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */,
 				EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */,
 				C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */,
 				EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */,
+				C00874AE27A98748004F32FA /* ErrorExtensions.swift */,
 				C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */,
 				C043D41526E01E280051B282 /* KeychainService.swift */,
 				EF15C55827BEE4B8008497F2 /* LabelExtensions.swift */,
 				EF68F56827C57B5100B555B5 /* LocalAuthenticator.swift */,
 				C03760F926DC0F0200E5ECAC /* Preferences.swift */,
+				EF8B1CCB27DDE0FB004D3575 /* ReachabilityObserver.swift */,
+				EF65890127DA9EB400D327C2 /* SizePreferenceKey.swift */,
 				C0259EAE26DA55CD0056A977 /* StringExtensions.swift */,
 				C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */,
-				C04266D227944E130053451B /* Vibration.swift */,
 				C0941EF927A70AE6009AAEBC /* URLExtensions.swift */,
-				C00874AE27A98748004F32FA /* ErrorExtensions.swift */,
 				EFB3A96627BC404300F82965 /* UIImageExtensions.swift */,
 				EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */,
+				C04266D227944E130053451B /* Vibration.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -651,6 +677,17 @@
 				EFA52AE727CA39B000994547 /* HowItWorksView.swift */,
 			);
 			path = "How it works";
+			sourceTree = "<group>";
+		};
+		EFB1F27127CEB97600C8D776 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				EFB1F27227CEB99300C8D776 /* SimpleLogin.xcdatamodeld */,
+				EF95E12F27D6ABBF0033B8E0 /* DataController.swift */,
+				EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */,
+				EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */,
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -704,6 +741,7 @@
 				C02FCF8F278E3C3000F32BED /* Kingfisher */,
 				C02CD1952794BA3E00B3115E /* ConfettiSwiftUI */,
 				C0EA747B27B30CD300848F58 /* BetterSafariView */,
+				EF6588FF27DA96D100D327C2 /* Reachability */,
 			);
 			productName = SimpleLogin;
 			productReference = C034888A268A6F29008D9629 /* SimpleLogin.app */;
@@ -814,6 +852,7 @@
 				C02FCF8E278E3C3000F32BED /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				C02CD1942794BA3E00B3115E /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				C0EA747A27B30CD200848F58 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
+				EF6588FE27DA96D100D327C2 /* XCRemoteSwiftPackageReference "Reachability" */,
 			);
 			productRefGroup = C034888B268A6F29008D9629 /* Products */;
 			projectDirPath = "";
@@ -926,9 +965,11 @@
 				C03B518E27288F2700C54130 /* AliasCompactView.swift in Sources */,
 				C0AAE98E26E4152A00247742 /* Blur.swift in Sources */,
 				EFFBBDE427C96AEB00C8E6DD /* SecondaryButton.swift in Sources */,
+				EFA9412E27DD3F08009ADD20 /* OfflineLabelledViewModifier.swift in Sources */,
 				C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */,
 				C0126D0027AEA07A00B489E8 /* SearchAliasesViewController.swift in Sources */,
 				C0259EAF26DA55CD0056A977 /* StringExtensions.swift in Sources */,
+				EF8B1CD027DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift in Sources */,
 				C043D41626E01E280051B282 /* KeychainService.swift in Sources */,
 				C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */,
 				C087655E27AE798300FF26E6 /* SearchAliasesViewModel.swift in Sources */,
@@ -952,8 +993,11 @@
 				EF6FEA6C27B813DF00557158 /* ResetPasswordViewModel.swift in Sources */,
 				C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */,
 				C00FD80127AA71E80072DD67 /* Tip.swift in Sources */,
+				EF95E13027D6ABBF0033B8E0 /* DataController.swift in Sources */,
 				C03F4F2526E1665D00BBF2A8 /* OthersView.swift in Sources */,
+				EF5E150727D94A160047C568 /* AliasExtensions.swift in Sources */,
 				C030EB39277D1410007E2FF8 /* UpgradeViewModel.swift in Sources */,
+				EFD8D85927D7EBA500C733EB /* LocalMailboxLiteExtensions.swift in Sources */,
 				C04266D327944E130053451B /* Vibration.swift in Sources */,
 				C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */,
 				C05424B527B06955008048A5 /* SLNavigationViewModifier.swift in Sources */,
@@ -965,6 +1009,7 @@
 				C0FE7B2D27A9CFD7005D53DF /* SignUpViewModel.swift in Sources */,
 				C0941EFA27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				EF5BDFB827B7B5DD004B696B /* BetterSafariViewExtensions.swift in Sources */,
+				EF65890227DA9EB400D327C2 /* SizePreferenceKey.swift in Sources */,
 				C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */,
 				C00FD7FD27AA70E40072DD67 /* TipsView.swift in Sources */,
 				C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */,
@@ -980,6 +1025,7 @@
 				EF68E11827B90E9400396472 /* DeleteMenuButton.swift in Sources */,
 				C0100B3026DEC46900085C24 /* MainView.swift in Sources */,
 				C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */,
+				EFB1F27427CEB99300C8D776 /* SimpleLogin.xcdatamodeld in Sources */,
 				C00874AF27A98748004F32FA /* ErrorExtensions.swift in Sources */,
 				EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */,
 				C00874B327A989D3004F32FA /* SLError.swift in Sources */,
@@ -987,6 +1033,7 @@
 				C034888E268A6F29008D9629 /* SimpleLoginApp.swift in Sources */,
 				EF5BDFB227B79ABD004B696B /* UIScreenExtensions.swift in Sources */,
 				C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */,
+				EF95E13227D6AF470033B8E0 /* LocalAliasExtensions.swift in Sources */,
 				C00DF9AA279175770065A602 /* DomainDetailView.swift in Sources */,
 				C05CC54B26FBCAAE003BC32D /* ResetPasswordView.swift in Sources */,
 				EFB3A96727BC404300F82965 /* UIImageExtensions.swift in Sources */,
@@ -996,6 +1043,7 @@
 				C0D1D5A9272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift in Sources */,
 				C0EA747927B3061100848F58 /* DetailPlaceholderView.swift in Sources */,
 				C08A5D8727499A6100BE889B /* AliasContactsViewModel.swift in Sources */,
+				EF8B1CCC27DDE0FB004D3575 /* ReachabilityObserver.swift in Sources */,
 				C0F732B1278F6674004608DB /* URLButton.swift in Sources */,
 				EF4F43DF27C15B2D00CD1942 /* AlertExtensions.swift in Sources */,
 				C05A4CDE273C6C73005F8CC5 /* AutoFocusTextField.swift in Sources */,
@@ -1574,6 +1622,14 @@
 				minimumVersion = 2.4.0;
 			};
 		};
+		EF6588FE27DA96D100D327C2 /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1647,7 +1703,25 @@
 			package = C0EA747A27B30CD200848F58 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
 			productName = BetterSafariView;
 		};
+		EF6588FF27DA96D100D327C2 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF6588FE27DA96D100D327C2 /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		EFB1F27227CEB99300C8D776 /* SimpleLogin.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EFB1F27327CEB99300C8D776 /* SimpleLogin.xcdatamodel */,
+			);
+			currentVersion = EFB1F27327CEB99300C8D776 /* SimpleLogin.xcdatamodel */;
+			path = SimpleLogin.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C0348882268A6F29008D9629 /* Project object */;
 }
