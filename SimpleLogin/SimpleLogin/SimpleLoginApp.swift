@@ -21,7 +21,7 @@ struct SimpleLoginApp: App {
     @State private var preferences = Preferences.shared
     @State private var apiKey: ApiKey?
     @State private var client: SLClient?
-    @State private var reachabilityObserver = ReachabilityObserver()
+    private let reachabilityObserver = ReachabilityObserver()
     private let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "SimpleLogin")
         container.loadPersistentStores { _, error in
