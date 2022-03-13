@@ -16,10 +16,12 @@ final class SearchAliasesViewController: BaseViewController {
     let onDeleteAlias: (Alias) -> Void
 
     init(session: Session,
+         reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext,
          onUpdateAlias: @escaping (Alias) -> Void,
          onDeleteAlias: @escaping (Alias) -> Void) {
         self.viewModel = .init(session: session,
+                               reachabilityObserver: reachabilityObserver,
                                managedObjectContext: managedObjectContext)
         self.onUpdateAlias = onUpdateAlias
         self.onDeleteAlias = onDeleteAlias

@@ -32,9 +32,13 @@ struct AliasesView: View {
         case details, contacts
     }
 
-    init(session: Session, managedObjectContext: NSManagedObjectContext) {
-        _viewModel = StateObject(wrappedValue: .init(session: session,
-                                                     managedObjectContext: managedObjectContext))
+    init(session: Session,
+         reachabilityObserver: ReachabilityObserver,
+         managedObjectContext: NSManagedObjectContext) {
+        let viewModel = AliasesViewModel(session: session,
+                                         reachabilityObserver: reachabilityObserver,
+                                         managedObjectContext: managedObjectContext)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some View {
@@ -125,7 +129,7 @@ struct AliasesView: View {
                 .listStyle(.plain)
                 .animation(.default)
                 .navigationBarTitleDisplayMode(.inline)
-                .offlineLabelled(reachable: .constant(viewModel.reachable))
+                .offlineLabelled(reachable: viewModel.reachabilityObserver.reachable)
                 .toolbar {
                     ToolbarItem {
                         AliasesViewToolbar(selectedStatus: $viewModel.selectedStatus,

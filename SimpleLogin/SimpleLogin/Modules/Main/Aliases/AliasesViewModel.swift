@@ -11,7 +11,7 @@ import Reachability
 import SimpleLoginPackage
 import SwiftUI
 
-final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
+final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject {
     @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
     @Published var selectedStatus: AliasStatus = .all {
         didSet {
@@ -37,33 +37,26 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
     private var canLoadMorePages = true
 
     private let dataController: DataController
-    private let reachability = try? Reachability()
-    @Published private(set) var reachable = true
 
-    init(session: Session, managedObjectContext: NSManagedObjectContext) {
+    init(session: Session,
+         reachabilityObserver: ReachabilityObserver,
+         managedObjectContext: NSManagedObjectContext) {
         self.dataController = .init(context: managedObjectContext)
-        super.init(session: session)
-        observeReachability()
+        super.init(session: session, reachabilityObserver: reachabilityObserver)
     }
 
-    private func observeReachability() {
-        reachability?.whenReachable = { [unowned self] _ in
-            reachable = true
-            if aliases.isEmpty {
-                getMoreAliasesIfNeed(currentAlias: nil)
-            } else {
-                refresh()
-            }
+    override func whenReachable() {
+        if aliases.isEmpty {
+            getMoreAliasesIfNeed(currentAlias: nil)
+        } else {
+            refresh()
         }
+    }
 
-        reachability?.whenUnreachable = { [unowned self] _ in
-            reachable = false
-            if aliases.isEmpty {
-                getMoreAliases()
-            }
+    override func whenUnreachable() {
+        if aliases.isEmpty {
+            getMoreAliases()
         }
-
-        try? reachability?.startNotifier()
     }
 
     func handledError() {
@@ -84,7 +77,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
 
     private func getMoreAliases() {
         // Offline
-        if !reachable {
+        if !reachabilityObserver.reachable {
             guard canLoadMorePages else { return }
             do {
                 let fetchedAliases = try dataController.fetchAliases(page: currentPage)

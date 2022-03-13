@@ -25,6 +25,7 @@ enum MainViewTab {
 
 struct MainView: View {
     @EnvironmentObject private var session: Session
+    @EnvironmentObject private var reachabilityObserver: ReachabilityObserver
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var viewModel = MainViewModel()
@@ -43,7 +44,9 @@ struct MainView: View {
         })
 
         TabView(selection: $selectedTab) {
-            AliasesView(session: session, managedObjectContext: managedObjectContext)
+            AliasesView(session: session,
+                        reachabilityObserver: reachabilityObserver,
+                        managedObjectContext: managedObjectContext)
                 .tabItem {
                     Image(systemName: "at")
                     Text(MainViewTab.aliases.title)

@@ -10,6 +10,7 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct SearchAliasesView: UIViewControllerRepresentable {
+    @EnvironmentObject private var reachabilityObserver: ReachabilityObserver
     @Environment(\.managedObjectContext) private var managedObjectContext
     let session: Session
     let onUpdateAlias: (Alias) -> Void
@@ -17,6 +18,7 @@ struct SearchAliasesView: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> UINavigationController {
         let viewController = SearchAliasesViewController(session: session,
+                                                         reachabilityObserver: reachabilityObserver,
                                                          managedObjectContext: managedObjectContext,
                                                          onUpdateAlias: onUpdateAlias,
                                                          onDeleteAlias: onDeleteAlias)

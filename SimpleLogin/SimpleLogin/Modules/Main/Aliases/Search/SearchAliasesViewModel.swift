@@ -11,7 +11,7 @@ import Reachability
 import SimpleLoginPackage
 import SwiftUI
 
-final class SearchAliasesViewModel: BaseSessionViewModel, ObservableObject {
+final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject {
     private let searchTermSubject = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
     private(set) var lastSearchTerm: String?
@@ -25,13 +25,12 @@ final class SearchAliasesViewModel: BaseSessionViewModel, ObservableObject {
     private var canLoadMorePages = true
 
     private let dataController: DataController
-    private let reachability = try? Reachability()
-    @Published private(set) var reachable = true
 
-    init(session: Session, managedObjectContext: NSManagedObjectContext) {
+    init(session: Session,
+         reachabilityObserver: ReachabilityObserver,
+         managedObjectContext: NSManagedObjectContext) {
         self.dataController = .init(context: managedObjectContext)
-        super.init(session: session)
-        observeReachability()
+        super.init(session: session, reachabilityObserver: reachabilityObserver)
         searchTermSubject
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .sink { [unowned self] term in
@@ -45,16 +44,12 @@ final class SearchAliasesViewModel: BaseSessionViewModel, ObservableObject {
             .store(in: &cancellables)
     }
 
-    private func observeReachability() {
-        reachability?.whenReachable = { [unowned self] _ in
-            reachable = true
-        }
+    override func whenReachable() {
+        objectWillChange.send()
+    }
 
-        reachability?.whenUnreachable = { [unowned self] _ in
-            reachable = false
-        }
-
-        try? reachability?.startNotifier()
+    override func whenUnreachable() {
+        objectWillChange.send()
     }
 
     func handledError() {
@@ -71,7 +66,7 @@ final class SearchAliasesViewModel: BaseSessionViewModel, ObservableObject {
 
         guard let lastSearchTerm = lastSearchTerm, canLoadMorePages else { return }
 
-        if !reachable {
+        if !reachabilityObserver.reachable {
             do {
                 let fetchedAliases = try dataController.fetchAliases(page: currentPage,
                                                                      searchTerm: lastSearchTerm)
@@ -111,7 +106,7 @@ final class SearchAliasesViewModel: BaseSessionViewModel, ObservableObject {
         currentPage = 0
         lastSearchTerm = term
 
-        if !reachable {
+        if !reachabilityObserver.reachable {
             do {
                 aliases = try dataController.fetchAliases(page: currentPage, searchTerm: term)
                 currentPage = 1

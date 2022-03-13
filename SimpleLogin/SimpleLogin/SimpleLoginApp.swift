@@ -21,6 +21,7 @@ struct SimpleLoginApp: App {
     @State private var preferences = Preferences.shared
     @State private var apiKey: ApiKey?
     @State private var client: SLClient?
+    @State private var reachabilityObserver = ReachabilityObserver()
     private let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "SimpleLogin")
         container.loadPersistentStores { _, error in
@@ -49,6 +50,7 @@ struct SimpleLoginApp: App {
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
                 .environmentObject(preferences)
                 .environmentObject(Session(apiKey: apiKey, client: client))
+                .environmentObject(reachabilityObserver)
                 .sensitiveContent {
                     ZStack {
                         Color(.systemBackground)

@@ -29,7 +29,7 @@ struct OfflineLabelledViewModifier: ViewModifier {
 }
 
 extension View {
-    func offlineLabelled(reachable: Binding<Bool>) -> some View {
-        modifier(OfflineLabelledViewModifier(reachable: reachable))
+    func offlineLabelled(reachable: Bool) -> some View {
+        modifier(OfflineLabelledViewModifier(reachable: .constant(reachable)))
     }
 }

@@ -142,6 +142,8 @@
 		EF6FEA6E27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
 		EF6FEA6F27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
 		EF72966127C2698300737550 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF72966027C2698300737550 /* PrimaryButton.swift */; };
+		EF8B1CCC27DDE0FB004D3575 /* ReachabilityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B1CCB27DDE0FB004D3575 /* ReachabilityObserver.swift */; };
+		EF8B1CD027DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */; };
 		EF95E13027D6ABBF0033B8E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E12F27D6ABBF0033B8E0 /* DataController.swift */; };
 		EF95E13227D6AF470033B8E0 /* LocalAliasExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */; };
 		EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2A37C27B6F3460020E808 /* LabelText.swift */; };
@@ -311,6 +313,8 @@
 		EF6FEA6B27B813DF00557158 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastModifier.swift; sourceTree = "<group>"; };
 		EF72966027C2698300737550 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		EF8B1CCB27DDE0FB004D3575 /* ReachabilityObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityObserver.swift; sourceTree = "<group>"; };
+		EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseReachabilitySessionViewModel.swift; sourceTree = "<group>"; };
 		EF95E12F27D6ABBF0033B8E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAliasExtensions.swift; sourceTree = "<group>"; };
 		EFA2A37C27B6F3460020E808 /* LabelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelText.swift; sourceTree = "<group>"; };
@@ -644,6 +648,7 @@
 				EF4F43DE27C15B2D00CD1942 /* AlertExtensions.swift */,
 				C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */,
 				C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */,
+				EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */,
 				EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */,
 				C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */,
 				EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */,
@@ -653,6 +658,7 @@
 				EF15C55827BEE4B8008497F2 /* LabelExtensions.swift */,
 				EF68F56827C57B5100B555B5 /* LocalAuthenticator.swift */,
 				C03760F926DC0F0200E5ECAC /* Preferences.swift */,
+				EF8B1CCB27DDE0FB004D3575 /* ReachabilityObserver.swift */,
 				EF65890127DA9EB400D327C2 /* SizePreferenceKey.swift */,
 				C0259EAE26DA55CD0056A977 /* StringExtensions.swift */,
 				C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */,
@@ -963,6 +969,7 @@
 				C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */,
 				C0126D0027AEA07A00B489E8 /* SearchAliasesViewController.swift in Sources */,
 				C0259EAF26DA55CD0056A977 /* StringExtensions.swift in Sources */,
+				EF8B1CD027DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift in Sources */,
 				C043D41626E01E280051B282 /* KeychainService.swift in Sources */,
 				C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */,
 				C087655E27AE798300FF26E6 /* SearchAliasesViewModel.swift in Sources */,
@@ -1036,6 +1043,7 @@
 				C0D1D5A9272BCFCA00F5CFC5 /* FlatLinkButtonStyle.swift in Sources */,
 				C0EA747927B3061100848F58 /* DetailPlaceholderView.swift in Sources */,
 				C08A5D8727499A6100BE889B /* AliasContactsViewModel.swift in Sources */,
+				EF8B1CCC27DDE0FB004D3575 /* ReachabilityObserver.swift in Sources */,
 				C0F732B1278F6674004608DB /* URLButton.swift in Sources */,
 				EF4F43DF27C15B2D00CD1942 /* AlertExtensions.swift in Sources */,
 				C05A4CDE273C6C73005F8CC5 /* AutoFocusTextField.swift in Sources */,
