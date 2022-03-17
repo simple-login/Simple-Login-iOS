@@ -296,6 +296,8 @@ private struct BiometricAuthenticationSection: View {
                     Text("Request local authentication everytime the app goes in foreground")
                         .font(.caption)
                         .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
         }
@@ -321,6 +323,8 @@ private struct LocalSettingsSection: View {
                 Text("You need to restart the application for this option to take effect")
                     .font(.caption)
                     .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
