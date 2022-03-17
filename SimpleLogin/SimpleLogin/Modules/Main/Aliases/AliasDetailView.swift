@@ -673,6 +673,7 @@ private struct EditMailboxesView: View {
         }
         .onReceive(Just(viewModel.isUpdated)) { isUpdated in
             if isUpdated {
+                presentationMode.wrappedValue.dismiss()
                 viewModel.handledIsUpdatedBoolean()
             }
         }
