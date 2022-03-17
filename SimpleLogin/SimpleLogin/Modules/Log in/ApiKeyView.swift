@@ -11,11 +11,15 @@ import SwiftUI
 
 struct ApiKeyView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @ObservedObject private var viewModel = ApiKeyViewModel()
+    @StateObject private var viewModel: ApiKeyViewModel
     @State private var showingLoadingAlert = false
     @State private var value = ""
-    let client: SLClient?
     let onSetApiKey: (ApiKey) -> Void
+
+    init(client: SLClient, onSetApiKey: @escaping (ApiKey) -> Void) {
+        _viewModel = StateObject(wrappedValue: .init(client: client))
+        self.onSetApiKey = onSetApiKey
+    }
 
     var body: some View {
         let showingErrorToast = Binding<Bool>(get: {
@@ -61,9 +65,6 @@ struct ApiKeyView: View {
                 onSetApiKey(apiKey)
             }
         }
-        .onAppear {
-            viewModel.client = client
-        }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
     }
@@ -72,11 +73,5 @@ struct ApiKeyView: View {
         // swiftlint:disable:next line_length
         Text("⚠️ API Keys should be kept secret and treated like passwords, they can be used to gain access to your account.")
             .foregroundColor(.red)
-    }
-}
-
-struct ApiKeyView_Previews: PreviewProvider {
-    static var previews: some View {
-        ApiKeyView(client: nil) { _ in }
     }
 }
