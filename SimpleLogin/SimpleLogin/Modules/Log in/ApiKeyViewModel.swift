@@ -14,14 +14,13 @@ final class ApiKeyViewModel: ObservableObject {
     @Published private(set) var error: Error?
     @Published private(set) var apiKey: ApiKey?
     private var cancellables = Set<AnyCancellable>()
-    var client: SLClient?
+    private let client: SLClient
+
+    init(client: SLClient) {
+        self.client = client
+    }
 
     func checkApiKey(apiKey: ApiKey) {
-        guard let client = client else {
-            error = SLError.invalidApiUrl
-            return
-        }
-
         guard !apiKey.value.isEmpty else {
             error = SLError.missingApiKey
             return

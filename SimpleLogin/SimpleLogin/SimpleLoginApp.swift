@@ -45,6 +45,11 @@ struct SimpleLoginApp: App {
                     self.forceDarkMode = false
                     self.displayMode = .default
                     self.didShowTips = false
+                    if let cookies = HTTPCookieStorage.shared.cookies {
+                        for cookie in cookies {
+                            HTTPCookieStorage.shared.deleteCookie(cookie)
+                        }
+                    }
                 }
                 .accentColor(.slPurple)
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
