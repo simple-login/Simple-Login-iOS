@@ -42,18 +42,46 @@ struct AliasCompactView: View {
                 .frame(width: 4)
 
             VStack(spacing: 8) {
-                EmailAndCreationDateView(alias: alias)
-                if displayMode != .compact {
-                    AliasMailboxesView(alias: alias)
+                Label {
+                    Text(alias.email)
+                        .foregroundColor(alias.enabled ? .primary : .secondary)
+                } icon: {
+                    if alias.pinned {
+                        Image(systemName: "bookmark.fill")
+                            .foregroundColor(.accentColor)
+                    }
                 }
+                .font(.headline)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+
+                if displayMode != .compact {
+                    Label("\(alias.creationDateString) (\(alias.relativeCreationDateString))",
+                          systemImage: "clock.fill")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                }
+
+                if displayMode != .compact {
+                    Label(alias.mailboxesString, systemImage: "tray.full.fill")
+                        .lineLimit(3)
+                        .font(.caption)
+                        .foregroundColor(Color.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
                 if !alias.noActivities && displayMode == .default {
                     ActivitiesView(alias: alias)
+                        .padding(.leading)
                 }
+
                 ActionsView(alias: alias,
                             onCopy: onCopy,
                             onSendMail: onSendMail,
                             onToggle: onToggle)
-                    .padding(.top, 8)
             }
             .padding(8)
         }
@@ -95,52 +123,6 @@ struct AliasCompactView: View {
                 DeleteMenuButton(action: onDelete)
             }
         }
-    }
-}
-
-private struct EmailAndCreationDateView: View {
-    @AppStorage(kAliasDisplayMode) private var displayMode: AliasDisplayMode = .default
-    let alias: Alias
-
-    var body: some View {
-        HStack {
-            Label {
-                Text(alias.email)
-                    .foregroundColor(alias.enabled ? .primary : .secondary)
-            } icon: {
-                if alias.pinned {
-                    Image(systemName: "bookmark.fill")
-                        .foregroundColor(.accentColor)
-                }
-            }
-            .font(.headline)
-
-            Spacer()
-
-            if displayMode != .compact {
-                Group {
-                    Text(alias.relativeCreationDateString)
-                    Image(systemName: "chevron.right")
-                }
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-            }
-        }
-    }
-}
-
-private struct AliasMailboxesView: View {
-    let alias: Alias
-
-    var body: some View {
-        HStack {
-            Image(systemName: "tray.full.fill")
-            Text(alias.mailboxesString)
-                .lineLimit(2)
-            Spacer()
-        }
-        .font(.caption)
-        .foregroundColor(Color.secondary)
     }
 }
 
