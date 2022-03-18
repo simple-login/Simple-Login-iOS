@@ -29,20 +29,20 @@ struct AliasDisplayModePreview: View {
                 .frame(width: 4)
 
             VStack(spacing: 8) {
-                GeometryReader { proxy in
-                    HStack {
-                        GrayRectangle()
-                            .frame(maxWidth: .infinity)
-                        if displayMode != .compact {
-                            GrayRectangle()
-                                .frame(width: proxy.size.width / 5)
-                        }
-                    }
-                }
+                // Email
+                GrayRectangle()
+                    .frame(maxWidth: .infinity)
 
                 if displayMode != .compact {
+                    // Creation date
+                    GrayRectangle()
+                        .frame(maxWidth: .infinity)
+
+                    // Mailboxes
                     GrayRectangle()
                 }
+
+                // Activities
                 if displayMode == .default {
                     GeometryReader { proxy in
                         HStack {
@@ -52,6 +52,8 @@ struct AliasDisplayModePreview: View {
                         }
                     }
                 }
+
+                // Actions
                 HStack(spacing: 20) {
                     GrayRectangle()
                     GrayRectangle()
