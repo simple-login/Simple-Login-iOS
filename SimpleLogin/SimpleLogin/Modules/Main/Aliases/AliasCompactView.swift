@@ -56,12 +56,28 @@ struct AliasCompactView: View {
                 .fixedSize(horizontal: false, vertical: true)
 
                 if displayMode != .compact {
-                    Label("\(alias.creationDateString) (\(alias.relativeCreationDateString))",
-                          systemImage: "clock.fill")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .fixedSize(horizontal: false, vertical: true)
+                    if let activity = alias.latestActivity {
+                        Label(title: {
+                            HStack {
+                                Text(activity.contact.email)
+                                Text("(\(activity.relativeDateString))")
+                            }
+                            .foregroundColor(.secondary)
+                        }, icon: {
+                            Image(systemName: activity.action.iconSystemName)
+                                .foregroundColor(activity.action.color)
+                        })
+                            .font(.caption)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                    } else {
+                        Label("\(alias.creationDateString) (\(alias.relativeCreationDateString))",
+                              systemImage: "clock.fill")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                 }
 
                 if displayMode != .compact {
