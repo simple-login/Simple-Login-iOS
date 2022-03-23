@@ -17,7 +17,6 @@ struct CreateAliasView: View {
     @State private var suffix = ""
     @State private var mailboxIds = [Int]()
     @State private var notes = ""
-    @State private var name = ""
 
     private let onCreateAlias: (Alias) -> Void
     private let onCancel: (() -> Void)?
@@ -50,7 +49,6 @@ struct CreateAliasView: View {
                                 suffix: $suffix,
                                 mailboxIds: $mailboxIds,
                                 notes: $notes,
-                                name: $name,
                                 options: options,
                                 mailboxes: mailboxes)
                 } else if !viewModel.isLoading {
@@ -108,7 +106,7 @@ struct CreateAliasView: View {
                                                        suffix: suffixObject,
                                                        mailboxIds: mailboxIds,
                                                        note: notes.isEmpty ? nil : notes,
-                                                       name: name.isEmpty ? nil : name)
+                                                       name: nil)
             viewModel.createAlias(options: creationOptions)
         }, label: {
             Text("Create")
@@ -118,12 +116,12 @@ struct CreateAliasView: View {
 }
 
 private struct ContentView: View {
+    @Environment(\.openURL) private var openURL
     @State private var showingEditMailboxesView = false
     @Binding var prefix: String
     @Binding var suffix: String
     @Binding var mailboxIds: [Int]
     @Binding var notes: String
-    @Binding var name: String
     let options: AliasOptions
     let mailboxes: [Mailbox]
 
@@ -135,20 +133,13 @@ private struct ContentView: View {
             }
 
             Section(header: Text("Mailboxes"),
-                    footer: Text("The mailboxes that receive emails sent to this alias")) {
+                    footer: mailboxFooter) {
                 mailboxesView
             }
 
-            Section(header: Text("Display name"),
-                    footer: Text("Your display name when sending emails from this alias")) {
-                TextField("(Optional) Ex: John Doe", text: $name)
-                    .autocapitalization(.words)
-                    .disableAutocorrection(true)
-            }
-
-            Section(header: Text("Notes"),
-                    footer: Text("Something to remind you about the usage of this alias")) {
-                TextField("(Optional) Ex: For online shopping", text: $notes)
+            Section(header: Text("Notes")) {
+                TextEditor(text: $notes)
+                    .frame(height: 80)
             }
         }
         .onAppear {
@@ -216,6 +207,14 @@ private struct ContentView: View {
         .onTapGesture {
             showingEditMailboxesView = true
         }
+    }
+
+    private var mailboxFooter: some View {
+        Button("What are mailboxes?") {
+            // swiftlint:disable:next force_unwrapping
+            openURL(URL(string: "https://simplelogin.io/docs/mailbox/add-mailbox/")!)
+        }
+        .foregroundColor(.slPurple)
     }
 }
 
