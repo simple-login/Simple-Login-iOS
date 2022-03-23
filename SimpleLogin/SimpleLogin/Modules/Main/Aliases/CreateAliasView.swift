@@ -172,14 +172,31 @@ private struct ContentView: View {
                 .foregroundColor(prefix.isValidPrefix ? .primary : .red)
                 .frame(minWidth: 50)
 
-            Picker(selection: $suffix, label: Text(suffix)) {
-                let suffixValues = options.suffixes.map { $0.value }
-                ForEach(suffixValues, id: \.self) { value in
-                    Text(value)
-                        .tag(value)
-                }
-            }
-            .pickerStyle(MenuPickerStyle())
+            Picker(
+                selection: $suffix,
+                content: {
+                    let suffixValues = options.suffixes.map { $0.value }
+                    ForEach(suffixValues, id: \.self) { value in
+                        Text(value)
+                            .tag(value)
+                    }
+                },
+                label: {
+                    if UIDevice.current.userInterfaceIdiom == .phone {
+                        Text(suffix)
+                    } else {
+                        EmptyView()
+                    }
+                })
+                .pickerStyle(MenuPickerStyle())
+                .labelsHidden()
+
+            Image(systemName: "chevron.down")
+                .resizable()
+                .scaledToFit()
+                .font(.body.weight(.bold))
+                .frame(width: 12)
+                .foregroundColor(.slPurple)
         }
     }
 
@@ -235,6 +252,7 @@ private struct EditMailboxesView: View {
             .navigationBarItems(trailing: doneButton)
         }
         .accentColor(.slPurple)
+        .navigationViewStyle(.stack)
     }
 
     private var doneButton: some View {
