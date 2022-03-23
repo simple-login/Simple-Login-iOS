@@ -8,7 +8,7 @@
 import SimpleLoginPackage
 import SwiftUI
 
-struct OthersView: View {
+struct AdvancedView: View {
     @EnvironmentObject private var session: Session
     @State private var showingMailboxesView = false
     @State private var showingCustomDomainsView = false
@@ -39,7 +39,7 @@ struct OthersView: View {
                         })
                 }
             }
-            .navigationTitle("Other functionalities")
+            .navigationTitle("Advanced")
 
             DetailPlaceholderView(systemIconName: "circle.grid.cross",
                                   message: "Select a menu to see its details here")
@@ -65,6 +65,6 @@ struct OthersView: View {
 
 struct OthersView_Previews: PreviewProvider {
     static var previews: some View {
-        OthersView()
+        AdvancedView()
     }
 }

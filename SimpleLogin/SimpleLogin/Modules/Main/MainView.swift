@@ -11,12 +11,12 @@ import SimpleLoginPackage
 import SwiftUI
 
 enum MainViewTab {
-    case aliases, others, account, about
+    case aliases, advanced, account, about
 
     var title: String {
         switch self {
         case .aliases: return "Aliases"
-        case .others: return "Others"
+        case .advanced: return "Advanced"
         case .account: return "My account"
         case .about: return "About"
         }
@@ -53,12 +53,12 @@ struct MainView: View {
                 }
                 .tag(MainViewTab.aliases)
 
-            OthersView()
+            AdvancedView()
                 .tabItem {
-                    Image(systemName: selectedTab == .others ? "circle.grid.cross.fill" : "circle.grid.cross")
-                    Text(MainViewTab.others.title)
+                    Image(systemName: selectedTab == .advanced ? "circle.grid.cross.fill" : "circle.grid.cross")
+                    Text(MainViewTab.advanced.title)
                 }
-                .tag(MainViewTab.others)
+                .tag(MainViewTab.advanced)
 
             AccountView(session: session, onLogOut: onLogOut)
                 .tabItem {

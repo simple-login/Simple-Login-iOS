@@ -61,7 +61,7 @@
 		C03F4F1526E15ADD00BBF2A8 /* AliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */; };
 		C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */; };
 		C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */; };
-		C03F4F2526E1665D00BBF2A8 /* OthersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2426E1665D00BBF2A8 /* OthersView.swift */; };
+		C03F4F2526E1665D00BBF2A8 /* AdvancedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2426E1665D00BBF2A8 /* AdvancedView.swift */; };
 		C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */; };
 		C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */; };
 		C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */; };
@@ -255,7 +255,7 @@
 		C03F4F1426E15ADD00BBF2A8 /* AliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesView.swift; sourceTree = "<group>"; };
 		C03F4F1626E15AEB00BBF2A8 /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
 		C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
-		C03F4F2426E1665D00BBF2A8 /* OthersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersView.swift; sourceTree = "<group>"; };
+		C03F4F2426E1665D00BBF2A8 /* AdvancedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedView.swift; sourceTree = "<group>"; };
 		C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
@@ -507,8 +507,8 @@
 			children = (
 				C03F4F3126E1736500BBF2A8 /* About */,
 				C03F4F3026E1735B00BBF2A8 /* Account */,
+				C03F4F2F26E1735100BBF2A8 /* Advanced */,
 				C03F4F2E26E1733200BBF2A8 /* Aliases */,
-				C03F4F2F26E1735100BBF2A8 /* Others */,
 				C0100B2F26DEC46900085C24 /* MainView.swift */,
 			);
 			path = Main;
@@ -543,18 +543,18 @@
 			path = Aliases;
 			sourceTree = "<group>";
 		};
-		C03F4F2F26E1735100BBF2A8 /* Others */ = {
+		C03F4F2F26E1735100BBF2A8 /* Advanced */ = {
 			isa = PBXGroup;
 			children = (
+				C03F4F2426E1665D00BBF2A8 /* AdvancedView.swift */,
 				C0F732B6278F854F004608DB /* CustomDomainsView.swift */,
 				C0E9C3E02790D57A00D1A463 /* CustomDomainsViewModel.swift */,
 				C00DF9A9279175770065A602 /* DomainDetailView.swift */,
 				C03D292C279215EE0041FB60 /* DomainDetailViewModel.swift */,
 				C0F732B4278F842A004608DB /* MailboxesView.swift */,
 				C06CEAF1279018B100736920 /* MailboxesViewModel.swift */,
-				C03F4F2426E1665D00BBF2A8 /* OthersView.swift */,
 			);
-			path = Others;
+			path = Advanced;
 			sourceTree = "<group>";
 		};
 		C03F4F3026E1735B00BBF2A8 /* Account */ = {
@@ -994,7 +994,7 @@
 				C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */,
 				C00FD80127AA71E80072DD67 /* Tip.swift in Sources */,
 				EF95E13027D6ABBF0033B8E0 /* DataController.swift in Sources */,
-				C03F4F2526E1665D00BBF2A8 /* OthersView.swift in Sources */,
+				C03F4F2526E1665D00BBF2A8 /* AdvancedView.swift in Sources */,
 				EF5E150727D94A160047C568 /* AliasExtensions.swift in Sources */,
 				C030EB39277D1410007E2FF8 /* UpgradeViewModel.swift in Sources */,
 				EFD8D85927D7EBA500C733EB /* LocalMailboxLiteExtensions.swift in Sources */,
