@@ -46,6 +46,7 @@ final class CreateAliasViewModel: BaseSessionViewModel, ObservableObject {
     }
 
     func createAlias(options: AliasCreationOptions) {
+        guard !isLoading else { return }
         isLoading = true
         session.client.createAlias(apiKey: session.apiKey, options: options)
             .receive(on: DispatchQueue.main)
@@ -61,6 +62,28 @@ final class CreateAliasViewModel: BaseSessionViewModel, ObservableObject {
             } receiveValue: { [weak self] createdAlias in
                 guard let self = self else { return }
                 self.createdAlias = createdAlias
+            }
+            .store(in: &cancellables)
+    }
+
+    func random(mode: RandomMode) {
+        guard !isLoading else { return }
+        isLoading = true
+        session.client.randomAlias(apiKey: session.apiKey,
+                                   options: AliasRandomOptions(mode: mode))
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            } receiveValue: { [weak self] randomAlias in
+                guard let self = self else { return }
+                self.createdAlias = randomAlias
             }
             .store(in: &cancellables)
     }
