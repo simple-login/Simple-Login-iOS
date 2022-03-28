@@ -131,12 +131,34 @@ struct AliasesView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .offlineLabelled(reachable: viewModel.reachabilityObserver.reachable)
                 .toolbar {
-                    ToolbarItem {
-                        AliasesViewToolbar(selectedStatus: $viewModel.selectedStatus,
-                                           onSearch: { showingSearchView = true },
-                                           onRandomByWord: { viewModel.random(mode: .word) },
-                                           onRandomByUuid: { viewModel.random(mode: .uuid) },
-                                           onCreateAlias: { showingCreateView = true })
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        Picker("", selection: $viewModel.selectedStatus) {
+                            ForEach(AliasStatus.allCases, id: \.self) { status in
+                                Text(status.description)
+                                    .tag(status)
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .labelsHidden()
+
+                        Button(action: {
+                            if hapticFeedbackEnabled {
+                                Vibration.light.vibrate()
+                            }
+                            showingSearchView = true
+                        }, label: {
+                            Image(systemName: "magnifyingglass")
+                        })
+                            .padding(.horizontal)
+
+                        Button(action: {
+                            if hapticFeedbackEnabled {
+                                Vibration.light.vibrate()
+                            }
+                            showingCreateView = true
+                        }, label: {
+                            Image(systemName: "plus")
+                        })
                     }
                 }
                 .introspectTableView { tableView in
@@ -246,64 +268,5 @@ enum AliasStatus: CustomStringConvertible, CaseIterable {
         case .active: return "Active"
         case .inactive: return "Inactive"
         }
-    }
-}
-
-private struct AliasesViewToolbar: View {
-    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
-    @Binding var selectedStatus: AliasStatus
-    let onSearch: () -> Void
-    let onRandomByWord: () -> Void
-    let onRandomByUuid: () -> Void
-    let onCreateAlias: () -> Void
-
-    var body: some View {
-        HStack(spacing: 0) {
-            Picker("", selection: $selectedStatus) {
-                ForEach(AliasStatus.allCases, id: \.self) { status in
-                    Text(status.description)
-                        .tag(status)
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .labelsHidden()
-
-            Divider()
-                .fixedSize()
-                .padding(.horizontal)
-
-            Button(action: {
-                if hapticFeedbackEnabled {
-                    Vibration.light.vibrate()
-                }
-                onSearch()
-            }, label: {
-                Image(systemName: "magnifyingglass")
-            })
-
-            Menu(content: {
-                Button(action: onRandomByWord) {
-                    Text("Random an alias by word")
-                }
-
-                Button(action: onRandomByUuid) {
-                    Text("Random an alias by UUID")
-                }
-            }, label: {
-                Image(systemName: "shuffle")
-            })
-                .padding(.horizontal)
-
-            Button(action: {
-                if hapticFeedbackEnabled {
-                    Vibration.light.vibrate()
-                }
-                onCreateAlias()
-            }, label: {
-                Image(systemName: "plus")
-            })
-        }
-        .padding(.vertical, 8)
-        .padding(.horizontal)
     }
 }
