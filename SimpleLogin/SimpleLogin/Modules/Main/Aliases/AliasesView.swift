@@ -24,6 +24,8 @@ struct AliasesView: View {
     @State private var aliasToShowDetails: Alias?
     @State private var selectedLink: Link?
 
+    private let onOpenMyAccount: (() -> Void)?
+
     enum Modal {
         case search, create
     }
@@ -34,11 +36,13 @@ struct AliasesView: View {
 
     init(session: Session,
          reachabilityObserver: ReachabilityObserver,
-         managedObjectContext: NSManagedObjectContext) {
+         managedObjectContext: NSManagedObjectContext,
+         onOpenMyAccount: (() -> Void)?) {
         let viewModel = AliasesViewModel(session: session,
                                          reachabilityObserver: reachabilityObserver,
                                          managedObjectContext: managedObjectContext)
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.onOpenMyAccount = onOpenMyAccount
     }
 
     var body: some View {
@@ -196,8 +200,8 @@ struct AliasesView: View {
                     self.createdAlias = createdAlias
                     self.viewModel.refresh()
                 },
-                onCancel: nil
-            )
+                onCancel: nil,
+                onOpenMyAccount: onOpenMyAccount)
         }
         .alert(isPresented: $showingDeleteConfirmationAlert) {
             guard let selectedAlias = selectedAlias else {

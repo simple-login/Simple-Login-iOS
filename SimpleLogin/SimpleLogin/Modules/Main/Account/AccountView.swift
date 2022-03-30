@@ -15,14 +15,18 @@ import SwiftUI
 struct AccountView: View {
     @StateObject private var viewModel: AccountViewModel
     @StateObject private var localAuthenticator = LocalAuthenticator()
+    @Binding var upgradeNeeded: Bool
     @State private var confettiCounter = 0
     @State private var showingPremiumView = false
     @State private var showingUpgradeView = false
     @State private var showingLoadingAlert = false
     let onLogOut: () -> Void
 
-    init(session: Session, onLogOut: @escaping () -> Void) {
+    init(session: Session,
+         upgradeNeeded: Binding<Bool>,
+         onLogOut: @escaping () -> Void) {
         self._viewModel = StateObject(wrappedValue: .init(session: session))
+        self._upgradeNeeded = upgradeNeeded
         self.onLogOut = onLogOut
     }
 
@@ -79,6 +83,14 @@ struct AccountView: View {
                 .environmentObject(viewModel)
                 .navigationTitle(navigationTitle)
                 .navigationBarItems(trailing: trailingButton)
+                .onAppear {
+                    if upgradeNeeded, !showingUpgradeView {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            upgradeNeeded = false
+                            showingUpgradeView = true
+                        }
+                    }
+                }
             } else {
                 EmptyView()
             }

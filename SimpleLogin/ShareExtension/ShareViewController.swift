@@ -46,7 +46,8 @@ final class ShareViewController: UIViewController {
                 },
                 onCancel: { [unowned self] in
                     self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-                })
+                },
+                onOpenMyAccount: nil)
             let hostingController = UIHostingController(rootView: createAliasView)
             subView = hostingController.view
             addChild(hostingController)
