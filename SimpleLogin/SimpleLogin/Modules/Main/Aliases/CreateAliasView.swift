@@ -16,16 +16,19 @@ struct CreateAliasView: View {
 
     private let onCreateAlias: (Alias) -> Void
     private let onCancel: (() -> Void)?
+    private let onOpenMyAccount: (() -> Void)?
     private let url: URL?
 
     init(session: Session,
          url: URL?,
          onCreateAlias: @escaping (Alias) -> Void,
-         onCancel: (() -> Void)?) {
+         onCancel: (() -> Void)?,
+         onOpenMyAccount: (() -> Void)?) {
         _viewModel = StateObject(wrappedValue: .init(session: session))
         self.url = url
         self.onCreateAlias = onCreateAlias
         self.onCancel = onCancel
+        self.onOpenMyAccount = onOpenMyAccount
     }
 
     var body: some View {
@@ -57,6 +60,12 @@ struct CreateAliasView: View {
             .navigationBarItems(leading: cancelButton)
         }
         .accentColor(.slPurple)
+        .emptyPlaceholder(isEmpty: viewModel.options?.canCreate == false) {
+            UpgradeNeededView(onOk: onCancel) {
+                onOpenMyAccount?()
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
         .onAppear {
             viewModel.fetchOptionsAndMailboxes()
         }
@@ -67,13 +76,6 @@ struct CreateAliasView: View {
             if let createdAlias = createdAlias {
                 onCreateAlias(createdAlias)
                 presentationMode.wrappedValue.dismiss()
-            }
-        }
-        .onReceive(Just(viewModel.options)) { options in
-            if let options = options {
-                if !options.canCreate {
-                    // TODO: Ask for premium subscription
-                }
             }
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)

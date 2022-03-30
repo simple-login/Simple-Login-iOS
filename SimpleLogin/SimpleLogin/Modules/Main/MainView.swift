@@ -31,6 +31,7 @@ struct MainView: View {
     @StateObject private var viewModel = MainViewModel()
     @State private var selectedTab: MainViewTab = .aliases
     @State private var showingTips = false
+    @State private var upgradeNeeded = false
     @AppStorage(kDidShowTips) private var didShowTips = false
     let onLogOut: () -> Void
 
@@ -46,12 +47,15 @@ struct MainView: View {
         TabView(selection: $selectedTab) {
             AliasesView(session: session,
                         reachabilityObserver: reachabilityObserver,
-                        managedObjectContext: managedObjectContext)
-                .tabItem {
-                    Image(systemName: "at")
-                    Text(MainViewTab.aliases.title)
-                }
-                .tag(MainViewTab.aliases)
+                        managedObjectContext: managedObjectContext) {
+                upgradeNeeded = true
+                selectedTab = .account
+            }
+                        .tabItem {
+                            Image(systemName: "at")
+                            Text(MainViewTab.aliases.title)
+                        }
+                        .tag(MainViewTab.aliases)
 
             AdvancedView()
                 .tabItem {
@@ -60,7 +64,9 @@ struct MainView: View {
                 }
                 .tag(MainViewTab.advanced)
 
-            AccountView(session: session, onLogOut: onLogOut)
+            AccountView(session: session,
+                        upgradeNeeded: $upgradeNeeded,
+                        onLogOut: onLogOut)
                 .tabItem {
                     Image(systemName: selectedTab == .account ? "person.fill" : "person")
                     Text(MainViewTab.account.title)
