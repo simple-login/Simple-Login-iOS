@@ -9,10 +9,13 @@ import Combine
 import CoreData
 import Introspect
 import SimpleLoginPackage
+import StoreKit
 import SwiftUI
 
 struct AliasesView: View {
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
+    @AppStorage(kAliasCreationCount) private var aliasCreationCount = 0
+    @AppStorage(kLaunchCount) private var launchCount = 0
     @StateObject private var viewModel: AliasesViewModel
     @State private var showingUpdatingAlert = false
     @State private var showingSearchView = false
@@ -197,6 +200,10 @@ struct AliasesView: View {
                 session: viewModel.session,
                 url: nil,
                 onCreateAlias: { createdAlias in
+                    aliasCreationCount += 1
+                    if launchCount >= 10, aliasCreationCount >= 5 {
+                        SKStoreReviewController.requestReview()
+                    }
                     self.createdAlias = createdAlias
                     self.viewModel.refresh()
                 },
