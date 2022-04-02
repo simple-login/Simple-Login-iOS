@@ -15,5 +15,7 @@ let kAliasDisplayMode = "AliasDisplayMode"
 let kForceDarkMode = "ForceDarkMode"
 let kDidShowTips = "DidShowTips"
 let kKeyboardExtensionMode = "KeyboardExtensionMode"
+let kLaunchCount = "LaunchCount"
+let kAliasCreationCount = "AliasCreationCount"
 
 let kDefaultPageSize = 20

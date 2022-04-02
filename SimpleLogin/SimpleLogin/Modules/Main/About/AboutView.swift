@@ -91,7 +91,12 @@ struct AboutView: View {
                                      urlString: "https://www.producthunt.com/posts/simplelogin")
                 }
 
-                Section(header: Text("Have a question?")) {
+                Section {
+                    Button(action: openAppStore) {
+                        Label("Rate & review on App Store", systemImage: "star.circle.fill")
+                            .foregroundColor(Color(.label))
+                    }
+
                     URLButton(urlString: "mailto:hi@simplelogin.io") {
                         Label("Email us", systemImage: "envelope.fill")
                     }
@@ -172,6 +177,11 @@ SimpleLogin is the product of SimpleLogin SAS, registered in France under the SI
             .onTapGesture {
                 selectedUrlString = urlString
             }
+    }
+
+    private func openAppStore() {
+        guard let writeReviewURL = URL(string: "https://apps.apple.com/app/id1494359858?action=write-review") else { return }
+        UIApplication.shared.open(writeReviewURL, options: [:])
     }
 }
 

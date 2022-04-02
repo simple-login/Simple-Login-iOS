@@ -33,6 +33,7 @@ struct MainView: View {
     @State private var showingTips = false
     @State private var upgradeNeeded = false
     @AppStorage(kDidShowTips) private var didShowTips = false
+    @AppStorage(kLaunchCount) private var launchCount = 0
     let onLogOut: () -> Void
 
     var body: some View {
@@ -105,6 +106,7 @@ struct MainView: View {
                     showingTips = true
                 }
             }
+            launchCount += 1
         }
         .sheet(isPresented: $showingTips) {
             TipsView(isFirstTime: true)
