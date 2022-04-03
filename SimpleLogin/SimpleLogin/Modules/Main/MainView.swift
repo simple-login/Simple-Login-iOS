@@ -29,7 +29,7 @@ struct MainView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var viewModel = MainViewModel()
-    @State private var selectedTab: MainViewTab = .aliases
+    @State private var selectedItem = TabBarItem.aliases
     @State private var showingTips = false
     @State private var upgradeNeeded = false
     @AppStorage(kDidShowTips) private var didShowTips = false
@@ -45,42 +45,34 @@ struct MainView: View {
             }
         })
 
-        TabView(selection: $selectedTab) {
-            AliasesView(session: session,
-                        reachabilityObserver: reachabilityObserver,
-                        managedObjectContext: managedObjectContext) {
-                upgradeNeeded = true
-                selectedTab = .account
+        VStack(spacing: 0) {
+            ZStack {
+                AliasesView(session: session,
+                            reachabilityObserver: reachabilityObserver,
+                            managedObjectContext: managedObjectContext) {
+                    upgradeNeeded = true
+                    selectedItem = .myAccount
+                }
+                            .opacity(selectedItem == .aliases ? 1 : 0)
+
+                AdvancedView()
+                    .opacity(selectedItem == .advanced ? 1 : 0)
+
+                AccountView(session: session,
+                            upgradeNeeded: $upgradeNeeded,
+                            onLogOut: onLogOut)
+                    .opacity(selectedItem == .myAccount ? 1 : 0)
+
+                AboutView()
+                    .opacity(selectedItem == .about ? 1 : 0)
             }
-                        .tabItem {
-                            Image(systemName: "at")
-                            Text(MainViewTab.aliases.title)
-                        }
-                        .tag(MainViewTab.aliases)
-
-            AdvancedView()
-                .tabItem {
-                    Image(systemName: selectedTab == .advanced ? "circle.grid.cross.fill" : "circle.grid.cross")
-                    Text(MainViewTab.advanced.title)
-                }
-                .tag(MainViewTab.advanced)
-
-            AccountView(session: session,
-                        upgradeNeeded: $upgradeNeeded,
-                        onLogOut: onLogOut)
-                .tabItem {
-                    Image(systemName: selectedTab == .account ? "person.fill" : "person")
-                    Text(MainViewTab.account.title)
-                }
-                .tag(MainViewTab.account)
-
-            AboutView()
-                .tabItem {
-                    Image(systemName: selectedTab == .about ? "info.circle.fill" : "info.circle")
-                    Text(MainViewTab.about.title)
-                }
-                .tag(MainViewTab.about)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            MainTabBar(selectedItem: $selectedItem) {
+                print("Create")
+            }
         }
+        .ignoresSafeArea(.keyboard)
         .emptyPlaceholder(isEmpty: !viewModel.canShowDetails) {
             Image(systemName: "lock.circle")
                 .resizable()

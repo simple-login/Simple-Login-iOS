@@ -133,6 +133,7 @@ struct AliasesView: View {
                             .padding()
                     }
                 }
+                .ignoresSafeArea(.keyboard)
                 .listStyle(.plain)
                 .animation(.default)
                 .navigationBarTitleDisplayMode(.inline)
