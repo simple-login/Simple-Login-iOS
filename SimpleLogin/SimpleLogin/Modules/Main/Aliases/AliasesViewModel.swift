@@ -32,6 +32,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
     @Published private(set) var isRefreshing = false
     @Published private(set) var isUpdating = false
     @Published private(set) var error: Error?
+    private var handledCreatedAliasIds = Set<Int>()
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
     private var canLoadMorePages = true
@@ -280,5 +281,11 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
                 self.remove(alias: alias)
             }
             .store(in: &cancellables)
+    }
+
+    func handleCreatedAlias(_ createdAlias: Alias) {
+        guard !handledCreatedAliasIds.contains(createdAlias.id) else { return }
+        handledCreatedAliasIds.insert(createdAlias.id)
+        refresh()
     }
 }

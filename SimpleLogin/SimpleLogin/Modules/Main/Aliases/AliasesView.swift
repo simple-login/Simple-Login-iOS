@@ -9,25 +9,19 @@ import Combine
 import CoreData
 import Introspect
 import SimpleLoginPackage
-import StoreKit
 import SwiftUI
 
 struct AliasesView: View {
     @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
-    @AppStorage(kAliasCreationCount) private var aliasCreationCount = 0
-    @AppStorage(kLaunchCount) private var launchCount = 0
     @StateObject private var viewModel: AliasesViewModel
+    @Binding private var createdAlias: Alias?
     @State private var showingUpdatingAlert = false
     @State private var showingSearchView = false
-    @State private var showingCreateView = false
     @State private var showingDeleteConfirmationAlert = false
     @State private var copiedEmail: String?
-    @State private var createdAlias: Alias?
     @State private var selectedAlias: Alias?
     @State private var aliasToShowDetails: Alias?
     @State private var selectedLink: Link?
-
-    private let onOpenMyAccount: (() -> Void)?
 
     enum Modal {
         case search, create
@@ -40,12 +34,12 @@ struct AliasesView: View {
     init(session: Session,
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext,
-         onOpenMyAccount: (() -> Void)?) {
+         createdAlias: Binding<Alias?>) {
         let viewModel = AliasesViewModel(session: session,
                                          reachabilityObserver: reachabilityObserver,
                                          managedObjectContext: managedObjectContext)
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.onOpenMyAccount = onOpenMyAccount
+        _createdAlias = createdAlias
     }
 
     var body: some View {
@@ -139,7 +133,7 @@ struct AliasesView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .offlineLabelled(reachable: viewModel.reachabilityObserver.reachable)
                 .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    ToolbarItem(placement: .principal) {
                         Picker("", selection: $viewModel.selectedStatus) {
                             ForEach(AliasStatus.allCases, id: \.self) { status in
                                 Text(status.description)
@@ -148,7 +142,9 @@ struct AliasesView: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .labelsHidden()
+                    }
 
+                    ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
                             if hapticFeedbackEnabled {
                                 Vibration.light.vibrate()
@@ -156,16 +152,6 @@ struct AliasesView: View {
                             showingSearchView = true
                         }, label: {
                             Image(systemName: "magnifyingglass")
-                        })
-                            .padding(.horizontal)
-
-                        Button(action: {
-                            if hapticFeedbackEnabled {
-                                Vibration.light.vibrate()
-                            }
-                            showingCreateView = true
-                        }, label: {
-                            Image(systemName: "plus")
                         })
                     }
                 }
@@ -196,20 +182,10 @@ struct AliasesView: View {
                 selectedLink = .details
             }
         }
-        .sheet(isPresented: $showingCreateView) {
-            CreateAliasView(
-                session: viewModel.session,
-                url: nil,
-                onCreateAlias: { createdAlias in
-                    aliasCreationCount += 1
-                    if launchCount >= 10, aliasCreationCount >= 5 {
-                        SKStoreReviewController.requestReview()
-                    }
-                    self.createdAlias = createdAlias
-                    self.viewModel.refresh()
-                },
-                onCancel: nil,
-                onOpenMyAccount: onOpenMyAccount)
+        .onReceive(Just(createdAlias)) { createdAlias in
+            if let createdAlias = createdAlias {
+                viewModel.handleCreatedAlias(createdAlias)
+            }
         }
         .alert(isPresented: $showingDeleteConfirmationAlert) {
             guard let selectedAlias = selectedAlias else {

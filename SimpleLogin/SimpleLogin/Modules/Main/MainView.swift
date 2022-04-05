@@ -8,20 +8,8 @@
 import AlertToast
 import LocalAuthentication
 import SimpleLoginPackage
+import StoreKit
 import SwiftUI
-
-enum MainViewTab {
-    case aliases, advanced, account, about
-
-    var title: String {
-        switch self {
-        case .aliases: return "Aliases"
-        case .advanced: return "Advanced"
-        case .account: return "My account"
-        case .about: return "About"
-        }
-    }
-}
 
 struct MainView: View {
     @EnvironmentObject private var session: Session
@@ -30,11 +18,17 @@ struct MainView: View {
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var viewModel = MainViewModel()
     @State private var selectedItem = TabBarItem.aliases
-    @State private var showingTips = false
     @State private var upgradeNeeded = false
+    @State private var selectedSheet: Sheet?
+    @State private var createdAlias: Alias?
     @AppStorage(kDidShowTips) private var didShowTips = false
     @AppStorage(kLaunchCount) private var launchCount = 0
+    @AppStorage(kAliasCreationCount) private var aliasCreationCount = 0
     let onLogOut: () -> Void
+
+    private enum Sheet {
+        case tips, createAlias
+    }
 
     var body: some View {
         let showingBiometricAuthFailureAlert = Binding<Bool>(get: {
@@ -45,15 +39,21 @@ struct MainView: View {
             }
         })
 
+        let showingSheet = Binding<Bool>(get: {
+            selectedSheet != nil
+        }, set: { isShowing in
+            if !isShowing {
+                selectedSheet = nil
+            }
+        })
+
         VStack(spacing: 0) {
             ZStack {
                 AliasesView(session: session,
                             reachabilityObserver: reachabilityObserver,
-                            managedObjectContext: managedObjectContext) {
-                    upgradeNeeded = true
-                    selectedItem = .myAccount
-                }
-                            .opacity(selectedItem == .aliases ? 1 : 0)
+                            managedObjectContext: managedObjectContext,
+                            createdAlias: $createdAlias)
+                    .opacity(selectedItem == .aliases ? 1 : 0)
 
                 AdvancedView()
                     .opacity(selectedItem == .advanced ? 1 : 0)
@@ -67,9 +67,10 @@ struct MainView: View {
                     .opacity(selectedItem == .about ? 1 : 0)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
+
             MainTabBar(selectedItem: $selectedItem) {
-                print("Create")
+                Vibration.light.vibrate()
+                selectedSheet = .createAlias
             }
         }
         .ignoresSafeArea(.keyboard)
@@ -95,16 +96,37 @@ struct MainView: View {
         .onAppear {
             if !didShowTips {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    showingTips = true
+                    selectedSheet = .tips
                 }
             }
             launchCount += 1
         }
-        .sheet(isPresented: $showingTips) {
-            TipsView(isFirstTime: true)
-                .onAppear {
-                    didShowTips = true
-                }
+        .sheet(isPresented: showingSheet) {
+            switch selectedSheet {
+            case .tips:
+                TipsView(isFirstTime: true)
+                    .onAppear {
+                        didShowTips = true
+                    }
+            case .createAlias:
+                CreateAliasView(
+                    session: session,
+                    url: nil,
+                    onCreateAlias: { createdAlias in
+                        aliasCreationCount += 1
+                        if launchCount >= 10, aliasCreationCount >= 5 {
+                            SKStoreReviewController.requestReview()
+                        }
+                        self.createdAlias = createdAlias
+                    },
+                    onCancel: nil,
+                    onOpenMyAccount: {
+                        upgradeNeeded = true
+                        selectedItem = .myAccount
+                    })
+            case .none:
+                EmptyView()
+            }
         }
     }
 

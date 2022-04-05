@@ -520,6 +520,7 @@
 				C03F4F3026E1735B00BBF2A8 /* Account */,
 				C03F4F2F26E1735100BBF2A8 /* Advanced */,
 				C03F4F2E26E1733200BBF2A8 /* Aliases */,
+				EFC1774F27FA3AC7003245A5 /* Create */,
 				EF9FE91A27F996580082FAEF /* MainTabBar.swift */,
 				C0100B2F26DEC46900085C24 /* MainView.swift */,
 			);
@@ -549,8 +550,6 @@
 				C08A5D8627499A6100BE889B /* AliasContactsViewModel.swift */,
 				C0F1963D27348EA10062B418 /* AliasDetailView.swift */,
 				C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */,
-				C029769326F141A60014DC3B /* CreateAliasView.swift */,
-				C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */,
 				EFF7779327F3979F0084D6B4 /* UpgradeNeededView.swift */,
 			);
 			path = Aliases;
@@ -701,6 +700,15 @@
 				EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */,
 			);
 			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		EFC1774F27FA3AC7003245A5 /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				C029769326F141A60014DC3B /* CreateAliasView.swift */,
+				C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */,
+			);
+			path = Create;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
