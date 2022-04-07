@@ -7,6 +7,7 @@
 
 import AVFoundation
 import CoreHaptics
+import SwiftUI
 import UIKit
 
 enum Vibration {
@@ -21,7 +22,10 @@ enum Vibration {
     case selection
     case oldSchool
 
+    @AppStorage(kHapticFeedbackEnabled) private static var hapticFeedbackEnabled = true
+
     func vibrate(fallBackToOldSchool: Bool = false) {
+        guard Self.hapticFeedbackEnabled else { return }
         if fallBackToOldSchool && !CHHapticEngine.capabilitiesForHardware().supportsHaptics {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             return

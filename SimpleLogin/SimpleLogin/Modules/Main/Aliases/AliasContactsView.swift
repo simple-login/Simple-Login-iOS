@@ -12,7 +12,6 @@ import SwiftUI
 
 struct AliasContactsView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel: AliasContactsViewModel
     @State private var showingLoadingAlert = false
     @State private var copiedText: String?
@@ -117,9 +116,7 @@ struct AliasContactsView: View {
 
             Section {
                 Button(action: {
-                    if hapticFeedbackEnabled {
-                        Vibration.soft.vibrate()
-                    }
+                    Vibration.soft.vibrate()
                     copiedText = contact.reverseAlias
                     UIPasteboard.general.string = contact.reverseAlias
                 }, label: {
@@ -127,9 +124,7 @@ struct AliasContactsView: View {
                 })
 
                 Button(action: {
-                    if hapticFeedbackEnabled {
-                        Vibration.soft.vibrate()
-                    }
+                    Vibration.soft.vibrate()
                     copiedText = contact.reverseAliasAddress
                     UIPasteboard.general.string = contact.reverseAliasAddress
                 }, label: {

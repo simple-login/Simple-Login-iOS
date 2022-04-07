@@ -8,20 +8,8 @@
 import AlertToast
 import LocalAuthentication
 import SimpleLoginPackage
+import StoreKit
 import SwiftUI
-
-enum MainViewTab {
-    case aliases, advanced, account, about
-
-    var title: String {
-        switch self {
-        case .aliases: return "Aliases"
-        case .advanced: return "Advanced"
-        case .account: return "My account"
-        case .about: return "About"
-        }
-    }
-}
 
 struct MainView: View {
     @EnvironmentObject private var session: Session
@@ -29,12 +17,18 @@ struct MainView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var viewModel = MainViewModel()
-    @State private var selectedTab: MainViewTab = .aliases
-    @State private var showingTips = false
+    @State private var selectedItem = TabBarItem.aliases
     @State private var upgradeNeeded = false
+    @State private var selectedSheet: Sheet?
+    @State private var createdAlias: Alias?
     @AppStorage(kDidShowTips) private var didShowTips = false
     @AppStorage(kLaunchCount) private var launchCount = 0
+    @AppStorage(kAliasCreationCount) private var aliasCreationCount = 0
     let onLogOut: () -> Void
+
+    private enum Sheet {
+        case tips, createAlias
+    }
 
     var body: some View {
         let showingBiometricAuthFailureAlert = Binding<Bool>(get: {
@@ -45,42 +39,41 @@ struct MainView: View {
             }
         })
 
-        TabView(selection: $selectedTab) {
-            AliasesView(session: session,
-                        reachabilityObserver: reachabilityObserver,
-                        managedObjectContext: managedObjectContext) {
-                upgradeNeeded = true
-                selectedTab = .account
+        let showingSheet = Binding<Bool>(get: {
+            selectedSheet != nil
+        }, set: { isShowing in
+            if !isShowing {
+                selectedSheet = nil
             }
-                        .tabItem {
-                            Image(systemName: "at")
-                            Text(MainViewTab.aliases.title)
-                        }
-                        .tag(MainViewTab.aliases)
+        })
 
-            AdvancedView()
-                .tabItem {
-                    Image(systemName: selectedTab == .advanced ? "circle.grid.cross.fill" : "circle.grid.cross")
-                    Text(MainViewTab.advanced.title)
-                }
-                .tag(MainViewTab.advanced)
+        VStack(spacing: 0) {
+            ZStack {
+                AliasesView(session: session,
+                            reachabilityObserver: reachabilityObserver,
+                            managedObjectContext: managedObjectContext,
+                            createdAlias: $createdAlias)
+                    .opacity(selectedItem == .aliases ? 1 : 0)
 
-            AccountView(session: session,
-                        upgradeNeeded: $upgradeNeeded,
-                        onLogOut: onLogOut)
-                .tabItem {
-                    Image(systemName: selectedTab == .account ? "person.fill" : "person")
-                    Text(MainViewTab.account.title)
-                }
-                .tag(MainViewTab.account)
+                AdvancedView()
+                    .opacity(selectedItem == .advanced ? 1 : 0)
 
-            AboutView()
-                .tabItem {
-                    Image(systemName: selectedTab == .about ? "info.circle.fill" : "info.circle")
-                    Text(MainViewTab.about.title)
-                }
-                .tag(MainViewTab.about)
+                AccountView(session: session,
+                            upgradeNeeded: $upgradeNeeded,
+                            onLogOut: onLogOut)
+                    .opacity(selectedItem == .myAccount ? 1 : 0)
+
+                AboutView()
+                    .opacity(selectedItem == .about ? 1 : 0)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+            MainTabBar(selectedItem: $selectedItem) {
+                Vibration.light.vibrate()
+                selectedSheet = .createAlias
+            }
         }
+        .ignoresSafeArea(.keyboard)
         .emptyPlaceholder(isEmpty: !viewModel.canShowDetails) {
             Image(systemName: "lock.circle")
                 .resizable()
@@ -103,16 +96,41 @@ struct MainView: View {
         .onAppear {
             if !didShowTips {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    showingTips = true
+                    selectedSheet = .tips
                 }
             }
             launchCount += 1
         }
-        .sheet(isPresented: $showingTips) {
-            TipsView(isFirstTime: true)
-                .onAppear {
-                    didShowTips = true
-                }
+        .sheet(isPresented: showingSheet) {
+            switch selectedSheet {
+            case .tips:
+                TipsView(isFirstTime: true)
+                    .onAppear {
+                        didShowTips = true
+                    }
+            case .createAlias:
+                CreateAliasView(
+                    session: session,
+                    url: nil,
+                    onCreateAlias: { createdAlias in
+                        aliasCreationCount += 1
+                        if launchCount >= 10, aliasCreationCount >= 5 {
+                            if let scene = UIApplication.shared
+                                .connectedScenes
+                                .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                                SKStoreReviewController.requestReview(in: scene)
+                            }
+                        }
+                        self.createdAlias = createdAlias
+                    },
+                    onCancel: nil,
+                    onOpenMyAccount: {
+                        upgradeNeeded = true
+                        selectedItem = .myAccount
+                    })
+            case .none:
+                EmptyView()
+            }
         }
     }
 

@@ -146,6 +146,7 @@
 		EF8B1CD027DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */; };
 		EF95E13027D6ABBF0033B8E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E12F27D6ABBF0033B8E0 /* DataController.swift */; };
 		EF95E13227D6AF470033B8E0 /* LocalAliasExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */; };
+		EF9FE91B27F996580082FAEF /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9FE91A27F996580082FAEF /* MainTabBar.swift */; };
 		EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2A37C27B6F3460020E808 /* LabelText.swift */; };
 		EFA52AE827CA39B000994547 /* HowItWorksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA52AE727CA39B000994547 /* HowItWorksView.swift */; };
 		EFA52AEB27CA525700994547 /* HowItWorkStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA52AEA27CA525700994547 /* HowItWorkStep.swift */; };
@@ -325,6 +326,7 @@
 		EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseReachabilitySessionViewModel.swift; sourceTree = "<group>"; };
 		EF95E12F27D6ABBF0033B8E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAliasExtensions.swift; sourceTree = "<group>"; };
+		EF9FE91A27F996580082FAEF /* MainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBar.swift; sourceTree = "<group>"; };
 		EFA2A37C27B6F3460020E808 /* LabelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelText.swift; sourceTree = "<group>"; };
 		EFA52AE727CA39B000994547 /* HowItWorksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksView.swift; sourceTree = "<group>"; };
 		EFA52AEA27CA525700994547 /* HowItWorkStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorkStep.swift; sourceTree = "<group>"; };
@@ -518,6 +520,8 @@
 				C03F4F3026E1735B00BBF2A8 /* Account */,
 				C03F4F2F26E1735100BBF2A8 /* Advanced */,
 				C03F4F2E26E1733200BBF2A8 /* Aliases */,
+				EFC1774F27FA3AC7003245A5 /* Create */,
+				EF9FE91A27F996580082FAEF /* MainTabBar.swift */,
 				C0100B2F26DEC46900085C24 /* MainView.swift */,
 			);
 			path = Main;
@@ -546,8 +550,6 @@
 				C08A5D8627499A6100BE889B /* AliasContactsViewModel.swift */,
 				C0F1963D27348EA10062B418 /* AliasDetailView.swift */,
 				C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */,
-				C029769326F141A60014DC3B /* CreateAliasView.swift */,
-				C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */,
 				EFF7779327F3979F0084D6B4 /* UpgradeNeededView.swift */,
 			);
 			path = Aliases;
@@ -698,6 +700,15 @@
 				EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */,
 			);
 			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		EFC1774F27FA3AC7003245A5 /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				C029769326F141A60014DC3B /* CreateAliasView.swift */,
+				C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */,
+			);
+			path = Create;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -983,6 +994,7 @@
 				C043D41626E01E280051B282 /* KeychainService.swift in Sources */,
 				C03F4F1726E15AEB00BBF2A8 /* AliasesViewModel.swift in Sources */,
 				C087655E27AE798300FF26E6 /* SearchAliasesViewModel.swift in Sources */,
+				EF9FE91B27F996580082FAEF /* MainTabBar.swift in Sources */,
 				EFFBBDEA27C96FAE00C8E6DD /* Capacity.swift in Sources */,
 				C0F732B7278F854F004608DB /* CustomDomainsView.swift in Sources */,
 				EF15C55927BEE4B8008497F2 /* LabelExtensions.swift in Sources */,
