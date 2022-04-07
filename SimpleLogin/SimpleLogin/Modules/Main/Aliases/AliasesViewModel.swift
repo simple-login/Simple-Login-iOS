@@ -12,12 +12,9 @@ import SimpleLoginPackage
 import SwiftUI
 
 final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject {
-    @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
     @Published var selectedStatus: AliasStatus = .all {
         didSet {
-            if hapticEffectEnabled {
-                Vibration.selection.vibrate()
-            }
+            Vibration.selection.vibrate()
             updateFilteredAliases()
         }
     }

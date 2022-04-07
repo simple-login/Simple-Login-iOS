@@ -52,7 +52,6 @@ struct AliasDetailWrapperView: View {
 
 // swiftlint:disable file_length
 struct AliasDetailView: View {
-    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
     @State private var showingDeletionAlert = false
@@ -192,9 +191,7 @@ struct AliasDetailView: View {
         Menu(content: {
             Section {
                 Button(action: {
-                    if hapticFeedbackEnabled {
-                        Vibration.soft.vibrate()
-                    }
+                    Vibration.soft.vibrate()
                     copiedText = viewModel.alias.email
                     UIPasteboard.general.string = viewModel.alias.email
                 }, label: {
@@ -210,9 +207,7 @@ struct AliasDetailView: View {
 
             Section {
                 Button(action: {
-                    if hapticFeedbackEnabled {
-                        Vibration.soft.vibrate()
-                    }
+                    Vibration.soft.vibrate()
                     showingAliasContacts = true
                 }, label: {
                     Label.sendEmail

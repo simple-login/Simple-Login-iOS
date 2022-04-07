@@ -12,7 +12,6 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct AliasesView: View {
-    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @StateObject private var viewModel: AliasesViewModel
     @Binding private var createdAlias: Alias?
     @State private var showingUpdatingAlert = false
@@ -146,9 +145,7 @@ struct AliasesView: View {
 
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
-                            if hapticFeedbackEnabled {
-                                Vibration.light.vibrate()
-                            }
+                            Vibration.light.vibrate()
                             showingSearchView = true
                         }, label: {
                             Image(systemName: "magnifyingglass")
@@ -208,23 +205,17 @@ struct AliasesView: View {
         AliasCompactView(
             alias: alias,
             onCopy: {
-                if hapticFeedbackEnabled {
-                    Vibration.soft.vibrate()
-                }
+                Vibration.soft.vibrate()
                 copiedEmail = alias.email
                 UIPasteboard.general.string = alias.email
             },
             onSendMail: {
-                if hapticFeedbackEnabled {
-                    Vibration.soft.vibrate()
-                }
+                Vibration.soft.vibrate()
                 selectedAlias = alias
                 selectedLink = .contacts
             },
             onToggle: {
-                if hapticFeedbackEnabled {
-                    Vibration.soft.vibrate()
-                }
+                Vibration.soft.vibrate()
                 viewModel.toggle(alias: alias)
             },
             onPin: {

@@ -11,7 +11,6 @@ import SwiftUI
 
 struct SearchAliasesResultView: View {
     @ObservedObject var viewModel: SearchAliasesViewModel
-    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     @State private var showingUpdatingAlert = false
     @State private var copiedEmail: String?
     var onSelect: (Alias) -> Void
@@ -48,9 +47,7 @@ struct SearchAliasesResultView: View {
                     AliasCompactView(
                         alias: alias,
                         onCopy: {
-                            if hapticFeedbackEnabled {
-                                Vibration.soft.vibrate()
-                            }
+                            Vibration.soft.vibrate()
                             copiedEmail = alias.email
                             UIPasteboard.general.string = alias.email
                         },
@@ -61,13 +58,13 @@ struct SearchAliasesResultView: View {
                             viewModel.toggle(alias: alias)
                         },
                         onPin: {
-
+                            // TODO: Handle onPin
                         },
                         onUnpin: {
-
+                            // TODO: Handle onUnpin
                         },
                         onDelete: {
-
+                            // TODO: Handle onDelete
                         })
                         .padding(.horizontal, 4)
                         .onTapGesture {

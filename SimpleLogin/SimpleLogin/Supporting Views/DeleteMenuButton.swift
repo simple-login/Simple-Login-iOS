@@ -8,15 +8,12 @@
 import SwiftUI
 
 struct DeleteMenuButton: View {
-    @AppStorage(kHapticFeedbackEnabled) private var hapticFeedbackEnabled = true
     let action: () -> Void
 
     var body: some View {
         let label: () -> Label = { .delete }
         let hapticAction: () -> Void = {
-            if hapticFeedbackEnabled {
-                Vibration.warning.vibrate(fallBackToOldSchool: true)
-            }
+            Vibration.warning.vibrate(fallBackToOldSchool: true)
             action()
         }
         if #available(iOS 15.0, *) {
