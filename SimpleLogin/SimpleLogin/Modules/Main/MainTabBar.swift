@@ -25,7 +25,7 @@ struct MainTabBar: View {
                 createButton
                     .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 50 : 0)
                 tab(for: .myAccount)
-                tab(for: .about)
+                tab(for: .settings)
                 if UIDevice.current.userInterfaceIdiom != .phone {
                     Spacer()
                 }
@@ -80,7 +80,7 @@ struct Tab<Content: View>: View {
 }
 
 enum TabBarItem {
-    case aliases, advanced, myAccount, about
+    case aliases, advanced, myAccount, settings
 
     var title: String {
         switch self {
@@ -90,8 +90,8 @@ enum TabBarItem {
             return "Advanced"
         case .myAccount:
             return "My account"
-        case .about:
-            return "About"
+        case .settings:
+            return "Settings"
         }
     }
 
@@ -103,8 +103,12 @@ enum TabBarItem {
             return "circle.grid.cross"
         case .myAccount:
             return "person"
-        case .about:
-            return "info.circle"
+        case .settings:
+            if #available(iOS 15, *) {
+                return "gear.circle"
+            } else {
+                return "gearshape"
+            }
         }
     }
 
@@ -116,8 +120,12 @@ enum TabBarItem {
             return "circle.grid.cross.fill"
         case .myAccount:
             return "person.fill"
-        case .about:
-            return "info.circle.fill"
+        case .settings:
+            if #available(iOS 15, *) {
+                return "gear.circle.fill"
+            } else {
+                return "gearshape.fill"
+            }
         }
     }
 }

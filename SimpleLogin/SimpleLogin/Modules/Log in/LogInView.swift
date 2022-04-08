@@ -179,7 +179,9 @@ struct LogInView: View {
             Color.clear
                 .frame(width: 0, height: 0)
                 .sheet(isPresented: $showingAboutView) {
-                    AboutView()
+                    NavigationView {
+                        AboutView()
+                    }
                 }
 
             Color.clear
