@@ -16,8 +16,8 @@ final class LocalAuthenticator: ObservableObject {
             biometricallyAuthenticate()
         }
     }
-    @Published private(set) var error: Error?
-    @Published private(set) var message: String?
+    @Published var message: String?
+    @Published var error: Error?
 
     init() {
         let localAuthenticationContext = LAContext()

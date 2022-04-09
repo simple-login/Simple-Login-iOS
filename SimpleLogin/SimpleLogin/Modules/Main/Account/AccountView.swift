@@ -14,7 +14,6 @@ import SwiftUI
 // swiftlint:disable let_var_whitespace
 struct AccountView: View {
     @StateObject private var viewModel: AccountViewModel
-    @StateObject private var localAuthenticator = LocalAuthenticator()
     @Binding var upgradeNeeded: Bool
     @State private var confettiCounter = 0
     @State private var showingPremiumView = false
@@ -39,27 +38,11 @@ struct AccountView: View {
             }
         })
 
-        let showingLocalAuthenticationError = Binding<Bool>(get: {
-            localAuthenticator.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                localAuthenticator.handledError()
-            }
-        })
-
         let showingMessageAlert = Binding<Bool>(get: {
             viewModel.message != nil
         }, set: { isShowing in
             if !isShowing {
                 viewModel.handledMessage()
-            }
-        })
-
-        let showingLocalAuthenticationMessage = Binding<Bool>(get: {
-            localAuthenticator.message != nil
-        }, set: { isShowing in
-            if !isShowing {
-                localAuthenticator.handledMessage()
             }
         })
 
@@ -69,10 +52,6 @@ struct AccountView: View {
             if viewModel.isInitialized {
                 Form {
                     UserInfoSection()
-                    if localAuthenticator.biometryType != .none {
-                        BiometricAuthenticationSection()
-                            .environmentObject(localAuthenticator)
-                    }
                     LocalSettingsSection()
                     NewslettersSection()
                     AliasesSection()
@@ -120,9 +99,7 @@ struct AccountView: View {
         .modifier(ConfettiableModifier(counter: $confettiCounter))
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastMessage(isPresenting: showingMessageAlert, message: viewModel.message)
-        .alertToastMessage(isPresenting: showingLocalAuthenticationMessage, message: localAuthenticator.message)
         .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
-        .alertToastError(isPresenting: showingLocalAuthenticationError, error: localAuthenticator.error)
     }
 
     @ViewBuilder
@@ -273,46 +250,6 @@ private struct UserInfoSection: View {
             viewModel.openAppSettings()
         },
               secondaryButton: .cancel())
-    }
-}
-
-private struct BiometricAuthenticationSection: View {
-    @EnvironmentObject private var viewModel: AccountViewModel
-    @EnvironmentObject private var localAuthenticator: LocalAuthenticator
-
-    var body: some View {
-        Section(header: Text("Local authentication"),
-                footer: Text("Restrict unwanted access to your SimpleLogin account on this device")) {
-            VStack {
-                Toggle(isOn: $localAuthenticator.biometricAuthEnabled) {
-                    Label(localAuthenticator.biometryType.description,
-                          systemImage: localAuthenticator.biometryType.systemImageName)
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-
-                if localAuthenticator.biometricAuthEnabled {
-                    Divider()
-                    Toggle(isOn: $viewModel.ultraProtectionEnabled) {
-                        Label {
-                            Text("Ultra-protection")
-                        } icon: {
-                            if #available(iOS 15, *) {
-                                Image(systemName: "bolt.shield")
-                            } else {
-                                Image(systemName: "shield")
-                            }
-                        }
-                    }
-                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-
-                    Text("Request local authentication everytime the app goes in foreground")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-            }
-        }
     }
 }
 
