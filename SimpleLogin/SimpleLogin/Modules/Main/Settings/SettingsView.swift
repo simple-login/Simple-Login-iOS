@@ -20,6 +20,8 @@ struct SettingsView: View {
                         .environmentObject(localAuthenticator)
                 }
 
+                LocalSettingsSection()
+
                 Section {
                     Button(action: openAppStore) {
                         Label(title: {
@@ -97,6 +99,32 @@ private struct BiometricAuthenticationSection: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
                 }
+            }
+        }
+    }
+}
+
+/// For settings that are local like haptic effect & dark mode
+private struct LocalSettingsSection: View {
+    @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
+    @AppStorage(kForceDarkMode) private var forceDarkMode = false
+
+    var body: some View {
+        Section {
+            VStack {
+                Toggle("Haptic feedback", isOn: $hapticEffectEnabled)
+                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+
+                Divider()
+
+                Toggle("Force dark mode", isOn: $forceDarkMode)
+                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+
+                Text("You need to restart the application for this option to take effect")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
