@@ -19,50 +19,16 @@ struct SettingsView: View {
                     BiometricAuthenticationSection()
                         .environmentObject(localAuthenticator)
                 }
-
                 LocalSettingsSection()
                 AliasDisplayModeSection()
                 KeyboardExtensionSection()
-
-                Section {
-                    Button(action: openAppStore) {
-                        Label(title: {
-                            Text("Rate & review on App Store")
-                                .foregroundColor(Color(.label))
-                        }, icon: {
-                            Text("🌟")
-                        })
-                    }
-
-                    NavigationLink(destination: {
-                        TipsView(isFirstTime: false)
-                    }, label: {
-                        Label(title: {
-                            Text("Tips")
-                        }, icon: {
-                            Text("💡")
-                        })
-                    })
-                }
-
-                Section {
-                    NavigationLink(destination: {
-                        AboutView()
-                    }, label: {
-                        Label("About SimpleLogin", systemImage: "info.circle")
-                    })
-                }
+                RateAndTipsSection()
+                AboutSection()
             }
                 .navigationTitle("Settings")
         }
         .alertToastMessage($localAuthenticator.message)
         .alertToastError($localAuthenticator.error)
-    }
-
-    private func openAppStore() {
-        let urlString = "https://apps.apple.com/app/id1494359858?action=write-review"
-        guard let writeReviewURL = URL(string: urlString) else { return }
-        UIApplication.shared.open(writeReviewURL, options: [:])
     }
 }
 
@@ -240,5 +206,48 @@ private struct KeyboardFullAccessExplanationView: View {
         }, label: {
             Text("Close")
         })
+    }
+}
+
+private struct RateAndTipsSection: View {
+    var body: some View {
+        Section {
+            Button(action: openAppStore) {
+                Label(title: {
+                    Text("Rate & review on App Store")
+                        .foregroundColor(Color(.label))
+                }, icon: {
+                    Text("🌟")
+                })
+            }
+
+            NavigationLink(destination: {
+                TipsView(isFirstTime: false)
+            }, label: {
+                Label(title: {
+                    Text("Tips")
+                }, icon: {
+                    Text("💡")
+                })
+            })
+        }
+    }
+
+    private func openAppStore() {
+        let urlString = "https://apps.apple.com/app/id1494359858?action=write-review"
+        guard let writeReviewURL = URL(string: urlString) else { return }
+        UIApplication.shared.open(writeReviewURL, options: [:])
+    }
+}
+
+private struct AboutSection: View {
+    var body: some View {
+        Section {
+            NavigationLink(destination: {
+                AboutView()
+            }, label: {
+                Label("About SimpleLogin", systemImage: "info.circle")
+            })
+        }
     }
 }
