@@ -270,22 +270,6 @@ private struct AliasesSection: View {
     var body: some View {
         Section(header: Text("Aliases")) {
             VStack(alignment: .leading) {
-                // Display mode
-                Group {
-                    Text("Display mode")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Picker(selection: $viewModel.aliasDisplayMode,
-                           label: Text(viewModel.aliasDisplayMode.description)) {
-                        ForEach(AliasDisplayMode.allCases, id: \.self) { mode in
-                            Text(mode.description)
-                                .tag(mode)
-                        }
-                    }
-                           .pickerStyle(SegmentedPickerStyle())
-                    AliasDisplayModePreview()
-                    Divider()
-                }
-
                 // Random mode
                 Text("Random mode")
                     .frame(maxWidth: .infinity, alignment: .leading)

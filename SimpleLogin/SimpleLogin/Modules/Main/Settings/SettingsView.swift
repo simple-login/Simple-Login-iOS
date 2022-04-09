@@ -21,6 +21,7 @@ struct SettingsView: View {
                 }
 
                 LocalSettingsSection()
+                AliasDisplayModeSection()
                 KeyboardExtensionSection()
 
                 Section {
@@ -131,9 +132,31 @@ private struct LocalSettingsSection: View {
     }
 }
 
+private struct AliasDisplayModeSection: View {
+    @AppStorage(kAliasDisplayMode) var aliasDisplayMode: AliasDisplayMode = .default
+    
+    var body: some View {
+        Section(content: {
+            VStack {
+                Picker(selection: $aliasDisplayMode,
+                       label: Text(aliasDisplayMode.description)) {
+                    ForEach(AliasDisplayMode.allCases, id: \.self) { mode in
+                        Text(mode.description)
+                            .tag(mode)
+                    }
+                }
+                       .pickerStyle(SegmentedPickerStyle())
+                AliasDisplayModePreview()
+            }
+        }, header: {
+            Text("Alias display mode")
+        })
+    }
+}
+
 private struct KeyboardExtensionSection: View {
     @AppStorage(kKeyboardExtensionMode, store: .shared)
-    private var keyboardExtensionMode: KeyboardExtensionMode = .all
+    private var keyboardExtensionMode: KeyboardExtensionMode = .all // swiftlint:disable:this let_var_whitespace
     @State private var showingExplanation = false
 
     var body: some View {
