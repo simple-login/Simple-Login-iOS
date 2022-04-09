@@ -87,8 +87,38 @@ extension View {
         modifier(AlertToastErrorModifier(isPresenting: isPresenting, error: error))
     }
 
+    func alertToastError(_ error: Binding<Error?>) -> some View {
+        let binding = Binding<Bool>(get: {
+            error.wrappedValue != nil
+        }, set: { isPresenting in
+            if !isPresenting {
+                error.wrappedValue = nil
+            }
+        })
+        return toast(isPresenting: binding, duration: 3.5) {
+            AlertToast(displayMode: .banner(.pop),
+                       type: .error(.red),
+                       title: error.wrappedValue?.safeLocalizedDescription)
+        }
+    }
+
     func alertToastMessage(isPresenting: Binding<Bool>, message: String?) -> some View {
         modifier(AlertToastMessageModifier(isPresenting: isPresenting, message: message))
+    }
+
+    func alertToastMessage(_ message: Binding<String?>) -> some View {
+        let binding = Binding<Bool>(get: {
+            message.wrappedValue != nil
+        }, set: { isPresenting in
+            if !isPresenting {
+                message.wrappedValue = nil
+            }
+        })
+        return toast(isPresenting: binding, duration: 3.5) {
+            AlertToast(displayMode: .banner(.pop),
+                       type: .regular,
+                       title: message.wrappedValue)
+        }
     }
 
     func alertToastCompletionMessage(isPresenting: Binding<Bool>, title: String, subTitle: String?) -> some View {

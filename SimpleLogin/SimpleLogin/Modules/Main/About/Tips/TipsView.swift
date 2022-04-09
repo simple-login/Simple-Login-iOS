@@ -31,55 +31,53 @@ struct TipsView: View {
             }
         })
 
-        NavigationView {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 20) {
-                    VStack {
-                        if isFirstTime {
-                            Text("👋 Welcome to")
-                                .font(.title)
-                                .fontWeight(.bold)
-                            Text("SimpleLogin")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .foregroundColor(.slPurple)
-                                .padding(.bottom)
-                        }
-
-                        Text("Here are some useful tips to help you make the most out of this application.")
-                            .font(.callout)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.secondary)
-                    }
-                    switch localAuthenticator.biometryType {
-                    case .touchID:
-                        TipView(tip: .touchId)
-                            .environmentObject(localAuthenticator)
-                    case .faceID:
-                        TipView(tip: .faceId)
-                            .environmentObject(localAuthenticator)
-                    default:
-                        EmptyView()
-                    }
-                    TipView(tip: .contextMenu)
-                    TipView(tip: .fullScreen)
-                    TipView(tip: .shareExtension)
-                    TipView(tip: .keyboardExtension)
-
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 20) {
+                VStack {
                     if isFirstTime {
-                        PrimaryButton(title: "Got it 👍") {
-                            presentationMode.wrappedValue.dismiss()
-                        }
+                        Text("👋 Welcome to")
+                            .font(.title)
+                            .fontWeight(.bold)
+                        Text("SimpleLogin")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(.slPurple)
+                            .padding(.bottom)
+                    }
+
+                    Text("Here are some useful tips to help you make the most out of this application.")
+                        .font(.callout)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.secondary)
+                }
+                switch localAuthenticator.biometryType {
+                case .touchID:
+                    TipView(tip: .touchId)
+                        .environmentObject(localAuthenticator)
+                case .faceID:
+                    TipView(tip: .faceId)
+                        .environmentObject(localAuthenticator)
+                default:
+                    EmptyView()
+                }
+                TipView(tip: .contextMenu)
+                TipView(tip: .fullScreen)
+                TipView(tip: .shareExtension)
+                TipView(tip: .keyboardExtension)
+
+                if isFirstTime {
+                    PrimaryButton(title: "Got it 👍") {
+                        presentationMode.wrappedValue.dismiss()
                     }
                 }
-                .padding(.top, 20)
-                .padding()
             }
-            .navigationBarHidden(isFirstTime)
-            .navigationTitle("💡 Useful tips")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(leading: closeButton)
+            .padding(.top, 20)
+            .padding()
         }
+        .navigationBarHidden(isFirstTime)
+        .navigationTitle("💡 Tips")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarItems(leading: isFirstTime ? closeButton : nil)
         .alertToastMessage(isPresenting: showingMessageAlert,
                            message: localAuthenticator.message)
         .alertToastError(isPresenting: showingErrorAlert,

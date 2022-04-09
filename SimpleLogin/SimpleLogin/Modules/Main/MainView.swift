@@ -63,8 +63,8 @@ struct MainView: View {
                             onLogOut: onLogOut)
                     .opacity(selectedItem == .myAccount ? 1 : 0)
 
-                AboutView()
-                    .opacity(selectedItem == .about ? 1 : 0)
+                SettingsView()
+                    .opacity(selectedItem == .settings ? 1 : 0)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 

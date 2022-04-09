@@ -14,7 +14,6 @@ import SwiftUI
 // swiftlint:disable let_var_whitespace
 struct AccountView: View {
     @StateObject private var viewModel: AccountViewModel
-    @StateObject private var localAuthenticator = LocalAuthenticator()
     @Binding var upgradeNeeded: Bool
     @State private var confettiCounter = 0
     @State private var showingPremiumView = false
@@ -39,27 +38,11 @@ struct AccountView: View {
             }
         })
 
-        let showingLocalAuthenticationError = Binding<Bool>(get: {
-            localAuthenticator.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                localAuthenticator.handledError()
-            }
-        })
-
         let showingMessageAlert = Binding<Bool>(get: {
             viewModel.message != nil
         }, set: { isShowing in
             if !isShowing {
                 viewModel.handledMessage()
-            }
-        })
-
-        let showingLocalAuthenticationMessage = Binding<Bool>(get: {
-            localAuthenticator.message != nil
-        }, set: { isShowing in
-            if !isShowing {
-                localAuthenticator.handledMessage()
             }
         })
 
@@ -69,15 +52,9 @@ struct AccountView: View {
             if viewModel.isInitialized {
                 Form {
                     UserInfoSection()
-                    if localAuthenticator.biometryType != .none {
-                        BiometricAuthenticationSection()
-                            .environmentObject(localAuthenticator)
-                    }
-                    LocalSettingsSection()
                     NewslettersSection()
                     AliasesSection()
                     SenderFormatSection()
-                    KeyboardExtensionSection()
                     LogOutSection(onLogOut: onLogOut)
                 }
                 .environmentObject(viewModel)
@@ -120,9 +97,7 @@ struct AccountView: View {
         .modifier(ConfettiableModifier(counter: $confettiCounter))
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastMessage(isPresenting: showingMessageAlert, message: viewModel.message)
-        .alertToastMessage(isPresenting: showingLocalAuthenticationMessage, message: localAuthenticator.message)
         .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
-        .alertToastError(isPresenting: showingLocalAuthenticationError, error: localAuthenticator.error)
     }
 
     @ViewBuilder
@@ -276,72 +251,6 @@ private struct UserInfoSection: View {
     }
 }
 
-private struct BiometricAuthenticationSection: View {
-    @EnvironmentObject private var viewModel: AccountViewModel
-    @EnvironmentObject private var localAuthenticator: LocalAuthenticator
-
-    var body: some View {
-        Section(header: Text("Local authentication"),
-                footer: Text("Restrict unwanted access to your SimpleLogin account on this device")) {
-            VStack {
-                Toggle(isOn: $localAuthenticator.biometricAuthEnabled) {
-                    Label(localAuthenticator.biometryType.description,
-                          systemImage: localAuthenticator.biometryType.systemImageName)
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-
-                if localAuthenticator.biometricAuthEnabled {
-                    Divider()
-                    Toggle(isOn: $viewModel.ultraProtectionEnabled) {
-                        Label {
-                            Text("Ultra-protection")
-                        } icon: {
-                            if #available(iOS 15, *) {
-                                Image(systemName: "bolt.shield")
-                            } else {
-                                Image(systemName: "shield")
-                            }
-                        }
-                    }
-                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-
-                    Text("Request local authentication everytime the app goes in foreground")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-            }
-        }
-    }
-}
-
-/// For settings that are local like haptic effect & dark mode
-private struct LocalSettingsSection: View {
-    @AppStorage(kHapticFeedbackEnabled) private var hapticEffectEnabled = true
-    @AppStorage(kForceDarkMode) private var forceDarkMode = false
-
-    var body: some View {
-        Section {
-            VStack {
-                Toggle("Haptic feedback", isOn: $hapticEffectEnabled)
-                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-
-                Divider()
-
-                Toggle("Force dark mode", isOn: $forceDarkMode)
-                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-
-                Text("You need to restart the application for this option to take effect")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-        }
-    }
-}
-
 private struct NewslettersSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
 
@@ -361,22 +270,6 @@ private struct AliasesSection: View {
     var body: some View {
         Section(header: Text("Aliases")) {
             VStack(alignment: .leading) {
-                // Display mode
-                Group {
-                    Text("Display mode")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Picker(selection: $viewModel.aliasDisplayMode,
-                           label: Text(viewModel.aliasDisplayMode.description)) {
-                        ForEach(AliasDisplayMode.allCases, id: \.self) { mode in
-                            Text(mode.description)
-                                .tag(mode)
-                        }
-                    }
-                           .pickerStyle(SegmentedPickerStyle())
-                    AliasDisplayModePreview()
-                    Divider()
-                }
-
                 // Random mode
                 Text("Random mode")
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -454,95 +347,6 @@ private struct SenderFormatSection: View {
             }
             .disabled(viewModel.isLoading)
         }
-    }
-}
-
-private struct KeyboardExtensionSection: View {
-    @AppStorage(kKeyboardExtensionMode, store: .shared)
-    private var keyboardExtensionMode: KeyboardExtensionMode = .all
-    @State private var showingExplanation = false
-
-    var body: some View {
-        Section(header: Text("Keyboard extension"),
-                footer: footerView) {
-            Picker(selection: $keyboardExtensionMode,
-                   label: Text(keyboardExtensionMode.title)) {
-                ForEach(KeyboardExtensionMode.allCases, id: \.self) { mode in
-                    Text(mode.title)
-                        .tag(mode)
-                }
-            }
-                   .pickerStyle(SegmentedPickerStyle())
-                   .sheet(isPresented: $showingExplanation) {
-                       KeyboardFullAccessExplanationView()
-                   }
-        }
-    }
-
-    private var footerView: some View {
-        VStack {
-            Text("You need to enable and give the keyboard full access in order to use it.\nGo to Settings ➝ General ➝ Keyboard ➝ Keyboards.")
-            HStack {
-                Button(action: {
-                    UIApplication.shared.openSettings()
-                }, label: {
-                    Text("Open Settings")
-                        .fontWeight(.medium)
-                        .foregroundColor(.slPurple)
-                })
-
-                Text("•")
-
-                Button(action: {
-                    showingExplanation = true
-                }, label: {
-                    Text("Why full access?")
-                        .fontWeight(.medium)
-                        .foregroundColor(.slPurple)
-                })
-
-                Spacer()
-            }
-        }
-    }
-}
-
-private struct KeyboardFullAccessExplanationView: View {
-    @Environment(\.presentationMode) private var presentationMode
-
-    var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack {
-                    Text("""
-        Most of the functionalities of this application are based on making requests to our server. Every request is attached with an API key in order for our server to authenticate you.
-
-        When you successfully log in, our server sends a valid API key to the application. The application then saves this API key to a Keychain Group in order to reuse it in next sessions without asking you to authenticate again.
-
-        The keyboard extension needs to use the API key saved in Keychain Group by the host application to make requests by itself. Such access to Keychain Group requires full access. The keyboard extension does not record nor share anything you type.
-        """)
-
-                    HStack {
-                        Text("Need more information?")
-                        URLButton(urlString: "mailto:hi@simplelogin.io", foregroundColor: .slPurple) {
-                            Label("Email us", systemImage: "envelope.fill")
-                        }
-                    }
-                    .padding(.top)
-                }
-                    .padding()
-            }
-            .navigationTitle("Why full access?")
-            .navigationBarItems(leading: closeButton)
-        }
-    }
-
-    private var closeButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Close")
-        })
     }
 }
 

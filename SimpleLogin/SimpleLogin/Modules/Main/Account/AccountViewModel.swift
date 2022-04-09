@@ -25,8 +25,6 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var message: String?
     @Published private(set) var shouldLogOut = false
-    @AppStorage(kUltraProtectionEnabled) var ultraProtectionEnabled = false
-    @AppStorage(kAliasDisplayMode) var aliasDisplayMode: AliasDisplayMode = .default
     private var cancellables = Set<AnyCancellable>()
 
     override init(session: Session) {

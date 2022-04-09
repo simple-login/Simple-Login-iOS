@@ -153,6 +153,8 @@
 		EFA9412E27DD3F08009ADD20 /* OfflineLabelledViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA9412D27DD3F08009ADD20 /* OfflineLabelledViewModifier.swift */; };
 		EFB0B65127F0F2FD006D3A7F /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF72966027C2698300737550 /* PrimaryButton.swift */; };
 		EFB0B65227F0FE89006D3A7F /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE327C96AEB00C8E6DD /* SecondaryButton.swift */; };
+		EFB118542800C328009752BE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB118532800C328009752BE /* SettingsView.swift */; };
+		EFB118562800C35D009752BE /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB118552800C35D009752BE /* SettingsViewModel.swift */; };
 		EFB1F27427CEB99300C8D776 /* SimpleLogin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EFB1F27227CEB99300C8D776 /* SimpleLogin.xcdatamodeld */; };
 		EFB3A96727BC404300F82965 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB3A96627BC404300F82965 /* UIImageExtensions.swift */; };
 		EFBBEDC427F3B0CE00E0FF03 /* UIScreenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */; };
@@ -331,6 +333,8 @@
 		EFA52AE727CA39B000994547 /* HowItWorksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksView.swift; sourceTree = "<group>"; };
 		EFA52AEA27CA525700994547 /* HowItWorkStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorkStep.swift; sourceTree = "<group>"; };
 		EFA9412D27DD3F08009ADD20 /* OfflineLabelledViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLabelledViewModifier.swift; sourceTree = "<group>"; };
+		EFB118532800C328009752BE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		EFB118552800C35D009752BE /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		EFB1F27327CEB99300C8D776 /* SimpleLogin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleLogin.xcdatamodel; sourceTree = "<group>"; };
 		EFB3A96627BC404300F82965 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMailboxLiteExtensions.swift; sourceTree = "<group>"; };
@@ -521,6 +525,7 @@
 				C03F4F2F26E1735100BBF2A8 /* Advanced */,
 				C03F4F2E26E1733200BBF2A8 /* Aliases */,
 				EFC1774F27FA3AC7003245A5 /* Create */,
+				EFB118522800C26B009752BE /* Settings */,
 				EF9FE91A27F996580082FAEF /* MainTabBar.swift */,
 				C0100B2F26DEC46900085C24 /* MainView.swift */,
 			);
@@ -689,6 +694,15 @@
 				EFA52AE727CA39B000994547 /* HowItWorksView.swift */,
 			);
 			path = "How it works";
+			sourceTree = "<group>";
+		};
+		EFB118522800C26B009752BE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				EFB118532800C328009752BE /* SettingsView.swift */,
+				EFB118552800C35D009752BE /* SettingsViewModel.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		EFB1F27127CEB97600C8D776 /* Core Data */ = {
@@ -986,6 +1000,7 @@
 				C03B518E27288F2700C54130 /* AliasCompactView.swift in Sources */,
 				C0AAE98E26E4152A00247742 /* Blur.swift in Sources */,
 				EFFBBDE427C96AEB00C8E6DD /* SecondaryButton.swift in Sources */,
+				EFB118562800C35D009752BE /* SettingsViewModel.swift in Sources */,
 				EFA9412E27DD3F08009ADD20 /* OfflineLabelledViewModifier.swift in Sources */,
 				C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */,
 				C0126D0027AEA07A00B489E8 /* SearchAliasesViewController.swift in Sources */,
@@ -1014,6 +1029,7 @@
 				C03F4F1526E15ADD00BBF2A8 /* AliasesView.swift in Sources */,
 				EF6FEA6C27B813DF00557158 /* ResetPasswordViewModel.swift in Sources */,
 				C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */,
+				EFB118542800C328009752BE /* SettingsView.swift in Sources */,
 				C00FD80127AA71E80072DD67 /* Tip.swift in Sources */,
 				EF95E13027D6ABBF0033B8E0 /* DataController.swift in Sources */,
 				C03F4F2526E1665D00BBF2A8 /* AdvancedView.swift in Sources */,
