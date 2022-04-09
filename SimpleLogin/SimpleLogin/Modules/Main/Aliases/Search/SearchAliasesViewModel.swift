@@ -20,7 +20,7 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
     @Published private(set) var isLoading = false
     @Published private(set) var isUpdating = false
     @Published private(set) var updatedAlias: Alias?
-    @Published private(set) var error: Error?
+    @Published var error: Error?
     private var currentPage = 0
     private var canLoadMorePages = true
 
@@ -50,10 +50,6 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
 
     override func whenUnreachable() {
         objectWillChange.send()
-    }
-
-    func handledError() {
-        error = nil
     }
 
     func search(term: String) {

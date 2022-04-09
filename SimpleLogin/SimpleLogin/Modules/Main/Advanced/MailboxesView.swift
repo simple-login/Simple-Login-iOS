@@ -21,14 +21,6 @@ struct MailboxesView: View {
     }
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
-            }
-        })
-
         let showingDeletionAlert = Binding<Bool>(get: {
             mailboxToBeDeleted != nil
         }, set: { isShowing in
@@ -73,7 +65,7 @@ struct MailboxesView: View {
             deletionAlert
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError($viewModel.error)
     }
 
     private func menu(for mailbox: Mailbox) -> some View {

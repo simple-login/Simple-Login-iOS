@@ -11,8 +11,8 @@ import SwiftUI
 
 final class SignUpViewModel: BaseClientViewModel, ObservableObject {
     @Published private(set) var isLoading = false
-    @Published private(set) var error: Error?
     @Published private(set) var registeredEmail: String?
+    @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
 
     func register(email: String, password: String) {
@@ -33,10 +33,6 @@ final class SignUpViewModel: BaseClientViewModel, ObservableObject {
                 self.registeredEmail = email
             }
             .store(in: &cancellables)
-    }
-
-    func handledError() {
-        error = nil
     }
 
     func handledRegisteredEmail() {

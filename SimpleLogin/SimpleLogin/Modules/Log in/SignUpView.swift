@@ -28,14 +28,6 @@ struct SignUpView: View {
     }
 
     var body: some View {
-        let showingErrorToast = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { showing in
-            if !showing {
-                viewModel.handledError()
-            }
-        })
-
         let showingOtpViewSheet = Binding<Bool>(get: {
             otpMode != nil && UIDevice.current.userInterfaceIdiom != .phone
         }, set: { isShowing in
@@ -113,7 +105,7 @@ struct SignUpView: View {
         .fullScreenCover(isPresented: showingOtpViewFullScreen) { otpView }
         .sheet(isPresented: showingOtpViewSheet) { otpView }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
+        .alertToastError($viewModel.error)
         .alert(isPresented: $showingRegisteredEmailAlert) {
             Alert(title: Text("You are all set"),
                   message: Text("We've sent an email to \(email). Please check your inbox."),

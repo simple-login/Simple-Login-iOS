@@ -50,14 +50,6 @@ struct AliasesView: View {
             }
         })
 
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
-            }
-        })
-
         let showingCreatedAliasAlert = Binding<Bool>(get: {
             createdAlias != nil
         }, set: { isShowing in
@@ -195,7 +187,7 @@ struct AliasesView: View {
         }
         .alertToastLoading(isPresenting: $showingUpdatingAlert)
         .alertToastCopyMessage(isPresenting: showingCopiedEmailAlert, message: copiedEmail)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError($viewModel.error)
         .alertToastCompletionMessage(isPresenting: showingCreatedAliasAlert,
                                      title: "Created",
                                      subTitle: createdAlias?.email ?? "")

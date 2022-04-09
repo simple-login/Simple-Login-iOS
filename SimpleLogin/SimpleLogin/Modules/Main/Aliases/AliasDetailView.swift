@@ -89,14 +89,6 @@ struct AliasDetailView: View {
             }
         })
 
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
-            }
-        })
-
         ZStack {
             NavigationLink(isActive: $showingAliasContacts,
                            destination: { AliasContactsView(alias: viewModel.alias, session: viewModel.session) },
@@ -179,7 +171,7 @@ struct AliasDetailView: View {
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError($viewModel.error)
         .alert(isPresented: $showingDeletionAlert) {
             Alert.deleteConfirmation(alias: viewModel.alias) {
                 viewModel.delete()
@@ -640,14 +632,6 @@ private struct EditMailboxesView: View {
     @State private var selectedIds: [Int] = []
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.updatingError != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledUpdatingError()
-            }
-        })
-
         NavigationView {
             Group {
                 if !viewModel.mailboxes.isEmpty {
@@ -676,7 +660,7 @@ private struct EditMailboxesView: View {
             showingLoadingAlert = isLoadingMailboxes
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.updatingError)
+        .alertToastError($viewModel.updatingError)
     }
 
     private var cancelButton: some View {
@@ -728,14 +712,6 @@ private struct EditDisplayNameView: View {
     @State private var displayName = ""
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.updatingError != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledUpdatingError()
-            }
-        })
-
         NavigationView {
             Form {
                 Section(header: Text("Display name")) {
@@ -766,7 +742,7 @@ private struct EditDisplayNameView: View {
             }
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.updatingError)
+        .alertToastError($viewModel.updatingError)
     }
 
     private var cancelButton: some View {
@@ -793,14 +769,6 @@ private struct EditNotesView: View {
     @State private var notes = ""
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.updatingError != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledUpdatingError()
-            }
-        })
-
         NavigationView {
             Form {
                 Section(header: Text("Notes")) {
@@ -832,7 +800,7 @@ private struct EditNotesView: View {
             }
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.updatingError)
+        .alertToastError($viewModel.updatingError)
     }
 
     private var cancelButton: some View {

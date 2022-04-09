@@ -14,8 +14,8 @@ final class AliasContactsViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var isRefreshing = false
     @Published private(set) var contacts: [Contact]?
-    @Published private(set) var error: Error?
     @Published private(set) var createdContact: Contact?
+    @Published var error: Error?
 
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
@@ -26,10 +26,6 @@ final class AliasContactsViewModel: BaseSessionViewModel, ObservableObject {
     init(alias: Alias, session: Session) {
         self.alias = alias
         super.init(session: session)
-    }
-
-    func handledError() {
-        self.error = nil
     }
 
     func getMoreContactsIfNeed(currentContact: Contact?) {

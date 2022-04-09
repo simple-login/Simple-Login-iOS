@@ -18,12 +18,12 @@ final class AliasDetailViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var isRefreshing = false
     @Published private(set) var isRefreshed = false
     @Published private(set) var isDeleted = false
-    @Published private(set) var error: Error?
+    @Published var error: Error?
 
     // Updating mailboxes, display name & notes
     @Published private(set) var isUpdating = false
     @Published private(set) var isUpdated = false
-    @Published private(set) var updatingError: Error?
+    @Published var updatingError: Error?
 
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
@@ -32,14 +32,6 @@ final class AliasDetailViewModel: BaseSessionViewModel, ObservableObject {
     init(alias: Alias, session: Session) {
         self.alias = alias
         super.init(session: session)
-    }
-
-    func handledError() {
-        error = nil
-    }
-
-    func handledUpdatingError() {
-        updatingError = nil
     }
 
     func handledIsUpdatedBoolean() {

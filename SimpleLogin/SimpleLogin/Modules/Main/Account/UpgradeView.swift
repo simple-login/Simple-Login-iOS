@@ -25,14 +25,6 @@ struct UpgradeView: View {
     }
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
-            }
-        })
-
         ScrollView {
             VStack(alignment: .leading) {
                 freePlanSection
@@ -66,7 +58,7 @@ struct UpgradeView: View {
             showingLoadingAlert = isLoading
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError($viewModel.error)
         .betterSafariView(urlString: $selectedUrlString)
         .alert(isPresented: $showingThankAlert) {
             Alert(

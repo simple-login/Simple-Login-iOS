@@ -30,22 +30,6 @@ struct AccountView: View {
     }
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
-            }
-        })
-
-        let showingMessageAlert = Binding<Bool>(get: {
-            viewModel.message != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledMessage()
-            }
-        })
-
         let navigationTitle = viewModel.userInfo.name.isEmpty ? viewModel.userInfo.email : viewModel.userInfo.name
 
         NavigationView {
@@ -96,8 +80,8 @@ struct AccountView: View {
         }
         .modifier(ConfettiableModifier(counter: $confettiCounter))
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastMessage(isPresenting: showingMessageAlert, message: viewModel.message)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastMessage($viewModel.message)
+        .alertToastError($viewModel.error)
     }
 
     @ViewBuilder

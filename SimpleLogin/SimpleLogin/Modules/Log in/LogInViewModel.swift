@@ -11,9 +11,9 @@ import SwiftUI
 
 final class LogInViewModel: ObservableObject {
     @Published private(set) var isLoading = false
-    @Published private(set) var error: Error?
     @Published private(set) var userLogin: UserLogin?
     @Published private(set) var shouldActivate = false
+    @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
 
     private(set) var client: SLClient = .default
@@ -26,10 +26,6 @@ final class LogInViewModel: ObservableObject {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 20
         client = .init(session: .init(configuration: config), baseUrlString: apiUrl) ?? .default
-    }
-
-    func handledError() {
-        error = nil
     }
 
     func handledUserLogin() {

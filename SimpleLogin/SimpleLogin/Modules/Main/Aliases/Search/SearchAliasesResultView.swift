@@ -18,14 +18,6 @@ struct SearchAliasesResultView: View {
     var onUpdate: (Alias) -> Void
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
-            }
-        })
-
         let showingCopiedEmailAlert = Binding<Bool>(get: {
             copiedEmail != nil
         }, set: { isShowing in
@@ -99,6 +91,6 @@ struct SearchAliasesResultView: View {
         }
         .alertToastLoading(isPresenting: $showingUpdatingAlert)
         .alertToastCopyMessage(isPresenting: showingCopiedEmailAlert, message: copiedEmail)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError($viewModel.error)
     }
 }

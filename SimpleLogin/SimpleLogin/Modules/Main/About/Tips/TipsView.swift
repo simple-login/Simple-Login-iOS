@@ -15,22 +15,6 @@ struct TipsView: View {
     let isFirstTime: Bool
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            localAuthenticator.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                localAuthenticator.handledError()
-            }
-        })
-
-        let showingMessageAlert = Binding<Bool>(get: {
-            localAuthenticator.message != nil
-        }, set: { isShowing in
-            if !isShowing {
-                localAuthenticator.handledMessage()
-            }
-        })
-
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 20) {
                 VStack {
@@ -78,10 +62,8 @@ struct TipsView: View {
         .navigationTitle("💡 Tips")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(leading: isFirstTime ? closeButton : nil)
-        .alertToastMessage(isPresenting: showingMessageAlert,
-                           message: localAuthenticator.message)
-        .alertToastError(isPresenting: showingErrorAlert,
-                         error: localAuthenticator.error)
+        .alertToastMessage($localAuthenticator.message)
+        .alertToastError($localAuthenticator.error)
     }
 
     private var closeButton: some View {

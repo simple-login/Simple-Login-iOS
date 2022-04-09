@@ -44,14 +44,6 @@ struct LogInView: View {
     }
 
     var body: some View {
-        let showingErrorToast = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { showing in
-            if !showing {
-                viewModel.handledError()
-            }
-        })
-
         let showingOtpViewSheet = Binding<Bool>(get: {
             otpMode != nil && UIDevice.current.userInterfaceIdiom != .phone
         }, set: { isShowing in
@@ -171,7 +163,7 @@ struct LogInView: View {
             }
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
+        .alertToastError($viewModel.error)
     }
 
     private var topView: some View {

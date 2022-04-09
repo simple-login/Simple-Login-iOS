@@ -9,7 +9,7 @@ import Foundation
 
 enum SLError: Error {
     case emptyClipboard
-    case invalidApiUrl
+    case invalidApiUrl(String)
     case invalidValidationCodeSyntax
     case missingApiKey
     case contactExists
@@ -19,8 +19,8 @@ enum SLError: Error {
         switch self {
         case .emptyClipboard:
             return "Empty clipboard"
-        case .invalidApiUrl:
-            return "Invalid API URL"
+        case .invalidApiUrl(let urlString):
+            return "Invalid API URL: \(urlString)"
         case .invalidValidationCodeSyntax:
             return "Invalid validation code syntax"
         case .missingApiKey:
