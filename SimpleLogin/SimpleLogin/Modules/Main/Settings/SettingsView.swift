@@ -11,6 +11,7 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
     @StateObject private var localAuthenticator = LocalAuthenticator()
+    @State private var showingAboutView = false
 
     var body: some View {
         NavigationView {
@@ -23,10 +24,16 @@ struct SettingsView: View {
                 AliasDisplayModeSection()
                 KeyboardExtensionSection()
                 RateAndTipsSection()
-                AboutSection()
+                AboutSection(showingAboutView: $showingAboutView)
             }
-                .navigationTitle("Settings")
+            .navigationTitle("Settings")
+            .onAppear {
+                if UIDevice.current.userInterfaceIdiom != .phone, !showingAboutView {
+                    showingAboutView = true
+                }
+            }
         }
+        .slNavigationView()
         .alertToastMessage($localAuthenticator.message)
         .alertToastError($localAuthenticator.error)
     }
@@ -241,13 +248,18 @@ private struct RateAndTipsSection: View {
 }
 
 private struct AboutSection: View {
+    @Binding var showingAboutView: Bool
+
     var body: some View {
         Section {
-            NavigationLink(destination: {
-                AboutView()
-            }, label: {
-                Label("About SimpleLogin", systemImage: "info.circle")
-            })
+            NavigationLink(
+                isActive: $showingAboutView,
+                destination: {
+                    AboutView()
+                },
+                label: {
+                    Label("About SimpleLogin", systemImage: "info.circle")
+                })
         }
     }
 }
