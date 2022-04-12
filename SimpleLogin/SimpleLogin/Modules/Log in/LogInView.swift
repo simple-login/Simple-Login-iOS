@@ -28,14 +28,6 @@ struct LogInView: View {
 
     @State private var showingLoadingAlert = false
 
-    @State private var isInEditingMode = false
-
-    private let keyboardWillShowNotification = NotificationCenter.default
-        .publisher(for: UIApplication.keyboardWillShowNotification, object: nil)
-
-    private let keyboardWillHideNotification = NotificationCenter.default
-        .publisher(for: UIApplication.keyboardWillHideNotification, object: nil)
-
     let onComplete: (ApiKey, SLClient) -> Void
 
     init(apiUrl: String, onComplete: @escaping (ApiKey, SLClient) -> Void) {
@@ -71,7 +63,7 @@ struct LogInView: View {
 
                 Spacer()
 
-                if !isInEditingMode || UIDevice.current.userInterfaceIdiom != .phone {
+                if !viewModel.isShowingKeyboard || UIDevice.current.userInterfaceIdiom != .phone {
                     LogoView()
                 }
 
@@ -85,7 +77,7 @@ struct LogInView: View {
                     .sheet(isPresented: showingOtpViewSheet) { otpView() }
                     .fullScreenCover(isPresented: showingOtpViewFullScreen) { otpView() }
 
-                    if !isInEditingMode {
+                    if !viewModel.isShowingKeyboard {
                         Button(action: {
                             showingResetPasswordView = true
                         }, label: {
@@ -98,9 +90,10 @@ struct LogInView: View {
 
                 Spacer()
 
-                if !launching && !isInEditingMode {
+                if !launching {
                     bottomView
                         .fixedSize(horizontal: false, vertical: true)
+                        .opacity(viewModel.isShowingKeyboard ? 0 : 1)
                         .fullScreenCover(isPresented: $showingSignUpView) {
                             if let client = viewModel.client {
                                 SignUpView(client: client) { emai, password in
@@ -150,16 +143,6 @@ struct LogInView: View {
                         launching = false
                     }
                 }
-            }
-        }
-        .onReceive(keyboardWillShowNotification) { _ in
-            withAnimation {
-                isInEditingMode = true
-            }
-        }
-        .onReceive(keyboardWillHideNotification) { _ in
-            withAnimation {
-                isInEditingMode = false
             }
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)

@@ -50,7 +50,9 @@ struct SignUpView: View {
             VStack(spacing: 0) {
                 Spacer()
 
-                LogoView()
+                if !viewModel.isShowingKeyboard {
+                    LogoView()
+                }
 
                 EmailPasswordView(email: $email, password: $password, mode: .signUp) {
                     viewModel.register(email: email, password: password)
@@ -61,6 +63,7 @@ struct SignUpView: View {
                     Text("By clicking \"Create account\", you agree to abide by SimpleLogin's Terms & Conditions.")
                         .padding(.vertical)
                         .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
                     Button(action: {
                         showingTermsAndConditions = true
                     }, label: {
@@ -74,15 +77,17 @@ struct SignUpView: View {
 
                 Spacer()
 
-                Divider()
+                if !viewModel.isShowingKeyboard {
+                    Divider()
 
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }, label: {
-                    Text("Already have an account")
-                        .font(.callout)
-                })
-                .padding(.vertical)
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Text("Already have an account")
+                            .font(.callout)
+                    })
+                    .padding(.vertical)
+                }
             }
         }
         .safariView(isPresented: $showingTermsAndConditions) {
