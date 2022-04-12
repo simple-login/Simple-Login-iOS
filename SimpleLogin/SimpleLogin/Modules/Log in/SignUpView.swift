@@ -44,52 +44,49 @@ struct SignUpView: View {
             }
         })
 
-        ZStack {
-            Color.gray.opacity(0.01)
+        VStack(spacing: 0) {
+            Spacer()
 
-            VStack(spacing: 0) {
-                Spacer()
+            if !viewModel.isShowingKeyboard {
+                LogoView()
+            }
 
-                if !viewModel.isShowingKeyboard {
-                    LogoView()
-                }
+            EmailPasswordView(email: $email, password: $password, mode: .signUp) {
+                viewModel.register(email: email, password: password)
+            }
+            .padding()
 
-                EmailPasswordView(email: $email, password: $password, mode: .signUp) {
-                    viewModel.register(email: email, password: password)
-                }
-                .padding()
-
-                Group {
-                    Text("By clicking \"Create account\", you agree to abide by SimpleLogin's Terms & Conditions.")
-                        .padding(.vertical)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Button(action: {
-                        showingTermsAndConditions = true
-                    }, label: {
-                        Text("View Terms & Conditions")
-                    })
-                        .foregroundColor(.blue)
-                }
-                .padding(.horizontal)
-                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ?
-                       UIScreen.main.minLength * 3 / 5 : .infinity)
-
-                Spacer()
-
-                if !viewModel.isShowingKeyboard {
-                    Divider()
-
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        Text("Already have an account")
-                            .font(.callout)
-                    })
+            Group {
+                Text("By clicking \"Create account\", you agree to abide by SimpleLogin's Terms & Conditions.")
                     .padding(.vertical)
-                }
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                Button(action: {
+                    showingTermsAndConditions = true
+                }, label: {
+                    Text("View Terms & Conditions")
+                })
+                    .foregroundColor(.blue)
+            }
+            .padding(.horizontal)
+            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ?
+                   UIScreen.main.minLength * 3 / 5 : .infinity)
+
+            Spacer()
+
+            if !viewModel.isShowingKeyboard {
+                Divider()
+
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Text("Already have an account")
+                        .font(.callout)
+                })
+                .padding(.vertical)
             }
         }
+        .contentShape(Rectangle())
         .safariView(isPresented: $showingTermsAndConditions) {
             // swiftlint:disable:next force_unwrapping
             SafariView(url: URL(string: "https://simplelogin.io/terms/")!)

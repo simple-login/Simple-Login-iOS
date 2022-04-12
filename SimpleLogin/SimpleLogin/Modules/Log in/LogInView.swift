@@ -52,62 +52,58 @@ struct LogInView: View {
             }
         })
 
-        ZStack {
-            // A vary pale color to make background tappable
-            Color.gray.opacity(0.01)
+        VStack {
+            if !launching {
+                topView
+            }
 
-            VStack {
-                if !launching {
-                    topView
+            Spacer()
+
+            if !viewModel.isShowingKeyboard || UIDevice.current.userInterfaceIdiom != .phone {
+                LogoView()
+            }
+
+            if !launching {
+                EmailPasswordView(email: $email,
+                                  password: $password,
+                                  mode: .logIn) {
+                    viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
                 }
+                .padding()
+                .sheet(isPresented: showingOtpViewSheet) { otpView() }
+                .fullScreenCover(isPresented: showingOtpViewFullScreen) { otpView() }
 
-                Spacer()
-
-                if !viewModel.isShowingKeyboard || UIDevice.current.userInterfaceIdiom != .phone {
-                    LogoView()
+                if !viewModel.isShowingKeyboard {
+                    Button(action: {
+                        showingResetPasswordView = true
+                    }, label: {
+                        Text("Forgot password?")
+                    })
                 }
+            } else {
+                ProgressView()
+            }
 
-                if !launching {
-                    EmailPasswordView(email: $email,
-                                      password: $password,
-                                      mode: .logIn) {
-                        viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
-                    }
-                    .padding()
-                    .sheet(isPresented: showingOtpViewSheet) { otpView() }
-                    .fullScreenCover(isPresented: showingOtpViewFullScreen) { otpView() }
+            Spacer()
 
-                    if !viewModel.isShowingKeyboard {
-                        Button(action: {
-                            showingResetPasswordView = true
-                        }, label: {
-                            Text("Forgot password?")
-                        })
-                    }
-                } else {
-                    ProgressView()
-                }
-
-                Spacer()
-
-                if !launching {
-                    bottomView
-                        .fixedSize(horizontal: false, vertical: true)
-                        .opacity(viewModel.isShowingKeyboard ? 0 : 1)
-                        .fullScreenCover(isPresented: $showingSignUpView) {
-                            if let client = viewModel.client {
-                                SignUpView(client: client) { emai, password in
-                                    self.email = emai
-                                    self.password = password
-                                    self.viewModel.logIn(email: email,
-                                                         password: password,
-                                                         device: UIDevice.current.name)
-                                }
+            if !launching {
+                bottomView
+                    .fixedSize(horizontal: false, vertical: true)
+                    .opacity(viewModel.isShowingKeyboard ? 0 : 1)
+                    .fullScreenCover(isPresented: $showingSignUpView) {
+                        if let client = viewModel.client {
+                            SignUpView(client: client) { emai, password in
+                                self.email = emai
+                                self.password = password
+                                self.viewModel.logIn(email: email,
+                                                     password: password,
+                                                     device: UIDevice.current.name)
                             }
                         }
-                }
+                    }
             }
         }
+        .contentShape(Rectangle())
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
