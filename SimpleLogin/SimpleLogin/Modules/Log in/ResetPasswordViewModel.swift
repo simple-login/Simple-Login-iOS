@@ -11,8 +11,8 @@ import SwiftUI
 
 final class ResetPasswordViewModel: BaseClientViewModel, ObservableObject {
     @Published private(set) var isLoading = false
-    @Published private(set) var error: Error?
-    @Published private(set) var resetEmail: String?
+    @Published var error: Error?
+    @Published var resetEmail: String?
     private var cancellables = Set<AnyCancellable>()
 
     func resetPassword(email: String) {
@@ -37,13 +37,5 @@ final class ResetPasswordViewModel: BaseClientViewModel, ObservableObject {
                 }
             }
             .store(in: &cancellables)
-    }
-
-    func handledError() {
-        error = nil
-    }
-
-    func handledResetEmail() {
-        resetEmail = nil
     }
 }

@@ -28,14 +28,6 @@ struct SignUpView: View {
     }
 
     var body: some View {
-        let showingErrorToast = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { showing in
-            if !showing {
-                viewModel.handledError()
-            }
-        })
-
         let showingOtpViewSheet = Binding<Bool>(get: {
             otpMode != nil && UIDevice.current.userInterfaceIdiom != .phone
         }, set: { isShowing in
@@ -52,36 +44,37 @@ struct SignUpView: View {
             }
         })
 
-        ZStack {
-            Color.gray.opacity(0.01)
+        VStack(spacing: 0) {
+            Spacer()
 
-            VStack(spacing: 0) {
-                Spacer()
-
+            if !viewModel.isShowingKeyboard {
                 LogoView()
+            }
 
-                EmailPasswordView(email: $email, password: $password, mode: .signUp) {
-                    viewModel.register(email: email, password: password)
-                }
-                .padding()
+            EmailPasswordView(email: $email, password: $password, mode: .signUp) {
+                viewModel.register(email: email, password: password)
+            }
+            .padding()
 
-                Group {
-                    Text("By clicking \"Create account\", you agree to abide by SimpleLogin's Terms & Conditions.")
-                        .padding(.vertical)
-                        .multilineTextAlignment(.center)
-                    Button(action: {
-                        showingTermsAndConditions = true
-                    }, label: {
-                        Text("View Terms & Conditions")
-                    })
-                        .foregroundColor(.blue)
-                }
-                .padding(.horizontal)
-                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ?
-                       UIScreen.main.minLength * 3 / 5 : .infinity)
+            Group {
+                Text("By clicking \"Create account\", you agree to abide by SimpleLogin's Terms & Conditions.")
+                    .padding(.vertical)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                Button(action: {
+                    showingTermsAndConditions = true
+                }, label: {
+                    Text("View Terms & Conditions")
+                })
+                    .foregroundColor(.blue)
+            }
+            .padding(.horizontal)
+            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ?
+                   UIScreen.main.minLength * 3 / 5 : .infinity)
 
-                Spacer()
+            Spacer()
 
+            if !viewModel.isShowingKeyboard {
                 Divider()
 
                 Button(action: {
@@ -93,6 +86,7 @@ struct SignUpView: View {
                 .padding(.vertical)
             }
         }
+        .contentShape(Rectangle())
         .safariView(isPresented: $showingTermsAndConditions) {
             // swiftlint:disable:next force_unwrapping
             SafariView(url: URL(string: "https://simplelogin.io/terms/")!)
@@ -113,7 +107,7 @@ struct SignUpView: View {
         .fullScreenCover(isPresented: showingOtpViewFullScreen) { otpView }
         .sheet(isPresented: showingOtpViewSheet) { otpView }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
+        .alertToastError($viewModel.error)
         .alert(isPresented: $showingRegisteredEmailAlert) {
             Alert(title: Text("You are all set"),
                   message: Text("We've sent an email to \(email). Please check your inbox."),

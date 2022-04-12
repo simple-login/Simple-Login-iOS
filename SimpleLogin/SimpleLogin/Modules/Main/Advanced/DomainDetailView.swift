@@ -19,14 +19,6 @@ struct DomainDetailView: View {
     }
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
-            }
-        })
-
         let domain = viewModel.domain
         ScrollView {
             Group {
@@ -67,7 +59,7 @@ struct DomainDetailView: View {
             showingLoadingAlert = isLoading
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError($viewModel.error)
     }
 }
 
@@ -193,14 +185,6 @@ private struct EditMailboxesView: View {
     @State private var selectedIds: [Int] = []
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
-            }
-        })
-
         NavigationView {
             Group {
                 if !viewModel.mailboxes.isEmpty {
@@ -229,7 +213,7 @@ private struct EditMailboxesView: View {
             showingLoadingAlert = isLoadingMailboxes
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError($viewModel.error)
     }
 
     private var cancelButton: some View {
@@ -360,14 +344,6 @@ private struct EditDisplayNameView: View {
     @State private var displayName = ""
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
-            }
-        })
-
         NavigationView {
             Form {
                 Section(header: Text("Display name"),
@@ -401,7 +377,7 @@ private struct EditDisplayNameView: View {
             }
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError($viewModel.error)
     }
 
     private var cancelButton: some View {

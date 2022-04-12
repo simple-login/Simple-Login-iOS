@@ -13,13 +13,9 @@ final class CustomDomainsViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var domains: [CustomDomain] = []
     @Published private(set) var noDomain = false
     @Published private(set) var isLoading = false
-    @Published private(set) var error: Error?
+    @Published var error: Error?
 
     private var cancellables = Set<AnyCancellable>()
-
-    func handledError() {
-        self.error = nil
-    }
 
     func fetchCustomDomains(refreshing: Bool) {
         if !refreshing, !domains.isEmpty { return }

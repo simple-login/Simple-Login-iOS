@@ -28,7 +28,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
     @Published private(set) var isLoading = false
     @Published private(set) var isRefreshing = false
     @Published private(set) var isUpdating = false
-    @Published private(set) var error: Error?
+    @Published var error: Error?
     private var handledCreatedAliasIds = Set<Int>()
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
@@ -55,10 +55,6 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
         if aliases.isEmpty {
             getMoreAliases()
         }
-    }
-
-    func handledError() {
-        self.error = nil
     }
 
     func getMoreAliasesIfNeed(currentAlias alias: Alias?) {

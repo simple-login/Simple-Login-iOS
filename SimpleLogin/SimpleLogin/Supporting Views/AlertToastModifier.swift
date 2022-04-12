@@ -83,10 +83,6 @@ extension View {
         modifier(AlertToastLoadingModifier(isPresenting: isPresenting))
     }
 
-    func alertToastError(isPresenting: Binding<Bool>, error: Error?) -> some View {
-        modifier(AlertToastErrorModifier(isPresenting: isPresenting, error: error))
-    }
-
     func alertToastError(_ error: Binding<Error?>) -> some View {
         let binding = Binding<Bool>(get: {
             error.wrappedValue != nil
@@ -100,10 +96,6 @@ extension View {
                        type: .error(.red),
                        title: error.wrappedValue?.safeLocalizedDescription)
         }
-    }
-
-    func alertToastMessage(isPresenting: Binding<Bool>, message: String?) -> some View {
-        modifier(AlertToastMessageModifier(isPresenting: isPresenting, message: message))
     }
 
     func alertToastMessage(_ message: Binding<String?>) -> some View {

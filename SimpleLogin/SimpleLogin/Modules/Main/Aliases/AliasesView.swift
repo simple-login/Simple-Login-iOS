@@ -34,10 +34,9 @@ struct AliasesView: View {
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext,
          createdAlias: Binding<Alias?>) {
-        let viewModel = AliasesViewModel(session: session,
-                                         reachabilityObserver: reachabilityObserver,
-                                         managedObjectContext: managedObjectContext)
-        _viewModel = StateObject(wrappedValue: viewModel)
+        _viewModel = StateObject(wrappedValue: .init(session: session,
+                                                     reachabilityObserver: reachabilityObserver,
+                                                     managedObjectContext: managedObjectContext))
         _createdAlias = createdAlias
     }
 
@@ -47,14 +46,6 @@ struct AliasesView: View {
         }, set: { isShowing in
             if !isShowing {
                 copiedEmail = nil
-            }
-        })
-
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
             }
         })
 
@@ -128,7 +119,6 @@ struct AliasesView: View {
                 }
                 .ignoresSafeArea(.keyboard)
                 .listStyle(.plain)
-                .animation(.default)
                 .navigationBarTitleDisplayMode(.inline)
                 .offlineLabelled(reachable: viewModel.reachabilityObserver.reachable)
                 .toolbar {
@@ -195,7 +185,7 @@ struct AliasesView: View {
         }
         .alertToastLoading(isPresenting: $showingUpdatingAlert)
         .alertToastCopyMessage(isPresenting: showingCopiedEmailAlert, message: copiedEmail)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError($viewModel.error)
         .alertToastCompletionMessage(isPresenting: showingCreatedAliasAlert,
                                      title: "Created",
                                      subTitle: createdAlias?.email ?? "")

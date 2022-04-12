@@ -11,9 +11,31 @@ import SwiftUI
 
 final class SignUpViewModel: BaseClientViewModel, ObservableObject {
     @Published private(set) var isLoading = false
-    @Published private(set) var error: Error?
     @Published private(set) var registeredEmail: String?
+    @Published private(set) var isShowingKeyboard = false
+    @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
+
+    override init(client: SLClient) {
+        super.init(client: client)
+        observeKeyboardEvents()
+    }
+
+    private func observeKeyboardEvents() {
+        NotificationCenter.default
+            .publisher(for: UIApplication.keyboardWillShowNotification, object: nil)
+            .sink { [weak self] _ in
+                self?.isShowingKeyboard = true
+            }
+            .store(in: &cancellables)
+
+        NotificationCenter.default
+            .publisher(for: UIApplication.keyboardWillHideNotification, object: nil)
+            .sink { [weak self] _ in
+                self?.isShowingKeyboard = false
+            }
+            .store(in: &cancellables)
+    }
 
     func register(email: String, password: String) {
         isLoading = true
@@ -33,10 +55,6 @@ final class SignUpViewModel: BaseClientViewModel, ObservableObject {
                 self.registeredEmail = email
             }
             .store(in: &cancellables)
-    }
-
-    func handledError() {
-        error = nil
     }
 
     func handledRegisteredEmail() {

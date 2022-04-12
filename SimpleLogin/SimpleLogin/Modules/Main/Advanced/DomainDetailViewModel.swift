@@ -17,7 +17,7 @@ final class DomainDetailViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var mailboxes: [Mailbox] = []
     @Published private(set) var isLoadingMailboxes = false
     @Published private(set) var isUpdated = false
-    @Published private(set) var error: Error?
+    @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
 
     init(domain: CustomDomain, session: Session) {
@@ -41,10 +41,6 @@ final class DomainDetailViewModel: BaseSessionViewModel, ObservableObject {
                 }
             }
             .store(in: &cancellables)
-    }
-
-    func handledError() {
-        self.error = nil
     }
 
     func handledIsUpdatedBoolean() {

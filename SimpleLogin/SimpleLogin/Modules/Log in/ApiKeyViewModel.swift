@@ -11,8 +11,8 @@ import SwiftUI
 
 final class ApiKeyViewModel: ObservableObject {
     @Published private(set) var isLoading = false
-    @Published private(set) var error: Error?
     @Published private(set) var apiKey: ApiKey?
+    @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
     private let client: SLClient
 
@@ -44,9 +44,5 @@ final class ApiKeyViewModel: ObservableObject {
                 self.apiKey = apiKey
             }
             .store(in: &cancellables)
-    }
-
-    func handledError() {
-        error = nil
     }
 }

@@ -31,18 +31,14 @@ struct AliasContactsView: View {
             }
         })
 
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
+        let showingCreatedContactAlert = Binding<String?>(get: {
+            if viewModel.createdContact != nil {
+                return "Created new contact"
+            } else {
+                return nil
             }
-        })
-
-        let showingCreatedContactAlert = Binding<Bool>(get: {
-            viewModel.createdContact != nil
-        }, set: { isShowing in
-            if !isShowing {
+        }, set: { message in
+            if message == nil {
                 viewModel.handledCreatedContact()
             }
         })
@@ -103,9 +99,9 @@ struct AliasContactsView: View {
         }
         .betterSafariView(urlString: $selectedUrlString)
         .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError($viewModel.error)
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastMessage(isPresenting: showingCreatedContactAlert, message: "Created new contact")
+        .alertToastMessage(showingCreatedContactAlert)
     }
 
     private func menu(for contact: Contact) -> some View {

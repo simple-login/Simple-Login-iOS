@@ -13,7 +13,7 @@ struct ApiUrlView: View {
     @Environment(\.presentationMode) private var presentationMode
     @State private var isEditing = false
     @State private var currentApiUrl: String
-    @State private var showingInvalidApiUrlAlert = false
+    @State private var error: Error?
     let apiUrl: String
 
     init(apiUrl: String) {
@@ -53,8 +53,7 @@ struct ApiUrlView: View {
                                 trailing: editOrDoneButton)
         }
         .accentColor(.slPurple)
-        .alertToastError(isPresenting: $showingInvalidApiUrlAlert,
-                         error: SLError.invalidApiUrl)
+        .alertToastError($error)
     }
 
     private var defaultApiUrlView: some View {
@@ -96,7 +95,7 @@ struct ApiUrlView: View {
 
     private func save() {
         guard URL(string: currentApiUrl) != nil else {
-            showingInvalidApiUrlAlert = true
+            error = SLError.invalidApiUrl(currentApiUrl)
             return
         }
         isEditing = false

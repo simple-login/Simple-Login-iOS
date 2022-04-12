@@ -12,12 +12,8 @@ import SwiftUI
 final class MailboxesViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var mailboxes = [Mailbox]()
     @Published private(set) var isLoading = false
-    @Published private(set) var error: Error?
+    @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
-
-    func handledError() {
-        error = nil
-    }
 
     func fetchMailboxes(refreshing: Bool) {
         if !refreshing, !mailboxes.isEmpty { return }

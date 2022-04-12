@@ -22,13 +22,6 @@ struct ApiKeyView: View {
     }
 
     var body: some View {
-        let showingErrorToast = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { showing in
-            if !showing {
-                viewModel.handledError()
-            }
-        })
         NavigationView {
             Form {
                 Section(header: Text(""),
@@ -66,7 +59,7 @@ struct ApiKeyView: View {
             }
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
+        .alertToastError($viewModel.error)
     }
 
     private var footerText: some View {

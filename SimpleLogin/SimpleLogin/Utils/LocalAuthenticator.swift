@@ -26,14 +26,6 @@ final class LocalAuthenticator: ObservableObject {
         }
     }
 
-    func handledError() {
-        self.error = nil
-    }
-
-    func handledMessage() {
-        self.message = nil
-    }
-
     private func biometricallyAuthenticate() {
         guard !isBiometricallyAuthenticating else { return }
         isBiometricallyAuthenticating = true

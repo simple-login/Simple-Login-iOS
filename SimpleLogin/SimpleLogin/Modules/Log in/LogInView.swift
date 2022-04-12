@@ -28,14 +28,6 @@ struct LogInView: View {
 
     @State private var showingLoadingAlert = false
 
-    @State private var isInEditingMode = false
-
-    private let keyboardWillShowNotification = NotificationCenter.default
-        .publisher(for: UIApplication.keyboardWillShowNotification, object: nil)
-
-    private let keyboardWillHideNotification = NotificationCenter.default
-        .publisher(for: UIApplication.keyboardWillHideNotification, object: nil)
-
     let onComplete: (ApiKey, SLClient) -> Void
 
     init(apiUrl: String, onComplete: @escaping (ApiKey, SLClient) -> Void) {
@@ -44,14 +36,6 @@ struct LogInView: View {
     }
 
     var body: some View {
-        let showingErrorToast = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { showing in
-            if !showing {
-                viewModel.handledError()
-            }
-        })
-
         let showingOtpViewSheet = Binding<Bool>(get: {
             otpMode != nil && UIDevice.current.userInterfaceIdiom != .phone
         }, set: { isShowing in
@@ -68,61 +52,58 @@ struct LogInView: View {
             }
         })
 
-        ZStack {
-            // A vary pale color to make background tappable
-            Color.gray.opacity(0.01)
+        VStack {
+            if !launching {
+                topView
+            }
 
-            VStack {
-                if !launching {
-                    topView
+            Spacer()
+
+            if !viewModel.isShowingKeyboard || UIDevice.current.userInterfaceIdiom != .phone {
+                LogoView()
+            }
+
+            if !launching {
+                EmailPasswordView(email: $email,
+                                  password: $password,
+                                  mode: .logIn) {
+                    viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
                 }
+                .padding()
+                .sheet(isPresented: showingOtpViewSheet) { otpView() }
+                .fullScreenCover(isPresented: showingOtpViewFullScreen) { otpView() }
 
-                Spacer()
-
-                if !isInEditingMode || UIDevice.current.userInterfaceIdiom != .phone {
-                    LogoView()
+                if !viewModel.isShowingKeyboard {
+                    Button(action: {
+                        showingResetPasswordView = true
+                    }, label: {
+                        Text("Forgot password?")
+                    })
                 }
+            } else {
+                ProgressView()
+            }
 
-                if !launching {
-                    EmailPasswordView(email: $email,
-                                      password: $password,
-                                      mode: .logIn) {
-                        viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
-                    }
-                    .padding()
-                    .sheet(isPresented: showingOtpViewSheet) { otpView() }
-                    .fullScreenCover(isPresented: showingOtpViewFullScreen) { otpView() }
+            Spacer()
 
-                    if !isInEditingMode {
-                        Button(action: {
-                            showingResetPasswordView = true
-                        }, label: {
-                            Text("Forgot password?")
-                        })
-                    }
-                } else {
-                    ProgressView()
-                }
-
-                Spacer()
-
-                if !launching && !isInEditingMode {
-                    bottomView
-                        .fixedSize(horizontal: false, vertical: true)
-                        .fullScreenCover(isPresented: $showingSignUpView) {
-                            if let client = viewModel.client {
-                                SignUpView(client: client) { emai, password in
-                                    self.email = emai
-                                    self.password = password
-                                    self.viewModel.logIn(email: email,
-                                                         password: password,
-                                                         device: UIDevice.current.name)
-                                }
+            if !launching {
+                bottomView
+                    .fixedSize(horizontal: false, vertical: true)
+                    .opacity(viewModel.isShowingKeyboard ? 0 : 1)
+                    .fullScreenCover(isPresented: $showingSignUpView) {
+                        if let client = viewModel.client {
+                            SignUpView(client: client) { emai, password in
+                                self.email = emai
+                                self.password = password
+                                self.viewModel.logIn(email: email,
+                                                     password: password,
+                                                     device: UIDevice.current.name)
                             }
                         }
-                }
+                    }
             }
         }
+        .contentShape(Rectangle())
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
@@ -160,18 +141,8 @@ struct LogInView: View {
                 }
             }
         }
-        .onReceive(keyboardWillShowNotification) { _ in
-            withAnimation {
-                isInEditingMode = true
-            }
-        }
-        .onReceive(keyboardWillHideNotification) { _ in
-            withAnimation {
-                isInEditingMode = false
-            }
-        }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorToast, error: viewModel.error)
+        .alertToastError($viewModel.error)
     }
 
     private var topView: some View {

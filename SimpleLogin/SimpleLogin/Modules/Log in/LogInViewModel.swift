@@ -11,25 +11,39 @@ import SwiftUI
 
 final class LogInViewModel: ObservableObject {
     @Published private(set) var isLoading = false
-    @Published private(set) var error: Error?
     @Published private(set) var userLogin: UserLogin?
     @Published private(set) var shouldActivate = false
+    @Published private(set) var isShowingKeyboard = false
+    @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
 
     private(set) var client: SLClient = .default
 
     init(apiUrl: String) {
         updateApiUrl(apiUrl)
+        observeKeyboardEvents()
+    }
+
+    private func observeKeyboardEvents() {
+        NotificationCenter.default
+            .publisher(for: UIApplication.keyboardWillShowNotification, object: nil)
+            .sink { [weak self] _ in
+                self?.isShowingKeyboard = true
+            }
+            .store(in: &cancellables)
+
+        NotificationCenter.default
+            .publisher(for: UIApplication.keyboardWillHideNotification, object: nil)
+            .sink { [weak self] _ in
+                self?.isShowingKeyboard = false
+            }
+            .store(in: &cancellables)
     }
 
     func updateApiUrl(_ apiUrl: String) {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 20
         client = .init(session: .init(configuration: config), baseUrlString: apiUrl) ?? .default
-    }
-
-    func handledError() {
-        error = nil
     }
 
     func handledUserLogin() {

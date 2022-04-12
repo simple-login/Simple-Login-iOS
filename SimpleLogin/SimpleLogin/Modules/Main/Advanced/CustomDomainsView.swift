@@ -20,14 +20,6 @@ struct CustomDomainsView: View {
     }
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
-            }
-        })
-
         let showingUnverifiedDomainAlert = Binding<Bool>(get: {
             selectedUnverifiedDomain != nil
         }, set: { isShowing in
@@ -73,7 +65,7 @@ struct CustomDomainsView: View {
             unverifiedDomainAlert
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError($viewModel.error)
     }
 
     private var unverifiedDomainAlert: Alert {

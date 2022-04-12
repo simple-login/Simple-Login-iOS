@@ -11,15 +11,11 @@ import SwiftyStoreKit
 
 final class UpgradeViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var isLoading = false
-    @Published private(set) var error: Error?
     @Published private(set) var monthlySubscription: SKProduct?
     @Published private(set) var yearlySubscription: SKProduct?
     @Published private(set) var isSubscribed = false
+    @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
-
-    func handledError() {
-        self.error = nil
-    }
 
     func retrieveProductsInfo() {
         let productIds = Set(Subscription.allCases.map { $0.productId })

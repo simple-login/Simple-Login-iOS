@@ -32,14 +32,6 @@ struct CreateAliasView: View {
     }
 
     var body: some View {
-        let showingErrorAlert = Binding<Bool>(get: {
-            viewModel.error != nil
-        }, set: { isShowing in
-            if !isShowing {
-                viewModel.handledError()
-            }
-        })
-
         NavigationView {
             Group {
                 if let options = viewModel.options,
@@ -79,7 +71,7 @@ struct CreateAliasView: View {
             }
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError(isPresenting: showingErrorAlert, error: viewModel.error)
+        .alertToastError($viewModel.error)
     }
 
     private var cancelButton: some View {

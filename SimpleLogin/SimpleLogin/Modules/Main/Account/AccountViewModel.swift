@@ -20,10 +20,10 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
     @Published var senderFormat: SenderFormat = .a
     @Published var randomAliasSuffix: RandomAliasSuffix = .word
     @Published var askingForSettings = false
-    @Published private(set) var error: Error?
+    @Published var error: Error?
+    @Published var message: String?
     @Published private(set) var isInitialized = false
     @Published private(set) var isLoading = false
-    @Published private(set) var message: String?
     @Published private(set) var shouldLogOut = false
     private var cancellables = Set<AnyCancellable>()
 
@@ -77,14 +77,6 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
                 }
             }
             .store(in: &cancellables)
-    }
-
-    func handledError() {
-        self.error = nil
-    }
-
-    func handledMessage() {
-        self.message = nil
     }
 
     func getRequiredInformation() {
