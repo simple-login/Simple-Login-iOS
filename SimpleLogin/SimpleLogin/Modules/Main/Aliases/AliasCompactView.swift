@@ -37,73 +37,67 @@ struct AliasCompactView: View {
     }
 
     var body: some View {
-        HStack(spacing: 0) {
-            Color(alias.enabled ? .slPurple : (.darkGray))
-                .frame(width: 4)
-
-            VStack(spacing: 8) {
-                Label {
-                    Text(alias.email)
-                        .foregroundColor(alias.enabled ? .primary : .secondary)
-                } icon: {
-                    if alias.pinned {
-                        Image(systemName: "bookmark.fill")
-                            .foregroundColor(.accentColor)
-                    }
+        VStack(spacing: 8) {
+            Label {
+                Text(alias.email)
+                    .foregroundColor(alias.enabled ? .primary : .secondary)
+            } icon: {
+                if alias.pinned {
+                    Image(systemName: "bookmark.fill")
+                        .foregroundColor(.accentColor)
                 }
-                .font(.headline)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .fixedSize(horizontal: false, vertical: true)
+            }
+            .font(.headline)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .fixedSize(horizontal: false, vertical: true)
 
-                if displayMode != .compact {
-                    if let activity = alias.latestActivity {
-                        Label(title: {
-                            HStack {
-                                Text(activity.contact.email)
-                                Text("(\(activity.relativeDateString))")
-                            }
-                            .foregroundColor(.secondary)
-                        }, icon: {
-                            Image(systemName: activity.action.iconSystemName)
-                                .foregroundColor(activity.action.color)
-                        })
-                            .font(.caption)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .fixedSize(horizontal: false, vertical: true)
-                    } else {
-                        Label("\(alias.creationDateString) (\(alias.relativeCreationDateString))",
-                              systemImage: "clock.fill")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                }
-
-                if displayMode != .compact {
-                    Label(alias.mailboxesString, systemImage: "tray.full.fill")
-                        .lineLimit(3)
+            if displayMode != .compact {
+                if let activity = alias.latestActivity {
+                    Label(title: {
+                        HStack {
+                            Text(activity.contact.email)
+                            Text("(\(activity.relativeDateString))")
+                        }
+                        .foregroundColor(.secondary)
+                    }, icon: {
+                        Image(systemName: activity.action.iconSystemName)
+                            .foregroundColor(activity.action.color)
+                    })
                         .font(.caption)
-                        .foregroundColor(Color.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                } else {
+                    Label("\(alias.creationDateString) (\(alias.relativeCreationDateString))",
+                          systemImage: "clock.fill")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
                 }
-
-                if !alias.noActivities && displayMode == .default {
-                    ActivitiesView(alias: alias)
-                        .padding(.leading)
-                }
-
-                ActionsView(alias: alias,
-                            onCopy: onCopy,
-                            onSendMail: onSendMail,
-                            onToggle: onToggle)
             }
-            .padding(8)
+
+            if displayMode != .compact {
+                Label(alias.mailboxesString, systemImage: "tray.full.fill")
+                    .lineLimit(3)
+                    .font(.caption)
+                    .foregroundColor(Color.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            if !alias.noActivities && displayMode == .default {
+                ActivitiesView(alias: alias)
+                    .padding(.leading)
+            }
+
+            ActionsView(alias: alias,
+                        onCopy: onCopy,
+                        onSendMail: onSendMail,
+                        onToggle: onToggle)
         }
-        .background(alias.enabled ? Color.slPurple.opacity(0.05) : Color(.darkGray).opacity(0.05))
+        .padding(8)
+        .opacity(alias.enabled ? 1 : 0.5)
         .fixedSize(horizontal: false, vertical: true)
-        .clipShape(RoundedRectangle(cornerRadius: 4))
         .fullScreenCover(isPresented: $showingAliasEmailFullScreen) {
             AliasEmailView(email: alias.email)
         }
