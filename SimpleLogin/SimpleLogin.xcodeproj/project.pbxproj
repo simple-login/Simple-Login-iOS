@@ -579,7 +579,6 @@
 			children = (
 				C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */,
 				C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */,
-				C0B1600A279DFA1E00641216 /* AliasDisplayModePreview.swift */,
 				EFFBBDE727C96F7000C8E6DD /* CapacityView.swift */,
 				EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */,
 				C05A9B14277BB996003FD0A7 /* UpgradeView.swift */,
@@ -699,6 +698,7 @@
 		EFB118522800C26B009752BE /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C0B1600A279DFA1E00641216 /* AliasDisplayModePreview.swift */,
 				EFB118532800C328009752BE /* SettingsView.swift */,
 				EFB118552800C35D009752BE /* SettingsViewModel.swift */,
 			);

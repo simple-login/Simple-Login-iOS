@@ -777,7 +777,7 @@ private struct EditNotesView: View {
                             .disabled(viewModel.isUpdating)
                     } else {
                         TextEditor(text: $notes)
-                            .autocapitalization(.words)
+                            .autocapitalization(.sentences)
                             .disableAutocorrection(true)
                             .disabled(viewModel.isUpdating)
                     }
