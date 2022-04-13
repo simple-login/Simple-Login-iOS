@@ -24,50 +24,43 @@ struct AliasDisplayModePreview: View {
     @AppStorage(kAliasDisplayMode) private var displayMode: AliasDisplayMode = .default
 
     var body: some View {
-        HStack(spacing: 0) {
-            Color(.slPurple)
-                .frame(width: 4)
+        VStack(spacing: 8) {
+            // Email
+            GrayRectangle()
+                .frame(maxWidth: .infinity)
 
-            VStack(spacing: 8) {
-                // Email
+            if displayMode != .compact {
+                // Creation date
                 GrayRectangle()
                     .frame(maxWidth: .infinity)
 
-                if displayMode != .compact {
-                    // Creation date
-                    GrayRectangle()
-                        .frame(maxWidth: .infinity)
+                // Mailboxes
+                GrayRectangle()
+            }
 
-                    // Mailboxes
-                    GrayRectangle()
-                }
-
-                // Activities
-                if displayMode == .default {
-                    GeometryReader { proxy in
-                        HStack {
-                            GrayRectangle()
-                                .frame(width: proxy.size.width / 2)
-                            Spacer()
-                        }
+            // Activities
+            if displayMode == .default {
+                GeometryReader { proxy in
+                    HStack {
+                        GrayRectangle()
+                            .frame(width: proxy.size.width / 2)
+                        Spacer()
                     }
                 }
-
-                // Notes
-                GrayRectangle()
-
-                // Actions
-                HStack(spacing: 20) {
-                    GrayRectangle()
-                    GrayRectangle()
-                    GrayRectangle()
-                }
             }
-            .padding(8)
+
+            // Notes
+            GrayRectangle()
+
+            // Actions
+            HStack(spacing: 20) {
+                GrayRectangle()
+                GrayRectangle()
+                GrayRectangle()
+            }
         }
-        .background(Color.slPurple.opacity(0.05))
+        .padding(8)
         .fixedSize(horizontal: false, vertical: true)
-        .clipShape(RoundedRectangle(cornerRadius: 4))
     }
 }
 

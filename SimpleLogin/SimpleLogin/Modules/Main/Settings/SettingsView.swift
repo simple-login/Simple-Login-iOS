@@ -107,7 +107,7 @@ private struct LocalSettingsSection: View {
 
 private struct AliasDisplayModeSection: View {
     @AppStorage(kAliasDisplayMode) var aliasDisplayMode: AliasDisplayMode = .default
-    
+
     var body: some View {
         Section(content: {
             VStack {
