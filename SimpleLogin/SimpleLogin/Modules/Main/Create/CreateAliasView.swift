@@ -153,6 +153,9 @@ private struct ContentView: View {
                 })
                 .pickerStyle(MenuPickerStyle())
                 .labelsHidden()
+                .transaction { transaction in
+                    transaction.animation = nil
+                }
 
             Image(systemName: "chevron.down")
                 .resizable()
