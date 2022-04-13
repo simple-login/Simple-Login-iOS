@@ -53,6 +53,9 @@ struct AliasDisplayModePreview: View {
                     }
                 }
 
+                // Notes
+                GrayRectangle()
+
                 // Actions
                 HStack(spacing: 20) {
                     GrayRectangle()

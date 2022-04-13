@@ -90,6 +90,19 @@ struct AliasCompactView: View {
                     .padding(.leading)
             }
 
+            if let note = alias.note {
+                Label(title: {
+                    Text(note)
+                        .lineLimit(2)
+                }, icon: {
+                    Image(systemName: "square.and.pencil")
+                })
+                    .font(.caption)
+                    .foregroundColor(Color.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
             ActionsView(alias: alias,
                         onCopy: onCopy,
                         onSendMail: onSendMail,
@@ -98,6 +111,7 @@ struct AliasCompactView: View {
         .padding(8)
         .opacity(alias.enabled ? 1 : 0.5)
         .fixedSize(horizontal: false, vertical: true)
+        .contentShape(Rectangle())
         .fullScreenCover(isPresented: $showingAliasEmailFullScreen) {
             AliasEmailView(email: alias.email)
         }
