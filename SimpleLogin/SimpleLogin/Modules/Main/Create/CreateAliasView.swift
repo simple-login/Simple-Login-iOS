@@ -89,7 +89,7 @@ private struct ContentView: View {
     @ObservedObject var viewModel: CreateAliasViewModel
     @State private var showingEditMailboxesView = false
     @State private var prefix = ""
-    @State private var suffix = ""
+    @State private var suffixValue = ""
     @State private var mailboxIds = [Int]()
     @State private var notes = ""
     let options: AliasOptions
@@ -113,7 +113,7 @@ private struct ContentView: View {
             }
         }
         .onAppear {
-            suffix = options.suffixes.map { $0.value }.first ?? ""
+            suffixValue = options.suffixes.map { $0.value }.first ?? ""
             if let defaultMailbox = mailboxes.first(where: { $0.default }) ?? mailboxes.first {
                 mailboxIds.append(defaultMailbox.id)
             }
@@ -136,17 +136,16 @@ private struct ContentView: View {
                 .frame(minWidth: 50)
 
             Picker(
-                selection: $suffix,
+                selection: $suffixValue,
                 content: {
-                    let suffixValues = options.suffixes.map { $0.value }
-                    ForEach(suffixValues, id: \.self) { value in
-                        Text(value)
-                            .tag(value)
+                    ForEach(options.suffixes, id: \.value) { suffix in
+                        Text("\(suffix.value) (\(suffix.domainType.localizedDescription))")
+                            .tag(suffix.value)
                     }
                 },
                 label: {
                     if UIDevice.current.userInterfaceIdiom == .phone {
-                        Text(suffix)
+                        Text(suffixValue)
                     } else {
                         EmptyView()
                     }
@@ -196,7 +195,7 @@ private struct ContentView: View {
         VStack {
             let createButtonDisabled = !prefix.isValidPrefix || mailboxIds.isEmpty
             PrimaryButton(title: "Create") {
-                guard let suffixObject = options.suffixes.first(where: { $0.value == suffix }) else { return }
+                guard let suffixObject = options.suffixes.first(where: { $0.value == suffixValue }) else { return }
                 let creationOptions = AliasCreationOptions(hostname: nil,
                                                            prefix: prefix,
                                                            suffix: suffixObject,

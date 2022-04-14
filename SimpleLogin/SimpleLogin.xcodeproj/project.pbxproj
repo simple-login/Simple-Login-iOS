@@ -142,6 +142,8 @@
 		EF6FEA6E27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
 		EF6FEA6F27B8358800557158 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */; };
 		EF72966127C2698300737550 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF72966027C2698300737550 /* PrimaryButton.swift */; };
+		EF89C3602808BBB000F48743 /* SuffixExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF89C35F2808BBB000F48743 /* SuffixExtensions.swift */; };
+		EF89C3612808BBB000F48743 /* SuffixExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF89C35F2808BBB000F48743 /* SuffixExtensions.swift */; };
 		EF8B1CCC27DDE0FB004D3575 /* ReachabilityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B1CCB27DDE0FB004D3575 /* ReachabilityObserver.swift */; };
 		EF8B1CD027DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */; };
 		EF95E13027D6ABBF0033B8E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E12F27D6ABBF0033B8E0 /* DataController.swift */; };
@@ -324,6 +326,7 @@
 		EF6FEA6B27B813DF00557158 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		EF6FEA6D27B8358800557158 /* AlertToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastModifier.swift; sourceTree = "<group>"; };
 		EF72966027C2698300737550 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		EF89C35F2808BBB000F48743 /* SuffixExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuffixExtensions.swift; sourceTree = "<group>"; };
 		EF8B1CCB27DDE0FB004D3575 /* ReachabilityObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityObserver.swift; sourceTree = "<group>"; };
 		EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseReachabilitySessionViewModel.swift; sourceTree = "<group>"; };
 		EF95E12F27D6ABBF0033B8E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -677,6 +680,7 @@
 				EF8B1CCB27DDE0FB004D3575 /* ReachabilityObserver.swift */,
 				EF65890127DA9EB400D327C2 /* SizePreferenceKey.swift */,
 				C0259EAE26DA55CD0056A977 /* StringExtensions.swift */,
+				EF89C35F2808BBB000F48743 /* SuffixExtensions.swift */,
 				C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */,
 				C0941EF927A70AE6009AAEBC /* URLExtensions.swift */,
 				EFB3A96627BC404300F82965 /* UIImageExtensions.swift */,
@@ -1043,6 +1047,7 @@
 				C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */,
 				C00E66692792C687002DBA67 /* ClearButtonModeModifier.swift in Sources */,
 				C087656027AE7A5C00FF26E6 /* SearchAliasesResultView.swift in Sources */,
+				EF89C3602808BBB000F48743 /* SuffixExtensions.swift in Sources */,
 				EFA52AE827CA39B000994547 /* HowItWorksView.swift in Sources */,
 				C0FE7B2D27A9CFD7005D53DF /* SignUpViewModel.swift in Sources */,
 				C0941EFA27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
@@ -1120,6 +1125,7 @@
 				EFBBEDC627F3B23D00E0FF03 /* CapacityView.swift in Sources */,
 				C0941EF027A6EFD7009AAEBC /* ColorExtensions.swift in Sources */,
 				C03E200D27A1F436000D82F6 /* ShareViewController.swift in Sources */,
+				EF89C3612808BBB000F48743 /* SuffixExtensions.swift in Sources */,
 				C04BB63527AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */,
 				C0941EFB27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				EF6FEA6F27B8358800557158 /* AlertToastModifier.swift in Sources */,
