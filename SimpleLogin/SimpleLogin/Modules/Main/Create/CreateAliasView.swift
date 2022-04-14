@@ -87,9 +87,9 @@ struct CreateAliasView: View {
 private struct ContentView: View {
     @Environment(\.openURL) private var openURL
     @ObservedObject var viewModel: CreateAliasViewModel
-    @State private var showingEditMailboxesView = false
+    @State private var isInitialized = false
     @State private var prefix = ""
-    @State private var suffix = ""
+    @State private var suffixValue = ""
     @State private var mailboxIds = [Int]()
     @State private var notes = ""
     let options: AliasOptions
@@ -113,15 +113,14 @@ private struct ContentView: View {
             }
         }
         .onAppear {
-            suffix = options.suffixes.map { $0.value }.first ?? ""
+            guard !isInitialized else { return }
+            isInitialized = true
+            suffixValue = options.suffixes.map { $0.value }.first ?? ""
             if let defaultMailbox = mailboxes.first(where: { $0.default }) ?? mailboxes.first {
                 mailboxIds.append(defaultMailbox.id)
             }
             prefix = url?.notWwwHostname() ?? ""
             notes = url?.host ?? ""
-        }
-        .sheet(isPresented: $showingEditMailboxesView) {
-            EditMailboxesView(mailboxIds: $mailboxIds, mailboxes: mailboxes)
         }
     }
 
@@ -136,17 +135,16 @@ private struct ContentView: View {
                 .frame(minWidth: 50)
 
             Picker(
-                selection: $suffix,
+                selection: $suffixValue,
                 content: {
-                    let suffixValues = options.suffixes.map { $0.value }
-                    ForEach(suffixValues, id: \.self) { value in
-                        Text(value)
-                            .tag(value)
+                    ForEach(options.suffixes, id: \.value) { suffix in
+                        Text("\(suffix.value) (\(suffix.domainType.localizedDescription))")
+                            .tag(suffix.value)
                     }
                 },
                 label: {
                     if UIDevice.current.userInterfaceIdiom == .phone {
-                        Text(suffix)
+                        Text(suffixValue)
                     } else {
                         EmptyView()
                     }
@@ -167,21 +165,22 @@ private struct ContentView: View {
     }
 
     private var mailboxesView: some View {
-        VStack {
-            ForEach(mailboxIds, id: \.self) { id in
-                if let mailbox = mailboxes.first { $0.id == id } {
-                    HStack {
-                        Text(mailbox.email)
-                        Spacer()
+        NavigationLink(destination: {
+            EditMailboxesView(mailboxIds: $mailboxIds, mailboxes: mailboxes)
+        }, label: {
+            VStack {
+                ForEach(mailboxIds, id: \.self) { id in
+                    if let mailbox = mailboxes.first { $0.id == id } {
+                        HStack {
+                            Text(mailbox.email)
+                            Spacer()
+                        }
                     }
                 }
             }
-        }
-        .contentShape(Rectangle())
-        .frame(maxWidth: .infinity)
-        .onTapGesture {
-            showingEditMailboxesView = true
-        }
+            .contentShape(Rectangle())
+            .frame(maxWidth: .infinity)
+        })
     }
 
     private var mailboxFooter: some View {
@@ -196,7 +195,7 @@ private struct ContentView: View {
         VStack {
             let createButtonDisabled = !prefix.isValidPrefix || mailboxIds.isEmpty
             PrimaryButton(title: "Create") {
-                guard let suffixObject = options.suffixes.first(where: { $0.value == suffix }) else { return }
+                guard let suffixObject = options.suffixes.first(where: { $0.value == suffixValue }) else { return }
                 let creationOptions = AliasCreationOptions(hostname: nil,
                                                            prefix: prefix,
                                                            suffix: suffixObject,
@@ -253,46 +252,44 @@ private struct ContentView: View {
 }
 
 private struct EditMailboxesView: View {
-    @Environment(\.presentationMode) private var presentationMode
     @Binding var mailboxIds: [Int]
     let mailboxes: [Mailbox]
 
     var body: some View {
-        NavigationView {
-            Form {
-                Section {
-                    ForEach(mailboxes, id: \.id) { mailbox in
-                        HStack {
-                            Text(mailbox.email)
-                            Spacer()
-                            if mailboxIds.contains(mailbox.id) {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(.accentColor)
-                            }
+        Form {
+            Section {
+                ForEach(mailboxes, id: \.id) { mailbox in
+                    HStack {
+                        Text(mailbox.email)
+                        Spacer()
+                        if mailboxIds.contains(mailbox.id) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.accentColor)
                         }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            if mailboxIds.contains(mailbox.id) && mailboxIds.count > 1 {
-                                mailboxIds.removeAll { $0 == mailbox.id }
-                            } else if !mailboxIds.contains(mailbox.id) {
-                                mailboxIds.append(mailbox.id)
-                            }
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        if mailboxIds.contains(mailbox.id) && mailboxIds.count > 1 {
+                            mailboxIds.removeAll { $0 == mailbox.id }
+                        } else if !mailboxIds.contains(mailbox.id) {
+                            mailboxIds.append(mailbox.id)
                         }
                     }
                 }
             }
-            .navigationTitle("Mailboxes")
-            .navigationBarItems(trailing: doneButton)
         }
-        .accentColor(.slPurple)
-        .navigationViewStyle(.stack)
+        .navigationTitle("Mailboxes")
+        .navigationBarItems(trailing: reloadButton)
     }
 
-    private var doneButton: some View {
+    private var reloadButton: some View {
         Button(action: {
-            presentationMode.wrappedValue.dismiss()
+            if let defaultMailbox = mailboxes.first(where: { $0.default }) {
+                mailboxIds = [defaultMailbox.id]
+            }
         }, label: {
-            Text("Done")
+            Image(systemName: "gobackward")
         })
+            .padding()
     }
 }
