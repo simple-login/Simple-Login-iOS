@@ -66,8 +66,11 @@ struct CreateAliasView: View {
         }
         .onReceive(Just(viewModel.createdAlias)) { createdAlias in
             if let createdAlias = createdAlias {
-                onCreateAlias(createdAlias)
-                presentationMode.wrappedValue.dismiss()
+                // Workaround of a strange bug: https://developer.apple.com/forums/thread/675216
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    onCreateAlias(createdAlias)
+                    presentationMode.wrappedValue.dismiss()
+                }
             }
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
@@ -125,43 +128,22 @@ private struct ContentView: View {
     }
 
     private var prefixAndSuffixView: some View {
-        HStack(spacing: 2) {
-            TextField("custom_prefix", text: $prefix)
-                .labelsHidden()
-                .multilineTextAlignment(.trailing)
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
-                .foregroundColor(prefix.isValidPrefix ? .primary : .red)
-                .frame(minWidth: 50)
+        NavigationLink(destination: {
+            EditSuffixView(suffixValue: $suffixValue, suffixes: options.suffixes)
+        }, label: {
+            HStack(spacing: 2) {
+                TextField("custom_prefix", text: $prefix)
+                    .labelsHidden()
+                    .multilineTextAlignment(.trailing)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .foregroundColor(prefix.isValidPrefix ? .primary : .red)
+                    .frame(minWidth: 50)
 
-            Picker(
-                selection: $suffixValue,
-                content: {
-                    ForEach(options.suffixes, id: \.value) { suffix in
-                        Text("\(suffix.value) (\(suffix.domainType.localizedDescription))")
-                            .tag(suffix.value)
-                    }
-                },
-                label: {
-                    if UIDevice.current.userInterfaceIdiom == .phone {
-                        Text(suffixValue)
-                    } else {
-                        EmptyView()
-                    }
-                })
-                .pickerStyle(MenuPickerStyle())
-                .labelsHidden()
-                .transaction { transaction in
-                    transaction.animation = nil
-                }
-
-            Image(systemName: "chevron.down")
-                .resizable()
-                .scaledToFit()
-                .font(.body.weight(.bold))
-                .frame(width: 12)
-                .foregroundColor(.slPurple)
-        }
+                Text(suffixValue)
+                    .foregroundColor(.slPurple)
+            }
+        })
     }
 
     private var mailboxesView: some View {
@@ -291,5 +273,42 @@ private struct EditMailboxesView: View {
             Image(systemName: "gobackward")
         })
             .padding()
+    }
+}
+
+struct EditSuffixView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    @Binding var suffixValue: String
+    let suffixes: [Suffix]
+
+    var body: some View {
+        Form {
+            ForEach(suffixes, id: \.value) { suffix in
+                HStack {
+                    VStack {
+                        Text(suffix.value)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Text(suffix.domainType.localizedDescription)
+                            .font(.caption)
+                            .foregroundColor(suffix.domainType.color)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+
+                    Spacer()
+
+                    if suffix.value == suffixValue {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.accentColor)
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    suffixValue = suffix.value
+                    presentationMode.wrappedValue.dismiss()
+                }
+            }
+        }
     }
 }
