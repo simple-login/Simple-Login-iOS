@@ -19,34 +19,6 @@ struct AlertToastLoadingModifier: ViewModifier {
     }
 }
 
-struct AlertToastErrorModifier: ViewModifier {
-    let isPresenting: Binding<Bool>
-    let error: Error?
-
-    func body(content: Content) -> some View {
-        content
-            .toast(isPresenting: isPresenting, duration: 3.5) {
-                AlertToast(displayMode: .banner(.pop),
-                           type: .error(.red),
-                           title: error?.safeLocalizedDescription)
-            }
-    }
-}
-
-struct AlertToastMessageModifier: ViewModifier {
-    let isPresenting: Binding<Bool>
-    let message: String?
-
-    func body(content: Content) -> some View {
-        content
-            .toast(isPresenting: isPresenting, duration: 3.5) {
-                AlertToast(displayMode: .banner(.pop),
-                           type: .regular,
-                           title: message)
-            }
-    }
-}
-
 struct AlertToastCompletionMessage: ViewModifier {
     let isPresenting: Binding<Bool>
     let title: String
@@ -110,6 +82,22 @@ extension View {
             AlertToast(displayMode: .banner(.pop),
                        type: .regular,
                        title: message.wrappedValue)
+        }
+    }
+
+    func alertToastCopyMessage(_ message: Binding<String?>) -> some View {
+        let binding = Binding<Bool>(get: {
+            message.wrappedValue != nil
+        }, set: { isPresenting in
+            if !isPresenting {
+                message.wrappedValue = nil
+            }
+        })
+        return toast(isPresenting: binding, duration: 3.5) {
+            AlertToast(displayMode: .alert,
+                       type: .systemImage("doc.on.doc", .secondary),
+                       title: "Copied",
+                       subTitle: message.wrappedValue)
         }
     }
 

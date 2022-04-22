@@ -57,7 +57,6 @@ struct AliasDetailView: View {
     @State private var showingDeletionAlert = false
     @State private var showingAliasEmailSheet = false
     @State private var showingAliasFullScreen = false
-    @State private var showingAliasContacts = false
     @State private var copiedText: String?
     var onUpdateAlias: (Alias) -> Void
     var onDeleteAlias: (Alias) -> Void
@@ -72,16 +71,8 @@ struct AliasDetailView: View {
     }
 
     var body: some View {
-        let showingCopyAlert = Binding<Bool>(get: {
-            copiedText != nil
-        }, set: { isShowing in
-            if !isShowing {
-                copiedText = nil
-            }
-        })
-
         Form {
-            EmailAndStatusSection(viewModel: viewModel)
+            ActionsSection(viewModel: viewModel, copiedText: $copiedText)
         }
         .disabled(viewModel.isUpdating)
         .navigationTitle(viewModel.alias.email)
@@ -96,7 +87,7 @@ struct AliasDetailView: View {
             }
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
+        .alertToastCopyMessage($copiedText)
 
 //        ZStack {
 //            NavigationLink(isActive: $showingAliasContacts,
@@ -182,76 +173,76 @@ struct AliasDetailView: View {
 //            }
 //        }
     }
-
-    private var trailingButton: some View {
-        Menu(content: {
-            Section {
-                Button(action: {
-                    Vibration.soft.vibrate()
-                    copiedText = viewModel.alias.email
-                    UIPasteboard.general.string = viewModel.alias.email
-                }, label: {
-                    Label.copy
-                })
-
-                Button(action: {
-                    showAliasInFullScreen()
-                }, label: {
-                    Label.enterFullScreen
-                })
-            }
-
-            Section {
-                Button(action: {
-                    Vibration.soft.vibrate()
-                    showingAliasContacts = true
-                }, label: {
-                    Label.sendEmail
-                })
-            }
-
-            Section {
-                if viewModel.alias.enabled {
-                    Button(action: {
-                        viewModel.toggle()
-                    }, label: {
-                        Label.deactivate
-                    })
-                } else {
-                    Button(action: {
-                        viewModel.toggle()
-                    }, label: {
-                        Label.activate
-                    })
-                }
-
-                if viewModel.alias.pinned {
-                    Button(action: {
-                        viewModel.update(option: .pinned(false))
-                    }, label: {
-                        Label.unpin
-                    })
-                } else {
-                    Button(action: {
-                        viewModel.update(option: .pinned(true))
-                    }, label: {
-                        Label.pin
-                    })
-                }
-            }
-
-            Section {
-                DeleteMenuButton {
-                    showingDeletionAlert = true
-                }
-            }
-        }, label: {
-            Image(systemName: "ellipsis.circle")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 24, height: 24)
-        })
-    }
+//
+//    private var trailingButton: some View {
+//        Menu(content: {
+//            Section {
+//                Button(action: {
+//                    Vibration.soft.vibrate()
+//                    copiedText = viewModel.alias.email
+//                    UIPasteboard.general.string = viewModel.alias.email
+//                }, label: {
+//                    Label.copy
+//                })
+//
+//                Button(action: {
+//                    showAliasInFullScreen()
+//                }, label: {
+//                    Label.enterFullScreen
+//                })
+//            }
+//
+//            Section {
+//                Button(action: {
+//                    Vibration.soft.vibrate()
+//                    showingAliasContacts = true
+//                }, label: {
+//                    Label.sendEmail
+//                })
+//            }
+//
+//            Section {
+//                if viewModel.alias.enabled {
+//                    Button(action: {
+//                        viewModel.toggle()
+//                    }, label: {
+//                        Label.deactivate
+//                    })
+//                } else {
+//                    Button(action: {
+//                        viewModel.toggle()
+//                    }, label: {
+//                        Label.activate
+//                    })
+//                }
+//
+//                if viewModel.alias.pinned {
+//                    Button(action: {
+//                        viewModel.update(option: .pinned(false))
+//                    }, label: {
+//                        Label.unpin
+//                    })
+//                } else {
+//                    Button(action: {
+//                        viewModel.update(option: .pinned(true))
+//                    }, label: {
+//                        Label.pin
+//                    })
+//                }
+//            }
+//
+//            Section {
+//                DeleteMenuButton {
+//                    showingDeletionAlert = true
+//                }
+//            }
+//        }, label: {
+//            Image(systemName: "ellipsis.circle")
+//                .resizable()
+//                .scaledToFit()
+//                .frame(width: 24, height: 24)
+//        })
+//    }
 
     private func showAliasInFullScreen() {
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -263,6 +254,90 @@ struct AliasDetailView: View {
 }
 
 // MARK: - Sections
+private struct ActionsSection: View {
+    @State private var showingContacts = false
+    @ObservedObject var viewModel: AliasDetailViewModel
+    @Binding var copiedText: String?
+
+    var body: some View {
+        let alias = viewModel.alias
+        Section(content: {
+            Button(action: {
+
+            }, label: {
+                Text("Enter full screen")
+            })
+        }, header: {
+            HStack {
+                button(
+                    action: {
+                        Vibration.soft.vibrate()
+                        viewModel.update(option: .pinned(!alias.pinned))
+                    },
+                    image: Image(systemName: alias.pinned ? "bookmark.slash" : "bookmark.fill"),
+                    text: Text(alias.pinned ? "unpin" : "pin")
+                )
+                    .foregroundColor(alias.pinned ? .red : .slPurple)
+
+                button(
+                    action: {
+                        Vibration.soft.vibrate()
+                        viewModel.toggle()
+                    },
+                    image: Image(systemName: alias.enabled ? "circle.dashed" : "checkmark.circle.fill"),
+                    text: Text(alias.enabled ? "deactivate" : "activate")
+                )
+                    .foregroundColor(alias.enabled ? .red : .slPurple)
+
+                button(
+                    action: {
+                        Vibration.soft.vibrate()
+                        copiedText = viewModel.alias.email
+                        UIPasteboard.general.string = viewModel.alias.email
+                    },
+                    image: Image(systemName: "doc.on.doc.fill"),
+                    text: Text("copy")
+                )
+                    .foregroundColor(.slPurple)
+
+                NavigationLink(
+                    isActive: $showingContacts,
+                    destination: {
+                        AliasContactsView(alias: viewModel.alias, session: viewModel.session)
+                    },
+                    label: {
+                        button(
+                            action: {
+                                showingContacts = true
+                            },
+                            image: Image(systemName: "paperplane.fill"),
+                            text: Text("send email")
+                        )
+                            .foregroundColor(.slPurple)
+                    })
+            }
+            .frame(maxWidth: .infinity)
+            .textCase(nil)
+        })
+    }
+
+    private func button(action: @escaping () -> Void,
+                        image: Image,
+                        text: Text) -> some View {
+        Button(action: action) {
+            VStack(alignment: .center, spacing: 6) {
+                image
+                    .font(.title3)
+                text
+                    .font(.caption)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 10)
+        .background(Color(.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+}
 private struct EmailAndStatusSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
 
