@@ -58,7 +58,6 @@ struct AliasDetailView: View {
     @State private var showingAliasEmailSheet = false
     @State private var showingAliasFullScreen = false
     @State private var showingAliasContacts = false
-    @State private var selectedActivity: AliasActivity?
     @State private var copiedText: String?
     var onUpdateAlias: (Alias) -> Void
     var onDeleteAlias: (Alias) -> Void
@@ -73,14 +72,6 @@ struct AliasDetailView: View {
     }
 
     var body: some View {
-        let showingSelectedActivityActionSheet = Binding<Bool>(get: {
-            selectedActivity != nil
-        }, set: { isShowing in
-            if !isShowing {
-                selectedActivity = nil
-            }
-        })
-
         let showingCopyAlert = Binding<Bool>(get: {
             copiedText != nil
         }, set: { isShowing in
@@ -109,9 +100,7 @@ struct AliasDetailView: View {
                     Divider()
                     NotesSection(viewModel: viewModel)
                     Divider()
-                    ActivitiesSection(viewModel: viewModel) { activity in
-                        selectedActivity = activity
-                    }
+                    ActivitiesSection(viewModel: viewModel, copiedText: $copiedText)
                 }
                 .padding(.horizontal)
                 .disabled(viewModel.isUpdating || viewModel.isRefreshing)
@@ -119,9 +108,6 @@ struct AliasDetailView: View {
             .introspectScrollView { scrollView in
                 scrollView.refreshControl = viewModel.refreshControl
             }
-        }
-        .actionSheet(isPresented: showingSelectedActivityActionSheet) {
-            selectedActivityActionSheet
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: trailingButton)
@@ -247,42 +233,6 @@ struct AliasDetailView: View {
                 .scaledToFit()
                 .frame(width: 24, height: 24)
         })
-    }
-
-    private var selectedActivityActionSheet: ActionSheet {
-        guard let selectedActivity = selectedActivity else {
-            return ActionSheet(title: Text(""))
-        }
-
-        var buttons: [ActionSheet.Button] = []
-
-        buttons.append(
-            ActionSheet.Button.default(Text("Copy reverse-alias (w/ display name)")) {
-                copiedText = selectedActivity.reverseAlias
-            }
-        )
-
-        buttons.append(
-            ActionSheet.Button.default(Text("Copy reverse-alias (w/o display name)")) {
-                copiedText = selectedActivity.reverseAliasAddress
-            }
-        )
-
-        buttons.append(
-            ActionSheet.Button.default(Text("Open default email client")) {
-                if let mailToUrl = URL(string: "mailto:\(selectedActivity.reverseAliasAddress)") {
-                    UIApplication.shared.open(mailToUrl)
-                }
-            }
-        )
-
-        buttons.append(.cancel())
-
-        let fromAddress = selectedActivity.action == .reply ? selectedActivity.from : selectedActivity.to
-        let toAddress = selectedActivity.action == .reply ? selectedActivity.to : selectedActivity.from
-        return ActionSheet(title: Text("Compose and send email"),
-                           message: Text("From: \"\(fromAddress)\"\nTo: \"\(toAddress)\""),
-                           buttons: buttons)
     }
 
     private func showAliasInFullScreen() {
@@ -525,7 +475,7 @@ private struct NotesSection: View {
 
 private struct ActivitiesSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
-    var onSelectActivity: (AliasActivity) -> Void
+    @Binding var copiedText: String?
 
     var body: some View {
         LazyVStack {
@@ -559,14 +509,10 @@ private struct ActivitiesSection: View {
 
                 ForEach(0..<viewModel.activities.count, id: \.self) { index in
                     let activity = viewModel.activities[index]
-                    ActivityView(activity: activity)
+                    ActivityView(copiedText: $copiedText, activity: activity)
                         .padding(.vertical, 4)
                         .onAppear {
                             viewModel.getMoreActivitiesIfNeed(currentActivity: activity)
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            onSelectActivity(activity)
                         }
 
                     if index < viewModel.activities.count - 1 {
@@ -604,23 +550,55 @@ private struct ActivitiesSection: View {
 }
 
 private struct ActivityView: View {
+    @Binding var copiedText: String?
     let activity: AliasActivity
 
     var body: some View {
-        HStack {
-            Image(systemName: activity.action.iconSystemName)
-                .foregroundColor(activity.action.color)
+        Menu(content: {
+            Section {
+                Button(action: {
+                    Vibration.soft.vibrate()
+                    copiedText = activity.reverseAlias
+                    UIPasteboard.general.string = activity.reverseAlias
+                }, label: {
+                    Label("Copy reverse-alias\n(with display name)", systemImage: "doc.on.doc")
+                })
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text(activity.action == .reply ? activity.to : activity.from)
-                Text("\(activity.dateString) (\(activity.relativeDateString))")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
+                Button(action: {
+                    Vibration.soft.vibrate()
+                    copiedText = activity.reverseAliasAddress
+                    UIPasteboard.general.string = activity.reverseAliasAddress
+                }, label: {
+                    Label("Copy reverse-alias\n(without display name)", systemImage: "doc.on.doc")
+                })
             }
 
-            Spacer()
-        }
-        .fixedSize(horizontal: false, vertical: true)
+            Section {
+                Button(action: {
+                    if let mailToUrl = URL(string: "mailto:\(activity.reverseAliasAddress)") {
+                        UIApplication.shared.open(mailToUrl)
+                    }
+                }, label: {
+                    Label("Open default email client", systemImage: "paperplane")
+                })
+            }
+        }, label: {
+            HStack {
+                Image(systemName: activity.action.iconSystemName)
+                    .foregroundColor(activity.action.color)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(activity.action == .reply ? activity.to : activity.from)
+                        .foregroundColor(.primary)
+                    Text("\(activity.dateString) (\(activity.relativeDateString))")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }
+
+                Spacer()
+            }
+            .fixedSize(horizontal: false, vertical: true)
+        })
     }
 }
 
