@@ -6,6 +6,7 @@
 //
 
 import SimpleLoginPackage
+import SwiftUI
 
 extension Suffix {
     enum DomainType {
@@ -27,5 +28,18 @@ extension Suffix {
         if isCustom { return .custom }
         if isPremium { return .premium }
         return .public
+    }
+}
+
+extension Suffix.DomainType {
+    var color: Color {
+        switch self {
+        case .custom:
+            return .blue
+        case .public:
+            return .secondary
+        case .premium:
+            return .slPurple
+        }
     }
 }
