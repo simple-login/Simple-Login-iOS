@@ -80,64 +80,12 @@ struct AliasDetailView: View {
             }
         })
 
-        ZStack {
-            NavigationLink(isActive: $showingAliasContacts,
-                           destination: { AliasContactsView(alias: viewModel.alias, session: viewModel.session) },
-                           label: { EmptyView() })
-            ScrollView {
-                Group {
-                    CreationDateSection(alias: viewModel.alias)
-                        .fullScreenCover(isPresented: $showingAliasFullScreen) {
-                            AliasEmailView(email: viewModel.alias.email)
-                        }
-                        .sheet(isPresented: $showingAliasEmailSheet) {
-                            AliasEmailView(email: viewModel.alias.email)
-                        }
-                    Divider()
-                    MailboxesSection(viewModel: viewModel)
-                    Divider()
-                    NameSection(viewModel: viewModel)
-                    Divider()
-                    NotesSection(viewModel: viewModel)
-                    Divider()
-                    ActivitiesSection(viewModel: viewModel, copiedText: $copiedText)
-                }
-                .padding(.horizontal)
-                .disabled(viewModel.isUpdating || viewModel.isRefreshing)
-            }
-            .introspectScrollView { scrollView in
-                scrollView.refreshControl = viewModel.refreshControl
-            }
+        Form {
+            EmailAndStatusSection(viewModel: viewModel)
         }
+        .disabled(viewModel.isUpdating)
+        .navigationTitle(viewModel.alias.email)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing: trailingButton)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                VStack(spacing: 0) {
-                    Text(viewModel.alias.email)
-                        .font(.headline)
-                        .truncationMode(.middle)
-                        .frame(maxWidth: 280)
-                        .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
-
-                    HStack {
-                        if viewModel.alias.pinned {
-                            Image(systemName: "bookmark.fill")
-                                .foregroundColor(.accentColor)
-
-                            Divider()
-                        }
-
-                        Text(viewModel.alias.enabled ? "Active" : "Inactive")
-                            .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
-                    }
-                    .font(.footnote)
-                }
-                .onTapGesture {
-                    showAliasInFullScreen()
-                }
-            }
-        }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
         }
@@ -147,22 +95,92 @@ struct AliasDetailView: View {
                 viewModel.handledIsRefreshedBoolean()
             }
         }
-        .onReceive(Just(viewModel.isDeleted)) { isDeleted in
-            if isDeleted {
-                onDeleteAlias(viewModel.alias)
-            }
-        }
-        .onAppear {
-            viewModel.getMoreActivitiesIfNeed(currentActivity: nil)
-        }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
-        .alertToastError($viewModel.error)
-        .alert(isPresented: $showingDeletionAlert) {
-            Alert.deleteConfirmation(alias: viewModel.alias) {
-                viewModel.delete()
-            }
-        }
+
+//        ZStack {
+//            NavigationLink(isActive: $showingAliasContacts,
+//                           destination: { AliasContactsView(alias: viewModel.alias, session: viewModel.session) },
+//                           label: { EmptyView() })
+//            ScrollView {
+//                Group {
+//                    CreationDateSection(alias: viewModel.alias)
+//                        .fullScreenCover(isPresented: $showingAliasFullScreen) {
+//                            AliasEmailView(email: viewModel.alias.email)
+//                        }
+//                        .sheet(isPresented: $showingAliasEmailSheet) {
+//                            AliasEmailView(email: viewModel.alias.email)
+//                        }
+//                    Divider()
+//                    MailboxesSection(viewModel: viewModel)
+//                    Divider()
+//                    NameSection(viewModel: viewModel)
+//                    Divider()
+//                    NotesSection(viewModel: viewModel)
+//                    Divider()
+//                    ActivitiesSection(viewModel: viewModel, copiedText: $copiedText)
+//                }
+//                .padding(.horizontal)
+//                .disabled(viewModel.isUpdating || viewModel.isRefreshing)
+//            }
+//            .introspectScrollView { scrollView in
+//                scrollView.refreshControl = viewModel.refreshControl
+//            }
+//        }
+//        .navigationBarTitleDisplayMode(.inline)
+//        .navigationBarItems(trailing: trailingButton)
+//        .toolbar {
+//            ToolbarItem(placement: .principal) {
+//                VStack(spacing: 0) {
+//                    Text(viewModel.alias.email)
+//                        .font(.headline)
+//                        .truncationMode(.middle)
+//                        .frame(maxWidth: 280)
+//                        .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
+//
+//                    HStack {
+//                        if viewModel.alias.pinned {
+//                            Image(systemName: "bookmark.fill")
+//                                .foregroundColor(.accentColor)
+//
+//                            Divider()
+//                        }
+//
+//                        Text(viewModel.alias.enabled ? "Active" : "Inactive")
+//                            .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
+//                    }
+//                    .font(.footnote)
+//                }
+//                .onTapGesture {
+//                    showAliasInFullScreen()
+//                }
+//            }
+//        }
+//        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+//            showingLoadingAlert = isUpdating
+//        }
+//        .onReceive(Just(viewModel.isRefreshed)) { isRefreshed in
+//            if isRefreshed {
+//                onUpdateAlias(viewModel.alias)
+//                viewModel.handledIsRefreshedBoolean()
+//            }
+//        }
+//        .onReceive(Just(viewModel.isDeleted)) { isDeleted in
+//            if isDeleted {
+//                onDeleteAlias(viewModel.alias)
+//            }
+//        }
+//        .onAppear {
+//            viewModel.getMoreActivitiesIfNeed(currentActivity: nil)
+//        }
+//        .alertToastLoading(isPresenting: $showingLoadingAlert)
+//        .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
+//        .alertToastError($viewModel.error)
+//        .alert(isPresented: $showingDeletionAlert) {
+//            Alert.deleteConfirmation(alias: viewModel.alias) {
+//                viewModel.delete()
+//            }
+//        }
     }
 
     private var trailingButton: some View {
@@ -245,21 +263,39 @@ struct AliasDetailView: View {
 }
 
 // MARK: - Sections
-private struct CreationDateSection: View {
-    let alias: Alias
+private struct EmailAndStatusSection: View {
+    @ObservedObject var viewModel: AliasDetailViewModel
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Creation date")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                Spacer()
-            }
-            .padding(.vertical, 8)
+        let alias = viewModel.alias
 
+        Section(content: {
+            Button(action: {
+                Vibration.soft.vibrate()
+                viewModel.update(option: .pinned(!alias.pinned))
+            }, label: {
+                Label(title: {
+                    Text(alias.pinned ? "Unpin" : "Pin")
+                }, icon: {
+                    Image(systemName: alias.pinned ? "bookmark.slash" : "bookmark.fill")
+                })
+            })
+                .foregroundColor(alias.pinned ? .red : .slPurple)
+
+            Button(action: {
+                Vibration.soft.vibrate()
+                viewModel.toggle()
+            }, label: {
+                Label(title: {
+                    Text(alias.enabled ? "Deactivate" : "Activate")
+                }, icon: {
+                    Image(systemName: alias.enabled ? "circle.dashed" : "checkmark.circle.fill")
+                })
+            })
+                .foregroundColor(alias.enabled ? .red : .slPurple)
+        }, header: {
             Text("\(alias.creationDateString) (\(alias.relativeCreationDateString))")
-        }
+        })
     }
 }
 
