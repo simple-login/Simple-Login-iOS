@@ -64,9 +64,9 @@ struct AliasContactsView: View {
             Section {
                 if let contacts = viewModel.contacts, !contacts.isEmpty {
                     ForEach(contacts, id: \.id) { contact in
-                        ContactView(contact: contact)
-                            .padding(.horizontal, 4)
-                            .overlay(menu(for: contact))
+                        ContactView(viewModel: viewModel,
+                                    copiedText: $copiedText,
+                                    contact: contact)
                     }
                 } else if !viewModel.isFetchingContacts {
                     Text("No contacts")
@@ -104,12 +104,21 @@ struct AliasContactsView: View {
         .alertToastMessage(showingCreatedContactAlert)
     }
 
-    private func menu(for contact: Contact) -> some View {
-        Menu(content: {
-            Section {
-                Text(contact.email)
-            }
+    private var createContactSectionFooter: some View {
+        Button("How to send emails from your alias?") {
+            selectedUrlString = "https://simplelogin.io/docs/getting-started/send-email/"
+        }
+        .foregroundColor(.slPurple)
+    }
+}
 
+private struct ContactView: View {
+    @ObservedObject var viewModel: AliasContactsViewModel
+    @Binding var copiedText: String?
+    let contact: Contact
+
+    var body: some View {
+        Menu(content: {
             Section {
                 Button(action: {
                     Vibration.soft.vibrate()
@@ -160,48 +169,27 @@ struct AliasContactsView: View {
                 }
             }
         }, label: {
-            Text("")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        })
-    }
-
-    private var createContactSectionFooter: some View {
-        Button("How to send emails from your alias?") {
-            selectedUrlString = "https://simplelogin.io/docs/getting-started/send-email/"
-        }
-        .foregroundColor(.slPurple)
-    }
-}
-
-private struct ContactView: View {
-    let contact: Contact
-
-    var body: some View {
-        HStack(spacing: 0) {
-            Color(contact.blockForward ? (.darkGray) : .slPurple)
-                .frame(width: 4)
-
-            VStack(spacing: 8) {
+            HStack {
                 VStack(alignment: .leading) {
                     Text(contact.email)
                         .font(.headline)
-                        .fixedSize(horizontal: false, vertical: false)
+                        .foregroundColor(.primary)
                     Text("\(contact.creationDateString) (\(contact.relativeCreationDateString))")
-                        .fixedSize(horizontal: false, vertical: false)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                .fixedSize(horizontal: false, vertical: false)
+                .opacity(contact.blockForward ? 0.5 : 1)
+
+                Spacer()
+
+                if contact.blockForward {
+                    Text("⛔")
+                        .font(.title)
+                        .padding(.trailing)
                 }
             }
-            .padding(8)
-
-            Spacer()
-
-            if contact.blockForward {
-                Text("⛔")
-                    .font(.title)
-                    .padding(.trailing)
-            }
-        }
-        .background(contact.blockForward ? Color(.darkGray).opacity(0.05) : Color.slPurple.opacity(0.05))
-        .fixedSize(horizontal: false, vertical: true)
-        .clipShape(RoundedRectangle(cornerRadius: 4))
+            .fixedSize(horizontal: false, vertical: false)
+        })
     }
 }
