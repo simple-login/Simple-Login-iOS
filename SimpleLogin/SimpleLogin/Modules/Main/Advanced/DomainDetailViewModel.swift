@@ -69,8 +69,8 @@ final class DomainDetailViewModel: BaseSessionViewModel, ObservableObject {
                 case .failure(let error):
                     self.error = error
                 }
-            } receiveValue: { [weak self] customDomain in
-                self?.bind(domain: customDomain)
+            } receiveValue: { [weak self] response in
+                self?.bind(domain: response.customDomain)
             }
             .store(in: &cancellables)
     }
