@@ -50,7 +50,6 @@ struct AliasDetailWrapperView: View {
     }
 }
 
-// swiftlint:disable file_length
 struct AliasDetailView: View {
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
@@ -78,6 +77,7 @@ struct AliasDetailView: View {
             NotesSection(viewModel: viewModel)
             MailboxesSection(viewModel: viewModel)
             NameSection(viewModel: viewModel)
+            ActivitiesSection(viewModel: viewModel, copiedText: $copiedText)
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -106,6 +106,7 @@ struct AliasDetailView: View {
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastCopyMessage($copiedText)
+        .alertToastError($viewModel.error)
 
 //        ZStack {
 //            NavigationLink(isActive: $showingAliasContacts,
@@ -387,54 +388,47 @@ private struct ActivitiesSection: View {
     @Binding var copiedText: String?
 
     var body: some View {
-        LazyVStack {
-            HStack {
-                Text("Last 14 days activities")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                Spacer()
-            }
-            .padding(.vertical, 8)
-
+        Section(content: {
             if viewModel.alias.noActivities {
                 Text("No activities")
                     .foregroundColor(.secondary)
+                    .font(.body.italic())
+                    .frame(maxWidth: .infinity, alignment: .center)
             } else {
-                HStack {
-                    Spacer()
-                    section(action: .forward,
-                            count: viewModel.alias.forwardCount)
-                    Spacer()
-                    Divider()
-                    Spacer()
-                    section(action: .reply,
-                            count: viewModel.alias.replyCount)
-                    Spacer()
-                    Divider()
-                    section(action: .block,
-                            count: viewModel.alias.blockCount)
-                    Spacer()
-                }
-
-                ForEach(0..<viewModel.activities.count, id: \.self) { index in
+                ForEach(0..<min(5, viewModel.activities.count), id: \.self) { index in
                     let activity = viewModel.activities[index]
                     ActivityView(copiedText: $copiedText, activity: activity)
                         .padding(.vertical, 4)
-                        .onAppear {
-                            viewModel.getMoreActivitiesIfNeed(currentActivity: activity)
-                        }
-
-                    if index < viewModel.activities.count - 1 {
-                        Divider()
-                    }
                 }
 
-                if viewModel.isLoadingActivities {
-                    ProgressView()
-                        .padding()
+                if viewModel.activities.count > 5 {
+                    NavigationLink(destination: {
+                        AllActivitiesView(viewModel: viewModel)
+                    }, label: {
+                        Text("Show all activities")
+                    })
                 }
             }
-        }
+        }, header: {
+            VStack(alignment: .leading) {
+                Text("Last 14 days activities")
+                if !viewModel.activities.isEmpty {
+                    HStack {
+                        section(action: .forward,
+                                count: viewModel.alias.forwardCount)
+                        Divider()
+                        section(action: .reply,
+                                count: viewModel.alias.replyCount)
+                        Divider()
+                        section(action: .block,
+                                count: viewModel.alias.blockCount)
+                    }
+                }
+            }
+        })
+            .onAppear {
+                viewModel.getMoreActivitiesIfNeed(currentActivity: nil)
+            }
     }
 
     private func section(action: ActivityAction, count: Int) -> some View {
@@ -455,6 +449,8 @@ private struct ActivitiesSection: View {
 
             Spacer()
         }
+        .frame(maxWidth: .infinity)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 
@@ -508,6 +504,34 @@ private struct ActivityView: View {
             }
             .fixedSize(horizontal: false, vertical: true)
         })
+    }
+}
+
+private struct AllActivitiesView: View {
+    @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var copiedText: String?
+
+    var body: some View {
+        Form {
+            Section(content: {
+                ForEach(0..<viewModel.activities.count, id: \.self) { index in
+                    let activity = viewModel.activities[index]
+                    ActivityView(copiedText: $copiedText, activity: activity)
+                        .padding(.vertical, 4)
+                        .onAppear {
+                            viewModel.getMoreActivitiesIfNeed(currentActivity: activity)
+                        }
+                }
+            }, header: {
+                Text("Last 14 days activities")
+            })
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                AliasNavigationTitleView(alias: viewModel.alias)
+            }
+        }
+        .alertToastCopyMessage($copiedText)
     }
 }
 
