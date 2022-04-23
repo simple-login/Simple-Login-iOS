@@ -72,10 +72,28 @@ struct AliasDetailView: View {
 
     var body: some View {
         Form {
-            ActionsSection(viewModel: viewModel, copiedText: $copiedText)
+            ActionsSection(viewModel: viewModel,
+                           copiedText: $copiedText,
+                           enterFullScreen: showAliasInFullScreen)
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    if viewModel.alias.pinned {
+                        Image(systemName: "bookmark.fill")
+                            .foregroundColor(.slPurple)
+                    }
+                    Text(viewModel.alias.email)
+                        .fontWeight(.medium)
+                }
+                .opacity(viewModel.alias.enabled ? 1 : 0.5)
+                .frame(maxWidth: UIScreen.main.minLength * 3 / 4)
+                .onTapGesture {
+                    showAliasInFullScreen()
+                }
+            }
         }
         .disabled(viewModel.isUpdating)
-        .navigationTitle(viewModel.alias.email)
         .navigationBarTitleDisplayMode(.inline)
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
@@ -85,6 +103,12 @@ struct AliasDetailView: View {
                 onUpdateAlias(viewModel.alias)
                 viewModel.handledIsRefreshedBoolean()
             }
+        }
+        .fullScreenCover(isPresented: $showingAliasFullScreen) {
+            AliasEmailView(email: viewModel.alias.email)
+        }
+        .sheet(isPresented: $showingAliasEmailSheet) {
+            AliasEmailView(email: viewModel.alias.email)
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastCopyMessage($copiedText)
@@ -255,18 +279,18 @@ struct AliasDetailView: View {
 
 // MARK: - Sections
 private struct ActionsSection: View {
+    @Environment(\.colorScheme) private var colorScheme
     @State private var showingContacts = false
     @ObservedObject var viewModel: AliasDetailViewModel
     @Binding var copiedText: String?
+    var enterFullScreen: () -> Void
 
     var body: some View {
         let alias = viewModel.alias
         Section(content: {
-            Button(action: {
-
-            }, label: {
+            Button(action: enterFullScreen) {
                 Text("Enter full screen")
-            })
+            }
         }, header: {
             HStack {
                 button(
@@ -334,7 +358,7 @@ private struct ActionsSection: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 10)
-        .background(Color(.systemBackground))
+        .background(colorScheme == .light ? Color(.systemBackground) : Color(.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
