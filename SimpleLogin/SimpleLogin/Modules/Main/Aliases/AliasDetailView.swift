@@ -76,6 +76,7 @@ struct AliasDetailView: View {
                            copiedText: $copiedText,
                            enterFullScreen: showAliasInFullScreen)
             MailboxesSection(viewModel: viewModel)
+            NameSection(viewModel: viewModel)
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -329,50 +330,31 @@ private struct MailboxesSection: View {
 
 private struct NameSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
-    @State private var showingExplication = false
-    @State private var showingEditDisplayNameView = false
+    @State private var showingEditAlert = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Display name")
-                    .font(.title2)
-                    .fontWeight(.bold)
-
-                if !showingExplication {
-                    Button(action: {
-                        withAnimation {
-                            showingExplication = true
-                        }
-                    }, label: {
-                        Text("ⓘ")
-                    })
+        Section(content: {
+            Text(viewModel.alias.name ?? "")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .contentShape(Rectangle())
+                .textFieldAlert(isPresented: $showingEditAlert, config: editDisplayNameConfig)
+                .onTapGesture {
+                    showingEditAlert = true
                 }
+        }, header: {
+            Text("Display name")
+        }, footer: {
+            Text("Your display name when sending emails from this alias")
+        })
+    }
 
-                Spacer()
-
-                Button(action: {
-                    showingEditDisplayNameView = true
-                }, label: {
-                    Text(viewModel.alias.name == nil ? "Add" : "Edit")
-                })
-            }
-            .padding(.top, 8)
-            .padding(.bottom, showingExplication ? 2 : 8)
-
-            if showingExplication {
-                Text("Your display name when sending emails from this alias")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 4)
-            }
-
-            if let name = viewModel.alias.name {
-                Text(name)
-            }
-        }
-        .sheet(isPresented: $showingEditDisplayNameView) {
-            EditDisplayNameView(viewModel: viewModel)
+    private var editDisplayNameConfig: TextFieldAlertConfig {
+        TextFieldAlertConfig(title: "Edit display name",
+                             text: viewModel.alias.name,
+                             placeholder: "Ex: John Doe",
+                             actionTitle: "Save") { newDisplayName in
+            viewModel.update(option: .name(newDisplayName))
         }
     }
 }
@@ -626,63 +608,6 @@ private struct EditMailboxesView: View {
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastError($viewModel.updatingError)
-    }
-}
-
-private struct EditDisplayNameView: View {
-    @Environment(\.presentationMode) private var presentationMode
-    @ObservedObject var viewModel: AliasDetailViewModel
-    @State private var showingLoadingAlert = false
-    @State private var displayName = ""
-
-    var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Display name")) {
-                    if #available(iOS 15, *) {
-                        AutoFocusTextField(text: $displayName)
-                    } else {
-                        TextField("", text: $displayName)
-                            .labelsHidden()
-                            .autocapitalization(.words)
-                            .disableAutocorrection(true)
-                    }
-                }
-            }
-            .navigationTitle(viewModel.alias.email)
-            .navigationBarItems(leading: cancelButton, trailing: doneButton)
-        }
-        .accentColor(.slPurple)
-        .onAppear {
-            displayName = viewModel.alias.name ?? ""
-        }
-        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
-            showingLoadingAlert = isUpdating
-        }
-        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
-            if isUpdated {
-                presentationMode.wrappedValue.dismiss()
-                viewModel.handledIsUpdatedBoolean()
-            }
-        }
-        .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError($viewModel.updatingError)
-    }
-
-    private var cancelButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Cancel")
-        })
-    }
-
-    private var doneButton: some View {
-        Button(action: {
-            viewModel.update(option: .name(displayName.isEmpty ? nil : displayName))
-        }, label: {
-            Text("Done")
-        })
     }
 }
 

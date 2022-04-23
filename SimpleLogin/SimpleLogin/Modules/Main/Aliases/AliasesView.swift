@@ -72,6 +72,7 @@ struct AliasesView: View {
                             onDeleteAlias: { deletedAlias in
                                 viewModel.remove(alias: deletedAlias)
                             })
+                            .ignoresSafeArea(.keyboard)
                             .onAppear {
                                 if UIDevice.current.userInterfaceIdiom != .phone {
                                     selectedLink = nil
