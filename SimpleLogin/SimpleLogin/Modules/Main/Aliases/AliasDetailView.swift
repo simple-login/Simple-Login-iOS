@@ -285,62 +285,24 @@ private struct ActionsSection: View {
     @Binding var copiedText: String?
     var enterFullScreen: () -> Void
 
+    private var alias: Alias { viewModel.alias }
+
     var body: some View {
-        let alias = viewModel.alias
         Section(content: {
             Button(action: enterFullScreen) {
                 Text("Enter full screen")
             }
         }, header: {
-            HStack {
-                button(
-                    action: {
-                        Vibration.soft.vibrate()
-                        viewModel.update(option: .pinned(!alias.pinned))
-                    },
-                    image: Image(systemName: alias.pinned ? "bookmark.slash" : "bookmark.fill"),
-                    text: Text(alias.pinned ? "unpin" : "pin")
-                )
-                    .foregroundColor(alias.pinned ? .red : .slPurple)
-
-                button(
-                    action: {
-                        Vibration.soft.vibrate()
-                        viewModel.toggle()
-                    },
-                    image: Image(systemName: alias.enabled ? "circle.dashed" : "checkmark.circle.fill"),
-                    text: Text(alias.enabled ? "deactivate" : "activate")
-                )
-                    .foregroundColor(alias.enabled ? .red : .slPurple)
-
-                button(
-                    action: {
-                        Vibration.soft.vibrate()
-                        copiedText = viewModel.alias.email
-                        UIPasteboard.general.string = viewModel.alias.email
-                    },
-                    image: Image(systemName: "doc.on.doc.fill"),
-                    text: Text("copy")
-                )
-                    .foregroundColor(.slPurple)
-
-                NavigationLink(
-                    isActive: $showingContacts,
-                    destination: {
-                        AliasContactsView(alias: viewModel.alias, session: viewModel.session)
-                    },
-                    label: {
-                        button(
-                            action: {
-                                showingContacts = true
-                            },
-                            image: Image(systemName: "paperplane.fill"),
-                            text: Text("send email")
-                        )
-                            .foregroundColor(.slPurple)
-                    })
+            VStack(alignment: .leading) {
+                Text("\(alias.creationDateString) (\(alias.relativeCreationDateString))")
+                HStack {
+                    pinUnpinButton
+                    activateDeactivateButton
+                    copyButton
+                    sendEmailButton
+                }
+                .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
             .textCase(nil)
         })
     }
@@ -360,6 +322,61 @@ private struct ActionsSection: View {
         .padding(.vertical, 10)
         .background(colorScheme == .light ? Color(.systemBackground) : Color(.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+
+    private var pinUnpinButton: some View {
+        button(
+            action: {
+                Vibration.soft.vibrate()
+                viewModel.update(option: .pinned(!alias.pinned))
+            },
+            image: Image(systemName: viewModel.alias.pinned ? "bookmark.slash" : "bookmark.fill"),
+            text: Text(viewModel.alias.pinned ? "unpin" : "pin")
+        )
+            .foregroundColor(alias.pinned ? .red : .slPurple)
+    }
+
+    private var activateDeactivateButton: some View {
+        button(
+            action: {
+                Vibration.soft.vibrate()
+                viewModel.toggle()
+            },
+            image: Image(systemName: alias.enabled ? "circle.dashed" : "checkmark.circle.fill"),
+            text: Text(alias.enabled ? "deactivate" : "activate")
+        )
+            .foregroundColor(alias.enabled ? .red : .slPurple)
+    }
+
+    private var copyButton: some View {
+        button(
+            action: {
+                Vibration.soft.vibrate()
+                copiedText = alias.email
+                UIPasteboard.general.string = alias.email
+            },
+            image: Image(systemName: "doc.on.doc.fill"),
+            text: Text("copy")
+        )
+            .foregroundColor(.slPurple)
+    }
+
+    private var sendEmailButton: some View {
+        NavigationLink(
+            isActive: $showingContacts,
+            destination: {
+                AliasContactsView(alias: alias, session: viewModel.session)
+            },
+            label: {
+                button(
+                    action: {
+                        showingContacts = true
+                    },
+                    image: Image(systemName: "paperplane.fill"),
+                    text: Text("send email")
+                )
+                    .foregroundColor(.slPurple)
+            })
     }
 }
 private struct EmailAndStatusSection: View {
