@@ -75,6 +75,7 @@ struct AliasDetailView: View {
             ActionsSection(viewModel: viewModel,
                            copiedText: $copiedText,
                            enterFullScreen: showAliasInFullScreen)
+            NotesSection(viewModel: viewModel)
             MailboxesSection(viewModel: viewModel)
             NameSection(viewModel: viewModel)
         }
@@ -361,51 +362,23 @@ private struct NameSection: View {
 
 private struct NotesSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
-    @State private var showingExplication = false
-    @State private var showingEditNotesView = false
+    @State private var showingEditView = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Notes")
-                    .font(.title2)
-                    .fontWeight(.bold)
-
-                if !showingExplication {
-                    Button(action: {
-                        withAnimation {
-                            showingExplication = true
-                        }
-                    }, label: {
-                        Text("ⓘ")
-                    })
+        Section(content: {
+            Text(viewModel.alias.note ?? "")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .contentShape(Rectangle())
+                .sheet(isPresented: $showingEditView) {
+                    EditNotesView(viewModel: viewModel)
                 }
-
-                Spacer()
-
-                Button(action: {
-                    showingEditNotesView = true
-                }, label: {
-                    Text(viewModel.alias.note == nil ? "Add" : "Edit")
-                })
-            }
-            .padding(.top, 8)
-            .padding(.bottom, showingExplication ? 2 : 8)
-
-            if showingExplication {
-                Text("Something to remind you about the usage of this alias")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 4)
-            }
-
-            if let notes = viewModel.alias.note {
-                Text(notes)
-            }
-        }
-        .sheet(isPresented: $showingEditNotesView) {
-            EditNotesView(viewModel: viewModel)
-        }
+                .onTapGesture {
+                    showingEditView = true
+                }
+        }, header: {
+            Text("Notes")
+        })
     }
 }
 
@@ -620,20 +593,28 @@ private struct EditNotesView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Notes")) {
-                    if #available(iOS 15, *) {
-                        AutoFocusTextEditor(text: $notes)
-                            .disabled(viewModel.isUpdating)
-                    } else {
-                        TextEditor(text: $notes)
-                            .autocapitalization(.sentences)
-                            .disableAutocorrection(true)
-                            .disabled(viewModel.isUpdating)
+                Section(content: {
+                    AdaptiveTextEditor(text: $notes)
+                        .disabled(viewModel.isUpdating)
+                        .frame(minHeight: 150)
+                }, header: {
+                    Text("Notes")
+                }, footer: {
+                    PrimaryButton(title: "Save") {
+                        viewModel.update(option: .note(notes))
                     }
+                    .padding(.vertical)
+                })
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    AliasNavigationTitleView(alias: viewModel.alias)
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    cancelButton
                 }
             }
-            .navigationTitle(viewModel.alias.email)
-            .navigationBarItems(leading: cancelButton, trailing: doneButton)
         }
         .accentColor(.slPurple)
         .onAppear {
@@ -658,14 +639,5 @@ private struct EditNotesView: View {
         }, label: {
             Text("Cancel")
         })
-    }
-
-    private var doneButton: some View {
-        Button(action: {
-            viewModel.update(option: .note(notes.isEmpty ? nil : notes))
-        }, label: {
-            Text("Done")
-        })
-            .disabled(viewModel.isUpdating)
     }
 }
