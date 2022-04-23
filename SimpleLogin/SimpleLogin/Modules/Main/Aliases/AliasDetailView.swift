@@ -78,6 +78,15 @@ struct AliasDetailView: View {
             MailboxesSection(viewModel: viewModel)
             NameSection(viewModel: viewModel)
             ActivitiesSection(viewModel: viewModel, copiedText: $copiedText)
+            Section {
+                Button(action: {
+                    Vibration.warning.vibrate(fallBackToOldSchool: true)
+                    showingDeletionAlert = true
+                }, label: {
+                    Text("Delete")
+                        .foregroundColor(.red)
+                })
+            }
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -98,6 +107,11 @@ struct AliasDetailView: View {
                 viewModel.handledIsRefreshedBoolean()
             }
         }
+        .onReceive(Just(viewModel.isDeleted)) { isDeleted in
+            if isDeleted {
+                onDeleteAlias(viewModel.alias)
+            }
+        }
         .fullScreenCover(isPresented: $showingAliasFullScreen) {
             AliasEmailView(email: viewModel.alias.email)
         }
@@ -107,90 +121,11 @@ struct AliasDetailView: View {
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastCopyMessage($copiedText)
         .alertToastError($viewModel.error)
-
-//        ZStack {
-//            NavigationLink(isActive: $showingAliasContacts,
-//                           destination: { AliasContactsView(alias: viewModel.alias, session: viewModel.session) },
-//                           label: { EmptyView() })
-//            ScrollView {
-//                Group {
-//                    CreationDateSection(alias: viewModel.alias)
-//                        .fullScreenCover(isPresented: $showingAliasFullScreen) {
-//                            AliasEmailView(email: viewModel.alias.email)
-//                        }
-//                        .sheet(isPresented: $showingAliasEmailSheet) {
-//                            AliasEmailView(email: viewModel.alias.email)
-//                        }
-//                    Divider()
-//                    MailboxesSection(viewModel: viewModel)
-//                    Divider()
-//                    NameSection(viewModel: viewModel)
-//                    Divider()
-//                    NotesSection(viewModel: viewModel)
-//                    Divider()
-//                    ActivitiesSection(viewModel: viewModel, copiedText: $copiedText)
-//                }
-//                .padding(.horizontal)
-//                .disabled(viewModel.isUpdating || viewModel.isRefreshing)
-//            }
-//            .introspectScrollView { scrollView in
-//                scrollView.refreshControl = viewModel.refreshControl
-//            }
-//        }
-//        .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarItems(trailing: trailingButton)
-//        .toolbar {
-//            ToolbarItem(placement: .principal) {
-//                VStack(spacing: 0) {
-//                    Text(viewModel.alias.email)
-//                        .font(.headline)
-//                        .truncationMode(.middle)
-//                        .frame(maxWidth: 280)
-//                        .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
-//
-//                    HStack {
-//                        if viewModel.alias.pinned {
-//                            Image(systemName: "bookmark.fill")
-//                                .foregroundColor(.accentColor)
-//
-//                            Divider()
-//                        }
-//
-//                        Text(viewModel.alias.enabled ? "Active" : "Inactive")
-//                            .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
-//                    }
-//                    .font(.footnote)
-//                }
-//                .onTapGesture {
-//                    showAliasInFullScreen()
-//                }
-//            }
-//        }
-//        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
-//            showingLoadingAlert = isUpdating
-//        }
-//        .onReceive(Just(viewModel.isRefreshed)) { isRefreshed in
-//            if isRefreshed {
-//                onUpdateAlias(viewModel.alias)
-//                viewModel.handledIsRefreshedBoolean()
-//            }
-//        }
-//        .onReceive(Just(viewModel.isDeleted)) { isDeleted in
-//            if isDeleted {
-//                onDeleteAlias(viewModel.alias)
-//            }
-//        }
-//        .onAppear {
-//            viewModel.getMoreActivitiesIfNeed(currentActivity: nil)
-//        }
-//        .alertToastLoading(isPresenting: $showingLoadingAlert)
-//        .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
-//        .alertToastError($viewModel.error)
-//        .alert(isPresented: $showingDeletionAlert) {
-//            Alert.deleteConfirmation(alias: viewModel.alias) {
-//                viewModel.delete()
-//            }
-//        }
+        .alert(isPresented: $showingDeletionAlert) {
+            Alert.deleteConfirmation(alias: viewModel.alias) {
+                viewModel.delete()
+            }
+        }
     }
 
     private func showAliasInFullScreen() {

@@ -216,6 +216,7 @@ struct AliasesView: View {
                 viewModel.update(alias: alias, option: .pinned(false))
             },
             onDelete: {
+                Vibration.warning.vibrate(fallBackToOldSchool: true)
                 selectedAlias = alias
                 showingDeleteConfirmationAlert = true
             })
