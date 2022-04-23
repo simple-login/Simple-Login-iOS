@@ -75,22 +75,14 @@ struct AliasDetailView: View {
             ActionsSection(viewModel: viewModel,
                            copiedText: $copiedText,
                            enterFullScreen: showAliasInFullScreen)
+            MailboxesSection(viewModel: viewModel)
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
-                HStack {
-                    if viewModel.alias.pinned {
-                        Image(systemName: "bookmark.fill")
-                            .foregroundColor(.slPurple)
+                AliasNavigationTitleView(alias: viewModel.alias)
+                    .onTapGesture {
+                        showAliasInFullScreen()
                     }
-                    Text(viewModel.alias.email)
-                        .fontWeight(.medium)
-                }
-                .opacity(viewModel.alias.enabled ? 1 : 0.5)
-                .frame(maxWidth: UIScreen.main.minLength * 3 / 4)
-                .onTapGesture {
-                    showAliasInFullScreen()
-                }
             }
         }
         .disabled(viewModel.isUpdating)
@@ -197,76 +189,6 @@ struct AliasDetailView: View {
 //            }
 //        }
     }
-//
-//    private var trailingButton: some View {
-//        Menu(content: {
-//            Section {
-//                Button(action: {
-//                    Vibration.soft.vibrate()
-//                    copiedText = viewModel.alias.email
-//                    UIPasteboard.general.string = viewModel.alias.email
-//                }, label: {
-//                    Label.copy
-//                })
-//
-//                Button(action: {
-//                    showAliasInFullScreen()
-//                }, label: {
-//                    Label.enterFullScreen
-//                })
-//            }
-//
-//            Section {
-//                Button(action: {
-//                    Vibration.soft.vibrate()
-//                    showingAliasContacts = true
-//                }, label: {
-//                    Label.sendEmail
-//                })
-//            }
-//
-//            Section {
-//                if viewModel.alias.enabled {
-//                    Button(action: {
-//                        viewModel.toggle()
-//                    }, label: {
-//                        Label.deactivate
-//                    })
-//                } else {
-//                    Button(action: {
-//                        viewModel.toggle()
-//                    }, label: {
-//                        Label.activate
-//                    })
-//                }
-//
-//                if viewModel.alias.pinned {
-//                    Button(action: {
-//                        viewModel.update(option: .pinned(false))
-//                    }, label: {
-//                        Label.unpin
-//                    })
-//                } else {
-//                    Button(action: {
-//                        viewModel.update(option: .pinned(true))
-//                    }, label: {
-//                        Label.pin
-//                    })
-//                }
-//            }
-//
-//            Section {
-//                DeleteMenuButton {
-//                    showingDeletionAlert = true
-//                }
-//            }
-//        }, label: {
-//            Image(systemName: "ellipsis.circle")
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 24, height: 24)
-//        })
-//    }
 
     private func showAliasInFullScreen() {
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -379,149 +301,29 @@ private struct ActionsSection: View {
             })
     }
 }
-private struct EmailAndStatusSection: View {
-    @ObservedObject var viewModel: AliasDetailViewModel
-
-    var body: some View {
-        let alias = viewModel.alias
-
-        Section(content: {
-            Button(action: {
-                Vibration.soft.vibrate()
-                viewModel.update(option: .pinned(!alias.pinned))
-            }, label: {
-                Label(title: {
-                    Text(alias.pinned ? "Unpin" : "Pin")
-                }, icon: {
-                    Image(systemName: alias.pinned ? "bookmark.slash" : "bookmark.fill")
-                })
-            })
-                .foregroundColor(alias.pinned ? .red : .slPurple)
-
-            Button(action: {
-                Vibration.soft.vibrate()
-                viewModel.toggle()
-            }, label: {
-                Label(title: {
-                    Text(alias.enabled ? "Deactivate" : "Activate")
-                }, icon: {
-                    Image(systemName: alias.enabled ? "circle.dashed" : "checkmark.circle.fill")
-                })
-            })
-                .foregroundColor(alias.enabled ? .red : .slPurple)
-        }, header: {
-            Text("\(alias.creationDateString) (\(alias.relativeCreationDateString))")
-        })
-    }
-}
 
 private struct MailboxesSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
-    @State private var showingExplication = false
-    @State private var selectedSheet: Sheet?
-
-    private enum Sheet {
-        case edit, view
-    }
+    @State private var selectedUrlString: String?
 
     var body: some View {
-        let showingSheet = Binding<Bool>(get: {
-            selectedSheet != nil
-        }, set: { showing in
-            if !showing {
-                selectedSheet = nil
-            }
-        })
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Mailboxes")
-                    .font(.title2)
-                    .fontWeight(.bold)
-
-                if !showingExplication {
-                    Button(action: {
-                        withAnimation {
-                            showingExplication = true
-                        }
-                    }, label: {
-                        Text("ⓘ")
-                    })
-                }
-
-                Spacer()
-
-                Button(action: {
-                    selectedSheet = .edit
-                }, label: {
-                    Text("Edit")
-                })
-            }
-            .padding(.top, 8)
-            .padding(.bottom, showingExplication ? 2 : 8)
-
-            if showingExplication {
-                Text("The mailboxes that receive emails sent to this alias")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 4)
-            }
-
-            VStack(alignment: .leading) {
-                ForEach(0..<min(3, viewModel.alias.mailboxes.count), id: \.self) { index in
-                    let mailbox = viewModel.alias.mailboxes[index]
-                    Text(mailbox.email)
-                }
-            }
-
-            if viewModel.alias.mailboxes.count > 3 {
-                HStack {
-                    Spacer()
-                    Image(systemName: "ellipsis")
-                    Spacer()
-                }
-                .padding(.vertical, 4)
-                .onTapGesture {
-                    selectedSheet = .view
-                }
-            }
-        }
-        .sheet(isPresented: showingSheet) {
-            switch selectedSheet {
-            case .edit:
+        Section(content: {
+            NavigationLink(destination: {
                 EditMailboxesView(viewModel: viewModel)
-            case .view:
-                AllMailboxesView(viewModel: viewModel)
-            default: EmptyView()
+            }, label: {
+                let allMailboxes = viewModel.alias.mailboxes.map { $0.email }.joined(separator: "\n")
+                Text(allMailboxes)
+                    .lineLimit(5)
+            })
+        }, header: {
+            Text("Mailboxes")
+        }, footer: {
+            Button("What are mailboxes?") {
+                selectedUrlString = "https://simplelogin.io/docs/mailbox/add-mailbox/"
             }
-        }
-    }
-}
-
-private struct AllMailboxesView: View {
-    @Environment(\.presentationMode) private var presentationMode
-    @ObservedObject var viewModel: AliasDetailViewModel
-
-    var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Mailboxes")) {
-                    ForEach(viewModel.alias.mailboxes, id: \.id) { mailbox in
-                        Text(mailbox.email)
-                    }
-                }
-            }
-            .navigationBarTitle(viewModel.alias.email)
-            .navigationBarItems(leading: closeButton)
-        }
-        .accentColor(.slPurple)
-    }
-
-    private var closeButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Close")
+            .foregroundColor(.slPurple)
         })
+            .betterSafariView(urlString: $selectedUrlString)
     }
 }
 
@@ -754,64 +556,21 @@ private struct ActivityView: View {
     }
 }
 
-// MARK: - Edit modal views
+// MARK: - Edit views
 private struct EditMailboxesView: View {
     @Environment(\.presentationMode) private var presentationMode
     @ObservedObject var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
     @State private var selectedIds: [Int] = []
 
+    init(viewModel: AliasDetailViewModel) {
+        _viewModel = .init(wrappedValue: viewModel)
+        _selectedIds = .init(initialValue: viewModel.alias.mailboxes.map { $0.id })
+    }
+
     var body: some View {
-        NavigationView {
-            Group {
-                if !viewModel.mailboxes.isEmpty {
-                    mailboxesList
-                }
-            }
-            .navigationTitle(viewModel.alias.email)
-            .navigationBarItems(leading: cancelButton, trailing: doneButton)
-            .disabled(viewModel.isUpdating)
-        }
-        .accentColor(.slPurple)
-        .onAppear {
-            selectedIds = viewModel.alias.mailboxes.map { $0.id }
-            viewModel.getMailboxes()
-        }
-        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
-            showingLoadingAlert = isUpdating
-        }
-        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
-            if isUpdated {
-                presentationMode.wrappedValue.dismiss()
-                viewModel.handledIsUpdatedBoolean()
-            }
-        }
-        .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
-            showingLoadingAlert = isLoadingMailboxes
-        }
-        .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError($viewModel.updatingError)
-    }
-
-    private var cancelButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Cancel")
-        })
-    }
-
-    private var doneButton: some View {
-        Button(action: {
-            viewModel.update(option: .mailboxIds(selectedIds))
-        }, label: {
-            Text("Done")
-        })
-    }
-
-    private var mailboxesList: some View {
         Form {
-            Section(header: Text("Mailboxes")) {
+            Section(content: {
                 ForEach(viewModel.mailboxes, id: \.id) { mailbox in
                     HStack {
                         Text(mailbox.email)
@@ -830,8 +589,43 @@ private struct EditMailboxesView: View {
                         }
                     }
                 }
+            }, header: {
+                if !viewModel.mailboxes.isEmpty {
+                    Text("Mailboxes")
+                }
+            }, footer: {
+                if !viewModel.mailboxes.isEmpty {
+                    PrimaryButton(title: "Save") {
+                        viewModel.update(option: .mailboxIds(selectedIds))
+                    }
+                    .padding(.vertical)
+                }
+            })
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                AliasNavigationTitleView(alias: viewModel.alias)
             }
         }
+        .onAppear {
+            if viewModel.mailboxes.isEmpty {
+                viewModel.getMailboxes()
+            }
+        }
+        .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
+            showingLoadingAlert = isLoadingMailboxes || viewModel.isUpdating
+        }
+        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+            showingLoadingAlert = isUpdating || viewModel.isLoadingMailboxes
+        }
+        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
+            if isUpdated {
+                presentationMode.wrappedValue.dismiss()
+                viewModel.handledIsUpdatedBoolean()
+            }
+        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError($viewModel.updatingError)
     }
 }
 
@@ -948,48 +742,5 @@ private struct EditNotesView: View {
             Text("Done")
         })
             .disabled(viewModel.isUpdating)
-    }
-}
-
-struct AliasEmailView: View {
-    @Environment(\.presentationMode) private var presentationMode
-    @State private var originalBrightness: CGFloat = 0.5
-    @State private var percentage: Double = 0.5
-    let email: String
-
-    var body: some View {
-        NavigationView {
-            VStack {
-                Spacer()
-                Text(verbatim: email)
-                    .font(.system(size: (percentage + 1) * 24))
-                    .fontWeight(.semibold)
-                Spacer()
-                HStack {
-                    Text("A")
-                    Slider(value: $percentage)
-                    Text("A")
-                        .font(.title)
-                }
-            }
-            .accentColor(.slPurple)
-            .padding()
-            .navigationBarItems(leading: closeButton)
-            .onAppear {
-                originalBrightness = UIScreen.main.brightness
-                UIScreen.main.brightness = CGFloat(1.0)
-            }
-            .onDisappear {
-                UIScreen.main.brightness = originalBrightness
-            }
-        }
-    }
-
-    private var closeButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Close")
-        })
     }
 }

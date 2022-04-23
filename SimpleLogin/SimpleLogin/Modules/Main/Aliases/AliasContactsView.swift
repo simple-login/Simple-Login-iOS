@@ -87,16 +87,7 @@ struct AliasContactsView: View {
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
-                HStack {
-                    if viewModel.alias.pinned {
-                        Image(systemName: "bookmark.fill")
-                            .foregroundColor(.slPurple)
-                    }
-                    Text(viewModel.alias.email)
-                        .fontWeight(.medium)
-                }
-                .opacity(viewModel.alias.enabled ? 1 : 0.5)
-                .frame(maxWidth: UIScreen.main.minLength * 3 / 4)
+                AliasNavigationTitleView(alias: viewModel.alias)
             }
         }
         .onAppear {
