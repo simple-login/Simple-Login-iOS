@@ -148,6 +148,9 @@
 		EF8B1CD027DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */; };
 		EF95E13027D6ABBF0033B8E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E12F27D6ABBF0033B8E0 /* DataController.swift */; };
 		EF95E13227D6AF470033B8E0 /* LocalAliasExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */; };
+		EF9FE0DF2813F6BB003B3CB8 /* AliasNavigationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9FE0DE2813F6BB003B3CB8 /* AliasNavigationTitleView.swift */; };
+		EF9FE0E12813FCC1003B3CB8 /* AliasEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9FE0E02813FCC1003B3CB8 /* AliasEmailView.swift */; };
+		EF9FE0E328140A7F003B3CB8 /* TextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9FE0E228140A7F003B3CB8 /* TextFieldAlert.swift */; };
 		EF9FE91B27F996580082FAEF /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9FE91A27F996580082FAEF /* MainTabBar.swift */; };
 		EFA2A37D27B6F3460020E808 /* LabelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2A37C27B6F3460020E808 /* LabelText.swift */; };
 		EFA52AE827CA39B000994547 /* HowItWorksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA52AE727CA39B000994547 /* HowItWorksView.swift */; };
@@ -331,6 +334,9 @@
 		EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseReachabilitySessionViewModel.swift; sourceTree = "<group>"; };
 		EF95E12F27D6ABBF0033B8E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAliasExtensions.swift; sourceTree = "<group>"; };
+		EF9FE0DE2813F6BB003B3CB8 /* AliasNavigationTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasNavigationTitleView.swift; sourceTree = "<group>"; };
+		EF9FE0E02813FCC1003B3CB8 /* AliasEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasEmailView.swift; sourceTree = "<group>"; };
+		EF9FE0E228140A7F003B3CB8 /* TextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlert.swift; sourceTree = "<group>"; };
 		EF9FE91A27F996580082FAEF /* MainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBar.swift; sourceTree = "<group>"; };
 		EFA2A37C27B6F3460020E808 /* LabelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelText.swift; sourceTree = "<group>"; };
 		EFA52AE727CA39B000994547 /* HowItWorksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksView.swift; sourceTree = "<group>"; };
@@ -558,6 +564,8 @@
 				C08A5D8627499A6100BE889B /* AliasContactsViewModel.swift */,
 				C0F1963D27348EA10062B418 /* AliasDetailView.swift */,
 				C0F1963F27348EDA0062B418 /* AliasDetailViewModel.swift */,
+				EF9FE0E02813FCC1003B3CB8 /* AliasEmailView.swift */,
+				EF9FE0DE2813F6BB003B3CB8 /* AliasNavigationTitleView.swift */,
 				EFF7779327F3979F0084D6B4 /* UpgradeNeededView.swift */,
 			);
 			path = Aliases;
@@ -655,6 +663,7 @@
 				C02F967126DB78CF000B100C /* ShakeEffect.swift */,
 				C0F08FB227AB2CB50066A354 /* ShareSheetView.swift */,
 				C05424B427B06955008048A5 /* SLNavigationViewModifier.swift */,
+				EF9FE0E228140A7F003B3CB8 /* TextFieldAlert.swift */,
 				C0F732B0278F6674004608DB /* URLButton.swift */,
 			);
 			path = "Supporting Views";
@@ -1058,9 +1067,11 @@
 				C00FD7FD27AA70E40072DD67 /* TipsView.swift in Sources */,
 				C0259EAD26DA30D70056A977 /* SignUpView.swift in Sources */,
 				C06CEAF2279018B100736920 /* MailboxesViewModel.swift in Sources */,
+				EF9FE0DF2813F6BB003B3CB8 /* AliasNavigationTitleView.swift in Sources */,
 				C02F4CAF27483B390019F965 /* CreateAliasViewModel.swift in Sources */,
 				EF33B7B827B91C6400BD3195 /* CollectionExtensions.swift in Sources */,
 				C0F732B5278F842A004608DB /* MailboxesView.swift in Sources */,
+				EF9FE0E328140A7F003B3CB8 /* TextFieldAlert.swift in Sources */,
 				C02FCF8D278E2FB200F32BED /* PhotoPickerView.swift in Sources */,
 				C04BB63727AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
 				C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */,
@@ -1094,6 +1105,7 @@
 				C00A563626DAC6D000A550A2 /* ApiUrlView.swift in Sources */,
 				EF5BDFB427B7AF56004B696B /* LogoView.swift in Sources */,
 				C02309CE2762AD6B00B6EC37 /* EmptyDataModifier.swift in Sources */,
+				EF9FE0E12813FCC1003B3CB8 /* AliasEmailView.swift in Sources */,
 				EF68F56927C57B5100B555B5 /* LocalAuthenticator.swift in Sources */,
 				C08A5D8527499A0200BE889B /* AliasContactsView.swift in Sources */,
 				C0E9C3E12790D57A00D1A463 /* CustomDomainsViewModel.swift in Sources */,

@@ -85,7 +85,11 @@ struct AliasContactsView: View {
         .introspectTableView { tableView in
             tableView.refreshControl = viewModel.refreshControl
         }
-        .navigationBarTitle(viewModel.alias.email, displayMode: .inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                AliasNavigationTitleView(alias: viewModel.alias)
+            }
+        }
         .onAppear {
             viewModel.getMoreContactsIfNeed(currentContact: nil)
         }

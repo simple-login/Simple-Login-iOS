@@ -14,6 +14,7 @@ import SwiftUI
 struct AliasesView: View {
     @StateObject private var viewModel: AliasesViewModel
     @Binding private var createdAlias: Alias?
+    @State private var showingCreatedAliasAlert = false
     @State private var showingUpdatingAlert = false
     @State private var showingSearchView = false
     @State private var showingDeleteConfirmationAlert = false
@@ -49,14 +50,6 @@ struct AliasesView: View {
             }
         })
 
-        let showingCreatedAliasAlert = Binding<Bool>(get: {
-            createdAlias != nil
-        }, set: { isShowing in
-            if !isShowing {
-                createdAlias = nil
-            }
-        })
-
         NavigationView {
             ZStack {
                 NavigationLink(
@@ -72,6 +65,7 @@ struct AliasesView: View {
                             onDeleteAlias: { deletedAlias in
                                 viewModel.remove(alias: deletedAlias)
                             })
+                            .ignoresSafeArea(.keyboard)
                             .onAppear {
                                 if UIDevice.current.userInterfaceIdiom != .phone {
                                     selectedLink = nil
@@ -171,6 +165,9 @@ struct AliasesView: View {
         }
         .onReceive(Just(createdAlias)) { createdAlias in
             if let createdAlias = createdAlias {
+                if !viewModel.isHandled(createdAlias) {
+                    showingCreatedAliasAlert = true
+                }
                 viewModel.handleCreatedAlias(createdAlias)
             }
         }
@@ -186,12 +183,14 @@ struct AliasesView: View {
         .alertToastLoading(isPresenting: $showingUpdatingAlert)
         .alertToastCopyMessage(isPresenting: showingCopiedEmailAlert, message: copiedEmail)
         .alertToastError($viewModel.error)
-        .alertToastCompletionMessage(isPresenting: showingCreatedAliasAlert,
+        .alertToastCompletionMessage(isPresenting: $showingCreatedAliasAlert,
                                      title: "Created",
                                      subTitle: createdAlias?.email ?? "")
     }
 
+    @ViewBuilder
     private func aliasCompactView(for alias: Alias) -> some View {
+        let hightlight = alias.id == createdAlias?.id
         AliasCompactView(
             alias: alias,
             onCopy: {
@@ -215,9 +214,11 @@ struct AliasesView: View {
                 viewModel.update(alias: alias, option: .pinned(false))
             },
             onDelete: {
+                Vibration.warning.vibrate(fallBackToOldSchool: true)
                 selectedAlias = alias
                 showingDeleteConfirmationAlert = true
             })
+            .background(hightlight ? Color.slPurple.opacity(0.1) : Color.clear)
             .onAppear {
                 viewModel.getMoreAliasesIfNeed(currentAlias: alias)
             }

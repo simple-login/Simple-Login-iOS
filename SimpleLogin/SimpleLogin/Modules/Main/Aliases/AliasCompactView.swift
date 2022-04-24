@@ -20,22 +20,6 @@ struct AliasCompactView: View {
     let onUnpin: () -> Void
     let onDelete: () -> Void
 
-    init(alias: Alias,
-         onCopy: @escaping () -> Void,
-         onSendMail: @escaping () -> Void,
-         onToggle: @escaping () -> Void,
-         onPin: @escaping () -> Void,
-         onUnpin: @escaping () -> Void,
-         onDelete: @escaping () -> Void) {
-        self.alias = alias
-        self.onCopy = onCopy
-        self.onSendMail = onSendMail
-        self.onToggle = onToggle
-        self.onPin = onPin
-        self.onUnpin = onUnpin
-        self.onDelete = onDelete
-    }
-
     var body: some View {
         VStack(spacing: 8) {
             Label {

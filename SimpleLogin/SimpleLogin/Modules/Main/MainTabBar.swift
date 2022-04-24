@@ -24,8 +24,8 @@ struct MainTabBar: View {
                 tab(for: .advanced)
                 createButton
                     .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 50 : 0)
-                tab(for: .myAccount)
                 tab(for: .settings)
+                tab(for: .myAccount)
                 if UIDevice.current.userInterfaceIdiom != .phone {
                     Spacer()
                 }

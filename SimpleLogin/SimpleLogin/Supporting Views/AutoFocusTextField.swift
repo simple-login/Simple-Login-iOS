@@ -42,3 +42,17 @@ struct AutoFocusTextEditor: View {
             }
     }
 }
+
+struct AdaptiveTextEditor: View {
+    @Binding var text: String
+
+    var body: some View {
+        if #available(iOS 15, *) {
+            AutoFocusTextEditor(text: $text)
+        } else {
+            TextEditor(text: $text)
+                .autocapitalization(.sentences)
+                .disableAutocorrection(true)
+        }
+    }
+}

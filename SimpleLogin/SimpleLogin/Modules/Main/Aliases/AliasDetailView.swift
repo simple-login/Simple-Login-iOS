@@ -50,14 +50,12 @@ struct AliasDetailWrapperView: View {
     }
 }
 
-// swiftlint:disable file_length
 struct AliasDetailView: View {
     @StateObject private var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
     @State private var showingDeletionAlert = false
     @State private var showingAliasEmailSheet = false
     @State private var showingAliasFullScreen = false
-    @State private var showingAliasContacts = false
     @State private var copiedText: String?
     var onUpdateAlias: (Alias) -> Void
     var onDeleteAlias: (Alias) -> Void
@@ -72,72 +70,34 @@ struct AliasDetailView: View {
     }
 
     var body: some View {
-        let showingCopyAlert = Binding<Bool>(get: {
-            copiedText != nil
-        }, set: { isShowing in
-            if !isShowing {
-                copiedText = nil
-            }
-        })
-
-        ZStack {
-            NavigationLink(isActive: $showingAliasContacts,
-                           destination: { AliasContactsView(alias: viewModel.alias, session: viewModel.session) },
-                           label: { EmptyView() })
-            ScrollView {
-                Group {
-                    CreationDateSection(alias: viewModel.alias)
-                        .fullScreenCover(isPresented: $showingAliasFullScreen) {
-                            AliasEmailView(email: viewModel.alias.email)
-                        }
-                        .sheet(isPresented: $showingAliasEmailSheet) {
-                            AliasEmailView(email: viewModel.alias.email)
-                        }
-                    Divider()
-                    MailboxesSection(viewModel: viewModel)
-                    Divider()
-                    NameSection(viewModel: viewModel)
-                    Divider()
-                    NotesSection(viewModel: viewModel)
-                    Divider()
-                    ActivitiesSection(viewModel: viewModel, copiedText: $copiedText)
-                }
-                .padding(.horizontal)
-                .disabled(viewModel.isUpdating || viewModel.isRefreshing)
-            }
-            .introspectScrollView { scrollView in
-                scrollView.refreshControl = viewModel.refreshControl
+        Form {
+            ActionsSection(viewModel: viewModel,
+                           copiedText: $copiedText,
+                           enterFullScreen: showAliasInFullScreen)
+            NotesSection(viewModel: viewModel)
+            MailboxesSection(viewModel: viewModel)
+            NameSection(viewModel: viewModel)
+            ActivitiesSection(viewModel: viewModel, copiedText: $copiedText)
+            Section {
+                Button(action: {
+                    Vibration.warning.vibrate(fallBackToOldSchool: true)
+                    showingDeletionAlert = true
+                }, label: {
+                    Text("Delete")
+                        .foregroundColor(.red)
+                })
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing: trailingButton)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                VStack(spacing: 0) {
-                    Text(viewModel.alias.email)
-                        .font(.headline)
-                        .truncationMode(.middle)
-                        .frame(maxWidth: 280)
-                        .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
-
-                    HStack {
-                        if viewModel.alias.pinned {
-                            Image(systemName: "bookmark.fill")
-                                .foregroundColor(.accentColor)
-
-                            Divider()
-                        }
-
-                        Text(viewModel.alias.enabled ? "Active" : "Inactive")
-                            .foregroundColor(viewModel.alias.enabled ? .primary : .secondary)
+                AliasNavigationTitleView(alias: viewModel.alias)
+                    .onTapGesture {
+                        showAliasInFullScreen()
                     }
-                    .font(.footnote)
-                }
-                .onTapGesture {
-                    showAliasInFullScreen()
-                }
             }
         }
+        .disabled(viewModel.isUpdating)
+        .navigationBarTitleDisplayMode(.inline)
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
         }
@@ -152,87 +112,20 @@ struct AliasDetailView: View {
                 onDeleteAlias(viewModel.alias)
             }
         }
-        .onAppear {
-            viewModel.getMoreActivitiesIfNeed(currentActivity: nil)
+        .fullScreenCover(isPresented: $showingAliasFullScreen) {
+            AliasEmailView(email: viewModel.alias.email)
+        }
+        .sheet(isPresented: $showingAliasEmailSheet) {
+            AliasEmailView(email: viewModel.alias.email)
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
+        .alertToastCopyMessage($copiedText)
         .alertToastError($viewModel.error)
         .alert(isPresented: $showingDeletionAlert) {
             Alert.deleteConfirmation(alias: viewModel.alias) {
                 viewModel.delete()
             }
         }
-    }
-
-    private var trailingButton: some View {
-        Menu(content: {
-            Section {
-                Button(action: {
-                    Vibration.soft.vibrate()
-                    copiedText = viewModel.alias.email
-                    UIPasteboard.general.string = viewModel.alias.email
-                }, label: {
-                    Label.copy
-                })
-
-                Button(action: {
-                    showAliasInFullScreen()
-                }, label: {
-                    Label.enterFullScreen
-                })
-            }
-
-            Section {
-                Button(action: {
-                    Vibration.soft.vibrate()
-                    showingAliasContacts = true
-                }, label: {
-                    Label.sendEmail
-                })
-            }
-
-            Section {
-                if viewModel.alias.enabled {
-                    Button(action: {
-                        viewModel.toggle()
-                    }, label: {
-                        Label.deactivate
-                    })
-                } else {
-                    Button(action: {
-                        viewModel.toggle()
-                    }, label: {
-                        Label.activate
-                    })
-                }
-
-                if viewModel.alias.pinned {
-                    Button(action: {
-                        viewModel.update(option: .pinned(false))
-                    }, label: {
-                        Label.unpin
-                    })
-                } else {
-                    Button(action: {
-                        viewModel.update(option: .pinned(true))
-                    }, label: {
-                        Label.pin
-                    })
-                }
-            }
-
-            Section {
-                DeleteMenuButton {
-                    showingDeletionAlert = true
-                }
-            }
-        }, label: {
-            Image(systemName: "ellipsis.circle")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 24, height: 24)
-        })
     }
 
     private func showAliasInFullScreen() {
@@ -245,231 +138,183 @@ struct AliasDetailView: View {
 }
 
 // MARK: - Sections
-private struct CreationDateSection: View {
-    let alias: Alias
+private struct ActionsSection: View {
+    @Environment(\.colorScheme) private var colorScheme
+    @State private var showingContacts = false
+    @ObservedObject var viewModel: AliasDetailViewModel
+    @Binding var copiedText: String?
+    var enterFullScreen: () -> Void
+
+    private var alias: Alias { viewModel.alias }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Creation date")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                Spacer()
+        Section(content: {
+            Button(action: enterFullScreen) {
+                Text("Enter full screen")
             }
-            .padding(.vertical, 8)
+        }, header: {
+            VStack(alignment: .leading) {
+                Text("\(alias.creationDateString) (\(alias.relativeCreationDateString))")
+                HStack {
+                    pinUnpinButton
+                    activateDeactivateButton
+                    copyButton
+                    sendEmailButton
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .textCase(nil)
+        })
+    }
 
-            Text("\(alias.creationDateString) (\(alias.relativeCreationDateString))")
+    private func button(action: @escaping () -> Void,
+                        image: Image,
+                        text: Text) -> some View {
+        Button(action: action) {
+            VStack(alignment: .center, spacing: 6) {
+                image
+                    .font(.title3)
+                text
+                    .font(.caption)
+            }
         }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 10)
+        .background(colorScheme == .light ? Color(.systemBackground) : Color(.secondarySystemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+
+    private var pinUnpinButton: some View {
+        button(
+            action: {
+                Vibration.soft.vibrate()
+                viewModel.update(option: .pinned(!alias.pinned))
+            },
+            image: Image(systemName: viewModel.alias.pinned ? "bookmark.slash" : "bookmark.fill"),
+            text: Text(viewModel.alias.pinned ? "unpin" : "pin")
+        )
+            .foregroundColor(alias.pinned ? .red : .slPurple)
+    }
+
+    private var activateDeactivateButton: some View {
+        button(
+            action: {
+                Vibration.soft.vibrate()
+                viewModel.toggle()
+            },
+            image: Image(systemName: alias.enabled ? "circle.dashed" : "checkmark.circle.fill"),
+            text: Text(alias.enabled ? "deactivate" : "activate")
+        )
+            .foregroundColor(alias.enabled ? .red : .slPurple)
+    }
+
+    private var copyButton: some View {
+        button(
+            action: {
+                Vibration.soft.vibrate()
+                copiedText = alias.email
+                UIPasteboard.general.string = alias.email
+            },
+            image: Image(systemName: "doc.on.doc.fill"),
+            text: Text("copy")
+        )
+            .foregroundColor(.slPurple)
+    }
+
+    private var sendEmailButton: some View {
+        NavigationLink(
+            isActive: $showingContacts,
+            destination: {
+                AliasContactsView(alias: alias, session: viewModel.session)
+            },
+            label: {
+                button(
+                    action: {
+                        showingContacts = true
+                    },
+                    image: Image(systemName: "paperplane.fill"),
+                    text: Text("send email")
+                )
+                    .foregroundColor(.slPurple)
+            })
     }
 }
 
 private struct MailboxesSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
-    @State private var showingExplication = false
-    @State private var selectedSheet: Sheet?
-
-    private enum Sheet {
-        case edit, view
-    }
+    @State private var selectedUrlString: String?
 
     var body: some View {
-        let showingSheet = Binding<Bool>(get: {
-            selectedSheet != nil
-        }, set: { showing in
-            if !showing {
-                selectedSheet = nil
-            }
-        })
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Mailboxes")
-                    .font(.title2)
-                    .fontWeight(.bold)
-
-                if !showingExplication {
-                    Button(action: {
-                        withAnimation {
-                            showingExplication = true
-                        }
-                    }, label: {
-                        Text("ⓘ")
-                    })
-                }
-
-                Spacer()
-
-                Button(action: {
-                    selectedSheet = .edit
-                }, label: {
-                    Text("Edit")
-                })
-            }
-            .padding(.top, 8)
-            .padding(.bottom, showingExplication ? 2 : 8)
-
-            if showingExplication {
-                Text("The mailboxes that receive emails sent to this alias")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 4)
-            }
-
-            VStack(alignment: .leading) {
-                ForEach(0..<min(3, viewModel.alias.mailboxes.count), id: \.self) { index in
-                    let mailbox = viewModel.alias.mailboxes[index]
-                    Text(mailbox.email)
-                }
-            }
-
-            if viewModel.alias.mailboxes.count > 3 {
-                HStack {
-                    Spacer()
-                    Image(systemName: "ellipsis")
-                    Spacer()
-                }
-                .padding(.vertical, 4)
-                .onTapGesture {
-                    selectedSheet = .view
-                }
-            }
-        }
-        .sheet(isPresented: showingSheet) {
-            switch selectedSheet {
-            case .edit:
+        Section(content: {
+            NavigationLink(destination: {
                 EditMailboxesView(viewModel: viewModel)
-            case .view:
-                AllMailboxesView(viewModel: viewModel)
-            default: EmptyView()
+            }, label: {
+                let allMailboxes = viewModel.alias.mailboxes.map { $0.email }.joined(separator: "\n")
+                Text(allMailboxes)
+                    .lineLimit(5)
+            })
+        }, header: {
+            Text("Mailboxes")
+        }, footer: {
+            Button("What are mailboxes?") {
+                selectedUrlString = "https://simplelogin.io/docs/mailbox/add-mailbox/"
             }
-        }
-    }
-}
-
-private struct AllMailboxesView: View {
-    @Environment(\.presentationMode) private var presentationMode
-    @ObservedObject var viewModel: AliasDetailViewModel
-
-    var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Mailboxes")) {
-                    ForEach(viewModel.alias.mailboxes, id: \.id) { mailbox in
-                        Text(mailbox.email)
-                    }
-                }
-            }
-            .navigationBarTitle(viewModel.alias.email)
-            .navigationBarItems(leading: closeButton)
-        }
-        .accentColor(.slPurple)
-    }
-
-    private var closeButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Close")
+            .foregroundColor(.slPurple)
         })
+            .betterSafariView(urlString: $selectedUrlString)
     }
 }
 
 private struct NameSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
-    @State private var showingExplication = false
-    @State private var showingEditDisplayNameView = false
+    @State private var showingEditAlert = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Display name")
-                    .font(.title2)
-                    .fontWeight(.bold)
-
-                if !showingExplication {
-                    Button(action: {
-                        withAnimation {
-                            showingExplication = true
-                        }
-                    }, label: {
-                        Text("ⓘ")
-                    })
+        Section(content: {
+            Text(viewModel.alias.name ?? "")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .contentShape(Rectangle())
+                .textFieldAlert(isPresented: $showingEditAlert, config: editDisplayNameConfig)
+                .onTapGesture {
+                    showingEditAlert = true
                 }
+        }, header: {
+            Text("Display name")
+        }, footer: {
+            Text("Your display name when sending emails from this alias")
+        })
+    }
 
-                Spacer()
-
-                Button(action: {
-                    showingEditDisplayNameView = true
-                }, label: {
-                    Text(viewModel.alias.name == nil ? "Add" : "Edit")
-                })
-            }
-            .padding(.top, 8)
-            .padding(.bottom, showingExplication ? 2 : 8)
-
-            if showingExplication {
-                Text("Your display name when sending emails from this alias")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 4)
-            }
-
-            if let name = viewModel.alias.name {
-                Text(name)
-            }
-        }
-        .sheet(isPresented: $showingEditDisplayNameView) {
-            EditDisplayNameView(viewModel: viewModel)
+    private var editDisplayNameConfig: TextFieldAlertConfig {
+        TextFieldAlertConfig(title: "Edit display name",
+                             text: viewModel.alias.name,
+                             placeholder: "Ex: John Doe",
+                             actionTitle: "Save") { newDisplayName in
+            viewModel.update(option: .name(newDisplayName))
         }
     }
 }
 
 private struct NotesSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
-    @State private var showingExplication = false
-    @State private var showingEditNotesView = false
+    @State private var showingEditView = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Notes")
-                    .font(.title2)
-                    .fontWeight(.bold)
-
-                if !showingExplication {
-                    Button(action: {
-                        withAnimation {
-                            showingExplication = true
-                        }
-                    }, label: {
-                        Text("ⓘ")
-                    })
+        Section(content: {
+            Text(viewModel.alias.note ?? "")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .contentShape(Rectangle())
+                .sheet(isPresented: $showingEditView) {
+                    EditNotesView(viewModel: viewModel)
                 }
-
-                Spacer()
-
-                Button(action: {
-                    showingEditNotesView = true
-                }, label: {
-                    Text(viewModel.alias.note == nil ? "Add" : "Edit")
-                })
-            }
-            .padding(.top, 8)
-            .padding(.bottom, showingExplication ? 2 : 8)
-
-            if showingExplication {
-                Text("Something to remind you about the usage of this alias")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 4)
-            }
-
-            if let notes = viewModel.alias.note {
-                Text(notes)
-            }
-        }
-        .sheet(isPresented: $showingEditNotesView) {
-            EditNotesView(viewModel: viewModel)
-        }
+                .onTapGesture {
+                    showingEditView = true
+                }
+        }, header: {
+            Text("Notes")
+        })
     }
 }
 
@@ -478,54 +323,47 @@ private struct ActivitiesSection: View {
     @Binding var copiedText: String?
 
     var body: some View {
-        LazyVStack {
-            HStack {
-                Text("Last 14 days activities")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                Spacer()
-            }
-            .padding(.vertical, 8)
-
+        Section(content: {
             if viewModel.alias.noActivities {
                 Text("No activities")
                     .foregroundColor(.secondary)
+                    .font(.body.italic())
+                    .frame(maxWidth: .infinity, alignment: .center)
             } else {
-                HStack {
-                    Spacer()
-                    section(action: .forward,
-                            count: viewModel.alias.forwardCount)
-                    Spacer()
-                    Divider()
-                    Spacer()
-                    section(action: .reply,
-                            count: viewModel.alias.replyCount)
-                    Spacer()
-                    Divider()
-                    section(action: .block,
-                            count: viewModel.alias.blockCount)
-                    Spacer()
-                }
-
-                ForEach(0..<viewModel.activities.count, id: \.self) { index in
+                ForEach(0..<min(5, viewModel.activities.count), id: \.self) { index in
                     let activity = viewModel.activities[index]
                     ActivityView(copiedText: $copiedText, activity: activity)
                         .padding(.vertical, 4)
-                        .onAppear {
-                            viewModel.getMoreActivitiesIfNeed(currentActivity: activity)
-                        }
-
-                    if index < viewModel.activities.count - 1 {
-                        Divider()
-                    }
                 }
 
-                if viewModel.isLoadingActivities {
-                    ProgressView()
-                        .padding()
+                if viewModel.activities.count > 5 {
+                    NavigationLink(destination: {
+                        AllActivitiesView(viewModel: viewModel)
+                    }, label: {
+                        Text("Show all activities")
+                    })
                 }
             }
-        }
+        }, header: {
+            VStack(alignment: .leading) {
+                Text("Last 14 days activities")
+                if !viewModel.activities.isEmpty {
+                    HStack {
+                        section(action: .forward,
+                                count: viewModel.alias.forwardCount)
+                        Divider()
+                        section(action: .reply,
+                                count: viewModel.alias.replyCount)
+                        Divider()
+                        section(action: .block,
+                                count: viewModel.alias.blockCount)
+                    }
+                }
+            }
+        })
+            .onAppear {
+                viewModel.getMoreActivitiesIfNeed(currentActivity: nil)
+            }
     }
 
     private func section(action: ActivityAction, count: Int) -> some View {
@@ -546,6 +384,8 @@ private struct ActivitiesSection: View {
 
             Spacer()
         }
+        .frame(maxWidth: .infinity)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 
@@ -602,64 +442,49 @@ private struct ActivityView: View {
     }
 }
 
-// MARK: - Edit modal views
+private struct AllActivitiesView: View {
+    @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var copiedText: String?
+
+    var body: some View {
+        Form {
+            Section(content: {
+                ForEach(0..<viewModel.activities.count, id: \.self) { index in
+                    let activity = viewModel.activities[index]
+                    ActivityView(copiedText: $copiedText, activity: activity)
+                        .padding(.vertical, 4)
+                        .onAppear {
+                            viewModel.getMoreActivitiesIfNeed(currentActivity: activity)
+                        }
+                }
+            }, header: {
+                Text("Last 14 days activities")
+            })
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                AliasNavigationTitleView(alias: viewModel.alias)
+            }
+        }
+        .alertToastCopyMessage($copiedText)
+    }
+}
+
+// MARK: - Edit views
 private struct EditMailboxesView: View {
     @Environment(\.presentationMode) private var presentationMode
     @ObservedObject var viewModel: AliasDetailViewModel
     @State private var showingLoadingAlert = false
     @State private var selectedIds: [Int] = []
 
+    init(viewModel: AliasDetailViewModel) {
+        _viewModel = .init(wrappedValue: viewModel)
+        _selectedIds = .init(initialValue: viewModel.alias.mailboxes.map { $0.id })
+    }
+
     var body: some View {
-        NavigationView {
-            Group {
-                if !viewModel.mailboxes.isEmpty {
-                    mailboxesList
-                }
-            }
-            .navigationTitle(viewModel.alias.email)
-            .navigationBarItems(leading: cancelButton, trailing: doneButton)
-            .disabled(viewModel.isUpdating)
-        }
-        .accentColor(.slPurple)
-        .onAppear {
-            selectedIds = viewModel.alias.mailboxes.map { $0.id }
-            viewModel.getMailboxes()
-        }
-        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
-            showingLoadingAlert = isUpdating
-        }
-        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
-            if isUpdated {
-                presentationMode.wrappedValue.dismiss()
-                viewModel.handledIsUpdatedBoolean()
-            }
-        }
-        .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
-            showingLoadingAlert = isLoadingMailboxes
-        }
-        .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError($viewModel.updatingError)
-    }
-
-    private var cancelButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Cancel")
-        })
-    }
-
-    private var doneButton: some View {
-        Button(action: {
-            viewModel.update(option: .mailboxIds(selectedIds))
-        }, label: {
-            Text("Done")
-        })
-    }
-
-    private var mailboxesList: some View {
         Form {
-            Section(header: Text("Mailboxes")) {
+            Section(content: {
                 ForEach(viewModel.mailboxes, id: \.id) { mailbox in
                     HStack {
                         Text(mailbox.email)
@@ -678,40 +503,34 @@ private struct EditMailboxesView: View {
                         }
                     }
                 }
-            }
-        }
-    }
-}
-
-private struct EditDisplayNameView: View {
-    @Environment(\.presentationMode) private var presentationMode
-    @ObservedObject var viewModel: AliasDetailViewModel
-    @State private var showingLoadingAlert = false
-    @State private var displayName = ""
-
-    var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Display name")) {
-                    if #available(iOS 15, *) {
-                        AutoFocusTextField(text: $displayName)
-                    } else {
-                        TextField("", text: $displayName)
-                            .labelsHidden()
-                            .autocapitalization(.words)
-                            .disableAutocorrection(true)
-                    }
+            }, header: {
+                if !viewModel.mailboxes.isEmpty {
+                    Text("Mailboxes")
                 }
-            }
-            .navigationTitle(viewModel.alias.email)
-            .navigationBarItems(leading: cancelButton, trailing: doneButton)
+            }, footer: {
+                if !viewModel.mailboxes.isEmpty {
+                    PrimaryButton(title: "Save") {
+                        viewModel.update(option: .mailboxIds(selectedIds))
+                    }
+                    .padding(.vertical)
+                }
+            })
         }
-        .accentColor(.slPurple)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                AliasNavigationTitleView(alias: viewModel.alias)
+            }
+        }
         .onAppear {
-            displayName = viewModel.alias.name ?? ""
+            if viewModel.mailboxes.isEmpty {
+                viewModel.getMailboxes()
+            }
+        }
+        .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
+            showingLoadingAlert = isLoadingMailboxes || viewModel.isUpdating
         }
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
-            showingLoadingAlert = isUpdating
+            showingLoadingAlert = isUpdating || viewModel.isLoadingMailboxes
         }
         .onReceive(Just(viewModel.isUpdated)) { isUpdated in
             if isUpdated {
@@ -721,22 +540,6 @@ private struct EditDisplayNameView: View {
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastError($viewModel.updatingError)
-    }
-
-    private var cancelButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Cancel")
-        })
-    }
-
-    private var doneButton: some View {
-        Button(action: {
-            viewModel.update(option: .name(displayName.isEmpty ? nil : displayName))
-        }, label: {
-            Text("Done")
-        })
     }
 }
 
@@ -749,20 +552,28 @@ private struct EditNotesView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Notes")) {
-                    if #available(iOS 15, *) {
-                        AutoFocusTextEditor(text: $notes)
-                            .disabled(viewModel.isUpdating)
-                    } else {
-                        TextEditor(text: $notes)
-                            .autocapitalization(.sentences)
-                            .disableAutocorrection(true)
-                            .disabled(viewModel.isUpdating)
+                Section(content: {
+                    AdaptiveTextEditor(text: $notes)
+                        .disabled(viewModel.isUpdating)
+                        .frame(minHeight: 150)
+                }, header: {
+                    Text("Notes")
+                }, footer: {
+                    PrimaryButton(title: "Save") {
+                        viewModel.update(option: .note(notes))
                     }
+                    .padding(.vertical)
+                })
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    AliasNavigationTitleView(alias: viewModel.alias)
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    cancelButton
                 }
             }
-            .navigationTitle(viewModel.alias.email)
-            .navigationBarItems(leading: cancelButton, trailing: doneButton)
         }
         .accentColor(.slPurple)
         .onAppear {
@@ -786,58 +597,6 @@ private struct EditNotesView: View {
             presentationMode.wrappedValue.dismiss()
         }, label: {
             Text("Cancel")
-        })
-    }
-
-    private var doneButton: some View {
-        Button(action: {
-            viewModel.update(option: .note(notes.isEmpty ? nil : notes))
-        }, label: {
-            Text("Done")
-        })
-            .disabled(viewModel.isUpdating)
-    }
-}
-
-struct AliasEmailView: View {
-    @Environment(\.presentationMode) private var presentationMode
-    @State private var originalBrightness: CGFloat = 0.5
-    @State private var percentage: Double = 0.5
-    let email: String
-
-    var body: some View {
-        NavigationView {
-            VStack {
-                Spacer()
-                Text(verbatim: email)
-                    .font(.system(size: (percentage + 1) * 24))
-                    .fontWeight(.semibold)
-                Spacer()
-                HStack {
-                    Text("A")
-                    Slider(value: $percentage)
-                    Text("A")
-                        .font(.title)
-                }
-            }
-            .accentColor(.slPurple)
-            .padding()
-            .navigationBarItems(leading: closeButton)
-            .onAppear {
-                originalBrightness = UIScreen.main.brightness
-                UIScreen.main.brightness = CGFloat(1.0)
-            }
-            .onDisappear {
-                UIScreen.main.brightness = originalBrightness
-            }
-        }
-    }
-
-    private var closeButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Close")
         })
     }
 }
