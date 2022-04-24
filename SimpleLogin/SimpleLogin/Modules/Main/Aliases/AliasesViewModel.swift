@@ -281,4 +281,8 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
         handledCreatedAliasIds.insert(createdAlias.id)
         refresh()
     }
+
+    func isHandled(_ createdAlias: Alias) -> Bool {
+        handledCreatedAliasIds.contains(createdAlias.id)
+    }
 }
