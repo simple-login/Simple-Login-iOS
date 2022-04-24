@@ -12,7 +12,7 @@ import SwiftUI
 
 struct MailboxesView: View {
     @StateObject private var viewModel: MailboxesViewModel
-    @State private var showingAddMailboxView = false
+    @State private var showingAddMailboxAlert = false
     @State private var showingLoadingAlert = false
     @State private var mailboxToBeDeleted: Mailbox?
 
@@ -37,6 +37,7 @@ struct MailboxesView: View {
             .navigationBarTitle("Mailboxes")
         }
         .listStyle(InsetGroupedListStyle())
+        .ignoresSafeArea(.keyboard)
         .introspectTableView { tableView in
             tableView.refreshControl = viewModel.refreshControl
         }
@@ -44,7 +45,7 @@ struct MailboxesView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     Vibration.light.vibrate()
-                    showingAddMailboxView = true
+                    showingAddMailboxAlert = true
                 }, label: {
                     Image(systemName: "plus")
                 })
@@ -56,14 +57,11 @@ struct MailboxesView: View {
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
-        .sheet(isPresented: $showingAddMailboxView) {
-            AddMailboxView { newMailbox in
-                viewModel.addMailbox(email: newMailbox)
-            }
-        }
         .alert(isPresented: showingDeletionAlert) {
             deletionAlert
         }
+        .textFieldAlert(isPresented: $showingAddMailboxAlert,
+                        config: addMailboxConfig)
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastError($viewModel.error)
     }
@@ -112,6 +110,19 @@ struct MailboxesView: View {
                      primaryButton: .cancel(),
                      secondaryButton: deleteButton)
     }
+
+    private var addMailboxConfig: TextFieldAlertConfig {
+        TextFieldAlertConfig(title: "New mailbox",
+                             message: "A verification email will be sent to this email address",
+                             placeholder: "john.doe@example.com",
+                             keyboardType: .emailAddress,
+                             clearButtonMode: .never,
+                             actionTitle: "Add") { newMailbox in
+            if let newMailbox = newMailbox {
+                viewModel.addMailbox(email: newMailbox)
+            }
+        }
+    }
 }
 
 private struct MailboxView: View {
@@ -151,54 +162,6 @@ private struct MailboxView: View {
             }
         }
         .contentShape(Rectangle())
-    }
-}
-
-private struct AddMailboxView: View {
-    @Environment(\.presentationMode) private var presentationMode
-    @State private var newMailbox = ""
-    let onAddMailbox: (String) -> Void
-
-    var body: some View {
-        NavigationView {
-            Form {
-                Section(footer: Text("A verification email will be sent to this email address")) {
-                    let placeholder = "my.another.email@example.com"
-                    if #available(iOS 15, *) {
-                        AutoFocusTextField(placeholder: placeholder,
-                                           text: $newMailbox)
-                            .autocapitalization(.none)
-                            .keyboardType(.emailAddress)
-                    } else {
-                        TextField(placeholder, text: $newMailbox)
-                            .labelsHidden()
-                            .autocapitalization(.none)
-                            .keyboardType(.emailAddress)
-                            .disableAutocorrection(true)
-                    }
-                }
-            }
-            .navigationBarTitle("New mailboxes")
-            .navigationBarItems(leading: cancelButton, trailing: addButton)
-        }
-    }
-
-    private var cancelButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Cancel")
-        })
-    }
-
-    private var addButton: some View {
-        Button(action: {
-            onAddMailbox(newMailbox)
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Add")
-        })
-            .disabled(!newMailbox.isValidEmail)
     }
 }
 
