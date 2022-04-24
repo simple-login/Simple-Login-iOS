@@ -133,6 +133,7 @@
 		EF5BDFB427B7AF56004B696B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB327B7AF56004B696B /* LogoView.swift */; };
 		EF5BDFB827B7B5DD004B696B /* BetterSafariViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */; };
 		EF5E150727D94A160047C568 /* AliasExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5E150627D94A160047C568 /* AliasExtensions.swift */; };
+		EF6303AD2815E6860061FF6F /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = EF6303AC2815E6860061FF6F /* Introspect */; };
 		EF65890027DA96D100D327C2 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = EF6588FF27DA96D100D327C2 /* Reachability */; };
 		EF65890227DA9EB400D327C2 /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF65890127DA9EB400D327C2 /* SizePreferenceKey.swift */; };
 		EF68E11827B90E9400396472 /* DeleteMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF68E11727B90E9400396472 /* DeleteMenuButton.swift */; };
@@ -401,6 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0941EF427A6F056009AAEBC /* AlertToast in Frameworks */,
+				EF6303AD2815E6860061FF6F /* Introspect in Frameworks */,
 				C0941EEB27A6E917009AAEBC /* KeychainAccess in Frameworks */,
 				C0941EE927A6E912009AAEBC /* SimpleLoginPackage in Frameworks */,
 			);
@@ -846,6 +848,7 @@
 				C0941EE827A6E912009AAEBC /* SimpleLoginPackage */,
 				C0941EEA27A6E917009AAEBC /* KeychainAccess */,
 				C0941EF327A6F056009AAEBC /* AlertToast */,
+				EF6303AC2815E6860061FF6F /* Introspect */,
 			);
 			productName = ShareExtension;
 			productReference = C03E200A27A1F436000D82F6 /* ShareExtension.appex */;
@@ -1764,6 +1767,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C0EA747A27B30CD200848F58 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
 			productName = BetterSafariView;
+		};
+		EF6303AC2815E6860061FF6F /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C05A4CDF273C76BB005F8CC5 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
 		};
 		EF6588FF27DA96D100D327C2 /* Reachability */ = {
 			isa = XCSwiftPackageProductDependency;
