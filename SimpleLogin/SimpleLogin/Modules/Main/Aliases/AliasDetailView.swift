@@ -488,14 +488,19 @@ private struct EditMailboxesView: View {
                 ForEach(viewModel.mailboxes, id: \.id) { mailbox in
                     HStack {
                         Text(mailbox.email)
+                            .foregroundColor(mailbox.verified ? .primary : .secondary)
                         Spacer()
                         if selectedIds.contains(mailbox.id) {
                             Image(systemName: "checkmark")
                                 .foregroundColor(.accentColor)
                         }
+                        if !mailbox.verified {
+                            BorderedText.unverified
+                        }
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
+                        guard mailbox.verified else { return }
                         if selectedIds.contains(mailbox.id) && selectedIds.count > 1 {
                             selectedIds.removeAll { $0 == mailbox.id }
                         } else if !selectedIds.contains(mailbox.id) {
