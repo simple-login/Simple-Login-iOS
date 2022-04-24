@@ -41,6 +41,7 @@ struct AccountView: View {
                     SenderFormatSection()
                     LogOutSection(onLogOut: onLogOut)
                 }
+                .ignoresSafeArea(.keyboard)
                 .environmentObject(viewModel)
                 .navigationTitle(navigationTitle)
                 .navigationBarItems(trailing: trailingButton)
@@ -121,21 +122,10 @@ struct AccountView: View {
 
 private struct UserInfoSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
-    @State private var selectedSheet: Sheet?
-
-    private enum Sheet {
-        case photoPicker, editDisplayName
-    }
+    @State private var showingPhotoPicker = false
+    @State private var showingEditNameAlert = false
 
     var body: some View {
-        let showingSheet = Binding<Bool>(get: {
-            selectedSheet != nil
-        }, set: { isShowing in
-            if !isShowing {
-                selectedSheet = nil
-            }
-        })
-
         Section {
             HStack {
                 let imageWidth = min(64, UIScreen.main.bounds.width / 7)
@@ -166,21 +156,12 @@ private struct UserInfoSection: View {
             .alert(isPresented: $viewModel.askingForSettings) {
                 settingsAlert
             }
-        }
-        .sheet(isPresented: showingSheet) {
-            switch selectedSheet {
-            case .photoPicker:
+            .sheet(isPresented: $showingPhotoPicker) {
                 PhotoPickerView { pickedImage in
                     viewModel.uploadNewProfilePhoto(pickedImage)
                 }
-            case .editDisplayName:
-                EditDisplayNameView { displayName in
-                    viewModel.updateDisplayName(displayName)
-                }
-                .environmentObject(viewModel)
-            default:
-                EmptyView()
             }
+            .textFieldAlert(isPresented: $showingEditNameAlert, config: editNameConfig)
         }
     }
 
@@ -196,7 +177,7 @@ private struct UserInfoSection: View {
         Menu(content: {
             Section {
                 Button(action: {
-                    selectedSheet = .photoPicker
+                    showingPhotoPicker = true
                 }, label: {
                     Label("Upload new profile photo", systemImage: "square.and.arrow.up")
                 })
@@ -210,12 +191,12 @@ private struct UserInfoSection: View {
 
             Section {
                 Button(action: {
-                    selectedSheet = .editDisplayName
+                    showingEditNameAlert = true
                 }, label: {
                     if #available(iOS 15, *) {
-                        Label("Modify display name", systemImage: "person.text.rectangle")
+                        Label("Edit display name", systemImage: "person.text.rectangle")
                     } else {
-                        Label("Modify display name", systemImage: "square.and.at.rectangle")
+                        Label("Edit display name", systemImage: "square.and.at.rectangle")
                     }
                 })
             }
@@ -232,6 +213,16 @@ private struct UserInfoSection: View {
             viewModel.openAppSettings()
         },
               secondaryButton: .cancel())
+    }
+
+    private var editNameConfig: TextFieldAlertConfig {
+        TextFieldAlertConfig(title: "Edit display name",
+                             text: viewModel.userInfo.name,
+                             keyboardType: .default,
+                             clearButtonMode: .always,
+                             actionTitle: "Save") { newDisplayName in
+            viewModel.updateDisplayName(newDisplayName ?? "")
+        }
     }
 }
 
