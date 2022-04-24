@@ -85,15 +85,10 @@ private struct DomainView: View {
 
     var body: some View {
         HStack {
-            Image(systemName: domain.verified ? "checkmark.seal.fill" : "checkmark.seal")
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(domain.verified ? .green : .gray)
-                .frame(width: 20, height: 20, alignment: .leading)
-
             VStack(alignment: .leading, spacing: 6) {
                 Text(domain.domainName)
                     .fontWeight(.semibold)
+                    .foregroundColor(domain.verified ? .primary : .secondary)
                 Text("\(domain.relativeCreationDateString) • \(domain.aliasCount) alias(es)")
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -102,14 +97,7 @@ private struct DomainView: View {
             Spacer()
 
             if !domain.verified {
-                Text("Unverified")
-                    .font(.caption2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.red)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(RoundedRectangle(cornerRadius: 4)
-                                    .stroke(Color.red, lineWidth: 1))
+                BorderedText.unverified
             }
         }
         .contentShape(Rectangle())

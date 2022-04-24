@@ -14,6 +14,7 @@ final class LogInViewModel: ObservableObject {
     @Published private(set) var userLogin: UserLogin?
     @Published private(set) var shouldActivate = false
     @Published private(set) var isShowingKeyboard = false
+    @Published private(set) var resetEmail: String?
     @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
 
@@ -87,5 +88,33 @@ final class LogInViewModel: ObservableObject {
                 self.userLogin = userLogin
             }
             .store(in: &cancellables)
+    }
+
+    func resetPassword(email: String) {
+        isLoading = true
+        client.forgotPassword(email: email)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            } receiveValue: { [weak self] ok in
+                guard let self = self else { return }
+                if ok.value {
+                    self.resetEmail = email
+                } else {
+                    self.error = SLError.unknown
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    func handledResetEmail() {
+        resetEmail = nil
     }
 }

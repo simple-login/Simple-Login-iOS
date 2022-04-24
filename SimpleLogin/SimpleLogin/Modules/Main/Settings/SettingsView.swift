@@ -44,17 +44,15 @@ private struct BiometricAuthenticationSection: View {
     @AppStorage(kUltraProtectionEnabled) var ultraProtectionEnabled = false
 
     var body: some View {
-        Section(header: Text("Local authentication"),
-                footer: Text("Restrict unwanted access to your SimpleLogin account on this device")) {
-            VStack {
-                Toggle(isOn: $localAuthenticator.biometricAuthEnabled) {
-                    Label(localAuthenticator.biometryType.description,
-                          systemImage: localAuthenticator.biometryType.systemImageName)
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+        Section(content: {
+            Toggle(isOn: $localAuthenticator.biometricAuthEnabled) {
+                Label(localAuthenticator.biometryType.description,
+                      systemImage: localAuthenticator.biometryType.systemImageName)
+            }
+            .toggleStyle(SwitchToggleStyle(tint: .slPurple))
 
-                if localAuthenticator.biometricAuthEnabled {
-                    Divider()
+            if localAuthenticator.biometricAuthEnabled {
+                VStack {
                     Toggle(isOn: $ultraProtectionEnabled) {
                         Label {
                             Text("Ultra-protection")
@@ -75,7 +73,11 @@ private struct BiometricAuthenticationSection: View {
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
-        }
+        }, header: {
+            Text("Local authentication")
+        }, footer: {
+            Text("Restrict unwanted access to your SimpleLogin account on this device")
+        })
     }
 }
 
@@ -86,12 +88,10 @@ private struct LocalSettingsSection: View {
 
     var body: some View {
         Section {
+            Toggle("Haptic feedback", isOn: $hapticEffectEnabled)
+                .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+
             VStack {
-                Toggle("Haptic feedback", isOn: $hapticEffectEnabled)
-                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-
-                Divider()
-
                 Toggle("Force dark mode", isOn: $forceDarkMode)
                     .toggleStyle(SwitchToggleStyle(tint: .slPurple))
 
