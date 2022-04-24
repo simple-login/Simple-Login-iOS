@@ -244,8 +244,8 @@ private struct AliasesSection: View {
 
     var body: some View {
         Section(header: Text("Aliases")) {
-            VStack(alignment: .leading) {
-                // Random mode
+            // Random mode
+            VStack {
                 Text("Random mode")
                     .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -263,29 +263,27 @@ private struct AliasesSection: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
+            }
 
-                Divider()
-
-                // Default domain
-                Picker("Default domain", selection: $viewModel.randomAliasDefaultDomain) {
-                    ForEach(viewModel.usableDomains, id: \.domain) { usableDomain in
-                        HStack {
-                            Text(usableDomain.domain)
-                            if usableDomain.isCustom {
-                                Image(systemName: "checkmark.seal.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 20, height: 20, alignment: .leading)
-                            }
+            // Default domain
+            Picker("Default domain", selection: $viewModel.randomAliasDefaultDomain) {
+                ForEach(viewModel.usableDomains, id: \.domain) { usableDomain in
+                    HStack {
+                        Text(usableDomain.domain)
+                        if usableDomain.isCustom {
+                            Image(systemName: "checkmark.seal.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20, alignment: .leading)
                         }
-                        .tag(usableDomain.domain)
                     }
+                    .tag(usableDomain.domain)
                 }
-                       .disabled(viewModel.isLoading)
+            }
+                   .disabled(viewModel.isLoading)
 
-                Divider()
-
-                // Random alias suffix
+            // Random alias suffix
+            VStack {
                 Text("Random alias suffix")
                     .frame(maxWidth: .infinity, alignment: .leading)
 
