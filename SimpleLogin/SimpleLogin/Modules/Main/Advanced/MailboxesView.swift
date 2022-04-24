@@ -31,8 +31,9 @@ struct MailboxesView: View {
 
         List {
             ForEach(viewModel.mailboxes, id: \.id) { mailbox in
-                MailboxView(mailbox: mailbox)
-                    .overlay(menu(for: mailbox))
+                MailboxView(viewModel: viewModel,
+                            mailboxToBeDeleted: $mailboxToBeDeleted,
+                            mailbox: mailbox)
             }
             .navigationBarTitle("Mailboxes")
         }
@@ -66,36 +67,6 @@ struct MailboxesView: View {
         .alertToastError($viewModel.error)
     }
 
-    private func menu(for mailbox: Mailbox) -> some View {
-        Menu(content: {
-            Section {
-                Text(mailbox.email)
-            }
-
-            if !mailbox.default {
-                if mailbox.verified {
-                    Section {
-                        Button(action: {
-                            viewModel.makeDefault(mailbox: mailbox)
-                        }, label: {
-                            Text("Set as default")
-                        })
-                    }
-                }
-
-                Section {
-                    DeleteMenuButton {
-                        Vibration.warning.vibrate(fallBackToOldSchool: true)
-                        mailboxToBeDeleted = mailbox
-                    }
-                }
-            }
-        }, label: {
-            Text("")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        })
-    }
-
     private var deletionAlert: Alert {
         guard let mailboxToBeDeleted = mailboxToBeDeleted else {
             return .init(title: Text("mailboxToBeDeleted is nil"),
@@ -126,52 +97,51 @@ struct MailboxesView: View {
 }
 
 private struct MailboxView: View {
+    @ObservedObject var viewModel: MailboxesViewModel
+    @Binding var mailboxToBeDeleted: Mailbox?
     let mailbox: Mailbox
 
     var body: some View {
-        HStack {
-            Image(systemName: mailbox.verified ? "checkmark.seal.fill" : "checkmark.seal")
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(mailbox.verified ? .green : .gray)
-                .frame(width: 20, height: 20, alignment: .leading)
+        Menu(content: {
+            if !mailbox.default {
+                if mailbox.verified {
+                    Section {
+                        Button(action: {
+                            viewModel.makeDefault(mailbox: mailbox)
+                        }, label: {
+                            Text("Set as default")
+                        })
+                    }
+                }
 
-            VStack(alignment: .leading, spacing: 6) {
-                Text(mailbox.email)
-                    .fontWeight(.semibold)
-                Text("\(mailbox.relativeCreationDateString) • \(mailbox.aliasCount) alias(es)")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                Section {
+                    DeleteMenuButton {
+                        Vibration.warning.vibrate(fallBackToOldSchool: true)
+                        mailboxToBeDeleted = mailbox
+                    }
+                }
             }
+        }, label: {
+            HStack {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(mailbox.email)
+                        .fontWeight(.semibold)
+                        .foregroundColor(mailbox.verified ? .primary : .secondary)
+                    Text("\(mailbox.relativeCreationDateString) • \(mailbox.aliasCount) alias(es)")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
 
-            Spacer()
+                Spacer()
 
-            if mailbox.default {
-                LabelText(text: "Default")
+                if mailbox.default {
+                    LabelText(text: "Default")
+                }
+
+                if !mailbox.verified {
+                    BorderedText.unverified
+                }
             }
-
-            if !mailbox.verified {
-                Text("Unverified")
-                    .font(.caption2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.red)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(RoundedRectangle(cornerRadius: 4)
-                                    .stroke(Color.red, lineWidth: 1))
-            }
-        }
-        .contentShape(Rectangle())
-    }
-}
-
-struct MailboxesView_Previews: PreviewProvider {
-    static var previews: some View {
-        List {
-            MailboxView(mailbox: .defaultVerified)
-            MailboxView(mailbox: .normalUnverified)
-            MailboxView(mailbox: .normalVerified)
-        }
-        .listStyle(InsetGroupedListStyle())
+        })
     }
 }

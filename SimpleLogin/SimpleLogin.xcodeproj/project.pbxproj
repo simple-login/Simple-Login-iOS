@@ -166,6 +166,8 @@
 		EFBBEDC527F3B21B00E0FF03 /* Capacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE927C96FAE00C8E6DD /* Capacity.swift */; };
 		EFBBEDC627F3B23D00E0FF03 /* CapacityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE727C96F7000C8E6DD /* CapacityView.swift */; };
 		EFD8D85927D7EBA500C733EB /* LocalMailboxLiteExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */; };
+		EFDF83A528157C1A002ED668 /* BorderedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDF83A428157C1A002ED668 /* BorderedText.swift */; };
+		EFDF83A628157C1A002ED668 /* BorderedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDF83A428157C1A002ED668 /* BorderedText.swift */; };
 		EFF7779427F3979F0084D6B4 /* UpgradeNeededView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF7779327F3979F0084D6B4 /* UpgradeNeededView.swift */; };
 		EFF7779527F3979F0084D6B4 /* UpgradeNeededView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF7779327F3979F0084D6B4 /* UpgradeNeededView.swift */; };
 		EFF7779627F3982A0084D6B4 /* EmptyDataModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02309CD2762AD6B00B6EC37 /* EmptyDataModifier.swift */; };
@@ -347,6 +349,7 @@
 		EFB1F27327CEB99300C8D776 /* SimpleLogin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleLogin.xcdatamodel; sourceTree = "<group>"; };
 		EFB3A96627BC404300F82965 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMailboxLiteExtensions.swift; sourceTree = "<group>"; };
+		EFDF83A428157C1A002ED668 /* BorderedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedText.swift; sourceTree = "<group>"; };
 		EFF7779327F3979F0084D6B4 /* UpgradeNeededView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeNeededView.swift; sourceTree = "<group>"; };
 		EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumView.swift; sourceTree = "<group>"; };
 		EFFBBDE327C96AEB00C8E6DD /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
@@ -646,6 +649,7 @@
 				C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */,
 				EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */,
 				C0AAE98D26E4152A00247742 /* Blur.swift */,
+				EFDF83A428157C1A002ED668 /* BorderedText.swift */,
 				C00E66682792C687002DBA67 /* ClearButtonModeModifier.swift */,
 				C02CD1972794C20400B3115E /* ConfettiableModifier.swift */,
 				EF68E11727B90E9400396472 /* DeleteMenuButton.swift */,
@@ -1016,6 +1020,7 @@
 				EFB118562800C35D009752BE /* SettingsViewModel.swift in Sources */,
 				EFA9412E27DD3F08009ADD20 /* OfflineLabelledViewModifier.swift in Sources */,
 				C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */,
+				EFDF83A528157C1A002ED668 /* BorderedText.swift in Sources */,
 				C0126D0027AEA07A00B489E8 /* SearchAliasesViewController.swift in Sources */,
 				C0259EAF26DA55CD0056A977 /* StringExtensions.swift in Sources */,
 				EF8B1CD027DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift in Sources */,
@@ -1141,6 +1146,7 @@
 				C04BB63527AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */,
 				C0941EFB27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				EF6FEA6F27B8358800557158 /* AlertToastModifier.swift in Sources */,
+				EFDF83A628157C1A002ED668 /* BorderedText.swift in Sources */,
 				EFB0B65127F0F2FD006D3A7F /* PrimaryButton.swift in Sources */,
 				C0941EED27A6EEAE009AAEBC /* CreateAliasView.swift in Sources */,
 				C0941EEF27A6EFBF009AAEBC /* StringExtensions.swift in Sources */,
