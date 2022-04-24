@@ -19,7 +19,8 @@ struct LogInView: View {
     @State private var showingAboutView = false
     @State private var showingApiKeyView = false
     @State private var showingApiUrlView = false
-    @State private var showingResetPasswordView = false
+    @State private var showingResetPasswordAlert = false
+    @State private var showingResetEmailSentAlert = false
 
     @State private var launching = true
     @State private var showingSignUpView = false
@@ -52,6 +53,14 @@ struct LogInView: View {
             }
         })
 
+        let showingResetEmailSentAlert = Binding<Bool>(get: {
+            viewModel.resetEmail != nil
+        }, set: { isShowing in
+            if !isShowing {
+                viewModel.handledResetEmail()
+            }
+        })
+
         VStack {
             if !launching {
                 topView
@@ -75,7 +84,7 @@ struct LogInView: View {
 
                 if !viewModel.isShowingKeyboard {
                     Button(action: {
-                        showingResetPasswordView = true
+                        showingResetPasswordAlert = true
                     }, label: {
                         Text("Forgot password?")
                     })
@@ -141,6 +150,12 @@ struct LogInView: View {
                 }
             }
         }
+        .alert(isPresented: showingResetEmailSentAlert) {
+            Alert(title: Text("We've sent you an email"),
+                  message: Text("Please check the inbox of your email \(viewModel.resetEmail ?? "") and follow the instructions."),
+                  dismissButton: .default(Text("OK")))
+        }
+        .textFieldAlert(isPresented: $showingResetPasswordAlert, config: resetPasswordConfig)
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastError($viewModel.error)
     }
@@ -167,12 +182,6 @@ struct LogInView: View {
                 .frame(width: 0, height: 0)
                 .sheet(isPresented: $showingApiUrlView) {
                     ApiUrlView(apiUrl: preferences.apiUrl)
-                }
-
-            Color.clear
-                .frame(width: 0, height: 0)
-                .sheet(isPresented: $showingResetPasswordView) {
-                    ResetPasswordView(client: viewModel.client)
                 }
 
             Spacer()
@@ -265,5 +274,18 @@ struct LogInView: View {
                                 password: password,
                                 device: UIDevice.current.name)
             })
+    }
+
+    private var resetPasswordConfig: TextFieldAlertConfig {
+        TextFieldAlertConfig(title: "Reset forgotten password",
+                             message: "Enter your email address",
+                             placeholder: "Ex: john.doe@example.com",
+                             keyboardType: .emailAddress,
+                             clearButtonMode: .whileEditing,
+                             actionTitle: "Submit") { email in
+            if let email = email {
+                viewModel.resetPassword(email: email)
+            }
+        }
     }
 }

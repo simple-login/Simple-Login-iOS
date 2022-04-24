@@ -85,10 +85,10 @@ struct MailboxesView: View {
     private var addMailboxConfig: TextFieldAlertConfig {
         TextFieldAlertConfig(title: "New mailbox",
                              message: "A verification email will be sent to this email address",
-                             placeholder: "john.doe@example.com",
+                             placeholder: "Ex: john.doe@example.com",
                              keyboardType: .emailAddress,
                              clearButtonMode: .never,
-                             actionTitle: "Add") { newMailbox in
+                             actionTitle: "Submit") { newMailbox in
             if let newMailbox = newMailbox {
                 viewModel.addMailbox(email: newMailbox)
             }

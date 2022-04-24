@@ -342,11 +342,10 @@ private struct LogOutSection: View {
     var body: some View {
         Section {
             Button(action: {
-                Vibration.rigid.vibrate()
+                Vibration.rigid.vibrate(fallBackToOldSchool: true)
                 isShowingAlert = true
             }, label: {
                 Text("Log out")
-                    .fontWeight(.semibold)
                     .foregroundColor(.red)
             })
                 .disabled(viewModel.isLoading)
