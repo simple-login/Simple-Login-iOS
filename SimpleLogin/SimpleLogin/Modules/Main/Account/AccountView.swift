@@ -266,21 +266,20 @@ private struct AliasesSection: View {
             }
 
             // Default domain
-            Picker("Default domain", selection: $viewModel.randomAliasDefaultDomain) {
-                ForEach(viewModel.usableDomains, id: \.domain) { usableDomain in
-                    HStack {
-                        Text(usableDomain.domain)
-                        if usableDomain.isCustom {
-                            Image(systemName: "checkmark.seal.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20, height: 20, alignment: .leading)
-                        }
+            VStack(alignment: .leading) {
+                Text("Default domain for random aliases")
+                NavigationLink(destination: {
+                    UsableDomainsView(selectedUsableDomain: $viewModel.randomAliasDefaultDomain,
+                                      usableDomains: viewModel.usableDomains)
+                }, label: {
+                    if let selectedUsableDomain = viewModel.randomAliasDefaultDomain {
+                        UsableDomainView(usableDomain: selectedUsableDomain)
+                            .foregroundColor(.slPurple)
                     }
-                    .tag(usableDomain.domain)
-                }
+                })
             }
-                   .disabled(viewModel.isLoading)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .disabled(viewModel.isLoading)
 
             // Random alias suffix
             VStack {
