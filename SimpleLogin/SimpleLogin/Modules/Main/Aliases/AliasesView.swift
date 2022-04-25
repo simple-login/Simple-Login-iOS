@@ -227,6 +227,7 @@ struct AliasesView: View {
             })
             .id(alias.id)
             .background(hightlight ? Color.slPurple.opacity(0.1) : Color.clear)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
             .onAppear {
                 viewModel.getMoreAliasesIfNeed(currentAlias: alias)
             }
