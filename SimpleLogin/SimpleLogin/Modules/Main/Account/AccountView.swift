@@ -309,16 +309,33 @@ private struct SenderFormatSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
 
     var body: some View {
-        Section(header: Text("Sender address format"),
-                footer: Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")) {
-            Picker("Format", selection: $viewModel.senderFormat) {
+        Section(content: {
+            Menu(content: {
                 ForEach(SenderFormat.allCases, id: \.self) { format in
-                    Text(format.description)
-                        .tag(format)
+                    Button(action: {
+                        viewModel.senderFormat = format
+                    }, label: {
+                        HStack {
+                            Text(format.description)
+                            if viewModel.senderFormat == format {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    })
                 }
-            }
-            .disabled(viewModel.isLoading)
-        }
+            }, label: {
+                Text(viewModel.senderFormat.description)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
+                    .transaction { transaction in
+                        transaction.animation = nil
+                    }
+            })
+        }, header: {
+            Text("Sender address format")
+        }, footer: {
+            Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")
+        })
     }
 }
 
