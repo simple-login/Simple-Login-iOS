@@ -137,10 +137,11 @@ private struct ContentView: View {
                     }
 
                 if !prefix.isEmpty, !prefix.isValidPrefix {
-                    Text("Invalid prefix")
+                    Text("Only lowercase letters, numbers, dot (.), dashes (-) & underscore are supported.")
                         .font(.caption)
                         .foregroundColor(.red)
-                        .animation(.default, value: prefix.isValidPrefix)
+                        .animation(.default, value: prefix)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
 
@@ -174,8 +175,6 @@ private struct ContentView: View {
             }
         }, header: {
             Text("Alias address")
-        }, footer: {
-            Text("Only lowercase letters, numbers, dot (.), dashes (-) & underscore are supported.")
         })
     }
 
