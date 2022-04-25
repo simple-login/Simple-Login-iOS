@@ -122,6 +122,7 @@ struct MainView: View {
                             }
                         }
                         self.createdAlias = createdAlias
+                        self.selectedItem = .aliases
                     },
                     onCancel: nil,
                     onOpenMyAccount: {

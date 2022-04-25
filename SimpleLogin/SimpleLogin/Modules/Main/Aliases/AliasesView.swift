@@ -95,24 +95,42 @@ struct AliasesView: View {
                         EmptyView()
                     })
 
-                List {
-                    ForEach(viewModel.filteredAliases, id: \.id) { alias in
-                        // TODO: Workaround a SwiftUI bug that doesn't update AliasCompactView's context menu
-                        // https://stackoverflow.com/a/70159934
-                        if alias.pinned {
-                            aliasCompactView(for: alias)
-                        } else {
-                            aliasCompactView(for: alias)
+                ScrollViewReader { proxy in
+                    List {
+                        ForEach(viewModel.filteredAliases, id: \.id) { alias in
+                            // TODO: Workaround a SwiftUI bug that doesn't update AliasCompactView's context menu
+                            // https://stackoverflow.com/a/70159934
+                            if alias.pinned {
+                                aliasCompactView(for: alias)
+                            } else {
+                                aliasCompactView(for: alias)
+                            }
+                        }
+                        if viewModel.isLoading {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                                .padding()
                         }
                     }
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .frame(maxWidth: .infinity)
-                            .padding()
+                    .listStyle(.plain)
+                    .introspectTableView { tableView in
+                        tableView.refreshControl = viewModel.refreshControl
+                    }
+                    .onReceive(Just(createdAlias)) { createdAlias in
+                        if let createdAlias = createdAlias {
+                            if !viewModel.isHandled(createdAlias) {
+                                showingCreatedAliasAlert = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    withAnimation {
+                                        proxy.scrollTo(createdAlias.id, anchor: .center)
+                                    }
+                                }
+                            }
+                            viewModel.handleCreatedAlias(createdAlias)
+                        }
                     }
                 }
                 .ignoresSafeArea(.keyboard)
-                .listStyle(.plain)
                 .navigationBarTitleDisplayMode(.inline)
                 .offlineLabelled(reachable: viewModel.reachabilityObserver.reachable)
                 .toolbar {
@@ -136,9 +154,6 @@ struct AliasesView: View {
                         })
                     }
                 }
-                .introspectTableView { tableView in
-                    tableView.refreshControl = viewModel.refreshControl
-                }
                 .sheet(isPresented: $showingSearchView) {
                     SearchAliasesView(
                         session: viewModel.session,
@@ -161,14 +176,6 @@ struct AliasesView: View {
             if  !isLoading, UIDevice.current.userInterfaceIdiom != .phone, selectedAlias == nil {
                 selectedAlias = viewModel.filteredAliases.first
                 selectedLink = .details
-            }
-        }
-        .onReceive(Just(createdAlias)) { createdAlias in
-            if let createdAlias = createdAlias {
-                if !viewModel.isHandled(createdAlias) {
-                    showingCreatedAliasAlert = true
-                }
-                viewModel.handleCreatedAlias(createdAlias)
             }
         }
         .alert(isPresented: $showingDeleteConfirmationAlert) {
@@ -218,7 +225,9 @@ struct AliasesView: View {
                 selectedAlias = alias
                 showingDeleteConfirmationAlert = true
             })
+            .id(alias.id)
             .background(hightlight ? Color.slPurple.opacity(0.1) : Color.clear)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
             .onAppear {
                 viewModel.getMoreAliasesIfNeed(currentAlias: alias)
             }

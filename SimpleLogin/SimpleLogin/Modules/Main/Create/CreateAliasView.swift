@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
@@ -92,7 +93,7 @@ private struct ContentView: View {
     @ObservedObject var viewModel: CreateAliasViewModel
     @State private var isInitialized = false
     @State private var prefix = ""
-    @State private var suffixValue = ""
+    @State private var selectedSuffix: Suffix?
     @State private var mailboxIds = [Int]()
     @State private var notes = ""
     let options: AliasOptions
@@ -101,24 +102,19 @@ private struct ContentView: View {
 
     var body: some View {
         Form {
-            Section(footer: Text("Only lowercase letters, numbers, dot (.), dashes (-) & underscore are supported.")) {
-                prefixAndSuffixView
-            }
-
-            Section(header: Text("Mailboxes"),
-                    footer: mailboxFooter) {
-                mailboxesView
-            }
-
-            Section(header: Text("Notes"), footer: noteFooter) {
-                TextEditor(text: $notes)
-                    .frame(height: 80)
-            }
+            prefixAndSuffixSection
+            notesSection
+            mailboxesSection
+            Section(content: {
+                EmptyView()
+            }, footer: {
+                buttons
+            })
         }
         .onAppear {
             guard !isInitialized else { return }
             isInitialized = true
-            suffixValue = options.suffixes.map { $0.value }.first ?? ""
+            selectedSuffix = options.suffixes.first
             if let defaultMailbox = mailboxes.first(where: { $0.default }) ?? mailboxes.first {
                 mailboxIds.append(defaultMailbox.id)
             }
@@ -127,60 +123,78 @@ private struct ContentView: View {
         }
     }
 
-    private var prefixAndSuffixView: some View {
-        NavigationLink(destination: {
-            EditSuffixView(suffixValue: $suffixValue, suffixes: options.suffixes)
-        }, label: {
-            HStack(spacing: 2) {
-                TextField("custom_prefix", text: $prefix)
+    private var prefixAndSuffixSection: some View {
+        Section(content: {
+            VStack(alignment: .leading) {
+                TextField("Custom prefix", text: $prefix)
+                    .textFieldStyle(.roundedBorder)
                     .labelsHidden()
-                    .multilineTextAlignment(.trailing)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .foregroundColor(prefix.isValidPrefix ? .primary : .red)
-                    .frame(minWidth: 50)
-
-                Text(suffixValue)
-                    .foregroundColor(.slPurple)
-            }
-        })
-    }
-
-    private var mailboxesView: some View {
-        NavigationLink(destination: {
-            EditMailboxesView(mailboxIds: $mailboxIds, mailboxes: mailboxes)
-        }, label: {
-            VStack {
-                ForEach(mailboxIds, id: \.self) { id in
-                    if let mailbox = mailboxes.first { $0.id == id } {
-                        HStack {
-                            Text(mailbox.email)
-                            Spacer()
-                        }
+                    .introspectTextField { textField in
+                        textField.clearButtonMode = .whileEditing
                     }
+
+                if !prefix.isEmpty, !prefix.isValidPrefix {
+                    Text("Only lowercase letters, numbers, dot (.), dashes (-) & underscore are supported.")
+                        .font(.caption)
+                        .foregroundColor(.red)
+                        .animation(.default, value: prefix)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
-            .contentShape(Rectangle())
-            .frame(maxWidth: .infinity)
+
+            if let selectedSuffix = selectedSuffix {
+                NavigationLink(destination: {
+                    EditSuffixView(selectedSuffix: $selectedSuffix, suffixes: options.suffixes)
+                }, label: {
+                    VStack(alignment: .leading) {
+                        Text(selectedSuffix.value)
+                        Text(selectedSuffix.domainType.localizedDescription)
+                            .font(.caption)
+                            .foregroundColor(selectedSuffix.domainType.color)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                })
+            }
+
+            if prefix.isValidPrefix {
+                VStack(alignment: .leading) {
+                    Text("Complete alias address".uppercased())
+                        .font(.caption2)
+                        .fontWeight(.medium)
+                        .foregroundColor(.secondary)
+                    Text(prefix + (selectedSuffix?.value ?? ""))
+                        .fontWeight(.medium)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .animation(.default, value: prefix.isValidPrefix)
+            }
+        }, header: {
+            Text("Alias address")
         })
     }
 
-    private var mailboxFooter: some View {
-        Button("What are mailboxes?") {
-            // swiftlint:disable:next force_unwrapping
-            openURL(URL(string: "https://simplelogin.io/docs/mailbox/add-mailbox/")!)
-        }
-        .foregroundColor(.slPurple)
+    private var notesSection: some View {
+        Section(content: {
+            TextEditor(text: $notes)
+                .frame(height: 80)
+        }, header: {
+            Text("Notes")
+        })
     }
 
-    private var noteFooter: some View {
+    private var buttons: some View {
         VStack {
             let createButtonDisabled = !prefix.isValidPrefix || mailboxIds.isEmpty
             PrimaryButton(title: "Create") {
-                guard let suffixObject = options.suffixes.first(where: { $0.value == suffixValue }) else { return }
+                guard let selectedSuffix = selectedSuffix else { return }
                 let creationOptions = AliasCreationOptions(hostname: nil,
                                                            prefix: prefix,
-                                                           suffix: suffixObject,
+                                                           suffix: selectedSuffix,
                                                            mailboxIds: mailboxIds,
                                                            note: notes.isEmpty ? nil : notes,
                                                            name: nil)
@@ -224,6 +238,35 @@ private struct ContentView: View {
                 .font(.body)
             }
         }
+    }
+
+    private var mailboxesSection: some View {
+        Section(content: {
+            NavigationLink(destination: {
+                EditMailboxesView(mailboxIds: $mailboxIds, mailboxes: mailboxes)
+            }, label: {
+                VStack {
+                    ForEach(mailboxIds, id: \.self) { id in
+                        if let mailbox = mailboxes.first { $0.id == id } {
+                            HStack {
+                                Text(mailbox.email)
+                                Spacer()
+                            }
+                        }
+                    }
+                }
+                .contentShape(Rectangle())
+                .frame(maxWidth: .infinity)
+            })
+        }, header: {
+            Text("Mailboxes")
+        }, footer: {
+            Button("What are mailboxes?") {
+                // swiftlint:disable:next force_unwrapping
+                openURL(URL(string: "https://simplelogin.io/docs/mailbox/add-mailbox/")!)
+            }
+            .foregroundColor(.slPurple)
+        })
     }
 
     private var horizontalLine: some View {
@@ -283,34 +326,32 @@ private struct EditMailboxesView: View {
 
 struct EditSuffixView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @Binding var suffixValue: String
+    @Binding var selectedSuffix: Suffix?
     let suffixes: [Suffix]
 
     var body: some View {
         Form {
             ForEach(suffixes, id: \.value) { suffix in
                 HStack {
-                    VStack {
+                    VStack(alignment: .leading) {
                         Text(suffix.value)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .fixedSize(horizontal: false, vertical: true)
                         Text(suffix.domainType.localizedDescription)
                             .font(.caption)
                             .foregroundColor(suffix.domainType.color)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .fixedSize(horizontal: false, vertical: true)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
 
                     Spacer()
 
-                    if suffix.value == suffixValue {
+                    if suffix.value == selectedSuffix?.value {
                         Image(systemName: "checkmark")
                             .foregroundColor(.accentColor)
                     }
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    suffixValue = suffix.value
+                    selectedSuffix = suffix
                     presentationMode.wrappedValue.dismiss()
                 }
             }
