@@ -126,7 +126,7 @@ private struct ContentView: View {
     private var prefixAndSuffixSection: some View {
         Section(content: {
             VStack(alignment: .leading) {
-                TextField("Custom prefix", text: $prefix)
+                TextField("Custom prefix", text: $prefix.animation())
                     .textFieldStyle(.roundedBorder)
                     .labelsHidden()
                     .autocapitalization(.none)
@@ -168,10 +168,12 @@ private struct ContentView: View {
                         .foregroundColor(.secondary)
                     Text(prefix + (selectedSuffix?.value ?? ""))
                         .fontWeight(.medium)
+                        .transaction { transaction in
+                            transaction.animation = nil
+                        }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
-                .animation(.default, value: prefix.isValidPrefix)
             }
         }, header: {
             Text("Alias address")
@@ -245,18 +247,8 @@ private struct ContentView: View {
             NavigationLink(destination: {
                 EditMailboxesView(mailboxIds: $mailboxIds, mailboxes: mailboxes)
             }, label: {
-                VStack {
-                    ForEach(mailboxIds, id: \.self) { id in
-                        if let mailbox = mailboxes.first { $0.id == id } {
-                            HStack {
-                                Text(mailbox.email)
-                                Spacer()
-                            }
-                        }
-                    }
-                }
-                .contentShape(Rectangle())
-                .frame(maxWidth: .infinity)
+                let selectedMailboxes = mailboxes.filter { mailboxIds.contains($0.id) }
+                Text(selectedMailboxes.map { $0.email }.joined(separator: "\n"))
             })
         }, header: {
             Text("Mailboxes")

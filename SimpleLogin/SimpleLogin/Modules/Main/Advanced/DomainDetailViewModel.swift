@@ -13,7 +13,7 @@ final class DomainDetailViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var domain: CustomDomain = .empty
     @Published var catchAll = false
     @Published var randomPrefixGeneration = false
-    @Published private(set) var isLoading = false
+    @Published private(set) var isUpdating = false
     @Published private(set) var mailboxes: [Mailbox] = []
     @Published private(set) var isLoadingMailboxes = false
     @Published private(set) var isUpdated = false
@@ -54,18 +54,18 @@ final class DomainDetailViewModel: BaseSessionViewModel, ObservableObject {
     }
 
     func update(option: CustomDomainUpdateOption) {
-        guard !isLoading else { return }
-        isLoading = true
+        guard !isUpdating else { return }
+        isUpdating = true
         session.client.updateCustomDomain(apiKey: session.apiKey,
                                           id: domain.id,
                                           option: option)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-                self.isLoading = false
+                self.isUpdating = false
                 switch completion {
                 case .finished:
-                    break
+                    self.isUpdated = true
                 case .failure(let error):
                     self.error = error
                 }

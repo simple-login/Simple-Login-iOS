@@ -19,43 +19,16 @@ struct DomainDetailView: View {
     }
 
     var body: some View {
-        let domain = viewModel.domain
-        ScrollView {
-            Group {
-                CreationDateSection(domain: domain)
-                Divider()
-                CatchAllSection(viewModel: viewModel)
-                Divider()
-                DefaultDisplayNameSection(viewModel: viewModel)
-                Divider()
-                RandomPrefixSection(viewModel: viewModel)
-            }
-            .padding(.horizontal)
-            .disabled(viewModel.isLoading)
+        Form {
+            CreationDateSection(domain: viewModel.domain)
+            CatchAllSection(viewModel: viewModel)
+            DefaultDisplayNameSection(viewModel: viewModel)
+            RandomPrefixSection(viewModel: viewModel)
         }
+        .ignoresSafeArea(.keyboard)
+        .navigationTitle(viewModel.domain.domainName)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                VStack(spacing: 0) {
-                    Text(domain.domainName)
-                        .font(.headline)
-                        .truncationMode(.middle)
-                        .frame(maxWidth: 280)
-                        .foregroundColor(domain.verified ? .primary : .secondary)
-
-                    HStack {
-                        Image(systemName: domain.verified ? "checkmark.seal.fill" : "checkmark.seal")
-                            .foregroundColor(domain.verified ? .green : .gray)
-
-                        Divider()
-
-                        Text("\(domain.aliasCount) alias(es)")
-                    }
-                    .font(.footnote)
-                }
-            }
-        }
-        .onReceive(Just(viewModel.isLoading)) { isLoading in
+        .onReceive(Just(viewModel.isUpdating)) { isLoading in
             showingLoadingAlert = isLoading
         }
         .alertToastLoading(isPresenting: $showingLoadingAlert)
@@ -68,113 +41,49 @@ private struct CreationDateSection: View {
     let domain: CustomDomain
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Creation date")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                Spacer()
+        Section {
+            VStack(alignment: .leading) {
+                Text(domain.domainName)
+                    .font(.title)
+                HStack {
+                    Text("\(domain.creationDateString) (\(domain.relativeCreationDateString))")
+                    Text("•")
+                    Text("\(domain.aliasCount) alias(es)")
+                }
+                .font(.footnote)
             }
-            .padding(.vertical, 8)
-
-            Text("\(domain.creationDateString) (\(domain.relativeCreationDateString))")
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }
 
 private struct CatchAllSection: View {
     @ObservedObject var viewModel: DomainDetailViewModel
-    @State private var showingExplication = false
-    @State private var showingEditMailboxes = false
-    @State private var selectedSheet: Sheet?
-
-    private enum Sheet {
-        case edit, view
-    }
 
     var body: some View {
         let domain = viewModel.domain
-        let showingSheet = Binding<Bool>(get: {
-            selectedSheet != nil
-        }, set: { showing in
-            if !showing {
-                selectedSheet = nil
-            }
-        })
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Auto create/on the fly alias")
-                    .font(.title2)
-                    .fontWeight(.bold)
-
-                if !showingExplication {
-                    Button(action: {
-                        withAnimation {
-                            showingExplication = true
-                        }
-                    }, label: {
-                        Text("ⓘ")
-                    })
-                }
-
-                Spacer()
-
-                if viewModel.catchAll {
-                    Button(action: {
-                        selectedSheet = .edit
-                    }, label: {
-                        Text("Edit")
-                    })
-                }
-            }
-            .padding(.top, 8)
-            .padding(.bottom, showingExplication ? 2 : 8)
-
-            if showingExplication {
-                Text("Simply use anything@\(domain.domainName) next time you need an alias: it'll be automatically created the first time it receives an email. To have more fine-grained control, you can also define auto create rules.")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 4)
-            }
-
+        Section(content: {
             Toggle("Catch all", isOn: $viewModel.catchAll.animation())
                 .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-
             if viewModel.catchAll {
-                Text("Auto-created aliases are automatically owned by the following mailboxes")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 4)
-
                 VStack(alignment: .leading) {
-                    ForEach(0..<min(3, viewModel.domain.mailboxes.count), id: \.self) { index in
-                        let mailbox = viewModel.domain.mailboxes[index]
-                        Text(mailbox.email)
-                    }
+                    Text("Default mailboxes".uppercased())
+                        .font(.caption2)
+                        .fontWeight(.medium)
+                        .foregroundColor(.secondary)
+                    NavigationLink(destination: {
+                        EditMailboxesView(viewModel: viewModel)
+                    }, label: {
+                        Text(domain.mailboxes.map { $0.email }.joined(separator: "\n"))
+                    })
                 }
-
-                if viewModel.domain.mailboxes.count > 3 {
-                    HStack {
-                        Spacer()
-                        Image(systemName: "ellipsis")
-                        Spacer()
-                    }
-                    .padding(.vertical, 4)
-                    .onTapGesture {
-                        selectedSheet = .view
-                    }
-                }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-        }
-        .sheet(isPresented: showingSheet) {
-            switch selectedSheet {
-            case .edit:
-                EditMailboxesView(viewModel: viewModel)
-            case .view:
-                AllMailboxesView(viewModel: viewModel)
-            default: EmptyView()
-            }
-        }
+        }, header: {
+            Text("Auto create/on the fly alias")
+        }, footer: {
+            Text("Simply use anything@\(domain.domainName) next time you need an alias: it'll be automatically created the first time it receives an email. To have more fine-grained control, you can also define auto create rules.")
+        })
     }
 }
 
@@ -184,68 +93,30 @@ private struct EditMailboxesView: View {
     @State private var showingLoadingAlert = false
     @State private var selectedIds: [Int] = []
 
+    init(viewModel: DomainDetailViewModel) {
+        _viewModel = .init(wrappedValue: viewModel)
+        _selectedIds = .init(initialValue: viewModel.domain.mailboxes.map { $0.id })
+    }
+
     var body: some View {
-        NavigationView {
-            Group {
-                if !viewModel.mailboxes.isEmpty {
-                    mailboxesList
-                }
-            }
-            .navigationTitle(viewModel.domain.domainName)
-            .navigationBarItems(leading: cancelButton, trailing: doneButton)
-            .disabled(viewModel.isLoading)
-        }
-        .accentColor(.slPurple)
-        .onAppear {
-            selectedIds = viewModel.domain.mailboxes.map { $0.id }
-            viewModel.getMailboxes()
-        }
-        .onReceive(Just(viewModel.isLoading)) { isLoading in
-            showingLoadingAlert = isLoading
-        }
-        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
-            if isUpdated {
-                presentationMode.wrappedValue.dismiss()
-                viewModel.handledIsUpdatedBoolean()
-            }
-        }
-        .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
-            showingLoadingAlert = isLoadingMailboxes
-        }
-        .alertToastLoading(isPresenting: $showingLoadingAlert)
-        .alertToastError($viewModel.error)
-    }
-
-    private var cancelButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Cancel")
-        })
-    }
-
-    private var doneButton: some View {
-        Button(action: {
-            viewModel.update(option: .mailboxIds(selectedIds))
-        }, label: {
-            Text("Done")
-        })
-    }
-
-    private var mailboxesList: some View {
         Form {
-            Section(header: Text("Mailboxes")) {
+            Section(content: {
                 ForEach(viewModel.mailboxes, id: \.id) { mailbox in
                     HStack {
                         Text(mailbox.email)
+//                            .foregroundColor(mailbox.verified ? .primary : .secondary)
                         Spacer()
                         if selectedIds.contains(mailbox.id) {
                             Image(systemName: "checkmark")
                                 .foregroundColor(.accentColor)
                         }
+//                        if !mailbox.verified {
+//                            BorderedText.unverified
+//                        }
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
+//                        guard mailbox.verified else { return }
                         if selectedIds.contains(mailbox.id) && selectedIds.count > 1 {
                             selectedIds.removeAll { $0 == mailbox.id }
                         } else if !selectedIds.contains(mailbox.id) {
@@ -253,86 +124,70 @@ private struct EditMailboxesView: View {
                         }
                     }
                 }
-            }
-        }
-    }
-}
-
-private struct AllMailboxesView: View {
-    @Environment(\.presentationMode) private var presentationMode
-    @ObservedObject var viewModel: DomainDetailViewModel
-
-    var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Mailboxes")) {
-                    ForEach(viewModel.domain.mailboxes, id: \.id) { mailbox in
-                        Text(mailbox.email)
-                    }
+            }, header: {
+                if !viewModel.mailboxes.isEmpty {
+                    Text("Default mailboxes")
                 }
-            }
-            .navigationBarTitle(viewModel.domain.domainName)
-            .navigationBarItems(leading: closeButton)
+            }, footer: {
+                if !viewModel.mailboxes.isEmpty {
+                    PrimaryButton(title: "Save") {
+                        viewModel.update(option: .mailboxIds(selectedIds))
+                    }
+                    .padding(.vertical)
+                }
+            })
         }
-        .accentColor(.slPurple)
-    }
-
-    private var closeButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Text("Close")
-        })
+        .navigationBarTitle(viewModel.domain.domainName)
+        .onAppear {
+            if viewModel.mailboxes.isEmpty {
+                viewModel.getMailboxes()
+            }
+        }
+        .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
+            showingLoadingAlert = isLoadingMailboxes || viewModel.isUpdating
+        }
+        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+            showingLoadingAlert = isUpdating || viewModel.isLoadingMailboxes
+        }
+        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
+            if isUpdated {
+                presentationMode.wrappedValue.dismiss()
+                viewModel.handledIsUpdatedBoolean()
+            }
+        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError($viewModel.error)
     }
 }
 
 private struct DefaultDisplayNameSection: View {
     @ObservedObject var viewModel: DomainDetailViewModel
-    @State private var showingExplication = false
-    @State private var showingEditDisplayNameView = false
+    @State private var showingEditAlert = false
 
     var body: some View {
-        let domain = viewModel.domain
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Default display name")
-                    .font(.title2)
-                    .fontWeight(.bold)
-
-                if !showingExplication {
-                    Button(action: {
-                        withAnimation {
-                            showingExplication = true
-                        }
-                    }, label: {
-                        Text("ⓘ")
-                    })
+        Section(content: {
+            Text(viewModel.domain.name ?? "")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .contentShape(Rectangle())
+                .textFieldAlert(isPresented: $showingEditAlert, config: editDisplayNameConfig)
+                .onTapGesture {
+                    showingEditAlert = true
                 }
+        }, header: {
+            Text("Default display name")
+        }, footer: {
+            Text("Default display name for aliases created with \(viewModel.domain.domainName) unless overwritten by the alias display name")
+        })
+    }
 
-                Spacer()
-
-                Button(action: {
-                    showingEditDisplayNameView = true
-                }, label: {
-                    Text(viewModel.domain.name == nil ? "Add" : "Edit")
-                })
-            }
-            .padding(.top, 8)
-            .padding(.bottom, showingExplication ? 2 : 8)
-
-            if showingExplication {
-                Text("Default display name for aliases created with \(domain.domainName) unless overwritten by the alias display name")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 4)
-            }
-
-            if let name = domain.name {
-                Text(name)
-            }
-        }
-        .sheet(isPresented: $showingEditDisplayNameView) {
-            EditDisplayNameView(viewModel: viewModel)
+    private var editDisplayNameConfig: TextFieldAlertConfig {
+        TextFieldAlertConfig(title: "Default display name",
+                             text: viewModel.domain.name,
+                             placeholder: "Ex: John Doe",
+                             autocapitalizationType: .words,
+                             actionTitle: "Save") { newDisplayName in
+            viewModel.update(option: .name(newDisplayName))
         }
     }
 }
@@ -367,7 +222,7 @@ private struct EditDisplayNameView: View {
         .onAppear {
             displayName = viewModel.domain.name ?? ""
         }
-        .onReceive(Just(viewModel.isLoading)) { isLoading in
+        .onReceive(Just(viewModel.isUpdating)) { isLoading in
             showingLoadingAlert = isLoading
         }
         .onReceive(Just(viewModel.isUpdated)) { isUpdated in
@@ -399,38 +254,15 @@ private struct EditDisplayNameView: View {
 
 private struct RandomPrefixSection: View {
     @ObservedObject var viewModel: DomainDetailViewModel
-    @State private var showingExplication = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Random prefix generation")
-                    .font(.title2)
-                    .fontWeight(.bold)
-
-                if !showingExplication {
-                    Button(action: {
-                        withAnimation {
-                            showingExplication = true
-                        }
-                    }, label: {
-                        Text("ⓘ")
-                    })
-                }
-
-                Spacer()
-            }
-            .padding(.vertical, 8)
-
-            if showingExplication {
-                Text("Add a random prefix for this domain when creating a new alias")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 4)
-            }
-
+        Section(content: {
             Toggle("Enabled", isOn: $viewModel.randomPrefixGeneration)
                 .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-        }
+        }, header: {
+            Text("Random prefix generation")
+        }, footer: {
+            Text("Add a random prefix for this domain when creating new aliases")
+        })
     }
 }

@@ -13,6 +13,7 @@ struct TextFieldAlertConfig {
     var text: String?
     var placeholder: String?
     var keyboardType: UIKeyboardType = .default
+    var autocapitalizationType: UITextAutocapitalizationType = .sentences
     var clearButtonMode: UITextField.ViewMode = .always
     let actionTitle: String
     let action: (String?) -> Void
@@ -48,6 +49,7 @@ struct TextFieldAlertModifier: ViewModifier {
             $0.text = config.text
             $0.keyboardType = config.keyboardType
             $0.clearButtonMode = config.clearButtonMode
+            $0.autocapitalizationType = config.autocapitalizationType
         }
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
             dismiss()
