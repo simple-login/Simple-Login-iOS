@@ -21,7 +21,9 @@ struct DomainDetailView: View {
     var body: some View {
         Form {
             CatchAllSection(viewModel: viewModel)
+            DefaultDisplayNameSection(viewModel: viewModel)
         }
+        .ignoresSafeArea(.keyboard)
         .navigationBarTitleDisplayMode(.inline)
         .onReceive(Just(viewModel.isUpdating)) { isLoading in
             showingLoadingAlert = isLoading
@@ -155,51 +157,32 @@ private struct EditMailboxesView: View {
 
 private struct DefaultDisplayNameSection: View {
     @ObservedObject var viewModel: DomainDetailViewModel
-    @State private var showingExplication = false
-    @State private var showingEditDisplayNameView = false
+    @State private var showingEditAlert = false
 
     var body: some View {
-        let domain = viewModel.domain
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Default display name")
-                    .font(.title2)
-                    .fontWeight(.bold)
-
-                if !showingExplication {
-                    Button(action: {
-                        withAnimation {
-                            showingExplication = true
-                        }
-                    }, label: {
-                        Text("ⓘ")
-                    })
+        Section(content: {
+            Text(viewModel.domain.name ?? "")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .contentShape(Rectangle())
+                .textFieldAlert(isPresented: $showingEditAlert, config: editDisplayNameConfig)
+                .onTapGesture {
+                    showingEditAlert = true
                 }
+        }, header: {
+            Text("Default display name")
+        }, footer: {
+            Text("Default display name for aliases created with \(viewModel.domain.domainName) unless overwritten by the alias display name")
+        })
+    }
 
-                Spacer()
-
-                Button(action: {
-                    showingEditDisplayNameView = true
-                }, label: {
-                    Text(viewModel.domain.name == nil ? "Add" : "Edit")
-                })
-            }
-            .padding(.top, 8)
-            .padding(.bottom, showingExplication ? 2 : 8)
-
-            if showingExplication {
-                Text("Default display name for aliases created with \(domain.domainName) unless overwritten by the alias display name")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 4)
-            }
-
-            if let name = domain.name {
-                Text(name)
-            }
-        }
-        .sheet(isPresented: $showingEditDisplayNameView) {
-            EditDisplayNameView(viewModel: viewModel)
+    private var editDisplayNameConfig: TextFieldAlertConfig {
+        TextFieldAlertConfig(title: "Default display name",
+                             text: viewModel.domain.name,
+                             placeholder: "Ex: John Doe",
+                             autocapitalizationType: .words,
+                             actionTitle: "Save") { newDisplayName in
+            viewModel.update(option: .name(newDisplayName))
         }
     }
 }

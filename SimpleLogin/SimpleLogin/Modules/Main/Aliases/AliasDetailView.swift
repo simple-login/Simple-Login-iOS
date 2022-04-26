@@ -290,6 +290,7 @@ private struct NameSection: View {
         TextFieldAlertConfig(title: "Edit display name",
                              text: viewModel.alias.name,
                              placeholder: "Ex: John Doe",
+                             autocapitalizationType: .words,
                              actionTitle: "Save") { newDisplayName in
             viewModel.update(option: .name(newDisplayName))
         }
