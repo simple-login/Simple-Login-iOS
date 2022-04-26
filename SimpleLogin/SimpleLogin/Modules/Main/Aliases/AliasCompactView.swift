@@ -74,7 +74,7 @@ struct AliasCompactView: View {
                     .padding(.leading)
             }
 
-            if let note = alias.note {
+            if let note = alias.note, !note.isEmpty {
                 Label(title: {
                     Text(note)
                         .lineLimit(2)
