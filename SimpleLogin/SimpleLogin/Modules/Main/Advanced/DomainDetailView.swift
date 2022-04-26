@@ -22,8 +22,10 @@ struct DomainDetailView: View {
         Form {
             CatchAllSection(viewModel: viewModel)
             DefaultDisplayNameSection(viewModel: viewModel)
+            RandomPrefixSection(viewModel: viewModel)
         }
         .ignoresSafeArea(.keyboard)
+        .navigationTitle(viewModel.domain.domainName)
         .navigationBarTitleDisplayMode(.inline)
         .onReceive(Just(viewModel.isUpdating)) { isLoading in
             showingLoadingAlert = isLoading
@@ -121,7 +123,7 @@ private struct EditMailboxesView: View {
                 }
             }, header: {
                 if !viewModel.mailboxes.isEmpty {
-                    Text("Mailboxes")
+                    Text("Default mailboxes")
                 }
             }, footer: {
                 if !viewModel.mailboxes.isEmpty {
@@ -249,38 +251,15 @@ private struct EditDisplayNameView: View {
 
 private struct RandomPrefixSection: View {
     @ObservedObject var viewModel: DomainDetailViewModel
-    @State private var showingExplication = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Random prefix generation")
-                    .font(.title2)
-                    .fontWeight(.bold)
-
-                if !showingExplication {
-                    Button(action: {
-                        withAnimation {
-                            showingExplication = true
-                        }
-                    }, label: {
-                        Text("ⓘ")
-                    })
-                }
-
-                Spacer()
-            }
-            .padding(.vertical, 8)
-
-            if showingExplication {
-                Text("Add a random prefix for this domain when creating a new alias")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 4)
-            }
-
+        Section(content: {
             Toggle("Enabled", isOn: $viewModel.randomPrefixGeneration)
                 .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-        }
+        }, header: {
+            Text("Random prefix generation")
+        }, footer: {
+            Text("Add a random prefix for this domain when creating new aliases")
+        })
     }
 }
