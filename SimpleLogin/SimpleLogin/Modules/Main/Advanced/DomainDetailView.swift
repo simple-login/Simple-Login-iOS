@@ -20,6 +20,7 @@ struct DomainDetailView: View {
 
     var body: some View {
         Form {
+            CreationDateSection(domain: viewModel.domain)
             CatchAllSection(viewModel: viewModel)
             DefaultDisplayNameSection(viewModel: viewModel)
             RandomPrefixSection(viewModel: viewModel)
@@ -40,16 +41,18 @@ private struct CreationDateSection: View {
     let domain: CustomDomain
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Creation date")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                Spacer()
+        Section {
+            VStack(alignment: .leading) {
+                Text(domain.domainName)
+                    .font(.title)
+                HStack {
+                    Text("\(domain.creationDateString) (\(domain.relativeCreationDateString))")
+                    Text("•")
+                    Text("\(domain.aliasCount) alias(es)")
+                }
+                .font(.footnote)
             }
-            .padding(.vertical, 8)
-
-            Text("\(domain.creationDateString) (\(domain.relativeCreationDateString))")
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }
