@@ -145,6 +145,7 @@
 		EF89C3612808BBB000F48743 /* SuffixExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF89C35F2808BBB000F48743 /* SuffixExtensions.swift */; };
 		EF8B1CCC27DDE0FB004D3575 /* ReachabilityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B1CCB27DDE0FB004D3575 /* ReachabilityObserver.swift */; };
 		EF8B1CD027DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */; };
+		EF94DC7E28169A7400CF2DF6 /* UsableDomainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF94DC7D28169A7400CF2DF6 /* UsableDomainsView.swift */; };
 		EF95E13027D6ABBF0033B8E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E12F27D6ABBF0033B8E0 /* DataController.swift */; };
 		EF95E13227D6AF470033B8E0 /* LocalAliasExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */; };
 		EF9FE0DF2813F6BB003B3CB8 /* AliasNavigationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9FE0DE2813F6BB003B3CB8 /* AliasNavigationTitleView.swift */; };
@@ -331,6 +332,7 @@
 		EF89C35F2808BBB000F48743 /* SuffixExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuffixExtensions.swift; sourceTree = "<group>"; };
 		EF8B1CCB27DDE0FB004D3575 /* ReachabilityObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityObserver.swift; sourceTree = "<group>"; };
 		EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseReachabilitySessionViewModel.swift; sourceTree = "<group>"; };
+		EF94DC7D28169A7400CF2DF6 /* UsableDomainsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsableDomainsView.swift; sourceTree = "<group>"; };
 		EF95E12F27D6ABBF0033B8E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		EF95E13127D6AF470033B8E0 /* LocalAliasExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAliasExtensions.swift; sourceTree = "<group>"; };
 		EF9FE0DE2813F6BB003B3CB8 /* AliasNavigationTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasNavigationTitleView.swift; sourceTree = "<group>"; };
@@ -593,6 +595,7 @@
 				EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */,
 				C05A9B14277BB996003FD0A7 /* UpgradeView.swift */,
 				C030EB38277D1410007E2FF8 /* UpgradeViewModel.swift */,
+				EF94DC7D28169A7400CF2DF6 /* UsableDomainsView.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1037,6 +1040,7 @@
 				EFA52AEB27CA525700994547 /* HowItWorkStep.swift in Sources */,
 				C029769426F141A60014DC3B /* CreateAliasView.swift in Sources */,
 				C00A563426DABC3900A550A2 /* ErrorMessageModifier.swift in Sources */,
+				EF94DC7E28169A7400CF2DF6 /* UsableDomainsView.swift in Sources */,
 				C0F1963E27348EA10062B418 /* AliasDetailView.swift in Sources */,
 				C02F967226DB78D0000B100C /* ShakeEffect.swift in Sources */,
 				C02CD1982794C20400B3115E /* ConfettiableModifier.swift in Sources */,

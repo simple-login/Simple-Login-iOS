@@ -266,21 +266,20 @@ private struct AliasesSection: View {
             }
 
             // Default domain
-            Picker("Default domain", selection: $viewModel.randomAliasDefaultDomain) {
-                ForEach(viewModel.usableDomains, id: \.domain) { usableDomain in
-                    HStack {
-                        Text(usableDomain.domain)
-                        if usableDomain.isCustom {
-                            Image(systemName: "checkmark.seal.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20, height: 20, alignment: .leading)
-                        }
+            VStack(alignment: .leading) {
+                Text("Default domain for random aliases")
+                NavigationLink(destination: {
+                    UsableDomainsView(selectedUsableDomain: $viewModel.randomAliasDefaultDomain,
+                                      usableDomains: viewModel.usableDomains)
+                }, label: {
+                    if let selectedUsableDomain = viewModel.randomAliasDefaultDomain {
+                        UsableDomainView(usableDomain: selectedUsableDomain)
+                            .foregroundColor(.slPurple)
                     }
-                    .tag(usableDomain.domain)
-                }
+                })
             }
-                   .disabled(viewModel.isLoading)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .disabled(viewModel.isLoading)
 
             // Random alias suffix
             VStack {
@@ -310,16 +309,33 @@ private struct SenderFormatSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
 
     var body: some View {
-        Section(header: Text("Sender address format"),
-                footer: Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")) {
-            Picker("Format", selection: $viewModel.senderFormat) {
+        Section(content: {
+            Menu(content: {
                 ForEach(SenderFormat.allCases, id: \.self) { format in
-                    Text(format.description)
-                        .tag(format)
+                    Button(action: {
+                        viewModel.senderFormat = format
+                    }, label: {
+                        HStack {
+                            Text(format.description)
+                            if viewModel.senderFormat == format {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    })
                 }
-            }
-            .disabled(viewModel.isLoading)
-        }
+            }, label: {
+                Text(viewModel.senderFormat.description)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
+                    .transaction { transaction in
+                        transaction.animation = nil
+                    }
+            })
+        }, header: {
+            Text("Sender address format")
+        }, footer: {
+            Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")
+        })
     }
 }
 

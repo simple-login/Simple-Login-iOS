@@ -16,7 +16,7 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
     private var lastKnownUserSettings: UserSettings?
     @Published var notification = false
     @Published var randomMode: RandomMode = .uuid
-    @Published var randomAliasDefaultDomain = ""
+    @Published var randomAliasDefaultDomain: UsableDomain?
     @Published var senderFormat: SenderFormat = .a
     @Published var randomAliasSuffix: RandomAliasSuffix = .word
     @Published var askingForSettings = false
@@ -52,10 +52,12 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
             .store(in: &cancellables)
 
         $randomAliasDefaultDomain
-            .sink { [weak self] selectedRandomAliasDefaultDomain in
+            .sink { [weak self] selectedUsableDomain in
                 guard let self = self else { return }
-                if shouldUpdateUserSettings(), selectedRandomAliasDefaultDomain != self.randomAliasDefaultDomain {
-                    self.update(option: .randomAliasDefaultDomain(selectedRandomAliasDefaultDomain))
+                if let selectedUsableDomain = selectedUsableDomain,
+                   shouldUpdateUserSettings(),
+                   selectedUsableDomain != self.randomAliasDefaultDomain {
+                    self.update(option: .randomAliasDefaultDomain(selectedUsableDomain.domain))
                 }
             }
             .store(in: &cancellables)
@@ -111,8 +113,13 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
             } receiveValue: { [weak self] result in
                 guard let self = self else { return }
                 self.userInfo = result.0
-                self.bind(userSettings: result.1)
-                self.usableDomains = result.2
+
+                let userSettings = result.1
+                self.bind(userSettings: userSettings)
+
+                let usableDomains = result.2
+                self.usableDomains = usableDomains
+                self.randomAliasDefaultDomain = usableDomains.first { $0.domain == userSettings.randomAliasDefaultDomain } // swiftlint:disable:this line_length
             }
             .store(in: &cancellables)
     }
@@ -148,7 +155,7 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
     private func bind(userSettings: UserSettings) {
         self.notification = userSettings.notification
         self.randomMode = userSettings.randomMode
-        self.randomAliasDefaultDomain = userSettings.randomAliasDefaultDomain
+        self.randomAliasDefaultDomain = usableDomains.first { $0.domain == userSettings.randomAliasDefaultDomain }
         self.senderFormat = userSettings.senderFormat
         self.randomAliasSuffix = userSettings.randomAliasSuffix
         self.lastKnownUserSettings = userSettings
@@ -248,5 +255,11 @@ extension RandomAliasSuffix: CustomStringConvertible {
         case .word: return ".meaningless@example.com"
         case .randomString: return ".u9jnqn@example.com"
         }
+    }
+}
+
+extension UsableDomain: Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.domain == rhs.domain
     }
 }
