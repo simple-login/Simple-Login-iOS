@@ -67,6 +67,9 @@ struct AliasContactsView: View {
                         ContactView(viewModel: viewModel,
                                     copiedText: $copiedText,
                                     contact: contact)
+                            .onAppear {
+                                viewModel.getMoreContactsIfNeed(currentContact: contact)
+                            }
                     }
                 } else if !viewModel.isFetchingContacts {
                     Text("No contacts")
