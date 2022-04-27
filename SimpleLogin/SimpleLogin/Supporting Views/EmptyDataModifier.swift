@@ -9,13 +9,23 @@ import SwiftUI
 
 struct EmptyDataModifier: ViewModifier {
     let isEmpty: Bool
+    let useZStack: Bool
     let placeholder: AnyView
 
     func body(content: Content) -> some View {
-        if isEmpty {
-            placeholder
+        if useZStack {
+            ZStack {
+                content
+                if isEmpty {
+                    placeholder
+                }
+            }
         } else {
-            content
+            if isEmpty {
+                placeholder
+            } else {
+                content
+            }
         }
     }
 }
@@ -23,7 +33,10 @@ struct EmptyDataModifier: ViewModifier {
 extension View {
     @ViewBuilder
     func emptyPlaceholder<PlaceholderView: View>(isEmpty: Bool,
+                                                 useZStack: Bool = false,
                                                  placeholder: @escaping () -> PlaceholderView) -> some View {
-        modifier(EmptyDataModifier(isEmpty: isEmpty, placeholder: AnyView(placeholder())))
+        modifier(EmptyDataModifier(isEmpty: isEmpty,
+                                   useZStack: useZStack,
+                                   placeholder: AnyView(placeholder())))
     }
 }
