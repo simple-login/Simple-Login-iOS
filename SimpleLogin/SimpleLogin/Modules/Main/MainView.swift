@@ -74,19 +74,22 @@ struct MainView: View {
             }
         }
         .ignoresSafeArea(.keyboard)
-        .emptyPlaceholder(isEmpty: !viewModel.canShowDetails) {
-            Image(systemName: "lock.circle")
-                .resizable()
-                .scaledToFit()
-                .frame(width: UIScreen.main.bounds.width / 2)
-                .foregroundColor(.secondary)
-                .opacity(0.1)
-                .onAppear {
-                    viewModel.biometricallyAuthenticate()
-                }
-                .alert(isPresented: showingBiometricAuthFailureAlert) {
-                    biometricAuthFailureAlert
-                }
+        .emptyPlaceholder(isEmpty: !viewModel.canShowDetails, useZStack: true) {
+            ZStack {
+                Color(.systemBackground)
+                Image(systemName: "lock.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: UIScreen.main.bounds.width / 2)
+                    .foregroundColor(.secondary)
+                    .opacity(0.1)
+            }
+            .onAppear {
+                viewModel.biometricallyAuthenticate()
+            }
+            .alert(isPresented: showingBiometricAuthFailureAlert) {
+                biometricAuthFailureAlert
+            }
         }
         .onChange(of: scenePhase) { newPhase in
             if scenePhase == .background, newPhase == .inactive {
