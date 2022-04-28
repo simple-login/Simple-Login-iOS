@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Introspect
 import Kingfisher
 import LocalAuthentication
 import SimpleLoginPackage
@@ -45,6 +46,9 @@ struct AccountView: View {
                 .environmentObject(viewModel)
                 .navigationTitle(navigationTitle)
                 .navigationBarItems(trailing: trailingButton)
+                .introspectTableView { tableView in
+                    tableView.refreshControl = viewModel.refreshControl
+                }
                 .onAppear {
                     if upgradeNeeded, !showingUpgradeView {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -60,6 +64,7 @@ struct AccountView: View {
             DetailPlaceholderView(systemIconName: "person")
         }
         .slNavigationView()
+        .disabled(viewModel.isLoading)
         .onAppear {
             viewModel.getRequiredInformation()
         }
@@ -106,7 +111,7 @@ struct AccountView: View {
                 destination: {
                     UpgradeView(session: viewModel.session) {
                         confettiCounter += 1
-                        viewModel.forceRefresh()
+                        viewModel.refresh()
                     }
                 },
                 label: {
