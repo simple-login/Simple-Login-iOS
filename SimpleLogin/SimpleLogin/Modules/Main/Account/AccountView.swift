@@ -31,8 +31,6 @@ struct AccountView: View {
     }
 
     var body: some View {
-        let navigationTitle = viewModel.userInfo.name.isEmpty ? viewModel.userInfo.email : viewModel.userInfo.name
-
         NavigationView {
             if viewModel.isInitialized {
                 Form {
@@ -44,7 +42,7 @@ struct AccountView: View {
                 }
                 .ignoresSafeArea(.keyboard)
                 .environmentObject(viewModel)
-                .navigationTitle(navigationTitle)
+                .navigationTitle("My Account")
                 .navigationBarItems(trailing: trailingButton)
                 .introspectTableView { tableView in
                     tableView.refreshControl = viewModel.refreshControl
