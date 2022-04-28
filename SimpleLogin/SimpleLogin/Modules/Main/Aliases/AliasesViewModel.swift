@@ -15,24 +15,29 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
     @Published var selectedStatus: AliasStatus = .all {
         didSet {
             Vibration.selection.vibrate()
-            updateFilteredAliases()
+            refresh()
         }
     }
 
-    private var aliases: [Alias] = [] {
-        didSet {
-            updateFilteredAliases()
-        }
-    }
-    @Published private(set) var filteredAliases: [Alias] = []
+    @Published private(set) var aliases: [Alias] = []
     @Published private(set) var isLoading = false
-    @Published private(set) var isRefreshing = false
     @Published private(set) var isUpdating = false
     @Published var error: Error?
     private var handledCreatedAliasIds = Set<Int>()
     private var cancellables = Set<AnyCancellable>()
     private var currentPage = 0
     private var canLoadMorePages = true
+
+    private var filterOption: AliasFilterOption? {
+        switch selectedStatus {
+        case .all:
+            return nil
+        case .active:
+            return .enabled
+        case .inactive:
+            return .disabled
+        }
+    }
 
     private let dataController: DataController
 
@@ -63,8 +68,8 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
             return
         }
 
-        let thresholdIndex = filteredAliases.index(filteredAliases.endIndex, offsetBy: -1)
-        if filteredAliases.firstIndex(where: { $0.id == alias.id }) == thresholdIndex {
+        let thresholdIndex = aliases.index(aliases.endIndex, offsetBy: -1)
+        if aliases.firstIndex(where: { $0.id == alias.id }) == thresholdIndex {
             getMoreAliases()
         }
     }
@@ -74,7 +79,8 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
         if !reachabilityObserver.reachable {
             guard canLoadMorePages else { return }
             do {
-                let fetchedAliases = try dataController.fetchAliases(page: currentPage)
+                let fetchedAliases = try dataController.fetchAliases(page: currentPage,
+                                                                     option: filterOption)
                 aliases.append(contentsOf: fetchedAliases)
                 currentPage += 1
                 canLoadMorePages = fetchedAliases.count == kDefaultPageSize
@@ -87,10 +93,12 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
         // Online
         guard !isLoading, canLoadMorePages else { return }
         isLoading = true
-        session.client.getAliases(apiKey: session.apiKey, page: currentPage)
+        session.client.getAliases(apiKey: session.apiKey, page: currentPage, option: filterOption)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
+                self.isLoading = false
+                self.refreshControl.endRefreshing()
                 switch completion {
                 case .finished:
                     break
@@ -99,7 +107,6 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
                 }
             } receiveValue: { [weak self] aliasArray in
                 guard let self = self else { return }
-                self.isLoading = false
                 self.aliases.append(contentsOf: aliasArray.aliases)
                 self.currentPage += 1
                 self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
@@ -112,42 +119,14 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
             .store(in: &cancellables)
     }
 
-    private func updateFilteredAliases() {
-        filteredAliases = aliases.filter { alias in
-            switch selectedStatus {
-            case .all: return true
-            case .active: return alias.enabled
-            case .inactive: return !alias.enabled
-            }
-        }
-    }
-
     override func refresh() {
-        isRefreshing = true
-        session.client.getAliases(apiKey: session.apiKey, page: 0)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isRefreshing = false
-                self.refreshControl.endRefreshing()
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] aliasArray in
-                guard let self = self else { return }
-                self.aliases = aliasArray.aliases
-                self.currentPage = 1
-                self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
-                do {
-                    try self.dataController.update(aliasArray.aliases)
-                } catch {
-                    self.error = error
-                }
-            }
-            .store(in: &cancellables)
+        if !reachabilityObserver.reachable {
+            refreshControl.endRefreshing()
+        }
+        aliases.removeAll()
+        currentPage = 0
+        canLoadMorePages = true
+        getMoreAliases()
     }
 
     func update(alias: Alias) {

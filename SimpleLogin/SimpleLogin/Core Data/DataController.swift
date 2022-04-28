@@ -49,8 +49,18 @@ struct DataController {
         try context.save()
     }
 
-    func fetchAliases(page: Int) throws -> [Alias] {
+    func fetchAliases(page: Int, option: AliasFilterOption?) throws -> [Alias] {
         let fetchRequest = LocalAlias.fetchRequest()
+        if let option = option {
+            switch option {
+            case .disabled:
+                fetchRequest.predicate = .init(format: "enabled == %@", NSNumber(value: false))
+            case .enabled:
+                fetchRequest.predicate = .init(format: "enabled == %@", NSNumber(value: true))
+            case .pinned:
+                fetchRequest.predicate = .init(format: "pinned == %@", NSNumber(value: true))
+            }
+        }
         fetchRequest.sortDescriptors = [.init(key: "creationTimestamp", ascending: false)]
         fetchRequest.fetchLimit = kDefaultPageSize
         fetchRequest.fetchOffset = kDefaultPageSize * page
