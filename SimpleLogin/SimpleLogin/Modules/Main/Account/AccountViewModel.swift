@@ -124,7 +124,7 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
             .store(in: &cancellables)
     }
 
-    func forceRefresh() {
+    override func refresh() {
         isInitialized = false
         getRequiredInformation()
     }
