@@ -114,7 +114,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
         isLoading = true
         session.client.getAliases(apiKey: session.apiKey,
                                   page: currentPage,
-                                  pinned: keyboardExtensionMode == .pinned)
+                                  option: keyboardExtensionMode == .pinned ? .pinned : nil)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
@@ -136,7 +136,7 @@ final class AliasesViewModel: BaseSessionViewModel, ObservableObject {
 
     override func refresh() {
         isLoading = true
-        session.client.getAliases(apiKey: session.apiKey, page: 0)
+        session.client.getAliases(apiKey: session.apiKey, page: 0, option: nil)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }

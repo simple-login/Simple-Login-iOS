@@ -87,7 +87,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
         // Online
         guard !isLoading, canLoadMorePages else { return }
         isLoading = true
-        session.client.getAliases(apiKey: session.apiKey, page: currentPage)
+        session.client.getAliases(apiKey: session.apiKey, page: currentPage, option: nil)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
@@ -124,7 +124,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
 
     override func refresh() {
         isRefreshing = true
-        session.client.getAliases(apiKey: session.apiKey, page: 0)
+        session.client.getAliases(apiKey: session.apiKey, page: 0, option: nil)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
