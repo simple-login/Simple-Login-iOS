@@ -97,7 +97,7 @@ struct AliasesView: View {
 
                 ScrollViewReader { proxy in
                     List {
-                        ForEach(viewModel.filteredAliases, id: \.id) { alias in
+                        ForEach(viewModel.aliases, id: \.id) { alias in
                             // TODO: Workaround a SwiftUI bug that doesn't update AliasCompactView's context menu
                             // https://stackoverflow.com/a/70159934
                             if alias.pinned {
@@ -174,7 +174,7 @@ struct AliasesView: View {
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             if  !isLoading, UIDevice.current.userInterfaceIdiom != .phone, selectedAlias == nil {
-                selectedAlias = viewModel.filteredAliases.first
+                selectedAlias = viewModel.aliases.first
                 selectedLink = .details
             }
         }
