@@ -97,15 +97,31 @@ struct AliasesView: View {
 
                 ScrollViewReader { proxy in
                     List {
-                        ForEach(viewModel.aliases, id: \.id) { alias in
-                            // TODO: Workaround a SwiftUI bug that doesn't update AliasCompactView's context menu
-                            // https://stackoverflow.com/a/70159934
-                            if alias.pinned {
-                                aliasCompactView(for: alias)
-                            } else {
-                                aliasCompactView(for: alias)
+                        if !viewModel.aliases.isEmpty {
+                            if let createdAlias = createdAlias {
+                                switch (createdAlias.enabled, viewModel.selectedStatus) {
+                                case (true, .all), (true, .active), (false, .inactive):
+                                    aliasCompactView(for: createdAlias)
+                                default:
+                                    EmptyView()
+                                }
+                            }
+
+                            ForEach(viewModel.aliases, id: \.id) { alias in
+                                if alias.id == createdAlias?.id {
+                                    EmptyView()
+                                } else {
+                                    // TODO: Workaround a SwiftUI bug that doesn't update AliasCompactView's context menu
+                                    // https://stackoverflow.com/a/70159934
+                                    if alias.pinned {
+                                        aliasCompactView(for: alias)
+                                    } else {
+                                        aliasCompactView(for: alias)
+                                    }
+                                }
                             }
                         }
+
                         if viewModel.isLoading {
                             ProgressView()
                                 .frame(maxWidth: .infinity)
@@ -122,11 +138,16 @@ struct AliasesView: View {
                                 showingCreatedAliasAlert = true
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                     withAnimation {
-                                        proxy.scrollTo(createdAlias.id, anchor: .center)
+                                        proxy.scrollTo(createdAlias.id, anchor: .top)
                                     }
                                 }
                             }
                             viewModel.handleCreatedAlias(createdAlias)
+                        }
+                    }
+                    .onReceive(Just(viewModel.updatedAlias)) { updatedAlias in
+                        if let updatedAlias = updatedAlias, updatedAlias.id == createdAlias?.id {
+                            createdAlias = updatedAlias
                         }
                     }
                 }
