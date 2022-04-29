@@ -76,7 +76,7 @@ private struct BiometricAuthenticationSection: View {
         }, header: {
             Text("Local authentication")
         }, footer: {
-            Text("Restrict unwanted access to your SimpleLogin account on this device")
+            Text("Restrict unwelcome access to your SimpleLogin account on this device")
         })
     }
 }

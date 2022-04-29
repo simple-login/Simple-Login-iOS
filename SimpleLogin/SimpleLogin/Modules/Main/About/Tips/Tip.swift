@@ -31,9 +31,9 @@ enum Tip {
     var description: String {
         switch self {
         case .touchId:
-            return "Restrict unwanted access to your SimpleLogin account on this device with Touch ID."
+            return "Restrict unwelcome access to your SimpleLogin account on this device with Touch ID."
         case .faceId:
-            return "Restrict unwanted access to your SimpleLogin account on this device with Face ID."
+            return "Restrict unwelcome access to your SimpleLogin account on this device with Face ID."
         case .contextMenu:
             return "Quickly take action on an alias by long pressing to reveal extra options.\nTry it with the test alias below 👇"
         case .fullScreen:
