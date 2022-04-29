@@ -88,6 +88,9 @@ struct AliasDetailView: View {
                 })
             }
         }
+        .introspectTableView { tableView in
+            tableView.refreshControl = viewModel.refreshControl
+        }
         .toolbar {
             ToolbarItem(placement: .principal) {
                 AliasNavigationTitleView(alias: viewModel.alias)
@@ -97,7 +100,6 @@ struct AliasDetailView: View {
             }
         }
         .disabled(viewModel.isUpdating)
-        .navigationBarTitleDisplayMode(.inline)
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
         }
@@ -164,6 +166,7 @@ private struct ActionsSection: View {
                 .frame(maxWidth: .infinity)
             }
             .textCase(nil)
+            .noHorizontalPadding()
         })
     }
 
