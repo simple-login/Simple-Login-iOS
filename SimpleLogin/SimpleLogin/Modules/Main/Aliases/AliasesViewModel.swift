@@ -20,6 +20,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
     }
 
     @Published private(set) var aliases: [Alias] = []
+    @Published private(set) var updatedAlias: Alias?
     @Published private(set) var isLoading = false
     @Published private(set) var isUpdating = false
     @Published var error: Error?
@@ -179,7 +180,13 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
                                          mailboxes: alias.mailboxes,
                                          latestActivity: alias.latestActivity,
                                          pinned: alias.pinned)
-                self.aliases[index] = updatedAlias
+                self.updatedAlias = updatedAlias
+                switch self.selectedStatus {
+                case .all:
+                    self.aliases[index] = updatedAlias
+                case .active, .inactive:
+                    self.aliases.remove(at: index)
+                }
                 do {
                     try self.dataController.update(updatedAlias)
                 } catch {
@@ -256,8 +263,9 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
     }
 
     func handleCreatedAlias(_ createdAlias: Alias) {
-        guard !handledCreatedAliasIds.contains(createdAlias.id) else { return }
+        guard !isHandled(createdAlias) else { return }
         handledCreatedAliasIds.insert(createdAlias.id)
+        selectedStatus = .all
         refresh()
     }
 
