@@ -21,7 +21,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSFaceIDUsageDescription</key>
-	<string>Restrict unwanted access to your SimpleLogin account on this device</string>
+	<string>Restrict unwelcome access to your SimpleLogin account on this device</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>SimpleLogin needs photo library access to update your profile photo</string>
 	<key>UIApplicationSceneManifest</key>
