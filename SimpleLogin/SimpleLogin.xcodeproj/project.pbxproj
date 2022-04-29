@@ -128,6 +128,9 @@
 		EF15C55927BEE4B8008497F2 /* LabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF15C55827BEE4B8008497F2 /* LabelExtensions.swift */; };
 		EF33B7B827B91C6400BD3195 /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */; };
 		EF3C8240281BD95600477710 /* NoHorizontalPaddingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C823F281BD95600477710 /* NoHorizontalPaddingModifier.swift */; };
+		EF3C8242281BE77700477710 /* RandomAliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C8241281BE77700477710 /* RandomAliasesView.swift */; };
+		EF3C8244281BE7BB00477710 /* KeyboardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C8243281BE7BB00477710 /* KeyboardContentView.swift */; };
+		EF3C8246281BF83300477710 /* CreatedAliasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C8245281BF83300477710 /* CreatedAliasView.swift */; };
 		EF4F43DF27C15B2D00CD1942 /* AlertExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4F43DE27C15B2D00CD1942 /* AlertExtensions.swift */; };
 		EF509E3427C234D10047A8D1 /* SensitiveContentViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF509E3327C234D10047A8D1 /* SensitiveContentViewModifier.swift */; };
 		EF5BDFB227B79ABD004B696B /* UIScreenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */; };
@@ -320,6 +323,9 @@
 		EF15C55827BEE4B8008497F2 /* LabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelExtensions.swift; sourceTree = "<group>"; };
 		EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		EF3C823F281BD95600477710 /* NoHorizontalPaddingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoHorizontalPaddingModifier.swift; sourceTree = "<group>"; };
+		EF3C8241281BE77700477710 /* RandomAliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAliasesView.swift; sourceTree = "<group>"; };
+		EF3C8243281BE7BB00477710 /* KeyboardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardContentView.swift; sourceTree = "<group>"; };
+		EF3C8245281BF83300477710 /* CreatedAliasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatedAliasView.swift; sourceTree = "<group>"; };
 		EF4F43DE27C15B2D00CD1942 /* AlertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtensions.swift; sourceTree = "<group>"; };
 		EF509E3327C234D10047A8D1 /* SensitiveContentViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensitiveContentViewModifier.swift; sourceTree = "<group>"; };
 		EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreenExtensions.swift; sourceTree = "<group>"; };
@@ -428,9 +434,12 @@
 			isa = PBXGroup;
 			children = (
 				C010031F27A73962009735CD /* Keyboard Extension.entitlements */,
-				C010031D27A73836009735CD /* NoSessionView.swift */,
 				C010032C27A7479E009735CD /* AliasesView.swift */,
+				EF3C8245281BF83300477710 /* CreatedAliasView.swift */,
+				C010031D27A73836009735CD /* NoSessionView.swift */,
+				EF3C8243281BE7BB00477710 /* KeyboardContentView.swift */,
 				C010031427A73637009735CD /* KeyboardViewController.swift */,
+				EF3C8241281BE77700477710 /* RandomAliasesView.swift */,
 				C010031627A73637009735CD /* Info.plist */,
 			);
 			path = "Keyboard Extension";
@@ -994,6 +1003,7 @@
 				C010031E27A73836009735CD /* NoSessionView.swift in Sources */,
 				C010031527A73637009735CD /* KeyboardViewController.swift in Sources */,
 				C010032727A739D8009735CD /* Preferences.swift in Sources */,
+				EF3C8246281BF83300477710 /* CreatedAliasView.swift in Sources */,
 				C010032627A739CD009735CD /* KeychainService.swift in Sources */,
 				C00874B427A989D3004F32FA /* SLError.swift in Sources */,
 				C04BB63427AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */,
@@ -1002,6 +1012,8 @@
 				C010032D27A7479E009735CD /* AliasesView.swift in Sources */,
 				C010032B27A73EC3009735CD /* ColorExtensions.swift in Sources */,
 				C00874B027A98748004F32FA /* ErrorExtensions.swift in Sources */,
+				EF3C8242281BE77700477710 /* RandomAliasesView.swift in Sources */,
+				EF3C8244281BE7BB00477710 /* KeyboardContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

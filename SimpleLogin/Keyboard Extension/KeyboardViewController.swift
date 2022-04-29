@@ -33,10 +33,10 @@ final class KeyboardViewController: UIInputViewController {
     private func setSession(session: Session?) {
         let subView: UIView
         if let session = session {
-            let aliasesView = AliasesView(session: session) { [unowned self] alias in
+            let contentView = KeyboardContentView(session: session) { [unowned self] alias in
                 textDocumentProxy.insertText(alias.email)
             }
-            let hostingController = UIHostingController(rootView: aliasesView)
+            let hostingController = UIHostingController(rootView: contentView)
             subView = hostingController.view
             addChild(hostingController)
             hostingController.didMove(toParent: self)
