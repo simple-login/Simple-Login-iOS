@@ -20,13 +20,33 @@ struct KeyboardContentView: View {
 
     var body: some View {
         ZStack {
-            Color(.secondarySystemBackground)
-            TabView {
-                AliasesView(viewModel: viewModel, onSelectAlias: onSelectAlias)
-                RandomAliasesView(viewModel: viewModel)
+            Color(.systemGray5)
+            if let error = viewModel.error {
+                VStack(alignment: .center, spacing: 20) {
+                    Text(error.safeLocalizedDescription)
+                        .fontWeight(.medium)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.secondary)
+                    Button(action: {
+                        viewModel.refresh()
+                    }, label: {
+                        Label("Retry", systemImage: "gobackward")
+                    })
+                        .foregroundColor(.slPurple)
+                }
+                .padding()
+            } else {
+                if let createdAlias = viewModel.createdAlias {
+                    CreatedAliasView(viewModel: viewModel, alias: createdAlias, onSelectAlias: onSelectAlias)
+                } else {
+                    TabView {
+                        AliasesView(viewModel: viewModel, onSelectAlias: onSelectAlias)
+                        RandomAliasesView(viewModel: viewModel)
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .always))
+                    .indexViewStyle(.page(backgroundDisplayMode: .always))
+                }
             }
-            .tabViewStyle(.page(indexDisplayMode: .always))
-            .indexViewStyle(.page(backgroundDisplayMode: .always))
         }
         .frame(height: UIScreen.main.bounds.width * 0.6)
     }
@@ -92,7 +112,7 @@ final class KeyboardContentViewModel: BaseSessionViewModel, ObservableObject {
                 self.isLoading = false
                 switch completion {
                 case .finished:
-                    break
+                    self.error = nil
                 case .failure(let error):
                     self.error = error
                 }
@@ -122,8 +142,13 @@ final class KeyboardContentViewModel: BaseSessionViewModel, ObservableObject {
                 }
             } receiveValue: { [weak self] randomAlias in
                 guard let self = self else { return }
+                self.refresh()
                 self.createdAlias = randomAlias
             }
             .store(in: &cancellables)
+    }
+
+    func handleCreatedAlias() {
+        createdAlias = nil
     }
 }

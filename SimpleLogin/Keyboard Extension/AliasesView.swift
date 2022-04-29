@@ -50,7 +50,7 @@ struct AliasesView: View {
     }
 }
 
-private struct AliasView: View {
+struct AliasView: View {
     let alias: Alias
 
     var body: some View {

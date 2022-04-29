@@ -11,6 +11,18 @@ struct RandomAliasesView: View {
     @ObservedObject var viewModel: KeyboardContentViewModel
 
     var body: some View {
-        Text("Random")
+        VStack(spacing: 20) {
+            Group {
+                Button("Random by word") {
+                    viewModel.random(mode: .word)
+                }
+
+                Button("Random by UUID") {
+                    viewModel.random(mode: .uuid)
+                }
+            }
+            .foregroundColor(.slPurple)
+            .font(.body)
+        }
     }
 }
