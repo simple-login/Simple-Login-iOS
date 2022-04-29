@@ -20,7 +20,7 @@ struct DomainDetailView: View {
 
     var body: some View {
         Form {
-            CreationDateSection(domain: viewModel.domain)
+            DomainNameSection(domain: viewModel.domain)
             CatchAllSection(viewModel: viewModel)
             DefaultDisplayNameSection(viewModel: viewModel)
             RandomPrefixSection(viewModel: viewModel)
@@ -37,7 +37,7 @@ struct DomainDetailView: View {
 }
 
 // MARK: - Sections
-private struct CreationDateSection: View {
+private struct DomainNameSection: View {
     let domain: CustomDomain
 
     var body: some View {
@@ -45,12 +45,8 @@ private struct CreationDateSection: View {
             VStack(alignment: .leading) {
                 Text(domain.domainName)
                     .font(.title)
-                HStack {
-                    Text("\(domain.creationDateString) (\(domain.relativeCreationDateString))")
-                    Text("•")
-                    Text("\(domain.aliasCount) alias(es)")
-                }
-                .font(.footnote)
+                Text("\(domain.aliasCount) alias(es)")
+                    .font(.footnote)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
