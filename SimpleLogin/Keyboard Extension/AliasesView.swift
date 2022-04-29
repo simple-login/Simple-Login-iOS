@@ -20,7 +20,7 @@ struct AliasesView: View {
 
     var body: some View {
         ZStack {
-            Color(.systemGray6)
+            Color(.secondarySystemBackground)
             if let error = viewModel.error {
                 VStack(alignment: .center) {
                     Text(error.safeLocalizedDescription)
@@ -63,24 +63,23 @@ private struct AliasView: View {
     let alias: Alias
 
     var body: some View {
-        HStack(spacing: 0) {
-            Color(alias.enabled ? .slPurple : (.darkGray))
-                .frame(width: 4)
-
-            Label {
-                Text(alias.email)
-            } icon: {
-                Image(systemName: alias.pinned ? "bookmark.fill" : "")
+        Label(title: {
+            Text(alias.email)
+                .fontWeight(.medium)
+                .multilineTextAlignment(.center)
+        }, icon: {
+            if alias.pinned {
+                Image(systemName: "bookmark.fill")
                     .foregroundColor(.slPurple)
             }
-            .font(.callout)
-            .padding(10)
-            .frame(maxWidth: .infinity)
-            .fixedSize(horizontal: false, vertical: true)
-        }
+        })
+        .font(.callout)
+        .frame(maxWidth: .infinity, alignment: .center)
         .fixedSize(horizontal: false, vertical: true)
-        .background(alias.enabled ? Color.slPurple.opacity(0.05) : Color(.darkGray).opacity(0.05))
-        .clipShape(RoundedRectangle(cornerRadius: 4))
+        .foregroundColor(alias.enabled ? .primary : .secondary)
+        .padding(8)
+        .background(Color(.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
 
