@@ -181,6 +181,7 @@ private struct ContactView: View {
                     Text(contact.email)
                         .font(.headline)
                         .foregroundColor(.primary)
+                        .multilineTextAlignment(.leading)
                     Text("\(contact.creationDateString) (\(contact.relativeCreationDateString))")
                         .font(.caption)
                         .foregroundColor(.secondary)
