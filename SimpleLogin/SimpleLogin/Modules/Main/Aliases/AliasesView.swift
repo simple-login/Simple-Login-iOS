@@ -193,6 +193,11 @@ struct AliasesView: View {
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingUpdatingAlert = isUpdating
         }
+        .onReceive(Just(viewModel.refreshControl.isRefreshing)) { isRefreshing in
+            if isRefreshing {
+                createdAlias = nil
+            }
+        }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             if  !isLoading, UIDevice.current.userInterfaceIdiom != .phone, selectedAlias == nil {
                 selectedAlias = viewModel.aliases.first
