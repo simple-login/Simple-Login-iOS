@@ -434,6 +434,7 @@ private struct ActivityView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(activity.action == .reply ? activity.to : activity.from)
                         .foregroundColor(.primary)
+                        .multilineTextAlignment(.leading)
                     Text("\(activity.dateString) (\(activity.relativeDateString))")
                         .font(.footnote)
                         .foregroundColor(.secondary)
