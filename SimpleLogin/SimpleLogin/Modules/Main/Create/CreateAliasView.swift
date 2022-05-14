@@ -18,15 +18,20 @@ struct CreateAliasView: View {
     private let onCreateAlias: (Alias) -> Void
     private let onCancel: (() -> Void)?
     private let onOpenMyAccount: (() -> Void)?
-    private let url: URL?
+    private let mode: Mode?
+
+    enum Mode {
+        case text(String)
+        case url(URL)
+    }
 
     init(session: Session,
-         url: URL?,
+         mode: Mode?,
          onCreateAlias: @escaping (Alias) -> Void,
          onCancel: (() -> Void)?,
          onOpenMyAccount: (() -> Void)?) {
         _viewModel = StateObject(wrappedValue: .init(session: session))
-        self.url = url
+        self.mode = mode
         self.onCreateAlias = onCreateAlias
         self.onCancel = onCancel
         self.onOpenMyAccount = onOpenMyAccount
@@ -40,7 +45,7 @@ struct CreateAliasView: View {
                     ContentView(viewModel: viewModel,
                                 options: options,
                                 mailboxes: mailboxes,
-                                url: url)
+                                mode: mode)
                 } else if !viewModel.isLoading {
                     Button(action: {
                         viewModel.fetchOptionsAndMailboxes()
@@ -98,7 +103,7 @@ private struct ContentView: View {
     @State private var notes = ""
     let options: AliasOptions
     let mailboxes: [Mailbox]
-    let url: URL?
+    let mode: CreateAliasView.Mode?
 
     var body: some View {
         Form {
@@ -118,8 +123,16 @@ private struct ContentView: View {
             if let defaultMailbox = mailboxes.first(where: { $0.default }) ?? mailboxes.first {
                 mailboxIds.append(defaultMailbox.id)
             }
-            prefix = url?.notWwwHostname() ?? ""
-            notes = url?.host ?? ""
+
+            switch mode {
+            case .url(let url):
+                prefix = url.notWwwHostname() ?? ""
+                notes = url.host ?? ""
+            case .text(let text):
+                notes = text
+            case .none:
+                break
+            }
         }
     }
 
