@@ -10,15 +10,18 @@ import SwiftUI
 import UIKit
 
 final class ShareViewController: UIViewController {
-    private var url: URL?
+    private var createAliasViewMode: CreateAliasView.Mode?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        extractUrl { [weak self] url in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.url = url
+        Task {
+            do {
+                self.createAliasViewMode = try await extractMode()
                 self.setUpUI()
+            } catch {
+                alert(error: error) { [unowned self] in
+                    self.dismiss()
+                }
             }
         }
     }
@@ -40,12 +43,12 @@ final class ShareViewController: UIViewController {
         if let session = session {
             let createAliasView = CreateAliasView(
                 session: session,
-                url: url,
+                mode: createAliasViewMode,
                 onCreateAlias: { [unowned self] alias in
                     self.handleAliasCreation(alias: alias)
                 },
                 onCancel: { [unowned self] in
-                    self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                    self.dismiss()
                 },
                 onOpenMyAccount: nil)
             let hostingController = UIHostingController(rootView: createAliasView)
@@ -69,24 +72,38 @@ final class ShareViewController: UIViewController {
         ])
     }
 
-    private func extractUrl(completion: @escaping (URL?) -> Void) {
+    private func extractMode() async throws -> CreateAliasView.Mode? {
         guard let extensionItems = extensionContext?.inputItems as? [NSExtensionItem] else {
-            completion(nil)
-            return
+            return nil
         }
+
+        var fallbackText = ""
         for item in extensionItems {
-            if let attachments = item.attachments {
-                for itemProvider in attachments {
-                    itemProvider.loadItem(forTypeIdentifier: "public.url", options: nil) { object, _ in
-                        if let url = object as? URL {
-                            completion(url)
-                            return
-                        }
+            guard let attachments = item.attachments else { continue }
+            for itemProvider in attachments {
+                do {
+                    if let url = try await itemProvider.loadItem(forTypeIdentifier: "public.url") as? URL {
+                        return .url(url)
+                    }
+                } catch {
+                    // Printing out error for information
+                    // ignore and fallback to text later
+                    print(error.localizedDescription)
+                }
+
+                if let text = try await itemProvider.loadItem(forTypeIdentifier: "public.text") as? String {
+                    if !text.isEmpty {
+                        fallbackText = text
+                    }
+
+                    if let url = text.firstUrl() {
+                        return .url(url)
                     }
                 }
             }
         }
-        completion(nil)
+
+        return .text(fallbackText)
     }
 
     private func handleAliasCreation(alias: Alias) {
@@ -105,5 +122,9 @@ final class ShareViewController: UIViewController {
         alert.addAction(closeAction)
         alert.view.tintColor = .slPurple
         present(alert, animated: true, completion: nil)
+    }
+
+    private func dismiss() {
+        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
     }
 }

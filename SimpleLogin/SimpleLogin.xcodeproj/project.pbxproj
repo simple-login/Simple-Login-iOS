@@ -169,6 +169,8 @@
 		EFBBEDC427F3B0CE00E0FF03 /* UIScreenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */; };
 		EFBBEDC527F3B21B00E0FF03 /* Capacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE927C96FAE00C8E6DD /* Capacity.swift */; };
 		EFBBEDC627F3B23D00E0FF03 /* CapacityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE727C96F7000C8E6DD /* CapacityView.swift */; };
+		EFD6D652282F95D2007D9A7B /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD6D651282F95D2007D9A7B /* UIViewControllerExtensions.swift */; };
+		EFD6D653282F95D2007D9A7B /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD6D651282F95D2007D9A7B /* UIViewControllerExtensions.swift */; };
 		EFD8D85927D7EBA500C733EB /* LocalMailboxLiteExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */; };
 		EFDF83A528157C1A002ED668 /* BorderedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDF83A428157C1A002ED668 /* BorderedText.swift */; };
 		EFDF83A628157C1A002ED668 /* BorderedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDF83A428157C1A002ED668 /* BorderedText.swift */; };
@@ -180,6 +182,7 @@
 		EFFBBDE627C96CCA00C8E6DD /* BetterSafariViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */; };
 		EFFBBDE827C96F7000C8E6DD /* CapacityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE727C96F7000C8E6DD /* CapacityView.swift */; };
 		EFFBBDEA27C96FAE00C8E6DD /* Capacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE927C96FAE00C8E6DD /* Capacity.swift */; };
+		EFFFC47E282EF71A0030979E /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFFC47D282EF71A0030979E /* StringExtensionsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -355,6 +358,7 @@
 		EFB118552800C35D009752BE /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		EFB1F27327CEB99300C8D776 /* SimpleLogin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleLogin.xcdatamodel; sourceTree = "<group>"; };
 		EFB3A96627BC404300F82965 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		EFD6D651282F95D2007D9A7B /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		EFD8D85827D7EBA500C733EB /* LocalMailboxLiteExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMailboxLiteExtensions.swift; sourceTree = "<group>"; };
 		EFDF83A428157C1A002ED668 /* BorderedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedText.swift; sourceTree = "<group>"; };
 		EFF7779327F3979F0084D6B4 /* UpgradeNeededView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeNeededView.swift; sourceTree = "<group>"; };
@@ -363,6 +367,7 @@
 		EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSafariViewModifier.swift; sourceTree = "<group>"; };
 		EFFBBDE727C96F7000C8E6DD /* CapacityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityView.swift; sourceTree = "<group>"; };
 		EFFBBDE927C96FAE00C8E6DD /* Capacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capacity.swift; sourceTree = "<group>"; };
+		EFFFC47D282EF71A0030979E /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -500,6 +505,7 @@
 			isa = PBXGroup;
 			children = (
 				C03488A1268A6F2E008D9629 /* Info.plist */,
+				EFFFC47D282EF71A0030979E /* StringExtensionsTests.swift */,
 				C0941EFC27A70B15009AAEBC /* URLExtensionsTests.swift */,
 			);
 			path = SimpleLoginTests;
@@ -709,6 +715,7 @@
 				C0941EF927A70AE6009AAEBC /* URLExtensions.swift */,
 				EFB3A96627BC404300F82965 /* UIImageExtensions.swift */,
 				EF5BDFB127B79ABD004B696B /* UIScreenExtensions.swift */,
+				EFD6D651282F95D2007D9A7B /* UIViewControllerExtensions.swift */,
 				C04266D227944E130053451B /* Vibration.swift */,
 			);
 			path = Utils;
@@ -1129,6 +1136,7 @@
 				EF68F56927C57B5100B555B5 /* LocalAuthenticator.swift in Sources */,
 				C08A5D8527499A0200BE889B /* AliasContactsView.swift in Sources */,
 				C0E9C3E12790D57A00D1A463 /* CustomDomainsViewModel.swift in Sources */,
+				EFD6D652282F95D2007D9A7B /* UIViewControllerExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1136,6 +1144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFFFC47E282EF71A0030979E /* StringExtensionsTests.swift in Sources */,
 				C0941EFD27A70B15009AAEBC /* URLExtensionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1159,6 +1168,7 @@
 				C03E200D27A1F436000D82F6 /* ShareViewController.swift in Sources */,
 				EF89C3612808BBB000F48743 /* SuffixExtensions.swift in Sources */,
 				C04BB63527AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */,
+				EFD6D653282F95D2007D9A7B /* UIViewControllerExtensions.swift in Sources */,
 				C0941EFB27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				EF6FEA6F27B8358800557158 /* AlertToastModifier.swift in Sources */,
 				EFDF83A628157C1A002ED668 /* BorderedText.swift in Sources */,

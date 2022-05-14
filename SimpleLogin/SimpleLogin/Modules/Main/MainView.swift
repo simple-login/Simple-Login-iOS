@@ -114,7 +114,7 @@ struct MainView: View {
             case .createAlias:
                 CreateAliasView(
                     session: session,
-                    url: nil,
+                    mode: nil,
                     onCreateAlias: { createdAlias in
                         aliasCreationCount += 1
                         if launchCount >= 10, aliasCreationCount >= 5 {
