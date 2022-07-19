@@ -32,6 +32,7 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
         case notification
         case randomAlias
         case senderFormat
+        case deleteAccount
     }
 
     var didUpdateUserInfo: ((_ userInfo: UserInfo) -> Void)?
@@ -79,7 +80,7 @@ final class SettingsViewController: BaseApiKeyLeftMenuButtonViewController, Stor
             biometryType = localAuthenticationContext.biometryType
         }
 
-        sections = [.profileAndMembership, .notification, .randomAlias, .senderFormat]
+        sections = [.profileAndMembership, .notification, .randomAlias, .senderFormat, .deleteAccount]
 
         if biometryType != .none {
             sections.insert(.biometricAuthentication, at: 1)
@@ -391,6 +392,8 @@ extension SettingsViewController {
             preferredStyle: .alert)
 
         let yesAction = UIAlertAction(title: "Delete everything", style: .destructive) { _ in
+            let deleteURL = SLClient.shared.baseUrl.append(path: "/dashboard/delete_account")
+            UIApplication.shared.open(deleteURL)
         }
         alert.addAction(yesAction)
 
@@ -420,6 +423,7 @@ extension SettingsViewController: UITableViewDataSource {
         case .notification: return notificationTableViewCell(for: indexPath)
         case .randomAlias: return randomAliasTableViewCell(for: indexPath)
         case .senderFormat: return senderFormatTableViewCell(for: indexPath)
+        case .deleteAccount: return deleteAccountTableViewCell(for: indexPath)
         }
     }
 }
