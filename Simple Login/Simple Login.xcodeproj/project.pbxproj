@@ -2200,7 +2200,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 975H7B86B7;
+				DEVELOPMENT_TEAM = 72VC334CSX;
 				INFOPLIST_FILE = SimpleLoginTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2224,7 +2224,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 975H7B86B7;
+				DEVELOPMENT_TEAM = 72VC334CSX;
 				INFOPLIST_FILE = SimpleLoginTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2247,7 +2247,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/SimpleLogin Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 975H7B86B7;
+				DEVELOPMENT_TEAM = 72VC334CSX;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2255,7 +2255,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.share-extension";
 				PRODUCT_NAME = "SimpleLogin Share Extension";
 				SKIP_INSTALL = YES;
@@ -2271,7 +2271,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/SimpleLogin Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 975H7B86B7;
+				DEVELOPMENT_TEAM = 72VC334CSX;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2279,7 +2279,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.share-extension";
 				PRODUCT_NAME = "SimpleLogin Share Extension";
 				SKIP_INSTALL = YES;
@@ -2413,14 +2413,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Simple Login/SimpleLogin.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 975H7B86B7;
+				DEVELOPMENT_TEAM = 72VC334CSX;
 				INFOPLIST_FILE = "Simple Login/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D HOSTAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = SimpleLogin;
@@ -2438,14 +2438,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Simple Login/SimpleLogin.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 975H7B86B7;
+				DEVELOPMENT_TEAM = 72VC334CSX;
 				INFOPLIST_FILE = "Simple Login/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D HOSTAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = SimpleLogin;
