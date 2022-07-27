@@ -17,3 +17,11 @@ final class Session: ObservableObject {
         self.client = client
     }
 }
+
+extension Session {
+    // swiftlint:disable force_unwrapping
+    static var preview: Session {
+        .init(apiKey: .init(value: ""),
+              client: .init(session: .shared, baseUrlString: "")!)
+    }
+}

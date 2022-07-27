@@ -38,6 +38,7 @@ struct AccountView: View {
                     NewslettersSection()
                     AliasesSection()
                     SenderFormatSection()
+                    DeleteAccountSection(onDeleteAccount: onLogOut)
                     LogOutSection(onLogOut: onLogOut)
                 }
                 .ignoresSafeArea(.keyboard)
@@ -339,6 +340,36 @@ private struct SenderFormatSection: View {
         }, footer: {
             Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")
         })
+    }
+}
+
+private struct DeleteAccountSection: View {
+    @EnvironmentObject private var viewModel: AccountViewModel
+    @State private var isShowingDeleteAccountView = false
+    let onDeleteAccount: () -> Void
+
+    var body: some View {
+        Section(content: {
+            HStack {
+                Button(action: {
+                    Vibration.heavy.vibrate(fallBackToOldSchool: true)
+                    isShowingDeleteAccountView.toggle()
+                }, label: {
+                    Text("Delete account")
+                        .foregroundColor(.red)
+                })
+            }
+        }, header: {
+            Text("Account Deletion")
+        }, footer: {
+            Text("If SimpleLogin isn't the right fit for you, you can simply delete your account.")
+        })
+        .fullScreenCover(isPresented: $isShowingDeleteAccountView) {
+            DeleteAccountView(session: viewModel.session) {
+                isShowingDeleteAccountView.toggle()
+                onDeleteAccount()
+            }
+        }
     }
 }
 

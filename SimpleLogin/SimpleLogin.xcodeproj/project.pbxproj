@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35565DAA28915B7200E4C347 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35565DA928915B7200E4C347 /* DeleteAccountView.swift */; };
+		35565DAC28915F5400E4C347 /* DeleteAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35565DAB28915F5400E4C347 /* DeleteAccountViewModel.swift */; };
 		C00874AF27A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
 		C00874B027A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
 		C00874B127A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
@@ -232,6 +234,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		35565DA928915B7200E4C347 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
+		35565DAB28915F5400E4C347 /* DeleteAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewModel.swift; sourceTree = "<group>"; };
 		C00874AE27A98748004F32FA /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		C00874B227A989D3004F32FA /* SLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLError.swift; sourceTree = "<group>"; };
 		C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageModifier.swift; sourceTree = "<group>"; };
@@ -609,6 +613,8 @@
 				C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */,
 				C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */,
 				EFFBBDE727C96F7000C8E6DD /* CapacityView.swift */,
+				35565DA928915B7200E4C347 /* DeleteAccountView.swift */,
+				35565DAB28915F5400E4C347 /* DeleteAccountViewModel.swift */,
 				EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */,
 				C05A9B14277BB996003FD0A7 /* UpgradeView.swift */,
 				C030EB38277D1410007E2FF8 /* UpgradeViewModel.swift */,
@@ -1051,6 +1057,7 @@
 				C087655E27AE798300FF26E6 /* SearchAliasesViewModel.swift in Sources */,
 				EF9FE91B27F996580082FAEF /* MainTabBar.swift in Sources */,
 				EFFBBDEA27C96FAE00C8E6DD /* Capacity.swift in Sources */,
+				35565DAC28915F5400E4C347 /* DeleteAccountViewModel.swift in Sources */,
 				C0F732B7278F854F004608DB /* CustomDomainsView.swift in Sources */,
 				EF15C55927BEE4B8008497F2 /* LabelExtensions.swift in Sources */,
 				C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */,
@@ -1119,6 +1126,7 @@
 				EF95E13227D6AF470033B8E0 /* LocalAliasExtensions.swift in Sources */,
 				C00DF9AA279175770065A602 /* DomainDetailView.swift in Sources */,
 				EFB3A96727BC404300F82965 /* UIImageExtensions.swift in Sources */,
+				35565DAA28915B7200E4C347 /* DeleteAccountView.swift in Sources */,
 				EFFBBDE627C96CCA00C8E6DD /* BetterSafariViewModifier.swift in Sources */,
 				C0F08FB327AB2CB60066A354 /* ShareSheetView.swift in Sources */,
 				EF509E3427C234D10047A8D1 /* SensitiveContentViewModifier.swift in Sources */,
