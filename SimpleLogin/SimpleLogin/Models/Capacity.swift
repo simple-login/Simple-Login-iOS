@@ -15,7 +15,7 @@ struct Capacity: Identifiable {
 
 extension Capacity {
     static var fifteenAliases: Capacity {
-        .init(description: "15 aliases")
+        .init(description: "10 aliases")
     }
 
     static var unlimitedBandWidth: Capacity {
