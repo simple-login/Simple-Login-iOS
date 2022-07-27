@@ -73,10 +73,17 @@ struct LogInView: View {
             }
 
             if !launching {
-                EmailPasswordView(email: $email,
-                                  password: $password,
-                                  mode: .logIn) {
-                    viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
+                VStack {
+                    EmailPasswordView(email: $email,
+                                      password: $password,
+                                      mode: .logIn) {
+                        viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
+                    }
+
+                    Text("or")
+                        .font(.caption)
+
+                    LogInWithProtonButtonView(action: {})
                 }
                 .padding()
                 .sheet(isPresented: showingOtpViewSheet) { otpView() }

@@ -11,10 +11,18 @@ extension UIColor {
     static var slPurple: UIColor {
         UIColor(named: "AccentColor") ?? .purple
     }
+
+    static var proton: UIColor {
+        UIColor(named: "ProtonColor") ?? .purple
+    }
 }
 
 extension Color {
     static var slPurple: Color {
         Color(.slPurple)
+    }
+
+    static var proton: Color {
+        Color(.proton)
     }
 }

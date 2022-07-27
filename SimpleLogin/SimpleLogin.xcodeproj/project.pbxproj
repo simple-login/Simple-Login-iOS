@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35373C45289177DA00000297 /* LogInWithProtonButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35373C44289177DA00000297 /* LogInWithProtonButtonView.swift */; };
+		35373C4728917A4900000297 /* ProtonButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35373C4628917A4900000297 /* ProtonButtonStyle.swift */; };
 		35565DAA28915B7200E4C347 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35565DA928915B7200E4C347 /* DeleteAccountView.swift */; };
 		35565DAC28915F5400E4C347 /* DeleteAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35565DAB28915F5400E4C347 /* DeleteAccountViewModel.swift */; };
 		C00874AF27A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
@@ -234,6 +236,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		35373C44289177DA00000297 /* LogInWithProtonButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithProtonButtonView.swift; sourceTree = "<group>"; };
+		35373C4628917A4900000297 /* ProtonButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtonButtonStyle.swift; sourceTree = "<group>"; };
 		35565DA928915B7200E4C347 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		35565DAB28915F5400E4C347 /* DeleteAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewModel.swift; sourceTree = "<group>"; };
 		C00874AE27A98748004F32FA /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
@@ -541,6 +545,7 @@
 				C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */,
 				C079864926B34D5F006C9FC0 /* LogInView.swift */,
 				C03760F726DC0D6A00E5ECAC /* LogInViewModel.swift */,
+				35373C44289177DA00000297 /* LogInWithProtonButtonView.swift */,
 				C00A563726DAD9E000A550A2 /* OtpView.swift */,
 				C0259EAC26DA30D70056A977 /* SignUpView.swift */,
 				C0FE7B2C27A9CFD7005D53DF /* SignUpViewModel.swift */,
@@ -713,6 +718,7 @@
 				EF15C55827BEE4B8008497F2 /* LabelExtensions.swift */,
 				EF68F56827C57B5100B555B5 /* LocalAuthenticator.swift */,
 				C03760F926DC0F0200E5ECAC /* Preferences.swift */,
+				35373C4628917A4900000297 /* ProtonButtonStyle.swift */,
 				EF8B1CCB27DDE0FB004D3575 /* ReachabilityObserver.swift */,
 				EF65890127DA9EB400D327C2 /* SizePreferenceKey.swift */,
 				C0259EAE26DA55CD0056A977 /* StringExtensions.swift */,
@@ -1042,6 +1048,7 @@
 				C04848A9278CE50700702E8E /* AppDelegate.swift in Sources */,
 				C0542ABE27AEDF3B00188C63 /* BaseViewController.swift in Sources */,
 				EF72966127C2698300737550 /* PrimaryButton.swift in Sources */,
+				35373C45289177DA00000297 /* LogInWithProtonButtonView.swift in Sources */,
 				C03B518E27288F2700C54130 /* AliasCompactView.swift in Sources */,
 				C0AAE98E26E4152A00247742 /* Blur.swift in Sources */,
 				EFFBBDE427C96AEB00C8E6DD /* SecondaryButton.swift in Sources */,
@@ -1114,6 +1121,7 @@
 				EF3C8240281BD95600477710 /* NoHorizontalPaddingModifier.swift in Sources */,
 				EF68E11827B90E9400396472 /* DeleteMenuButton.swift in Sources */,
 				C0100B3026DEC46900085C24 /* MainView.swift in Sources */,
+				35373C4728917A4900000297 /* ProtonButtonStyle.swift in Sources */,
 				C00A563826DAD9E000A550A2 /* OtpView.swift in Sources */,
 				EFB1F27427CEB99300C8D776 /* SimpleLogin.xcdatamodeld in Sources */,
 				C00874AF27A98748004F32FA /* ErrorExtensions.swift in Sources */,
