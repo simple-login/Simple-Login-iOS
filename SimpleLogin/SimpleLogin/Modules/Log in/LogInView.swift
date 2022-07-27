@@ -83,7 +83,11 @@ struct LogInView: View {
                     Text("or")
                         .font(.caption)
 
-                    LogInWithProtonButtonView(action: {})
+                    LogInWithProtonButtonView(onSuccess: { apiKey in
+                        onComplete(apiKey, viewModel.client)
+                    }, onError: { error in
+                        viewModel.error = error
+                    })
                 }
                 .padding()
                 .sheet(isPresented: showingOtpViewSheet) { otpView() }
