@@ -65,7 +65,9 @@ struct CreateAliasView: View {
             }
         }
         .onAppear {
-            viewModel.fetchOptionsAndMailboxes()
+            if viewModel.options == nil || viewModel.mailboxes == nil {
+                viewModel.fetchOptionsAndMailboxes()
+            }
         }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
@@ -94,13 +96,13 @@ struct CreateAliasView: View {
 }
 
 private struct ContentView: View {
-    @Environment(\.openURL) private var openURL
     @ObservedObject var viewModel: CreateAliasViewModel
     @State private var isInitialized = false
     @State private var prefix = ""
     @State private var selectedSuffix: Suffix?
     @State private var mailboxIds = [Int]()
     @State private var notes = ""
+    @State private var selectedUrlString: String?
     let options: AliasOptions
     let mailboxes: [Mailbox]
     let mode: CreateAliasView.Mode?
@@ -267,11 +269,11 @@ private struct ContentView: View {
             Text("Mailboxes")
         }, footer: {
             Button("What are mailboxes?") {
-                // swiftlint:disable:next force_unwrapping
-                openURL(URL(string: "https://simplelogin.io/docs/mailbox/add-mailbox/")!)
+                selectedUrlString = "https://simplelogin.io/docs/mailbox/add-mailbox/"
             }
             .foregroundColor(.slPurple)
         })
+        .betterSafariView(urlString: $selectedUrlString)
     }
 
     private var horizontalLine: some View {
