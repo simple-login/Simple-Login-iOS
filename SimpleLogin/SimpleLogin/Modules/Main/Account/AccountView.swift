@@ -344,6 +344,8 @@ private struct SenderFormatSection: View {
 
 private struct DeleteAccountSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
+    @EnvironmentObject private var preferences: Preferences
+    @Environment(\.openURL) private var openURL
     @State private var isShowingDeleteAccountView = false
     let onDeleteAccount: () -> Void
 
@@ -352,7 +354,12 @@ private struct DeleteAccountSection: View {
             HStack {
                 Button(action: {
                     Vibration.heavy.vibrate(fallBackToOldSchool: true)
-                    isShowingDeleteAccountView.toggle()
+                    // Currently open the web app instead of handling
+                    // the deletion flow in app.
+//                    isShowingDeleteAccountView.toggle()
+                    if let url = URL(string: "\(preferences.apiUrl)/dashboard/delete_account") {
+                        openURL(url)
+                    }
                 }, label: {
                     Text("Delete account")
                         .foregroundColor(.red)
