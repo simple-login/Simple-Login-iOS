@@ -23,7 +23,9 @@ struct OtpView: View {
          onVerification: ((ApiKey) -> Void)? = nil,
          onActivation: (() -> Void)? = nil) {
         self._mode = mode
-        self._viewModel = StateObject(wrappedValue: .init(client: client, mode: mode.wrappedValue ?? .logIn(mfaKey: "")))
+        let viewModel = OtpViewModel(client: client,
+                                     mode: mode.wrappedValue ?? .logIn(mfaKey: ""))
+        self._viewModel = StateObject(wrappedValue: viewModel)
         self.onVerification = onVerification
         self.onActivation = onActivation
     }

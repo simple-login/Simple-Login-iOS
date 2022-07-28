@@ -52,6 +52,7 @@ struct CustomDomainsView: View {
         .navigationTitle("Custom domains")
         .emptyPlaceholder(isEmpty: viewModel.noDomain) {
             DetailPlaceholderView(systemIconName: "globe",
+                                  // swiftlint:disable:next line_length
                                   message: "You currently don't have any custom domains. You can only add custom domains using our web app.")
                 .padding(.horizontal)
         }

@@ -111,7 +111,9 @@ struct AliasesView: View {
                                 if alias.id == createdAlias?.id {
                                     EmptyView()
                                 } else {
-                                    // TODO: Workaround a SwiftUI bug that doesn't update AliasCompactView's context menu
+                                    // swiftlint:disable:next todo
+                                    // TODO: Workaround a SwiftUI bug
+                                    // that doesn't update AliasCompactView's context menu
                                     // https://stackoverflow.com/a/70159934
                                     if alias.pinned {
                                         aliasCompactView(for: alias)

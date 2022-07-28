@@ -129,7 +129,7 @@ private struct AliasDisplayModeSection: View {
 
 private struct KeyboardExtensionSection: View {
     @AppStorage(kKeyboardExtensionMode, store: .shared)
-    private var keyboardExtensionMode: KeyboardExtensionMode = .all // swiftlint:disable:this let_var_whitespace
+    private var keyboardExtensionMode: KeyboardExtensionMode = .all
     @State private var showingExplanation = false
 
     var body: some View {
@@ -151,6 +151,7 @@ private struct KeyboardExtensionSection: View {
 
     private var footerView: some View {
         VStack {
+            // swiftlint:disable:next line_length
             Text("You need to enable and give the keyboard full access in order to use it.\nGo to Settings ➝ General ➝ Keyboard ➝ Keyboards.")
             HStack {
                 Button(action: {
@@ -184,6 +185,7 @@ private struct KeyboardFullAccessExplanationView: View {
         NavigationView {
             ScrollView {
                 VStack {
+                    // swiftlint:disable line_length
                     Text("""
         Most of the functionalities of this application are based on making requests to our server. Every request is attached with an API key in order for our server to authenticate you.
 
@@ -191,7 +193,7 @@ private struct KeyboardFullAccessExplanationView: View {
 
         The keyboard extension needs to use the API key saved in Keychain Group by the host application to make requests by itself. Such access to Keychain Group requires full access. The keyboard extension does not record nor share anything you type.
         """)
-
+                    // swiftlint:enable line_length
                     HStack {
                         Text("Need more information?")
                         URLButton(urlString: "mailto:hi@simplelogin.io", foregroundColor: .slPurple) {

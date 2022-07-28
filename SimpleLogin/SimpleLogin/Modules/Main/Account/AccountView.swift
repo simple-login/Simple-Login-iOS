@@ -12,7 +12,6 @@ import LocalAuthentication
 import SimpleLoginPackage
 import SwiftUI
 
-// swiftlint:disable let_var_whitespace
 struct AccountView: View {
     @StateObject private var viewModel: AccountViewModel
     @Binding var upgradeNeeded: Bool
@@ -338,6 +337,7 @@ private struct SenderFormatSection: View {
         }, header: {
             Text("Sender address format")
         }, footer: {
+            // swiftlint:disable:next line_length
             Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")
         })
     }
