@@ -32,8 +32,8 @@ extension Label where Title == Text, Icon == Image {
         Label("Pin", systemImage: "bookmark")
     }
 
-    static var sendEmail: Label {
-        Label("Send email", systemImage: "paperplane")
+    static var contacts: Label {
+        Label("Contacts", systemImage: "paperplane")
     }
 
     static var unpin: Label {
