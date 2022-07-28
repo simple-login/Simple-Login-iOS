@@ -81,14 +81,36 @@ final class SearchAliasesViewController: BaseViewController {
                 self.onDeleteAlias(deletedAlias)
                 self.viewModel.remove(alias: alias)
             })
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: dismissPresentedViewController) {
+                        Text("Close")
+                    }
+                }
+            }
         let hostingController = UIHostingController(rootView: aliasDetailView)
-        navigationController?.pushViewController(hostingController, animated: true)
+        let navVC = UINavigationController(rootViewController: hostingController)
+        present(navVC, animated: true)
     }
 
     private func showAliasContacts(_ alias: Alias) {
-        let aliasContactsView = AliasContactsView(alias: alias, session: viewModel.session)
+        let aliasContactsView = AliasContactsView(
+            alias: alias,
+            session: viewModel.session)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: dismissPresentedViewController) {
+                        Text("Close")
+                    }
+                }
+            }
         let hostingController = UIHostingController(rootView: aliasContactsView)
-        navigationController?.pushViewController(hostingController, animated: true)
+        let navVC = UINavigationController(rootViewController: hostingController)
+        present(navVC, animated: true)
+    }
+
+    private func dismissPresentedViewController() {
+        presentedViewController?.dismiss(animated: true)
     }
 }
 
