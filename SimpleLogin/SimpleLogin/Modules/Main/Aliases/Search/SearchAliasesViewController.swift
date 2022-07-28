@@ -52,7 +52,8 @@ final class SearchAliasesViewController: BaseViewController {
             onSendMail: { [weak self] alias in
                 self?.showAliasContacts(alias)
             },
-            onUpdate: onUpdateAlias)
+            onUpdate: onUpdateAlias,
+            onDelete: onDeleteAlias)
         let hostingController = UIHostingController(rootView: searchAliasesResultView)
         addChild(hostingController)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
