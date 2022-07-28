@@ -11,6 +11,8 @@
 		35373C4728917A4900000297 /* ProtonButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35373C4628917A4900000297 /* ProtonButtonStyle.swift */; };
 		35565DAA28915B7200E4C347 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35565DA928915B7200E4C347 /* DeleteAccountView.swift */; };
 		35565DAC28915F5400E4C347 /* DeleteAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35565DAB28915F5400E4C347 /* DeleteAccountViewModel.swift */; };
+		357B504A2892B9AA0080326A /* BetterSafariViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */; };
+		357B504C2892BAB80080326A /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = 357B504B2892BAB80080326A /* BetterSafariView */; };
 		C00874AF27A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
 		C00874B027A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
 		C00874B127A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
@@ -428,6 +430,7 @@
 				EF6303AD2815E6860061FF6F /* Introspect in Frameworks */,
 				C0941EEB27A6E917009AAEBC /* KeychainAccess in Frameworks */,
 				C0941EE927A6E912009AAEBC /* SimpleLoginPackage in Frameworks */,
+				357B504C2892BAB80080326A /* BetterSafariView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +886,7 @@
 				C0941EEA27A6E917009AAEBC /* KeychainAccess */,
 				C0941EF327A6F056009AAEBC /* AlertToast */,
 				EF6303AC2815E6860061FF6F /* Introspect */,
+				357B504B2892BAB80080326A /* BetterSafariView */,
 			);
 			productName = ShareExtension;
 			productReference = C03E200A27A1F436000D82F6 /* ShareExtension.appex */;
@@ -1188,6 +1192,7 @@
 				C0941EFB27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				EF6FEA6F27B8358800557158 /* AlertToastModifier.swift in Sources */,
 				EFDF83A628157C1A002ED668 /* BorderedText.swift in Sources */,
+				357B504A2892B9AA0080326A /* BetterSafariViewModifier.swift in Sources */,
 				EFB0B65127F0F2FD006D3A7F /* PrimaryButton.swift in Sources */,
 				C0941EED27A6EEAE009AAEBC /* CreateAliasView.swift in Sources */,
 				C0941EEF27A6EFBF009AAEBC /* StringExtensions.swift in Sources */,
@@ -1744,6 +1749,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		357B504B2892BAB80080326A /* BetterSafariView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0EA747A27B30CD200848F58 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
+			productName = BetterSafariView;
+		};
 		C010032027A73996009735CD /* SimpleLoginPackage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C03760F126DC0BA000E5ECAC /* XCRemoteSwiftPackageReference "swift-package" */;

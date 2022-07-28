@@ -41,12 +41,11 @@ struct UsableDomainView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(usableDomain.domain)
-            if usableDomain.isCustom {
-                let customDomainType = Suffix.DomainType.custom
-                Text(customDomainType.localizedDescription)
-                    .font(.caption)
-                    .foregroundColor(customDomainType.color)
-            }
+                .fontWeight(.medium)
+            let domainType: Suffix.DomainType = usableDomain.isCustom ? .custom : .simpleLogin
+            Text(domainType.localizedDescription)
+                .font(.caption)
+                .foregroundColor(domainType.color)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .fixedSize(horizontal: false, vertical: true)

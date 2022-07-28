@@ -88,6 +88,8 @@ struct LogInView: View {
                     }, onError: { error in
                         viewModel.error = error
                     })
+                    .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ?
+                           UIScreen.main.minLength * 3 / 5 : .infinity)
                 }
                 .padding()
                 .sheet(isPresented: showingOtpViewSheet) { otpView() }
