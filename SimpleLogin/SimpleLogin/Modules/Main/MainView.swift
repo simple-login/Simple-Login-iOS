@@ -48,25 +48,27 @@ struct MainView: View {
         })
 
         VStack(spacing: 0) {
-            ZStack {
+            TabView(selection: $selectedItem) {
                 AliasesView(session: session,
                             reachabilityObserver: reachabilityObserver,
                             managedObjectContext: managedObjectContext,
                             createdAlias: $createdAlias)
-                    .opacity(selectedItem == .aliases ? 1 : 0)
+                .tag(TabBarItem.aliases)
 
                 AdvancedView()
-                    .opacity(selectedItem == .advanced ? 1 : 0)
+                    .tag(TabBarItem.advanced)
 
                 AccountView(session: session,
                             upgradeNeeded: $upgradeNeeded,
                             onLogOut: onLogOut)
-                    .opacity(selectedItem == .myAccount ? 1 : 0)
+                .tag(TabBarItem.myAccount)
 
                 SettingsView()
-                    .opacity(selectedItem == .settings ? 1 : 0)
+                    .tag(TabBarItem.settings)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .introspectTabBarController { tabBarController in
+                tabBarController.tabBar.isHidden = true
+            }
 
             MainTabBar(selectedItem: $selectedItem) {
                 Vibration.light.vibrate()
