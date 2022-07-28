@@ -236,7 +236,7 @@ private struct ActionsSection: View {
                         showingContacts = true
                     },
                     image: Image(systemName: "paperplane.fill"),
-                    text: Text("send email")
+                    text: Text("contacts")
                 )
                     .foregroundColor(.slPurple)
             })

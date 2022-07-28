@@ -187,7 +187,7 @@ private struct ActionsView: View {
             Button {
                 onSendMail()
             } label: {
-                Label.sendEmail
+                Label.contacts
             }
             .buttonStyle(.plain)
 
