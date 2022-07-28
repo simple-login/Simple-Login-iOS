@@ -10,6 +10,8 @@ import SimpleLoginPackage
 import SwiftUI
 
 final class LogInViewModel: ObservableObject {
+    deinit { print("\(Self.self) is deallocated") }
+
     @Published private(set) var isLoading = false
     @Published private(set) var userLogin: UserLogin?
     @Published private(set) var shouldActivate = false
@@ -42,9 +44,7 @@ final class LogInViewModel: ObservableObject {
     }
 
     func updateApiUrl(_ apiUrl: String) {
-        let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 20
-        client = .init(session: .init(configuration: config), baseUrlString: apiUrl) ?? .default
+        client = .init(session: .init(configuration: .simpleLogin), baseUrlString: apiUrl) ?? .default
     }
 
     func handledUserLogin() {
@@ -116,5 +116,13 @@ final class LogInViewModel: ObservableObject {
 
     func handledResetEmail() {
         resetEmail = nil
+    }
+}
+
+extension URLSessionConfiguration {
+    static var simpleLogin: URLSessionConfiguration {
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 20
+        return config
     }
 }
