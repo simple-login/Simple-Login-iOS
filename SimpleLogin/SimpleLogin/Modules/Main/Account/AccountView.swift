@@ -277,7 +277,6 @@ private struct AliasesSection: View {
                 }, label: {
                     if let selectedUsableDomain = viewModel.randomAliasDefaultDomain {
                         UsableDomainView(usableDomain: selectedUsableDomain)
-                            .foregroundColor(.slPurple)
                     }
                 })
             }
