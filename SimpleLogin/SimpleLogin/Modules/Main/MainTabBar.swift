@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// swiftlint:disable let_var_whitespace
 struct MainTabBar: View {
     @Environment(\.colorScheme) private var colorScheme
     @Binding var selectedItem: TabBarItem

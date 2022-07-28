@@ -77,6 +77,7 @@ struct MailboxesView: View {
             viewModel.delete(mailbox: mailboxToBeDeleted)
         }
         return .init(title: Text("Delete \(mailboxToBeDeleted.email)?"),
+                     // swiftlint:disable:next line_length
                      message: Text("Aliases associated with this mailbox will also be deleted. This operation is irreversible. Please confirm."),
                      primaryButton: .cancel(),
                      secondaryButton: deleteButton)

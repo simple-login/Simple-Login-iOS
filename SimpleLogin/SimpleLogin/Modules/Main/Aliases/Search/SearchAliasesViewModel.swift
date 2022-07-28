@@ -20,6 +20,7 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
     @Published private(set) var isLoading = false
     @Published private(set) var isUpdating = false
     @Published private(set) var updatedAlias: Alias?
+    @Published private(set) var deletedAlias: Alias?
     @Published var error: Error?
     private var currentPage = 0
     private var canLoadMorePages = true
@@ -176,6 +177,84 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
                                          pinned: alias.pinned)
                 self.updatedAlias = updatedAlias
                 self.aliases[index] = updatedAlias
+                do {
+                    try self.dataController.update(updatedAlias)
+                } catch {
+                    self.error = error
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    func update(alias: Alias, option: AliasUpdateOption) {
+        guard !isUpdating else { return }
+        isUpdating = true
+        session.client.updateAlias(apiKey: session.apiKey, id: alias.id, option: option)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isUpdating = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            } receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                guard let index = self.aliases.firstIndex(where: { $0.id == alias.id }) else { return }
+                switch option {
+                case .pinned(let pinned):
+                    let updatedAlias = Alias(id: alias.id,
+                                             email: alias.email,
+                                             name: alias.name,
+                                             enabled: alias.enabled,
+                                             creationTimestamp: alias.creationTimestamp,
+                                             blockCount: alias.blockCount,
+                                             forwardCount: alias.forwardCount,
+                                             replyCount: alias.replyCount,
+                                             note: alias.note,
+                                             pgpSupported: alias.pgpSupported,
+                                             pgpDisabled: alias.pgpDisabled,
+                                             mailboxes: alias.mailboxes,
+                                             latestActivity: alias.latestActivity,
+                                             pinned: pinned)
+                    self.updatedAlias = updatedAlias
+                    self.aliases[index] = updatedAlias
+                    do {
+                        try self.dataController.update(updatedAlias)
+                    } catch {
+                        self.error = error
+                    }
+                default:
+                    break
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    func delete(alias: Alias) {
+        isUpdating = true
+        session.client.deleteAlias(apiKey: session.apiKey, id: alias.id)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isUpdating = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            } receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.deletedAlias = alias
+                self.remove(alias: alias)
+                do {
+                    try self.dataController.delete(alias)
+                } catch {
+                    self.error = error
+                }
             }
             .store(in: &cancellables)
     }

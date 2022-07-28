@@ -78,6 +78,7 @@ private struct CatchAllSection: View {
         }, header: {
             Text("Auto create/on the fly alias")
         }, footer: {
+            // swiftlint:disable:next line_length
             Text("Simply use anything@\(domain.domainName) next time you need an alias: it'll be automatically created the first time it receives an email. To have more fine-grained control, you can also define auto create rules.")
         })
     }
@@ -173,6 +174,7 @@ private struct DefaultDisplayNameSection: View {
         }, header: {
             Text("Default display name")
         }, footer: {
+            // swiftlint:disable:next line_length
             Text("Default display name for aliases created with \(viewModel.domain.domainName) unless overwritten by the alias display name")
         })
     }

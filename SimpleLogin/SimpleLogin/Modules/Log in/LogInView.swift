@@ -163,6 +163,7 @@ struct LogInView: View {
         }
         .alert(isPresented: showingResetEmailSentAlert) {
             Alert(title: Text("We've sent you an email"),
+                  // swiftlint:disable:next line_length
                   message: Text("Please check the inbox of your email \(viewModel.resetEmail ?? "") and follow the instructions."),
                   dismissButton: .default(Text("OK")))
         }

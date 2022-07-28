@@ -21,6 +21,7 @@ struct UpgradeNeededView: View {
                 .scaledToFit()
                 .frame(width: min(200, UIScreen.main.minLength / 3))
 
+            // swiftlint:disable:next line_length
             Text("You've reached the limit of free aliases. Become premium user to gain access to all of our features.")
                 .multilineTextAlignment(.center)
 

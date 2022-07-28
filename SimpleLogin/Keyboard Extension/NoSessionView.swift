@@ -16,6 +16,7 @@ struct NoSessionView: View {
                 .frame(width: UIScreen.main.bounds.width / 2)
                 .opacity(0.1)
                 .padding()
+            // swiftlint:disable:next line_length
             Text("Please open SimpleLogin application and log in. Then go to Settings ➝ General ➝ Keyboard ➝ Keyboards and give SimpleLogin keyboard full access.")
                 .multilineTextAlignment(.center)
                 .font(.subheadline)

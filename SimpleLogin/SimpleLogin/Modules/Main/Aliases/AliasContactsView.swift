@@ -89,7 +89,7 @@ struct AliasContactsView: View {
             tableView.refreshControl = viewModel.refreshControl
         }
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .principal) {
                 AliasNavigationTitleView(alias: viewModel.alias)
             }
         }

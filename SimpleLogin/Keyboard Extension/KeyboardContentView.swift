@@ -52,7 +52,6 @@ struct KeyboardContentView: View {
     }
 }
 
-// swiftlint:disable let_var_whitespace
 final class KeyboardContentViewModel: BaseSessionViewModel, ObservableObject {
     @AppStorage(kKeyboardExtensionMode, store: .shared)
     private var keyboardExtensionMode: KeyboardExtensionMode = .all

@@ -16,6 +16,7 @@ struct SearchAliasesResultView: View {
     var onSelect: (Alias) -> Void
     var onSendMail: (Alias) -> Void
     var onUpdate: (Alias) -> Void
+    var onDelete: (Alias) -> Void
 
     var body: some View {
         let showingCopiedEmailAlert = Binding<Bool>(get: {
@@ -50,13 +51,13 @@ struct SearchAliasesResultView: View {
                             viewModel.toggle(alias: alias)
                         },
                         onPin: {
-                            // TODO: Handle onPin
+                            viewModel.update(alias: alias, option: .pinned(true))
                         },
                         onUnpin: {
-                            // TODO: Handle onUnpin
+                            viewModel.update(alias: alias, option: .pinned(false))
                         },
                         onDelete: {
-                            // TODO: Handle onDelete
+                            viewModel.delete(alias: alias)
                         })
                         .padding(.horizontal, 4)
                         .onTapGesture {
@@ -87,6 +88,11 @@ struct SearchAliasesResultView: View {
         .onReceive(Just(viewModel.updatedAlias)) { updatedAlias in
             if let updatedAlias = updatedAlias {
                 onUpdate(updatedAlias)
+            }
+        }
+        .onReceive(Just(viewModel.deletedAlias)) { deletedAlias in
+            if let deletedAlias = deletedAlias {
+                onDelete(deletedAlias)
             }
         }
         .alertToastLoading(isPresenting: $showingUpdatingAlert)

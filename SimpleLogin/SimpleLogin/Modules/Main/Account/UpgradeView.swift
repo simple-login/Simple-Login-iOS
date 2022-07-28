@@ -9,7 +9,6 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-// swiftlint:disable let_var_whitespace
 struct UpgradeView: View {
     @Environment(\.presentationMode) private var presentationMode
     @StateObject private var viewModel: UpgradeViewModel
@@ -36,6 +35,7 @@ struct UpgradeView: View {
                 SecondaryButton(title: "Restore purchasse") {
                     viewModel.restorePurchase()
                 }
+                // swiftlint:disable:next line_length
                 Text("Subscription can be managed and canceled at anytime by going to Settings ➝ Your Apple ID ➝ Subscriptions.")
                     .font(.callout)
                     .foregroundColor(.secondary)

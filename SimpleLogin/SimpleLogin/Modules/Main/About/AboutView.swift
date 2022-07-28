@@ -97,6 +97,7 @@ struct AboutView: View {
                     Text("Version \(kVersionName) (Build \(kBuildNumber))")
                         .fontWeight(.medium)
                     Spacer()
+                    // swiftlint:disable:next line_length
                     Text("SimpleLogin is the product of SimpleLogin SAS, registered in France under the SIREN number 884302134.")
                         .multilineTextAlignment(.center)
                 }
