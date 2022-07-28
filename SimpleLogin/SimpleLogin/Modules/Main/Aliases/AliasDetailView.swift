@@ -270,7 +270,7 @@ private struct MailboxesSection: View {
 
 private struct NameSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
-    @State private var showingEditAlert = false
+    @State private var showingEditView = false
 
     var body: some View {
         Section(content: {
@@ -278,25 +278,17 @@ private struct NameSection: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .contentShape(Rectangle())
-                .textFieldAlert(isPresented: $showingEditAlert, config: editDisplayNameConfig)
+                .sheet(isPresented: $showingEditView) {
+                    EditDisplayNameView(viewModel: viewModel)
+                }
                 .onTapGesture {
-                    showingEditAlert = true
+                    showingEditView = true
                 }
         }, header: {
             Text("Display name")
         }, footer: {
             Text("Your display name when sending emails from this alias")
         })
-    }
-
-    private var editDisplayNameConfig: TextFieldAlertConfig {
-        TextFieldAlertConfig(title: "Edit display name",
-                             text: viewModel.alias.name,
-                             placeholder: "Ex: John Doe",
-                             autocapitalizationType: .words,
-                             actionTitle: "Save") { newDisplayName in
-            viewModel.update(option: .name(newDisplayName))
-        }
     }
 }
 
@@ -589,6 +581,65 @@ private struct EditNotesView: View {
         .onAppear {
             notes = viewModel.alias.note ?? ""
         }
+        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
+            showingLoadingAlert = isUpdating
+        }
+        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
+            if isUpdated {
+                presentationMode.wrappedValue.dismiss()
+                viewModel.handledIsUpdatedBoolean()
+            }
+        }
+        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastError($viewModel.updatingError)
+    }
+
+    private var cancelButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Cancel")
+        })
+    }
+}
+
+private struct EditDisplayNameView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    @ObservedObject var viewModel: AliasDetailViewModel
+    @State private var showingLoadingAlert = false
+    @State private var displayName = ""
+
+    init(viewModel: AliasDetailViewModel) {
+        _viewModel = .init(initialValue: viewModel)
+        _displayName = .init(initialValue: viewModel.alias.name ?? "")
+    }
+
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(content: {
+                    TextField("", text: $displayName)
+                        .disabled(viewModel.isUpdating)
+                }, header: {
+                    Text("Display name")
+                }, footer: {
+                    PrimaryButton(title: "Save") {
+                        viewModel.update(option: .name(displayName))
+                    }
+                    .padding(.vertical)
+                })
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    AliasNavigationTitleView(alias: viewModel.alias)
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    cancelButton
+                }
+            }
+        }
+        .accentColor(.slPurple)
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
         }
