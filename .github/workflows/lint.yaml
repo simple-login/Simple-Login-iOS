@@ -8,7 +8,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       
       - name: Run SwiftLint
         run: |
@@ -17,6 +17,7 @@ jobs:
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
+        if: failure()
         with:
           name: artifacts
           path: artifacts
