@@ -1,0 +1,16 @@
+DERIVED_DATA_PATH = "fastlane/DerivedData/"
+
+lane :clean_up do
+    clear_derived_data(derived_data_path: DERIVED_DATA_PATH)
+end
+
+lane :build do
+    build_app(
+        project: "SimpleLogin/SimpleLogin.xcodeproj",
+        scheme: "SimpleLogin",
+        derived_data_path: DERIVED_DATA_PATH,
+        clean: true,
+        skip_archive: true,
+        skip_codesigning: true
+    )
+end
