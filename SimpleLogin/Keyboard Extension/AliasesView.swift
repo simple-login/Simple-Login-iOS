@@ -13,6 +13,7 @@ struct AliasesView: View {
     let onSelectAlias: (Alias) -> Void
 
     var body: some View {
+        let a = 1
         if let error = viewModel.error {
             VStack(alignment: .center) {
                 Text(error.safeLocalizedDescription)
