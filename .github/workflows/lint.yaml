@@ -1,0 +1,16 @@
+name: SwiftLint check
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      
+      - name: Run SwiftLint
+        run: |
+          cd SimpleLogin/
+          swiftlint --strict --config .swiftlint.yml --reporter junit > ../swiftlint_results.xml
