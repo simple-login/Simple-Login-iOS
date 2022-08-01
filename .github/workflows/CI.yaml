@@ -1,0 +1,40 @@
+name: SimpleLogin iOS CI
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      
+      - name: Run SwiftLint
+        run: |
+          mkdir artifacts
+          swiftlint --strict --config SimpleLogin/.swiftlint.yml --reporter junit > artifacts/swiftlint_results.xml
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: artifacts
+          path: artifacts
+
+  build-app:
+    runs-on: self-hosted
+    needs: ['lint']
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      
+      - name: Fastlane build
+        run: fastlane build
+
+      - name: Fastlane clean up
+        run: fastlane clean_up
