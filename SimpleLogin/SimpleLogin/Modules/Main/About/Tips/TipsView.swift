@@ -178,7 +178,7 @@ private struct TipView: View {
     }
 }
 
-private extension Alias {
+extension Alias {
     static var sample: Alias {
         .init(id: 0,
               email: "my.alias@example.com",
@@ -191,7 +191,7 @@ private extension Alias {
               note: nil,
               pgpSupported: false,
               pgpDisabled: false,
-              mailboxes: [],
+              mailboxes: [.johnDoe],
               latestActivity: nil,
               pinned: true)
     }
