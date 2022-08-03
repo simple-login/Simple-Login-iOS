@@ -367,6 +367,8 @@ private struct ActivitiesSection: View {
             Label {
                 Text(action.title)
                     .fontWeight(.semibold)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
             } icon: {
                 Image(systemName: action.iconSystemName)
             }

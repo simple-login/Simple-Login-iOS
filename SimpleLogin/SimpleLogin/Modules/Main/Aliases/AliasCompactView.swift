@@ -205,6 +205,8 @@ private struct ActionsView: View {
         }
         .font(.subheadline)
         .foregroundColor(.accentColor)
+        .lineLimit(1)
+        .minimumScaleFactor(0.8)
     }
 }
 
