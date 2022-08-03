@@ -114,7 +114,6 @@
 		C0941EFB27A70AE6009AAEBC /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0941EF927A70AE6009AAEBC /* URLExtensions.swift */; };
 		C0941EFD27A70B15009AAEBC /* URLExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0941EFC27A70B15009AAEBC /* URLExtensionsTests.swift */; };
 		C0AAE98E26E4152A00247742 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAE98D26E4152A00247742 /* Blur.swift */; };
-		C0B1600B279DFA1E00641216 /* AliasDisplayModePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1600A279DFA1E00641216 /* AliasDisplayModePreview.swift */; };
 		C0CBE93A26B9BF5C004833F6 /* EmailPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */; };
 		C0CBE93D26B9D079004833F6 /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */; };
 		C0CBE93F26B9D1DD004833F6 /* ApiKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE93E26B9D1DD004833F6 /* ApiKeyView.swift */; };
@@ -317,7 +316,6 @@
 		C0941EF927A70AE6009AAEBC /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		C0941EFC27A70B15009AAEBC /* URLExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensionsTests.swift; sourceTree = "<group>"; };
 		C0AAE98D26E4152A00247742 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
-		C0B1600A279DFA1E00641216 /* AliasDisplayModePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDisplayModePreview.swift; sourceTree = "<group>"; };
 		C0CBE93926B9BF5C004833F6 /* EmailPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailPasswordView.swift; sourceTree = "<group>"; };
 		C0CBE93C26B9D079004833F6 /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
 		C0CBE93E26B9D1DD004833F6 /* ApiKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyView.swift; sourceTree = "<group>"; };
@@ -748,7 +746,6 @@
 		EFB118522800C26B009752BE /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				C0B1600A279DFA1E00641216 /* AliasDisplayModePreview.swift */,
 				EFB118532800C328009752BE /* SettingsView.swift */,
 				EFB118552800C35D009752BE /* SettingsViewModel.swift */,
 			);
@@ -1073,7 +1070,6 @@
 				EF15C55927BEE4B8008497F2 /* LabelExtensions.swift in Sources */,
 				C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */,
 				C029769226F1406D0014DC3B /* SearchAliasesView.swift in Sources */,
-				C0B1600B279DFA1E00641216 /* AliasDisplayModePreview.swift in Sources */,
 				C03D292D279215EE0041FB60 /* DomainDetailViewModel.swift in Sources */,
 				C03760FA26DC0F0200E5ECAC /* Preferences.swift in Sources */,
 				C0D1D5A7272BCCA000F5CFC5 /* ColorExtensions.swift in Sources */,

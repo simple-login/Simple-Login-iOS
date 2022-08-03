@@ -6,6 +6,7 @@
 //
 
 import AlertToast
+import SimpleLoginPackage
 import SwiftUI
 
 struct SettingsView: View {
@@ -107,6 +108,7 @@ private struct LocalSettingsSection: View {
 
 private struct AliasDisplayModeSection: View {
     @AppStorage(kAliasDisplayMode) var aliasDisplayMode: AliasDisplayMode = .default
+    @State private var showingSampleData = false
 
     var body: some View {
         Section(content: {
@@ -119,11 +121,23 @@ private struct AliasDisplayModeSection: View {
                     }
                 }
                        .pickerStyle(SegmentedPickerStyle())
-                AliasDisplayModePreview()
+
+                if showingSampleData {
+                    AliasCompactView(alias: Alias.sample,
+                                     onCopy: {},
+                                     onSendMail: {},
+                                     onToggle: {},
+                                     onPin: {},
+                                     onUnpin: {},
+                                     onDelete: {})
+                }
             }
         }, header: {
             Text("Alias display mode")
         })
+        .onChange(of: aliasDisplayMode) { _ in
+            showingSampleData = true
+        }
     }
 }
 
@@ -262,6 +276,19 @@ private struct AboutSection: View {
                 label: {
                     Label("About SimpleLogin", systemImage: "info.circle")
                 })
+        }
+    }
+}
+
+enum AliasDisplayMode: Int, CaseIterable {
+    // swiftlint:disable:next explicit_enum_raw_value
+    case `default` = 0, comfortable, compact
+
+    var description: String {
+        switch self {
+        case .default: return "Default"
+        case .comfortable: return "Comfortable"
+        case .compact: return "Compact"
         }
     }
 }
