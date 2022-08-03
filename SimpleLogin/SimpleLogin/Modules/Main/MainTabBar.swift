@@ -40,6 +40,8 @@ struct MainTabBar: View {
             Image(systemName: selectedItem == item ? item.selectedImage : item.image)
             Text(item.title)
                 .font(.caption)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
         }
         .frame(maxWidth: UIDevice.current.userInterfaceIdiom != .phone ? 130 : .infinity)
         .foregroundColor(selectedItem == item ? .slPurple : (colorScheme == .dark ? .white : .gray))

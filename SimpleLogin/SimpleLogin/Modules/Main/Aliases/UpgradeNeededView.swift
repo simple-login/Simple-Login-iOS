@@ -23,6 +23,7 @@ struct UpgradeNeededView: View {
 
             // swiftlint:disable:next line_length
             Text("You've reached the limit of free aliases. Become premium user to gain access to all of our features.")
+                .fixedSize(horizontal: false, vertical: true)
                 .multilineTextAlignment(.center)
 
             VStack(alignment: .leading, spacing: 6) {
