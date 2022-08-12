@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 02/09/2021.
 //
 
+import AuthenticationServices
 import Combine
 import Introspect
 import Kingfisher
@@ -13,6 +14,7 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct AccountView: View {
+    @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: AccountViewModel
     @Binding var upgradeNeeded: Bool
     @State private var confettiCounter = 0
@@ -30,6 +32,13 @@ struct AccountView: View {
     }
 
     var body: some View {
+        let isShowingSafariView = Binding<Bool>(get: {
+            viewModel.linkToProtonUrlString != nil
+        }, set: { newValue in
+            if !newValue {
+                viewModel.linkToProtonUrlString = nil
+            }
+        })
         NavigationView {
             let connectedProtonAddress = viewModel.userInfo.connectedProtonAddress
             if viewModel.isInitialized {
@@ -38,8 +47,8 @@ struct AccountView: View {
                     NewslettersSection()
                     AliasesSection()
                     SenderFormatSection()
-                    ConnectToProtoSection(protonAddress: connectedProtonAddress) {
-                        print(#function)
+                    ConnectToProtonSection(protonAddress: connectedProtonAddress) {
+                        viewModel.connectWithProtonAction(apiUrl: preferences.apiUrl)
                     }
                     DeleteAccountSection(onDeleteAccount: onLogOut)
                     LogOutSection(onLogOut: onLogOut)
@@ -58,6 +67,18 @@ struct AccountView: View {
                             showingUpgradeView = true
                         }
                     }
+                }
+                .webAuthenticationSession(isPresented: isShowingSafariView) {
+                    if let linkToProtonUrlString = viewModel.linkToProtonUrlString,
+                       let url = URL(string: linkToProtonUrlString) {
+                        return .init(url: url,
+                                     callbackURLScheme: "auth.simplelogin",
+                                     onCompletion: viewModel.handleLinkingResult)
+                    }
+                    // swiftlint:disable:next force_unwrapping
+                    return .init(url: URL(string: "https://simplelogin.io")!,
+                                 callbackURLScheme: nil,
+                                 onCompletion: viewModel.handleLinkingResult)
                 }
             } else {
                 EmptyView()
@@ -383,17 +404,24 @@ private struct DeleteAccountSection: View {
     }
 }
 
-private struct ConnectToProtoSection: View {
+private struct ConnectToProtonSection: View {
+    @State private var showingAlert = false
     let protonAddress: String?
     let action: () -> Void
 
     var body: some View {
         Section(content: {
-            Button(action: action) {
+            Button(action: {
+                if protonAddress != nil {
+                    showingAlert = true
+                } else {
+                    action()
+                }
+            }, label: {
                 Label(protonAddress == nil ?
                       "Connect with Proton" : "Unlink account",
                       image: "Proton")
-            }
+            })
             .foregroundColor(.proton)
         }, header: {
             Text("Connect with Proton")
@@ -410,6 +438,12 @@ If you have Proton Unlimited, Business or Visionary, you can have SimpleLogin pr
 """)
             }
         })
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Please confirm"),
+                  message: Text("Unlink from \(protonAddress ?? "")?"),
+                  primaryButton: .default(Text("Unlink"), action: action),
+                  secondaryButton: .cancel())
+        }
     }
 }
 
