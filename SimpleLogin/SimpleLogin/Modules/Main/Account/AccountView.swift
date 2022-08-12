@@ -31,12 +31,16 @@ struct AccountView: View {
 
     var body: some View {
         NavigationView {
+            let connectedProtonAddress = viewModel.userInfo.connectedProtonAddress
             if viewModel.isInitialized {
                 Form {
                     UserInfoSection()
                     NewslettersSection()
                     AliasesSection()
                     SenderFormatSection()
+                    ConnectToProtoSection(protonAddress: connectedProtonAddress) {
+                        print(#function)
+                    }
                     DeleteAccountSection(onDeleteAccount: onLogOut)
                     LogOutSection(onLogOut: onLogOut)
                 }
@@ -376,6 +380,36 @@ private struct DeleteAccountSection: View {
                 onDeleteAccount()
             }
         }
+    }
+}
+
+private struct ConnectToProtoSection: View {
+    let protonAddress: String?
+    let action: () -> Void
+
+    var body: some View {
+        Section(content: {
+            Button(action: action) {
+                Label(protonAddress == nil ?
+                      "Connect with Proton" : "Unlink account",
+                      image: "Proton")
+            }
+            .foregroundColor(.proton)
+        }, header: {
+            Text("Connect with Proton")
+        }, footer: {
+            if let protonAddress = protonAddress {
+                Text("Your account is currently linked to the Proton account ") +
+                Text(protonAddress)
+                    .fontWeight(.bold)
+            } else {
+                Text("""
+You can connect your Proton and SimpleLogin accounts.
+You can then quickly log in to your SimpleLogin account using the Proton one.
+If you have Proton Unlimited, Business or Visionary, you can have SimpleLogin premium for free.
+""")
+            }
+        })
     }
 }
 

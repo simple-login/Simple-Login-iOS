@@ -222,7 +222,13 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
 
 extension UserInfo {
     static var empty: UserInfo {
-        UserInfo(name: "", email: "", profilePictureUrl: nil, isPremium: false, inTrial: false)
+        UserInfo(name: "",
+                 email: "",
+                 profilePictureUrl: nil,
+                 isPremium: false,
+                 inTrial: false,
+                 maxAliasFreePlan: 0,
+                 connectedProtonAddress: nil)
     }
 }
 
