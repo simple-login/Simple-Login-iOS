@@ -44,12 +44,12 @@ struct AccountView: View {
             if viewModel.isInitialized {
                 Form {
                     UserInfoSection()
-                    NewslettersSection()
-                    AliasesSection()
-                    SenderFormatSection()
                     ConnectToProtonSection(protonAddress: connectedProtonAddress) {
                         viewModel.connectWithProtonAction(apiUrl: preferences.apiUrl)
                     }
+                    NewslettersSection()
+                    AliasesSection()
+                    SenderFormatSection()
                     DeleteAccountSection(onDeleteAccount: onLogOut)
                     LogOutSection(onLogOut: onLogOut)
                 }
