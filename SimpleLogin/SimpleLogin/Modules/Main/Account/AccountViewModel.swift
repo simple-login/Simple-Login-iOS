@@ -5,6 +5,7 @@
 //  Created by Thanh-Nhon Nguyen on 02/09/2021.
 //
 
+import AuthenticationServices
 import Combine
 import LocalAuthentication
 import SimpleLoginPackage
@@ -22,6 +23,7 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
     @Published var askingForSettings = false
     @Published var error: Error?
     @Published var message: String?
+    @Published var linkToProtonUrlString: String?
     @Published private(set) var isInitialized = false
     @Published private(set) var isLoading = false
     @Published private(set) var shouldLogOut = false
@@ -32,6 +34,15 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
         let shouldUpdateUserSettings: () -> Bool = { [unowned self] in
             self.isInitialized && self.error == nil
         }
+
+        $isLoading
+            .sink { [weak self] isLoading in
+                guard let self = self else { return }
+                if isLoading {
+                    self.error = nil
+                }
+            }
+            .store(in: &cancellables)
 
         $notification
             .sink { [weak self] selectedNotification in
@@ -218,11 +229,84 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
             }
             .store(in: &cancellables)
     }
+
+    func connectWithProtonAction(apiUrl: String) {
+        if userInfo.connectedProtonAddress == nil {
+            linkToProton(apiUrl: apiUrl)
+        } else {
+            unlinkFromProton()
+        }
+    }
+
+    private func linkToProton(apiUrl: String) {
+        isLoading = true
+        session.client.getCookieToken(apiKey: session.apiKey)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(let error): self.error = error
+                }
+            } receiveValue: { [weak self]  token in
+                guard let self = self else { return }
+                let scheme = "auth.simplelogin"
+                let action = "link"
+                let next = "link"
+                // swiftlint:disable:next line_length
+                let linkToProtonUrlString = "\(apiUrl)/auth/api_to_cookie?token=\(token.value)&next=%2Fauth%2Fproton%2Flogin%3Faction%3D\(action)%26next%3D%2F\(next)%26scheme%3D\(scheme)"
+                self.linkToProtonUrlString = linkToProtonUrlString
+            }
+            .store(in: &cancellables)
+    }
+
+    private func unlinkFromProton() {
+        isLoading = true
+        session.client.unlinkFromProton(apiKey: session.apiKey)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                switch completion {
+                case .finished:
+                    self.message = "Your Proton account has been unlinked"
+                    self.refresh()
+                case .failure(let error): self.error = error
+                }
+            } receiveValue: { _ in }
+            .store(in: &cancellables)
+    }
+
+    func handleLinkingResult(_ result: Result<URL, Error>) {
+        switch result {
+        case .success(let url):
+            if url.absoluteString.contains("link") {
+                message = "Your Proton account has been successfully linked"
+                refresh()
+            }
+
+        case .failure(let error):
+            if let webAuthenticationSessionError = error as? ASWebAuthenticationSessionError {
+                // User clicks on cancel button => do not handle this "error"
+                if case ASWebAuthenticationSessionError.canceledLogin = webAuthenticationSessionError {
+                    return
+                }
+            }
+            self.error = error
+        }
+    }
 }
 
 extension UserInfo {
     static var empty: UserInfo {
-        UserInfo(name: "", email: "", profilePictureUrl: nil, isPremium: false, inTrial: false)
+        UserInfo(name: "",
+                 email: "",
+                 profilePictureUrl: nil,
+                 isPremium: false,
+                 inTrial: false,
+                 maxAliasFreePlan: 0,
+                 connectedProtonAddress: nil)
     }
 }
 

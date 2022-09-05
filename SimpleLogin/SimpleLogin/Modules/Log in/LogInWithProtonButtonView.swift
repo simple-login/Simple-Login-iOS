@@ -11,14 +11,19 @@ import SwiftUI
 
 struct LogInWithProtonButtonView: View {
     @EnvironmentObject private var preferences: Preferences
-    @State private var isShowingSafariView = false
     @State private var selectedUrlString: String?
     let onSuccess: (ApiKey) -> Void
     let onError: (Error) -> Void
 
     var body: some View {
+        let isShowingSafariView = Binding<Bool>(get: {
+            selectedUrlString != nil
+        }, set: { newValue in
+            if !newValue {
+                selectedUrlString = nil
+            }
+        })
         Button(action: {
-            isShowingSafariView = true
             selectedUrlString = "\(preferences.apiUrl)/auth/proton/login?mode=apikey"
         }, label: {
             ZStack {
@@ -40,9 +45,9 @@ struct LogInWithProtonButtonView: View {
                 .stroke(Color.proton, lineWidth: 4)
         )
         .clipShape(RoundedRectangle(cornerRadius: 8))
-        .webAuthenticationSession(isPresented: $isShowingSafariView) {
+        .webAuthenticationSession(isPresented: isShowingSafariView) {
             // swiftlint:disable:next force_unwrapping
-            let url = URL(string: "\(preferences.apiUrl)/auth/proton/login?mode=apikey")!
+            let url = URL(string: selectedUrlString ?? "") ?? URL(string: "https://simplelogin.io")!
             return .init(url: url, callbackURLScheme: "auth.simplelogin", onCompletion: handleResult)
         }
     }
