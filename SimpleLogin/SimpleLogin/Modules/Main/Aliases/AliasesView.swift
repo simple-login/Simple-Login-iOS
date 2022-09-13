@@ -63,6 +63,9 @@ struct AliasesView: View {
                                 viewModel.update(alias: updatedAlias)
                             },
                             onDeleteAlias: { deletedAlias in
+                                if deletedAlias.id == createdAlias?.id {
+                                    createdAlias = nil
+                                }
                                 viewModel.remove(alias: deletedAlias)
                             })
                             .ignoresSafeArea(.keyboard)
@@ -184,6 +187,9 @@ struct AliasesView: View {
                             viewModel.update(alias: updatedAlias)
                         },
                         onDeleteAlias: { deletedAlias in
+                            if deletedAlias.id == createdAlias?.id {
+                                createdAlias = nil
+                            }
                             viewModel.remove(alias: deletedAlias)
                         })
                 }
@@ -198,12 +204,7 @@ struct AliasesView: View {
         .onReceive(Just(viewModel.refreshControl.isRefreshing)) { isRefreshing in
             if isRefreshing {
                 createdAlias = nil
-            }
-        }
-        .onReceive(Just(viewModel.isLoading)) { isLoading in
-            if  !isLoading, UIDevice.current.userInterfaceIdiom != .phone, selectedAlias == nil {
-                selectedAlias = viewModel.aliases.first
-                selectedLink = .details
+                selectedAlias = nil
             }
         }
         .alert(isPresented: $showingDeleteConfirmationAlert) {

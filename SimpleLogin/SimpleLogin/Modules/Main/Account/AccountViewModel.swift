@@ -249,7 +249,7 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
                 case .finished: break
                 case .failure(let error): self.error = error
                 }
-            } receiveValue: { [weak self]  token in
+            } receiveValue: { [weak self] token in
                 guard let self = self else { return }
                 let scheme = "auth.simplelogin"
                 let action = "link"
