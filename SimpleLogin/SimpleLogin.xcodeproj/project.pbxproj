@@ -1253,7 +1253,7 @@
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Keyboard Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Aliases Keyboard";
+				INFOPLIST_KEY_CFBundleDisplayName = SimpleLogin;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1281,7 +1281,7 @@
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Keyboard Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Aliases Keyboard";
+				INFOPLIST_KEY_CFBundleDisplayName = SimpleLogin;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
