@@ -203,14 +203,17 @@ private struct KeyboardFullAccessExplanationView: View {
                     Text("""
         Most of the functionalities of this application are based on making requests to our server. Every request is attached with an API key in order for our server to authenticate you.
 
-        When you successfully log in, our server sends a valid API key to the application. The application then saves this API key to a Keychain Group in order to reuse it in next sessions without asking you to authenticate again.
+        When you successfully log in, our server sends a valid API key to the application. The application then saves this API key to a Keychain Group in order to reuse it without asking you to authenticate again.
 
-        The keyboard extension needs to use the API key saved in Keychain Group by the host application to make requests by itself. Such access to Keychain Group requires full access. The keyboard extension does not record nor share anything you type.
+        The keyboard extension needs to use the API key saved in Keychain Group by the host application to make requests by itself (get the list of aliases and create new aliases). Such access to Keychain Group and requests require full access. The keyboard extension does not record nor share anything you type.
+
+        More technical information [here]( https://developer.apple.com/documentation/uikit/keyboards_and_input/creating_a_custom_keyboard/configuring_open_access_for_a_custom_keyboard).
         """)
                     // swiftlint:enable line_length
                     HStack {
                         Text("Need more information?")
-                        URLButton(urlString: "mailto:hi@simplelogin.io", foregroundColor: .slPurple) {
+                        URLButton(urlString: "mailto:support@simplelogin.zendesk.com",
+                                  foregroundColor: .slPurple) {
                             Label("Email us", systemImage: "envelope.fill")
                         }
                     }

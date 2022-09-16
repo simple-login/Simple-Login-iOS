@@ -75,7 +75,7 @@ struct AboutView: View {
 
                 customImageLabel(title: "Twitter",
                                  imageName: "Twitter",
-                                 urlString: "https://twitter.com/simple_login")
+                                 urlString: "https://twitter.com/simplelogin")
 
                 customImageLabel(title: "Reddit",
                                  imageName: "Reddit",
@@ -87,7 +87,7 @@ struct AboutView: View {
             }
 
             Section(content: {
-                URLButton(urlString: "mailto:hi@simplelogin.io") {
+                URLButton(urlString: "mailto:support@simplelogin.zendesk.com") {
                     Label("Email us", systemImage: "envelope.fill")
                 }
             }, header: {
