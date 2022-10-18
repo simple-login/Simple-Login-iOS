@@ -5,82 +5,97 @@
 //  Created by Thanh-Nhon Nguyen on 19/11/2021.
 //
 
-import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class CreateAliasViewModel: BaseSessionViewModel, ObservableObject {
+final class CreateAliasViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var options: AliasOptions?
-    @Published private(set) var mailboxes: [Mailbox]?
+    @Published private(set) var mailboxes: [Mailbox] = []
     @Published private(set) var createdAlias: Alias?
+
     @Published var error: Error?
+    @Published var prefix = ""
+    @Published var selectedSuffix: Suffix?
+    @Published var mailboxIds = [Int]()
+    @Published var notes = ""
 
-    private var cancellables = Set<AnyCancellable>()
+    private let session: SessionV2
+    private let mode: CreateAliasView.Mode?
 
-    func fetchOptionsAndMailboxes() {
-        isLoading = true
-        let getOptions = session.client.getAliasOptions(apiKey: session.apiKey, hostname: nil)
-        let getMailboxes = session.client.getMailboxes(apiKey: session.apiKey)
-        Publishers.Zip(getOptions, getMailboxes)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] result in
-                guard let self = self else { return }
-                self.options = result.0
-                self.mailboxes = result.1.mailboxes.sorted { $0.id < $1.id }
-            }
-            .store(in: &cancellables)
+    var canCreate: Bool {
+        prefix.isValidPrefix && !mailboxIds.isEmpty && selectedSuffix != nil
     }
 
-    func createAlias(options: AliasCreationOptions) {
-        guard !isLoading else { return }
-        isLoading = true
-        session.client.createAlias(apiKey: session.apiKey, options: options)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
+    init(session: SessionV2, mode: CreateAliasView.Mode?) {
+        self.session = session
+        self.mode = mode
+        switch mode {
+        case .url(let url):
+            prefix = url.notWwwHostname() ?? ""
+            notes = url.host ?? ""
+        case .text(let text):
+            notes = text
+        case .none:
+            break
+        }
+    }
+
+    func fetchOptionsAndMailboxes() {
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let getAliasOptionsEndpoint = GetAliasOptionsEndpoint(apiKey: session.apiKey.value)
+                let options = try await session.execute(getAliasOptionsEndpoint)
+                self.options = options
+                self.selectedSuffix = options.suffixes.first
+
+                let getMailboxesEndpoint = GetMailboxesEndpoint(apiKey: session.apiKey.value)
+                let mailboxes = try await session.execute(getMailboxesEndpoint).mailboxes
+                self.mailboxes = mailboxes.sorted { $0.id < $1.id }
+                if let defaultMailbox = mailboxes.first(where: { $0.default }) ?? mailboxes.first {
+                    self.mailboxIds.append(defaultMailbox.id)
                 }
-            } receiveValue: { [weak self] createdAlias in
-                guard let self = self else { return }
-                self.createdAlias = createdAlias
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
+    }
+
+    func createAlias() {
+        guard let selectedSuffix else { return }
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let createAliasEndpoint = CreateAliasEndpoint(apiKey: session.apiKey.value,
+                                                              request: .init(prefix: prefix,
+                                                                             suffix: selectedSuffix,
+                                                                             mailboxIds: mailboxIds,
+                                                                             note: notes,
+                                                                             name: nil),
+                                                              hostname: nil)
+                createdAlias = try await session.execute(createAliasEndpoint)
+            } catch {
+                self.error = error
+            }
+        }
     }
 
     func random(mode: RandomMode) {
-        guard !isLoading else { return }
-        isLoading = true
-        session.client.randomAlias(apiKey: session.apiKey,
-                                   options: AliasRandomOptions(mode: mode))
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] randomAlias in
-                guard let self = self else { return }
-                self.createdAlias = randomAlias
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let randomAliasEndpoint = RandomAliasEndpoint(apiKey: session.apiKey.value,
+                                                              note: notes,
+                                                              mode: mode,
+                                                              hostname: nil)
+                createdAlias = try await session.execute(randomAliasEndpoint)
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 }

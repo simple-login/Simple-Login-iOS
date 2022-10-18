@@ -116,7 +116,7 @@ struct MainView: View {
                     }
             case .createAlias:
                 CreateAliasView(
-                    session: session,
+                    session: sessionV2,
                     mode: nil,
                     onCreateAlias: { createdAlias in
                         aliasCreationCount += 1
