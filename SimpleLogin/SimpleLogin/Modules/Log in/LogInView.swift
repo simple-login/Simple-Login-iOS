@@ -110,16 +110,15 @@ struct LogInView: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .opacity(viewModel.isShowingKeyboard ? 0 : 1)
                     .fullScreenCover(isPresented: $showingSignUpView) {
-                        Text("Sign up view")
-//                        if let client = viewModel.client {
-//                            SignUpView(client: client) { emai, password in
-//                                self.email = emai
-//                                self.password = password
-//                                self.viewModel.logIn(email: email,
-//                                                     password: password,
-//                                                     device: UIDevice.current.name)
-//                            }
-//                        }
+                        if let apiService = viewModel.apiService {
+                            SignUpView(apiService: apiService) { email, password in
+                                Task {
+                                    viewModel.email = email
+                                    viewModel.password = password
+                                    await viewModel.logIn()
+                                }
+                            }
+                        }
                     }
             }
         }
@@ -276,18 +275,13 @@ struct LogInView: View {
     }
 
     private func otpView() -> some View {
-//        OtpView(
-//            mode: $otpMode,
-//            client: viewModel.client,
-//            onVerification: { apiKey in
-//                onComplete(apiKey, viewModel.client)
-//            },
-//            onActivation: {
-//                viewModel.logIn(email: email,
-//                                password: password,
-//                                device: UIDevice.current.name)
-//            })
-        Text("OTP View")
+        OtpView(
+            mode: $otpMode,
+            apiService: viewModel.apiService,
+            onVerification: { apiKey in
+                onComplete(apiKey, viewModel.apiService)
+            },
+            onActivation: viewModel.logIn)
     }
 
     private var resetPasswordConfig: TextFieldAlertConfig {

@@ -9,15 +9,19 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class SignUpViewModel: BaseClientViewModel, ObservableObject {
+final class SignUpViewModel: ObservableObject {
+    @Published var email = ""
+    @Published var password = ""
     @Published private(set) var isLoading = false
     @Published private(set) var registeredEmail: String?
     @Published private(set) var isShowingKeyboard = false
     @Published var error: Error?
-    private var cancellables = Set<AnyCancellable>()
 
-    override init(client: SLClient) {
-        super.init(client: client)
+    private var cancellables = Set<AnyCancellable>()
+    let apiService: APIServiceProtocol
+
+    init(apiService: APIServiceProtocol) {
+        self.apiService = apiService
         observeKeyboardEvents()
     }
 
@@ -37,24 +41,17 @@ final class SignUpViewModel: BaseClientViewModel, ObservableObject {
             .store(in: &cancellables)
     }
 
-    func register(email: String, password: String) {
+    @MainActor
+    func register() async {
+        defer { isLoading = false }
         isLoading = true
-        client.register(email: email, password: password)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] _ in
-                guard let self = self else { return }
-                self.registeredEmail = email
-            }
-            .store(in: &cancellables)
+        do {
+            let registerEndpoint = RegisterEndpoint(email: email, password: password)
+            _ = try await apiService.execute(registerEndpoint)
+            self.registeredEmail = email
+        } catch {
+            self.error = error
+        }
     }
 
     func handledRegisteredEmail() {

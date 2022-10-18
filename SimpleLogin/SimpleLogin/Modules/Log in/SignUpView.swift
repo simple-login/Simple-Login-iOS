@@ -11,19 +11,17 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct SignUpView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: SignUpViewModel
     @State private var showingLoadingAlert = false
     @State private var showingRegisteredEmailAlert = false
     @State private var showingTermsAndConditions = false
-    @State private var email = ""
-    @State private var password = ""
     @State private var otpMode: OtpMode?
-    let onSignUp: (String, String) -> Void // A closure that holds email & password to send back to log in page
+    let onSignUp: (String, String) -> Void
 
-    init(client: SLClient,
+    init(apiService: APIServiceProtocol,
          onSignUp: @escaping (String, String) -> Void) {
-        self._viewModel = StateObject(wrappedValue: .init(client: client))
+        self._viewModel = StateObject(wrappedValue: .init(apiService: apiService))
         self.onSignUp = onSignUp
     }
 
@@ -51,9 +49,10 @@ struct SignUpView: View {
                 LogoView()
             }
 
-            EmailPasswordView(email: $email, password: $password, mode: .signUp) {
-                viewModel.register(email: email, password: password)
-            }
+            EmailPasswordView(email: $viewModel.email,
+                              password: $viewModel.password,
+                              mode: .signUp,
+                              onAction: viewModel.register)
             .padding()
 
             Group {
@@ -66,7 +65,7 @@ struct SignUpView: View {
                 }, label: {
                     Text("View Terms & Conditions")
                 })
-                    .foregroundColor(.blue)
+                .foregroundColor(.blue)
             }
             .padding(.horizontal)
             .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ?
@@ -77,12 +76,10 @@ struct SignUpView: View {
             if !viewModel.isShowingKeyboard {
                 Divider()
 
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }, label: {
+                Button(action: dismiss.callAsFunction) {
                     Text("Already have an account")
                         .font(.callout)
-                })
+                }
                 .padding(.vertical)
             }
         }
@@ -110,9 +107,9 @@ struct SignUpView: View {
         .alertToastError($viewModel.error)
         .alert(isPresented: $showingRegisteredEmailAlert) {
             Alert(title: Text("You are all set"),
-                  message: Text("We've sent an email to \(email). Please check your inbox."),
+                  message: Text("We've sent an email to \(viewModel.email). Please check your inbox."),
                   dismissButton: .default(Text("OK")) {
-                otpMode = .activate(email: email)
+                otpMode = .activate(email: viewModel.email)
             })
         }
     }
@@ -120,10 +117,10 @@ struct SignUpView: View {
     private var otpView: some View {
         // swiftlint:disable trailing_closure
         OtpView(mode: $otpMode,
-                client: viewModel.client,
+                apiService: viewModel.apiService,
                 onActivation: {
-            self.onSignUp(email, password)
-            presentationMode.wrappedValue.dismiss()
+            onSignUp(viewModel.email, viewModel.password)
+            dismiss.callAsFunction()
         })
         // swiftlint:enable trailing_closure
     }
