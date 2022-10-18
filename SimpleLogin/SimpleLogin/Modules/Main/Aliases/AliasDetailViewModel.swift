@@ -75,9 +75,9 @@ final class AliasDetailViewModel: ObservableObject {
 
     func getMailboxes() {
         guard !isLoadingMailboxes else { return }
-        defer { isLoadingMailboxes = false }
-        isLoadingMailboxes = true
         Task { @MainActor in
+            defer { isLoadingMailboxes = false }
+            isLoadingMailboxes = true
             do {
                 let getMailboxesEndpoint = GetMailboxesEndpoint(apiKey: session.apiKey.value)
                 let result = try await session.execute(getMailboxesEndpoint)
@@ -90,9 +90,9 @@ final class AliasDetailViewModel: ObservableObject {
 
     func refresh() {
         print("Refreshing \(alias.email)")
-        defer { isRefreshing = false }
-        isRefreshing = true
         Task { @MainActor in
+            defer { isRefreshing = false }
+            isRefreshing = true
             do {
                 let getAliasEndpoint = GetAliasEndpoint(apiKey: session.apiKey.value,
                                                         aliasID: alias.id)
@@ -115,10 +115,10 @@ final class AliasDetailViewModel: ObservableObject {
     func update(option: AliasUpdateOption) {
         guard !isUpdating else { return }
         print("Updating \(alias.email)")
-        defer { isUpdating = false }
-        isUpdating = true
-        isUpdated = false
         Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
+            isUpdated = false
             do {
                 let updateAliasEndpoint = UpdateAliasEndpoint(apiKey: session.apiKey.value,
                                                               aliasID: alias.id,
@@ -133,9 +133,9 @@ final class AliasDetailViewModel: ObservableObject {
     }
 
     func toggle() {
-        defer { isUpdating = false }
-        isUpdating = true
-        Task {
+        Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
             do {
                 let toggleAliasEndpoint = ToggleAliasEndpoint(apiKey: session.apiKey.value,
                                                               aliasID: alias.id)
@@ -148,9 +148,9 @@ final class AliasDetailViewModel: ObservableObject {
     }
 
     func delete() {
-        defer { isUpdating = false }
-        isUpdating = true
         Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
             do {
                 let deleteAliasEndpoint = DeleteAliasEndpoint(apiKey: session.apiKey.value, aliasID: alias.id)
                 _ = try await session.execute(deleteAliasEndpoint)
