@@ -178,18 +178,17 @@ struct AliasesView: View {
                     }
                 }
                 .sheet(isPresented: $showingSearchView) {
-                    Text("Search alias")
-//                    SearchAliasesView(
-//                        session: viewModel.session,
-//                        onUpdateAlias: { updatedAlias in
-//                            viewModel.update(alias: updatedAlias)
-//                        },
-//                        onDeleteAlias: { deletedAlias in
-//                            if deletedAlias.id == createdAlias?.id {
-//                                createdAlias = nil
-//                            }
-//                            viewModel.remove(alias: deletedAlias)
-//                        })
+                    SearchAliasesView(
+                        session: viewModel.session,
+                        onUpdateAlias: { updatedAlias in
+                            viewModel.update(alias: updatedAlias)
+                        },
+                        onDeleteAlias: { deletedAlias in
+                            if deletedAlias.id == createdAlias?.id {
+                                createdAlias = nil
+                            }
+                            viewModel.remove(alias: deletedAlias)
+                        })
                 }
             }
 
