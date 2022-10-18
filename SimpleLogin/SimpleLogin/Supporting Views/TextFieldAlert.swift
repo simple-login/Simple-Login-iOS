@@ -16,7 +16,7 @@ struct TextFieldAlertConfig {
     var autocapitalizationType: UITextAutocapitalizationType = .sentences
     var clearButtonMode: UITextField.ViewMode = .always
     let actionTitle: String
-    let action: (String?) -> Void
+    let action: (String?) async -> Void
 }
 
 struct TextFieldAlertModifier: ViewModifier {
@@ -55,7 +55,9 @@ struct TextFieldAlertModifier: ViewModifier {
             dismiss()
         })
         controller.addAction(UIAlertAction(title: config.actionTitle, style: .default) { _ in
-            config.action(controller.textFields?.first?.text)
+            Task {
+                await config.action(controller.textFields?.first?.text)
+            }
             dismiss()
         })
         return controller

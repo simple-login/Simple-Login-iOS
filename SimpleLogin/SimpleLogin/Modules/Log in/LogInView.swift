@@ -13,9 +13,6 @@ struct LogInView: View {
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: LogInViewModel
 
-    @AppStorage("Email") private var email = ""
-    @State private var password = ""
-
     @State private var showingAboutView = false
     @State private var showingApiKeyView = false
     @State private var showingApiUrlView = false
@@ -75,15 +72,10 @@ struct LogInView: View {
 
             if !launching {
                 VStack {
-                    EmailPasswordView(email: $email,
-                                      password: $password,
-                                      mode: .logIn) {
-                        Task {
-                            await viewModel.logIn(email: email,
-                                                  password: password,
-                                                  device: UIDevice.current.name)
-                        }
-                    }
+                    EmailPasswordView(email: $viewModel.email,
+                                      password: $viewModel.password,
+                                      mode: .logIn,
+                                      onAction: viewModel.logIn)
 
                     Text("or")
                         .font(.caption)
@@ -152,7 +144,7 @@ struct LogInView: View {
         }
         .onReceive(Just(viewModel.shouldActivate)) { shouldActivate in
             if shouldActivate {
-                otpMode = .activate(email: email)
+                otpMode = .activate(email: viewModel.email)
                 viewModel.handledShouldActivate()
             }
         }
@@ -303,13 +295,9 @@ struct LogInView: View {
                              message: "Enter your email address",
                              placeholder: "Ex: john.doe@example.com",
                              keyboardType: .emailAddress,
+                             autocapitalizationType: .none,
                              clearButtonMode: .whileEditing,
-                             actionTitle: "Submit") { email in
-            if let email = email {
-                Task {
-                    await viewModel.resetPassword(email: email)
-                }
-            }
-        }
+                             actionTitle: "Submit",
+                             action: viewModel.resetPassword(email:))
     }
 }

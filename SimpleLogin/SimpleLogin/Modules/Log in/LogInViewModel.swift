@@ -12,6 +12,9 @@ import SwiftUI
 final class LogInViewModel: ObservableObject {
     deinit { print("\(Self.self) is deallocated") }
 
+    @AppStorage("Email") var email = ""
+    @Published var password = ""
+
     @Published private(set) var isLoading = false
     @Published private(set) var userLogin: UserLogin?
     @Published private(set) var shouldActivate = false
@@ -60,11 +63,13 @@ final class LogInViewModel: ObservableObject {
     }
 
     @MainActor
-    func logIn(email: String, password: String, device: String) async {
+    func logIn() async {
         defer { isLoading = false }
         isLoading = true
         do {
-            let logInEndpoint = LogInEndpoint(email: email, password: password, device: device)
+            let logInEndpoint = LogInEndpoint(email: email,
+                                              password: password,
+                                              device: UIDevice.current.name)
             self.userLogin = try await apiService.execute(logInEndpoint)
         } catch {
             if let apiServiceError = error as? APIServiceError,
@@ -78,7 +83,8 @@ final class LogInViewModel: ObservableObject {
     }
 
     @MainActor
-    func resetPassword(email: String) async {
+    func resetPassword(email: String?) async {
+        guard let email, !email.isEmpty else { return }
         defer { isLoading = false }
         isLoading = true
         do {
