@@ -20,7 +20,7 @@ struct SimpleLoginApp: App {
     @AppStorage(kDidShowTips) private var didShowTips = false
     @State private var preferences = Preferences.shared
     @State private var apiKey: ApiKey?
-    @State private var client: SLClient?
+    @State private var apiService: APIServiceProtocol?
     private let reachabilityObserver = ReachabilityObserver()
     private let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "SimpleLogin")
@@ -34,12 +34,12 @@ struct SimpleLoginApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if let apiKey = apiKey, let client = client {
+            if let apiKey = apiKey, let apiService = apiService {
                 MainView {
                     try? KeychainService.shared.setApiKey(nil)
                     try? DataController(context: persistentContainer.viewContext).reset()
                     self.apiKey = nil
-                    self.client = nil
+                    self.apiService = nil
                     self.biometricAuthEnabled = false
                     self.ultraProtectionEnabled = false
                     self.forceDarkMode = false
@@ -54,7 +54,7 @@ struct SimpleLoginApp: App {
                 .accentColor(.slPurple)
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
                 .environmentObject(preferences)
-                .environmentObject(Session(apiKey: apiKey, client: client))
+                .environmentObject(Session(apiKey: apiKey, client: SLClient.default))
                 .environmentObject(reachabilityObserver)
                 .sensitiveContent {
                     ZStack {
@@ -63,10 +63,10 @@ struct SimpleLoginApp: App {
                     }
                 }
             } else {
-                LogInView(apiUrl: preferences.apiUrl) { apiKey, client in
+                LogInView(apiUrl: preferences.apiUrl) { apiKey, apiService in
                     try? KeychainService.shared.setApiKey(apiKey)
                     self.apiKey = apiKey
-                    self.client = client
+                    self.apiService = apiService
                 }
                 .accentColor(.slPurple)
                 .environmentObject(preferences)

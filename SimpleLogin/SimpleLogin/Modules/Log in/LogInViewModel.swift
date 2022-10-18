@@ -20,7 +20,7 @@ final class LogInViewModel: ObservableObject {
     @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
 
-    private(set) var client: SLClient = .default
+    private(set) var apiService = APIService.default
 
     init(apiUrl: String) {
         updateApiUrl(apiUrl)
@@ -44,7 +44,11 @@ final class LogInViewModel: ObservableObject {
     }
 
     func updateApiUrl(_ apiUrl: String) {
-        client = .init(session: .init(configuration: .simpleLogin), baseUrlString: apiUrl) ?? .default
+        if let url = URL(string: apiUrl) {
+            apiService = APIService(baseURL: url,
+                                    session: .init(configuration: .simpleLogin),
+                                    printDebugInformation: featureFlags.printNetworkDebugInformation)
+        }
     }
 
     func handledUserLogin() {
@@ -55,63 +59,39 @@ final class LogInViewModel: ObservableObject {
         shouldActivate = false
     }
 
-    func logIn(email: String, password: String, device: String) {
-        guard !isLoading else { return }
+    @MainActor
+    func logIn(email: String, password: String, device: String) async {
+        defer { isLoading = false }
         isLoading = true
-        client.login(email: email, password: password, device: device)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    if let slClientError = error as? SLClientError {
-                        switch slClientError {
-                        case .clientError(let errorResponse):
-                            if errorResponse.statusCode == 422 {
-                                self.shouldActivate = true
-                            } else {
-                                // swiftlint:disable:next fallthrough
-                                fallthrough
-                            }
-                        default:
-                            self.error = error
-                        }
-                    } else {
-                        self.error = error
-                    }
-                }
-            } receiveValue: { [weak self] userLogin in
-                guard let self = self else { return }
-                self.userLogin = userLogin
+        do {
+            let logInEndpoint = LogInEndpoint(email: email, password: password, device: device)
+            self.userLogin = try await apiService.execute(logInEndpoint)
+        } catch {
+            if let apiServiceError = error as? APIServiceError,
+               case .clientError(let errorResponse) = apiServiceError,
+               errorResponse.statusCode == 422 {
+                self.shouldActivate = true
+            } else {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
-    func resetPassword(email: String) {
+    @MainActor
+    func resetPassword(email: String) async {
+        defer { isLoading = false }
         isLoading = true
-        client.forgotPassword(email: email)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] ok in
-                guard let self = self else { return }
-                if ok.value {
-                    self.resetEmail = email
-                } else {
-                    self.error = SLError.unknown
-                }
+        do {
+            let forgotPasswordEndpoint = ForgotPasswordEndpoint(email: email)
+            let response = try await apiService.execute(forgotPasswordEndpoint)
+            if response.value {
+                self.resetEmail = email
+            } else {
+                self.error = SLError.unknown
             }
-            .store(in: &cancellables)
+        } catch {
+            self.error = error
+        }
     }
 
     func handledResetEmail() {
@@ -125,4 +105,12 @@ extension URLSessionConfiguration {
         config.timeoutIntervalForRequest = 20
         return config
     }
+}
+
+private extension APIService {
+    static let `default`: APIService = {
+        .init(baseURL: URL(string: "https://app.simplelogin.io/")!, // swiftlint:disable:this force_unwrapping
+              session: .init(configuration: .simpleLogin),
+              printDebugInformation: featureFlags.printNetworkDebugInformation)
+    }()
 }

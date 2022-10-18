@@ -10,6 +10,8 @@ import SimpleLoginPackage
 extension Error {
     var safeLocalizedDescription: String {
         switch self {
+        case let apiServiceError as APIServiceError:
+            return apiServiceError.description
         case let slClientError as SLClientError:
             return slClientError.localizedDescription
         case let slError as SLError:
