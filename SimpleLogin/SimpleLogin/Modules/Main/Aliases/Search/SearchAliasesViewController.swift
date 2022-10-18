@@ -10,6 +10,7 @@ import SimpleLoginPackage
 import SwiftUI
 import UIKit
 
+/*
 final class SearchAliasesViewController: BaseViewController {
     private let viewModel: SearchAliasesViewModel
     let onUpdateAlias: (Alias) -> Void
@@ -124,3 +125,4 @@ extension SearchAliasesViewController: UISearchBarDelegate {
         dismiss(animated: true, completion: nil)
     }
 }
+*/

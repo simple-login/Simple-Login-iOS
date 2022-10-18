@@ -16,12 +16,12 @@ import SwiftUI
 struct AliasDetailWrapperView: View {
     @Environment(\.presentationMode) private var presentationMode
     @Binding var selectedAlias: Alias?
-    private let session: Session
+    private let session: SessionV2
     var onUpdateAlias: (Alias) -> Void
     var onDeleteAlias: (Alias) -> Void
 
     init(selectedAlias: Binding<Alias?>,
-         session: Session,
+         session: SessionV2,
          onUpdateAlias: @escaping (Alias) -> Void,
          onDeleteAlias: @escaping (Alias) -> Void) {
         self._selectedAlias = selectedAlias
@@ -61,7 +61,7 @@ struct AliasDetailView: View {
     var onDeleteAlias: (Alias) -> Void
 
     init(alias: Alias,
-         session: Session,
+         session: SessionV2,
          onUpdateAlias: @escaping (Alias) -> Void,
          onDeleteAlias: @escaping (Alias) -> Void) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias, session: session))
@@ -87,9 +87,6 @@ struct AliasDetailView: View {
                         .foregroundColor(.red)
                 })
             }
-        }
-        .introspectTableView { tableView in
-            tableView.refreshControl = viewModel.refreshControl
         }
         .toolbar {
             ToolbarItem(placement: .principal) {

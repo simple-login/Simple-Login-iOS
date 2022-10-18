@@ -11,6 +11,7 @@ import Reachability
 import SimpleLoginPackage
 import SwiftUI
 
+/*
 final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject {
     private let searchTermSubject = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
@@ -27,7 +28,7 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
 
     private let dataController: DataController
 
-    init(session: Session,
+    init(session: SessionV2,
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext) {
         self.dataController = .init(context: managedObjectContext)
@@ -259,3 +260,4 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
             .store(in: &cancellables)
     }
 }
+*/

@@ -18,31 +18,13 @@ struct AliasContactsView: View {
     @State private var newContactEmail = ""
     @State private var selectedUrlString: String?
 
-    init(alias: Alias, session: Session) {
+    init(alias: Alias, session: SessionV2) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias, session: session))
     }
 
     var body: some View {
-        let showingCopyAlert = Binding<Bool>(get: {
-            copiedText != nil
-        }, set: { isShowing in
-            if !isShowing {
-                copiedText = nil
-            }
-        })
-
-        let showingCreatedContactAlert = Binding<String?>(get: {
-            if viewModel.createdContact != nil {
-                return "Created new contact"
-            } else {
-                return nil
-            }
-        }, set: { message in
-            if message == nil {
-                viewModel.handledCreatedContact()
-            }
-        })
-
+        let showingCopyAlert = makeShowingCopyAlertBinding()
+        let showingCreatedContactAlert = makeShowingCreatedContactAlert()
         Form {
             Section(header: Text("Create new contact"),
                     footer: createContactSectionFooter) {
@@ -85,9 +67,6 @@ struct AliasContactsView: View {
                 }
             }
         }
-        .introspectTableView { tableView in
-            tableView.refreshControl = viewModel.refreshControl
-        }
         .toolbar {
             ToolbarItem(placement: .principal) {
                 AliasNavigationTitleView(alias: viewModel.alias)
@@ -109,6 +88,30 @@ struct AliasContactsView: View {
         .alertToastError($viewModel.error)
         .alertToastLoading(isPresenting: $showingLoadingAlert)
         .alertToastMessage(showingCreatedContactAlert)
+    }
+
+    private func makeShowingCopyAlertBinding() -> Binding<Bool> {
+        .init(get: {
+            copiedText != nil
+        }, set: { isShowing in
+            if !isShowing {
+                copiedText = nil
+            }
+        })
+    }
+
+    private func makeShowingCreatedContactAlert() -> Binding<String?> {
+        .init(get: {
+            if viewModel.createdContact != nil {
+                return "Created new contact"
+            } else {
+                return nil
+            }
+        }, set: { message in
+            if message == nil {
+                viewModel.handledCreatedContact()
+            }
+        })
     }
 
     private var createContactSectionFooter: some View {

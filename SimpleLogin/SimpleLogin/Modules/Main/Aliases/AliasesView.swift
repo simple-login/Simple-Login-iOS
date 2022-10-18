@@ -31,7 +31,7 @@ struct AliasesView: View {
         case details, contacts
     }
 
-    init(session: Session,
+    init(session: SessionV2,
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext,
          createdAlias: Binding<Alias?>) {
@@ -134,9 +134,6 @@ struct AliasesView: View {
                         }
                     }
                     .listStyle(.plain)
-                    .introspectTableView { tableView in
-                        tableView.refreshControl = viewModel.refreshControl
-                    }
                     .onReceive(Just(createdAlias)) { createdAlias in
                         if let createdAlias = createdAlias {
                             if !viewModel.isHandled(createdAlias) {
@@ -181,17 +178,18 @@ struct AliasesView: View {
                     }
                 }
                 .sheet(isPresented: $showingSearchView) {
-                    SearchAliasesView(
-                        session: viewModel.session,
-                        onUpdateAlias: { updatedAlias in
-                            viewModel.update(alias: updatedAlias)
-                        },
-                        onDeleteAlias: { deletedAlias in
-                            if deletedAlias.id == createdAlias?.id {
-                                createdAlias = nil
-                            }
-                            viewModel.remove(alias: deletedAlias)
-                        })
+                    Text("Search alias")
+//                    SearchAliasesView(
+//                        session: viewModel.session,
+//                        onUpdateAlias: { updatedAlias in
+//                            viewModel.update(alias: updatedAlias)
+//                        },
+//                        onDeleteAlias: { deletedAlias in
+//                            if deletedAlias.id == createdAlias?.id {
+//                                createdAlias = nil
+//                            }
+//                            viewModel.remove(alias: deletedAlias)
+//                        })
                 }
             }
 
@@ -201,12 +199,12 @@ struct AliasesView: View {
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingUpdatingAlert = isUpdating
         }
-        .onReceive(Just(viewModel.refreshControl.isRefreshing)) { isRefreshing in
-            if isRefreshing {
-                createdAlias = nil
-                selectedAlias = nil
-            }
-        }
+//        .onReceive(Just(viewModel.refreshControl.isRefreshing)) { isRefreshing in
+//            if isRefreshing {
+//                createdAlias = nil
+//                selectedAlias = nil
+//            }
+//        }
         .alert(isPresented: $showingDeleteConfirmationAlert) {
             guard let selectedAlias = selectedAlias else {
                 return Alert(title: Text("selectedAlias is nil"))

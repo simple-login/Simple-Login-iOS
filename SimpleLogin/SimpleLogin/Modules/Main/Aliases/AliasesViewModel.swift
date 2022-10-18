@@ -42,7 +42,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
 
     private let dataController: DataController
 
-    init(session: Session,
+    init(session: SessionV2,
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext) {
         self.dataController = .init(context: managedObjectContext)
@@ -93,36 +93,28 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
 
         // Online
         guard !isLoading, canLoadMorePages else { return }
-        isLoading = true
-        session.client.getAliases(apiKey: session.apiKey, page: currentPage, option: filterOption)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                self.refreshControl.endRefreshing()
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] aliasArray in
-                guard let self = self else { return }
-                self.aliases.append(contentsOf: aliasArray.aliases)
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let getAliasesEndpoint = GetAliasesEndpoint(apiKey: session.apiKey.value,
+                                                            page: currentPage,
+                                                            option: .filter(filterOption))
+                let result = try await session.execute(getAliasesEndpoint)
+                let newAliases = result.aliases
+                self.aliases.append(contentsOf: newAliases)
                 self.currentPage += 1
-                self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
-                do {
-                    try self.dataController.update(aliasArray.aliases)
-                } catch {
-                    self.error = error
-                }
+                self.canLoadMorePages = newAliases.count == kDefaultPageSize
+                try self.dataController.update(newAliases)
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
-    override func refresh() {
+    func refresh() {
         if !reachabilityObserver.reachable {
-            refreshControl.endRefreshing()
+//            refreshControl.endRefreshing()
         }
         aliases.removeAll()
         currentPage = 0
@@ -151,20 +143,13 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
 
     func toggle(alias: Alias) {
         guard !isUpdating else { return }
-        isUpdating = true
-        session.client.toggleAliasStatus(apiKey: session.apiKey, id: alias.id)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isUpdating = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] enabledResponse in
-                guard let self = self else { return }
+        Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
+            do {
+                let toggleAliasEndpoint = ToggleAliasEndpoint(apiKey: session.apiKey.value,
+                                                              aliasID: alias.id)
+                let enabledResponse = try await session.execute(toggleAliasEndpoint)
                 guard let index = self.aliases.firstIndex(where: { $0.id == alias.id }) else { return }
                 let updatedAlias = Alias(id: alias.id,
                                          email: alias.email,
@@ -187,34 +172,25 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
                 case .active, .inactive:
                     self.aliases.remove(at: index)
                 }
-                do {
-                    try self.dataController.update(updatedAlias)
-                } catch {
-                    self.error = error
-                }
+                try self.dataController.update(updatedAlias)
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func update(alias: Alias, option: AliasUpdateOption) {
         guard !isUpdating else { return }
-        isUpdating = true
-        session.client.updateAlias(apiKey: session.apiKey, id: alias.id, option: option)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isUpdating = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] _ in
-                guard let self = self else { return }
+        Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
+            do {
+                let updateAliasEndpoint = UpdateAliasEndpoint(apiKey: session.apiKey.value,
+                                                              aliasID: alias.id,
+                                                              option: option)
+                _ = try await session.execute(updateAliasEndpoint)
                 guard let index = self.aliases.firstIndex(where: { $0.id == alias.id }) else { return }
-                switch option {
-                case .pinned(let pinned):
+                if case .pinned(let pinned) = option {
                     let updatedAlias = Alias(id: alias.id,
                                              email: alias.email,
                                              name: alias.name,
@@ -230,36 +206,27 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
                                              latestActivity: alias.latestActivity,
                                              pinned: pinned)
                     self.aliases[index] = updatedAlias
-                    do {
-                        try self.dataController.update(updatedAlias)
-                    } catch {
-                        self.error = error
-                    }
-                default:
-                    break
+                    try self.dataController.update(updatedAlias)
                 }
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func delete(alias: Alias) {
-        isUpdating = true
-        session.client.deleteAlias(apiKey: session.apiKey, id: alias.id)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isUpdating = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] _ in
-                guard let self = self else { return }
+        Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
+            do {
+                let deleteAliasEndpoint = DeleteAliasEndpoint(apiKey: session.apiKey.value,
+                                                              aliasID: alias.id)
+                _ = try await session.execute(deleteAliasEndpoint)
                 self.remove(alias: alias)
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func handleCreatedAlias(_ createdAlias: Alias) {

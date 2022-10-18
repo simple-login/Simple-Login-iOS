@@ -9,6 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
+/*
 struct SearchAliasesResultView: View {
     @ObservedObject var viewModel: SearchAliasesViewModel
     @State private var showingUpdatingAlert = false
@@ -100,3 +101,4 @@ struct SearchAliasesResultView: View {
         .alertToastError($viewModel.error)
     }
 }
+*/

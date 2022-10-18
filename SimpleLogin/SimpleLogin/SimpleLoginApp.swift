@@ -54,6 +54,7 @@ struct SimpleLoginApp: App {
                 .accentColor(.slPurple)
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
                 .environmentObject(preferences)
+                .environmentObject(SessionV2(apiKey: apiKey, apiService: apiService))
                 .environmentObject(Session(apiKey: apiKey, client: SLClient.default))
                 .environmentObject(reachabilityObserver)
                 .sensitiveContent {

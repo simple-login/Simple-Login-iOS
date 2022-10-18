@@ -9,6 +9,7 @@ import CoreData
 import SimpleLoginPackage
 import SwiftUI
 
+/*
 struct SearchAliasesView: UIViewControllerRepresentable {
     @EnvironmentObject private var reachabilityObserver: ReachabilityObserver
     @Environment(\.managedObjectContext) private var managedObjectContext
@@ -30,3 +31,4 @@ struct SearchAliasesView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UINavigationController,
                                 context: Context) {}
 }
+*/

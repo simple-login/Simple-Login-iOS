@@ -8,6 +8,20 @@
 import SimpleLoginPackage
 import SwiftUI
 
+final class SessionV2: ObservableObject {
+    private let apiService: APIServiceProtocol
+    let apiKey: ApiKey
+
+    init(apiKey: ApiKey, apiService: APIServiceProtocol) {
+        self.apiKey = apiKey
+        self.apiService = apiService
+    }
+
+    func execute<E: EndpointV2>(_ endpoint: E) async throws ->  E.Response {
+        try await apiService.execute(endpoint)
+    }
+}
+
 final class Session: ObservableObject {
     let apiKey: ApiKey
     let client: SLClient

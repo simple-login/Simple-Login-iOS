@@ -13,6 +13,7 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject private var session: Session
+    @EnvironmentObject private var sessionV2: SessionV2
     @EnvironmentObject private var reachabilityObserver: ReachabilityObserver
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Environment(\.scenePhase) var scenePhase
@@ -49,7 +50,7 @@ struct MainView: View {
 
         VStack(spacing: 0) {
             TabView(selection: $selectedItem) {
-                AliasesView(session: session,
+                AliasesView(session: sessionV2,
                             reachabilityObserver: reachabilityObserver,
                             managedObjectContext: managedObjectContext,
                             createdAlias: $createdAlias)
