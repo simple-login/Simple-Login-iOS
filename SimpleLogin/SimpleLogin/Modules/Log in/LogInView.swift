@@ -140,7 +140,7 @@ struct LogInView: View {
             if userLogin.isMfaEnabled {
                 otpMode = .logIn(mfaKey: userLogin.mfaKey ?? "")
             } else if let apiKey = userLogin.apiKey {
-                onComplete(apiKey, viewModel.client)
+                onComplete(.init(value: apiKey), viewModel.client)
             }
             viewModel.handledUserLogin()
         }
