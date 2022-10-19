@@ -9,7 +9,7 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct AdvancedView: View {
-    @EnvironmentObject private var session: Session
+    @EnvironmentObject private var session: SessionV2
     @State private var showingMailboxesView = false
     @State private var showingCustomDomainsView = false
     @State private var selectedUrlString: String?

@@ -9,7 +9,7 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class DomainDetailViewModel: BaseSessionViewModel, ObservableObject {
+final class DomainDetailViewModel: ObservableObject {
     @Published private(set) var domain: CustomDomain = .empty
     @Published var catchAll = false
     @Published var randomPrefixGeneration = false
@@ -19,9 +19,10 @@ final class DomainDetailViewModel: BaseSessionViewModel, ObservableObject {
     @Published private(set) var isUpdated = false
     @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
+    private let session: SessionV2
 
-    init(domain: CustomDomain, session: Session) {
-        super.init(session: session)
+    init(domain: CustomDomain, session: SessionV2) {
+        self.session = session
         bind(domain: domain)
 
         $catchAll
@@ -55,45 +56,34 @@ final class DomainDetailViewModel: BaseSessionViewModel, ObservableObject {
 
     func update(option: CustomDomainUpdateOption) {
         guard !isUpdating else { return }
-        isUpdating = true
-        session.client.updateCustomDomain(apiKey: session.apiKey,
-                                          id: domain.id,
-                                          option: option)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isUpdating = false
-                switch completion {
-                case .finished:
-                    self.isUpdated = true
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] response in
-                self?.bind(domain: response.customDomain)
+        Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
+            do {
+                let updateDomain = UpdateCustomDomainEndpoint(apiKey: session.apiKey.value,
+                                                              customDomainID: domain.id,
+                                                              option: option)
+                let domain = try await session.execute(updateDomain).customDomain
+                bind(domain: domain)
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func getMailboxes() {
         guard !isLoadingMailboxes else { return }
-        isLoadingMailboxes = true
-        session.client.getMailboxes(apiKey: session.apiKey)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoadingMailboxes = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] mailboxArray in
-                guard let self = self else { return }
-                self.mailboxes = mailboxArray.mailboxes.sorted { $0.id < $1.id }
+        Task { @MainActor in
+            defer { isLoadingMailboxes = false }
+            isLoadingMailboxes = true
+            do {
+                let getMailboxesEndpoint = GetMailboxesEndpoint(apiKey: session.apiKey.value)
+                let mailboxes = try await session.execute(getMailboxesEndpoint).mailboxes
+                self.mailboxes = mailboxes.sorted { $0.id < $1.id }
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 }
 

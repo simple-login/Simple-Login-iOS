@@ -5,40 +5,38 @@
 //  Created by Thanh-Nhon Nguyen on 13/01/2022.
 //
 
-import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class CustomDomainsViewModel: BaseSessionViewModel, ObservableObject {
+final class CustomDomainsViewModel: ObservableObject {
     @Published private(set) var domains: [CustomDomain] = []
     @Published private(set) var noDomain = false
     @Published private(set) var isLoading = false
     @Published var error: Error?
 
-    private var cancellables = Set<AnyCancellable>()
+    let session: SessionV2
+
+    init(session: SessionV2) {
+        self.session = session
+    }
 
     func fetchCustomDomains(refreshing: Bool) {
         if !refreshing, !domains.isEmpty { return }
-        isLoading = !refreshing
-        session.client.getCustomDomains(apiKey: session.apiKey)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                self.refreshControl.endRefreshing()
-                switch completion {
-                case .finished:
-                    self.noDomain = self.domains.isEmpty
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] customDomainArray in
-                self?.domains = customDomainArray.customDomains
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = !refreshing
+            do {
+                let getDomainsEndpoint = GetCustomDomainsEndpoint(apiKey: session.apiKey.value)
+                let domains = try await session.execute(getDomainsEndpoint).customDomains
+                self.domains = domains
+                self.noDomain = domains.isEmpty
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
-    override func refresh() {
+    func refresh() {
         fetchCustomDomains(refreshing: true)
     }
 }

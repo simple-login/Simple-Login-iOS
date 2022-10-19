@@ -6,7 +6,6 @@
 //
 
 import Combine
-import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
@@ -16,7 +15,7 @@ struct MailboxesView: View {
     @State private var showingLoadingAlert = false
     @State private var mailboxToBeDeleted: Mailbox?
 
-    init(session: Session) {
+    init(session: SessionV2) {
         _viewModel = StateObject(wrappedValue: .init(session: session))
     }
 
@@ -39,9 +38,6 @@ struct MailboxesView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .ignoresSafeArea(.keyboard)
-        .introspectTableView { tableView in
-            tableView.refreshControl = viewModel.refreshControl
-        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
@@ -88,6 +84,7 @@ struct MailboxesView: View {
                              message: "A verification email will be sent to this email address",
                              placeholder: "Ex: john.doe@example.com",
                              keyboardType: .emailAddress,
+                             autocapitalizationType: .none,
                              clearButtonMode: .never,
                              actionTitle: "Submit") { newMailbox in
             if let newMailbox = newMailbox {

@@ -6,7 +6,6 @@
 //
 
 import Combine
-import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
@@ -15,7 +14,7 @@ struct CustomDomainsView: View {
     @State private var showingLoadingAlert = false
     @State private var selectedUnverifiedDomain: CustomDomain?
 
-    init(session: Session) {
+    init(session: SessionV2) {
         _viewModel = StateObject(wrappedValue: .init(session: session))
     }
 
@@ -44,9 +43,6 @@ struct CustomDomainsView: View {
                         }
                 }
             }
-        }
-        .introspectTableView { tableView in
-            tableView.refreshControl = viewModel.refreshControl
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Custom domains")

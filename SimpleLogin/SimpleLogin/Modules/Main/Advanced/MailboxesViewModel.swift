@@ -5,102 +5,81 @@
 //  Created by Thanh-Nhon Nguyen on 13/01/2022.
 //
 
-import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class MailboxesViewModel: BaseSessionViewModel, ObservableObject {
+final class MailboxesViewModel: ObservableObject {
     @Published private(set) var mailboxes = [Mailbox]()
     @Published private(set) var isLoading = false
     @Published var error: Error?
-    private var cancellables = Set<AnyCancellable>()
+
+    private let session: SessionV2
+
+    init(session: SessionV2) {
+        self.session = session
+    }
 
     func fetchMailboxes(refreshing: Bool) {
         if !refreshing, !mailboxes.isEmpty { return }
-        isLoading = !refreshing
-        session.client.getMailboxes(apiKey: session.apiKey)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                self.refreshControl.endRefreshing()
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] mailboxArray in
-                guard let self = self else { return }
-                self.mailboxes = mailboxArray.mailboxes
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = !refreshing
+            do {
+                let getMailboxesEndpoint = GetMailboxesEndpoint(apiKey: session.apiKey.value)
+                mailboxes = try await session.execute(getMailboxesEndpoint).mailboxes
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func makeDefault(mailbox: Mailbox) {
-        isLoading = true
-        session.client.updateMailbox(apiKey: session.apiKey,
-                                     id: mailbox.id,
-                                     option: .default)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] _ in
-                self?.fetchMailboxes(refreshing: true)
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let updateMailboxEndpoint = UpdateMailboxEndpoint(apiKey: session.apiKey.value,
+                                                                  mailboxID: mailbox.id,
+                                                                  option: .default)
+                _ = try await session.execute(updateMailboxEndpoint)
+                fetchMailboxes(refreshing: true)
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func delete(mailbox: Mailbox) {
-        isLoading = true
-        session.client.deleteMailbox(apiKey: session.apiKey, id: mailbox.id)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] deletedResponse in
-                guard let self = self else { return }
-                if deletedResponse.value {
-                    self.mailboxes.removeAll { $0.id == mailbox.id }
-                }
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let deleteMailboxEndpoint = DeleteMailboxEndpoint(apiKey: session.apiKey.value,
+                                                                  mailboxID: mailbox.id)
+                _ = try await session.execute(deleteMailboxEndpoint)
+                mailboxes.removeAll { $0.id == mailbox.id }
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func addMailbox(email: String) {
-        isLoading = true
-        session.client.createMailbox(apiKey: session.apiKey, email: email)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] mailbox in
-                guard let self = self else { return }
-                self.mailboxes.append(mailbox)
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let createMailboxEndpoint = CreateMailboxEndpoint(apiKey: session.apiKey.value,
+                                                                  email: email)
+                let mailbox = try await session.execute(createMailboxEndpoint)
+                mailboxes.append(mailbox)
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
-    override func refresh() {
+    func refresh() {
         fetchMailboxes(refreshing: true)
     }
 }
