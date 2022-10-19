@@ -7,7 +7,6 @@
 
 import Combine
 import CoreData
-import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
@@ -134,6 +133,7 @@ struct AliasesView: View {
                         }
                     }
                     .listStyle(.plain)
+                    .refreshable(action: viewModel.refresh)
                     .onReceive(Just(createdAlias)) { createdAlias in
                         if let createdAlias = createdAlias {
                             if !viewModel.isHandled(createdAlias) {

@@ -15,7 +15,9 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
     @Published var selectedStatus: AliasStatus = .all {
         didSet {
             Vibration.selection.vibrate()
-            refresh()
+            Task {
+                await refresh()
+            }
         }
     }
 
@@ -53,7 +55,9 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
         if aliases.isEmpty {
             getMoreAliasesIfNeed(currentAlias: nil)
         } else {
-            refresh()
+            Task {
+                await refresh()
+            }
         }
     }
 
@@ -97,11 +101,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
             defer { isLoading = false }
             isLoading = true
             do {
-                let getAliasesEndpoint = GetAliasesEndpoint(apiKey: session.apiKey.value,
-                                                            page: currentPage,
-                                                            option: .filter(filterOption))
-                let result = try await session.execute(getAliasesEndpoint)
-                let newAliases = result.aliases
+                let newAliases = try await getAliases(page: currentPage)
                 self.aliases.append(contentsOf: newAliases)
                 self.currentPage += 1
                 self.canLoadMorePages = newAliases.count == kDefaultPageSize
@@ -112,14 +112,22 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
         }
     }
 
-    func refresh() {
-        if !reachabilityObserver.reachable {
-//            refreshControl.endRefreshing()
+    @MainActor
+    func refresh() async {
+        do {
+            aliases = try await getAliases(page: 0)
+            currentPage = 1
+            canLoadMorePages = aliases.count == kDefaultPageSize
+        } catch {
+            self.error = error
         }
-        aliases.removeAll()
-        currentPage = 0
-        canLoadMorePages = true
-        getMoreAliases()
+    }
+
+    private func getAliases(page: Int) async throws -> [Alias] {
+        let getAliasesEndpoint = GetAliasesEndpoint(apiKey: session.apiKey.value,
+                                                    page: page,
+                                                    option: .filter(filterOption))
+        return try await session.execute(getAliasesEndpoint).aliases
     }
 
     func update(alias: Alias) {
@@ -233,7 +241,9 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
         guard !isHandled(createdAlias) else { return }
         handledCreatedAliasIds.insert(createdAlias.id)
         selectedStatus = .all
-        refresh()
+        Task {
+            await refresh()
+        }
     }
 
     func isHandled(_ createdAlias: Alias) -> Bool {
