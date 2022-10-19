@@ -52,6 +52,7 @@ struct AccountView: View {
                     DeleteAccountSection(onDeleteAccount: onLogOut)
                     LogOutSection(onLogOut: onLogOut)
                 }
+                .refreshable { await viewModel.refresh(force: true) }
                 .ignoresSafeArea(.keyboard)
                 .environmentObject(viewModel)
                 .navigationTitle("My Account")
@@ -84,9 +85,7 @@ struct AccountView: View {
         }
         .slNavigationView()
         .disabled(viewModel.isLoading)
-        .onAppear {
-            viewModel.getRequiredInformation()
-        }
+        .task { await viewModel.refresh(force: false) }
         .onReceive(Just(viewModel.isInitialized)) { isInitialized in
             guard isInitialized, UIDevice.current.userInterfaceIdiom != .phone else { return }
             if viewModel.userInfo.inTrial || !viewModel.userInfo.isPremium {
@@ -130,7 +129,9 @@ struct AccountView: View {
                 destination: {
                     UpgradeView(session: viewModel.session) {
                         confettiCounter += 1
-                        viewModel.refresh()
+                        Task {
+                            await viewModel.refresh(force: true)
+                        }
                     }
                 },
                 label: {

@@ -21,11 +21,11 @@ final class AccountViewModel: ObservableObject {
     @Published var senderFormat: SenderFormat = .a
     @Published var randomAliasSuffix: RandomAliasSuffix = .word
     @Published var askingForSettings = false
+    @Published var isLoading = false
     @Published var error: Error?
     @Published var message: String?
     @Published var linkToProtonUrlString: String?
     @Published private(set) var isInitialized = false
-    @Published private(set) var isLoading = false
     @Published private(set) var shouldLogOut = false
     private var cancellables = Set<AnyCancellable>()
     let session: Session
@@ -93,41 +93,35 @@ final class AccountViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func getRequiredInformation() {
-        guard !isLoading && !isInitialized else { return }
-        Task { @MainActor in
-            defer { isLoading = false }
-            isLoading = true
-            do {
-                let getUserInfoEndpoint = GetUserInfoEndpoint(apiKey: session.apiKey.value)
-                let getUserSettingsEndpoint = GetUserSettingsEndpoint(apiKey: session.apiKey.value)
-                let getUsableDomainsEndpoint = GetUsableDomainsEndpoint(apiKey: session.apiKey.value)
+    @MainActor
+    func refresh(force: Bool) async {
+        if !force, isInitialized { return }
+        defer { isLoading = false }
+        isLoading = true
+        do {
+            let getUserInfoEndpoint = GetUserInfoEndpoint(apiKey: session.apiKey.value)
+            let getUserSettingsEndpoint = GetUserSettingsEndpoint(apiKey: session.apiKey.value)
+            let getUsableDomainsEndpoint = GetUsableDomainsEndpoint(apiKey: session.apiKey.value)
 
-                let userInfo = try await session.execute(getUserInfoEndpoint)
-                let userSettings = try await session.execute(getUserSettingsEndpoint)
-                let usableDomains = try await session.execute(getUsableDomainsEndpoint)
+            let userInfo = try await session.execute(getUserInfoEndpoint)
+            let userSettings = try await session.execute(getUserSettingsEndpoint)
+            let usableDomains = try await session.execute(getUsableDomainsEndpoint)
 
-                self.userInfo = userInfo
-                bind(userSettings: userSettings)
-                self.usableDomains = usableDomains
-                // swiftlint:disable:next line_length
-                self.randomAliasDefaultDomain = usableDomains.first { $0.domain == userSettings.randomAliasDefaultDomain }
-                isInitialized = true
-            } catch {
-                if let apiServiceError = error as? APIServiceError,
-                   case .clientError(let errorResponse) = apiServiceError,
-                   errorResponse.statusCode == 401 {
-                    self.shouldLogOut = true
-                    return
-                }
-                self.error = error
+            self.userInfo = userInfo
+            bind(userSettings: userSettings)
+            self.usableDomains = usableDomains
+            // swiftlint:disable:next line_length
+            self.randomAliasDefaultDomain = usableDomains.first { $0.domain == userSettings.randomAliasDefaultDomain }
+            isInitialized = true
+        } catch {
+            if let apiServiceError = error as? APIServiceError,
+               case .clientError(let errorResponse) = apiServiceError,
+               errorResponse.statusCode == 401 {
+                self.shouldLogOut = true
+                return
             }
+            self.error = error
         }
-    }
-
-    func refresh() {
-        isInitialized = false
-        getRequiredInformation()
     }
 
     private func update(option: UserSettingsUpdateOption) {
@@ -243,7 +237,7 @@ final class AccountViewModel: ObservableObject {
                 _ = try await session.execute(unlinkProtonEndpoint)
                 self.message = "Your Proton account has been unlinked"
                 self.isLoading = false
-                self.refresh()
+                await refresh(force: true)
             } catch {
                 self.isLoading = false
                 self.error = error
@@ -256,7 +250,9 @@ final class AccountViewModel: ObservableObject {
         case .success(let url):
             if url.absoluteString.contains("link") {
                 message = "Your Proton account has been successfully linked"
-                refresh()
+                Task {
+                    await refresh(force: true)
+                }
             }
 
         case .failure(let error):
