@@ -10,9 +10,7 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct AliasContactsView: View {
-    @Environment(\.presentationMode) private var presentationMode
     @StateObject private var viewModel: AliasContactsViewModel
-    @State private var showingLoadingAlert = false
     @State private var copiedText: String?
     @State private var newContactEmail = ""
     @State private var selectedUrlString: String?
@@ -24,7 +22,7 @@ struct AliasContactsView: View {
     var body: some View {
         let showingCopyAlert = makeShowingCopyAlertBinding()
         let showingCreatedContactAlert = makeShowingCreatedContactAlert()
-        Form {
+        List {
             Section(header: Text("Create new contact"),
                     footer: createContactSectionFooter) {
                 HStack {
@@ -43,8 +41,8 @@ struct AliasContactsView: View {
             }
 
             Section {
-                if let contacts = viewModel.contacts, !contacts.isEmpty {
-                    ForEach(contacts, id: \.id) { contact in
+                if !viewModel.contacts.isEmpty {
+                    ForEach(viewModel.contacts, id: \.id) { contact in
                         ContactView(viewModel: viewModel,
                                     copiedText: $copiedText,
                                     contact: contact)
@@ -66,6 +64,9 @@ struct AliasContactsView: View {
                 }
             }
         }
+        .listStyle(.insetGrouped)
+        .refreshable { await viewModel.refresh() }
+        .animation(.default, value: viewModel.contacts.count)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 AliasNavigationTitleView(alias: viewModel.alias)
@@ -73,9 +74,6 @@ struct AliasContactsView: View {
         }
         .onAppear {
             viewModel.getMoreContactsIfNeed(currentContact: nil)
-        }
-        .onReceive(Just(viewModel.isLoading)) { isLoading in
-            showingLoadingAlert = isLoading
         }
         .onReceive(Just(viewModel.createdContact)) { createdContact in
             if createdContact != nil {
@@ -85,7 +83,7 @@ struct AliasContactsView: View {
         .betterSafariView(urlString: $selectedUrlString)
         .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
         .alertToastError($viewModel.error)
-        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastLoading(isPresenting: $viewModel.isLoading)
         .alertToastMessage(showingCreatedContactAlert)
     }
 

@@ -11,10 +11,9 @@ import SwiftUI
 
 final class AliasContactsViewModel: ObservableObject {
     @Published private(set) var isFetchingContacts = false
-    @Published private(set) var isLoading = false
-    @Published private(set) var isRefreshing = false
-    @Published private(set) var contacts: [Contact]?
+    @Published private(set) var contacts: [Contact] = []
     @Published private(set) var createdContact: Contact?
+    @Published var isLoading = false
     @Published var error: Error?
 
     private let session: Session
@@ -29,7 +28,7 @@ final class AliasContactsViewModel: ObservableObject {
     }
 
     func getMoreContactsIfNeed(currentContact: Contact?) {
-        guard let currentContact = currentContact, let contacts = contacts else {
+        guard let currentContact = currentContact else {
             getMoreContacts()
             return
         }
@@ -46,12 +45,8 @@ final class AliasContactsViewModel: ObservableObject {
             defer { isFetchingContacts = false }
             isFetchingContacts = true
             do {
-                let getContactsEndpoint = GetContactsEndpoint(apiKey: session.apiKey.value,
-                                                              aliasID: alias.id,
-                                                              page: currentPage)
-                if self.contacts == nil { contacts = [] }
-                let newContacts = try await session.execute(getContactsEndpoint).contacts
-                self.contacts?.append(contentsOf: newContacts)
+                let newContacts = try await getContacts(page: currentPage)
+                self.contacts.append(contentsOf: newContacts)
                 self.currentPage += 1
                 self.canLoadMorePages = newContacts.count == kDefaultPageSize
             } catch {
@@ -60,23 +55,23 @@ final class AliasContactsViewModel: ObservableObject {
         }
     }
 
-    func refresh() {
-        guard !isRefreshing else { return }
-        Task { @MainActor in
-            defer { isRefreshing = false }
-            isRefreshing = true
-            do {
-                let getContactsEndpoint = GetContactsEndpoint(apiKey: session.apiKey.value,
-                                                              aliasID: alias.id,
-                                                              page: 0)
-                let newContacts = try await session.execute(getContactsEndpoint).contacts
-                self.contacts = newContacts
-                self.currentPage = 1
-                self.canLoadMorePages = newContacts.count == kDefaultPageSize
-            } catch {
-                self.error = error
-            }
+    @MainActor
+    func refresh() async {
+        do {
+            let contacts = try await getContacts(page: 0)
+            self.contacts = contacts
+            self.currentPage = 1
+            self.canLoadMorePages = contacts.count == kDefaultPageSize
+        } catch {
+            self.error = error
         }
+    }
+
+    private func getContacts(page: Int) async throws -> [Contact] {
+        let getContactsEndpoint = GetContactsEndpoint(apiKey: session.apiKey.value,
+                                                      aliasID: alias.id,
+                                                      page: page)
+        return try await session.execute(getContactsEndpoint).contacts
     }
 
     func toggleContact(_ contact: Contact) {
@@ -112,7 +107,7 @@ final class AliasContactsViewModel: ObservableObject {
                                                                   contactID: contact.id)
                 let result = try await session.execute(deleteContactEndpoint)
                 if result.value {
-                    refresh()
+                    await refresh()
                 }
             } catch {
                 self.error = error
@@ -121,8 +116,8 @@ final class AliasContactsViewModel: ObservableObject {
     }
 
     private func update(contact: Contact) {
-        guard let index = contacts?.firstIndex(where: { $0.id == contact.id }) else { return }
-        contacts?[index] = contact
+        guard let index = contacts.firstIndex(where: { $0.id == contact.id }) else { return }
+        contacts[index] = contact
     }
 
     func createContact(contactEmail: String) {
@@ -139,7 +134,7 @@ final class AliasContactsViewModel: ObservableObject {
                     self.error = SLError.contactExists
                 } else {
                     self.createdContact = createdContact
-                    self.contacts?.insert(createdContact, at: 0)
+                    self.contacts.insert(createdContact, at: 0)
                 }
             } catch {
                 self.error = error
