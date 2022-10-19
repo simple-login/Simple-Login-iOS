@@ -13,32 +13,29 @@ final class AliasDetailViewModel: ObservableObject {
     @Published private(set) var activities: [AliasActivity] = []
     @Published private(set) var isLoadingActivities = false
     @Published private(set) var mailboxes: [Mailbox] = []
-    @Published private(set) var isLoadingMailboxes = false
-    @Published private(set) var isRefreshing = false
-    @Published private(set) var isRefreshed = false
-    @Published private(set) var isDeleted = false
+    @Published var isLoadingMailboxes = false
     @Published var error: Error?
 
     // Updating mailboxes, display name & notes
-    @Published private(set) var isUpdating = false
-    @Published private(set) var isUpdated = false
+    @Published var isUpdating = false
+    @Published var isUpdated = false
     @Published var updatingError: Error?
 
     let session: Session
     private var currentPage = 0
     private var canLoadMorePages = true
 
-    init(alias: Alias, session: Session) {
+    private let onUpdateAlias: (Alias) -> Void
+    private let onDeleteAlias: (Alias) -> Void
+
+    init(alias: Alias,
+         session: Session,
+         onUpdateAlias: @escaping (Alias) -> Void,
+         onDeleteAlias: @escaping (Alias) -> Void) {
         self.session = session
         self.alias = alias
-    }
-
-    func handledIsUpdatedBoolean() {
-        isUpdated = false
-    }
-
-    func handledIsRefreshedBoolean() {
-        isRefreshed = false
+        self.onUpdateAlias = onUpdateAlias
+        self.onDeleteAlias = onDeleteAlias
     }
 
     func getMoreActivitiesIfNeed(currentActivity activity: AliasActivity?) {
@@ -59,11 +56,7 @@ final class AliasDetailViewModel: ObservableObject {
         isLoadingActivities = true
         Task { @MainActor in
             do {
-                let getActivitiesEndpoint = GetActivitiesEndpoint(apiKey: session.apiKey.value,
-                                                                  aliasID: alias.id,
-                                                                  page: currentPage)
-                let result = try await session.execute(getActivitiesEndpoint)
-                let newActivities = result.activities
+                let newActivities = try await getActivities(page: currentPage)
                 self.activities.append(contentsOf: newActivities)
                 self.currentPage += 1
                 self.canLoadMorePages = newActivities.count == kDefaultPageSize
@@ -88,27 +81,25 @@ final class AliasDetailViewModel: ObservableObject {
         }
     }
 
-    func refresh() {
-        print("Refreshing \(alias.email)")
-        Task { @MainActor in
-            defer { isRefreshing = false }
-            isRefreshing = true
-            do {
-                let getAliasEndpoint = GetAliasEndpoint(apiKey: session.apiKey.value,
-                                                        aliasID: alias.id)
-                let alias = try await session.execute(getAliasEndpoint)
-                let getActivitiesEndpoint = GetActivitiesEndpoint(apiKey: session.apiKey.value,
-                                                                  aliasID: alias.id,
-                                                                  page: 0)
-                let activities = try await session.execute(getActivitiesEndpoint).activities
-                self.alias = alias
-                self.activities = activities
-                self.currentPage = 1
-                self.canLoadMorePages = activities.count == kDefaultPageSize
-                self.isRefreshed = true
-            } catch {
-                self.error = error
-            }
+    private func getActivities(page: Int) async throws -> [AliasActivity] {
+        let getActivitiesEndpoint = GetActivitiesEndpoint(apiKey: session.apiKey.value,
+                                                          aliasID: alias.id,
+                                                          page: page)
+        return try await session.execute(getActivitiesEndpoint).activities
+    }
+
+    @MainActor
+    func refresh() async {
+        do {
+            let getAliasEndpoint = GetAliasEndpoint(apiKey: session.apiKey.value,
+                                                    aliasID: alias.id)
+            self.alias = try await session.execute(getAliasEndpoint)
+            self.activities = try await getActivities(page: 0)
+            self.currentPage = 1
+            self.canLoadMorePages = activities.count == kDefaultPageSize
+            self.onUpdateAlias(alias)
+        } catch {
+            self.error = error
         }
     }
 
@@ -125,7 +116,7 @@ final class AliasDetailViewModel: ObservableObject {
                                                               option: option)
                 _ = try await session.execute(updateAliasEndpoint)
                 isUpdated = true
-                refresh()
+                await refresh()
             } catch {
                 self.updatingError = error
             }
@@ -140,7 +131,7 @@ final class AliasDetailViewModel: ObservableObject {
                 let toggleAliasEndpoint = ToggleAliasEndpoint(apiKey: session.apiKey.value,
                                                               aliasID: alias.id)
                 _ = try await session.execute(toggleAliasEndpoint)
-                refresh()
+                await refresh()
             } catch {
                 self.error = error
             }
@@ -154,7 +145,7 @@ final class AliasDetailViewModel: ObservableObject {
             do {
                 let deleteAliasEndpoint = DeleteAliasEndpoint(apiKey: session.apiKey.value, aliasID: alias.id)
                 _ = try await session.execute(deleteAliasEndpoint)
-                isDeleted = true
+                onDeleteAlias(alias)
             } catch {
                 self.error = error
             }

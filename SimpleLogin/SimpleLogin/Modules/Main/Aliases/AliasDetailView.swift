@@ -13,11 +13,11 @@ import SwiftUI
 // or a placeholder view when the binding is nil.
 // To achieve the "dismiss" feeling when the alias is deleted in iPad.
 struct AliasDetailWrapperView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @Binding var selectedAlias: Alias?
     private let session: Session
-    var onUpdateAlias: (Alias) -> Void
-    var onDeleteAlias: (Alias) -> Void
+    let onUpdateAlias: (Alias) -> Void
+    let onDeleteAlias: (Alias) -> Void
 
     init(selectedAlias: Binding<Alias?>,
          session: Session,
@@ -39,7 +39,7 @@ struct AliasDetailWrapperView: View {
                 onDeleteAlias: { deletedAlias in
                     onDeleteAlias(deletedAlias)
                     // Dismiss when in single view mode (iPhone)
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss.callAsFunction()
                     // Show placeholder view in master detail mode (iPad)
                     self.selectedAlias = nil
                 })
@@ -56,20 +56,19 @@ struct AliasDetailView: View {
     @State private var showingAliasEmailSheet = false
     @State private var showingAliasFullScreen = false
     @State private var copiedText: String?
-    var onUpdateAlias: (Alias) -> Void
-    var onDeleteAlias: (Alias) -> Void
 
     init(alias: Alias,
          session: Session,
          onUpdateAlias: @escaping (Alias) -> Void,
          onDeleteAlias: @escaping (Alias) -> Void) {
-        _viewModel = StateObject(wrappedValue: .init(alias: alias, session: session))
-        self.onUpdateAlias = onUpdateAlias
-        self.onDeleteAlias = onDeleteAlias
+        _viewModel = StateObject(wrappedValue: .init(alias: alias,
+                                                     session: session,
+                                                     onUpdateAlias: onUpdateAlias,
+                                                     onDeleteAlias: onDeleteAlias))
     }
 
     var body: some View {
-        Form {
+        List {
             ActionsSection(viewModel: viewModel,
                            copiedText: $copiedText,
                            enterFullScreen: showAliasInFullScreen)
@@ -87,6 +86,8 @@ struct AliasDetailView: View {
                 })
             }
         }
+        .listStyle(.insetGrouped)
+        .refreshable { await viewModel.refresh() }
         .toolbar {
             ToolbarItem(placement: .principal) {
                 AliasNavigationTitleView(alias: viewModel.alias)
@@ -98,17 +99,6 @@ struct AliasDetailView: View {
         .disabled(viewModel.isUpdating)
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingLoadingAlert = isUpdating
-        }
-        .onReceive(Just(viewModel.isRefreshed)) { isRefreshed in
-            if isRefreshed {
-                onUpdateAlias(viewModel.alias)
-                viewModel.handledIsRefreshedBoolean()
-            }
-        }
-        .onReceive(Just(viewModel.isDeleted)) { isDeleted in
-            if isDeleted {
-                onDeleteAlias(viewModel.alias)
-            }
         }
         .fullScreenCover(isPresented: $showingAliasFullScreen) {
             AliasEmailView(email: viewModel.alias.email)
@@ -467,9 +457,8 @@ private struct AllActivitiesView: View {
 
 // MARK: - Edit views
 private struct EditMailboxesView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: AliasDetailViewModel
-    @State private var showingLoadingAlert = false
     @State private var selectedIds: [Int] = []
 
     init(viewModel: AliasDetailViewModel) {
@@ -526,27 +515,20 @@ private struct EditMailboxesView: View {
                 viewModel.getMailboxes()
             }
         }
-        .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
-            showingLoadingAlert = isLoadingMailboxes || viewModel.isUpdating
-        }
-        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
-            showingLoadingAlert = isUpdating || viewModel.isLoadingMailboxes
-        }
-        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
-            if isUpdated {
-                presentationMode.wrappedValue.dismiss()
-                viewModel.handledIsUpdatedBoolean()
+        .onReceive(viewModel.$isUpdating.dropFirst()) { isUpdating in
+            if !isUpdating {
+                dismiss.callAsFunction()
             }
         }
-        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastLoading(isPresenting: $viewModel.isLoadingMailboxes)
+        .alertToastLoading(isPresenting: $viewModel.isUpdating)
         .alertToastError($viewModel.updatingError)
     }
 }
 
 private struct EditNotesView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: AliasDetailViewModel
-    @State private var showingLoadingAlert = false
     @State private var notes = ""
 
     var body: some View {
@@ -579,32 +561,25 @@ private struct EditNotesView: View {
         .onAppear {
             notes = viewModel.alias.note ?? ""
         }
-        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
-            showingLoadingAlert = isUpdating
-        }
-        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
-            if isUpdated {
-                presentationMode.wrappedValue.dismiss()
-                viewModel.handledIsUpdatedBoolean()
+        .onReceive(viewModel.$isUpdating.dropFirst()) { isUpdating in
+            if !isUpdating {
+                dismiss.callAsFunction()
             }
         }
-        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastLoading(isPresenting: $viewModel.isUpdating)
         .alertToastError($viewModel.updatingError)
     }
 
     private var cancelButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
+        Button(action: dismiss.callAsFunction) {
             Text("Cancel")
-        })
+        }
     }
 }
 
 private struct EditDisplayNameView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: AliasDetailViewModel
-    @State private var showingLoadingAlert = false
     @State private var displayName = ""
 
     init(viewModel: AliasDetailViewModel) {
@@ -638,24 +613,18 @@ private struct EditDisplayNameView: View {
             }
         }
         .accentColor(.slPurple)
-        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
-            showingLoadingAlert = isUpdating
-        }
-        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
-            if isUpdated {
-                presentationMode.wrappedValue.dismiss()
-                viewModel.handledIsUpdatedBoolean()
+        .onReceive(viewModel.$isUpdating.dropFirst()) { isUpdating in
+            if !isUpdating {
+                dismiss.callAsFunction()
             }
         }
-        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastLoading(isPresenting: $viewModel.isUpdating)
         .alertToastError($viewModel.updatingError)
     }
 
     private var cancelButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
+        Button(action: dismiss.callAsFunction) {
             Text("Cancel")
-        })
+        }
     }
 }
