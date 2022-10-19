@@ -39,3 +39,18 @@ extension Session {
               client: .init(session: .shared, baseUrlString: "")!)
     }
 }
+
+// swiftlint:disable force_unwrapping
+extension SessionV2 {
+    static var preview: SessionV2 {
+        .init(apiKey: .init(value: ""), apiService: APIService.preview)
+    }
+}
+
+extension APIService {
+    static var preview: APIService {
+        .init(baseURL: URL(string: "https://simplelogin.io")!,
+              session: .shared,
+              printDebugInformation: false)
+    }
+}

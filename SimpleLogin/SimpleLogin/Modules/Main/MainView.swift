@@ -12,8 +12,7 @@ import StoreKit
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject private var session: Session
-    @EnvironmentObject private var sessionV2: SessionV2
+    @EnvironmentObject private var session: SessionV2
     @EnvironmentObject private var reachabilityObserver: ReachabilityObserver
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Environment(\.scenePhase) var scenePhase
@@ -50,7 +49,7 @@ struct MainView: View {
 
         VStack(spacing: 0) {
             TabView(selection: $selectedItem) {
-                AliasesView(session: sessionV2,
+                AliasesView(session: session,
                             reachabilityObserver: reachabilityObserver,
                             managedObjectContext: managedObjectContext,
                             createdAlias: $createdAlias)
@@ -116,7 +115,7 @@ struct MainView: View {
                     }
             case .createAlias:
                 CreateAliasView(
-                    session: sessionV2,
+                    session: session,
                     mode: nil,
                     onCreateAlias: { createdAlias in
                         aliasCreationCount += 1

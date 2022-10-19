@@ -18,7 +18,7 @@ struct UpgradeView: View {
 
     var onSubscription: () -> Void
 
-    init(session: Session, onSubscription: @escaping () -> Void) {
+    init(session: SessionV2, onSubscription: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: .init(session: session))
         self.onSubscription = onSubscription
     }
@@ -179,8 +179,7 @@ struct UpgradeView: View {
 struct UpgradeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            UpgradeView(session: .init(apiKey: ApiKey(value: ""),
-                                       client: .default)) {}
+            UpgradeView(session: .preview) {}
         }
     }
 }

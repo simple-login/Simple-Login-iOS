@@ -7,7 +7,6 @@
 
 import AuthenticationServices
 import Combine
-import Introspect
 import Kingfisher
 import LocalAuthentication
 import SimpleLoginPackage
@@ -23,7 +22,7 @@ struct AccountView: View {
     @State private var showingLoadingAlert = false
     let onLogOut: () -> Void
 
-    init(session: Session,
+    init(session: SessionV2,
          upgradeNeeded: Binding<Bool>,
          onLogOut: @escaping () -> Void) {
         self._viewModel = StateObject(wrappedValue: .init(session: session))
@@ -57,9 +56,6 @@ struct AccountView: View {
                 .environmentObject(viewModel)
                 .navigationTitle("My Account")
                 .navigationBarItems(trailing: trailingButton)
-                .introspectTableView { tableView in
-                    tableView.refreshControl = viewModel.refreshControl
-                }
                 .onAppear {
                     if upgradeNeeded, !showingUpgradeView {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -210,11 +206,11 @@ private struct UserInfoSection: View {
                     Label("Upload new profile photo", systemImage: "square.and.arrow.up")
                 })
 
-                Button(action: {
-                    viewModel.removeProfilePhoto()
-                }, label: {
-                    Label("Remove profile photo", systemImage: "trash")
-                })
+                if viewModel.userInfo.profilePictureUrl != nil {
+                    Button(role: .destructive, action: viewModel.removeProfilePhoto) {
+                        Label("Remove profile photo", systemImage: "trash")
+                    }
+                }
             }
 
             Section {
@@ -247,6 +243,7 @@ private struct UserInfoSection: View {
         TextFieldAlertConfig(title: "Edit display name",
                              text: viewModel.userInfo.name,
                              keyboardType: .default,
+                             autocapitalizationType: .words,
                              clearButtonMode: .always,
                              actionTitle: "Save") { newDisplayName in
             viewModel.updateDisplayName(newDisplayName ?? "")
@@ -371,7 +368,6 @@ private struct DeleteAccountSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
     @EnvironmentObject private var preferences: Preferences
     @Environment(\.openURL) private var openURL
-    @State private var isShowingDeleteAccountView = false
     let onDeleteAccount: () -> Void
 
     var body: some View {
@@ -379,9 +375,6 @@ private struct DeleteAccountSection: View {
             HStack {
                 Button(action: {
                     Vibration.heavy.vibrate(fallBackToOldSchool: true)
-                    // Currently open the web app instead of handling
-                    // the deletion flow in app.
-//                    isShowingDeleteAccountView.toggle()
                     if let url = URL(string: "\(preferences.apiUrl)/dashboard/delete_account") {
                         openURL(url)
                     }
@@ -395,12 +388,6 @@ private struct DeleteAccountSection: View {
         }, footer: {
             Text("If SimpleLogin isn't the right fit for you, you can simply delete your account.")
         })
-        .fullScreenCover(isPresented: $isShowingDeleteAccountView) {
-            DeleteAccountView(session: viewModel.session) {
-                isShowingDeleteAccountView.toggle()
-                onDeleteAccount()
-            }
-        }
     }
 }
 
