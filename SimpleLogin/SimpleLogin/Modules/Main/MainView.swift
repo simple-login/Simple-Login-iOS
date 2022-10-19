@@ -12,7 +12,7 @@ import StoreKit
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject private var session: SessionV2
+    @EnvironmentObject private var session: Session
     @EnvironmentObject private var reachabilityObserver: ReachabilityObserver
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Environment(\.scenePhase) var scenePhase

@@ -24,7 +24,7 @@ struct CreateAliasView: View {
         case url(URL)
     }
 
-    init(session: SessionV2,
+    init(session: Session,
          mode: Mode?,
          onCreateAlias: @escaping (Alias) -> Void,
          onCancel: (() -> Void)?,

@@ -14,9 +14,9 @@ final class CustomDomainsViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published var error: Error?
 
-    let session: SessionV2
+    let session: Session
 
-    init(session: SessionV2) {
+    init(session: Session) {
         self.session = session
     }
 

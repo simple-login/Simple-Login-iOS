@@ -22,7 +22,7 @@ struct AccountView: View {
     @State private var showingLoadingAlert = false
     let onLogOut: () -> Void
 
-    init(session: SessionV2,
+    init(session: Session,
          upgradeNeeded: Binding<Bool>,
          onLogOut: @escaping () -> Void) {
         self._viewModel = StateObject(wrappedValue: .init(session: session))

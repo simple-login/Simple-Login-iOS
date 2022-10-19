@@ -16,12 +16,12 @@ import SwiftUI
 struct AliasDetailWrapperView: View {
     @Environment(\.presentationMode) private var presentationMode
     @Binding var selectedAlias: Alias?
-    private let session: SessionV2
+    private let session: Session
     var onUpdateAlias: (Alias) -> Void
     var onDeleteAlias: (Alias) -> Void
 
     init(selectedAlias: Binding<Alias?>,
-         session: SessionV2,
+         session: Session,
          onUpdateAlias: @escaping (Alias) -> Void,
          onDeleteAlias: @escaping (Alias) -> Void) {
         self._selectedAlias = selectedAlias
@@ -61,7 +61,7 @@ struct AliasDetailView: View {
     var onDeleteAlias: (Alias) -> Void
 
     init(alias: Alias,
-         session: SessionV2,
+         session: Session,
          onUpdateAlias: @escaping (Alias) -> Void,
          onDeleteAlias: @escaping (Alias) -> Void) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias, session: session))

@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/simple-login/swift-package",
       "state" : {
-        "revision" : "f4d10b0e7f4afa59aac011ac4ea9a2032bf15b9d",
-        "version" : "2.0.3"
+        "revision" : "8c9011c5d0f8cddfaa047c6669ba9b51df745304",
+        "version" : "2.1.0"
       }
     },
     {

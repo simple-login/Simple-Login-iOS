@@ -13,7 +13,7 @@ struct DomainDetailView: View {
     @StateObject private var viewModel: DomainDetailViewModel
     @State private var showingLoadingAlert = false
 
-    init(domain: CustomDomain, session: SessionV2) {
+    init(domain: CustomDomain, session: Session) {
         _viewModel = StateObject(wrappedValue: .init(domain: domain,
                                                      session: session))
     }

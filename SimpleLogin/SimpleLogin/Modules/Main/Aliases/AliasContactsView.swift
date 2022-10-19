@@ -18,7 +18,7 @@ struct AliasContactsView: View {
     @State private var newContactEmail = ""
     @State private var selectedUrlString: String?
 
-    init(alias: Alias, session: SessionV2) {
+    init(alias: Alias, session: Session) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias, session: session))
     }
 

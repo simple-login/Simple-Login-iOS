@@ -68,7 +68,6 @@
 		C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */; };
 		C03F4F2526E1665D00BBF2A8 /* AdvancedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2426E1665D00BBF2A8 /* AdvancedView.swift */; };
 		C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */; };
-		C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */; };
 		C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */; };
 		C04266D327944E130053451B /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04266D227944E130053451B /* Vibration.swift */; };
 		C043D41426E01DBF0051B282 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C043D41326E01DBF0051B282 /* KeychainAccess */; };
@@ -87,7 +86,6 @@
 		C05A4CDE273C6C73005F8CC5 /* AutoFocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */; };
 		C05A4CE1273C76BC005F8CC5 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C05A4CE0273C76BC005F8CC5 /* Introspect */; };
 		C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A9B14277BB996003FD0A7 /* UpgradeView.swift */; };
-		C05DB09D27A877BD00200E2D /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */; };
 		C064797D272B331D009CA1F8 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C064797C272B331D009CA1F8 /* Action.swift */; };
 		C06CEAF2279018B100736920 /* MailboxesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06CEAF1279018B100736920 /* MailboxesViewModel.swift */; };
 		C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C079864926B34D5F006C9FC0 /* LogInView.swift */; };
@@ -105,7 +103,6 @@
 		C0941EEB27A6E917009AAEBC /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C0941EEA27A6E917009AAEBC /* KeychainAccess */; };
 		C0941EEC27A6EEAE009AAEBC /* CreateAliasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */; };
 		C0941EED27A6EEAE009AAEBC /* CreateAliasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C029769326F141A60014DC3B /* CreateAliasView.swift */; };
-		C0941EEE27A6EF78009AAEBC /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */; };
 		C0941EEF27A6EFBF009AAEBC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0259EAE26DA55CD0056A977 /* StringExtensions.swift */; };
 		C0941EF027A6EFD7009AAEBC /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */; };
 		C0941EF427A6F056009AAEBC /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = C0941EF327A6F056009AAEBC /* AlertToast */; };
@@ -289,7 +286,6 @@
 		C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		C03F4F2426E1665D00BBF2A8 /* AdvancedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedView.swift; sourceTree = "<group>"; };
 		C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
-		C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		C04266D227944E130053451B /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
 		C043D41526E01E280051B282 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -704,7 +700,6 @@
 				EF5E150627D94A160047C568 /* AliasExtensions.swift */,
 				EF4F43DE27C15B2D00CD1942 /* AlertExtensions.swift */,
 				C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */,
-				C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */,
 				EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */,
 				EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */,
 				C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */,
@@ -1024,7 +1019,6 @@
 				C010032627A739CD009735CD /* KeychainService.swift in Sources */,
 				C00874B427A989D3004F32FA /* SLError.swift in Sources */,
 				C04BB63427AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */,
-				C05DB09D27A877BD00200E2D /* BaseViewModel.swift in Sources */,
 				C04BB63827AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
 				C010032D27A7479E009735CD /* AliasesView.swift in Sources */,
 				C010032B27A73EC3009735CD /* ColorExtensions.swift in Sources */,
@@ -1112,7 +1106,6 @@
 				EF9FE0E328140A7F003B3CB8 /* TextFieldAlert.swift in Sources */,
 				C02FCF8D278E2FB200F32BED /* PhotoPickerView.swift in Sources */,
 				C04BB63727AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
-				C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */,
 				C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */,
 				EFFBBDE227C9661B00C8E6DD /* PremiumView.swift in Sources */,
 				EF3C8240281BD95600477710 /* NoHorizontalPaddingModifier.swift in Sources */,
@@ -1193,7 +1186,6 @@
 				C00874B127A98748004F32FA /* ErrorExtensions.swift in Sources */,
 				C04BB63927AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
 				C0941EE627A6E755009AAEBC /* NoSessionView.swift in Sources */,
-				C0941EEE27A6EF78009AAEBC /* BaseViewModel.swift in Sources */,
 				EFF7779527F3979F0084D6B4 /* UpgradeNeededView.swift in Sources */,
 				C0941EE327A6E614009AAEBC /* Preferences.swift in Sources */,
 				EFF7779627F3982A0084D6B4 /* EmptyDataModifier.swift in Sources */,

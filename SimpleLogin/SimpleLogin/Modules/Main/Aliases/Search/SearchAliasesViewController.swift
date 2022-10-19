@@ -15,7 +15,7 @@ final class SearchAliasesViewController: BaseViewController {
     let onUpdateAlias: (Alias) -> Void
     let onDeleteAlias: (Alias) -> Void
 
-    init(session: SessionV2,
+    init(session: Session,
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext,
          onUpdateAlias: @escaping (Alias) -> Void,

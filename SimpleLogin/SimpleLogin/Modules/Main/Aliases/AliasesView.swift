@@ -31,7 +31,7 @@ struct AliasesView: View {
         case details, contacts
     }
 
-    init(session: SessionV2,
+    init(session: Session,
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext,
          createdAlias: Binding<Alias?>) {

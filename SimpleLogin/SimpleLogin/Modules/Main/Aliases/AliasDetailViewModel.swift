@@ -24,11 +24,11 @@ final class AliasDetailViewModel: ObservableObject {
     @Published private(set) var isUpdated = false
     @Published var updatingError: Error?
 
-    let session: SessionV2
+    let session: Session
     private var currentPage = 0
     private var canLoadMorePages = true
 
-    init(alias: Alias, session: SessionV2) {
+    init(alias: Alias, session: Session) {
         self.session = session
         self.alias = alias
     }

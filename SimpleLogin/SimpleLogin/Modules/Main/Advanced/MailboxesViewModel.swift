@@ -13,9 +13,9 @@ final class MailboxesViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published var error: Error?
 
-    private let session: SessionV2
+    private let session: Session
 
-    init(session: SessionV2) {
+    init(session: Session) {
         self.session = session
     }
 

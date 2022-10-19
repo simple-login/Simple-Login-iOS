@@ -17,9 +17,9 @@ final class UpgradeViewModel: ObservableObject {
     @Published private(set) var isSubscribed = false
     @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
-    private let session: SessionV2
+    private let session: Session
 
-    init(session: SessionV2) {
+    init(session: Session) {
         self.session = session
     }
 

@@ -12,7 +12,7 @@ import SwiftUI
 struct SearchAliasesView: UIViewControllerRepresentable {
     @EnvironmentObject private var reachabilityObserver: ReachabilityObserver
     @Environment(\.managedObjectContext) private var managedObjectContext
-    let session: SessionV2
+    let session: Session
     let onUpdateAlias: (Alias) -> Void
     let onDeleteAlias: (Alias) -> Void
 

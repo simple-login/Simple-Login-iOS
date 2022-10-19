@@ -19,9 +19,9 @@ final class DomainDetailViewModel: ObservableObject {
     @Published private(set) var isUpdated = false
     @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
-    private let session: SessionV2
+    private let session: Session
 
-    init(domain: CustomDomain, session: SessionV2) {
+    init(domain: CustomDomain, session: Session) {
         self.session = session
         bind(domain: domain)
 

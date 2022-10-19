@@ -27,7 +27,7 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
 
     private let dataController: DataController
 
-    init(session: SessionV2,
+    init(session: Session,
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext) {
         self.dataController = .init(context: managedObjectContext)

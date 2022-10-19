@@ -184,10 +184,9 @@ struct LogInView: View {
             Color.clear
                 .frame(width: 0, height: 0)
                 .sheet(isPresented: $showingApiKeyView) {
-                    Text("API key view")
-//                    ApiKeyView(client: viewModel.client) { apiKey in
-//                        onComplete(apiKey, viewModel.client)
-//                    }
+                    ApiKeyView(apiService: viewModel.apiService) { apiKey in
+                        onComplete(apiKey, viewModel.apiService)
+                    }
                 }
 
             Color.clear

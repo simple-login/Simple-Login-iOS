@@ -9,11 +9,11 @@ import Combine
 import Foundation
 
 class BaseReachabilitySessionViewModel {
-    let session: SessionV2
+    let session: Session
     let reachabilityObserver: ReachabilityObserver
     private var cancellables = Set<AnyCancellable>()
 
-    init(session: SessionV2, reachabilityObserver: ReachabilityObserver) {
+    init(session: Session, reachabilityObserver: ReachabilityObserver) {
         self.session = session
         self.reachabilityObserver = reachabilityObserver
         self.reachabilityObserver.$reachable

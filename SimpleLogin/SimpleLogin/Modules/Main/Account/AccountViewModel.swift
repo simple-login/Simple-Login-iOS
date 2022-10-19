@@ -28,9 +28,9 @@ final class AccountViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var shouldLogOut = false
     private var cancellables = Set<AnyCancellable>()
-    let session: SessionV2
+    let session: Session
 
-    init(session: SessionV2) {
+    init(session: Session) {
         self.session = session
         let shouldUpdateUserSettings: () -> Bool = { [unowned self] in
             self.isInitialized && self.error == nil

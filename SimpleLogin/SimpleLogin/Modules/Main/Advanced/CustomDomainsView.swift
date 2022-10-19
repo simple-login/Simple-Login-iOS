@@ -14,7 +14,7 @@ struct CustomDomainsView: View {
     @State private var showingLoadingAlert = false
     @State private var selectedUnverifiedDomain: CustomDomain?
 
-    init(session: SessionV2) {
+    init(session: Session) {
         _viewModel = StateObject(wrappedValue: .init(session: session))
     }
 

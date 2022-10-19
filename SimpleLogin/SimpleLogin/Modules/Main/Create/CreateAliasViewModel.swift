@@ -20,14 +20,14 @@ final class CreateAliasViewModel: ObservableObject {
     @Published var mailboxIds = [Int]()
     @Published var notes = ""
 
-    private let session: SessionV2
+    private let session: Session
     private let mode: CreateAliasView.Mode?
 
     var canCreate: Bool {
         prefix.isValidPrefix && !mailboxIds.isEmpty && selectedSuffix != nil
     }
 
-    init(session: SessionV2, mode: CreateAliasView.Mode?) {
+    init(session: Session, mode: CreateAliasView.Mode?) {
         self.session = session
         self.mode = mode
         switch mode {

@@ -18,7 +18,7 @@ struct UpgradeView: View {
 
     var onSubscription: () -> Void
 
-    init(session: SessionV2, onSubscription: @escaping () -> Void) {
+    init(session: Session, onSubscription: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: .init(session: session))
         self.onSubscription = onSubscription
     }

@@ -40,7 +40,7 @@ final class ShareViewController: UIViewController {
         }
     }
 
-    private func setSession(session: SessionV2?) {
+    private func setSession(session: Session?) {
         let subView: UIView
         if let session = session {
             let createAliasView = CreateAliasView(

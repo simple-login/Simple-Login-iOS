@@ -17,13 +17,13 @@ final class AliasContactsViewModel: ObservableObject {
     @Published private(set) var createdContact: Contact?
     @Published var error: Error?
 
-    private let session: SessionV2
+    private let session: Session
     private var currentPage = 0
     private var canLoadMorePages = true
 
     let alias: Alias
 
-    init(alias: Alias, session: SessionV2) {
+    init(alias: Alias, session: Session) {
         self.alias = alias
         self.session = session
     }

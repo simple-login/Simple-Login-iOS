@@ -15,7 +15,7 @@ struct MailboxesView: View {
     @State private var showingLoadingAlert = false
     @State private var mailboxToBeDeleted: Mailbox?
 
-    init(session: SessionV2) {
+    init(session: Session) {
         _viewModel = StateObject(wrappedValue: .init(session: session))
     }
 

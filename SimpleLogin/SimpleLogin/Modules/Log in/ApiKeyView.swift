@@ -16,8 +16,8 @@ struct ApiKeyView: View {
     @State private var value = ""
     let onSetApiKey: (ApiKey) -> Void
 
-    init(client: SLClient, onSetApiKey: @escaping (ApiKey) -> Void) {
-        _viewModel = StateObject(wrappedValue: .init(client: client))
+    init(apiService: APIServiceProtocol, onSetApiKey: @escaping (ApiKey) -> Void) {
+        _viewModel = StateObject(wrappedValue: .init(apiService: apiService))
         self.onSetApiKey = onSetApiKey
     }
 
