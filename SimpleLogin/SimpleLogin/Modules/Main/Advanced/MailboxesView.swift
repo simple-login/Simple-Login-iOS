@@ -36,6 +36,7 @@ struct MailboxesView: View {
             }
             .navigationBarTitle("Mailboxes")
         }
+        .animation(.default, value: viewModel.mailboxes.count)
         .listStyle(InsetGroupedListStyle())
         .ignoresSafeArea(.keyboard)
         .toolbar {
@@ -48,9 +49,8 @@ struct MailboxesView: View {
                 })
             }
         }
-        .onAppear {
-            viewModel.fetchMailboxes(refreshing: false)
-        }
+        .task { await viewModel.refresh(force: false) }
+        .refreshable { await viewModel.refresh(force: true) }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }

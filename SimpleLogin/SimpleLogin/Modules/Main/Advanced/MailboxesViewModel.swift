@@ -19,17 +19,16 @@ final class MailboxesViewModel: ObservableObject {
         self.session = session
     }
 
-    func fetchMailboxes(refreshing: Bool) {
-        if !refreshing, !mailboxes.isEmpty { return }
-        Task { @MainActor in
-            defer { isLoading = false }
-            isLoading = !refreshing
-            do {
-                let getMailboxesEndpoint = GetMailboxesEndpoint(apiKey: session.apiKey.value)
-                mailboxes = try await session.execute(getMailboxesEndpoint).mailboxes
-            } catch {
-                self.error = error
-            }
+    @MainActor
+    func refresh(force: Bool) async {
+        if !force, !mailboxes.isEmpty { return }
+        defer { isLoading = false }
+        if !force { isLoading = true }
+        do {
+            let getMailboxesEndpoint = GetMailboxesEndpoint(apiKey: session.apiKey.value)
+            mailboxes = try await session.execute(getMailboxesEndpoint).mailboxes.sortedById()
+        } catch {
+            self.error = error
         }
     }
 
@@ -42,7 +41,7 @@ final class MailboxesViewModel: ObservableObject {
                                                                   mailboxID: mailbox.id,
                                                                   option: .default)
                 _ = try await session.execute(updateMailboxEndpoint)
-                fetchMailboxes(refreshing: true)
+                await refresh(force: true)
             } catch {
                 self.error = error
             }
@@ -72,14 +71,16 @@ final class MailboxesViewModel: ObservableObject {
                 let createMailboxEndpoint = CreateMailboxEndpoint(apiKey: session.apiKey.value,
                                                                   email: email)
                 let mailbox = try await session.execute(createMailboxEndpoint)
-                mailboxes.append(mailbox)
+                mailboxes = (mailboxes + [mailbox]).sortedById()
             } catch {
                 self.error = error
             }
         }
     }
+}
 
-    func refresh() {
-        fetchMailboxes(refreshing: true)
+private extension Array where Element == Mailbox {
+    func sortedById() -> Self {
+        sorted { $0.id > $1.id }
     }
 }
