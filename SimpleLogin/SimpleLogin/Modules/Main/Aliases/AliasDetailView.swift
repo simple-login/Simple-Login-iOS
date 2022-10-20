@@ -39,7 +39,7 @@ struct AliasDetailWrapperView: View {
                 onDeleteAlias: { deletedAlias in
                     onDeleteAlias(deletedAlias)
                     // Dismiss when in single view mode (iPhone)
-                    dismiss.callAsFunction()
+                    dismiss()
                     // Show placeholder view in master detail mode (iPad)
                     self.selectedAlias = nil
                 })
@@ -517,7 +517,7 @@ private struct EditMailboxesView: View {
         }
         .onReceive(viewModel.$isUpdating.dropFirst()) { isUpdating in
             if !isUpdating {
-                dismiss.callAsFunction()
+                dismiss()
             }
         }
         .alertToastLoading(isPresenting: $viewModel.isLoadingMailboxes)
@@ -563,7 +563,7 @@ private struct EditNotesView: View {
         }
         .onReceive(viewModel.$isUpdating.dropFirst()) { isUpdating in
             if !isUpdating {
-                dismiss.callAsFunction()
+                dismiss()
             }
         }
         .alertToastLoading(isPresenting: $viewModel.isUpdating)
@@ -615,7 +615,7 @@ private struct EditDisplayNameView: View {
         .accentColor(.slPurple)
         .onReceive(viewModel.$isUpdating.dropFirst()) { isUpdating in
             if !isUpdating {
-                dismiss.callAsFunction()
+                dismiss()
             }
         }
         .alertToastLoading(isPresenting: $viewModel.isUpdating)

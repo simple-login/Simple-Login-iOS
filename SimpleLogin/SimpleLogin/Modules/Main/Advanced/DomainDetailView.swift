@@ -5,13 +5,11 @@
 //  Created by Thanh-Nhon Nguyen on 14/01/2022.
 //
 
-import Combine
 import SimpleLoginPackage
 import SwiftUI
 
 struct DomainDetailView: View {
     @StateObject private var viewModel: DomainDetailViewModel
-    @State private var showingLoadingAlert = false
 
     init(domain: CustomDomain, session: Session) {
         _viewModel = StateObject(wrappedValue: .init(domain: domain,
@@ -28,10 +26,7 @@ struct DomainDetailView: View {
         .ignoresSafeArea(.keyboard)
         .navigationTitle(viewModel.domain.domainName)
         .navigationBarTitleDisplayMode(.inline)
-        .onReceive(Just(viewModel.isUpdating)) { isLoading in
-            showingLoadingAlert = isLoading
-        }
-        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastLoading(isPresenting: $viewModel.isUpdating)
         .alertToastError($viewModel.error)
     }
 }
@@ -85,9 +80,8 @@ private struct CatchAllSection: View {
 }
 
 private struct EditMailboxesView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: DomainDetailViewModel
-    @State private var showingLoadingAlert = false
     @State private var selectedIds: [Int] = []
 
     init(viewModel: DomainDetailViewModel) {
@@ -135,24 +129,15 @@ private struct EditMailboxesView: View {
             })
         }
         .navigationBarTitle(viewModel.domain.domainName)
-        .onAppear {
-            if viewModel.mailboxes.isEmpty {
-                viewModel.getMailboxes()
-            }
-        }
-        .onReceive(Just(viewModel.isLoadingMailboxes)) { isLoadingMailboxes in
-            showingLoadingAlert = isLoadingMailboxes || viewModel.isUpdating
-        }
-        .onReceive(Just(viewModel.isUpdating)) { isUpdating in
-            showingLoadingAlert = isUpdating || viewModel.isLoadingMailboxes
-        }
-        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
+        .task { await viewModel.getMailboxes() }
+        .onReceive(viewModel.$isUpdated.dropFirst()) { isUpdated in
             if isUpdated {
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
                 viewModel.handledIsUpdatedBoolean()
             }
         }
-        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastLoading(isPresenting: $viewModel.isUpdating)
+        .alertToastLoading(isPresenting: $viewModel.isLoadingMailboxes)
         .alertToastError($viewModel.error)
     }
 }
@@ -191,9 +176,8 @@ private struct DefaultDisplayNameSection: View {
 }
 
 private struct EditDisplayNameView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: DomainDetailViewModel
-    @State private var showingLoadingAlert = false
     @State private var displayName = ""
 
     var body: some View {
@@ -220,25 +204,20 @@ private struct EditDisplayNameView: View {
         .onAppear {
             displayName = viewModel.domain.name ?? ""
         }
-        .onReceive(Just(viewModel.isUpdating)) { isLoading in
-            showingLoadingAlert = isLoading
-        }
-        .onReceive(Just(viewModel.isUpdated)) { isUpdated in
+        .onReceive(viewModel.$isUpdated.dropFirst()) { isUpdated in
             if isUpdated {
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
                 viewModel.handledIsUpdatedBoolean()
             }
         }
-        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastLoading(isPresenting: $viewModel.isUpdating)
         .alertToastError($viewModel.error)
     }
 
     private var cancelButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
+        Button(action: dismiss.callAsFunction) {
             Text("Cancel")
-        })
+        }
     }
 
     private var doneButton: some View {

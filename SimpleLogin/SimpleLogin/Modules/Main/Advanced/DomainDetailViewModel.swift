@@ -13,10 +13,10 @@ final class DomainDetailViewModel: ObservableObject {
     @Published private(set) var domain: CustomDomain = .empty
     @Published var catchAll = false
     @Published var randomPrefixGeneration = false
-    @Published private(set) var isUpdating = false
     @Published private(set) var mailboxes: [Mailbox] = []
-    @Published private(set) var isLoadingMailboxes = false
     @Published private(set) var isUpdated = false
+    @Published var isLoadingMailboxes = false
+    @Published var isUpdating = false
     @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
     private let session: Session
@@ -55,7 +55,6 @@ final class DomainDetailViewModel: ObservableObject {
     }
 
     func update(option: CustomDomainUpdateOption) {
-        guard !isUpdating else { return }
         Task { @MainActor in
             defer { isUpdating = false }
             isUpdating = true
@@ -64,6 +63,7 @@ final class DomainDetailViewModel: ObservableObject {
                                                               customDomainID: domain.id,
                                                               option: option)
                 let domain = try await session.execute(updateDomain).customDomain
+                isUpdated = true
                 bind(domain: domain)
             } catch {
                 self.error = error
@@ -71,18 +71,17 @@ final class DomainDetailViewModel: ObservableObject {
         }
     }
 
-    func getMailboxes() {
-        guard !isLoadingMailboxes else { return }
-        Task { @MainActor in
-            defer { isLoadingMailboxes = false }
-            isLoadingMailboxes = true
-            do {
-                let getMailboxesEndpoint = GetMailboxesEndpoint(apiKey: session.apiKey.value)
-                let mailboxes = try await session.execute(getMailboxesEndpoint).mailboxes
-                self.mailboxes = mailboxes.sorted { $0.id < $1.id }
-            } catch {
-                self.error = error
-            }
+    @MainActor
+    func getMailboxes() async {
+        defer { isLoadingMailboxes = false }
+        isLoadingMailboxes = true
+        do {
+            let getMailboxesEndpoint = GetMailboxesEndpoint(apiKey: session.apiKey.value)
+            mailboxes = try await session.execute(getMailboxesEndpoint).mailboxes
+                .filter { $0.verified }
+                .sortedById()
+        } catch {
+            self.error = error
         }
     }
 }
