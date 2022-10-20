@@ -5,13 +5,11 @@
 //  Created by Thanh-Nhon Nguyen on 12/01/2022.
 //
 
-import Combine
 import SimpleLoginPackage
 import SwiftUI
 
 struct CustomDomainsView: View {
     @StateObject private var viewModel: CustomDomainsViewModel
-    @State private var showingLoadingAlert = false
     @State private var selectedUnverifiedDomain: CustomDomain?
 
     init(session: Session) {
@@ -28,41 +26,44 @@ struct CustomDomainsView: View {
         })
 
         List {
-            ForEach(viewModel.domains, id: \.id) { domain in
-                if domain.verified {
-                    NavigationLink(destination: {
-                        DomainDetailView(domain: domain,
-                                         session: viewModel.session)
-                    }, label: {
-                        DomainView(domain: domain)
-                    })
-                } else {
-                    DomainView(domain: domain)
-                        .onTapGesture {
-                            selectedUnverifiedDomain = domain
-                        }
+            Section(content: {
+                ForEach(viewModel.domains, id: \.id) { domain in
+                    domainView(for: domain)
                 }
-            }
+            }, footer: {
+                Text("To add new domains, please use our web application.")
+            })
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Custom domains")
-        .emptyPlaceholder(isEmpty: viewModel.noDomain) {
+        .emptyPlaceholder(isEmpty: viewModel.noDomains) {
             DetailPlaceholderView(systemIconName: "globe",
                                   // swiftlint:disable:next line_length
                                   message: "You currently don't have any custom domains. You can only add custom domains using our web app.")
                 .padding(.horizontal)
         }
-        .onAppear {
-            viewModel.fetchCustomDomains(refreshing: false)
-        }
-        .onReceive(Just(viewModel.isLoading)) { isLoading in
-            showingLoadingAlert = isLoading
-        }
+        .task { await viewModel.refresh(force: false) }
+        .refreshable { await viewModel.refresh(force: true) }
         .alert(isPresented: showingUnverifiedDomainAlert) {
             unverifiedDomainAlert
         }
-        .alertToastLoading(isPresenting: $showingLoadingAlert)
+        .alertToastLoading(isPresenting: $viewModel.isLoading)
         .alertToastError($viewModel.error)
+    }
+
+    @ViewBuilder
+    private func domainView(for domain: CustomDomain) -> some View {
+        if domain.verified {
+            NavigationLink(destination: {
+                DomainDetailView(domain: domain,
+                                 session: viewModel.session)
+            }, label: {
+                DomainView(domain: domain)
+            })
+        } else {
+            DomainView(domain: domain)
+                .onTapGesture { selectedUnverifiedDomain = domain }
+        }
     }
 
     private var unverifiedDomainAlert: Alert {
@@ -101,6 +102,7 @@ private struct DomainView: View {
     }
 }
 
+/*
 struct CustomDomainsView_Previews: PreviewProvider {
     static var previews: some View {
         Form {
@@ -109,3 +111,4 @@ struct CustomDomainsView_Previews: PreviewProvider {
         }
     }
 }
+*/

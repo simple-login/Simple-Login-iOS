@@ -10,9 +10,10 @@ import SwiftUI
 
 final class CustomDomainsViewModel: ObservableObject {
     @Published private(set) var domains: [CustomDomain] = []
-    @Published private(set) var noDomain = false
-    @Published private(set) var isLoading = false
+    @Published var isLoading = false
     @Published var error: Error?
+
+    var noDomains: Bool { !isLoading && domains.isEmpty }
 
     let session: Session
 
@@ -20,23 +21,16 @@ final class CustomDomainsViewModel: ObservableObject {
         self.session = session
     }
 
-    func fetchCustomDomains(refreshing: Bool) {
-        if !refreshing, !domains.isEmpty { return }
-        Task { @MainActor in
-            defer { isLoading = false }
-            isLoading = !refreshing
-            do {
-                let getDomainsEndpoint = GetCustomDomainsEndpoint(apiKey: session.apiKey.value)
-                let domains = try await session.execute(getDomainsEndpoint).customDomains
-                self.domains = domains
-                self.noDomain = domains.isEmpty
-            } catch {
-                self.error = error
-            }
+    @MainActor
+    func refresh(force: Bool) async {
+        if !force, !domains.isEmpty { return }
+        defer { isLoading = false }
+        if !force { isLoading = true }
+        do {
+            let getDomainsEndpoint = GetCustomDomainsEndpoint(apiKey: session.apiKey.value)
+            domains = try await session.execute(getDomainsEndpoint).customDomains.sorted { $0.id > $1.id }
+        } catch {
+            self.error = error
         }
-    }
-
-    func refresh() {
-        fetchCustomDomains(refreshing: true)
     }
 }
