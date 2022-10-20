@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		35373C45289177DA00000297 /* LogInWithProtonButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35373C44289177DA00000297 /* LogInWithProtonButtonView.swift */; };
 		35373C4728917A4900000297 /* ProtonButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35373C4628917A4900000297 /* ProtonButtonStyle.swift */; };
+		353E8273290150D7004C9154 /* DeletedAliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353E8272290150D7004C9154 /* DeletedAliasesView.swift */; };
+		353E8275290150F6004C9154 /* DeletedAliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353E8274290150F6004C9154 /* DeletedAliasesViewModel.swift */; };
 		357B504A2892B9AA0080326A /* BetterSafariViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */; };
 		357B504C2892BAB80080326A /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = 357B504B2892BAB80080326A /* BetterSafariView */; };
 		357F16BA28FECF1C0096C81E /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F16B928FECF1C0096C81E /* FeatureFlags.swift */; };
@@ -235,6 +237,8 @@
 /* Begin PBXFileReference section */
 		35373C44289177DA00000297 /* LogInWithProtonButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithProtonButtonView.swift; sourceTree = "<group>"; };
 		35373C4628917A4900000297 /* ProtonButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtonButtonStyle.swift; sourceTree = "<group>"; };
+		353E8272290150D7004C9154 /* DeletedAliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAliasesView.swift; sourceTree = "<group>"; };
+		353E8274290150F6004C9154 /* DeletedAliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAliasesViewModel.swift; sourceTree = "<group>"; };
 		357F16B928FECF1C0096C81E /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		C00874AE27A98748004F32FA /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		C00874B227A989D3004F32FA /* SLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLError.swift; sourceTree = "<group>"; };
@@ -599,6 +603,8 @@
 				C03F4F2426E1665D00BBF2A8 /* AdvancedView.swift */,
 				C0F732B6278F854F004608DB /* CustomDomainsView.swift */,
 				C0E9C3E02790D57A00D1A463 /* CustomDomainsViewModel.swift */,
+				353E8272290150D7004C9154 /* DeletedAliasesView.swift */,
+				353E8274290150F6004C9154 /* DeletedAliasesViewModel.swift */,
 				C00DF9A9279175770065A602 /* DomainDetailView.swift */,
 				C03D292C279215EE0041FB60 /* DomainDetailViewModel.swift */,
 				C0F732B4278F842A004608DB /* MailboxesView.swift */,
@@ -1039,6 +1045,7 @@
 				C064797D272B331D009CA1F8 /* Action.swift in Sources */,
 				C04848A9278CE50700702E8E /* AppDelegate.swift in Sources */,
 				C0542ABE27AEDF3B00188C63 /* BaseViewController.swift in Sources */,
+				353E8273290150D7004C9154 /* DeletedAliasesView.swift in Sources */,
 				EF72966127C2698300737550 /* PrimaryButton.swift in Sources */,
 				35373C45289177DA00000297 /* LogInWithProtonButtonView.swift in Sources */,
 				C03B518E27288F2700C54130 /* AliasCompactView.swift in Sources */,
@@ -1140,6 +1147,7 @@
 				EF9FE0E12813FCC1003B3CB8 /* AliasEmailView.swift in Sources */,
 				EF68F56927C57B5100B555B5 /* LocalAuthenticator.swift in Sources */,
 				C08A5D8527499A0200BE889B /* AliasContactsView.swift in Sources */,
+				353E8275290150F6004C9154 /* DeletedAliasesViewModel.swift in Sources */,
 				C0E9C3E12790D57A00D1A463 /* CustomDomainsViewModel.swift in Sources */,
 				EFD6D652282F95D2007D9A7B /* UIViewControllerExtensions.swift in Sources */,
 			);

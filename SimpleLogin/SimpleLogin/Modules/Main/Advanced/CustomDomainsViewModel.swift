@@ -9,6 +9,8 @@ import SimpleLoginPackage
 import SwiftUI
 
 final class CustomDomainsViewModel: ObservableObject {
+    deinit { print("\(Self.self) is deallocated") }
+
     @Published private(set) var domains: [CustomDomain] = []
     @Published var isLoading = false
     @Published var error: Error?

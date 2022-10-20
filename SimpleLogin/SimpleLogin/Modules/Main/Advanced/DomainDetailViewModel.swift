@@ -10,6 +10,8 @@ import SimpleLoginPackage
 import SwiftUI
 
 final class DomainDetailViewModel: ObservableObject {
+    deinit { print("\(Self.self) is deallocated") }
+
     @Published private(set) var domain: CustomDomain = .empty
     @Published var catchAll = false
     @Published var randomPrefixGeneration = false
@@ -19,8 +21,8 @@ final class DomainDetailViewModel: ObservableObject {
     @Published var isUpdating = false
     @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
-    private let session: Session
     private let onUpdateDomains: ([CustomDomain]) -> Void
+    let session: Session
 
     init(domain: CustomDomain,
          session: Session,

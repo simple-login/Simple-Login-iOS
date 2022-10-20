@@ -25,6 +25,7 @@ struct DomainDetailView: View {
             CatchAllSection(viewModel: viewModel)
             DefaultDisplayNameSection(viewModel: viewModel)
             RandomPrefixSection(viewModel: viewModel)
+            DeletedAliasesSection(viewModel: viewModel)
         }
         .listStyle(.insetGrouped)
         .ignoresSafeArea(.keyboard)
@@ -246,5 +247,19 @@ private struct RandomPrefixSection: View {
         }, footer: {
             Text("Add a random prefix for this domain when creating new aliases")
         })
+    }
+}
+
+private struct DeletedAliasesSection: View {
+    let viewModel: DomainDetailViewModel
+
+    var body: some View {
+        Section {
+            NavigationLink(destination: {
+                DeletedAliasesView(session: viewModel.session, domain: viewModel.domain)
+            }, label: {
+                Text("Deleted aliases")
+            })
+        }
     }
 }
