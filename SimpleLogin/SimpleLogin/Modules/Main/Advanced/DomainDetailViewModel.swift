@@ -20,9 +20,13 @@ final class DomainDetailViewModel: ObservableObject {
     @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
     private let session: Session
+    private let onUpdateDomains: ([CustomDomain]) -> Void
 
-    init(domain: CustomDomain, session: Session) {
+    init(domain: CustomDomain,
+         session: Session,
+         onUpdateDomains: @escaping ([CustomDomain]) -> Void) {
         self.session = session
+        self.onUpdateDomains = onUpdateDomains
         bind(domain: domain)
 
         $catchAll
@@ -52,6 +56,20 @@ final class DomainDetailViewModel: ObservableObject {
         self.domain = domain
         self.catchAll = domain.catchAll
         self.randomPrefixGeneration = domain.randomPrefixGeneration
+    }
+
+    @MainActor
+    func refresh() async {
+        do {
+            let getDomainsEndpoint = GetCustomDomainsEndpoint(apiKey: session.apiKey.value)
+            let domains = try await session.execute(getDomainsEndpoint).customDomains
+            onUpdateDomains(domains)
+            if let domain = domains.first(where: { $0.id == self.domain.id }) {
+                self.domain = domain
+            }
+        } catch {
+            self.error = error
+        }
     }
 
     func update(option: CustomDomainUpdateOption) {

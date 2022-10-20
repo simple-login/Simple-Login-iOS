@@ -34,7 +34,7 @@ struct CustomDomainsView: View {
                 Text("To add new domains, please use our web application.")
             })
         }
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(.insetGrouped)
         .navigationTitle("Custom domains")
         .emptyPlaceholder(isEmpty: viewModel.noDomains) {
             DetailPlaceholderView(systemIconName: "globe",
@@ -56,7 +56,8 @@ struct CustomDomainsView: View {
         if domain.verified {
             NavigationLink(destination: {
                 DomainDetailView(domain: domain,
-                                 session: viewModel.session)
+                                 session: viewModel.session,
+                                 onUpdateDomains: viewModel.update)
             }, label: {
                 DomainView(domain: domain)
             })

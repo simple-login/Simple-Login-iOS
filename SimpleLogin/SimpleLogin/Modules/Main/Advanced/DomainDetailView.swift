@@ -11,21 +11,26 @@ import SwiftUI
 struct DomainDetailView: View {
     @StateObject private var viewModel: DomainDetailViewModel
 
-    init(domain: CustomDomain, session: Session) {
+    init(domain: CustomDomain,
+         session: Session,
+         onUpdateDomains: @escaping ([CustomDomain]) -> Void) {
         _viewModel = StateObject(wrappedValue: .init(domain: domain,
-                                                     session: session))
+                                                     session: session,
+                                                     onUpdateDomains: onUpdateDomains))
     }
 
     var body: some View {
-        Form {
+        List {
             DomainNameSection(domain: viewModel.domain)
             CatchAllSection(viewModel: viewModel)
             DefaultDisplayNameSection(viewModel: viewModel)
             RandomPrefixSection(viewModel: viewModel)
         }
+        .listStyle(.insetGrouped)
         .ignoresSafeArea(.keyboard)
         .navigationTitle(viewModel.domain.domainName)
         .navigationBarTitleDisplayMode(.inline)
+        .refreshable { await viewModel.refresh() }
         .alertToastLoading(isPresenting: $viewModel.isUpdating)
         .alertToastError($viewModel.error)
     }

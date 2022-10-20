@@ -28,9 +28,19 @@ final class CustomDomainsViewModel: ObservableObject {
         if !force { isLoading = true }
         do {
             let getDomainsEndpoint = GetCustomDomainsEndpoint(apiKey: session.apiKey.value)
-            domains = try await session.execute(getDomainsEndpoint).customDomains.sorted { $0.id > $1.id }
+            domains = try await session.execute(getDomainsEndpoint).customDomains.sortedById()
         } catch {
             self.error = error
         }
+    }
+
+    func update(_ domains: [CustomDomain]) {
+        self.domains = domains.sortedById()
+    }
+}
+
+extension Array where Element == CustomDomain {
+    func sortedById() -> Self {
+        sorted { $0.id > $1.id }
     }
 }
