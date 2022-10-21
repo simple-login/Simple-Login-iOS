@@ -11,7 +11,7 @@ import LocalAuthentication
 import SimpleLoginPackage
 import SwiftUI
 
-final class AccountViewModel: BaseSessionViewModel, ObservableObject {
+final class AccountViewModel: ObservableObject {
     @Published private(set) var userInfo: UserInfo = .empty
     private(set) var usableDomains: [UsableDomain] = []
     private var lastKnownUserSettings: UserSettings?
@@ -21,16 +21,17 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
     @Published var senderFormat: SenderFormat = .a
     @Published var randomAliasSuffix: RandomAliasSuffix = .word
     @Published var askingForSettings = false
+    @Published var isLoading = false
     @Published var error: Error?
     @Published var message: String?
     @Published var linkToProtonUrlString: String?
     @Published private(set) var isInitialized = false
-    @Published private(set) var isLoading = false
     @Published private(set) var shouldLogOut = false
     private var cancellables = Set<AnyCancellable>()
+    let session: Session
 
-    override init(session: Session) {
-        super.init(session: session)
+    init(session: Session) {
+        self.session = session
         let shouldUpdateUserSettings: () -> Bool = { [unowned self] in
             self.isInitialized && self.error == nil
         }
@@ -92,75 +93,54 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
             .store(in: &cancellables)
     }
 
-    func getRequiredInformation() {
-        guard !isLoading && !isInitialized else { return }
+    @MainActor
+    func refresh(force: Bool) async {
+        if !force, isInitialized { return }
+        defer { isLoading = false }
         isLoading = true
-        let getUserInfo = session.client.getUserInfo(apiKey: session.apiKey)
-        let getUserSettings = session.client.getUserSettings(apiKey: session.apiKey)
-        let getUsableDomains = session.client.getUsableDomains(apiKey: session.apiKey)
-        Publishers.Zip3(getUserInfo, getUserSettings, getUsableDomains)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished: self.isInitialized = true
-                case .failure(let error):
-                    if let slClientEror = error as? SLClientError {
-                        switch slClientEror {
-                        case .clientError(let errorResponse):
-                            if errorResponse.statusCode == 401 {
-                                self.shouldLogOut = true
-                            } else {
-                                // swiftlint:disable:next fallthrough
-                                fallthrough
-                            }
-                        default: self.error = error
-                        }
-                    } else {
-                        self.error = error
-                    }
-                }
-            } receiveValue: { [weak self] result in
-                guard let self = self else { return }
-                self.userInfo = result.0
+        do {
+            let getUserInfoEndpoint = GetUserInfoEndpoint(apiKey: session.apiKey.value)
+            let getUserSettingsEndpoint = GetUserSettingsEndpoint(apiKey: session.apiKey.value)
+            let getUsableDomainsEndpoint = GetUsableDomainsEndpoint(apiKey: session.apiKey.value)
 
-                let userSettings = result.1
-                self.bind(userSettings: userSettings)
+            let userInfo = try await session.execute(getUserInfoEndpoint)
+            let userSettings = try await session.execute(getUserSettingsEndpoint)
+            let usableDomains = try await session.execute(getUsableDomainsEndpoint)
 
-                let usableDomains = result.2
-                self.usableDomains = usableDomains
-                self.randomAliasDefaultDomain = usableDomains.first { $0.domain == userSettings.randomAliasDefaultDomain } // swiftlint:disable:this line_length
+            self.userInfo = userInfo
+            bind(userSettings: userSettings)
+            self.usableDomains = usableDomains
+            // swiftlint:disable:next line_length
+            self.randomAliasDefaultDomain = usableDomains.first { $0.domain == userSettings.randomAliasDefaultDomain }
+            isInitialized = true
+        } catch {
+            if let apiServiceError = error as? APIServiceError,
+               case .clientError(let errorResponse) = apiServiceError,
+               errorResponse.statusCode == 401 {
+                self.shouldLogOut = true
+                return
             }
-            .store(in: &cancellables)
-    }
-
-    override func refresh() {
-        isInitialized = false
-        getRequiredInformation()
+            self.error = error
+        }
     }
 
     private func update(option: UserSettingsUpdateOption) {
         guard !isLoading else { return }
-        isLoading = true
-        session.client.updateUserSettings(apiKey: session.apiKey, option: option)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished: break
-                case .failure(let error):
-                    self.error = error
-                    if let lastKnownUserSettings = self.lastKnownUserSettings {
-                        self.bind(userSettings: lastKnownUserSettings)
-                    }
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let updateUserSettingsEndpoint = UpdateUserSettingsEndpoint(apiKey: session.apiKey.value,
+                                                                            option: option)
+                let userSettings = try await session.execute(updateUserSettingsEndpoint)
+                bind(userSettings: userSettings)
+            } catch {
+                self.error = error
+                if let lastKnownUserSettings = self.lastKnownUserSettings {
+                    self.bind(userSettings: lastKnownUserSettings)
                 }
-            } receiveValue: { [weak self] userSettings in
-                guard let self = self else { return }
-                self.bind(userSettings: userSettings)
             }
-            .store(in: &cancellables)
+        }
     }
 
     private func bind(userSettings: UserSettings) {
@@ -188,21 +168,17 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
     }
 
     private func updateProfilePicture(base64String: String?) {
-        isLoading = true
-        session.client.updateProfilePicture(apiKey: session.apiKey, base64ProfilePicture: base64String)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
-                }
-            } receiveValue: { [weak self] userInfo in
-                guard let self = self else { return }
-                self.userInfo = userInfo
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let updateProfilePictureEndpoint = UpdateUserInfoEndpoint(apiKey: session.apiKey.value,
+                                                                          option: .profilePicture(base64String))
+                userInfo = try await session.execute(updateProfilePictureEndpoint)
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func openAppSettings() {
@@ -213,21 +189,17 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
 
     func updateDisplayName(_ displayName: String) {
         guard !isLoading else { return }
-        isLoading = true
-        session.client.updateProfileName(apiKey: session.apiKey, name: displayName)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
-                }
-            } receiveValue: { [weak self] userInfo in
-                guard let self = self else { return }
-                self.userInfo = userInfo
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let updateDisplayNameEndpoint = UpdateUserInfoEndpoint(apiKey: session.apiKey.value,
+                                                                       option: .name(displayName))
+                userInfo = try await session.execute(updateDisplayNameEndpoint)
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func connectWithProtonAction(apiUrl: String) {
@@ -239,43 +211,38 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
     }
 
     private func linkToProton(apiUrl: String) {
-        isLoading = true
-        session.client.getCookieToken(apiKey: session.apiKey)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
-                }
-            } receiveValue: { [weak self] token in
-                guard let self = self else { return }
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let getCookieTokenEndpoint = GetCookieTokenEndpoint(apiKey: session.apiKey.value)
+                let token = try await session.execute(getCookieTokenEndpoint)
                 let scheme = "auth.simplelogin"
                 let action = "link"
                 let next = "link"
                 // swiftlint:disable:next line_length
                 let linkToProtonUrlString = "\(apiUrl)/auth/api_to_cookie?token=\(token.value)&next=%2Fauth%2Fproton%2Flogin%3Faction%3D\(action)%26next%3D%2F\(next)%26scheme%3D\(scheme)"
                 self.linkToProtonUrlString = linkToProtonUrlString
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     private func unlinkFromProton() {
-        isLoading = true
-        session.client.unlinkFromProton(apiKey: session.apiKey)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
+        Task { @MainActor in
+            isLoading = true
+            do {
+                let unlinkProtonEndpoint = UnlinkProtonAccountEndpoint(apiKey: session.apiKey.value)
+                _ = try await session.execute(unlinkProtonEndpoint)
+                self.message = "Your Proton account has been unlinked"
                 self.isLoading = false
-                switch completion {
-                case .finished:
-                    self.message = "Your Proton account has been unlinked"
-                    self.refresh()
-                case .failure(let error): self.error = error
-                }
-            } receiveValue: { _ in }
-            .store(in: &cancellables)
+                await refresh(force: true)
+            } catch {
+                self.isLoading = false
+                self.error = error
+            }
+        }
     }
 
     func handleLinkingResult(_ result: Result<URL, Error>) {
@@ -283,7 +250,9 @@ final class AccountViewModel: BaseSessionViewModel, ObservableObject {
         case .success(let url):
             if url.absoluteString.contains("link") {
                 message = "Your Proton account has been successfully linked"
-                refresh()
+                Task {
+                    await refresh(force: true)
+                }
             }
 
         case .failure(let error):

@@ -9,10 +9,14 @@ import SwiftUI
 
 struct PrimaryButton: View {
     let title: String
-    let action: () -> Void
+    let action: () async -> Void
 
     var body: some View {
-        Button(action: action) {
+        Button(action: {
+            Task {
+                await action()
+            }
+        }, label: {
             Text(title)
                 .font(.headline)
                 .fontWeight(.bold)
@@ -21,6 +25,6 @@ struct PrimaryButton: View {
                 .padding(.vertical)
                 .background(Color.slPurple)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-        }
+        })
     }
 }

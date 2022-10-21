@@ -5,7 +5,6 @@
 //  Created by Nhon Nguyen on 29/04/2022.
 //
 
-import Combine
 import SimpleLoginPackage
 import SwiftUI
 
@@ -52,7 +51,7 @@ struct KeyboardContentView: View {
     }
 }
 
-final class KeyboardContentViewModel: BaseSessionViewModel, ObservableObject {
+final class KeyboardContentViewModel: ObservableObject {
     @AppStorage(kKeyboardExtensionMode, store: .shared)
     private var keyboardExtensionMode: KeyboardExtensionMode = .all
     @Published private(set) var aliases = [Alias]()
@@ -63,7 +62,11 @@ final class KeyboardContentViewModel: BaseSessionViewModel, ObservableObject {
 
     private var currentPage = 0
     private var canLoadMorePages = true
-    private var cancellables = Set<AnyCancellable>()
+    private let session: Session
+
+    init(session: Session) {
+        self.session = session
+    }
 
     func getMoreAliasesIfNeed(currentAlias alias: Alias?) {
         guard let alias = alias else {
@@ -79,72 +82,61 @@ final class KeyboardContentViewModel: BaseSessionViewModel, ObservableObject {
 
     private func getMoreAliases() {
         guard !isLoading && canLoadMorePages else { return }
-        isLoading = true
-        session.client.getAliases(apiKey: session.apiKey,
-                                  page: currentPage,
-                                  option: keyboardExtensionMode == .pinned ? .pinned : nil)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] aliasArray in
-                guard let self = self else { return }
-                self.aliases.append(contentsOf: aliasArray.aliases)
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let aliases = try await getAliases(page: currentPage)
+                self.aliases += aliases
                 self.currentPage += 1
-                self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
+                self.canLoadMorePages = aliases.count == kDefaultPageSize
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
-    override func refresh() {
-        isLoading = true
-        session.client.getAliases(apiKey: session.apiKey, page: 0, option: nil)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    self.error = nil
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] aliasArray in
-                guard let self = self else { return }
-                self.aliases = aliasArray.aliases
+    func refresh() {
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let aliases = try await getAliases(page: 0)
+                self.aliases = aliases
                 self.currentPage = 1
-                self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
+                self.canLoadMorePages = aliases.count == kDefaultPageSize
+                self.error = nil
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
+    }
+
+    private func getAliases(page: Int) async throws -> [Alias] {
+        let option = GetAliasesOption.filter(keyboardExtensionMode == .pinned ? .pinned : nil)
+        let getAliasesEndpoint = GetAliasesEndpoint(apiKey: session.apiKey.value,
+                                                    page: page,
+                                                    option: option)
+        return try await session.execute(getAliasesEndpoint).aliases
     }
 
     func random(mode: RandomMode) {
         guard !isLoading else { return }
-        isLoading = true
-        session.client.randomAlias(apiKey: session.apiKey,
-                                   options: AliasRandomOptions(mode: mode))
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] randomAlias in
-                guard let self = self else { return }
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let randomAliasEndpoint = RandomAliasEndpoint(apiKey: session.apiKey.value,
+                                                              note: nil,
+                                                              mode: mode,
+                                                              hostname: nil)
+                let alias = try await session.execute(randomAliasEndpoint)
+                self.createdAlias = alias
                 self.refresh()
-                self.createdAlias = randomAlias
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func handleCreatedAlias() {

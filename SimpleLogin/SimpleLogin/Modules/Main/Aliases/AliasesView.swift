@@ -7,7 +7,6 @@
 
 import Combine
 import CoreData
-import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
@@ -134,9 +133,7 @@ struct AliasesView: View {
                         }
                     }
                     .listStyle(.plain)
-                    .introspectTableView { tableView in
-                        tableView.refreshControl = viewModel.refreshControl
-                    }
+                    .refreshable { await viewModel.refresh() }
                     .onReceive(Just(createdAlias)) { createdAlias in
                         if let createdAlias = createdAlias {
                             if !viewModel.isHandled(createdAlias) {
@@ -201,12 +198,12 @@ struct AliasesView: View {
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingUpdatingAlert = isUpdating
         }
-        .onReceive(Just(viewModel.refreshControl.isRefreshing)) { isRefreshing in
-            if isRefreshing {
-                createdAlias = nil
-                selectedAlias = nil
-            }
-        }
+//        .onReceive(Just(viewModel.refreshControl.isRefreshing)) { isRefreshing in
+//            if isRefreshing {
+//                createdAlias = nil
+//                selectedAlias = nil
+//            }
+//        }
         .alert(isPresented: $showingDeleteConfirmationAlert) {
             guard let selectedAlias = selectedAlias else {
                 return Alert(title: Text("selectedAlias is nil"))

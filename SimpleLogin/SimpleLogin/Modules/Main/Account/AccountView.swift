@@ -7,7 +7,6 @@
 
 import AuthenticationServices
 import Combine
-import Introspect
 import Kingfisher
 import LocalAuthentication
 import SimpleLoginPackage
@@ -53,13 +52,11 @@ struct AccountView: View {
                     DeleteAccountSection(onDeleteAccount: onLogOut)
                     LogOutSection(onLogOut: onLogOut)
                 }
+                .refreshable { await viewModel.refresh(force: true) }
                 .ignoresSafeArea(.keyboard)
                 .environmentObject(viewModel)
                 .navigationTitle("My Account")
                 .navigationBarItems(trailing: trailingButton)
-                .introspectTableView { tableView in
-                    tableView.refreshControl = viewModel.refreshControl
-                }
                 .onAppear {
                     if upgradeNeeded, !showingUpgradeView {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -88,9 +85,7 @@ struct AccountView: View {
         }
         .slNavigationView()
         .disabled(viewModel.isLoading)
-        .onAppear {
-            viewModel.getRequiredInformation()
-        }
+        .task { await viewModel.refresh(force: false) }
         .onReceive(Just(viewModel.isInitialized)) { isInitialized in
             guard isInitialized, UIDevice.current.userInterfaceIdiom != .phone else { return }
             if viewModel.userInfo.inTrial || !viewModel.userInfo.isPremium {
@@ -134,7 +129,9 @@ struct AccountView: View {
                 destination: {
                     UpgradeView(session: viewModel.session) {
                         confettiCounter += 1
-                        viewModel.refresh()
+                        Task {
+                            await viewModel.refresh(force: true)
+                        }
                     }
                 },
                 label: {
@@ -210,11 +207,11 @@ private struct UserInfoSection: View {
                     Label("Upload new profile photo", systemImage: "square.and.arrow.up")
                 })
 
-                Button(action: {
-                    viewModel.removeProfilePhoto()
-                }, label: {
-                    Label("Remove profile photo", systemImage: "trash")
-                })
+                if viewModel.userInfo.profilePictureUrl != nil {
+                    Button(role: .destructive, action: viewModel.removeProfilePhoto) {
+                        Label("Remove profile photo", systemImage: "trash")
+                    }
+                }
             }
 
             Section {
@@ -247,6 +244,7 @@ private struct UserInfoSection: View {
         TextFieldAlertConfig(title: "Edit display name",
                              text: viewModel.userInfo.name,
                              keyboardType: .default,
+                             autocapitalizationType: .words,
                              clearButtonMode: .always,
                              actionTitle: "Save") { newDisplayName in
             viewModel.updateDisplayName(newDisplayName ?? "")
@@ -371,7 +369,6 @@ private struct DeleteAccountSection: View {
     @EnvironmentObject private var viewModel: AccountViewModel
     @EnvironmentObject private var preferences: Preferences
     @Environment(\.openURL) private var openURL
-    @State private var isShowingDeleteAccountView = false
     let onDeleteAccount: () -> Void
 
     var body: some View {
@@ -379,9 +376,6 @@ private struct DeleteAccountSection: View {
             HStack {
                 Button(action: {
                     Vibration.heavy.vibrate(fallBackToOldSchool: true)
-                    // Currently open the web app instead of handling
-                    // the deletion flow in app.
-//                    isShowingDeleteAccountView.toggle()
                     if let url = URL(string: "\(preferences.apiUrl)/dashboard/delete_account") {
                         openURL(url)
                     }
@@ -395,12 +389,6 @@ private struct DeleteAccountSection: View {
         }, footer: {
             Text("If SimpleLogin isn't the right fit for you, you can simply delete your account.")
         })
-        .fullScreenCover(isPresented: $isShowingDeleteAccountView) {
-            DeleteAccountView(session: viewModel.session) {
-                isShowingDeleteAccountView.toggle()
-                onDeleteAccount()
-            }
-        }
     }
 }
 

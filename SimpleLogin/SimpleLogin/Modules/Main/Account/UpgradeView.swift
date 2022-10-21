@@ -179,8 +179,7 @@ struct UpgradeView: View {
 struct UpgradeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            UpgradeView(session: .init(apiKey: ApiKey(value: ""),
-                                       client: .default)) {}
+            UpgradeView(session: .preview) {}
         }
     }
 }

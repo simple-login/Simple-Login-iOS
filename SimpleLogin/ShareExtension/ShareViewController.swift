@@ -30,9 +30,11 @@ final class ShareViewController: UIViewController {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 10
         if let apiKey = KeychainService.shared.getApiKey(),
-           let client = SLClient(session: URLSession(configuration: config),
-                                 baseUrlString: Preferences.shared.apiUrl) {
-            setSession(session: .init(apiKey: apiKey, client: client))
+           let baseURL = URL(string: Preferences.shared.apiUrl) {
+            let apiService = APIService(baseURL: baseURL,
+                                        session: .init(configuration: config),
+                                        printDebugInformation: true)
+            setSession(session: .init(apiKey: apiKey, apiService: apiService))
         } else {
             setSession(session: nil)
         }

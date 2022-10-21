@@ -8,13 +8,14 @@
 import Combine
 import Foundation
 
-class BaseReachabilitySessionViewModel: BaseSessionViewModel {
+class BaseReachabilitySessionViewModel {
+    let session: Session
     let reachabilityObserver: ReachabilityObserver
     private var cancellables = Set<AnyCancellable>()
 
     init(session: Session, reachabilityObserver: ReachabilityObserver) {
+        self.session = session
         self.reachabilityObserver = reachabilityObserver
-        super.init(session: session)
         self.reachabilityObserver.$reachable
             .receive(on: DispatchQueue.main)
             .sink { [weak self] reachable in

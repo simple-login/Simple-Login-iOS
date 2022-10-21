@@ -13,9 +13,6 @@ struct LogInView: View {
     @EnvironmentObject private var preferences: Preferences
     @StateObject private var viewModel: LogInViewModel
 
-    @AppStorage("Email") private var email = ""
-    @State private var password = ""
-
     @State private var showingAboutView = false
     @State private var showingApiKeyView = false
     @State private var showingApiUrlView = false
@@ -29,9 +26,10 @@ struct LogInView: View {
 
     @State private var showingLoadingAlert = false
 
-    let onComplete: (ApiKey, SLClient) -> Void
+    let onComplete: (ApiKey, APIServiceProtocol) -> Void
 
-    init(apiUrl: String, onComplete: @escaping (ApiKey, SLClient) -> Void) {
+    init(apiUrl: String,
+         onComplete: @escaping (ApiKey, APIServiceProtocol) -> Void) {
         _viewModel = StateObject(wrappedValue: .init(apiUrl: apiUrl))
         self.onComplete = onComplete
     }
@@ -74,17 +72,16 @@ struct LogInView: View {
 
             if !launching {
                 VStack {
-                    EmailPasswordView(email: $email,
-                                      password: $password,
-                                      mode: .logIn) {
-                        viewModel.logIn(email: email, password: password, device: UIDevice.current.name)
-                    }
+                    EmailPasswordView(email: $viewModel.email,
+                                      password: $viewModel.password,
+                                      mode: .logIn,
+                                      onAction: viewModel.logIn)
 
                     Text("or")
                         .font(.caption)
 
                     LogInWithProtonButtonView(onSuccess: { apiKey in
-                        onComplete(apiKey, viewModel.client)
+                        onComplete(apiKey, viewModel.apiService)
                     }, onError: { error in
                         viewModel.error = error
                     })
@@ -113,13 +110,13 @@ struct LogInView: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .opacity(viewModel.isShowingKeyboard ? 0 : 1)
                     .fullScreenCover(isPresented: $showingSignUpView) {
-                        if let client = viewModel.client {
-                            SignUpView(client: client) { emai, password in
-                                self.email = emai
-                                self.password = password
-                                self.viewModel.logIn(email: email,
-                                                     password: password,
-                                                     device: UIDevice.current.name)
+                        if let apiService = viewModel.apiService {
+                            SignUpView(apiService: apiService) { email, password in
+                                Task {
+                                    viewModel.email = email
+                                    viewModel.password = password
+                                    await viewModel.logIn()
+                                }
                             }
                         }
                     }
@@ -140,20 +137,20 @@ struct LogInView: View {
             if userLogin.isMfaEnabled {
                 otpMode = .logIn(mfaKey: userLogin.mfaKey ?? "")
             } else if let apiKey = userLogin.apiKey {
-                onComplete(apiKey, viewModel.client)
+                onComplete(.init(value: apiKey), viewModel.apiService)
             }
             viewModel.handledUserLogin()
         }
         .onReceive(Just(viewModel.shouldActivate)) { shouldActivate in
             if shouldActivate {
-                otpMode = .activate(email: email)
+                otpMode = .activate(email: viewModel.email)
                 viewModel.handledShouldActivate()
             }
         }
         .onAppear {
             if let apiKey = KeychainService.shared.getApiKey() {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    onComplete(apiKey, viewModel.client)
+                    onComplete(apiKey, viewModel.apiService)
                 }
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -187,8 +184,8 @@ struct LogInView: View {
             Color.clear
                 .frame(width: 0, height: 0)
                 .sheet(isPresented: $showingApiKeyView) {
-                    ApiKeyView(client: viewModel.client) { apiKey in
-                        onComplete(apiKey, viewModel.client)
+                    ApiKeyView(apiService: viewModel.apiService) { apiKey in
+                        onComplete(apiKey, viewModel.apiService)
                     }
                 }
 
@@ -279,15 +276,11 @@ struct LogInView: View {
     private func otpView() -> some View {
         OtpView(
             mode: $otpMode,
-            client: viewModel.client,
+            apiService: viewModel.apiService,
             onVerification: { apiKey in
-                onComplete(apiKey, viewModel.client)
+                onComplete(apiKey, viewModel.apiService)
             },
-            onActivation: {
-                viewModel.logIn(email: email,
-                                password: password,
-                                device: UIDevice.current.name)
-            })
+            onActivation: viewModel.logIn)
     }
 
     private var resetPasswordConfig: TextFieldAlertConfig {
@@ -295,11 +288,9 @@ struct LogInView: View {
                              message: "Enter your email address",
                              placeholder: "Ex: john.doe@example.com",
                              keyboardType: .emailAddress,
+                             autocapitalizationType: .none,
                              clearButtonMode: .whileEditing,
-                             actionTitle: "Submit") { email in
-            if let email = email {
-                viewModel.resetPassword(email: email)
-            }
-        }
+                             actionTitle: "Submit",
+                             action: viewModel.resetPassword(email:))
     }
 }

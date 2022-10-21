@@ -78,25 +78,21 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
 
         guard !isLoading else { return }
 
-        isLoading = true
-        session.client.searchAliases(apiKey: session.apiKey, page: currentPage, searchTerm: lastSearchTerm)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] aliasArray in
-                guard let self = self else { return }
-                self.aliases.append(contentsOf: aliasArray.aliases)
-                self.currentPage += 1
-                self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let searchAliasesEndpoint = GetAliasesEndpoint(apiKey: session.apiKey.value,
+                                                               page: currentPage,
+                                                               option: .search(query: lastSearchTerm))
+                let newAliases = try await session.execute(searchAliasesEndpoint).aliases
+                aliases.append(contentsOf: newAliases)
+                currentPage += 1
+                canLoadMorePages = newAliases.count == kDefaultPageSize
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     private func initialSearch(term: String) {
@@ -114,25 +110,21 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
             return
         }
 
-        isLoading = true
-        session.client.searchAliases(apiKey: session.apiKey, page: 0, searchTerm: term)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] aliasArray in
-                guard let self = self else { return }
-                self.aliases = aliasArray.aliases
-                self.currentPage = 1
-                self.canLoadMorePages = aliasArray.aliases.count == kDefaultPageSize
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let searchAliasesEndpoint = GetAliasesEndpoint(apiKey: session.apiKey.value,
+                                                               page: 0,
+                                                               option: .search(query: term))
+                let newAliases = try await session.execute(searchAliasesEndpoint).aliases
+                aliases = newAliases
+                currentPage = 1
+                canLoadMorePages = newAliases.count == kDefaultPageSize
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func update(alias: Alias) {
@@ -146,20 +138,13 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
 
     func toggle(alias: Alias) {
         guard !isUpdating else { return }
-        isUpdating = true
-        session.client.toggleAliasStatus(apiKey: session.apiKey, id: alias.id)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isUpdating = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] enabledResponse in
-                guard let self = self else { return }
+        Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
+            do {
+                let toggleAliasEndpoint = ToggleAliasEndpoint(apiKey: session.apiKey.value,
+                                                              aliasID: alias.id)
+                let enabledResponse = try await session.execute(toggleAliasEndpoint)
                 guard let index = self.aliases.firstIndex(where: { $0.id == alias.id }) else { return }
                 let updatedAlias = Alias(id: alias.id,
                                          email: alias.email,
@@ -177,34 +162,25 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
                                          pinned: alias.pinned)
                 self.updatedAlias = updatedAlias
                 self.aliases[index] = updatedAlias
-                do {
-                    try self.dataController.update(updatedAlias)
-                } catch {
-                    self.error = error
-                }
+                try self.dataController.update(updatedAlias)
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func update(alias: Alias, option: AliasUpdateOption) {
         guard !isUpdating else { return }
-        isUpdating = true
-        session.client.updateAlias(apiKey: session.apiKey, id: alias.id, option: option)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isUpdating = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] _ in
-                guard let self = self else { return }
+        Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
+            do {
+                let updateAliasEndpoint = UpdateAliasEndpoint(apiKey: session.apiKey.value,
+                                                              aliasID: alias.id,
+                                                              option: option)
+                _ = try await session.execute(updateAliasEndpoint)
                 guard let index = self.aliases.firstIndex(where: { $0.id == alias.id }) else { return }
-                switch option {
-                case .pinned(let pinned):
+                if case .pinned(let pinned) = option {
                     let updatedAlias = Alias(id: alias.id,
                                              email: alias.email,
                                              name: alias.name,
@@ -221,41 +197,28 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
                                              pinned: pinned)
                     self.updatedAlias = updatedAlias
                     self.aliases[index] = updatedAlias
-                    do {
-                        try self.dataController.update(updatedAlias)
-                    } catch {
-                        self.error = error
-                    }
-                default:
-                    break
+                    try self.dataController.update(updatedAlias)
                 }
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func delete(alias: Alias) {
-        isUpdating = true
-        session.client.deleteAlias(apiKey: session.apiKey, id: alias.id)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isUpdating = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] _ in
-                guard let self = self else { return }
+        Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
+            do {
+                let deleteAliasEndpoint = DeleteAliasEndpoint(apiKey: session.apiKey.value,
+                                                              aliasID: alias.id)
+                _ = try await session.execute(deleteAliasEndpoint)
                 self.deletedAlias = alias
                 self.remove(alias: alias)
-                do {
-                    try self.dataController.delete(alias)
-                } catch {
-                    self.error = error
-                }
+                try self.dataController.delete(alias)
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 }

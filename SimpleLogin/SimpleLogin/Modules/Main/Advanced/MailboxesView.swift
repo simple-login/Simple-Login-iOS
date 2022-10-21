@@ -6,7 +6,6 @@
 //
 
 import Combine
-import Introspect
 import SimpleLoginPackage
 import SwiftUI
 
@@ -37,11 +36,9 @@ struct MailboxesView: View {
             }
             .navigationBarTitle("Mailboxes")
         }
+        .animation(.default, value: viewModel.mailboxes.count)
         .listStyle(InsetGroupedListStyle())
         .ignoresSafeArea(.keyboard)
-        .introspectTableView { tableView in
-            tableView.refreshControl = viewModel.refreshControl
-        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
@@ -52,9 +49,8 @@ struct MailboxesView: View {
                 })
             }
         }
-        .onAppear {
-            viewModel.fetchMailboxes(refreshing: false)
-        }
+        .task { await viewModel.refresh(force: false) }
+        .refreshable { await viewModel.refresh(force: true) }
         .onReceive(Just(viewModel.isLoading)) { isLoading in
             showingLoadingAlert = isLoading
         }
@@ -88,6 +84,7 @@ struct MailboxesView: View {
                              message: "A verification email will be sent to this email address",
                              placeholder: "Ex: john.doe@example.com",
                              keyboardType: .emailAddress,
+                             autocapitalizationType: .none,
                              clearButtonMode: .never,
                              actionTitle: "Submit") { newMailbox in
             if let newMailbox = newMailbox {

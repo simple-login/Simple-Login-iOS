@@ -18,7 +18,6 @@ struct CreateAliasView: View {
     private let onCreateAlias: (Alias) -> Void
     private let onCancel: (() -> Void)?
     private let onOpenMyAccount: (() -> Void)?
-    private let mode: Mode?
 
     enum Mode {
         case text(String)
@@ -30,8 +29,8 @@ struct CreateAliasView: View {
          onCreateAlias: @escaping (Alias) -> Void,
          onCancel: (() -> Void)?,
          onOpenMyAccount: (() -> Void)?) {
-        _viewModel = StateObject(wrappedValue: .init(session: session))
-        self.mode = mode
+        _viewModel = StateObject(wrappedValue: .init(session: session,
+                                                     mode: mode))
         self.onCreateAlias = onCreateAlias
         self.onCancel = onCancel
         self.onOpenMyAccount = onOpenMyAccount
@@ -44,14 +43,11 @@ struct CreateAliasView: View {
                    let mailboxes = viewModel.mailboxes {
                     ContentView(viewModel: viewModel,
                                 options: options,
-                                mailboxes: mailboxes,
-                                mode: mode)
+                                mailboxes: mailboxes)
                 } else if !viewModel.isLoading {
-                    Button(action: {
-                        viewModel.fetchOptionsAndMailboxes()
-                    }, label: {
+                    Button(action: viewModel.fetchOptionsAndMailboxes) {
                         Label("Retry", systemImage: "gobackward")
-                    })
+                    }
                 }
             }
             .navigationBarTitle("Create an alias", displayMode: .inline)
@@ -65,7 +61,7 @@ struct CreateAliasView: View {
             }
         }
         .onAppear {
-            if viewModel.options == nil || viewModel.mailboxes == nil {
+            if viewModel.options == nil || viewModel.mailboxes.isEmpty {
                 viewModel.fetchOptionsAndMailboxes()
             }
         }
@@ -98,71 +94,43 @@ struct CreateAliasView: View {
 private struct ContentView: View {
     @ObservedObject var viewModel: CreateAliasViewModel
     @State private var isInitialized = false
-    @State private var prefix = ""
-    @State private var selectedSuffix: Suffix?
-    @State private var mailboxIds = [Int]()
-    @State private var notes = ""
     @State private var selectedUrlString: String?
     let options: AliasOptions
     let mailboxes: [Mailbox]
-    let mode: CreateAliasView.Mode?
 
     var body: some View {
         Form {
             prefixAndSuffixSection
             notesSection
             mailboxesSection
-            Section(content: {
-                EmptyView()
-            }, footer: {
-                buttons
-            })
-        }
-        .onAppear {
-            guard !isInitialized else { return }
-            isInitialized = true
-            selectedSuffix = options.suffixes.first
-            if let defaultMailbox = mailboxes.first(where: { $0.default }) ?? mailboxes.first {
-                mailboxIds.append(defaultMailbox.id)
-            }
-
-            switch mode {
-            case .url(let url):
-                prefix = url.notWwwHostname() ?? ""
-                notes = url.host ?? ""
-            case .text(let text):
-                notes = text
-            case .none:
-                break
-            }
         }
     }
 
     private var prefixAndSuffixSection: some View {
         Section(content: {
             VStack(alignment: .leading) {
-                TextField("Custom prefix", text: $prefix.animation())
+                TextField("Custom prefix", text: $viewModel.prefix.animation())
                     .textFieldStyle(.roundedBorder)
                     .labelsHidden()
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-                    .foregroundColor(prefix.isValidPrefix ? .primary : .red)
+                    .foregroundColor(viewModel.prefix.isValidPrefix ? .primary : .red)
                     .introspectTextField { textField in
                         textField.clearButtonMode = .whileEditing
                     }
 
-                if !prefix.isEmpty, !prefix.isValidPrefix {
+                if !viewModel.prefix.isEmpty, !viewModel.prefix.isValidPrefix {
                     Text("Only lowercase letters, numbers, dot (.), dashes (-) & underscore are supported.")
                         .font(.caption)
                         .foregroundColor(.red)
-                        .animation(.default, value: prefix)
+                        .animation(.default, value: viewModel.prefix)
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
 
-            if let selectedSuffix = selectedSuffix {
+            if let selectedSuffix = viewModel.selectedSuffix {
                 NavigationLink(destination: {
-                    EditSuffixView(selectedSuffix: $selectedSuffix, suffixes: options.suffixes)
+                    EditSuffixView(selectedSuffix: $viewModel.selectedSuffix, suffixes: options.suffixes)
                 }, label: {
                     VStack(alignment: .leading) {
                         Text(selectedSuffix.value)
@@ -175,13 +143,13 @@ private struct ContentView: View {
                 })
             }
 
-            if prefix.isValidPrefix {
+            if viewModel.prefix.isValidPrefix {
                 VStack(alignment: .leading) {
-                    Text("Complete alias address".uppercased())
+                    Text("Your're about to create".uppercased())
                         .font(.caption2)
                         .fontWeight(.medium)
                         .foregroundColor(.secondary)
-                    Text(prefix + (selectedSuffix?.value ?? ""))
+                    Text(viewModel.prefix + (viewModel.selectedSuffix?.value ?? ""))
                         .fontWeight(.medium)
                         .transaction { transaction in
                             transaction.animation = nil
@@ -197,7 +165,7 @@ private struct ContentView: View {
 
     private var notesSection: some View {
         Section(content: {
-            TextEditor(text: $notes)
+            TextEditor(text: $viewModel.notes)
                 .frame(height: 80)
         }, header: {
             Text("Notes")
@@ -206,22 +174,12 @@ private struct ContentView: View {
 
     private var buttons: some View {
         VStack {
-            let createButtonDisabled = !prefix.isValidPrefix || mailboxIds.isEmpty
-            PrimaryButton(title: "Create") {
-                guard let selectedSuffix = selectedSuffix else { return }
-                let creationOptions = AliasCreationOptions(hostname: nil,
-                                                           prefix: prefix,
-                                                           suffix: selectedSuffix,
-                                                           mailboxIds: mailboxIds,
-                                                           note: notes.isEmpty ? nil : notes,
-                                                           name: nil)
-                viewModel.createAlias(options: creationOptions)
-            }
+            PrimaryButton(title: "Create", action: viewModel.createAlias)
             .padding(.vertical)
-            .opacity(createButtonDisabled ? 0.5 : 1)
-            .disabled(createButtonDisabled)
+            .opacity(viewModel.canCreate ? 1 : 0.5)
+            .disabled(!viewModel.canCreate)
 
-            if prefix.isEmpty && notes.isEmpty {
+            if viewModel.prefix.isEmpty && viewModel.notes.isEmpty {
                 GeometryReader { geometry in
                     HStack {
                         Spacer()
@@ -260,19 +218,26 @@ private struct ContentView: View {
     private var mailboxesSection: some View {
         Section(content: {
             NavigationLink(destination: {
-                EditMailboxesView(mailboxIds: $mailboxIds, mailboxes: mailboxes)
+                EditMailboxesView(mailboxIds: $viewModel.mailboxIds, mailboxes: viewModel.mailboxes)
             }, label: {
-                let selectedMailboxes = mailboxes.filter { mailboxIds.contains($0.id) }
+                let selectedMailboxes = viewModel.mailboxes.filter { viewModel.mailboxIds.contains($0.id) }
                 Text(selectedMailboxes.map { $0.email }.joined(separator: "\n"))
             })
         }, header: {
             Text("Mailboxes")
         }, footer: {
-            Button("What are mailboxes?") {
-                selectedUrlString = "https://simplelogin.io/docs/mailbox/add-mailbox/"
+            VStack {
+                Button("What are mailboxes?") {
+                    selectedUrlString = "https://simplelogin.io/docs/mailbox/add-mailbox/"
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundColor(.slPurple)
+                buttons
             }
-            .foregroundColor(.slPurple)
         })
+        .transaction { transaction in
+            transaction.animation = nil
+        }
         .betterSafariView(urlString: $selectedUrlString)
     }
 

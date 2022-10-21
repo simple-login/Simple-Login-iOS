@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		35373C45289177DA00000297 /* LogInWithProtonButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35373C44289177DA00000297 /* LogInWithProtonButtonView.swift */; };
 		35373C4728917A4900000297 /* ProtonButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35373C4628917A4900000297 /* ProtonButtonStyle.swift */; };
-		35565DAA28915B7200E4C347 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35565DA928915B7200E4C347 /* DeleteAccountView.swift */; };
-		35565DAC28915F5400E4C347 /* DeleteAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35565DAB28915F5400E4C347 /* DeleteAccountViewModel.swift */; };
+		353E8273290150D7004C9154 /* DeletedAliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353E8272290150D7004C9154 /* DeletedAliasesView.swift */; };
+		353E8275290150F6004C9154 /* DeletedAliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353E8274290150F6004C9154 /* DeletedAliasesViewModel.swift */; };
 		357B504A2892B9AA0080326A /* BetterSafariViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFBBDE527C96CCA00C8E6DD /* BetterSafariViewModifier.swift */; };
 		357B504C2892BAB80080326A /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = 357B504B2892BAB80080326A /* BetterSafariView */; };
+		357F16BA28FECF1C0096C81E /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F16B928FECF1C0096C81E /* FeatureFlags.swift */; };
 		C00874AF27A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
 		C00874B027A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
 		C00874B127A98748004F32FA /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00874AE27A98748004F32FA /* ErrorExtensions.swift */; };
@@ -69,7 +70,6 @@
 		C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */; };
 		C03F4F2526E1665D00BBF2A8 /* AdvancedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2426E1665D00BBF2A8 /* AdvancedView.swift */; };
 		C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */; };
-		C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */; };
 		C03F4F2D26E171D900BBF2A8 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */; };
 		C04266D327944E130053451B /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04266D227944E130053451B /* Vibration.swift */; };
 		C043D41426E01DBF0051B282 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C043D41326E01DBF0051B282 /* KeychainAccess */; };
@@ -88,7 +88,6 @@
 		C05A4CDE273C6C73005F8CC5 /* AutoFocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */; };
 		C05A4CE1273C76BC005F8CC5 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C05A4CE0273C76BC005F8CC5 /* Introspect */; };
 		C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A9B14277BB996003FD0A7 /* UpgradeView.swift */; };
-		C05DB09D27A877BD00200E2D /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */; };
 		C064797D272B331D009CA1F8 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C064797C272B331D009CA1F8 /* Action.swift */; };
 		C06CEAF2279018B100736920 /* MailboxesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06CEAF1279018B100736920 /* MailboxesViewModel.swift */; };
 		C079864A26B34D5F006C9FC0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C079864926B34D5F006C9FC0 /* LogInView.swift */; };
@@ -106,7 +105,6 @@
 		C0941EEB27A6E917009AAEBC /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C0941EEA27A6E917009AAEBC /* KeychainAccess */; };
 		C0941EEC27A6EEAE009AAEBC /* CreateAliasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F4CAE27483B390019F965 /* CreateAliasViewModel.swift */; };
 		C0941EED27A6EEAE009AAEBC /* CreateAliasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C029769326F141A60014DC3B /* CreateAliasView.swift */; };
-		C0941EEE27A6EF78009AAEBC /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */; };
 		C0941EEF27A6EFBF009AAEBC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0259EAE26DA55CD0056A977 /* StringExtensions.swift */; };
 		C0941EF027A6EFD7009AAEBC /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */; };
 		C0941EF427A6F056009AAEBC /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = C0941EF327A6F056009AAEBC /* AlertToast */; };
@@ -239,8 +237,9 @@
 /* Begin PBXFileReference section */
 		35373C44289177DA00000297 /* LogInWithProtonButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithProtonButtonView.swift; sourceTree = "<group>"; };
 		35373C4628917A4900000297 /* ProtonButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtonButtonStyle.swift; sourceTree = "<group>"; };
-		35565DA928915B7200E4C347 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
-		35565DAB28915F5400E4C347 /* DeleteAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewModel.swift; sourceTree = "<group>"; };
+		353E8272290150D7004C9154 /* DeletedAliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAliasesView.swift; sourceTree = "<group>"; };
+		353E8274290150F6004C9154 /* DeletedAliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAliasesViewModel.swift; sourceTree = "<group>"; };
+		357F16B928FECF1C0096C81E /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		C00874AE27A98748004F32FA /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		C00874B227A989D3004F32FA /* SLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLError.swift; sourceTree = "<group>"; };
 		C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageModifier.swift; sourceTree = "<group>"; };
@@ -291,7 +290,6 @@
 		C03F4F1C26E15B5D00BBF2A8 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		C03F4F2426E1665D00BBF2A8 /* AdvancedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedView.swift; sourceTree = "<group>"; };
 		C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
-		C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		C04266D227944E130053451B /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
 		C043D41526E01E280051B282 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -605,6 +603,8 @@
 				C03F4F2426E1665D00BBF2A8 /* AdvancedView.swift */,
 				C0F732B6278F854F004608DB /* CustomDomainsView.swift */,
 				C0E9C3E02790D57A00D1A463 /* CustomDomainsViewModel.swift */,
+				353E8272290150D7004C9154 /* DeletedAliasesView.swift */,
+				353E8274290150F6004C9154 /* DeletedAliasesViewModel.swift */,
 				C00DF9A9279175770065A602 /* DomainDetailView.swift */,
 				C03D292C279215EE0041FB60 /* DomainDetailViewModel.swift */,
 				C0F732B4278F842A004608DB /* MailboxesView.swift */,
@@ -619,8 +619,6 @@
 				C03F4F2626E16BBD00BBF2A8 /* AccountView.swift */,
 				C03F4F2C26E171D900BBF2A8 /* AccountViewModel.swift */,
 				EFFBBDE727C96F7000C8E6DD /* CapacityView.swift */,
-				35565DA928915B7200E4C347 /* DeleteAccountView.swift */,
-				35565DAB28915F5400E4C347 /* DeleteAccountViewModel.swift */,
 				EFFBBDE127C9661B00C8E6DD /* PremiumView.swift */,
 				C05A9B14277BB996003FD0A7 /* UpgradeView.swift */,
 				C030EB38277D1410007E2FF8 /* UpgradeViewModel.swift */,
@@ -708,12 +706,12 @@
 				EF5E150627D94A160047C568 /* AliasExtensions.swift */,
 				EF4F43DE27C15B2D00CD1942 /* AlertExtensions.swift */,
 				C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */,
-				C03F4F2826E1716000BBF2A8 /* BaseViewModel.swift */,
 				EF8B1CCF27DDE43F004D3575 /* BaseReachabilitySessionViewModel.swift */,
 				EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */,
 				C0D1D5A6272BCC9F00F5CFC5 /* ColorExtensions.swift */,
 				EF33B7B727B91C6400BD3195 /* CollectionExtensions.swift */,
 				C00874AE27A98748004F32FA /* ErrorExtensions.swift */,
+				357F16B928FECF1C0096C81E /* FeatureFlags.swift */,
 				C04BB63227AC7D7E00AA29A1 /* GlobalConstants.swift */,
 				C043D41526E01E280051B282 /* KeychainService.swift */,
 				EF15C55827BEE4B8008497F2 /* LabelExtensions.swift */,
@@ -1027,7 +1025,6 @@
 				C010032627A739CD009735CD /* KeychainService.swift in Sources */,
 				C00874B427A989D3004F32FA /* SLError.swift in Sources */,
 				C04BB63427AC7D7E00AA29A1 /* GlobalConstants.swift in Sources */,
-				C05DB09D27A877BD00200E2D /* BaseViewModel.swift in Sources */,
 				C04BB63827AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
 				C010032D27A7479E009735CD /* AliasesView.swift in Sources */,
 				C010032B27A73EC3009735CD /* ColorExtensions.swift in Sources */,
@@ -1048,6 +1045,7 @@
 				C064797D272B331D009CA1F8 /* Action.swift in Sources */,
 				C04848A9278CE50700702E8E /* AppDelegate.swift in Sources */,
 				C0542ABE27AEDF3B00188C63 /* BaseViewController.swift in Sources */,
+				353E8273290150D7004C9154 /* DeletedAliasesView.swift in Sources */,
 				EF72966127C2698300737550 /* PrimaryButton.swift in Sources */,
 				35373C45289177DA00000297 /* LogInWithProtonButtonView.swift in Sources */,
 				C03B518E27288F2700C54130 /* AliasCompactView.swift in Sources */,
@@ -1065,7 +1063,6 @@
 				C087655E27AE798300FF26E6 /* SearchAliasesViewModel.swift in Sources */,
 				EF9FE91B27F996580082FAEF /* MainTabBar.swift in Sources */,
 				EFFBBDEA27C96FAE00C8E6DD /* Capacity.swift in Sources */,
-				35565DAC28915F5400E4C347 /* DeleteAccountViewModel.swift in Sources */,
 				C0F732B7278F854F004608DB /* CustomDomainsView.swift in Sources */,
 				EF15C55927BEE4B8008497F2 /* LabelExtensions.swift in Sources */,
 				C03F4F2726E16BBD00BBF2A8 /* AccountView.swift in Sources */,
@@ -1100,6 +1097,7 @@
 				EF89C3602808BBB000F48743 /* SuffixExtensions.swift in Sources */,
 				EFA52AE827CA39B000994547 /* HowItWorksView.swift in Sources */,
 				C0FE7B2D27A9CFD7005D53DF /* SignUpViewModel.swift in Sources */,
+				357F16BA28FECF1C0096C81E /* FeatureFlags.swift in Sources */,
 				C0941EFA27A70AE6009AAEBC /* URLExtensions.swift in Sources */,
 				EFF7779427F3979F0084D6B4 /* UpgradeNeededView.swift in Sources */,
 				EF5BDFB827B7B5DD004B696B /* BetterSafariViewExtensions.swift in Sources */,
@@ -1115,7 +1113,6 @@
 				EF9FE0E328140A7F003B3CB8 /* TextFieldAlert.swift in Sources */,
 				C02FCF8D278E2FB200F32BED /* PhotoPickerView.swift in Sources */,
 				C04BB63727AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
-				C03F4F2926E1716000BBF2A8 /* BaseViewModel.swift in Sources */,
 				C03F4F1D26E15B5D00BBF2A8 /* AboutView.swift in Sources */,
 				EFFBBDE227C9661B00C8E6DD /* PremiumView.swift in Sources */,
 				EF3C8240281BD95600477710 /* NoHorizontalPaddingModifier.swift in Sources */,
@@ -1134,7 +1131,6 @@
 				EF95E13227D6AF470033B8E0 /* LocalAliasExtensions.swift in Sources */,
 				C00DF9AA279175770065A602 /* DomainDetailView.swift in Sources */,
 				EFB3A96727BC404300F82965 /* UIImageExtensions.swift in Sources */,
-				35565DAA28915B7200E4C347 /* DeleteAccountView.swift in Sources */,
 				EFFBBDE627C96CCA00C8E6DD /* BetterSafariViewModifier.swift in Sources */,
 				C0F08FB327AB2CB60066A354 /* ShareSheetView.swift in Sources */,
 				EF509E3427C234D10047A8D1 /* SensitiveContentViewModifier.swift in Sources */,
@@ -1151,6 +1147,7 @@
 				EF9FE0E12813FCC1003B3CB8 /* AliasEmailView.swift in Sources */,
 				EF68F56927C57B5100B555B5 /* LocalAuthenticator.swift in Sources */,
 				C08A5D8527499A0200BE889B /* AliasContactsView.swift in Sources */,
+				353E8275290150F6004C9154 /* DeletedAliasesViewModel.swift in Sources */,
 				C0E9C3E12790D57A00D1A463 /* CustomDomainsViewModel.swift in Sources */,
 				EFD6D652282F95D2007D9A7B /* UIViewControllerExtensions.swift in Sources */,
 			);
@@ -1197,7 +1194,6 @@
 				C00874B127A98748004F32FA /* ErrorExtensions.swift in Sources */,
 				C04BB63927AC7E7000AA29A1 /* KeyboardExtensionMode.swift in Sources */,
 				C0941EE627A6E755009AAEBC /* NoSessionView.swift in Sources */,
-				C0941EEE27A6EF78009AAEBC /* BaseViewModel.swift in Sources */,
 				EFF7779527F3979F0084D6B4 /* UpgradeNeededView.swift in Sources */,
 				C0941EE327A6E614009AAEBC /* Preferences.swift in Sources */,
 				EFF7779627F3982A0084D6B4 /* EmptyDataModifier.swift in Sources */,
@@ -1249,19 +1245,19 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = "Keyboard Extension/Keyboard Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22102;
+				CURRENT_PROJECT_VERSION = 23000;
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Keyboard Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = SimpleLogin;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.keyboard-extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1277,19 +1273,19 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = "Keyboard Extension/Keyboard Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22102;
+				CURRENT_PROJECT_VERSION = 23000;
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Keyboard Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = SimpleLogin;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.keyboard-extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1350,7 +1346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1405,7 +1401,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1423,17 +1419,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleLogin/SimpleLogin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22102;
+				CURRENT_PROJECT_VERSION = 23000;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleLogin/Preview Content\"";
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SimpleLogin/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1449,17 +1445,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleLogin/SimpleLogin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22102;
+				CURRENT_PROJECT_VERSION = 23000;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleLogin/Preview Content\"";
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SimpleLogin/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1560,19 +1556,19 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22102;
+				CURRENT_PROJECT_VERSION = 23000;
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.share-extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1588,19 +1584,19 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22102;
+				CURRENT_PROJECT_VERSION = 23000;
 				DEVELOPMENT_TEAM = 72VC334CSX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.share-extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1690,8 +1686,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/simple-login/swift-package";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
 			};
 		};
 		C043D41226E01DBF0051B282 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {

@@ -9,19 +9,30 @@ import SimpleLoginPackage
 import SwiftUI
 
 final class Session: ObservableObject {
+    private let apiService: APIServiceProtocol
     let apiKey: ApiKey
-    let client: SLClient
 
-    init(apiKey: ApiKey, client: SLClient) {
+    init(apiKey: ApiKey, apiService: APIServiceProtocol) {
         self.apiKey = apiKey
-        self.client = client
+        self.apiService = apiService
+    }
+
+    func execute<E: Endpoint>(_ endpoint: E) async throws ->  E.Response {
+        try await apiService.execute(endpoint)
     }
 }
 
+// swiftlint:disable force_unwrapping
 extension Session {
-    // swiftlint:disable force_unwrapping
     static var preview: Session {
-        .init(apiKey: .init(value: ""),
-              client: .init(session: .shared, baseUrlString: "")!)
+        .init(apiKey: .init(value: ""), apiService: APIService.preview)
+    }
+}
+
+extension APIService {
+    static var preview: APIService {
+        .init(baseURL: URL(string: "https://simplelogin.io")!,
+              session: .shared,
+              printDebugInformation: false)
     }
 }

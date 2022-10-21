@@ -6,16 +6,22 @@
 //
 
 import Combine
+import SimpleLoginPackage
 import StoreKit
 import SwiftyStoreKit
 
-final class UpgradeViewModel: BaseSessionViewModel, ObservableObject {
+final class UpgradeViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var monthlySubscription: SKProduct?
     @Published private(set) var yearlySubscription: SKProduct?
     @Published private(set) var isSubscribed = false
     @Published var error: Error?
     private var cancellables = Set<AnyCancellable>()
+    private let session: Session
+
+    init(session: Session) {
+        self.session = session
+    }
 
     func retrieveProductsInfo() {
         let productIds = Set(Subscription.allCases.map { $0.productId })
@@ -70,23 +76,18 @@ final class UpgradeViewModel: BaseSessionViewModel, ObservableObject {
             switch result {
             case .success(let receiptData):
                 let encryptedReceipt = receiptData.base64EncodedString()
-                self.session.client.processPayment(apiKey: self.session.apiKey,
-                                                   receiptData: encryptedReceipt,
-                                                   isMacApp: false)
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak self] completion in
-                        guard let self = self else { return }
-                        self.isLoading = false
-                        switch completion {
-                        case .finished:
-                            break
-                        case .failure(let error):
-                            self.error = error
-                        }
-                    } receiveValue: { [weak self] okResponse in
-                        self?.isSubscribed = okResponse.value
+                Task { @MainActor in
+                    defer { self.isLoading = false }
+                    do {
+                        let processPaymentEndpoint = ProcessPaymentEndpoint(apiKey: self.session.apiKey.value,
+                                                                            receiptData: encryptedReceipt,
+                                                                            isMacApp: false)
+                        _ = try await self.session.execute(processPaymentEndpoint)
+                        self.isSubscribed = true
+                    } catch {
+                        self.error = error
                     }
-                    .store(in: &self.cancellables)
+                }
 
             case .error(let error):
                 self.isLoading = false

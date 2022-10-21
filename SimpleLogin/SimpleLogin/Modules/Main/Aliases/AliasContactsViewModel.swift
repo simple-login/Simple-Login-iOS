@@ -9,15 +9,14 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class AliasContactsViewModel: BaseSessionViewModel, ObservableObject {
+final class AliasContactsViewModel: ObservableObject {
     @Published private(set) var isFetchingContacts = false
-    @Published private(set) var isLoading = false
-    @Published private(set) var isRefreshing = false
-    @Published private(set) var contacts: [Contact]?
+    @Published private(set) var contacts: [Contact] = []
     @Published private(set) var createdContact: Contact?
+    @Published var isLoading = false
     @Published var error: Error?
 
-    private var cancellables = Set<AnyCancellable>()
+    private let session: Session
     private var currentPage = 0
     private var canLoadMorePages = true
 
@@ -25,11 +24,11 @@ final class AliasContactsViewModel: BaseSessionViewModel, ObservableObject {
 
     init(alias: Alias, session: Session) {
         self.alias = alias
-        super.init(session: session)
+        self.session = session
     }
 
     func getMoreContactsIfNeed(currentContact: Contact?) {
-        guard let currentContact = currentContact, let contacts = contacts else {
+        guard let currentContact = currentContact else {
             getMoreContacts()
             return
         }
@@ -42,132 +41,105 @@ final class AliasContactsViewModel: BaseSessionViewModel, ObservableObject {
 
     private func getMoreContacts() {
         guard !isFetchingContacts && canLoadMorePages else { return }
-        isFetchingContacts = true
-        session.client.getAliasContacts(apiKey: session.apiKey, id: alias.id, page: currentPage)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isFetchingContacts = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] contactArray in
-                guard let self = self else { return }
-                if self.contacts == nil {
-                    self.contacts = [Contact]()
-                }
-                self.contacts?.append(contentsOf: contactArray.contacts)
+        Task { @MainActor in
+            defer { isFetchingContacts = false }
+            isFetchingContacts = true
+            do {
+                let newContacts = try await getContacts(page: currentPage)
+                self.contacts.append(contentsOf: newContacts)
                 self.currentPage += 1
-                self.canLoadMorePages = contactArray.contacts.count == kDefaultPageSize
+                self.canLoadMorePages = newContacts.count == kDefaultPageSize
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
-    override func refresh() {
-        guard !isRefreshing else { return }
-        isRefreshing = true
-        session.client.getAliasContacts(apiKey: session.apiKey, id: alias.id, page: 0)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isRefreshing = false
-                self.refreshControl.endRefreshing()
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] contactArray in
-                guard let self = self else { return }
-                self.contacts = contactArray.contacts
-                self.currentPage = 1
-                self.canLoadMorePages = contactArray.contacts.count == kDefaultPageSize
-            }
-            .store(in: &cancellables)
+    @MainActor
+    func refresh() async {
+        do {
+            let contacts = try await getContacts(page: 0)
+            self.contacts = contacts
+            self.currentPage = 1
+            self.canLoadMorePages = contacts.count == kDefaultPageSize
+        } catch {
+            self.error = error
+        }
+    }
+
+    private func getContacts(page: Int) async throws -> [Contact] {
+        let getContactsEndpoint = GetContactsEndpoint(apiKey: session.apiKey.value,
+                                                      aliasID: alias.id,
+                                                      page: page)
+        return try await session.execute(getContactsEndpoint).contacts
     }
 
     func toggleContact(_ contact: Contact) {
         guard !isLoading else { return }
-        isLoading = true
-        session.client.toggleContact(apiKey: session.apiKey, id: contact.id)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] blockForward in
-                guard let self = self else { return }
-                self.update(contact: .init(id: contact.id,
-                                           email: contact.email,
-                                           creationTimestamp: contact.creationTimestamp,
-                                           lastEmailSentTimestamp: contact.lastEmailSentTimestamp,
-                                           reverseAlias: contact.reverseAlias,
-                                           reverseAliasAddress: contact.reverseAliasAddress,
-                                           existed: contact.existed,
-                                           blockForward: blockForward.value))
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let toggleContactEndpoint = ToggleContactEndpoint(apiKey: session.apiKey.value,
+                                                                  contactID: contact.id)
+                let blockForward = try await session.execute(toggleContactEndpoint)
+                update(contact: .init(id: contact.id,
+                                      email: contact.email,
+                                      creationTimestamp: contact.creationTimestamp,
+                                      lastEmailSentTimestamp: contact.lastEmailSentTimestamp,
+                                      reverseAlias: contact.reverseAlias,
+                                      reverseAliasAddress: contact.reverseAliasAddress,
+                                      existed: contact.existed,
+                                      blockForward: blockForward.value))
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func deleteContact(_ contact: Contact) {
         guard !isLoading else { return }
-        isLoading = true
-        session.client.deleteContact(apiKey: session.apiKey, id: contact.id)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished: break
-                case .failure(let error): self.error = error
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let deleteContactEndpoint = DeleteContactEndpoint(apiKey: session.apiKey.value,
+                                                                  contactID: contact.id)
+                let result = try await session.execute(deleteContactEndpoint)
+                if result.value {
+                    await refresh()
                 }
-            } receiveValue: { [weak self] deletedResponse in
-                guard let self = self else { return }
-                if deletedResponse.value {
-                    self.refresh()
-                }
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     private func update(contact: Contact) {
-        guard let index = contacts?.firstIndex(where: { $0.id == contact.id }) else { return }
-        contacts?[index] = contact
+        guard let index = contacts.firstIndex(where: { $0.id == contact.id }) else { return }
+        contacts[index] = contact
     }
 
     func createContact(contactEmail: String) {
         guard !isLoading else { return }
-        isLoading = true
-        session.client.createContact(apiKey: session.apiKey, aliasId: alias.id, contactEmail: contactEmail)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] createdContact in
-                guard let self = self else { return }
+        Task { @MainActor in
+            defer { isLoading = false }
+            isLoading = true
+            do {
+                let createContactEndpoint = CreateContactEndpoint(apiKey: session.apiKey.value,
+                                                                  aliasID: alias.id,
+                                                                  email: contactEmail)
+                let createdContact = try await session.execute(createContactEndpoint)
                 if createdContact.existed {
                     self.error = SLError.contactExists
                 } else {
                     self.createdContact = createdContact
-                    self.contacts?.insert(createdContact, at: 0)
+                    self.contacts.insert(createdContact, at: 0)
                 }
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func handledCreatedContact() {

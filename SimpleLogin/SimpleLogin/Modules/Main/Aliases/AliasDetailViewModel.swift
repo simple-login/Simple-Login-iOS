@@ -5,41 +5,37 @@
 //  Created by Thanh-Nhon Nguyen on 04/11/2021.
 //
 
-import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class AliasDetailViewModel: BaseSessionViewModel, ObservableObject {
+final class AliasDetailViewModel: ObservableObject {
     @Published private(set) var alias: Alias
     @Published private(set) var activities: [AliasActivity] = []
     @Published private(set) var isLoadingActivities = false
     @Published private(set) var mailboxes: [Mailbox] = []
-    @Published private(set) var isLoadingMailboxes = false
-    @Published private(set) var isRefreshing = false
-    @Published private(set) var isRefreshed = false
-    @Published private(set) var isDeleted = false
+    @Published var isLoadingMailboxes = false
     @Published var error: Error?
 
     // Updating mailboxes, display name & notes
-    @Published private(set) var isUpdating = false
-    @Published private(set) var isUpdated = false
+    @Published var isUpdating = false
+    @Published var isUpdated = false
     @Published var updatingError: Error?
 
-    private var cancellables = Set<AnyCancellable>()
+    let session: Session
     private var currentPage = 0
     private var canLoadMorePages = true
 
-    init(alias: Alias, session: Session) {
+    private let onUpdateAlias: (Alias) -> Void
+    private let onDeleteAlias: (Alias) -> Void
+
+    init(alias: Alias,
+         session: Session,
+         onUpdateAlias: @escaping (Alias) -> Void,
+         onDeleteAlias: @escaping (Alias) -> Void) {
+        self.session = session
         self.alias = alias
-        super.init(session: session)
-    }
-
-    func handledIsUpdatedBoolean() {
-        isUpdated = false
-    }
-
-    func handledIsRefreshedBoolean() {
-        isRefreshed = false
+        self.onUpdateAlias = onUpdateAlias
+        self.onDeleteAlias = onDeleteAlias
     }
 
     func getMoreActivitiesIfNeed(currentActivity activity: AliasActivity?) {
@@ -56,139 +52,103 @@ final class AliasDetailViewModel: BaseSessionViewModel, ObservableObject {
 
     private func getMoreActivities() {
         guard !isLoadingActivities && canLoadMorePages else { return }
+        defer { isLoadingActivities = false }
         isLoadingActivities = true
-        session.client.getAliasActivities(apiKey: session.apiKey, id: alias.id, page: currentPage)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoadingActivities = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] activityArray in
-                guard let self = self else { return }
-                self.activities.append(contentsOf: activityArray.activities)
+        Task { @MainActor in
+            do {
+                let newActivities = try await getActivities(page: currentPage)
+                self.activities.append(contentsOf: newActivities)
                 self.currentPage += 1
-                self.canLoadMorePages = activityArray.activities.count == kDefaultPageSize
+                self.canLoadMorePages = newActivities.count == kDefaultPageSize
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func getMailboxes() {
         guard !isLoadingMailboxes else { return }
-        isLoadingMailboxes = true
-        session.client.getMailboxes(apiKey: session.apiKey)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoadingMailboxes = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] mailboxArray in
-                guard let self = self else { return }
-                self.mailboxes = mailboxArray.mailboxes.sorted { $0.id < $1.id }
+        Task { @MainActor in
+            defer { isLoadingMailboxes = false }
+            isLoadingMailboxes = true
+            do {
+                let getMailboxesEndpoint = GetMailboxesEndpoint(apiKey: session.apiKey.value)
+                let result = try await session.execute(getMailboxesEndpoint)
+                mailboxes = result.mailboxes.sorted { $0.id < $1.id }
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
-    override func refresh() {
-        print("Refreshing \(alias.email)")
-        isRefreshing = true
-        let refreshAlias = session.client.getAlias(apiKey: session.apiKey, id: alias.id)
-        let refreshActivities = session.client.getAliasActivities(apiKey: session.apiKey, id: alias.id, page: 0)
-        Publishers.Zip(refreshAlias, refreshActivities)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isRefreshing = false
-                self.isRefreshed = true
-                self.refreshControl.endRefreshing()
-                switch completion {
-                case .finished:
-                    print("Finish refreshing \(self.alias.email)")
-                case .failure(let error):
-                    print("Error refreshing \(self.alias.email)")
-                    self.error = error
-                }
-            } receiveValue: { [weak self] result in
-                guard let self = self else { return }
-                self.alias = result.0
-                self.activities = result.1.activities
-                self.currentPage = 1
-                self.canLoadMorePages = result.1.activities.count == kDefaultPageSize
-            }
-            .store(in: &cancellables)
+    private func getActivities(page: Int) async throws -> [AliasActivity] {
+        let getActivitiesEndpoint = GetActivitiesEndpoint(apiKey: session.apiKey.value,
+                                                          aliasID: alias.id,
+                                                          page: page)
+        return try await session.execute(getActivitiesEndpoint).activities
+    }
+
+    @MainActor
+    func refresh() async {
+        do {
+            let getAliasEndpoint = GetAliasEndpoint(apiKey: session.apiKey.value,
+                                                    aliasID: alias.id)
+            self.alias = try await session.execute(getAliasEndpoint)
+            self.activities = try await getActivities(page: 0)
+            self.currentPage = 1
+            self.canLoadMorePages = activities.count == kDefaultPageSize
+            self.onUpdateAlias(alias)
+        } catch {
+            self.error = error
+        }
     }
 
     func update(option: AliasUpdateOption) {
         guard !isUpdating else { return }
         print("Updating \(alias.email)")
-        isUpdating = true
-        isUpdated = false
-        session.client.updateAlias(apiKey: session.apiKey, id: alias.id, option: option)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isUpdating = false
-                switch completion {
-                case .finished:
-                    print("Finish updating \(self.alias.email)")
-                    self.isUpdated = true
-                case .failure(let error):
-                    print("Error updating \(self.alias.email): \(error.safeLocalizedDescription)")
-                    self.updatingError = error
-                }
-            } receiveValue: { [weak self] _ in
-                guard let self = self else { return }
-                self.refresh()
+        Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
+            isUpdated = false
+            do {
+                let updateAliasEndpoint = UpdateAliasEndpoint(apiKey: session.apiKey.value,
+                                                              aliasID: alias.id,
+                                                              option: option)
+                _ = try await session.execute(updateAliasEndpoint)
+                isUpdated = true
+                await refresh()
+            } catch {
+                self.updatingError = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func toggle() {
-        isUpdating = true
-        session.client.toggleAliasStatus(apiKey: session.apiKey, id: alias.id)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isUpdating = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] _ in
-                guard let self = self else { return }
-                self.refresh()
+        Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
+            do {
+                let toggleAliasEndpoint = ToggleAliasEndpoint(apiKey: session.apiKey.value,
+                                                              aliasID: alias.id)
+                _ = try await session.execute(toggleAliasEndpoint)
+                await refresh()
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 
     func delete() {
-        isUpdating = true
-        session.client.deleteAlias(apiKey: session.apiKey, id: alias.id)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isUpdating = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] _ in
-                guard let self = self else { return }
-                self.isDeleted = true
+        Task { @MainActor in
+            defer { isUpdating = false }
+            isUpdating = true
+            do {
+                let deleteAliasEndpoint = DeleteAliasEndpoint(apiKey: session.apiKey.value, aliasID: alias.id)
+                _ = try await session.execute(deleteAliasEndpoint)
+                onDeleteAlias(alias)
+            } catch {
+                self.error = error
             }
-            .store(in: &cancellables)
+        }
     }
 }

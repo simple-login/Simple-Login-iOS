@@ -29,7 +29,7 @@ struct EmailPasswordView: View {
     @Binding var email: String
     @Binding var password: String
     let mode: Mode
-    let onAction: () -> Void
+    let onAction: () async -> Void
 
     var body: some View {
         VStack {
@@ -136,14 +136,14 @@ struct EmailPasswordView: View {
             PrimaryButton(title: mode.title) {
                 switch mode {
                 case .logIn:
-                    onAction()
+                    await onAction()
                 case .signUp:
                     withAnimation {
                         invalidEmail = !email.isValidEmail
                         invalidPassword = password.count < 8
                     }
                     if !invalidEmail && !invalidPassword {
-                        onAction()
+                        await onAction()
                     }
                 }
             }
@@ -155,6 +155,7 @@ struct EmailPasswordView: View {
     }
 }
 
+/*
 struct EmailPasswordView_Previews: PreviewProvider {
     static var previews: some View {
         EmailPasswordView(email: .constant(""),
@@ -163,3 +164,4 @@ struct EmailPasswordView_Previews: PreviewProvider {
                           .padding()
     }
 }
+*/

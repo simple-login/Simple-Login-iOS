@@ -16,14 +16,14 @@ struct OtpView: View {
     @State private var showingReactivateAlert = false
     @Binding var mode: OtpMode?
     let onVerification: ((ApiKey) -> Void)?
-    let onActivation: (() -> Void)?
+    let onActivation: (() async -> Void)?
 
     init(mode: Binding<OtpMode?>,
-         client: SLClient,
+         apiService: APIServiceProtocol,
          onVerification: ((ApiKey) -> Void)? = nil,
-         onActivation: (() -> Void)? = nil) {
+         onActivation: (() async -> Void)? = nil) {
         self._mode = mode
-        let viewModel = OtpViewModel(client: client,
+        let viewModel = OtpViewModel(apiService: apiService,
                                      mode: mode.wrappedValue ?? .logIn(mfaKey: ""))
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.onVerification = onVerification
@@ -65,7 +65,7 @@ struct OtpView: View {
                         Text(error.safeLocalizedDescription)
                             .foregroundColor(.red)
                             .modifier(ShakeEffect(animatableData: viewModel.attempts))
-                            .animation(.default)
+                            .animation(.default, value: viewModel.attempts)
                             .transition(.opacity)
                     } else {
                         Text("Dummy text")
@@ -184,7 +184,9 @@ struct OtpView: View {
         }
         .onReceive(Just(viewModel.activationSuccessful)) { activationSuccessful in
             if activationSuccessful {
-                onActivation?()
+                Task {
+                    await onActivation?()
+                }
                 mode = nil
             }
         }
@@ -205,12 +207,14 @@ struct OtpView: View {
     }
 }
 
+/*
 struct OtpView_Previews: PreviewProvider {
     static var previews: some View {
         OtpView(mode: .constant(.activate(email: "john.doe@example.com")),
                 client: .default)
     }
 }
+ */
 
 struct OtpButton<Label: View>: View {
     let action: () -> Void
@@ -300,12 +304,11 @@ private final class OtpViewModel: ObservableObject {
     @Published private(set) var activationSuccessful = false
 
     let mode: OtpMode
-    private let client: SLClient
-    private var cancellable: AnyCancellable?
+    private let apiService: APIServiceProtocol
 
-    init(client: SLClient, mode: OtpMode) {
+    init(apiService: APIServiceProtocol, mode: OtpMode) {
         self.mode = mode
-        self.client = client
+        self.apiService = apiService
     }
 
     func delete() {
@@ -376,70 +379,50 @@ private final class OtpViewModel: ObservableObject {
     }
 
     private func verify() {
-        guard !isLoading else { return }
+        defer { self.isLoading = false }
         isLoading = true
         let token =
             [firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit, sixthDigit]
             .map { $0.rawValue }
             .reduce(into: "") { $0 += "\($1)" }
+
         switch mode {
         case .logIn(let mfaKey):
-            cancellable = client.mfa(token: token, key: mfaKey, device: UIDevice.current.name)
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] completion in
-                    guard let self = self else { return }
-                    defer { self.isLoading = false }
-                    switch completion {
-                    case .failure(let error):
-                        Vibration.error.vibrate(fallBackToOldSchool: true)
-                        self.error = error
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            self.attempts += 1
-                        }
-                        self.reset()
-                    case .finished:
-                        break
+            Task { @MainActor in
+                do {
+                    let mfaEndpoint = MFAEndpoint(token: token, key: mfaKey, device: UIDevice.current.name)
+                    apiKey = try await apiService.execute(mfaEndpoint)
+                } catch {
+                    Vibration.error.vibrate(fallBackToOldSchool: true)
+                    self.error = error
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.attempts += 1
                     }
-                } receiveValue: { [weak self] apiKey in
-                    guard let self = self else { return }
-                    self.apiKey = apiKey
+                    self.reset()
                 }
+            }
 
         case .activate(let email):
-            cancellable = client.activate(email: email, code: token)
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] completion in
-                    guard let self = self else { return }
-                    defer { self.isLoading = false }
-                    switch completion {
-                    case .finished:
-                        break
-                    case .failure(let error):
-                        Vibration.error.vibrate(fallBackToOldSchool: true)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            self.attempts += 1
-                        }
-                        self.reset()
-                        if let slClientError = error as? SLClientError {
-                            switch slClientError {
-                            case .clientError(let errorResponse):
-                                if errorResponse.statusCode == 410 {
-                                    self.shouldReactivate = true
-                                } else {
-                                    // swiftlint:disable:next fallthrough
-                                    fallthrough
-                                }
-                            default:
-                                self.error = slClientError
-                            }
-                        } else {
-                            self.error = error
-                        }
-                    }
-                } receiveValue: { [weak self] _ in
-                    guard let self = self else { return }
+            Task { @MainActor in
+                do {
+                    let activateEndpoint = ActivateEndpoint(email: email, code: token)
+                    _ = try await apiService.execute(activateEndpoint)
                     self.activationSuccessful = true
+                } catch {
+                    Vibration.error.vibrate(fallBackToOldSchool: true)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.attempts += 1
+                    }
+                    self.reset()
+                    if let apiServiceError = error as? APIServiceError,
+                       case .clientError(let errorResponse) = apiServiceError,
+                       errorResponse.statusCode == 410 {
+                        self.shouldReactivate = true
+                    } else {
+                        self.error = error
+                    }
                 }
+            }
         }
     }
 
@@ -453,23 +436,14 @@ private final class OtpViewModel: ObservableObject {
     }
 
     func reactivate() {
-        switch mode {
-        case .logIn:
-            break
-        case .activate(let email):
-            isLoading = true
-            cancellable = client.reactivate(email: email)
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] completion in
-                    guard let self = self else { return }
-                    self.isLoading = false
-                    switch completion {
-                    case .finished:
-                        break
-                    case .failure(let error):
-                        self.error = error
-                    }
-                } receiveValue: { _ in }
+        guard case .activate(let email) = mode else { return }
+        Task { @MainActor in
+            do {
+                let reactivateEndpoint = ReactivateEndpoint(email: email)
+                _ = try await apiService.execute(reactivateEndpoint)
+            } catch {
+                self.error = error
+            }
         }
     }
 }

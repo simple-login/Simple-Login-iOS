@@ -5,40 +5,44 @@
 //  Created by Thanh-Nhon Nguyen on 13/01/2022.
 //
 
-import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-final class CustomDomainsViewModel: BaseSessionViewModel, ObservableObject {
+final class CustomDomainsViewModel: ObservableObject {
+    deinit { print("\(Self.self) is deallocated") }
+
     @Published private(set) var domains: [CustomDomain] = []
-    @Published private(set) var noDomain = false
-    @Published private(set) var isLoading = false
+    @Published var isLoading = false
     @Published var error: Error?
 
-    private var cancellables = Set<AnyCancellable>()
+    var noDomains: Bool { !isLoading && domains.isEmpty }
 
-    func fetchCustomDomains(refreshing: Bool) {
-        if !refreshing, !domains.isEmpty { return }
-        isLoading = !refreshing
-        session.client.getCustomDomains(apiKey: session.apiKey)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.isLoading = false
-                self.refreshControl.endRefreshing()
-                switch completion {
-                case .finished:
-                    self.noDomain = self.domains.isEmpty
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { [weak self] customDomainArray in
-                self?.domains = customDomainArray.customDomains
-            }
-            .store(in: &cancellables)
+    let session: Session
+
+    init(session: Session) {
+        self.session = session
     }
 
-    override func refresh() {
-        fetchCustomDomains(refreshing: true)
+    @MainActor
+    func refresh(force: Bool) async {
+        if !force, !domains.isEmpty { return }
+        defer { isLoading = false }
+        if !force { isLoading = true }
+        do {
+            let getDomainsEndpoint = GetCustomDomainsEndpoint(apiKey: session.apiKey.value)
+            domains = try await session.execute(getDomainsEndpoint).customDomains.sortedById()
+        } catch {
+            self.error = error
+        }
+    }
+
+    func update(_ domains: [CustomDomain]) {
+        self.domains = domains.sortedById()
+    }
+}
+
+extension Array where Element == CustomDomain {
+    func sortedById() -> Self {
+        sorted { $0.id > $1.id }
     }
 }
