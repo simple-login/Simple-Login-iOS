@@ -145,7 +145,7 @@ private struct ContentView: View {
 
             if viewModel.prefix.isValidPrefix {
                 VStack(alignment: .leading) {
-                    Text("Your're about to create".uppercased())
+                    Text("You're about to create".uppercased())
                         .font(.caption2)
                         .fontWeight(.medium)
                         .foregroundColor(.secondary)

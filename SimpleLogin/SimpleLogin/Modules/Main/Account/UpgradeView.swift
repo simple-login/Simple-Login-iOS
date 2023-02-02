@@ -126,7 +126,7 @@ struct UpgradeView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
 
-            Text("Save 2 months by subcribing yearly.")
+            Text("Save 2 months by subscribing yearly.")
                 .font(.callout)
                 .foregroundColor(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
