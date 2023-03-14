@@ -47,35 +47,31 @@ struct MainView: View {
             }
         })
 
-        VStack(spacing: 0) {
-            TabView(selection: $selectedItem) {
-                AliasesView(session: session,
-                            reachabilityObserver: reachabilityObserver,
-                            managedObjectContext: managedObjectContext,
-                            createdAlias: $createdAlias)
-                .tag(TabBarItem.aliases)
+        TabView(selection: $selectedItem) {
+            AliasesView(session: session,
+                        reachabilityObserver: reachabilityObserver,
+                        managedObjectContext: managedObjectContext,
+                        createdAlias: $createdAlias)
+            .tag(TabBarItem.aliases)
 
-                AdvancedView()
-                    .tag(TabBarItem.advanced)
+            AdvancedView()
+                .tag(TabBarItem.advanced)
 
-                AccountView(session: session,
-                            upgradeNeeded: $upgradeNeeded,
-                            onLogOut: onLogOut)
-                .tag(TabBarItem.myAccount)
+            AccountView(session: session,
+                        upgradeNeeded: $upgradeNeeded,
+                        onLogOut: onLogOut)
+            .tag(TabBarItem.myAccount)
 
-                SettingsView()
-                    .tag(TabBarItem.settings)
-            }
-            .introspectTabBarController { tabBarController in
-                tabBarController.tabBar.isHidden = true
-            }
-
+            SettingsView()
+                .tag(TabBarItem.settings)
+        }
+        .ignoresSafeArea(.keyboard)
+        .safeAreaInset(edge: .bottom) {
             MainTabBar(selectedItem: $selectedItem) {
                 Vibration.light.vibrate()
                 selectedSheet = .createAlias
             }
         }
-        .ignoresSafeArea(.keyboard)
         .emptyPlaceholder(isEmpty: !viewModel.canShowDetails, useZStack: true) {
             ZStack {
                 Color(.systemBackground)

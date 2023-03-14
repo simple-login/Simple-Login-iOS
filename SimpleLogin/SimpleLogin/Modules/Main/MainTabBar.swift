@@ -13,25 +13,20 @@ struct MainTabBar: View {
     let onSelectCreate: () -> Void
 
     var body: some View {
-        VStack(spacing: 0) {
-            Divider()
-            HStack {
-                if UIDevice.current.userInterfaceIdiom != .phone {
-                    Spacer()
-                }
-                tab(for: .aliases)
-                tab(for: .advanced)
-                createButton
-                    .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 50 : 0)
-                tab(for: .settings)
-                tab(for: .myAccount)
-                if UIDevice.current.userInterfaceIdiom != .phone {
-                    Spacer()
-                }
+        HStack {
+            if UIDevice.current.userInterfaceIdiom != .phone {
+                Spacer()
             }
-            .padding(.vertical, 8)
+            tab(for: .aliases)
+            tab(for: .advanced)
+            createButton
+                .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 50 : 0)
+            tab(for: .settings)
+            tab(for: .myAccount)
+            if UIDevice.current.userInterfaceIdiom != .phone {
+                Spacer()
+            }
         }
-        .frame(maxWidth: .infinity)
     }
 
     @ViewBuilder

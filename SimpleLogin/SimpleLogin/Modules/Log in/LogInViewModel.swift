@@ -34,14 +34,18 @@ final class LogInViewModel: ObservableObject {
         NotificationCenter.default
             .publisher(for: UIApplication.keyboardWillShowNotification, object: nil)
             .sink { [weak self] _ in
-                self?.isShowingKeyboard = true
+                DispatchQueue.main.async {
+                    self?.isShowingKeyboard = true
+                }
             }
             .store(in: &cancellables)
 
         NotificationCenter.default
             .publisher(for: UIApplication.keyboardWillHideNotification, object: nil)
             .sink { [weak self] _ in
-                self?.isShowingKeyboard = false
+                DispatchQueue.main.async {
+                    self?.isShowingKeyboard = false
+                }
             }
             .store(in: &cancellables)
     }
