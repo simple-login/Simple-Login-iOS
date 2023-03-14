@@ -119,7 +119,12 @@ struct MainView: View {
                             if let scene = UIApplication.shared
                                 .connectedScenes
                                 .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-                                SKStoreReviewController.requestReview(in: scene)
+                                switch UIDevice.current.userInterfaceIdiom {
+                                case .phone, .pad:
+                                    SKStoreReviewController.requestReview(in: scene)
+                                default:
+                                    break
+                                }
                             }
                         }
                         self.createdAlias = createdAlias
