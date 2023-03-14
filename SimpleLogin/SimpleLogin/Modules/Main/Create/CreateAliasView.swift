@@ -179,39 +179,37 @@ private struct ContentView: View {
             .opacity(viewModel.canCreate ? 1 : 0.5)
             .disabled(!viewModel.canCreate)
 
-            if viewModel.prefix.isEmpty && viewModel.notes.isEmpty {
-                GeometryReader { geometry in
-                    HStack {
-                        Spacer()
+            GeometryReader { geometry in
+                HStack {
+                    Spacer()
 
-                        let lineWidth = geometry.size.width / 5
-                        horizontalLine
-                            .frame(width: lineWidth)
+                    let lineWidth = geometry.size.width / 5
+                    horizontalLine
+                        .frame(width: lineWidth)
 
-                        Text("OR")
-                            .font(.caption2)
-                            .fontWeight(.medium)
+                    Text("OR")
+                        .font(.caption2)
+                        .fontWeight(.medium)
 
-                        horizontalLine
-                            .frame(width: lineWidth)
+                    horizontalLine
+                        .frame(width: lineWidth)
 
-                        Spacer()
-                    }
+                    Spacer()
                 }
-
-                Group {
-                    Button("Random by word") {
-                        viewModel.random(mode: .word)
-                    }
-                    .padding(.vertical, 10)
-
-                    Button("Random by UUID") {
-                        viewModel.random(mode: .uuid)
-                    }
-                }
-                .foregroundColor(.slPurple)
-                .font(.body)
             }
+
+            Group {
+                Button("Random by word") {
+                    viewModel.random(mode: .word)
+                }
+                .padding(.vertical, 10)
+
+                Button("Random by UUID") {
+                    viewModel.random(mode: .uuid)
+                }
+            }
+            .foregroundColor(.slPurple)
+            .font(.body)
         }
     }
 
