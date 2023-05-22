@@ -71,6 +71,8 @@ struct MainView: View {
                 Vibration.light.vibrate()
                 selectedSheet = .createAlias
             }
+            // Non-transparent but very pale color to prevent underlying tabs from being tapped
+            .background(Color.white.opacity(0.01))
         }
         .emptyPlaceholder(isEmpty: !viewModel.canShowDetails, useZStack: true) {
             ZStack {
