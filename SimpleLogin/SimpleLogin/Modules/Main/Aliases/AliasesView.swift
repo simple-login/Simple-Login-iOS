@@ -59,6 +59,9 @@ struct AliasesView: View {
                             selectedAlias: $selectedAlias,
                             session: viewModel.session,
                             onUpdateAlias: { updatedAlias in
+                                if createdAlias?.id == updatedAlias.id {
+                                    createdAlias = updatedAlias
+                                }
                                 viewModel.update(alias: updatedAlias)
                             },
                             onDeleteAlias: { deletedAlias in
@@ -198,12 +201,6 @@ struct AliasesView: View {
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingUpdatingAlert = isUpdating
         }
-//        .onReceive(Just(viewModel.refreshControl.isRefreshing)) { isRefreshing in
-//            if isRefreshing {
-//                createdAlias = nil
-//                selectedAlias = nil
-//            }
-//        }
         .alert(isPresented: $showingDeleteConfirmationAlert) {
             guard let selectedAlias = selectedAlias else {
                 return Alert(title: Text("selectedAlias is nil"))
