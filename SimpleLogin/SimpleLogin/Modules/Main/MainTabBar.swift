@@ -13,7 +13,7 @@ struct MainTabBar: View {
     let onSelectCreate: () -> Void
 
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             if UIDevice.current.userInterfaceIdiom != .phone {
                 Spacer()
             }
@@ -38,6 +38,8 @@ struct MainTabBar: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
         }
+        .padding(.horizontal)
+        .contentShape(Rectangle())
         .frame(maxWidth: UIDevice.current.userInterfaceIdiom != .phone ? 130 : .infinity)
         .foregroundColor(selectedItem == item ? .slPurple : (colorScheme == .dark ? .white : .gray))
         .onTapGesture {
@@ -100,11 +102,7 @@ enum TabBarItem {
         case .myAccount:
             return "person"
         case .settings:
-            if #available(iOS 15, *) {
-                return "gear.circle"
-            } else {
-                return "gearshape"
-            }
+            return "gear.circle"
         }
     }
 
@@ -117,11 +115,7 @@ enum TabBarItem {
         case .myAccount:
             return "person.fill"
         case .settings:
-            if #available(iOS 15, *) {
-                return "gear.circle.fill"
-            } else {
-                return "gearshape.fill"
-            }
+            return "gear.circle.fill"
         }
     }
 }
