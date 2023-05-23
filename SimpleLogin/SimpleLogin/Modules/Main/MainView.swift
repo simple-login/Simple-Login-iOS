@@ -121,11 +121,10 @@ struct MainView: View {
                             if let scene = UIApplication.shared
                                 .connectedScenes
                                 .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-                                switch UIDevice.current.userInterfaceIdiom {
-                                case .phone, .pad:
+                                if !ProcessInfo.processInfo.isiOSAppOnMac {
+                                    // Only ask for reviews when not in macOS because macOS doesn't respect
+                                    // the 3 time per year limit so users are prompted after every alias creations
                                     SKStoreReviewController.requestReview(in: scene)
-                                default:
-                                    break
                                 }
                             }
                         }
