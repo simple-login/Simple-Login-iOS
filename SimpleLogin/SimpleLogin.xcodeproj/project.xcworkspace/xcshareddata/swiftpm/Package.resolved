@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/elai950/AlertToast",
       "state" : {
-        "revision" : "a4f4267f6454259ba4ed8f9dadb87334a789c26c",
-        "version" : "1.3.7"
+        "revision" : "b39252eacd159904afd7d718bba0afabb87f2f2f",
+        "version" : "1.3.9"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stleamist/BetterSafariView",
       "state" : {
-        "revision" : "be7248720af18c57c7a1348b20f6212379b28c6b",
-        "version" : "2.4.0"
+        "revision" : "dffd42bc70287e761979bc81dd278db5c80f0deb",
+        "version" : "2.4.1"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/onevcat/Kingfisher.git",
       "state" : {
-        "revision" : "be1a1acb283a702b99b630f586877ba02234b4cb",
-        "version" : "7.3.2"
+        "revision" : "b6f62758f21a8c03cd64f4009c037cfa580a256e",
+        "version" : "7.9.1"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/simple-login/swift-package",
       "state" : {
-        "revision" : "8c9011c5d0f8cddfaa047c6669ba9b51df745304",
-        "version" : "2.1.0"
+        "revision" : "d7e1661c5ab4fba1a5be8b166fbf55911c5786e3",
+        "version" : "2.1.1"
       }
     },
     {
@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
       "state" : {
-        "revision" : "f2616860a41f9d9932da412a8978fec79c06fe24",
-        "version" : "0.1.4"
+        "revision" : "121c146fe591b1320238d054ae35c81ffa45f45a",
+        "version" : "0.12.0"
       }
     },
     {
@@ -78,7 +78,7 @@
       "location" : "https://github.com/bizz84/SwiftyStoreKit.git",
       "state" : {
         "branch" : "master",
-        "revision" : "f3265c7c211907ad913102c61c3972b880f0675c"
+        "revision" : "48d4d4c0b6a66732eb45e2f0104fb7d080c67a69"
       }
     }
   ],

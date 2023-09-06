@@ -39,11 +39,10 @@ struct CreateAliasView: View {
     var body: some View {
         NavigationView {
             Group {
-                if let options = viewModel.options,
-                   let mailboxes = viewModel.mailboxes {
+                if let options = viewModel.options {
                     ContentView(viewModel: viewModel,
                                 options: options,
-                                mailboxes: mailboxes)
+                                mailboxes: viewModel.mailboxes)
                 } else if !viewModel.isLoading {
                     Button(action: viewModel.fetchOptionsAndMailboxes) {
                         Label("Retry", systemImage: "gobackward")

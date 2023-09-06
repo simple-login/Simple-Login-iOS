@@ -12,7 +12,9 @@ import SwiftUI
 final class LogInViewModel: ObservableObject {
     deinit { print("\(Self.self) is deallocated") }
 
-    @AppStorage("Email") var email = ""
+    @AppStorage("Email")
+    var email = ""
+
     @Published var password = ""
 
     @Published private(set) var isLoading = false

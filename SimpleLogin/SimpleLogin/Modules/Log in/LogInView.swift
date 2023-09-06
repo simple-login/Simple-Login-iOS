@@ -110,19 +110,18 @@ struct LogInView: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .opacity(viewModel.isShowingKeyboard ? 0 : 1)
                     .fullScreenCover(isPresented: $showingSignUpView) {
-                        if let apiService = viewModel.apiService {
-                            SignUpView(apiService: apiService) { email, password in
-                                Task {
-                                    viewModel.email = email
-                                    viewModel.password = password
-                                    await viewModel.logIn()
-                                }
+                        SignUpView(apiService: viewModel.apiService) { email, password in
+                            Task {
+                                viewModel.email = email
+                                viewModel.password = password
+                                await viewModel.logIn()
                             }
                         }
                     }
             }
         }
         .contentShape(Rectangle())
+        .animation(.default, value: viewModel.isShowingKeyboard)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
