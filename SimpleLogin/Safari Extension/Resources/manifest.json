@@ -1,39 +1,52 @@
 {
-    "manifest_version": 3,
-    "default_locale": "en",
-
-    "name": "__MSG_extension_name__",
-    "description": "__MSG_extension_description__",
-    "version": "1.0",
-
+    "name": "SimpleLogin:Receive & Send emails anonymously",
+    "short_name": "SimpleLogin",
+    "description": "Easily create a different email for each website to hide your real email. Protect your inbox against spams, phishing, data breaches",
+    "version": "2.10.0",
+    "manifest_version": 2,
     "icons": {
-        "48": "images/icon-48.png",
-        "96": "images/icon-96.png",
-        "128": "images/icon-128.png",
-        "256": "images/icon-256.png",
-        "512": "images/icon-512.png"
+        "16": "icons/icon_16.png",
+        "32": "icons/icon_32.png",
+        "48": "icons/icon_48.png",
+        "96": "icons/icon_96.png",
+        "128": "icons/icon_128.png"
     },
-
-    "background": {
-        "service_worker": "background.js"
+    "permissions": [
+        "activeTab",
+        "storage",
+        "contextMenus",
+        "https://*.simplelogin.io/*",
+        "http://*/*",
+        "https://*/*"
+    ],
+    "browser_action": {
+        "default_title": "SimpleLogin",
+        "default_popup": "popup/popup.html"
     },
-
-    "content_scripts": [{
-        "js": [ "content.js" ],
-        "matches": [ "*://example.com/*" ]
-    }],
-
-    "action": {
-        "default_popup": "popup.html",
-        "default_icon": {
-            "16": "images/toolbar-icon-16.png",
-            "19": "images/toolbar-icon-19.png",
-            "32": "images/toolbar-icon-32.png",
-            "38": "images/toolbar-icon-38.png",
-            "48": "images/toolbar-icon-48.png",
-            "72": "images/toolbar-icon-72.png"
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "addon@simplelogin"
         }
     },
-
-    "permissions": [ ]
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "commands": {
+        "generate-random-alias": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+X"
+            },
+            "description": "Generate a random email alias"
+        },
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+S"
+            },
+            "description": "Open the extension action menu"
+        }
+    },
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
