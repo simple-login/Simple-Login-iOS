@@ -40,7 +40,7 @@
 		C00FD7FD27AA70E40072DD67 /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00FD7FC27AA70E40072DD67 /* TipsView.swift */; };
 		C00FD80127AA71E80072DD67 /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00FD80027AA71E80072DD67 /* Tip.swift */; };
 		C010031527A73637009735CD /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010031427A73637009735CD /* KeyboardViewController.swift */; };
-		C010031927A73637009735CD /* Keyboard Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C010031227A73636009735CD /* Keyboard Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C010031927A73637009735CD /* Keyboard Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C010031227A73636009735CD /* Keyboard Extension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C010031E27A73836009735CD /* NoSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010031D27A73836009735CD /* NoSessionView.swift */; };
 		C010032127A73996009735CD /* SimpleLoginPackage in Frameworks */ = {isa = PBXBuildFile; productRef = C010032027A73996009735CD /* SimpleLoginPackage */; };
 		C010032327A73999009735CD /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C010032227A73999009735CD /* KeychainAccess */; };
@@ -269,6 +269,7 @@
 		353E8272290150D7004C9154 /* DeletedAliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAliasesView.swift; sourceTree = "<group>"; };
 		353E8274290150F6004C9154 /* DeletedAliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAliasesViewModel.swift; sourceTree = "<group>"; };
 		357F16B928FECF1C0096C81E /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
+		35E00E872AA89DE4001B9143 /* Safari Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Safari Extension.entitlements"; sourceTree = "<group>"; };
 		C00874AE27A98748004F32FA /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		C00874B227A989D3004F32FA /* SLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLError.swift; sourceTree = "<group>"; };
 		C00A563326DABC3900A550A2 /* ErrorMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageModifier.swift; sourceTree = "<group>"; };
@@ -472,6 +473,7 @@
 		350D53AC2AA89859000C342C /* Safari Extension */ = {
 			isa = PBXGroup;
 			children = (
+				35E00E872AA89DE4001B9143 /* Safari Extension.entitlements */,
 				350D53AD2AA89859000C342C /* SafariWebExtensionHandler.swift */,
 				350D53C02AA89859000C342C /* Info.plist */,
 				350D53AF2AA89859000C342C /* Resources */,
@@ -1320,6 +1322,7 @@
 		};
 		C010031827A73637009735CD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = C010031127A73636009735CD /* Keyboard Extension */;
 			targetProxy = C010031727A73637009735CD /* PBXContainerItemProxy */;
 		};
@@ -1356,6 +1359,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "Safari Extension/Safari Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 72VC334CSX;
@@ -1377,6 +1381,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.safari-extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1387,6 +1392,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "Safari Extension/Safari Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 72VC334CSX;
@@ -1408,6 +1414,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.safari-extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1436,6 +1443,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.keyboard-extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1464,6 +1472,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.keyboard-extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1607,6 +1616,9 @@
 				MARKETING_VERSION = 2.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1633,6 +1645,9 @@
 				MARKETING_VERSION = 2.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1747,6 +1762,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.share-extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1775,6 +1791,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.share-extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

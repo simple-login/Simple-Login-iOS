@@ -4,15 +4,7 @@
 <dict>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
-	<key>com.apple.security.application-groups</key>
-	<array>
-		<string>group.io.simplelogin.ios</string>
-	</array>
 	<key>com.apple.security.network.client</key>
 	<true/>
-	<key>keychain-access-groups</key>
-	<array>
-		<string>$(AppIdentifierPrefix)72VC334CSX.io.simplelogin.ios-app.shared</string>
-	</array>
 </dict>
 </plist>

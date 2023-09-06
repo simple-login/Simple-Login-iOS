@@ -1,10 +1,10 @@
 {
     "extension_name": {
-        "message": "Safari Extension",
-        "description": "The display name for the extension."
+        "message": "SimpleLogin",
+        "description": "Receive & Send emails anonymously"
     },
     "extension_description": {
-        "message": "This is Safari Extension. You should tell us what your extension does here.",
-        "description": "Description of what the extension does."
+        "message": "Manage your email aliases",
+        "description": "Easily create a different email for each website to hide your real email. Protect your inbox against spams, phishing, data breaches"
     }
 }
