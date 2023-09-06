@@ -9,6 +9,16 @@
 /* Begin PBXBuildFile section */
 		350D53862AA87EA4000C342C /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 350D53852AA87EA4000C342C /* SwiftUIIntrospect */; };
 		350D53882AA87EF9000C342C /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 350D53872AA87EF9000C342C /* SwiftUIIntrospect */; };
+		350D53AE2AA89859000C342C /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350D53AD2AA89859000C342C /* SafariWebExtensionHandler.swift */; };
+		350D53B12AA89859000C342C /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 350D53B02AA89859000C342C /* _locales */; };
+		350D53B32AA89859000C342C /* images in Resources */ = {isa = PBXBuildFile; fileRef = 350D53B22AA89859000C342C /* images */; };
+		350D53B52AA89859000C342C /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 350D53B42AA89859000C342C /* manifest.json */; };
+		350D53B72AA89859000C342C /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 350D53B62AA89859000C342C /* background.js */; };
+		350D53B92AA89859000C342C /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 350D53B82AA89859000C342C /* content.js */; };
+		350D53BB2AA89859000C342C /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 350D53BA2AA89859000C342C /* popup.html */; };
+		350D53BD2AA89859000C342C /* popup.css in Resources */ = {isa = PBXBuildFile; fileRef = 350D53BC2AA89859000C342C /* popup.css */; };
+		350D53BF2AA89859000C342C /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = 350D53BE2AA89859000C342C /* popup.js */; };
+		350D53C32AA89859000C342C /* Safari Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 350D53AB2AA89859000C342C /* Safari Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		35373C45289177DA00000297 /* LogInWithProtonButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35373C44289177DA00000297 /* LogInWithProtonButtonView.swift */; };
 		35373C4728917A4900000297 /* ProtonButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35373C4628917A4900000297 /* ProtonButtonStyle.swift */; };
 		353E8273290150D7004C9154 /* DeletedAliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353E8272290150D7004C9154 /* DeletedAliasesView.swift */; };
@@ -189,6 +199,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		350D53C12AA89859000C342C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0348882268A6F29008D9629 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 350D53AA2AA89859000C342C;
+			remoteInfo = "Safari Extension";
+		};
 		C010031727A73637009735CD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C0348882268A6F29008D9629 /* Project object */;
@@ -228,6 +245,7 @@
 			files = (
 				C010031927A73637009735CD /* Keyboard Extension.appex in Embed App Extensions */,
 				C03E201427A1F436000D82F6 /* ShareExtension.appex in Embed App Extensions */,
+				350D53C32AA89859000C342C /* Safari Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,6 +253,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		350D53AB2AA89859000C342C /* Safari Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Safari Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		350D53AD2AA89859000C342C /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		350D53B02AA89859000C342C /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
+		350D53B22AA89859000C342C /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
+		350D53B42AA89859000C342C /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+		350D53B62AA89859000C342C /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
+		350D53B82AA89859000C342C /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
+		350D53BA2AA89859000C342C /* popup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
+		350D53BC2AA89859000C342C /* popup.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = popup.css; sourceTree = "<group>"; };
+		350D53BE2AA89859000C342C /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = popup.js; sourceTree = "<group>"; };
+		350D53C02AA89859000C342C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35373C44289177DA00000297 /* LogInWithProtonButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithProtonButtonView.swift; sourceTree = "<group>"; };
 		35373C4628917A4900000297 /* ProtonButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtonButtonStyle.swift; sourceTree = "<group>"; };
 		353E8272290150D7004C9154 /* DeletedAliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAliasesView.swift; sourceTree = "<group>"; };
@@ -377,6 +406,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		350D53A82AA89859000C342C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C010030F27A73636009735CD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -433,6 +469,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		350D53AC2AA89859000C342C /* Safari Extension */ = {
+			isa = PBXGroup;
+			children = (
+				350D53AD2AA89859000C342C /* SafariWebExtensionHandler.swift */,
+				350D53C02AA89859000C342C /* Info.plist */,
+				350D53AF2AA89859000C342C /* Resources */,
+			);
+			path = "Safari Extension";
+			sourceTree = "<group>";
+		};
+		350D53AF2AA89859000C342C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				350D53B02AA89859000C342C /* _locales */,
+				350D53B22AA89859000C342C /* images */,
+				350D53B42AA89859000C342C /* manifest.json */,
+				350D53B62AA89859000C342C /* background.js */,
+				350D53B82AA89859000C342C /* content.js */,
+				350D53BA2AA89859000C342C /* popup.html */,
+				350D53BC2AA89859000C342C /* popup.css */,
+				350D53BE2AA89859000C342C /* popup.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		C00FD7FB27AA70CC0072DD67 /* Tips */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,6 +526,7 @@
 				C03488A9268A6F2E008D9629 /* SimpleLoginUITests */,
 				C03E200B27A1F436000D82F6 /* ShareExtension */,
 				C010031327A73637009735CD /* Keyboard Extension */,
+				350D53AC2AA89859000C342C /* Safari Extension */,
 				C034888B268A6F29008D9629 /* Products */,
 				C04848A2278CD00500702E8E /* Frameworks */,
 			);
@@ -478,6 +540,7 @@
 				C03488A6268A6F2E008D9629 /* SimpleLoginUITests.xctest */,
 				C03E200A27A1F436000D82F6 /* ShareExtension.appex */,
 				C010031227A73636009735CD /* Keyboard Extension.appex */,
+				350D53AB2AA89859000C342C /* Safari Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -773,6 +836,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		350D53AA2AA89859000C342C /* Safari Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 350D53C62AA89859000C342C /* Build configuration list for PBXNativeTarget "Safari Extension" */;
+			buildPhases = (
+				350D53A72AA89859000C342C /* Sources */,
+				350D53A82AA89859000C342C /* Frameworks */,
+				350D53A92AA89859000C342C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Safari Extension";
+			productName = "Safari Extension";
+			productReference = 350D53AB2AA89859000C342C /* Safari Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		C010031127A73636009735CD /* Keyboard Extension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C010031A27A73637009735CD /* Build configuration list for PBXNativeTarget "Keyboard Extension" */;
@@ -810,6 +890,7 @@
 			dependencies = (
 				C03E201327A1F436000D82F6 /* PBXTargetDependency */,
 				C010031827A73637009735CD /* PBXTargetDependency */,
+				350D53C22AA89859000C342C /* PBXTargetDependency */,
 			);
 			name = SimpleLogin;
 			packageProductDependencies = (
@@ -893,9 +974,12 @@
 		C0348882268A6F29008D9629 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					350D53AA2AA89859000C342C = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
 					C010031127A73636009735CD = {
 						CreatedOnToolsVersion = 13.1;
 					};
@@ -945,11 +1029,27 @@
 				C03E200927A1F436000D82F6 /* ShareExtension */,
 				C034889A268A6F2E008D9629 /* SimpleLoginTests */,
 				C03488A5268A6F2E008D9629 /* SimpleLoginUITests */,
+				350D53AA2AA89859000C342C /* Safari Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		350D53A92AA89859000C342C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				350D53B72AA89859000C342C /* background.js in Resources */,
+				350D53BD2AA89859000C342C /* popup.css in Resources */,
+				350D53BB2AA89859000C342C /* popup.html in Resources */,
+				350D53B32AA89859000C342C /* images in Resources */,
+				350D53B52AA89859000C342C /* manifest.json in Resources */,
+				350D53B12AA89859000C342C /* _locales in Resources */,
+				350D53B92AA89859000C342C /* content.js in Resources */,
+				350D53BF2AA89859000C342C /* popup.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C010031027A73636009735CD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1013,6 +1113,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		350D53A72AA89859000C342C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				350D53AE2AA89859000C342C /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C010030E27A73636009735CD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1205,6 +1313,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		350D53C22AA89859000C342C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 350D53AA2AA89859000C342C /* Safari Extension */;
+			targetProxy = 350D53C12AA89859000C342C /* PBXContainerItemProxy */;
+		};
 		C010031827A73637009735CD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C010031127A73636009735CD /* Keyboard Extension */;
@@ -1239,6 +1352,68 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		350D53C42AA89859000C342C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 72VC334CSX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Safari Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Safari Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.safari-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		350D53C52AA89859000C342C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 72VC334CSX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Safari Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Safari Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.simplelogin.ios-app.safari-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C010031B27A73637009735CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1609,6 +1784,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		350D53C62AA89859000C342C /* Build configuration list for PBXNativeTarget "Safari Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				350D53C42AA89859000C342C /* Debug */,
+				350D53C52AA89859000C342C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C010031A27A73637009735CD /* Build configuration list for PBXNativeTarget "Keyboard Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
