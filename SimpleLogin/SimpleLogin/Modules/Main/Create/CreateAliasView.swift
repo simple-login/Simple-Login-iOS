@@ -6,9 +6,9 @@
 //
 
 import Combine
-import Introspect
 import SimpleLoginPackage
 import SwiftUI
+import SwiftUIIntrospect
 
 struct CreateAliasView: View {
     @Environment(\.presentationMode) private var presentationMode
@@ -39,11 +39,10 @@ struct CreateAliasView: View {
     var body: some View {
         NavigationView {
             Group {
-                if let options = viewModel.options,
-                   let mailboxes = viewModel.mailboxes {
+                if let options = viewModel.options {
                     ContentView(viewModel: viewModel,
                                 options: options,
-                                mailboxes: mailboxes)
+                                mailboxes: viewModel.mailboxes)
                 } else if !viewModel.isLoading {
                     Button(action: viewModel.fetchOptionsAndMailboxes) {
                         Label("Retry", systemImage: "gobackward")
@@ -115,7 +114,7 @@ private struct ContentView: View {
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .foregroundColor(viewModel.prefix.isValidPrefix ? .primary : .red)
-                    .introspectTextField { textField in
+                    .introspect(.textField, on: .iOS(.v15, .v16, .v17)) { textField in
                         textField.clearButtonMode = .whileEditing
                     }
 

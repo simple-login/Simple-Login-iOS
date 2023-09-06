@@ -5,12 +5,12 @@
 //  Created by Thanh-Nhon Nguyen on 06/02/2022.
 //
 
-import Introspect
 import SwiftUI
+import SwiftUIIntrospect
 
 struct SLNavigationViewModifier: ViewModifier {
     func body(content: Content) -> some View {
-        content.introspectNavigationController { navigationController in
+        content.introspect(.navigationView(style: .columns), on: .iOS(.v15)) { navigationController in
             navigationController.splitViewController?.preferredPrimaryColumnWidthFraction = 1
             navigationController.splitViewController?.maximumPrimaryColumnWidth = 450
             navigationController.splitViewController?.preferredDisplayMode = .oneBesideSecondary

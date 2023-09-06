@@ -5,8 +5,8 @@
 //  Created by Thanh-Nhon Nguyen on 15/01/2022.
 //
 
-import Introspect
 import SwiftUI
+import SwiftUIIntrospect
 import UIKit
 
 struct ClearButtonModeModifier: ViewModifier {
@@ -14,7 +14,7 @@ struct ClearButtonModeModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .introspectTextField { textField in
+            .introspect(.textField, on: .iOS(.v15, .v16, .v17)) { textField in
                 textField.clearButtonMode = mode
             }
     }

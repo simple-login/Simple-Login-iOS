@@ -419,10 +419,10 @@ private struct ActivityView: View {
                         .font(.footnote)
                         .foregroundColor(.secondary)
                 }
-
-                Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             }
             .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         })
     }
 }

@@ -7,12 +7,11 @@
 
 import Foundation
 
-// swiftlint:disable prefixed_toplevel_constant
 struct FeatureFlags {
     let printNetworkDebugInformation: Bool
 }
 
-let featureFlags = {
+let featureFlags = { // swiftlint:disable:this prefixed_toplevel_constant
     #if DEBUG
     FeatureFlags(printNetworkDebugInformation: true)
     #else
