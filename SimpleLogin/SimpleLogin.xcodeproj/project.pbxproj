@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		350D53862AA87EA4000C342C /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 350D53852AA87EA4000C342C /* SwiftUIIntrospect */; };
+		350D53882AA87EF9000C342C /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 350D53872AA87EF9000C342C /* SwiftUIIntrospect */; };
 		35373C45289177DA00000297 /* LogInWithProtonButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35373C44289177DA00000297 /* LogInWithProtonButtonView.swift */; };
 		35373C4728917A4900000297 /* ProtonButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35373C4628917A4900000297 /* ProtonButtonStyle.swift */; };
 		353E8273290150D7004C9154 /* DeletedAliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353E8272290150D7004C9154 /* DeletedAliasesView.swift */; };
@@ -86,7 +88,6 @@
 		C05424B527B06955008048A5 /* SLNavigationViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05424B427B06955008048A5 /* SLNavigationViewModifier.swift */; };
 		C0542ABE27AEDF3B00188C63 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0542ABD27AEDF3B00188C63 /* BaseViewController.swift */; };
 		C05A4CDE273C6C73005F8CC5 /* AutoFocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A4CDD273C6C73005F8CC5 /* AutoFocusTextField.swift */; };
-		C05A4CE1273C76BC005F8CC5 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C05A4CE0273C76BC005F8CC5 /* Introspect */; };
 		C05A9B15277BB996003FD0A7 /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05A9B14277BB996003FD0A7 /* UpgradeView.swift */; };
 		C064797D272B331D009CA1F8 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C064797C272B331D009CA1F8 /* Action.swift */; };
 		C06CEAF2279018B100736920 /* MailboxesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06CEAF1279018B100736920 /* MailboxesViewModel.swift */; };
@@ -140,7 +141,6 @@
 		EF5BDFB427B7AF56004B696B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB327B7AF56004B696B /* LogoView.swift */; };
 		EF5BDFB827B7B5DD004B696B /* BetterSafariViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5BDFB727B7B5DD004B696B /* BetterSafariViewExtensions.swift */; };
 		EF5E150727D94A160047C568 /* AliasExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5E150627D94A160047C568 /* AliasExtensions.swift */; };
-		EF6303AD2815E6860061FF6F /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = EF6303AC2815E6860061FF6F /* Introspect */; };
 		EF65890027DA96D100D327C2 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = EF6588FF27DA96D100D327C2 /* Reachability */; };
 		EF65890227DA9EB400D327C2 /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF65890127DA9EB400D327C2 /* SizePreferenceKey.swift */; };
 		EF68E11827B90E9400396472 /* DeleteMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF68E11727B90E9400396472 /* DeleteMenuButton.swift */; };
@@ -394,8 +394,8 @@
 				C043D41426E01DBF0051B282 /* KeychainAccess in Frameworks */,
 				C0EA747C27B30CD300848F58 /* BetterSafariView in Frameworks */,
 				C07EA68B273E4DEA00C7D69C /* AlertToast in Frameworks */,
+				350D53862AA87EA4000C342C /* SwiftUIIntrospect in Frameworks */,
 				C02FCF90278E3C3000F32BED /* Kingfisher in Frameworks */,
-				C05A4CE1273C76BC005F8CC5 /* Introspect in Frameworks */,
 				C04848A7278CD99000702E8E /* SwiftyStoreKit in Frameworks */,
 				C04848A4278CD00500702E8E /* StoreKit.framework in Frameworks */,
 				EF65890027DA96D100D327C2 /* Reachability in Frameworks */,
@@ -423,9 +423,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0941EF427A6F056009AAEBC /* AlertToast in Frameworks */,
-				EF6303AD2815E6860061FF6F /* Introspect in Frameworks */,
 				C0941EEB27A6E917009AAEBC /* KeychainAccess in Frameworks */,
 				C0941EE927A6E912009AAEBC /* SimpleLoginPackage in Frameworks */,
+				350D53882AA87EF9000C342C /* SwiftUIIntrospect in Frameworks */,
 				357B504C2892BAB80080326A /* BetterSafariView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -815,13 +815,13 @@
 			packageProductDependencies = (
 				C03760F226DC0BA000E5ECAC /* SimpleLoginPackage */,
 				C043D41326E01DBF0051B282 /* KeychainAccess */,
-				C05A4CE0273C76BC005F8CC5 /* Introspect */,
 				C07EA68A273E4DEA00C7D69C /* AlertToast */,
 				C04848A6278CD99000702E8E /* SwiftyStoreKit */,
 				C02FCF8F278E3C3000F32BED /* Kingfisher */,
 				C02CD1952794BA3E00B3115E /* ConfettiSwiftUI */,
 				C0EA747B27B30CD300848F58 /* BetterSafariView */,
 				EF6588FF27DA96D100D327C2 /* Reachability */,
+				350D53852AA87EA4000C342C /* SwiftUIIntrospect */,
 			);
 			productName = SimpleLogin;
 			productReference = C034888A268A6F29008D9629 /* SimpleLogin.app */;
@@ -880,8 +880,8 @@
 				C0941EE827A6E912009AAEBC /* SimpleLoginPackage */,
 				C0941EEA27A6E917009AAEBC /* KeychainAccess */,
 				C0941EF327A6F056009AAEBC /* AlertToast */,
-				EF6303AC2815E6860061FF6F /* Introspect */,
 				357B504B2892BAB80080326A /* BetterSafariView */,
+				350D53872AA87EF9000C342C /* SwiftUIIntrospect */,
 			);
 			productName = ShareExtension;
 			productReference = C03E200A27A1F436000D82F6 /* ShareExtension.appex */;
@@ -928,13 +928,13 @@
 			packageReferences = (
 				C03760F126DC0BA000E5ECAC /* XCRemoteSwiftPackageReference "swift-package" */,
 				C043D41226E01DBF0051B282 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				C05A4CDF273C76BB005F8CC5 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				C07EA689273E4DEA00C7D69C /* XCRemoteSwiftPackageReference "AlertToast" */,
 				C04848A5278CD99000702E8E /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
 				C02FCF8E278E3C3000F32BED /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				C02CD1942794BA3E00B3115E /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				C0EA747A27B30CD200848F58 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 				EF6588FE27DA96D100D327C2 /* XCRemoteSwiftPackageReference "Reachability" */,
+				350D53842AA87EA4000C342C /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = C034888B268A6F29008D9629 /* Products */;
 			projectDirPath = "";
@@ -1666,6 +1666,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		350D53842AA87EA4000C342C /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.12.0;
+			};
+		};
 		C02CD1942794BA3E00B3115E /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
@@ -1706,14 +1714,6 @@
 				kind = branch;
 			};
 		};
-		C05A4CDF273C76BB005F8CC5 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.3;
-			};
-		};
 		C07EA689273E4DEA00C7D69C /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast";
@@ -1741,6 +1741,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		350D53852AA87EA4000C342C /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 350D53842AA87EA4000C342C /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = SwiftUIIntrospect;
+		};
+		350D53872AA87EF9000C342C /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 350D53842AA87EA4000C342C /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = SwiftUIIntrospect;
+		};
 		357B504B2892BAB80080326A /* BetterSafariView */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C0EA747A27B30CD200848F58 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
@@ -1786,11 +1796,6 @@
 			package = C04848A5278CD99000702E8E /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */;
 			productName = SwiftyStoreKit;
 		};
-		C05A4CE0273C76BC005F8CC5 /* Introspect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C05A4CDF273C76BB005F8CC5 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = Introspect;
-		};
 		C07EA68A273E4DEA00C7D69C /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C07EA689273E4DEA00C7D69C /* XCRemoteSwiftPackageReference "AlertToast" */;
@@ -1815,11 +1820,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C0EA747A27B30CD200848F58 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
 			productName = BetterSafariView;
-		};
-		EF6303AC2815E6860061FF6F /* Introspect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C05A4CDF273C76BB005F8CC5 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = Introspect;
 		};
 		EF6588FF27DA96D100D327C2 /* Reachability */ = {
 			isa = XCSwiftPackageProductDependency;

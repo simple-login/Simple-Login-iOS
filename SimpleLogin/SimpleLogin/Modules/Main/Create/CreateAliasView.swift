@@ -6,9 +6,9 @@
 //
 
 import Combine
-import Introspect
 import SimpleLoginPackage
 import SwiftUI
+import SwiftUIIntrospect
 
 struct CreateAliasView: View {
     @Environment(\.presentationMode) private var presentationMode
@@ -114,7 +114,7 @@ private struct ContentView: View {
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .foregroundColor(viewModel.prefix.isValidPrefix ? .primary : .red)
-                    .introspectTextField { textField in
+                    .introspect(.textField, on: .iOS(.v15, .v16, .v17)) { textField in
                         textField.clearButtonMode = .whileEditing
                     }
 

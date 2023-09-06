@@ -5,7 +5,7 @@ disabled_rules:
   - redundant_string_enum_value
 opt_in_rules:
   - array_init
-  - attributes
+  # - attributes
   - closure_spacing
   - collection_alignment
   - contains_over_filter_count

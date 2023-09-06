@@ -17,12 +17,11 @@ final class Session: ObservableObject {
         self.apiService = apiService
     }
 
-    func execute<E: Endpoint>(_ endpoint: E) async throws ->  E.Response {
+    func execute<E: Endpoint>(_ endpoint: E) async throws -> E.Response {
         try await apiService.execute(endpoint)
     }
 }
 
-// swiftlint:disable force_unwrapping
 extension Session {
     static var preview: Session {
         .init(apiKey: .init(value: ""), apiService: APIService.preview)
@@ -31,7 +30,7 @@ extension Session {
 
 extension APIService {
     static var preview: APIService {
-        .init(baseURL: URL(string: "https://simplelogin.io")!,
+        .init(baseURL: URL(string: "https://simplelogin.io")!, // swiftlint:disable:this force_unwrapping
               session: .shared,
               printDebugInformation: false)
     }
