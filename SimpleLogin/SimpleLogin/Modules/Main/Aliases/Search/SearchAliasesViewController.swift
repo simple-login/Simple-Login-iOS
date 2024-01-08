@@ -37,7 +37,7 @@ final class SearchAliasesViewController: BaseViewController {
         super.viewDidLoad()
         let searchBar = UISearchBar()
         searchBar.delegate = self
-        searchBar.placeholder = "Search term"
+        searchBar.placeholder = "Search"
         searchBar.becomeFirstResponder()
         searchBar.showsCancelButton = true
         searchBar.autocapitalizationType = .none
