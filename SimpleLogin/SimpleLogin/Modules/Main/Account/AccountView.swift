@@ -359,9 +359,17 @@ private struct SenderFormatSection: View {
         }, header: {
             Text("Sender address format")
         }, footer: {
-            // swiftlint:disable:next line_length
-            Text("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")
+            Text(footerAttributedString)
         })
+    }
+
+    private var footerAttributedString: AttributedString {
+        // swiftlint:disable:next line_length
+        var attributedString = AttributedString("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")
+        if let range = attributedString.range(of: "john.doe@example.com") {
+            attributedString[range].foregroundColor = .accentColor
+        }
+        return attributedString
     }
 }
 
