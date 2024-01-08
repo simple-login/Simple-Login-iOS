@@ -61,6 +61,7 @@ struct SimpleLoginApp: App {
                         Color(.systemBackground)
                         Image("LogoWithName")
                     }
+                    .ignoresSafeArea()
                 }
             } else {
                 LogInView(apiUrl: preferences.apiUrl) { apiKey, apiService in
