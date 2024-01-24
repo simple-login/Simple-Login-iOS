@@ -6,6 +6,7 @@
 //
 
 import AuthenticationServices
+import BetterSafariView
 import SimpleLoginPackage
 import SwiftUI
 
@@ -48,7 +49,9 @@ struct LogInWithProtonButtonView: View {
         .webAuthenticationSession(isPresented: isShowingSafariView) {
             // swiftlint:disable:next force_unwrapping
             let url = URL(string: selectedUrlString ?? "") ?? URL(string: "https://simplelogin.io")!
-            return .init(url: url, callbackURLScheme: "auth.simplelogin", onCompletion: handleResult)
+            return .init(url: url,
+                         callbackURLScheme: "auth.simplelogin",
+                         onCompletion: handleResult).prefersEphemeralWebBrowserSession(true)
         }
     }
 

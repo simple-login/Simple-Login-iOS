@@ -71,6 +71,7 @@ struct AccountView: View {
                         return .init(url: url,
                                      callbackURLScheme: "auth.simplelogin",
                                      onCompletion: viewModel.handleLinkingResult)
+                        .prefersEphemeralWebBrowserSession(true)
                     }
                     // swiftlint:disable:next force_unwrapping
                     return .init(url: URL(string: "https://simplelogin.io")!,
