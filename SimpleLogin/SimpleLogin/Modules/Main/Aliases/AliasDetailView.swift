@@ -18,15 +18,18 @@ struct AliasDetailWrapperView: View {
     private let session: Session
     let onUpdateAlias: (Alias) -> Void
     let onDeleteAlias: (Alias) -> Void
+    let onUpgrade: () -> Void
 
     init(selectedAlias: Binding<Alias?>,
          session: Session,
          onUpdateAlias: @escaping (Alias) -> Void,
-         onDeleteAlias: @escaping (Alias) -> Void) {
+         onDeleteAlias: @escaping (Alias) -> Void,
+         onUpgrade: @escaping () -> Void) {
         self._selectedAlias = selectedAlias
         self.session = session
         self.onUpdateAlias = onUpdateAlias
         self.onDeleteAlias = onDeleteAlias
+        self.onUpgrade = onUpgrade
     }
 
     var body: some View {
@@ -42,7 +45,8 @@ struct AliasDetailWrapperView: View {
                     dismiss()
                     // Show placeholder view in master detail mode (iPad)
                     self.selectedAlias = nil
-                })
+                },
+                onUpgrade: onUpgrade)
         } else {
             DetailPlaceholderView.aliasDetails
         }
@@ -56,22 +60,26 @@ struct AliasDetailView: View {
     @State private var showingAliasEmailSheet = false
     @State private var showingAliasFullScreen = false
     @State private var copiedText: String?
+    let onUpgrade: () -> Void
 
     init(alias: Alias,
          session: Session,
          onUpdateAlias: @escaping (Alias) -> Void,
-         onDeleteAlias: @escaping (Alias) -> Void) {
+         onDeleteAlias: @escaping (Alias) -> Void,
+         onUpgrade: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias,
                                                      session: session,
                                                      onUpdateAlias: onUpdateAlias,
                                                      onDeleteAlias: onDeleteAlias))
+        self.onUpgrade = onUpgrade
     }
 
     var body: some View {
         List {
             ActionsSection(viewModel: viewModel,
                            copiedText: $copiedText,
-                           enterFullScreen: showAliasInFullScreen)
+                           enterFullScreen: showAliasInFullScreen,
+                           onUpgrade: onUpgrade)
             NotesSection(viewModel: viewModel)
             MailboxesSection(viewModel: viewModel)
             NameSection(viewModel: viewModel)
@@ -132,6 +140,7 @@ private struct ActionsSection: View {
     @ObservedObject var viewModel: AliasDetailViewModel
     @Binding var copiedText: String?
     var enterFullScreen: () -> Void
+    let onUpgrade: () -> Void
 
     private var alias: Alias { viewModel.alias }
 
@@ -214,7 +223,7 @@ private struct ActionsSection: View {
         NavigationLink(
             isActive: $showingContacts,
             destination: {
-                AliasContactsView(alias: alias, session: viewModel.session)
+                AliasContactsView(alias: alias, session: viewModel.session, onUpgrade: onUpgrade)
             },
             label: {
                 button(

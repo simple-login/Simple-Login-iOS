@@ -21,6 +21,7 @@ struct AliasesView: View {
     @State private var selectedAlias: Alias?
     @State private var aliasToShowDetails: Alias?
     @State private var selectedLink: Link?
+    private let onUpgrade: () -> Void
 
     enum Modal {
         case search, create
@@ -33,11 +34,13 @@ struct AliasesView: View {
     init(session: Session,
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext,
-         createdAlias: Binding<Alias?>) {
+         createdAlias: Binding<Alias?>,
+         onUpgrade: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: .init(session: session,
                                                      reachabilityObserver: reachabilityObserver,
                                                      managedObjectContext: managedObjectContext))
         _createdAlias = createdAlias
+        self.onUpgrade = onUpgrade
     }
 
     var body: some View {
@@ -69,7 +72,8 @@ struct AliasesView: View {
                                     createdAlias = nil
                                 }
                                 viewModel.remove(alias: deletedAlias)
-                            })
+                            }, 
+                            onUpgrade: onUpgrade)
                             .ignoresSafeArea(.keyboard)
                             .onAppear {
                                 if UIDevice.current.userInterfaceIdiom != .phone {
@@ -86,7 +90,9 @@ struct AliasesView: View {
                     selection: $selectedLink,
                     destination: {
                         if let selectedAlias = selectedAlias {
-                            AliasContactsView(alias: selectedAlias, session: viewModel.session)
+                            AliasContactsView(alias: selectedAlias, 
+                                              session: viewModel.session,
+                                              onUpgrade: onUpgrade)
                                 .onAppear {
                                     if UIDevice.current.userInterfaceIdiom != .phone {
                                         selectedLink = nil
@@ -191,7 +197,8 @@ struct AliasesView: View {
                                 createdAlias = nil
                             }
                             viewModel.remove(alias: deletedAlias)
-                        })
+                        }, 
+                        onUpgrade: onUpgrade)
                 }
             }
 

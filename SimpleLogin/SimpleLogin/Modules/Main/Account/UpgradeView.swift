@@ -187,7 +187,6 @@ struct UpgradeView_Previews: PreviewProvider {
 private let kFreeCapacities: [Capacity] = [
     .fifteenAliases,
     .unlimitedBandWidth,
-    .unlimitedReplySend,
     .oneMailbox,
     .browserExtensions,
     .totp,
@@ -197,6 +196,7 @@ private let kFreeCapacities: [Capacity] = [
 private let kPremiumCapacities: [Capacity] = [
     .everythingInFreePlan,
     .unlimitedAliases,
+    .unlimitedReplySend,
     .unlimitedMailboxes,
     .unlimitedDomains,
     .catchAllDomain,

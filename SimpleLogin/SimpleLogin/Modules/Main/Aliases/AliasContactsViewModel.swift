@@ -13,6 +13,7 @@ final class AliasContactsViewModel: ObservableObject {
     @Published private(set) var isFetchingContacts = false
     @Published private(set) var contacts: [Contact] = []
     @Published private(set) var createdContact: Contact?
+    @Published var shouldUpgrade = false
     @Published var isLoading = false
     @Published var error: Error?
 
@@ -122,19 +123,24 @@ final class AliasContactsViewModel: ObservableObject {
 
     func createContact(contactEmail: String) {
         guard !isLoading else { return }
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             defer { isLoading = false }
             isLoading = true
             do {
+                guard try await canCreateReverseAlias() else {
+                    shouldUpgrade = true
+                    return
+                }
                 let createContactEndpoint = CreateContactEndpoint(apiKey: session.apiKey.value,
                                                                   aliasID: alias.id,
                                                                   email: contactEmail)
                 let createdContact = try await session.execute(createContactEndpoint)
                 if createdContact.existed {
-                    self.error = SLError.contactExists
+                    error = SLError.contactExists
                 } else {
                     self.createdContact = createdContact
-                    self.contacts.insert(createdContact, at: 0)
+                    contacts.insert(createdContact, at: 0)
                 }
             } catch {
                 self.error = error
@@ -144,5 +150,13 @@ final class AliasContactsViewModel: ObservableObject {
 
     func handledCreatedContact() {
         self.createdContact = nil
+    }
+}
+
+private extension AliasContactsViewModel {
+    func canCreateReverseAlias() async throws -> Bool {
+        let userInfoEndpoint = GetUserInfoEndpoint(apiKey: session.apiKey.value)
+        let userInfo = try await session.execute(userInfoEndpoint)
+        return userInfo.canCreateReverseAlias
     }
 }
