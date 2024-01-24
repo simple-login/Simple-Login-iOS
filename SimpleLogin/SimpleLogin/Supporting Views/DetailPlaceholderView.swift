@@ -27,7 +27,7 @@ struct DetailPlaceholderView: View {
 
             if let message = message {
                 Text(message)
-                    .font(.largeTitle)
+                    .font(.title)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             }
