@@ -51,7 +51,8 @@ struct MainView: View {
             AliasesView(session: session,
                         reachabilityObserver: reachabilityObserver,
                         managedObjectContext: managedObjectContext,
-                        createdAlias: $createdAlias)
+                        createdAlias: $createdAlias, 
+                        onUpgrade: beginUpgradeFlow)
             .tag(TabBarItem.aliases)
 
             AdvancedView()
@@ -132,10 +133,7 @@ struct MainView: View {
                         self.selectedItem = .aliases
                     },
                     onCancel: nil,
-                    onOpenMyAccount: {
-                        upgradeNeeded = true
-                        selectedItem = .myAccount
-                    })
+                    onOpenMyAccount: beginUpgradeFlow)
             case .none:
                 EmptyView()
             }
@@ -147,6 +145,11 @@ struct MainView: View {
               message: Text("This account is protected, you must authenticate to continue."),
               primaryButton: .default(Text("Try again"), action: viewModel.biometricallyAuthenticate),
               secondaryButton: .destructive(Text("Log out"), action: onLogOut))
+    }
+
+    private func beginUpgradeFlow() {
+        upgradeNeeded = true
+        selectedItem = .myAccount
     }
 }
 

@@ -15,13 +15,15 @@ struct SearchAliasesView: UIViewControllerRepresentable {
     let session: Session
     let onUpdateAlias: (Alias) -> Void
     let onDeleteAlias: (Alias) -> Void
+    let onUpgrade: () -> Void
 
     func makeUIViewController(context: Context) -> UINavigationController {
         let viewController = SearchAliasesViewController(session: session,
                                                          reachabilityObserver: reachabilityObserver,
                                                          managedObjectContext: managedObjectContext,
                                                          onUpdateAlias: onUpdateAlias,
-                                                         onDeleteAlias: onDeleteAlias)
+                                                         onDeleteAlias: onDeleteAlias, 
+                                                         onUpgrade: onUpgrade)
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.view.tintColor = .slPurple
         return navigationController

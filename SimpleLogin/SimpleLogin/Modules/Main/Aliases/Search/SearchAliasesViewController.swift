@@ -14,17 +14,20 @@ final class SearchAliasesViewController: BaseViewController {
     private let viewModel: SearchAliasesViewModel
     let onUpdateAlias: (Alias) -> Void
     let onDeleteAlias: (Alias) -> Void
+    let onUpgrade: () -> Void
 
     init(session: Session,
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext,
          onUpdateAlias: @escaping (Alias) -> Void,
-         onDeleteAlias: @escaping (Alias) -> Void) {
+         onDeleteAlias: @escaping (Alias) -> Void,
+         onUpgrade: @escaping () -> Void) {
         self.viewModel = .init(session: session,
                                reachabilityObserver: reachabilityObserver,
                                managedObjectContext: managedObjectContext)
         self.onUpdateAlias = onUpdateAlias
         self.onDeleteAlias = onDeleteAlias
+        self.onUpgrade = onUpgrade
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -80,7 +83,8 @@ final class SearchAliasesViewController: BaseViewController {
                 guard let self = self else { return }
                 self.onDeleteAlias(deletedAlias)
                 self.viewModel.remove(alias: alias)
-            })
+            }, 
+            onUpgrade: onUpgrade)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: dismissPresentedViewController) {
@@ -96,7 +100,8 @@ final class SearchAliasesViewController: BaseViewController {
     private func showAliasContacts(_ alias: Alias) {
         let aliasContactsView = AliasContactsView(
             alias: alias,
-            session: viewModel.session)
+            session: viewModel.session,
+            onUpgrade: onUpgrade)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: dismissPresentedViewController) {

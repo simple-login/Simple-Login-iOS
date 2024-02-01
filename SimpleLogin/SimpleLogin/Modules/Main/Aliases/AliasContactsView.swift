@@ -14,9 +14,11 @@ struct AliasContactsView: View {
     @State private var copiedText: String?
     @State private var newContactEmail = ""
     @State private var selectedUrlString: String?
+    private let onUpgrade: () -> Void
 
-    init(alias: Alias, session: Session) {
+    init(alias: Alias, session: Session, onUpgrade: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: .init(alias: alias, session: session))
+        self.onUpgrade = onUpgrade
     }
 
     var body: some View {
@@ -80,6 +82,12 @@ struct AliasContactsView: View {
                 newContactEmail = ""
             }
         }
+        .alert("Please upgrade to create contacts",
+               isPresented: $viewModel.shouldUpgrade,
+               actions: {
+            Button("Upgrade", role: nil, action: onUpgrade)
+            Button("Cancel", role: .cancel) {}
+        })
         .betterSafariView(urlString: $selectedUrlString)
         .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
         .alertToastError($viewModel.error)

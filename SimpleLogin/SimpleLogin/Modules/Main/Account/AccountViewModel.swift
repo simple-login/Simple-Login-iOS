@@ -275,7 +275,8 @@ extension UserInfo {
                  isPremium: false,
                  inTrial: false,
                  maxAliasFreePlan: 0,
-                 connectedProtonAddress: nil)
+                 connectedProtonAddress: nil,
+                 canCreateReverseAlias: false)
     }
 }
 
