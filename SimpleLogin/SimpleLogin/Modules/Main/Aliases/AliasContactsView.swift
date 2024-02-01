@@ -83,7 +83,7 @@ struct AliasContactsView: View {
             }
         }
         .alert("Please upgrade to create contacts",
-               isPresented: makeShowingUpgradeAlert(),
+               isPresented: $viewModel.shouldUpgrade,
                actions: {
             Button("Upgrade", role: nil, action: onUpgrade)
             Button("Cancel", role: .cancel) {}
@@ -115,16 +115,6 @@ struct AliasContactsView: View {
         }, set: { message in
             if message == nil {
                 viewModel.handledCreatedContact()
-            }
-        })
-    }
-
-    private func makeShowingUpgradeAlert() -> Binding<Bool> {
-        .init(get: {
-            viewModel.shouldUpgrade
-        }, set: { newValue in
-            if !newValue {
-                viewModel.shouldUpgrade = false
             }
         })
     }
