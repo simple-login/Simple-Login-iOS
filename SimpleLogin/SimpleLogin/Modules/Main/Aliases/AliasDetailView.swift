@@ -34,7 +34,6 @@ struct AliasDetailWrapperView: View {
 
     var body: some View {
         if let selectedAlias = selectedAlias {
-            // swiftlint:disable:next trailing_closure
             AliasDetailView(
                 alias: selectedAlias,
                 session: session,
