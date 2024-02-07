@@ -72,7 +72,7 @@ struct AliasesView: View {
                                     createdAlias = nil
                                 }
                                 viewModel.remove(alias: deletedAlias)
-                            }, 
+                            },
                             onUpgrade: onUpgrade)
                             .ignoresSafeArea(.keyboard)
                             .onAppear {
@@ -90,7 +90,7 @@ struct AliasesView: View {
                     selection: $selectedLink,
                     destination: {
                         if let selectedAlias = selectedAlias {
-                            AliasContactsView(alias: selectedAlias, 
+                            AliasContactsView(alias: selectedAlias,
                                               session: viewModel.session,
                                               onUpgrade: onUpgrade)
                                 .onAppear {
@@ -108,6 +108,10 @@ struct AliasesView: View {
 
                 ScrollViewReader { proxy in
                     List {
+                        if let stats = viewModel.stats {
+                            StatsView(stats: stats)
+                        }
+
                         if !viewModel.aliases.isEmpty {
                             if let createdAlias = createdAlias {
                                 switch (createdAlias.enabled, viewModel.selectedStatus) {
@@ -143,6 +147,7 @@ struct AliasesView: View {
                     }
                     .listStyle(.plain)
                     .refreshable { await viewModel.refresh() }
+                    .animation(.default, value: viewModel.stats != nil)
                     .onReceive(Just(createdAlias)) { createdAlias in
                         if let createdAlias = createdAlias {
                             if !viewModel.isHandled(createdAlias) {
@@ -197,7 +202,7 @@ struct AliasesView: View {
                                 createdAlias = nil
                             }
                             viewModel.remove(alias: deletedAlias)
-                        }, 
+                        },
                         onUpgrade: onUpgrade)
                 }
             }

@@ -23,6 +23,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
 
     @Published private(set) var aliases: [Alias] = []
     @Published private(set) var updatedAlias: Alias?
+    @Published private(set) var stats: Stats?
     @Published private(set) var isLoading = false
     @Published private(set) var isUpdating = false
     @Published var error: Error?
@@ -101,6 +102,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
             defer { isLoading = false }
             isLoading = true
             do {
+                self.stats = try await getStats()
                 let newAliases = try await getAliases(page: currentPage)
                 self.aliases.append(contentsOf: newAliases)
                 self.currentPage += 1
@@ -116,6 +118,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
     func refresh() async {
         do {
             aliases = try await getAliases(page: 0)
+            stats = try await getStats()
             currentPage = 1
             canLoadMorePages = aliases.count == kDefaultPageSize
         } catch {
@@ -128,6 +131,11 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
                                                     page: page,
                                                     option: .filter(filterOption))
         return try await session.execute(getAliasesEndpoint).aliases
+    }
+
+    private func getStats() async throws -> Stats {
+        let endpoint = GetStatsEndpoint(apiKey: session.apiKey.value)
+        return try await session.execute(endpoint)
     }
 
     func update(alias: Alias) {

@@ -22,7 +22,7 @@ struct SearchAliasesView: UIViewControllerRepresentable {
                                                          reachabilityObserver: reachabilityObserver,
                                                          managedObjectContext: managedObjectContext,
                                                          onUpdateAlias: onUpdateAlias,
-                                                         onDeleteAlias: onDeleteAlias, 
+                                                         onDeleteAlias: onDeleteAlias,
                                                          onUpgrade: onUpgrade)
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.view.tintColor = .slPurple

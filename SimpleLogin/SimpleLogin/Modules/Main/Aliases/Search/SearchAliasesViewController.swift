@@ -83,7 +83,7 @@ final class SearchAliasesViewController: BaseViewController {
                 guard let self = self else { return }
                 self.onDeleteAlias(deletedAlias)
                 self.viewModel.remove(alias: alias)
-            }, 
+            },
             onUpgrade: onUpgrade)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
