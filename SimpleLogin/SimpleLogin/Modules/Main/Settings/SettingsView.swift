@@ -205,7 +205,7 @@ private struct KeyboardFullAccessExplanationView: View {
 
         When you successfully log in, our server sends a valid API key to the application. The application then saves this API key to a Keychain Group in order to reuse it without asking you to authenticate again.
 
-        The keyboard extension needs to use the API key saved in Keychain Group by the host application to make requests by itself (get the list of aliases and create new aliases). Such access to Keychain Group and requests require full access. The keyboard extension does not record nor share anything you type.
+        The keyboard extension needs to use the API key saved in Keychain Group by the host application to make requests by itself (get the list of aliases and create new aliases). Such access to Keychain Group and requests require full access. The keyboard extension does not record or share anything you type.
 
         More technical information [here]( https://developer.apple.com/documentation/uikit/keyboards_and_input/creating_a_custom_keyboard/configuring_open_access_for_a_custom_keyboard).
         """)
