@@ -21,7 +21,7 @@ struct SignUpView: View {
 
     init(apiService: APIServiceProtocol,
          onSignUp: @escaping (String, String) -> Void) {
-        self._viewModel = StateObject(wrappedValue: .init(apiService: apiService))
+        _viewModel = StateObject(wrappedValue: .init(apiService: apiService))
         self.onSignUp = onSignUp
     }
 
@@ -53,7 +53,7 @@ struct SignUpView: View {
                               password: $viewModel.password,
                               mode: .signUp,
                               onAction: viewModel.register)
-            .padding()
+                .padding()
 
             Group {
                 Text("By clicking \"Create account\", you agree to abide by SimpleLogin's Terms & Conditions.")
@@ -69,7 +69,7 @@ struct SignUpView: View {
             }
             .padding(.horizontal)
             .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ?
-                   UIScreen.main.minLength * 3 / 5 : .infinity)
+                UIScreen.main.minLength * 3 / 5 : .infinity)
 
             Spacer()
 
@@ -109,8 +109,8 @@ struct SignUpView: View {
             Alert(title: Text("You are all set"),
                   message: Text("We've sent an email to \(viewModel.email). Please check your inbox."),
                   dismissButton: .default(Text("OK")) {
-                otpMode = .activate(email: viewModel.email)
-            })
+                      otpMode = .activate(email: viewModel.email)
+                  })
         }
     }
 
@@ -119,9 +119,9 @@ struct SignUpView: View {
         OtpView(mode: $otpMode,
                 apiService: viewModel.apiService,
                 onActivation: {
-            onSignUp(viewModel.email, viewModel.password)
-            dismiss.callAsFunction()
-        })
+                    onSignUp(viewModel.email, viewModel.password)
+                    dismiss.callAsFunction()
+                })
         // swiftlint:enable trailing_closure
     }
 }

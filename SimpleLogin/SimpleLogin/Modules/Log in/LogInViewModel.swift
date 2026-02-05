@@ -74,12 +74,12 @@ final class LogInViewModel: ObservableObject {
             let logInEndpoint = LogInEndpoint(email: email,
                                               password: password,
                                               device: UIDevice.current.name)
-            self.userLogin = try await apiService.execute(logInEndpoint)
+            userLogin = try await apiService.execute(logInEndpoint)
         } catch {
             if let apiServiceError = error as? APIServiceError,
-               case .clientError(let errorResponse) = apiServiceError,
+               case let .clientError(errorResponse) = apiServiceError,
                errorResponse.statusCode == 422 {
-                self.shouldActivate = true
+                shouldActivate = true
             } else {
                 self.error = error
             }
@@ -95,9 +95,9 @@ final class LogInViewModel: ObservableObject {
             let forgotPasswordEndpoint = ForgotPasswordEndpoint(email: email)
             let response = try await apiService.execute(forgotPasswordEndpoint)
             if response.value {
-                self.resetEmail = email
+                resetEmail = email
             } else {
-                self.error = SLError.unknown
+                error = SLError.unknown
             }
         } catch {
             self.error = error
@@ -118,9 +118,8 @@ extension URLSessionConfiguration {
 }
 
 private extension APIService {
-    static let `default`: APIService = {
+    static let `default`: APIService =
         .init(baseURL: URL(string: "https://app.simplelogin.io/")!, // swiftlint:disable:this force_unwrapping
               session: .init(configuration: .simpleLogin),
               printDebugInformation: featureFlags.printNetworkDebugInformation)
-    }()
 }

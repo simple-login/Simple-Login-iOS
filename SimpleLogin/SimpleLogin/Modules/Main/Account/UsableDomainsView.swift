@@ -1,5 +1,5 @@
 //
-//  DefaultDomainsView.swift
+//  UsableDomainsView.swift
 //  SimpleLogin
 //
 //  Created by Nhon Nguyen on 25/04/2022.

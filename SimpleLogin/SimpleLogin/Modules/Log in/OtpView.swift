@@ -22,10 +22,10 @@ struct OtpView: View {
          apiService: APIServiceProtocol,
          onVerification: ((ApiKey) -> Void)? = nil,
          onActivation: (() async -> Void)? = nil) {
-        self._mode = mode
+        _mode = mode
         let viewModel = OtpViewModel(apiService: apiService,
                                      mode: mode.wrappedValue ?? .logIn(mfaKey: ""))
-        self._viewModel = StateObject(wrappedValue: viewModel)
+        _viewModel = StateObject(wrappedValue: viewModel)
         self.onVerification = onVerification
         self.onActivation = onActivation
     }
@@ -157,7 +157,7 @@ struct OtpView: View {
                 }, label: {
                     Label("Paste from clipboard", systemImage: "doc.on.clipboard")
                 })
-                    .padding()
+                .padding()
 
                 Spacer()
             }
@@ -173,7 +173,7 @@ struct OtpView: View {
             showingLoadingHud = isLoading
         }
         .onReceive(Just(viewModel.apiKey)) { apiKey in
-            if let apiKey = apiKey {
+            if let apiKey {
                 onVerification?(apiKey)
             }
         }
@@ -208,23 +208,17 @@ struct OtpView: View {
 }
 
 /*
-struct OtpView_Previews: PreviewProvider {
-    static var previews: some View {
-        OtpView(mode: .constant(.activate(email: "john.doe@example.com")),
-                client: .default)
-    }
-}
- */
+ struct OtpView_Previews: PreviewProvider {
+     static var previews: some View {
+         OtpView(mode: .constant(.activate(email: "john.doe@example.com")),
+                 client: .default)
+     }
+ }
+  */
 
 struct OtpButton<Label: View>: View {
     let action: () -> Void
-    let label: () -> Label
-
-    init(action: @escaping () -> Void,
-         @ViewBuilder label: @escaping () -> Label) {
-        self.action = action
-        self.label = label
-    }
+    @ViewBuilder let label: () -> Label
 
     var body: some View {
         Button(action: action, label: label)
@@ -259,18 +253,18 @@ enum OtpMode {
     var title: String {
         switch self {
         case .logIn:
-            return "Enter OTP code"
+            "Enter OTP code"
         case .activate:
-            return "Enter activation code"
+            "Enter activation code"
         }
     }
 
     var description: String? {
         switch self {
         case .logIn:
-            return nil
-        case .activate(let email):
-            return "Please enter the activation code that we've sent to \(email)"
+            nil
+        case let .activate(email):
+            "Please enter the activation code that we've sent to \(email)"
         }
     }
 }
@@ -347,7 +341,7 @@ private final class OtpViewModel: ObservableObject {
     }
 
     func paste(string: String?) {
-        guard let string = string else {
+        guard let string else {
             error = SLError.emptyClipboard
             return
         }
@@ -357,17 +351,17 @@ private final class OtpViewModel: ObservableObject {
         }
         let getDigit: (String?) -> Digit = { digitString in
             switch digitString {
-            case "0": return .zero
-            case "1": return .one
-            case "2": return .two
-            case "3": return .three
-            case "4": return .four
-            case "5": return .five
-            case "6": return .six
-            case "7": return .seven
-            case "8": return .eighth
-            case "9": return .nine
-            default: return .none
+            case "0": .zero
+            case "1": .one
+            case "2": .two
+            case "3": .three
+            case "4": .four
+            case "5": .five
+            case "6": .six
+            case "7": .seven
+            case "8": .eighth
+            case "9": .nine
+            default: .none
             }
         }
         add(digit: getDigit(string[0]))
@@ -383,11 +377,11 @@ private final class OtpViewModel: ObservableObject {
         isLoading = true
         let token =
             [firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit, sixthDigit]
-            .map { $0.rawValue }
-            .reduce(into: "") { $0 += "\($1)" }
+                .map(\.rawValue)
+                .reduce(into: "") { $0 += "\($1)" }
 
         switch mode {
-        case .logIn(let mfaKey):
+        case let .logIn(mfaKey):
             Task { @MainActor in
                 do {
                     let mfaEndpoint = MFAEndpoint(token: token, key: mfaKey, device: UIDevice.current.name)
@@ -402,7 +396,7 @@ private final class OtpViewModel: ObservableObject {
                 }
             }
 
-        case .activate(let email):
+        case let .activate(email):
             Task { @MainActor in
                 do {
                     let activateEndpoint = ActivateEndpoint(email: email, code: token)
@@ -415,7 +409,7 @@ private final class OtpViewModel: ObservableObject {
                     }
                     self.reset()
                     if let apiServiceError = error as? APIServiceError,
-                       case .clientError(let errorResponse) = apiServiceError,
+                       case let .clientError(errorResponse) = apiServiceError,
                        errorResponse.statusCode == 410 {
                         self.shouldReactivate = true
                     } else {
@@ -436,7 +430,7 @@ private final class OtpViewModel: ObservableObject {
     }
 
     func reactivate() {
-        guard case .activate(let email) = mode else { return }
+        guard case let .activate(email) = mode else { return }
         Task { @MainActor in
             do {
                 let reactivateEndpoint = ReactivateEndpoint(email: email)

@@ -1,5 +1,5 @@
 //
-//  UnverifiedLabel.swift
+//  BorderedText.swift
 //  SimpleLogin
 //
 //  Created by Nhon Nguyen on 24/04/2022.
@@ -19,7 +19,7 @@ struct BorderedText: View {
             .padding(.horizontal, 6)
             .padding(.vertical, 2)
             .background(RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color.red, lineWidth: 1))
+                .stroke(Color.red, lineWidth: 1))
     }
 }
 

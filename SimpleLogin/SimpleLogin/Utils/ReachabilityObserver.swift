@@ -15,11 +15,11 @@ final class ReachabilityObserver: ObservableObject {
 
     init() {
         reachability?.whenReachable = { [unowned self] _ in
-            self.reachable = true
+            reachable = true
         }
 
         reachability?.whenUnreachable = { [unowned self] _ in
-            self.reachable = false
+            reachable = false
         }
 
         try? reachability?.startNotifier()

@@ -30,7 +30,7 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
     init(session: Session,
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext) {
-        self.dataController = .init(context: managedObjectContext)
+        dataController = .init(context: managedObjectContext)
         super.init(session: session, reachabilityObserver: reachabilityObserver)
         searchTermSubject
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
@@ -40,7 +40,7 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
                     lastSearchTerm = nil
                     return
                 }
-                self.initialSearch(term: term)
+                initialSearch(term: term)
             }
             .store(in: &cancellables)
     }
@@ -61,13 +61,13 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
         let thresholdIndex = aliases.index(aliases.endIndex, offsetBy: -1)
         guard aliases.firstIndex(where: { $0.id == alias.id }) == thresholdIndex else { return }
 
-        guard let lastSearchTerm = lastSearchTerm, canLoadMorePages else { return }
+        guard let lastSearchTerm, canLoadMorePages else { return }
 
         if !reachabilityObserver.reachable {
             do {
                 let fetchedAliases = try dataController.fetchAliases(page: currentPage,
                                                                      searchTerm: lastSearchTerm)
-                self.aliases.append(contentsOf: fetchedAliases)
+                aliases.append(contentsOf: fetchedAliases)
                 currentPage += 1
                 canLoadMorePages = fetchedAliases.count == kDefaultPageSize
             } catch {
@@ -180,7 +180,7 @@ final class SearchAliasesViewModel: BaseReachabilitySessionViewModel, Observable
                                                               option: option)
                 _ = try await session.execute(updateAliasEndpoint)
                 guard let index = self.aliases.firstIndex(where: { $0.id == alias.id }) else { return }
-                if case .pinned(let pinned) = option {
+                if case let .pinned(pinned) = option {
                     let updatedAlias = Alias(id: alias.id,
                                              email: alias.email,
                                              name: alias.name,

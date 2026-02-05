@@ -68,7 +68,7 @@ struct CreateAliasView: View {
             showingLoadingAlert = isLoading
         }
         .onReceive(Just(viewModel.createdAlias)) { createdAlias in
-            if let createdAlias = createdAlias {
+            if let createdAlias {
                 // Workaround of a strange bug: https://developer.apple.com/forums/thread/675216
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     onCreateAlias(createdAlias)
@@ -174,9 +174,9 @@ private struct ContentView: View {
     private var buttons: some View {
         VStack {
             PrimaryButton(title: "Create", action: viewModel.createAlias)
-            .padding(.vertical)
-            .opacity(viewModel.canCreate ? 1 : 0.5)
-            .disabled(!viewModel.canCreate)
+                .padding(.vertical)
+                .opacity(viewModel.canCreate ? 1 : 0.5)
+                .disabled(!viewModel.canCreate)
 
             GeometryReader { geometry in
                 HStack {
@@ -218,7 +218,7 @@ private struct ContentView: View {
                 EditMailboxesView(mailboxIds: $viewModel.mailboxIds, mailboxes: viewModel.mailboxes)
             }, label: {
                 let selectedMailboxes = viewModel.mailboxes.filter { viewModel.mailboxIds.contains($0.id) }
-                Text(selectedMailboxes.map { $0.email }.joined(separator: "\n"))
+                Text(selectedMailboxes.map(\.email).joined(separator: "\n"))
             })
         }, header: {
             Text("Mailboxes")
@@ -268,7 +268,7 @@ private struct EditMailboxesView: View {
                     .contentShape(Rectangle())
                     .onTapGesture {
                         guard mailbox.verified else { return }
-                        if mailboxIds.contains(mailbox.id) && mailboxIds.count > 1 {
+                        if mailboxIds.contains(mailbox.id), mailboxIds.count > 1 {
                             mailboxIds.removeAll { $0 == mailbox.id }
                         } else if !mailboxIds.contains(mailbox.id) {
                             mailboxIds.append(mailbox.id)
@@ -289,7 +289,7 @@ private struct EditMailboxesView: View {
         }, label: {
             Image(systemName: "gobackward")
         })
-            .padding()
+        .padding()
     }
 }
 

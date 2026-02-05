@@ -29,7 +29,6 @@ struct MainTabBar: View {
         }
     }
 
-    @ViewBuilder
     private func tab(for item: TabBarItem) -> some View {
         Tab {
             Image(systemName: selectedItem == item ? item.selectedImage : item.image)
@@ -83,39 +82,39 @@ enum TabBarItem {
     var title: String {
         switch self {
         case .aliases:
-            return "Aliases"
+            "Aliases"
         case .advanced:
-            return "Advanced"
+            "Advanced"
         case .myAccount:
-            return "My account"
+            "My account"
         case .settings:
-            return "Settings"
+            "Settings"
         }
     }
 
     var image: String {
         switch self {
         case .aliases:
-            return "at"
+            "at"
         case .advanced:
-            return "circle.grid.cross"
+            "circle.grid.cross"
         case .myAccount:
-            return "person"
+            "person"
         case .settings:
-            return "gear.circle"
+            "gear.circle"
         }
     }
 
     var selectedImage: String {
         switch self {
         case .aliases:
-            return "at"
+            "at"
         case .advanced:
-            return "circle.grid.cross.fill"
+            "circle.grid.cross.fill"
         case .myAccount:
-            return "person.fill"
+            "person.fill"
         case .settings:
-            return "gear.circle.fill"
+            "gear.circle.fill"
         }
     }
 }

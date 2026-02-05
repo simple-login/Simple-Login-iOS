@@ -26,7 +26,7 @@ struct SensitiveContentViewModifier<PlaceholderContent: View>: ViewModifier {
 }
 
 extension View {
-    func sensitiveContent<V: View>(placeholderContent: @escaping () -> V) -> some View {
+    func sensitiveContent(placeholderContent: @escaping () -> some View) -> some View {
         modifier(SensitiveContentViewModifier(placeholderContent: placeholderContent))
     }
 }

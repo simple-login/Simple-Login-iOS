@@ -96,7 +96,7 @@ private struct TipView: View {
                             .font(.title3)
                             .fontWeight(.bold)
                     }
-                        .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
 
                 case .faceId:
                     Toggle(isOn: $localAuthenticator.biometricAuthEnabled) {
@@ -104,7 +104,7 @@ private struct TipView: View {
                             .font(.title3)
                             .fontWeight(.bold)
                     }
-                        .toggleStyle(SwitchToggleStyle(tint: .slPurple))
+                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
 
                 default:
                     Text(tip.title)
@@ -168,7 +168,7 @@ private struct TipView: View {
 
     private func handleAction() {
         switch tip {
-        case .touchId, .faceId, .contextMenu:
+        case .contextMenu, .faceId, .touchId:
             break
         case .fullScreen, .shareExtension:
             showingSheet = true

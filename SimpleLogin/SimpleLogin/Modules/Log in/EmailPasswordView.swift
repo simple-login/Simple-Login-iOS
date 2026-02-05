@@ -13,8 +13,8 @@ extension EmailPasswordView {
 
         var title: String {
             switch self {
-            case .logIn: return "Log in"
-            case .signUp: return "Create account"
+            case .logIn: "Log in"
+            case .signUp: "Create account"
             }
         }
     }
@@ -128,10 +128,8 @@ struct EmailPasswordView: View {
                 }
             }
             .padding(16)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8.0)
-                    .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-            )
+            .overlay(RoundedRectangle(cornerRadius: 8.0)
+                .stroke(Color.gray.opacity(0.2), lineWidth: 1))
 
             PrimaryButton(title: mode.title) {
                 switch mode {
@@ -142,7 +140,7 @@ struct EmailPasswordView: View {
                         invalidEmail = !email.isValidEmail
                         invalidPassword = password.count < 8
                     }
-                    if !invalidEmail && !invalidPassword {
+                    if !invalidEmail, !invalidPassword {
                         await onAction()
                     }
                 }
@@ -156,12 +154,12 @@ struct EmailPasswordView: View {
 }
 
 /*
-struct EmailPasswordView_Previews: PreviewProvider {
-    static var previews: some View {
-        EmailPasswordView(email: .constant(""),
-                          password: .constant(""),
-                          mode: .logIn) {}
-                          .padding()
-    }
-}
-*/
+ struct EmailPasswordView_Previews: PreviewProvider {
+     static var previews: some View {
+         EmailPasswordView(email: .constant(""),
+                           password: .constant(""),
+                           mode: .logIn) {}
+                           .padding()
+     }
+ }
+ */

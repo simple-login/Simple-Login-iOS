@@ -22,14 +22,12 @@ struct ChildSizeReader<Content: View>: View {
 
     var body: some View {
         content()
-            .background(
-                GeometryReader { proxy in
-                    Color.clear
-                        .preference(key: SizePreferenceKey.self, value: proxy.size)
-                }
-            )
+            .background(GeometryReader { proxy in
+                Color.clear
+                    .preference(key: SizePreferenceKey.self, value: proxy.size)
+            })
             .onPreferenceChange(SizePreferenceKey.self) { preferences in
-                self.size = preferences
+                size = preferences
             }
     }
 }

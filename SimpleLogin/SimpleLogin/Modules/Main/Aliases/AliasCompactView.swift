@@ -47,9 +47,9 @@ struct AliasCompactView: View {
                         Image(systemName: activity.action.iconSystemName)
                             .foregroundColor(activity.action.color)
                     })
-                        .font(.caption)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .fixedSize(horizontal: false, vertical: true)
+                    .font(.caption)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
                 } else {
                     Label("\(alias.creationDateString) (\(alias.relativeCreationDateString))",
                           systemImage: "clock.fill")
@@ -69,7 +69,7 @@ struct AliasCompactView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
 
-            if !alias.noActivities && displayMode == .default {
+            if !alias.noActivities, displayMode == .default {
                 ActivitiesView(alias: alias)
                     .padding(.leading)
             }
@@ -81,10 +81,10 @@ struct AliasCompactView: View {
                 }, icon: {
                     Image(systemName: "square.and.pencil")
                 })
-                    .font(.caption)
-                    .foregroundColor(Color.secondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .fixedSize(horizontal: false, vertical: true)
+                .font(.caption)
+                .foregroundColor(Color.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
             }
 
             ActionsView(alias: alias,
@@ -159,7 +159,7 @@ private struct ActivitiesView: View {
             Text("\(count)")
                 .font(.headline)
                 .fontWeight(.bold)
-            // swiftlint:disable:next empty_count
+                // swiftlint:disable:next empty_count
                 .opacity(count == 0 ? 0.5 : 1)
 
             Spacer()

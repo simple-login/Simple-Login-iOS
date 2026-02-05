@@ -31,10 +31,10 @@ final class CreateAliasViewModel: ObservableObject {
         self.session = session
         self.mode = mode
         switch mode {
-        case .url(let url):
+        case let .url(url):
             prefix = url.notWwwHostname() ?? ""
             notes = url.host ?? ""
-        case .text(let text):
+        case let .text(text):
             notes = text
         case .none:
             break

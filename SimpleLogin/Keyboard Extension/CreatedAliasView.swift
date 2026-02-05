@@ -25,7 +25,7 @@ struct CreatedAliasView: View {
             }, label: {
                 Label("Back", systemImage: "arrowshape.turn.up.backward.fill")
             })
-                .foregroundColor(.slPurple)
+            .foregroundColor(.slPurple)
         }
         .padding(.horizontal, 44)
     }

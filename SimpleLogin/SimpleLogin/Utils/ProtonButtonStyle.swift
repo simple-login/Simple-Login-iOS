@@ -15,5 +15,7 @@ struct ProtonButtonStyle: ButtonStyle {
 }
 
 extension ButtonStyle where Self == ProtonButtonStyle {
-    static var proton: ProtonButtonStyle { .init() }
+    static var proton: ProtonButtonStyle {
+        .init()
+    }
 }

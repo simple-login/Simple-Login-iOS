@@ -15,7 +15,9 @@ final class CustomDomainsViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var error: Error?
 
-    var noDomains: Bool { !isLoading && domains.isEmpty }
+    var noDomains: Bool {
+        !isLoading && domains.isEmpty
+    }
 
     let session: Session
 
@@ -41,7 +43,7 @@ final class CustomDomainsViewModel: ObservableObject {
     }
 }
 
-extension Array where Element == CustomDomain {
+extension [CustomDomain] {
     func sortedById() -> Self {
         sorted { $0.id > $1.id }
     }

@@ -51,9 +51,9 @@ struct MainView: View {
             AliasesView(session: session,
                         reachabilityObserver: reachabilityObserver,
                         managedObjectContext: managedObjectContext,
-                        createdAlias: $createdAlias, 
+                        createdAlias: $createdAlias,
                         onUpgrade: beginUpgradeFlow)
-            .tag(TabBarItem.aliases)
+                .tag(TabBarItem.aliases)
 
             AdvancedView()
                 .tag(TabBarItem.advanced)
@@ -61,7 +61,7 @@ struct MainView: View {
             AccountView(session: session,
                         upgradeNeeded: $upgradeNeeded,
                         onLogOut: onLogOut)
-            .tag(TabBarItem.myAccount)
+                .tag(TabBarItem.myAccount)
 
             SettingsView()
                 .tag(TabBarItem.settings)
@@ -113,27 +113,29 @@ struct MainView: View {
                         didShowTips = true
                     }
             case .createAlias:
-                CreateAliasView(
-                    session: session,
-                    mode: nil,
-                    onCreateAlias: { createdAlias in
-                        aliasCreationCount += 1
-                        if launchCount >= 10, aliasCreationCount >= 5 {
-                            if let scene = UIApplication.shared
-                                .connectedScenes
-                                .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-                                if !ProcessInfo.processInfo.isiOSAppOnMac {
-                                    // Only ask for reviews when not in macOS because macOS doesn't respect
-                                    // the 3 time per year limit so users are prompted after every alias creations
-                                    SKStoreReviewController.requestReview(in: scene)
-                                }
-                            }
-                        }
-                        self.createdAlias = createdAlias
-                        self.selectedItem = .aliases
-                    },
-                    onCancel: nil,
-                    onOpenMyAccount: beginUpgradeFlow)
+                CreateAliasView(session: session,
+                                mode: nil,
+                                onCreateAlias: { createdAlias in
+                                    aliasCreationCount += 1
+                                    if launchCount >= 10, aliasCreationCount >= 5 {
+                                        if let scene = UIApplication.shared
+                                            .connectedScenes
+                                            .first(where: { $0.activationState == .foregroundActive
+                                            }) as? UIWindowScene {
+                                            if !ProcessInfo.processInfo.isiOSAppOnMac {
+                                                // Only ask for reviews when not in macOS because macOS doesn't
+                                                // respect
+                                                // the 3 time per year limit so users are prompted after every
+                                                // alias creations
+                                                SKStoreReviewController.requestReview(in: scene)
+                                            }
+                                        }
+                                    }
+                                    self.createdAlias = createdAlias
+                                    selectedItem = .aliases
+                                },
+                                onCancel: nil,
+                                onOpenMyAccount: beginUpgradeFlow)
             case .none:
                 EmptyView()
             }
@@ -164,7 +166,7 @@ final class MainViewModel: ObservableObject {
     }
 
     func handledBiometricAuthFailure() {
-        self.biometricAuthFailed = false
+        biometricAuthFailed = false
     }
 
     func biometricallyAuthenticate() {
@@ -172,7 +174,7 @@ final class MainViewModel: ObservableObject {
         context.localizedFallbackTitle = "Or use your passcode"
         context.evaluatePolicy(.deviceOwnerAuthentication,
                                localizedReason: "Please authenticate") { [weak self] success, _ in
-            guard let self = self else { return }
+            guard let self else { return }
             DispatchQueue.main.async {
                 if success {
                     self.canShowDetails = true

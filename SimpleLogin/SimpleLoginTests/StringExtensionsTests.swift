@@ -9,7 +9,7 @@
 import XCTest
 
 final class StringExtensionsTests: XCTestCase {
-    func testExtractFirstUrl() throws {
+    func testExtractFirstUrl() {
         let string = "This string contains no url"
         XCTAssertNil(string.firstUrl())
 

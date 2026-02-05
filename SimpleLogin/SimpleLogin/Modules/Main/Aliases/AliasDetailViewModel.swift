@@ -39,7 +39,7 @@ final class AliasDetailViewModel: ObservableObject {
     }
 
     func getMoreActivitiesIfNeed(currentActivity activity: AliasActivity?) {
-        guard let activity = activity else {
+        guard let activity else {
             getMoreActivities()
             return
         }
@@ -51,7 +51,7 @@ final class AliasDetailViewModel: ObservableObject {
     }
 
     private func getMoreActivities() {
-        guard !isLoadingActivities && canLoadMorePages else { return }
+        guard !isLoadingActivities, canLoadMorePages else { return }
         defer { isLoadingActivities = false }
         isLoadingActivities = true
         Task { @MainActor in
@@ -93,11 +93,11 @@ final class AliasDetailViewModel: ObservableObject {
         do {
             let getAliasEndpoint = GetAliasEndpoint(apiKey: session.apiKey.value,
                                                     aliasID: alias.id)
-            self.alias = try await session.execute(getAliasEndpoint)
-            self.activities = try await getActivities(page: 0)
-            self.currentPage = 1
-            self.canLoadMorePages = activities.count == kDefaultPageSize
-            self.onUpdateAlias(alias)
+            alias = try await session.execute(getAliasEndpoint)
+            activities = try await getActivities(page: 0)
+            currentPage = 1
+            canLoadMorePages = activities.count == kDefaultPageSize
+            onUpdateAlias(alias)
         } catch {
             self.error = error
         }

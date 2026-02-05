@@ -33,7 +33,7 @@ struct TextFieldAlertModifier: ViewModifier {
                     return
                 }
                 scene.windows.first?.rootViewController?.present(alertController, animated: true)
-            } else if !isPresented, let alertController = alertController {
+            } else if !isPresented, let alertController {
                 alertController.dismiss(animated: true)
                 self.alertController = nil
             }

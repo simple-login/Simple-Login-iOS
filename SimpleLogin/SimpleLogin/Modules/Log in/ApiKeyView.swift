@@ -39,7 +39,7 @@ struct ApiKeyView: View {
                             .frame(maxWidth: .infinity)
                             .multilineTextAlignment(.center)
                     })
-                        .disabled(value.isEmpty)
+                    .disabled(value.isEmpty)
                 }
             }
             .navigationBarTitle("Log in using API key", displayMode: .inline)
@@ -54,7 +54,7 @@ struct ApiKeyView: View {
             showingLoadingAlert = isLoading
         }
         .onReceive(Just(viewModel.apiKey)) { apiKey in
-            if let apiKey = apiKey {
+            if let apiKey {
                 onSetApiKey(apiKey)
             }
         }

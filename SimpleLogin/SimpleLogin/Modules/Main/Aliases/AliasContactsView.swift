@@ -48,9 +48,9 @@ struct AliasContactsView: View {
                         ContactView(viewModel: viewModel,
                                     copiedText: $copiedText,
                                     contact: contact)
-                        .onAppear {
-                            viewModel.getMoreContactsIfNeed(currentContact: contact)
-                        }
+                            .onAppear {
+                                viewModel.getMoreContactsIfNeed(currentContact: contact)
+                            }
                     }
                 } else if !viewModel.isFetchingContacts {
                     Text("No contacts")
@@ -85,9 +85,9 @@ struct AliasContactsView: View {
         .alert("Please upgrade to create contacts",
                isPresented: $viewModel.shouldUpgrade,
                actions: {
-            Button("Upgrade", role: nil, action: onUpgrade)
-            Button("Cancel", role: .cancel) {}
-        })
+                   Button("Upgrade", role: nil, action: onUpgrade)
+                   Button("Cancel", role: .cancel) {}
+               })
         .betterSafariView(urlString: $selectedUrlString)
         .alertToastCopyMessage(isPresenting: showingCopyAlert, message: copiedText)
         .alertToastError($viewModel.error)
@@ -108,9 +108,9 @@ struct AliasContactsView: View {
     private func makeShowingCreatedContactAlert() -> Binding<String?> {
         .init(get: {
             if viewModel.createdContact != nil {
-                return "Created new contact"
+                "Created new contact"
             } else {
-                return nil
+                nil
             }
         }, set: { message in
             if message == nil {

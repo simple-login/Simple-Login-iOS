@@ -24,7 +24,7 @@ final class UpgradeViewModel: ObservableObject {
     }
 
     func retrieveProductsInfo() {
-        let productIds = Set(Subscription.allCases.map { $0.productId })
+        let productIds = Set(Subscription.allCases.map(\.productId))
         SwiftyStoreKit.retrieveProductsInfo(productIds) { result in
             if let error = result.error {
                 self.error = error
@@ -53,15 +53,15 @@ final class UpgradeViewModel: ObservableObject {
     }
 
     private func purchase(_ product: SKProduct?) {
-        guard let product = product, !isLoading else { return }
+        guard let product, !isLoading else { return }
         isLoading = true
         SwiftyStoreKit.purchaseProduct(product) { [weak self] result in
-            guard let self = self else { return }
-            self.isLoading = false
+            guard let self else { return }
+            isLoading = false
             switch result {
             case .success:
-                self.fetchAndSendReceipt()
-            case .error(let error):
+                fetchAndSendReceipt()
+            case let .error(error):
                 self.error = error
             case .deferred:
                 break
@@ -72,9 +72,9 @@ final class UpgradeViewModel: ObservableObject {
     private func fetchAndSendReceipt() {
         isLoading = true
         SwiftyStoreKit.fetchReceipt(forceRefresh: false) { [weak self] result in
-            guard let self = self else { return }
+            guard let self else { return }
             switch result {
-            case .success(let receiptData):
+            case let .success(receiptData):
                 let encryptedReceipt = receiptData.base64EncodedString()
                 Task { @MainActor in
                     defer { self.isLoading = false }
@@ -89,8 +89,8 @@ final class UpgradeViewModel: ObservableObject {
                     }
                 }
 
-            case .error(let error):
-                self.isLoading = false
+            case let .error(error):
+                isLoading = false
                 self.error = error
             }
         }
@@ -102,8 +102,8 @@ enum Subscription: CaseIterable {
 
     var productId: String {
         switch self {
-        case .monthly: return "io.simplelogin.ios_app.subscription.premium.monthly"
-        case .yearly: return "io.simplelogin.ios_app.subscription.premium.yearly"
+        case .monthly: "io.simplelogin.ios_app.subscription.premium.monthly"
+        case .yearly: "io.simplelogin.ios_app.subscription.premium.yearly"
         }
     }
 }
@@ -161,9 +161,9 @@ extension SKError.Code {
         case .unsupportedPlatform:
             return "The current platform does not support overlays"
         case .unknown:
-            return "Unknown SKError (\(self.rawValue))"
+            return "Unknown SKError (\(rawValue))"
         @unknown default:
-            return "Unknown default SKError (\(self.rawValue))"
+            return "Unknown default SKError (\(rawValue))"
         }
     }
 }

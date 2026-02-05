@@ -15,13 +15,13 @@ extension Suffix {
         var localizedDescription: String {
             switch self {
             case .custom:
-                return "Your domain"
+                "Your domain"
             case .public:
-                return "Public domain"
+                "Public domain"
             case .premium:
-                return "Premium domain"
+                "Premium domain"
             case .simpleLogin:
-                return "SimpleLogin domain"
+                "SimpleLogin domain"
             }
         }
     }
@@ -37,13 +37,13 @@ extension Suffix.DomainType {
     var color: Color {
         switch self {
         case .custom:
-            return .blue
+            .blue
         case .public:
-            return .secondary
+            .secondary
         case .premium:
-            return .slPurple
+            .slPurple
         case .simpleLogin:
-            return .secondary
+            .secondary
         }
     }
 }

@@ -33,61 +33,61 @@ final class AccountViewModel: ObservableObject {
     init(session: Session) {
         self.session = session
         let shouldUpdateUserSettings: () -> Bool = { [unowned self] in
-            self.isInitialized && self.error == nil
+            isInitialized && error == nil
         }
 
         $isLoading
             .sink { [weak self] isLoading in
-                guard let self = self else { return }
+                guard let self else { return }
                 if isLoading {
-                    self.error = nil
+                    error = nil
                 }
             }
             .store(in: &cancellables)
 
         $notification
             .sink { [weak self] selectedNotification in
-                guard let self = self else { return }
-                if shouldUpdateUserSettings(), selectedNotification != self.notification {
-                    self.update(option: .notification(selectedNotification))
+                guard let self else { return }
+                if shouldUpdateUserSettings(), selectedNotification != notification {
+                    update(option: .notification(selectedNotification))
                 }
             }
             .store(in: &cancellables)
 
         $randomMode
             .sink { [weak self] selectedRandomMode in
-                guard let self = self else { return }
-                if shouldUpdateUserSettings(), selectedRandomMode != self.randomMode {
-                    self.update(option: .randomMode(selectedRandomMode))
+                guard let self else { return }
+                if shouldUpdateUserSettings(), selectedRandomMode != randomMode {
+                    update(option: .randomMode(selectedRandomMode))
                 }
             }
             .store(in: &cancellables)
 
         $randomAliasDefaultDomain
             .sink { [weak self] selectedUsableDomain in
-                guard let self = self else { return }
-                if let selectedUsableDomain = selectedUsableDomain,
+                guard let self else { return }
+                if let selectedUsableDomain,
                    shouldUpdateUserSettings(),
-                   selectedUsableDomain != self.randomAliasDefaultDomain {
-                    self.update(option: .randomAliasDefaultDomain(selectedUsableDomain.domain))
+                   selectedUsableDomain != randomAliasDefaultDomain {
+                    update(option: .randomAliasDefaultDomain(selectedUsableDomain.domain))
                 }
             }
             .store(in: &cancellables)
 
         $senderFormat
             .sink { [weak self] selectedSenderFormat in
-                guard let self = self else { return }
-                if shouldUpdateUserSettings(), selectedSenderFormat != self.senderFormat {
-                    self.update(option: .senderFormat(selectedSenderFormat))
+                guard let self else { return }
+                if shouldUpdateUserSettings(), selectedSenderFormat != senderFormat {
+                    update(option: .senderFormat(selectedSenderFormat))
                 }
             }
             .store(in: &cancellables)
 
         $randomAliasSuffix
             .sink { [weak self] selectedRandomAliasSuffix in
-                guard let self = self else { return }
-                if shouldUpdateUserSettings(), selectedRandomAliasSuffix != self.randomAliasSuffix {
-                    self.update(option: .randomAliasSuffix(selectedRandomAliasSuffix))
+                guard let self else { return }
+                if shouldUpdateUserSettings(), selectedRandomAliasSuffix != randomAliasSuffix {
+                    update(option: .randomAliasSuffix(selectedRandomAliasSuffix))
                 }
             }
             .store(in: &cancellables)
@@ -111,13 +111,13 @@ final class AccountViewModel: ObservableObject {
             bind(userSettings: userSettings)
             self.usableDomains = usableDomains
             // swiftlint:disable:next line_length
-            self.randomAliasDefaultDomain = usableDomains.first { $0.domain == userSettings.randomAliasDefaultDomain }
+            randomAliasDefaultDomain = usableDomains.first { $0.domain == userSettings.randomAliasDefaultDomain }
             isInitialized = true
         } catch {
             if let apiServiceError = error as? APIServiceError,
-               case .clientError(let errorResponse) = apiServiceError,
+               case let .clientError(errorResponse) = apiServiceError,
                errorResponse.statusCode == 401 {
-                self.shouldLogOut = true
+                shouldLogOut = true
                 return
             }
             self.error = error
@@ -144,12 +144,12 @@ final class AccountViewModel: ObservableObject {
     }
 
     private func bind(userSettings: UserSettings) {
-        self.notification = userSettings.notification
-        self.randomMode = userSettings.randomMode
-        self.randomAliasDefaultDomain = usableDomains.first { $0.domain == userSettings.randomAliasDefaultDomain }
-        self.senderFormat = userSettings.senderFormat
-        self.randomAliasSuffix = userSettings.randomAliasSuffix
-        self.lastKnownUserSettings = userSettings
+        notification = userSettings.notification
+        randomMode = userSettings.randomMode
+        randomAliasDefaultDomain = usableDomains.first { $0.domain == userSettings.randomAliasDefaultDomain }
+        senderFormat = userSettings.senderFormat
+        randomAliasSuffix = userSettings.randomAliasSuffix
+        lastKnownUserSettings = userSettings
     }
 
     func uploadNewProfilePhoto(_ image: UIImage) {
@@ -247,7 +247,7 @@ final class AccountViewModel: ObservableObject {
 
     func handleLinkingResult(_ result: Result<URL, Error>) {
         switch result {
-        case .success(let url):
+        case let .success(url):
             if url.absoluteString.contains("link") {
                 message = "Your Proton account has been successfully linked"
                 Task {
@@ -255,7 +255,7 @@ final class AccountViewModel: ObservableObject {
                 }
             }
 
-        case .failure(let error):
+        case let .failure(error):
             if let webAuthenticationSessionError = error as? ASWebAuthenticationSessionError {
                 // User clicks on cancel button => do not handle this "error"
                 if case ASWebAuthenticationSessionError.canceledLogin = webAuthenticationSessionError {
@@ -283,15 +283,15 @@ extension UserInfo {
 extension RandomMode: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .uuid: return "UUID"
-        case .word: return "Random words"
+        case .uuid: "UUID"
+        case .word: "Random words"
         }
     }
 
     var example: String {
         switch self {
-        case .uuid: return "hdy792o-ydy8-269d-ojan@example.com"
-        case .word: return "meaningless_random@example.com"
+        case .uuid: "hdy792o-ydy8-269d-ojan@example.com"
+        case .word: "meaningless_random@example.com"
         }
     }
 }
@@ -299,15 +299,15 @@ extension RandomMode: CustomStringConvertible {
 extension RandomAliasSuffix: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .word: return "Random word"
-        case .randomString: return "Random 5 characters"
+        case .word: "Random word"
+        case .randomString: "Random 5 characters"
         }
     }
 
     var example: String {
         switch self {
-        case .word: return ".meaningless@example.com"
-        case .randomString: return ".u9jnqn@example.com"
+        case .word: ".meaningless@example.com"
+        case .randomString: ".u9jnqn@example.com"
         }
     }
 }

@@ -37,35 +37,34 @@ struct SearchAliasesResultView: View {
                     .padding()
             } else {
                 ForEach(viewModel.aliases, id: \.id) { alias in
-                    AliasCompactView(
-                        alias: alias,
-                        onCopy: {
-                            Vibration.soft.vibrate()
-                            copiedEmail = alias.email
-                            UIPasteboard.general.string = alias.email
-                        },
-                        onSendMail: {
-                            onSendMail(alias)
-                        },
-                        onToggle: {
-                            viewModel.toggle(alias: alias)
-                        },
-                        onPin: {
-                            viewModel.update(alias: alias, option: .pinned(true))
-                        },
-                        onUnpin: {
-                            viewModel.update(alias: alias, option: .pinned(false))
-                        },
-                        onDelete: {
-                            viewModel.delete(alias: alias)
-                        })
-                        .padding(.horizontal, 4)
-                        .onTapGesture {
-                            onSelect(alias)
-                        }
-                        .onAppear {
-                            viewModel.getMoreAliasesIfNeed(currentAlias: alias)
-                        }
+                    AliasCompactView(alias: alias,
+                                     onCopy: {
+                                         Vibration.soft.vibrate()
+                                         copiedEmail = alias.email
+                                         UIPasteboard.general.string = alias.email
+                                     },
+                                     onSendMail: {
+                                         onSendMail(alias)
+                                     },
+                                     onToggle: {
+                                         viewModel.toggle(alias: alias)
+                                     },
+                                     onPin: {
+                                         viewModel.update(alias: alias, option: .pinned(true))
+                                     },
+                                     onUnpin: {
+                                         viewModel.update(alias: alias, option: .pinned(false))
+                                     },
+                                     onDelete: {
+                                         viewModel.delete(alias: alias)
+                                     })
+                                     .padding(.horizontal, 4)
+                                     .onTapGesture {
+                                         onSelect(alias)
+                                     }
+                                     .onAppear {
+                                         viewModel.getMoreAliasesIfNeed(currentAlias: alias)
+                                     }
                 }
 
                 if viewModel.isLoading {
@@ -77,21 +76,19 @@ struct SearchAliasesResultView: View {
         }
         .listStyle(.plain)
         .offlineLabelled(reachable: viewModel.reachabilityObserver.reachable)
-        .simultaneousGesture(
-            DragGesture().onChanged { _ in
-                UIApplication.shared.endEditing()
-            }
-        )
+        .simultaneousGesture(DragGesture().onChanged { _ in
+            UIApplication.shared.endEditing()
+        })
         .onReceive(Just(viewModel.isUpdating)) { isUpdating in
             showingUpdatingAlert = isUpdating
         }
         .onReceive(Just(viewModel.updatedAlias)) { updatedAlias in
-            if let updatedAlias = updatedAlias {
+            if let updatedAlias {
                 onUpdate(updatedAlias)
             }
         }
         .onReceive(Just(viewModel.deletedAlias)) { deletedAlias in
-            if let deletedAlias = deletedAlias {
+            if let deletedAlias {
                 onDelete(deletedAlias)
             }
         }

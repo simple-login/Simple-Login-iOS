@@ -81,7 +81,7 @@ final class MailboxesViewModel: ObservableObject {
     }
 }
 
-extension Array where Element == Mailbox {
+extension [Mailbox] {
     func sortedById() -> Self {
         sorted { $0.id > $1.id }
     }

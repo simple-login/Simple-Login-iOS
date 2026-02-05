@@ -48,7 +48,7 @@ final class SignUpViewModel: ObservableObject {
         do {
             let registerEndpoint = RegisterEndpoint(email: email, password: password)
             _ = try await apiService.execute(registerEndpoint)
-            self.registeredEmail = email
+            registeredEmail = email
         } catch {
             self.error = error
         }

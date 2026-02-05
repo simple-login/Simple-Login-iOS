@@ -25,7 +25,7 @@ struct DetailPlaceholderView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
 
-            if let message = message {
+            if let message {
                 Text(message)
                     .font(.title)
                     .foregroundColor(.secondary)
