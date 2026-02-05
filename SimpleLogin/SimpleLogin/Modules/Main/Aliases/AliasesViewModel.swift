@@ -35,11 +35,11 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
     private var filterOption: AliasFilterOption? {
         switch selectedStatus {
         case .all:
-            return nil
+            nil
         case .active:
-            return .enabled
+            .enabled
         case .inactive:
-            return .disabled
+            .disabled
         }
     }
 
@@ -48,7 +48,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
     init(session: Session,
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext) {
-        self.dataController = .init(context: managedObjectContext)
+        dataController = .init(context: managedObjectContext)
         super.init(session: session, reachabilityObserver: reachabilityObserver)
     }
 
@@ -69,7 +69,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
     }
 
     func getMoreAliasesIfNeed(currentAlias alias: Alias?) {
-        guard let alias = alias else {
+        guard let alias else {
             getMoreAliases()
             return
         }
@@ -206,7 +206,7 @@ final class AliasesViewModel: BaseReachabilitySessionViewModel, ObservableObject
                                                               option: option)
                 _ = try await session.execute(updateAliasEndpoint)
                 guard let index = self.aliases.firstIndex(where: { $0.id == alias.id }) else { return }
-                if case .pinned(let pinned) = option {
+                if case let .pinned(pinned) = option {
                     let updatedAlias = Alias(id: alias.id,
                                              email: alias.email,
                                              name: alias.name,

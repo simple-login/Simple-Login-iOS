@@ -14,7 +14,7 @@ struct KeyboardContentView: View {
 
     init(session: Session, onTap: @escaping (Alias) -> Void) {
         _viewModel = StateObject(wrappedValue: .init(session: session))
-        self.onSelectAlias = onTap
+        onSelectAlias = onTap
     }
 
     var body: some View {
@@ -31,7 +31,7 @@ struct KeyboardContentView: View {
                     }, label: {
                         Label("Retry", systemImage: "gobackward")
                     })
-                        .foregroundColor(.slPurple)
+                    .foregroundColor(.slPurple)
                 }
                 .padding()
             } else {
@@ -69,7 +69,7 @@ final class KeyboardContentViewModel: ObservableObject {
     }
 
     func getMoreAliasesIfNeed(currentAlias alias: Alias?) {
-        guard let alias = alias else {
+        guard let alias else {
             getMoreAliases()
             return
         }
@@ -81,7 +81,7 @@ final class KeyboardContentViewModel: ObservableObject {
     }
 
     private func getMoreAliases() {
-        guard !isLoading && canLoadMorePages else { return }
+        guard !isLoading, canLoadMorePages else { return }
         Task { @MainActor in
             defer { isLoading = false }
             isLoading = true

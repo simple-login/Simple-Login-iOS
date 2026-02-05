@@ -11,11 +11,11 @@ extension Error {
     var safeLocalizedDescription: String {
         switch self {
         case let apiServiceError as APIServiceError:
-            return apiServiceError.description
+            apiServiceError.description
         case let slError as SLError:
-            return slError.localizedDescription
+            slError.localizedDescription
         default:
-            return localizedDescription
+            localizedDescription
         }
     }
 }

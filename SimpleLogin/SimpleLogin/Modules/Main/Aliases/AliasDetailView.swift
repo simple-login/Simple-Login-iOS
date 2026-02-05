@@ -9,9 +9,9 @@ import Combine
 import SimpleLoginPackage
 import SwiftUI
 
-// A view that takes an alias as binding to properly show the alias details
-// or a placeholder view when the binding is nil.
-// To achieve the "dismiss" feeling when the alias is deleted in iPad.
+/// A view that takes an alias as binding to properly show the alias details
+/// or a placeholder view when the binding is nil.
+/// To achieve the "dismiss" feeling when the alias is deleted in iPad.
 struct AliasDetailWrapperView: View {
     @Environment(\.dismiss) private var dismiss
     @Binding var selectedAlias: Alias?
@@ -25,7 +25,7 @@ struct AliasDetailWrapperView: View {
          onUpdateAlias: @escaping (Alias) -> Void,
          onDeleteAlias: @escaping (Alias) -> Void,
          onUpgrade: @escaping () -> Void) {
-        self._selectedAlias = selectedAlias
+        _selectedAlias = selectedAlias
         self.session = session
         self.onUpdateAlias = onUpdateAlias
         self.onDeleteAlias = onDeleteAlias
@@ -33,19 +33,18 @@ struct AliasDetailWrapperView: View {
     }
 
     var body: some View {
-        if let selectedAlias = selectedAlias {
-            AliasDetailView(
-                alias: selectedAlias,
-                session: session,
-                onUpdateAlias: onUpdateAlias,
-                onDeleteAlias: { deletedAlias in
-                    onDeleteAlias(deletedAlias)
-                    // Dismiss when in single view mode (iPhone)
-                    dismiss()
-                    // Show placeholder view in master detail mode (iPad)
-                    self.selectedAlias = nil
-                },
-                onUpgrade: onUpgrade)
+        if let selectedAlias {
+            AliasDetailView(alias: selectedAlias,
+                            session: session,
+                            onUpdateAlias: onUpdateAlias,
+                            onDeleteAlias: { deletedAlias in
+                                onDeleteAlias(deletedAlias)
+                                // Dismiss when in single view mode (iPhone)
+                                dismiss()
+                                // Show placeholder view in master detail mode (iPad)
+                                self.selectedAlias = nil
+                            },
+                            onUpgrade: onUpgrade)
         } else {
             DetailPlaceholderView.aliasDetails
         }
@@ -133,6 +132,7 @@ struct AliasDetailView: View {
 }
 
 // MARK: - Sections
+
 private struct ActionsSection: View {
     @Environment(\.colorScheme) private var colorScheme
     @State private var showingContacts = false
@@ -141,7 +141,9 @@ private struct ActionsSection: View {
     var enterFullScreen: () -> Void
     let onUpgrade: () -> Void
 
-    private var alias: Alias { viewModel.alias }
+    private var alias: Alias {
+        viewModel.alias
+    }
 
     var body: some View {
         Section(content: {
@@ -182,58 +184,49 @@ private struct ActionsSection: View {
     }
 
     private var pinUnpinButton: some View {
-        button(
-            action: {
-                Vibration.soft.vibrate()
-                viewModel.update(option: .pinned(!alias.pinned))
-            },
-            image: Image(systemName: viewModel.alias.pinned ? "bookmark.slash" : "bookmark.fill"),
-            text: Text(viewModel.alias.pinned ? "unpin" : "pin")
-        )
+        button(action: {
+                   Vibration.soft.vibrate()
+                   viewModel.update(option: .pinned(!alias.pinned))
+               },
+               image: Image(systemName: viewModel.alias.pinned ? "bookmark.slash" : "bookmark.fill"),
+               text: Text(viewModel.alias.pinned ? "unpin" : "pin"))
             .foregroundColor(alias.pinned ? .red : .slPurple)
     }
 
     private var activateDeactivateButton: some View {
-        button(
-            action: {
-                Vibration.soft.vibrate()
-                viewModel.toggle()
-            },
-            image: Image(systemName: alias.enabled ? "circle.dashed" : "checkmark.circle.fill"),
-            text: Text(alias.enabled ? "deactivate" : "activate")
-        )
+        button(action: {
+                   Vibration.soft.vibrate()
+                   viewModel.toggle()
+               },
+               image: Image(systemName: alias.enabled ? "circle.dashed" : "checkmark.circle.fill"),
+               text: Text(alias.enabled ? "deactivate" : "activate"))
             .foregroundColor(alias.enabled ? .red : .slPurple)
     }
 
     private var copyButton: some View {
-        button(
-            action: {
-                Vibration.soft.vibrate()
-                copiedText = alias.email
-                UIPasteboard.general.string = alias.email
-            },
-            image: Image(systemName: "doc.on.doc.fill"),
-            text: Text("copy")
-        )
+        button(action: {
+                   Vibration.soft.vibrate()
+                   copiedText = alias.email
+                   UIPasteboard.general.string = alias.email
+               },
+               image: Image(systemName: "doc.on.doc.fill"),
+               text: Text("copy"))
             .foregroundColor(.slPurple)
     }
 
     private var sendEmailButton: some View {
-        NavigationLink(
-            isActive: $showingContacts,
-            destination: {
-                AliasContactsView(alias: alias, session: viewModel.session, onUpgrade: onUpgrade)
-            },
-            label: {
-                button(
-                    action: {
-                        showingContacts = true
-                    },
-                    image: Image(systemName: "paperplane.fill"),
-                    text: Text("contacts")
-                )
-                    .foregroundColor(.slPurple)
-            })
+        NavigationLink(isActive: $showingContacts,
+                       destination: {
+                           AliasContactsView(alias: alias, session: viewModel.session, onUpgrade: onUpgrade)
+                       },
+                       label: {
+                           button(action: {
+                                      showingContacts = true
+                                  },
+                                  image: Image(systemName: "paperplane.fill"),
+                                  text: Text("contacts"))
+                               .foregroundColor(.slPurple)
+                       })
     }
 }
 
@@ -246,7 +239,7 @@ private struct MailboxesSection: View {
             NavigationLink(destination: {
                 EditMailboxesView(viewModel: viewModel)
             }, label: {
-                let allMailboxes = viewModel.alias.mailboxes.map { $0.email }.joined(separator: "\n")
+                let allMailboxes = viewModel.alias.mailboxes.map(\.email).joined(separator: "\n")
                 Text(allMailboxes)
                     .lineLimit(5)
             })
@@ -258,7 +251,7 @@ private struct MailboxesSection: View {
             }
             .foregroundColor(.slPurple)
         })
-            .betterSafariView(urlString: $selectedUrlString)
+        .betterSafariView(urlString: $selectedUrlString)
     }
 }
 
@@ -351,9 +344,9 @@ private struct ActivitiesSection: View {
                 }
             }
         })
-            .onAppear {
-                viewModel.getMoreActivitiesIfNeed(currentActivity: nil)
-            }
+        .onAppear {
+            viewModel.getMoreActivitiesIfNeed(currentActivity: nil)
+        }
     }
 
     private func section(action: ActivityAction, count: Int) -> some View {
@@ -464,6 +457,7 @@ private struct AllActivitiesView: View {
 }
 
 // MARK: - Edit views
+
 private struct EditMailboxesView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: AliasDetailViewModel
@@ -471,7 +465,7 @@ private struct EditMailboxesView: View {
 
     init(viewModel: AliasDetailViewModel) {
         _viewModel = .init(wrappedValue: viewModel)
-        _selectedIds = .init(initialValue: viewModel.alias.mailboxes.map { $0.id })
+        _selectedIds = .init(initialValue: viewModel.alias.mailboxes.map(\.id))
     }
 
     var body: some View {
@@ -493,7 +487,7 @@ private struct EditMailboxesView: View {
                     .contentShape(Rectangle())
                     .onTapGesture {
                         guard mailbox.verified else { return }
-                        if selectedIds.contains(mailbox.id) && selectedIds.count > 1 {
+                        if selectedIds.contains(mailbox.id), selectedIds.count > 1 {
                             selectedIds.removeAll { $0 == mailbox.id }
                         } else if !selectedIds.contains(mailbox.id) {
                             selectedIds.append(mailbox.id)

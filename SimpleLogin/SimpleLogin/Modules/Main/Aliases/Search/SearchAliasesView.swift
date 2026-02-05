@@ -17,7 +17,7 @@ struct SearchAliasesView: UIViewControllerRepresentable {
     let onDeleteAlias: (Alias) -> Void
     let onUpgrade: () -> Void
 
-    func makeUIViewController(context: Context) -> UINavigationController {
+    func makeUIViewController(context _: Context) -> UINavigationController {
         let viewController = SearchAliasesViewController(session: session,
                                                          reachabilityObserver: reachabilityObserver,
                                                          managedObjectContext: managedObjectContext,
@@ -29,6 +29,6 @@ struct SearchAliasesView: UIViewControllerRepresentable {
         return navigationController
     }
 
-    func updateUIViewController(_ uiViewController: UINavigationController,
-                                context: Context) {}
+    func updateUIViewController(_: UINavigationController,
+                                context _: Context) {}
 }

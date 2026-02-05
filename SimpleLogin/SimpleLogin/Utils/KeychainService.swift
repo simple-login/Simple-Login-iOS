@@ -18,7 +18,7 @@ struct KeychainService {
     static let shared = KeychainService()
 
     func setApiKey(_ apiKey: ApiKey?) throws {
-        if let apiKey = apiKey {
+        if let apiKey {
             try keychain.set(apiKey.value, key: kApiKey)
         } else {
             try keychain.remove(kApiKey)

@@ -1,5 +1,5 @@
 //
-//  UIAlertControllerExtensions.swift
+//  UIViewControllerExtensions.swift
 //  SimpleLogin
 //
 //  Created by Nhon Nguyen on 14/05/2022.

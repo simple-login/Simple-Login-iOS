@@ -33,18 +33,18 @@ final class DomainDetailViewModel: ObservableObject {
 
         $catchAll
             .sink { [weak self] selectedCatchAll in
-                guard let self = self else { return }
-                if selectedCatchAll != self.catchAll {
-                    self.update(option: .catchAll(selectedCatchAll))
+                guard let self else { return }
+                if selectedCatchAll != catchAll {
+                    update(option: .catchAll(selectedCatchAll))
                 }
             }
             .store(in: &cancellables)
 
         $randomPrefixGeneration
             .sink { [weak self] selectedRandomPrefixGeneration in
-                guard let self = self else { return }
-                if selectedRandomPrefixGeneration != self.randomPrefixGeneration {
-                    self.update(option: .randomPrefixGeneration(selectedRandomPrefixGeneration))
+                guard let self else { return }
+                if selectedRandomPrefixGeneration != randomPrefixGeneration {
+                    update(option: .randomPrefixGeneration(selectedRandomPrefixGeneration))
                 }
             }
             .store(in: &cancellables)
@@ -56,8 +56,8 @@ final class DomainDetailViewModel: ObservableObject {
 
     private func bind(domain: CustomDomain) {
         self.domain = domain
-        self.catchAll = domain.catchAll
-        self.randomPrefixGeneration = domain.randomPrefixGeneration
+        catchAll = domain.catchAll
+        randomPrefixGeneration = domain.randomPrefixGeneration
     }
 
     @MainActor
@@ -98,7 +98,7 @@ final class DomainDetailViewModel: ObservableObject {
         do {
             let getMailboxesEndpoint = GetMailboxesEndpoint(apiKey: session.apiKey.value)
             mailboxes = try await session.execute(getMailboxesEndpoint).mailboxes
-                .filter { $0.verified }
+                .filter(\.verified)
                 .sortedById()
         } catch {
             self.error = error

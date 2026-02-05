@@ -51,7 +51,7 @@ struct UpgradeNeededView: View {
         }
         .onAppear {
             UIView.appearance(whenContainedInInstancesOf:
-                                [UIAlertController.self]).tintColor = .slPurple
+                [UIAlertController.self]).tintColor = .slPurple
         }
     }
 }

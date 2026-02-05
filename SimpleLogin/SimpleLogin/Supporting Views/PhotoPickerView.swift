@@ -9,8 +9,8 @@ import SwiftUI
 
 struct PhotoPickerView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) private var presentationMode
-//    @Binding var image: UIImage?
-    var onPickImage: ((UIImage) -> Void)
+    ///    @Binding var image: UIImage?
+    var onPickImage: (UIImage) -> Void
 
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
@@ -23,7 +23,7 @@ struct PhotoPickerView: UIViewControllerRepresentable {
         Coordinator(parent: self)
     }
 
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+    func updateUIViewController(_: UIImagePickerController, context _: Context) {}
 }
 
 extension PhotoPickerView {
@@ -34,7 +34,7 @@ extension PhotoPickerView {
             self.parent = parent
         }
 
-        func imagePickerController(_ picker: UIImagePickerController,
+        func imagePickerController(_: UIImagePickerController,
                                    didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
             if let image = info[.originalImage] as? UIImage {
                 parent.onPickImage(image)
@@ -43,7 +43,7 @@ extension PhotoPickerView {
             parent.presentationMode.wrappedValue.dismiss()
         }
 
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        func imagePickerControllerDidCancel(_: UIImagePickerController) {
             parent.presentationMode.wrappedValue.dismiss()
         }
     }

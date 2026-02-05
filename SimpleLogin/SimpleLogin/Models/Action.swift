@@ -11,26 +11,26 @@ import SwiftUI
 extension ActivityAction {
     var iconSystemName: String {
         switch self {
-        case .bounced, .block: return "nosign"
-        case .reply: return "arrowshape.turn.up.left.fill"
-        case .forward: return "paperplane.fill"
+        case .block, .bounced: "nosign"
+        case .reply: "arrowshape.turn.up.left.fill"
+        case .forward: "paperplane.fill"
         }
     }
 
     var color: Color {
         switch self {
-        case .bounced, .block: return .red
-        case .reply: return .blue
-        case .forward: return .green
+        case .block, .bounced: .red
+        case .reply: .blue
+        case .forward: .green
         }
     }
 
     var title: String {
         switch self {
-        case .forward: return "Forward"
-        case .reply: return "Reply"
-        case .block: return "Block"
-        case .bounced: return "Bounced"
+        case .forward: "Forward"
+        case .reply: "Reply"
+        case .block: "Block"
+        case .bounced: "Bounced"
         }
     }
 }

@@ -33,12 +33,14 @@ struct PremiumView: View {
     }
 
     private var gradientBackground: some View {
-        LinearGradient(gradient: .init(colors: [.slPurple.opacity(0.05),
-                                                .slPurple.opacity(0.1),
-                                                .slPurple.opacity(0.15),
-                                                .slPurple.opacity(0.2)]),
-                       startPoint: .top,
-                       endPoint: .bottom)
+        LinearGradient(gradient: .init(colors: [
+            .slPurple.opacity(0.05),
+            .slPurple.opacity(0.1),
+            .slPurple.opacity(0.15),
+            .slPurple.opacity(0.2)
+        ]),
+        startPoint: .top,
+        endPoint: .bottom)
             .edgesIgnoringSafeArea([.leading, .trailing, .bottom])
     }
 }

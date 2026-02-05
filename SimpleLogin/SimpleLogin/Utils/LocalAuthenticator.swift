@@ -16,6 +16,7 @@ final class LocalAuthenticator: ObservableObject {
             biometricallyAuthenticate()
         }
     }
+
     @Published var message: String?
     @Published var error: Error?
 
@@ -32,19 +33,19 @@ final class LocalAuthenticator: ObservableObject {
         let context = LAContext()
         context.localizedFallbackTitle = "Or use your passcode"
         let reason = biometricAuthEnabled ?
-        "Please authenticate to activate \(biometryType.description)" :
-        "Please authenticate to deactivate \(biometryType.description)"
+            "Please authenticate to activate \(biometryType.description)" :
+            "Please authenticate to deactivate \(biometryType.description)"
         context.evaluatePolicy(.deviceOwnerAuthentication,
                                localizedReason: reason) { [weak self] success, error in
-            guard let self = self else { return }
+            guard let self else { return }
             DispatchQueue.main.async {
                 defer {
                     self.isBiometricallyAuthenticating = false
                 }
                 if success {
                     self.message = self.biometricAuthEnabled ?
-                    "\(self.biometryType.description) activated" :
-                    "\(self.biometryType.description) deactivated"
+                        "\(self.biometryType.description) activated" :
+                        "\(self.biometryType.description) deactivated"
                     return
                 }
 
@@ -67,9 +68,9 @@ extension LABiometryType: CustomStringConvertible {
 
     var systemImageName: String {
         switch self {
-        case .touchID: return "touchid"
-        case .faceID: return "faceid"
-        default: return ""
+        case .touchID: "touchid"
+        case .faceID: "faceid"
+        default: ""
         }
     }
 }

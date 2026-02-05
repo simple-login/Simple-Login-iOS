@@ -120,7 +120,7 @@ private struct AliasDisplayModeSection: View {
                             .tag(mode)
                     }
                 }
-                       .pickerStyle(SegmentedPickerStyle())
+                .pickerStyle(SegmentedPickerStyle())
 
                 if showingSampleData {
                     AliasCompactView(alias: Alias.sample,
@@ -156,10 +156,10 @@ private struct KeyboardExtensionSection: View {
                         .tag(mode)
                 }
             }
-                   .pickerStyle(SegmentedPickerStyle())
-                   .sheet(isPresented: $showingExplanation) {
-                       KeyboardFullAccessExplanationView()
-                   }
+            .pickerStyle(SegmentedPickerStyle())
+            .sheet(isPresented: $showingExplanation) {
+                KeyboardFullAccessExplanationView()
+            }
         }
     }
 
@@ -201,14 +201,14 @@ private struct KeyboardFullAccessExplanationView: View {
                 VStack {
                     // swiftlint:disable line_length
                     Text("""
-        Most of the functionalities of this application are based on making requests to our server. Every request is attached with an API key in order for our server to authenticate you.
+                    Most of the functionalities of this application are based on making requests to our server. Every request is attached with an API key in order for our server to authenticate you.
 
-        When you successfully log in, our server sends a valid API key to the application. The application then saves this API key to a Keychain Group in order to reuse it without asking you to authenticate again.
+                    When you successfully log in, our server sends a valid API key to the application. The application then saves this API key to a Keychain Group in order to reuse it without asking you to authenticate again.
 
-        The keyboard extension needs to use the API key saved in Keychain Group by the host application to make requests by itself (get the list of aliases and create new aliases). Such access to Keychain Group and requests require full access. The keyboard extension does not record nor share anything you type.
+                    The keyboard extension needs to use the API key saved in Keychain Group by the host application to make requests by itself (get the list of aliases and create new aliases). Such access to Keychain Group and requests require full access. The keyboard extension does not record nor share anything you type.
 
-        More technical information [here]( https://developer.apple.com/documentation/uikit/keyboards_and_input/creating_a_custom_keyboard/configuring_open_access_for_a_custom_keyboard).
-        """)
+                    More technical information [here]( https://developer.apple.com/documentation/uikit/keyboards_and_input/creating_a_custom_keyboard/configuring_open_access_for_a_custom_keyboard).
+                    """)
                     // swiftlint:enable line_length
                     HStack {
                         Text("Need more information?")
@@ -219,7 +219,7 @@ private struct KeyboardFullAccessExplanationView: View {
                     }
                     .padding(.top)
                 }
-                    .padding()
+                .padding()
             }
             .navigationTitle("Why full access?")
             .navigationBarItems(leading: closeButton)
@@ -271,14 +271,13 @@ private struct AboutSection: View {
 
     var body: some View {
         Section {
-            NavigationLink(
-                isActive: $showingAboutView,
-                destination: {
-                    AboutView()
-                },
-                label: {
-                    Label("About SimpleLogin", systemImage: "info.circle")
-                })
+            NavigationLink(isActive: $showingAboutView,
+                           destination: {
+                               AboutView()
+                           },
+                           label: {
+                               Label("About SimpleLogin", systemImage: "info.circle")
+                           })
         }
     }
 }
@@ -289,9 +288,9 @@ enum AliasDisplayMode: Int, CaseIterable {
 
     var description: String {
         switch self {
-        case .default: return "Default"
-        case .comfortable: return "Comfortable"
-        case .compact: return "Compact"
+        case .default: "Default"
+        case .comfortable: "Comfortable"
+        case .compact: "Compact"
         }
     }
 }

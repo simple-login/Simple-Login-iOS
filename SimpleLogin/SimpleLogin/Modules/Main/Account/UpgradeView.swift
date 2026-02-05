@@ -61,23 +61,24 @@ struct UpgradeView: View {
         .alertToastError($viewModel.error)
         .betterSafariView(urlString: $selectedUrlString)
         .alert(isPresented: $showingThankAlert) {
-            Alert(
-                title: Text("Thank you"),
-                message: Text("You are now a premium user 🎉"),
-                dismissButton: .default(Text("Got it 👍")) {
-                    onSubscription()
-                    presentationMode.wrappedValue.dismiss()
-                })
+            Alert(title: Text("Thank you"),
+                  message: Text("You are now a premium user 🎉"),
+                  dismissButton: .default(Text("Got it 👍")) {
+                      onSubscription()
+                      presentationMode.wrappedValue.dismiss()
+                  })
         }
     }
 
     private var gradientBackground: some View {
-        LinearGradient(gradient: .init(colors: [.slPurple.opacity(0.05),
-                                                .slPurple.opacity(0.1),
-                                                .slPurple.opacity(0.15),
-                                                .slPurple.opacity(0.2)]),
-                       startPoint: .top,
-                       endPoint: .bottom)
+        LinearGradient(gradient: .init(colors: [
+            .slPurple.opacity(0.05),
+            .slPurple.opacity(0.1),
+            .slPurple.opacity(0.15),
+            .slPurple.opacity(0.2)
+        ]),
+        startPoint: .top,
+        endPoint: .bottom)
             .edgesIgnoringSafeArea([.leading, .trailing, .bottom])
     }
 

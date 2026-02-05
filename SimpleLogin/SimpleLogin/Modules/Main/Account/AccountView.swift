@@ -25,8 +25,8 @@ struct AccountView: View {
     init(session: Session,
          upgradeNeeded: Binding<Bool>,
          onLogOut: @escaping () -> Void) {
-        self._viewModel = StateObject(wrappedValue: .init(session: session))
-        self._upgradeNeeded = upgradeNeeded
+        _viewModel = StateObject(wrappedValue: .init(session: session))
+        _upgradeNeeded = upgradeNeeded
         self.onLogOut = onLogOut
     }
 
@@ -71,7 +71,7 @@ struct AccountView: View {
                         return .init(url: url,
                                      callbackURLScheme: "auth.simplelogin",
                                      onCompletion: viewModel.handleLinkingResult)
-                        .prefersEphemeralWebBrowserSession(true)
+                            .prefersEphemeralWebBrowserSession(true)
                     }
                     // swiftlint:disable:next force_unwrapping
                     return .init(url: URL(string: "https://simplelogin.io")!,
@@ -111,37 +111,35 @@ struct AccountView: View {
 
     @ViewBuilder
     private var trailingButton: some View {
-        if !viewModel.userInfo.inTrial && viewModel.userInfo.isPremium {
-            NavigationLink(
-                isActive: $showingPremiumView,
-                destination: {
-                    PremiumView()
-                },
-                label: {
-                    Button(action: {
-                        showingPremiumView = true
-                    }, label: {
-                        Text("Premium")
-                    })
-                })
+        if !viewModel.userInfo.inTrial, viewModel.userInfo.isPremium {
+            NavigationLink(isActive: $showingPremiumView,
+                           destination: {
+                               PremiumView()
+                           },
+                           label: {
+                               Button(action: {
+                                   showingPremiumView = true
+                               }, label: {
+                                   Text("Premium")
+                               })
+                           })
         } else {
-            NavigationLink(
-                isActive: $showingUpgradeView,
-                destination: {
-                    UpgradeView(session: viewModel.session) {
-                        confettiCounter += 1
-                        Task {
-                            await viewModel.refresh(force: true)
-                        }
-                    }
-                },
-                label: {
-                    Button(action: {
-                        showingUpgradeView = true
-                    }, label: {
-                        Text("Upgrade")
-                    })
-                })
+            NavigationLink(isActive: $showingUpgradeView,
+                           destination: {
+                               UpgradeView(session: viewModel.session) {
+                                   confettiCounter += 1
+                                   Task {
+                                       await viewModel.refresh(force: true)
+                                   }
+                               }
+                           },
+                           label: {
+                               Button(action: {
+                                   showingUpgradeView = true
+                               }, label: {
+                                   Text("Upgrade")
+                               })
+                           })
         }
     }
 }
@@ -229,15 +227,15 @@ private struct UserInfoSection: View {
         }, label: {
             Image(systemName: "square.and.pencil")
         })
-            .disabled(viewModel.isLoading)
+        .disabled(viewModel.isLoading)
     }
 
     private var settingsAlert: Alert {
         Alert(title: Text("Please allow access to photo library"),
               message: nil,
               primaryButton: .default(Text("Open Settings")) {
-            viewModel.openAppSettings()
-        },
+                  viewModel.openAppSettings()
+              },
               secondaryButton: .cancel())
     }
 
@@ -283,8 +281,8 @@ private struct AliasesSection: View {
                             .tag(mode)
                     }
                 }
-                       .pickerStyle(SegmentedPickerStyle())
-                       .disabled(viewModel.isLoading)
+                .pickerStyle(SegmentedPickerStyle())
+                .disabled(viewModel.isLoading)
 
                 Text("Ex: \(viewModel.randomMode.example)")
                     .font(.caption)
@@ -319,8 +317,8 @@ private struct AliasesSection: View {
                             .tag(mode)
                     }
                 }
-                       .pickerStyle(SegmentedPickerStyle())
-                       .disabled(viewModel.isLoading)
+                .pickerStyle(SegmentedPickerStyle())
+                .disabled(viewModel.isLoading)
 
                 Text("Ex: \(viewModel.randomAliasSuffix.example)")
                     .font(.caption)
@@ -366,7 +364,8 @@ private struct SenderFormatSection: View {
 
     private var footerAttributedString: AttributedString {
         // swiftlint:disable:next line_length
-        var attributedString = AttributedString("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")
+        var attributedString =
+            AttributedString("John Doe who uses john.doe@example.com to send you an email, how would you like to format his email?")
         if let range = attributedString.range(of: "john.doe@example.com") {
             attributedString[range].foregroundColor = .accentColor
         }
@@ -416,23 +415,23 @@ private struct ConnectToProtonSection: View {
                 }
             }, label: {
                 Label(protonAddress == nil ?
-                      "Connect with Proton" : "Unlink account",
-                      image: "Proton")
+                    "Connect with Proton" : "Unlink account",
+                    image: "Proton")
             })
             .foregroundColor(.proton)
         }, header: {
             Text("Connect with Proton")
         }, footer: {
-            if let protonAddress = protonAddress {
+            if let protonAddress {
                 Text("Your account is currently linked to the Proton account ") +
-                Text(protonAddress)
+                    Text(protonAddress)
                     .fontWeight(.bold)
             } else {
                 Text("""
-You can connect your Proton and SimpleLogin accounts.
-You can then quickly log in to your SimpleLogin account using the Proton one.
-If you have Proton Unlimited, Business or Visionary, you can have SimpleLogin premium for free.
-""")
+                You can connect your Proton and SimpleLogin accounts.
+                You can then quickly log in to your SimpleLogin account using the Proton one.
+                If you have Proton Unlimited, Business or Visionary, you can have SimpleLogin premium for free.
+                """)
             }
         })
         .alert(isPresented: $showingAlert) {
@@ -458,14 +457,14 @@ private struct LogOutSection: View {
                 Text("Log out")
                     .foregroundColor(.red)
             })
-                .disabled(viewModel.isLoading)
-                .opacity(viewModel.isLoading ? 0.5 : 1.0)
-                .alert(isPresented: $isShowingAlert) {
-                    Alert(title: Text("You will be logged out"),
-                          message: Text("Please confirm"),
-                          primaryButton: .destructive(Text("Yes, log me out"), action: onLogOut),
-                          secondaryButton: .cancel())
-                }
+            .disabled(viewModel.isLoading)
+            .opacity(viewModel.isLoading ? 0.5 : 1.0)
+            .alert(isPresented: $isShowingAlert) {
+                Alert(title: Text("You will be logged out"),
+                      message: Text("Please confirm"),
+                      primaryButton: .destructive(Text("Yes, log me out"), action: onLogOut),
+                      secondaryButton: .cancel())
+            }
         }
     }
 }

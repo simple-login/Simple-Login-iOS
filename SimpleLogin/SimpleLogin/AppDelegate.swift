@@ -9,11 +9,11 @@ import SwiftyStoreKit
 import UIKit
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication,
+    func application(_: UIApplication,
                      // swiftlint:disable:next line_length
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+                     didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         UIView.appearance(whenContainedInInstancesOf:
-                            [UIAlertController.self]).tintColor = .slPurple
+            [UIAlertController.self]).tintColor = .slPurple
         SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
             for purchase in purchases {
                 switch purchase.transaction.transactionState {

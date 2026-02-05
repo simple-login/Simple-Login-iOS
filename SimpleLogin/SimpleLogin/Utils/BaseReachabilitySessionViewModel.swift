@@ -19,11 +19,11 @@ class BaseReachabilitySessionViewModel {
         self.reachabilityObserver.$reachable
             .receive(on: DispatchQueue.main)
             .sink { [weak self] reachable in
-                guard let self = self else { return }
+                guard let self else { return }
                 if reachable {
-                    self.whenReachable()
+                    whenReachable()
                 } else {
-                    self.whenUnreachable()
+                    whenUnreachable()
                 }
             }
             .store(in: &cancellables)

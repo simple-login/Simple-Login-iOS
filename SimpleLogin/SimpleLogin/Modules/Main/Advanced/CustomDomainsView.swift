@@ -68,7 +68,7 @@ struct CustomDomainsView: View {
     }
 
     private var unverifiedDomainAlert: Alert {
-        guard let selectedUnverifiedDomain = selectedUnverifiedDomain else {
+        guard let selectedUnverifiedDomain else {
             return .init(title: Text("selectedUnverifiedDomain is nil"),
                          message: nil,
                          dismissButton: .cancel())
@@ -104,12 +104,12 @@ private struct DomainView: View {
 }
 
 /*
-struct CustomDomainsView_Previews: PreviewProvider {
-    static var previews: some View {
-        Form {
-            DomainView(domain: .verified)
-            DomainView(domain: .unverified)
-        }
-    }
-}
-*/
+ struct CustomDomainsView_Previews: PreviewProvider {
+     static var previews: some View {
+         Form {
+             DomainView(domain: .verified)
+             DomainView(domain: .unverified)
+         }
+     }
+ }
+ */

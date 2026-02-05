@@ -41,10 +41,8 @@ struct LogInWithProtonButtonView: View {
             .contentShape(Rectangle())
         })
         .buttonStyle(.proton)
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.proton, lineWidth: 4)
-        )
+        .overlay(RoundedRectangle(cornerRadius: 8)
+            .stroke(Color.proton, lineWidth: 4))
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .webAuthenticationSession(isPresented: isShowingSafariView) {
             // swiftlint:disable:next force_unwrapping
@@ -57,7 +55,7 @@ struct LogInWithProtonButtonView: View {
 
     private func handleResult(_ result: Result<URL, Error>) {
         switch result {
-        case .success(let url):
+        case let .success(url):
             guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true) else { return }
             if let apiQueryItem = components.queryItems?.first(where: { $0.name == "apikey" }),
                let apiKeyValue = apiQueryItem.value {
@@ -65,7 +63,7 @@ struct LogInWithProtonButtonView: View {
                 onSuccess(apiKey)
             }
 
-        case .failure(let error):
+        case let .failure(error):
             if let webAuthenticationSessionError = error as? ASWebAuthenticationSessionError {
                 // User clicks on cancel button => do not handle this "error"
                 if case ASWebAuthenticationSessionError.canceledLogin = webAuthenticationSessionError {

@@ -1,5 +1,5 @@
 //
-//  OthersView.swift
+//  AdvancedView.swift
 //  SimpleLogin
 //
 //  Created by Thanh-Nhon Nguyen on 02/09/2021.
@@ -18,25 +18,23 @@ struct AdvancedView: View {
         NavigationView {
             Form {
                 Section(footer: mailboxesSectionFooter) {
-                    NavigationLink(
-                        isActive: $showingMailboxesView,
-                        destination: {
-                            MailboxesView(session: session)
-                        },
-                        label: {
-                            Label("Mailboxes", systemImage: "tray.2.fill")
-                        })
+                    NavigationLink(isActive: $showingMailboxesView,
+                                   destination: {
+                                       MailboxesView(session: session)
+                                   },
+                                   label: {
+                                       Label("Mailboxes", systemImage: "tray.2.fill")
+                                   })
                 }
 
                 Section(footer: customDomainsSectionFooter) {
-                    NavigationLink(
-                        isActive: $showingCustomDomainsView,
-                        destination: {
-                            CustomDomainsView(session: session)
-                        },
-                        label: {
-                            Label("Custom domains", systemImage: "globe")
-                        })
+                    NavigationLink(isActive: $showingCustomDomainsView,
+                                   destination: {
+                                       CustomDomainsView(session: session)
+                                   },
+                                   label: {
+                                       Label("Custom domains", systemImage: "globe")
+                                   })
                 }
             }
             .navigationTitle("Advanced")

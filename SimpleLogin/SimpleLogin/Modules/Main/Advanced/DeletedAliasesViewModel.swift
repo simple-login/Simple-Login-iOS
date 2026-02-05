@@ -18,7 +18,9 @@ final class DeletedAliasesViewModel: ObservableObject {
     private let session: Session
     let domain: CustomDomain
 
-    var noAliases: Bool { !isLoading && deletedAliases.isEmpty }
+    var noAliases: Bool {
+        !isLoading && deletedAliases.isEmpty
+    }
 
     init(session: Session, domain: CustomDomain) {
         self.domain = domain

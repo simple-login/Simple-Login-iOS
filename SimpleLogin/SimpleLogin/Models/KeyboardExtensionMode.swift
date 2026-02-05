@@ -13,9 +13,9 @@ enum KeyboardExtensionMode: Int, CaseIterable {
     var title: String {
         switch self {
         case .pinned:
-            return "Pinned alises"
+            "Pinned alises"
         case .all:
-            return "All aliases"
+            "All aliases"
         }
     }
 }

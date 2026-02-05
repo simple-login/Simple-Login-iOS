@@ -18,17 +18,17 @@ enum SLError: Error {
     var localizedDescription: String {
         switch self {
         case .emptyClipboard:
-            return "Empty clipboard"
-        case .invalidApiUrl(let urlString):
-            return "Invalid API URL: \(urlString)"
+            "Empty clipboard"
+        case let .invalidApiUrl(urlString):
+            "Invalid API URL: \(urlString)"
         case .invalidValidationCodeSyntax:
-            return "Invalid validation code syntax"
+            "Invalid validation code syntax"
         case .missingApiKey:
-            return "Missing API Key"
+            "Missing API Key"
         case .contactExists:
-            return "Contact already exists"
+            "Contact already exists"
         case .unknown:
-            return "Unknown error"
+            "Unknown error"
         }
     }
 }

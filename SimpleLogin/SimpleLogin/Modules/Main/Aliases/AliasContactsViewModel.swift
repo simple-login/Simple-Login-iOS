@@ -29,7 +29,7 @@ final class AliasContactsViewModel: ObservableObject {
     }
 
     func getMoreContactsIfNeed(currentContact: Contact?) {
-        guard let currentContact = currentContact else {
+        guard let currentContact else {
             getMoreContacts()
             return
         }
@@ -41,7 +41,7 @@ final class AliasContactsViewModel: ObservableObject {
     }
 
     private func getMoreContacts() {
-        guard !isFetchingContacts && canLoadMorePages else { return }
+        guard !isFetchingContacts, canLoadMorePages else { return }
         Task { @MainActor in
             defer { isFetchingContacts = false }
             isFetchingContacts = true
@@ -61,8 +61,8 @@ final class AliasContactsViewModel: ObservableObject {
         do {
             let contacts = try await getContacts(page: 0)
             self.contacts = contacts
-            self.currentPage = 1
-            self.canLoadMorePages = contacts.count == kDefaultPageSize
+            currentPage = 1
+            canLoadMorePages = contacts.count == kDefaultPageSize
         } catch {
             self.error = error
         }
@@ -149,7 +149,7 @@ final class AliasContactsViewModel: ObservableObject {
     }
 
     func handledCreatedContact() {
-        self.createdContact = nil
+        createdContact = nil
     }
 }
 

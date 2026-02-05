@@ -11,8 +11,8 @@ import Foundation
 extension SafariView {
     init(url: URL) {
         let safariView =
-        SafariView(url: url,
-                   configuration: .init(entersReaderIfAvailable: true, barCollapsingEnabled: true))
+            SafariView(url: url,
+                       configuration: .init(entersReaderIfAvailable: true, barCollapsingEnabled: true))
             .accentColor(.slPurple)
             .dismissButtonStyle(.done)
         self = safariView

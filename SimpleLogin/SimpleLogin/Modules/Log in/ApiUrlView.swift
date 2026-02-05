@@ -18,7 +18,7 @@ struct ApiUrlView: View {
 
     init(apiUrl: String) {
         self.apiUrl = apiUrl
-        self._currentApiUrl = .init(initialValue: apiUrl)
+        _currentApiUrl = .init(initialValue: apiUrl)
     }
 
     var body: some View {
@@ -64,8 +64,8 @@ struct ApiUrlView: View {
 
     private var warningText: some View {
         Text("⚠️ Do not change API URL unless you are hosting SimpleLogin with your own server")
-        .font(.footnote)
-        .foregroundColor(.red)
+            .font(.footnote)
+            .foregroundColor(.red)
     }
 
     private var closeOrCancelButton: some View {

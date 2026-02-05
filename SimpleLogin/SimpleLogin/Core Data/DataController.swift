@@ -51,7 +51,7 @@ struct DataController {
 
     func fetchAliases(page: Int, option: AliasFilterOption?) throws -> [Alias] {
         let fetchRequest = LocalAlias.fetchRequest()
-        if let option = option {
+        if let option {
             switch option {
             case .disabled:
                 fetchRequest.predicate = .init(format: "enabled == %@", NSNumber(value: false))
@@ -70,12 +70,11 @@ struct DataController {
     func fetchAliases(page: Int, searchTerm: String) throws -> [Alias] {
         let fetchRequest = LocalAlias.fetchRequest()
         fetchRequest.sortDescriptors = [.init(key: "creationTimestamp", ascending: false)]
-        fetchRequest.predicate = NSCompoundPredicate(
-            orPredicateWithSubpredicates: [
-                .init(format: "email CONTAINS[c] %@", searchTerm),
-                .init(format: "note CONTAINS[c] %@", searchTerm),
-                .init(format: "name CONTAINS[c] %@", searchTerm)
-            ])
+        fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
+            .init(format: "email CONTAINS[c] %@", searchTerm),
+            .init(format: "note CONTAINS[c] %@", searchTerm),
+            .init(format: "name CONTAINS[c] %@", searchTerm)
+        ])
         fetchRequest.fetchLimit = kDefaultPageSize
         fetchRequest.fetchOffset = kDefaultPageSize * page
         return try context.fetch(fetchRequest).compactMap { Alias(from: $0) }

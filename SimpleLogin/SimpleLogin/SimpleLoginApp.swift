@@ -25,7 +25,7 @@ struct SimpleLoginApp: App {
     private let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "SimpleLogin")
         container.loadPersistentStores { _, error in
-            if let error = error {
+            if let error {
                 print("Unable to load persistent stores: \(error)")
             }
         }
@@ -34,17 +34,17 @@ struct SimpleLoginApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if let apiKey = apiKey, let apiService = apiService {
+            if let apiKey, let apiService {
                 MainView {
                     try? KeychainService.shared.setApiKey(nil)
                     try? DataController(context: persistentContainer.viewContext).reset()
                     self.apiKey = nil
                     self.apiService = nil
-                    self.biometricAuthEnabled = false
-                    self.ultraProtectionEnabled = false
-                    self.forceDarkMode = false
-                    self.displayMode = .default
-                    self.didShowTips = false
+                    biometricAuthEnabled = false
+                    ultraProtectionEnabled = false
+                    forceDarkMode = false
+                    displayMode = .default
+                    didShowTips = false
                     if let cookies = HTTPCookieStorage.shared.cookies {
                         for cookie in cookies {
                             HTTPCookieStorage.shared.deleteCookie(cookie)

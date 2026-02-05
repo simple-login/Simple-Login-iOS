@@ -13,7 +13,7 @@ struct BetterSafariViewModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         let showingSafariView = Binding<Bool>(get: {
-            if let urlString = urlString, URL(string: urlString) != nil {
+            if let urlString, URL(string: urlString) != nil {
                 return true
             }
             return false

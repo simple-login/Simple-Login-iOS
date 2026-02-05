@@ -38,6 +38,7 @@ struct DomainDetailView: View {
 }
 
 // MARK: - Sections
+
 private struct DomainNameSection: View {
     let domain: CustomDomain
 
@@ -71,7 +72,7 @@ private struct CatchAllSection: View {
                     NavigationLink(destination: {
                         EditMailboxesView(viewModel: viewModel)
                     }, label: {
-                        Text(domain.mailboxes.map { $0.email }.joined(separator: "\n"))
+                        Text(domain.mailboxes.map(\.email).joined(separator: "\n"))
                     })
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -92,7 +93,7 @@ private struct EditMailboxesView: View {
 
     init(viewModel: DomainDetailViewModel) {
         _viewModel = .init(wrappedValue: viewModel)
-        _selectedIds = .init(initialValue: viewModel.domain.mailboxes.map { $0.id })
+        _selectedIds = .init(initialValue: viewModel.domain.mailboxes.map(\.id))
     }
 
     var body: some View {
@@ -114,7 +115,7 @@ private struct EditMailboxesView: View {
                     .contentShape(Rectangle())
                     .onTapGesture {
 //                        guard mailbox.verified else { return }
-                        if selectedIds.contains(mailbox.id) && selectedIds.count > 1 {
+                        if selectedIds.contains(mailbox.id), selectedIds.count > 1 {
                             selectedIds.removeAll { $0 == mailbox.id }
                         } else if !selectedIds.contains(mailbox.id) {
                             selectedIds.append(mailbox.id)

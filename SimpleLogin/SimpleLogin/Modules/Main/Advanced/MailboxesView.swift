@@ -64,7 +64,7 @@ struct MailboxesView: View {
     }
 
     private var deletionAlert: Alert {
-        guard let mailboxToBeDeleted = mailboxToBeDeleted else {
+        guard let mailboxToBeDeleted else {
             return .init(title: Text("mailboxToBeDeleted is nil"),
                          message: nil,
                          dismissButton: .cancel())
@@ -87,7 +87,7 @@ struct MailboxesView: View {
                              autocapitalizationType: .none,
                              clearButtonMode: .never,
                              actionTitle: "Submit") { newMailbox in
-            if let newMailbox = newMailbox {
+            if let newMailbox {
                 viewModel.addMailbox(email: newMailbox)
             }
         }

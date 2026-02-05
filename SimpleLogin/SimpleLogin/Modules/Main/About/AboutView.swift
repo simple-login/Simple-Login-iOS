@@ -21,13 +21,12 @@ struct AboutView: View {
                 Image("Schema")
                     .resizable()
                     .scaledToFit()
-                NavigationLink(
-                    destination: {
-                        HowItWorksView()
-                    },
-                    label: {
-                        Text("More detail")
-                    })
+                NavigationLink(destination: {
+                                   HowItWorksView()
+                               },
+                               label: {
+                                   Text("More detail")
+                               })
             }
 
             Section {
@@ -131,11 +130,11 @@ struct AboutView: View {
                 .scaledToFit()
                 .frame(width: 20, height: 20)
         })
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .contentShape(Rectangle())
-            .onTapGesture {
-                selectedUrlString = urlString
-            }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            selectedUrlString = urlString
+        }
     }
 }
 

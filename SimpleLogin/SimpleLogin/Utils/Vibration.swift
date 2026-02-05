@@ -26,7 +26,7 @@ enum Vibration {
 
     func vibrate(fallBackToOldSchool: Bool = false) {
         guard Self.hapticFeedbackEnabled else { return }
-        if fallBackToOldSchool && !CHHapticEngine.capabilitiesForHardware().supportsHaptics {
+        if fallBackToOldSchool, !CHHapticEngine.capabilitiesForHardware().supportsHaptics {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             return
         }

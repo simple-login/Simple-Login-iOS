@@ -34,7 +34,7 @@ final class KeyboardViewController: UIInputViewController {
 
     private func setSession(session: Session?) {
         let subView: UIView
-        if let session = session {
+        if let session {
             let contentView = KeyboardContentView(session: session) { [unowned self] alias in
                 textDocumentProxy.insertText(alias.email)
             }

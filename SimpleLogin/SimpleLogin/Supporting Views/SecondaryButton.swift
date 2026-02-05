@@ -20,8 +20,7 @@ struct SecondaryButton: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical)
                 .overlay(RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.slPurple, lineWidth: 2)
-                )
+                    .stroke(Color.slPurple, lineWidth: 2))
         }
     }
 }

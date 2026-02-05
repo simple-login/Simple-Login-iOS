@@ -86,7 +86,7 @@ struct LogInView: View {
                         viewModel.error = error
                     })
                     .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ?
-                           UIScreen.main.minLength * 3 / 5 : .infinity)
+                        UIScreen.main.minLength * 3 / 5 : .infinity)
                 }
                 .padding()
                 .sheet(isPresented: showingOtpViewSheet) { otpView() }
@@ -132,7 +132,7 @@ struct LogInView: View {
             showingLoadingAlert = isLoading
         }
         .onReceive(Just(viewModel.userLogin)) { userLogin in
-            guard let userLogin = userLogin else { return }
+            guard let userLogin else { return }
             if userLogin.isMfaEnabled {
                 otpMode = .logIn(mfaKey: userLogin.mfaKey ?? "")
             } else if let apiKey = userLogin.apiKey {
@@ -273,13 +273,12 @@ struct LogInView: View {
     }
 
     private func otpView() -> some View {
-        OtpView(
-            mode: $otpMode,
-            apiService: viewModel.apiService,
-            onVerification: { apiKey in
-                onComplete(apiKey, viewModel.apiService)
-            },
-            onActivation: viewModel.logIn)
+        OtpView(mode: $otpMode,
+                apiService: viewModel.apiService,
+                onVerification: { apiKey in
+                    onComplete(apiKey, viewModel.apiService)
+                },
+                onActivation: viewModel.logIn)
     }
 
     private var resetPasswordConfig: TextFieldAlertConfig {

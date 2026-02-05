@@ -54,57 +54,54 @@ struct AliasesView: View {
 
         NavigationView {
             ZStack {
-                NavigationLink(
-                    tag: Link.details,
-                    selection: $selectedLink,
-                    destination: {
-                        AliasDetailWrapperView(
-                            selectedAlias: $selectedAlias,
-                            session: viewModel.session,
-                            onUpdateAlias: { updatedAlias in
-                                if createdAlias?.id == updatedAlias.id {
-                                    createdAlias = updatedAlias
-                                }
-                                viewModel.update(alias: updatedAlias)
-                            },
-                            onDeleteAlias: { deletedAlias in
-                                if deletedAlias.id == createdAlias?.id {
-                                    createdAlias = nil
-                                }
-                                viewModel.remove(alias: deletedAlias)
-                            },
-                            onUpgrade: onUpgrade)
-                            .ignoresSafeArea(.keyboard)
-                            .onAppear {
-                                if UIDevice.current.userInterfaceIdiom != .phone {
-                                    selectedLink = nil
-                                }
-                            }
-                    },
-                    label: {
-                        EmptyView()
-                    })
+                NavigationLink(tag: Link.details,
+                               selection: $selectedLink,
+                               destination: {
+                                   AliasDetailWrapperView(selectedAlias: $selectedAlias,
+                                                          session: viewModel.session,
+                                                          onUpdateAlias: { updatedAlias in
+                                                              if createdAlias?.id == updatedAlias.id {
+                                                                  createdAlias = updatedAlias
+                                                              }
+                                                              viewModel.update(alias: updatedAlias)
+                                                          },
+                                                          onDeleteAlias: { deletedAlias in
+                                                              if deletedAlias.id == createdAlias?.id {
+                                                                  createdAlias = nil
+                                                              }
+                                                              viewModel.remove(alias: deletedAlias)
+                                                          },
+                                                          onUpgrade: onUpgrade)
+                                       .ignoresSafeArea(.keyboard)
+                                       .onAppear {
+                                           if UIDevice.current.userInterfaceIdiom != .phone {
+                                               selectedLink = nil
+                                           }
+                                       }
+                               },
+                               label: {
+                                   EmptyView()
+                               })
 
-                NavigationLink(
-                    tag: Link.contacts,
-                    selection: $selectedLink,
-                    destination: {
-                        if let selectedAlias = selectedAlias {
-                            AliasContactsView(alias: selectedAlias,
-                                              session: viewModel.session,
-                                              onUpgrade: onUpgrade)
-                                .onAppear {
-                                    if UIDevice.current.userInterfaceIdiom != .phone {
-                                        selectedLink = nil
-                                    }
-                                }
-                        } else {
-                            EmptyView()
-                        }
-                    },
-                    label: {
-                        EmptyView()
-                    })
+                NavigationLink(tag: Link.contacts,
+                               selection: $selectedLink,
+                               destination: {
+                                   if let selectedAlias {
+                                       AliasContactsView(alias: selectedAlias,
+                                                         session: viewModel.session,
+                                                         onUpgrade: onUpgrade)
+                                           .onAppear {
+                                               if UIDevice.current.userInterfaceIdiom != .phone {
+                                                   selectedLink = nil
+                                               }
+                                           }
+                                   } else {
+                                       EmptyView()
+                                   }
+                               },
+                               label: {
+                                   EmptyView()
+                               })
 
                 ScrollViewReader { proxy in
                     List {
@@ -113,9 +110,9 @@ struct AliasesView: View {
                         }
 
                         if !viewModel.aliases.isEmpty {
-                            if let createdAlias = createdAlias {
+                            if let createdAlias {
                                 switch (createdAlias.enabled, viewModel.selectedStatus) {
-                                case (true, .all), (true, .active), (false, .inactive):
+                                case (false, .inactive), (true, .active), (true, .all):
                                     aliasCompactView(for: createdAlias)
                                 default:
                                     EmptyView()
@@ -149,7 +146,7 @@ struct AliasesView: View {
                     .refreshable { await viewModel.refresh() }
                     .animation(.default, value: viewModel.stats != nil)
                     .onReceive(Just(createdAlias)) { createdAlias in
-                        if let createdAlias = createdAlias {
+                        if let createdAlias {
                             if !viewModel.isHandled(createdAlias) {
                                 showingCreatedAliasAlert = true
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -162,7 +159,7 @@ struct AliasesView: View {
                         }
                     }
                     .onReceive(Just(viewModel.updatedAlias)) { updatedAlias in
-                        if let updatedAlias = updatedAlias, updatedAlias.id == createdAlias?.id {
+                        if let updatedAlias, updatedAlias.id == createdAlias?.id {
                             createdAlias = updatedAlias
                         }
                     }
@@ -192,18 +189,17 @@ struct AliasesView: View {
                     }
                 }
                 .sheet(isPresented: $showingSearchView) {
-                    SearchAliasesView(
-                        session: viewModel.session,
-                        onUpdateAlias: { updatedAlias in
-                            viewModel.update(alias: updatedAlias)
-                        },
-                        onDeleteAlias: { deletedAlias in
-                            if deletedAlias.id == createdAlias?.id {
-                                createdAlias = nil
-                            }
-                            viewModel.remove(alias: deletedAlias)
-                        },
-                        onUpgrade: onUpgrade)
+                    SearchAliasesView(session: viewModel.session,
+                                      onUpdateAlias: { updatedAlias in
+                                          viewModel.update(alias: updatedAlias)
+                                      },
+                                      onDeleteAlias: { deletedAlias in
+                                          if deletedAlias.id == createdAlias?.id {
+                                              createdAlias = nil
+                                          }
+                                          viewModel.remove(alias: deletedAlias)
+                                      },
+                                      onUpgrade: onUpgrade)
                 }
             }
 
@@ -214,7 +210,7 @@ struct AliasesView: View {
             showingUpdatingAlert = isUpdating
         }
         .alert(isPresented: $showingDeleteConfirmationAlert) {
-            guard let selectedAlias = selectedAlias else {
+            guard let selectedAlias else {
                 return Alert(title: Text("selectedAlias is nil"))
             }
 
@@ -233,43 +229,42 @@ struct AliasesView: View {
     @ViewBuilder
     private func aliasCompactView(for alias: Alias) -> some View {
         let hightlight = alias.id == createdAlias?.id
-        AliasCompactView(
-            alias: alias,
-            onCopy: {
-                Vibration.soft.vibrate()
-                copiedEmail = alias.email
-                UIPasteboard.general.string = alias.email
-            },
-            onSendMail: {
-                Vibration.soft.vibrate()
-                selectedAlias = alias
-                selectedLink = .contacts
-            },
-            onToggle: {
-                Vibration.soft.vibrate()
-                viewModel.toggle(alias: alias)
-            },
-            onPin: {
-                viewModel.update(alias: alias, option: .pinned(true))
-            },
-            onUnpin: {
-                viewModel.update(alias: alias, option: .pinned(false))
-            },
-            onDelete: {
-                Vibration.warning.vibrate(fallBackToOldSchool: true)
-                selectedAlias = alias
-                showingDeleteConfirmationAlert = true
-            })
-            .id(alias.id)
-            .background(hightlight ? Color.slPurple.opacity(0.1) : Color.clear)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-            .onAppear {
-                viewModel.getMoreAliasesIfNeed(currentAlias: alias)
-            }
-            .onTapGesture {
-                selectedAlias = alias
-                selectedLink = .details
-            }
+        AliasCompactView(alias: alias,
+                         onCopy: {
+                             Vibration.soft.vibrate()
+                             copiedEmail = alias.email
+                             UIPasteboard.general.string = alias.email
+                         },
+                         onSendMail: {
+                             Vibration.soft.vibrate()
+                             selectedAlias = alias
+                             selectedLink = .contacts
+                         },
+                         onToggle: {
+                             Vibration.soft.vibrate()
+                             viewModel.toggle(alias: alias)
+                         },
+                         onPin: {
+                             viewModel.update(alias: alias, option: .pinned(true))
+                         },
+                         onUnpin: {
+                             viewModel.update(alias: alias, option: .pinned(false))
+                         },
+                         onDelete: {
+                             Vibration.warning.vibrate(fallBackToOldSchool: true)
+                             selectedAlias = alias
+                             showingDeleteConfirmationAlert = true
+                         })
+                         .id(alias.id)
+                         .background(hightlight ? Color.slPurple.opacity(0.1) : Color.clear)
+                         .clipShape(RoundedRectangle(cornerRadius: 8))
+                         .onAppear {
+                             viewModel.getMoreAliasesIfNeed(currentAlias: alias)
+                         }
+                         .onTapGesture {
+                             selectedAlias = alias
+                             selectedLink = .details
+                         }
     }
 }
 
@@ -278,9 +273,9 @@ enum AliasStatus: CustomStringConvertible, CaseIterable {
 
     var description: String {
         switch self {
-        case .all: return "All"
-        case .active: return "Active"
-        case .inactive: return "Inactive"
+        case .all: "All"
+        case .active: "Active"
+        case .inactive: "Inactive"
         }
     }
 }

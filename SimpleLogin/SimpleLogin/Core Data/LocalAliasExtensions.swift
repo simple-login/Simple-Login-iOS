@@ -40,22 +40,22 @@ extension LocalAlias {
 
     private func update(from alias: Alias,
                         with managedContext: NSManagedObjectContext) throws {
-        self.blockCount = Int64(alias.blockCount)
-        self.creationTimestamp = alias.creationTimestamp
-        self.email = alias.email
-        self.enabled = alias.enabled
-        self.forwardCount = Int64(alias.forwardCount)
-        self.name = alias.name
-        self.note = alias.note
-        self.pgpDisabled = alias.pgpDisabled
-        self.pgpSupported = alias.pgpSupported
-        self.pinned = alias.pinned
-        self.replyCount = Int64(alias.replyCount)
-        self.mailboxes = try alias.mailboxes.toLocalMailboxLites(with: managedContext)
+        blockCount = Int64(alias.blockCount)
+        creationTimestamp = alias.creationTimestamp
+        email = alias.email
+        enabled = alias.enabled
+        forwardCount = Int64(alias.forwardCount)
+        name = alias.name
+        note = alias.note
+        pgpDisabled = alias.pgpDisabled
+        pgpSupported = alias.pgpSupported
+        pinned = alias.pinned
+        replyCount = Int64(alias.replyCount)
+        mailboxes = try alias.mailboxes.toLocalMailboxLites(with: managedContext)
     }
 }
 
-private extension Array where Element == MailboxLite {
+private extension [MailboxLite] {
     func toLocalMailboxLites(with managedContext: NSManagedObjectContext) throws -> NSSet {
         let localMailboxLites = NSMutableSet()
         for mailbox in self {

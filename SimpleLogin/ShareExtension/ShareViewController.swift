@@ -20,7 +20,7 @@ final class ShareViewController: UIViewController {
                 self.setUpUI()
             } catch {
                 alert(error: error) { [unowned self] in
-                    self.dismiss()
+                    dismiss()
                 }
             }
         }
@@ -42,17 +42,16 @@ final class ShareViewController: UIViewController {
 
     private func setSession(session: Session?) {
         let subView: UIView
-        if let session = session {
-            let createAliasView = CreateAliasView(
-                session: session,
-                mode: createAliasViewMode,
-                onCreateAlias: { [unowned self] alias in
-                    self.handleAliasCreation(alias: alias)
-                },
-                onCancel: { [unowned self] in
-                    self.dismiss()
-                },
-                onOpenMyAccount: nil)
+        if let session {
+            let createAliasView = CreateAliasView(session: session,
+                                                  mode: createAliasViewMode,
+                                                  onCreateAlias: { [unowned self] alias in
+                                                      handleAliasCreation(alias: alias)
+                                                  },
+                                                  onCancel: { [unowned self] in
+                                                      dismiss()
+                                                  },
+                                                  onOpenMyAccount: nil)
             let hostingController = UIHostingController(rootView: createAliasView)
             subView = hostingController.view
             addChild(hostingController)
@@ -114,12 +113,12 @@ final class ShareViewController: UIViewController {
                                       preferredStyle: .alert)
         let copyAndCloseAction = UIAlertAction(title: "Copy & close", style: .default) { [unowned self] _ in
             UIPasteboard.general.string = alias.email
-            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
         }
         alert.addAction(copyAndCloseAction)
 
         let closeAction = UIAlertAction(title: "Close", style: .cancel) { [unowned self] _ in
-            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
         }
         alert.addAction(closeAction)
         alert.view.tintColor = .slPurple
@@ -127,6 +126,6 @@ final class ShareViewController: UIViewController {
     }
 
     private func dismiss() {
-        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+        extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
     }
 }
