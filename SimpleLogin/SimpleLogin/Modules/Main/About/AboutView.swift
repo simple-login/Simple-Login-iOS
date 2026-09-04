@@ -86,7 +86,7 @@ struct AboutView: View {
             }
 
             Section(content: {
-                URLButton(urlString: "mailto:support@simplelogin.zendesk.com") {
+                URLButton(urlString: "mailto:simplelogin@support.proton.me") {
                     Label("Email us", systemImage: "envelope.fill")
                 }
             }, header: {

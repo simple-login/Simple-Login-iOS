@@ -212,7 +212,7 @@ private struct KeyboardFullAccessExplanationView: View {
                     // swiftlint:enable line_length
                     HStack {
                         Text("Need more information?")
-                        URLButton(urlString: "mailto:support@simplelogin.zendesk.com",
+                        URLButton(urlString: "mailto:simplelogin@support.proton.me",
                                   foregroundColor: .slPurple) {
                             Label("Email us", systemImage: "envelope.fill")
                         }
