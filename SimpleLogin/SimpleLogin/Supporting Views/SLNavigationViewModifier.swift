@@ -24,3 +24,23 @@ extension View {
         modifier(SLNavigationViewModifier())
     }
 }
+
+/// Segments work well at standard sizes; menus keep long options readable with Dynamic Type.
+private struct AdaptivePickerStyle: ViewModifier {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if dynamicTypeSize.isAccessibilitySize {
+            content.pickerStyle(.menu)
+        } else {
+            content.pickerStyle(.segmented)
+        }
+    }
+}
+
+extension View {
+    func adaptivePickerStyle() -> some View {
+        modifier(AdaptivePickerStyle())
+    }
+}

@@ -1,145 +1,80 @@
-//
-//  MainTabBar.swift
-//  SimpleLogin
-//
-//  Created by Nhon Nguyen on 03/04/2022.
-//
-
 import SwiftUI
-
-struct MainTabBar: View {
-    @Environment(\.colorScheme) private var colorScheme
-    @Binding var selectedItem: TabBarItem
-    let onSelectCreate: () -> Void
-
-    var body: some View {
-        HStack(spacing: 0) {
-            if UIDevice.current.userInterfaceIdiom != .phone {
-                Spacer()
-            }
-            tab(for: .aliases)
-            tab(for: .advanced)
-            createButton
-                .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 50 : 0)
-            tab(for: .settings)
-            tab(for: .myAccount)
-            if UIDevice.current.userInterfaceIdiom != .phone {
-                Spacer()
-            }
-        }
-    }
-
-    private func tab(for item: TabBarItem) -> some View {
-        Tab {
-            Image(systemName: selectedItem == item ? item.selectedImage : item.image)
-            Text(item.title)
-                .font(.caption)
-                .lineLimit(1)
-                .minimumScaleFactor(0.8)
-        }
-        .padding(.horizontal)
-        .contentShape(Rectangle())
-        .frame(maxWidth: UIDevice.current.userInterfaceIdiom != .phone ? 130 : .infinity)
-        .foregroundColor(selectedItem == item ? .slPurple : (colorScheme == .dark ? .white : .gray))
-        .onTapGesture {
-            selectedItem = item
-        }
-    }
-
-    @ViewBuilder
-    private var createButton: some View {
-        let foregroundColor: Color = colorScheme == .dark ? .white : .gray
-        Image(systemName: "plus")
-            .font(.largeTitle.weight(.thin))
-            .foregroundColor(foregroundColor)
-            .padding(4)
-            .clipShape(Circle())
-            .overlay(Circle().stroke(foregroundColor, lineWidth: 1))
-            .onTapGesture(perform: onSelectCreate)
-    }
-}
-
-// swiftlint:disable:next type_name
-struct Tab<Content: View>: View {
-    @ViewBuilder let content: () -> Content
-
-    var body: some View {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            VStack {
-                content()
-            }
-        } else {
-            HStack {
-                content()
-            }
-        }
-    }
-}
 
 enum TabBarItem {
     case aliases, advanced, myAccount, settings
-
-    var title: String {
-        switch self {
-        case .aliases:
-            "Aliases"
-        case .advanced:
-            "Advanced"
-        case .myAccount:
-            "My account"
-        case .settings:
-            "Settings"
-        }
-    }
-
-    var image: String {
-        switch self {
-        case .aliases:
-            "at"
-        case .advanced:
-            "circle.grid.cross"
-        case .myAccount:
-            "person"
-        case .settings:
-            "gear.circle"
-        }
-    }
-
-    var selectedImage: String {
-        switch self {
-        case .aliases:
-            "at"
-        case .advanced:
-            "circle.grid.cross.fill"
-        case .myAccount:
-            "person.fill"
-        case .settings:
-            "gear.circle.fill"
-        }
-    }
 }
 
-struct DummyMainView: View {
-    @State private var selectedItem = TabBarItem.aliases
+#if DEBUG
+import SimpleLoginPackage
+
+/// Offline visual checks using sample data only. Launch with --layout-preview.
+struct LayoutValidationView: View {
+    @State private var status = AliasStatus.all
+    @State private var selectedTab = TabBarItem.aliases
+    @State private var message = ""
+    @State private var showingMessage = false
+
+    private var stats: Stats? {
+        let json = "{\"nb_alias\":9,\"nb_forward\":132,\"nb_reply\":2,\"nb_block\":0}"
+        return try? JSONDecoder().decode(Stats.self, from: Data(json.utf8))
+    }
 
     var body: some View {
-        VStack {
-            ZStack {
-                Text("Hello world")
+        TabView(selection: $selectedTab) {
+            NavigationView {
+                List {
+                    Section {
+                        AliasStatusPicker(selection: $status)
+                            .listRowBackground(Color.clear)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    }
+                    if let stats {
+                        Section {
+                            StatsView(stats: stats)
+                                .listRowBackground(Color.clear)
+                                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        }
+                    }
+                    Section {
+                        ForEach([Alias.ccohen, .claypool, .sample], id: \.id) { alias in
+                            AliasCompactView(alias: alias,
+                                             onCopy: { report("Copy") },
+                                             onSendMail: { report("Contacts") },
+                                             onToggle: { report("Toggle") },
+                                             onPin: {}, onUnpin: {}, onDelete: {})
+                        }
+                    }
+                }
+                .listStyle(.insetGrouped)
+                .navigationTitle("Aliases")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button { report("Search") } label: {
+                            Label("Search aliases", systemImage: "magnifyingglass")
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button { report("Create") } label: {
+                            Label("Create alias", systemImage: "plus")
+                        }
+                    }
+                }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            MainTabBar(selectedItem: $selectedItem) {}
+            .tabItem { Label("Aliases", systemImage: "at") }.tag(TabBarItem.aliases)
+            NavigationView { Text("Offline layout preview").navigationTitle("Advanced") }
+                .tabItem { Label("Advanced", systemImage: "square.grid.2x2") }.tag(TabBarItem.advanced)
+            NavigationView { Text("Offline layout preview").navigationTitle("Account") }
+                .tabItem { Label("Account", systemImage: "person.crop.circle") }.tag(TabBarItem.myAccount)
+            SettingsView()
+                .tabItem { Label("Settings", systemImage: "gearshape") }.tag(TabBarItem.settings)
         }
+        .tint(.slPurple)
+        .alert(message, isPresented: $showingMessage) { Button("OK", role: .cancel) {} }
+    }
+
+    private func report(_ action: String) {
+        message = action
+        showingMessage = true
     }
 }
-
-struct DummyMainView_Previews: PreviewProvider {
-    static var previews: some View {
-        DummyMainView()
-            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
-
-        DummyMainView()
-            .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (5th generation) (15.2)"))
-            .preferredColorScheme(.dark)
-    }
-}
+#endif

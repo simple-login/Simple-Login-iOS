@@ -23,40 +23,42 @@ import SimpleLoginPackage
 import SwiftUI
 
 struct StatsView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     let stats: Stats
 
     var body: some View {
-        VStack {
-            HStack {
-                cell(title: "Aliases", description: "All time", count: stats.aliasCount)
-                cell(title: "Forwarded", description: "Last 14 days", count: stats.forwardCount)
-            }
-
-            HStack {
-                cell(title: "Replies/send", description: "Last 14 days", count: stats.replyCount)
-                cell(title: "Blocked", description: "Last 14 days", count: stats.blockCount)
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(spacing: 12) { cells }
+            } else {
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+                    cells
+                }
             }
         }
+        .id(dynamicTypeSize)
     }
-}
 
-private extension StatsView {
-    func cell(title: String, description: String, count: Int) -> some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text(title)
-                    .font(.footnote.weight(.medium))
-                Spacer()
-                Text(description)
-                    .font(.caption)
-                    .foregroundStyle(Color.secondary)
-            }
-            Text("\(count)")
+    @ViewBuilder private var cells: some View {
+        cell(title: "Aliases", description: "All time", count: stats.aliasCount)
+        cell(title: "Forwarded", description: "Last 14 days", count: stats.forwardCount)
+        cell(title: "Replies sent", description: "Last 14 days", count: stats.replyCount)
+        cell(title: "Blocked", description: "Last 14 days", count: stats.blockCount)
+    }
+
+    private func cell(title: String, description: String, count: Int) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title).font(.subheadline.weight(.medium))
+            Text(count, format: .number)
                 .font(.title2.bold())
+                .monospacedDigit()
+            Text(description).font(.caption).foregroundStyle(.secondary)
         }
+        .fixedSize(horizontal: false, vertical: true)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(10)
-        .background(Color.secondary.opacity(0.1))
-        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .padding(16)
+        .background(Color(uiColor: .secondarySystemGroupedBackground),
+                    in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .accessibilityElement(children: .combine)
     }
 }

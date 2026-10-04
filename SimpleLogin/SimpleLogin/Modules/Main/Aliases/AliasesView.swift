@@ -22,6 +22,7 @@ struct AliasesView: View {
     @State private var aliasToShowDetails: Alias?
     @State private var selectedLink: Link?
     private let onUpgrade: () -> Void
+    private let onCreate: () -> Void
 
     enum Modal {
         case search, create
@@ -35,12 +36,14 @@ struct AliasesView: View {
          reachabilityObserver: ReachabilityObserver,
          managedObjectContext: NSManagedObjectContext,
          createdAlias: Binding<Alias?>,
-         onUpgrade: @escaping () -> Void) {
+         onUpgrade: @escaping () -> Void,
+         onCreate: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: .init(session: session,
                                                      reachabilityObserver: reachabilityObserver,
                                                      managedObjectContext: managedObjectContext))
         _createdAlias = createdAlias
         self.onUpgrade = onUpgrade
+        self.onCreate = onCreate
     }
 
     var body: some View {
@@ -105,44 +108,55 @@ struct AliasesView: View {
 
                 ScrollViewReader { proxy in
                     List {
+                        Section {
+                            AliasStatusPicker(selection: $viewModel.selectedStatus)
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         if let stats = viewModel.stats {
-                            StatsView(stats: stats)
+                            Section {
+                                StatsView(stats: stats)
+                                    .listRowBackground(Color.clear)
+                                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                            }
                         }
 
-                        if !viewModel.aliases.isEmpty {
-                            if let createdAlias {
-                                switch (createdAlias.enabled, viewModel.selectedStatus) {
-                                case (false, .inactive), (true, .active), (true, .all):
-                                    aliasCompactView(for: createdAlias)
-                                default:
-                                    EmptyView()
+                        Section {
+                            if !viewModel.aliases.isEmpty {
+                                if let createdAlias {
+                                    switch (createdAlias.enabled, viewModel.selectedStatus) {
+                                    case (false, .inactive), (true, .active), (true, .all):
+                                        aliasCompactView(for: createdAlias)
+                                    default:
+                                        EmptyView()
+                                    }
                                 }
-                            }
 
-                            ForEach(viewModel.aliases, id: \.id) { alias in
-                                if alias.id == createdAlias?.id {
-                                    EmptyView()
-                                } else {
-                                    // swiftlint:disable:next todo
-                                    // TODO: Workaround a SwiftUI bug
-                                    // that doesn't update AliasCompactView's context menu
-                                    // https://stackoverflow.com/a/70159934
-                                    if alias.pinned {
-                                        aliasCompactView(for: alias)
+                                ForEach(viewModel.aliases, id: \.id) { alias in
+                                    if alias.id == createdAlias?.id {
+                                        EmptyView()
                                     } else {
-                                        aliasCompactView(for: alias)
+                                        // swiftlint:disable:next todo
+                                        // TODO: Workaround a SwiftUI bug
+                                        // that doesn't update AliasCompactView's context menu
+                                        // https://stackoverflow.com/a/70159934
+                                        if alias.pinned {
+                                            aliasCompactView(for: alias)
+                                        } else {
+                                            aliasCompactView(for: alias)
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        if viewModel.isLoading {
-                            ProgressView()
-                                .frame(maxWidth: .infinity)
-                                .padding()
+                            if viewModel.isLoading {
+                                ProgressView()
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                            }
                         }
                     }
-                    .listStyle(.plain)
+                    .listStyle(.insetGrouped)
                     .refreshable { await viewModel.refresh() }
                     .animation(.default, value: viewModel.stats != nil)
                     .onReceive(Just(createdAlias)) { createdAlias in
@@ -165,27 +179,22 @@ struct AliasesView: View {
                     }
                 }
                 .ignoresSafeArea(.keyboard)
-                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Aliases")
+                .navigationBarTitleDisplayMode(.large)
                 .offlineLabelled(reachable: viewModel.reachabilityObserver.reachable)
                 .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        Picker("", selection: $viewModel.selectedStatus) {
-                            ForEach(AliasStatus.allCases, id: \.self) { status in
-                                Text(status.description)
-                                    .tag(status)
-                            }
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .labelsHidden()
-                    }
-
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
                             Vibration.light.vibrate()
                             showingSearchView = true
                         }, label: {
-                            Image(systemName: "magnifyingglass")
+                            Label("Search aliases", systemImage: "magnifyingglass")
                         })
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: onCreate) {
+                            Label("Create alias", systemImage: "plus")
+                        }
                     }
                 }
                 .sheet(isPresented: $showingSearchView) {
@@ -277,5 +286,19 @@ enum AliasStatus: CustomStringConvertible, CaseIterable {
         case .active: "Active"
         case .inactive: "Inactive"
         }
+    }
+}
+
+/// Keep filtering in the content layer, outside the navigation bar's glass controls.
+struct AliasStatusPicker: View {
+    @Binding var selection: AliasStatus
+
+    var body: some View {
+        Picker("Alias status", selection: $selection) {
+            ForEach(AliasStatus.allCases, id: \.self) { status in
+                Text(status.description).tag(status)
+            }
+        }
+        .adaptivePickerStyle()
     }
 }

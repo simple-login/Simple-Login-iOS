@@ -38,9 +38,9 @@ struct AliasCompactView: View {
             if displayMode != .compact {
                 if let activity = alias.latestActivity {
                     Label(title: {
-                        HStack {
+                        VStack(alignment: .leading, spacing: 2) {
                             Text(activity.contact.email)
-                            Text("(\(activity.relativeDateString))")
+                            Text(activity.relativeDateString)
                         }
                         .foregroundColor(.secondary)
                     }, icon: {
@@ -71,7 +71,7 @@ struct AliasCompactView: View {
 
             if !alias.noActivities, displayMode == .default {
                 ActivitiesView(alias: alias)
-                    .padding(.leading)
+
             }
 
             if let note = alias.note, !note.isEmpty {
@@ -93,7 +93,6 @@ struct AliasCompactView: View {
                         onToggle: onToggle)
         }
         .padding(8)
-        .opacity(alias.enabled ? 1 : 0.5)
         .fixedSize(horizontal: false, vertical: true)
         .contentShape(Rectangle())
         .fullScreenCover(isPresented: $showingAliasEmailFullScreen) {
@@ -135,78 +134,71 @@ struct AliasCompactView: View {
 }
 
 private struct ActivitiesView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     let alias: Alias
 
     var body: some View {
-        HStack(spacing: 12) {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible()),
+                                 count: dynamicTypeSize.isAccessibilitySize ? 1 : 3), spacing: 8) {
             section(action: .forward, count: alias.forwardCount)
-            Divider()
             section(action: .reply, count: alias.replyCount)
-            Divider()
             section(action: .block, count: alias.blockCount)
-            Spacer()
         }
-        .fixedSize(horizontal: false, vertical: true)
     }
 
     private func section(action: ActivityAction, count: Int) -> some View {
-        VStack {
-            Text(action.title)
-                .fontWeight(.semibold)
-                .font(.caption2)
-                .foregroundColor(action.color)
-
-            Text("\(count)")
-                .font(.headline)
-                .fontWeight(.bold)
-                // swiftlint:disable:next empty_count
-                .opacity(count == 0 ? 0.5 : 1)
-
-            Spacer()
+        VStack(alignment: .leading, spacing: 4) {
+            Text(action.title).font(.caption).foregroundStyle(.secondary)
+            Text(count, format: .number).font(.subheadline.weight(.semibold)).monospacedDigit()
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(8)
+        .background(Color(uiColor: .tertiarySystemGroupedBackground),
+                    in: RoundedRectangle(cornerRadius: 8))
+        .accessibilityElement(children: .combine)
     }
 }
 
 private struct ActionsView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     let alias: Alias
     let onCopy: () -> Void
     let onSendMail: () -> Void
     let onToggle: () -> Void
 
     var body: some View {
-        HStack {
-            Button {
-                onCopy()
-            } label: {
-                Label.copy
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(alignment: .leading, spacing: 4) { buttons }
+            } else {
+                HStack(spacing: 8) { buttons }
             }
-            .buttonStyle(.plain)
-
-            Spacer()
-
-            Button {
-                onSendMail()
-            } label: {
-                Label.contacts
-            }
-            .buttonStyle(.plain)
-
-            Spacer()
-
-            Button {
-                onToggle()
-            } label: {
-                Label("Active", systemImage: alias.enabled ? "checkmark.circle.fill" : "circle.dashed")
-                    .foregroundColor(alias.enabled ? .accentColor : Color(.darkGray))
-            }
-            .buttonStyle(.plain)
-
-            Spacer()
         }
         .font(.subheadline)
-        .foregroundColor(.accentColor)
-        .lineLimit(1)
-        .minimumScaleFactor(0.8)
+        .buttonStyle(.borderless)
+        .tint(.slPurple)
+    }
+
+    @ViewBuilder
+    private var buttons: some View {
+        Button(action: onCopy) {
+            Label("Copy", systemImage: "doc.on.doc")
+                .frame(maxWidth: .infinity, minHeight: 44)
+                .contentShape(Rectangle())
+        }
+        .accessibilityLabel("Copy alias email")
+        Button(action: onSendMail) {
+            Label("Contacts", systemImage: "paperplane")
+                .frame(maxWidth: .infinity, minHeight: 44)
+                .contentShape(Rectangle())
+        }
+        Button(action: onToggle) {
+            Image(systemName: alias.enabled ? "checkmark.circle.fill" : "pause.circle")
+                .frame(minWidth: 44, minHeight: 44)
+                .contentShape(Rectangle())
+        }
+        .accessibilityLabel(alias.enabled ? "Deactivate alias" : "Activate alias")
+        .accessibilityValue(alias.enabled ? "Active" : "Inactive")
     }
 }
 

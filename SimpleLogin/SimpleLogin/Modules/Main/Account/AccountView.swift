@@ -281,7 +281,7 @@ private struct AliasesSection: View {
                             .tag(mode)
                     }
                 }
-                .pickerStyle(SegmentedPickerStyle())
+                .adaptivePickerStyle()
                 .disabled(viewModel.isLoading)
 
                 Text("Ex: \(viewModel.randomMode.example)")
@@ -317,7 +317,7 @@ private struct AliasesSection: View {
                             .tag(mode)
                     }
                 }
-                .pickerStyle(SegmentedPickerStyle())
+                .adaptivePickerStyle()
                 .disabled(viewModel.isLoading)
 
                 Text("Ex: \(viewModel.randomAliasSuffix.example)")

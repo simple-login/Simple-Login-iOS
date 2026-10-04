@@ -11,7 +11,6 @@ import SwiftUI
 
 @main
 struct SimpleLoginApp: App {
-    @Environment(\.scenePhase) private var scenePhase
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @AppStorage(kBiometricAuthEnabled) var biometricAuthEnabled = false
     @AppStorage(kUltraProtectionEnabled) var ultraProtectionEnabled = false
@@ -34,49 +33,59 @@ struct SimpleLoginApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if let apiKey, let apiService {
-                MainView {
-                    try? KeychainService.shared.setApiKey(nil)
-                    try? DataController(context: persistentContainer.viewContext).reset()
-                    self.apiKey = nil
-                    self.apiService = nil
-                    biometricAuthEnabled = false
-                    ultraProtectionEnabled = false
-                    forceDarkMode = false
-                    displayMode = .default
-                    didShowTips = false
-                    if let cookies = HTTPCookieStorage.shared.cookies {
-                        for cookie in cookies {
-                            HTTPCookieStorage.shared.deleteCookie(cookie)
-                        }
-                    }
+            Group {
+#if DEBUG
+                if ProcessInfo.processInfo.arguments.contains("--layout-preview") {
+                    LayoutValidationView()
+                } else {
+                    appContent
                 }
-                .accentColor(.slPurple)
-                .environment(\.managedObjectContext, persistentContainer.viewContext)
-                .environmentObject(preferences)
-                .environmentObject(Session(apiKey: apiKey, apiService: apiService))
-                .environmentObject(reachabilityObserver)
-                .sensitiveContent {
-                    ZStack {
-                        Color(.systemBackground)
-                        Image("LogoWithName")
-                    }
-                    .ignoresSafeArea()
-                }
-            } else {
-                LogInView(apiUrl: preferences.apiUrl) { apiKey, apiService in
-                    try? KeychainService.shared.setApiKey(apiKey)
-                    self.apiKey = apiKey
-                    self.apiService = apiService
-                }
-                .accentColor(.slPurple)
-                .environmentObject(preferences)
+#else
+                appContent
+#endif
             }
+            .preferredColorScheme(forceDarkMode ? .dark : nil)
         }
-        .onChange(of: scenePhase) { _ in
-            if forceDarkMode {
-                UIApplication.shared.windows.first?.overrideUserInterfaceStyle = .dark
+    }
+
+    @ViewBuilder private var appContent: some View {
+        if let apiKey, let apiService {
+            MainView {
+                try? KeychainService.shared.setApiKey(nil)
+                try? DataController(context: persistentContainer.viewContext).reset()
+                self.apiKey = nil
+                self.apiService = nil
+                biometricAuthEnabled = false
+                ultraProtectionEnabled = false
+                forceDarkMode = false
+                displayMode = .default
+                didShowTips = false
+                if let cookies = HTTPCookieStorage.shared.cookies {
+                    for cookie in cookies {
+                        HTTPCookieStorage.shared.deleteCookie(cookie)
+                    }
+                }
             }
+            .accentColor(.slPurple)
+            .environment(\.managedObjectContext, persistentContainer.viewContext)
+            .environmentObject(preferences)
+            .environmentObject(Session(apiKey: apiKey, apiService: apiService))
+            .environmentObject(reachabilityObserver)
+            .sensitiveContent {
+                ZStack {
+                    Color(.systemBackground)
+                    Image("LogoWithName")
+                }
+                .ignoresSafeArea()
+            }
+        } else {
+            LogInView(apiUrl: preferences.apiUrl) { apiKey, apiService in
+                try? KeychainService.shared.setApiKey(apiKey)
+                self.apiKey = apiKey
+                self.apiService = apiService
+            }
+            .accentColor(.slPurple)
+            .environmentObject(preferences)
         }
     }
 }

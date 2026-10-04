@@ -52,29 +52,29 @@ struct MainView: View {
                         reachabilityObserver: reachabilityObserver,
                         managedObjectContext: managedObjectContext,
                         createdAlias: $createdAlias,
-                        onUpgrade: beginUpgradeFlow)
+                        onUpgrade: beginUpgradeFlow,
+                        onCreate: {
+                            Vibration.light.vibrate()
+                            selectedSheet = .createAlias
+                        })
+                .tabItem { Label("Aliases", systemImage: "at") }
                 .tag(TabBarItem.aliases)
 
             AdvancedView()
+                .tabItem { Label("Advanced", systemImage: "square.grid.2x2") }
                 .tag(TabBarItem.advanced)
 
             AccountView(session: session,
                         upgradeNeeded: $upgradeNeeded,
                         onLogOut: onLogOut)
+                .tabItem { Label("Account", systemImage: "person.crop.circle") }
                 .tag(TabBarItem.myAccount)
 
             SettingsView()
+                .tabItem { Label("Settings", systemImage: "gearshape") }
                 .tag(TabBarItem.settings)
         }
         .ignoresSafeArea(.keyboard)
-        .safeAreaInset(edge: .bottom) {
-            MainTabBar(selectedItem: $selectedItem) {
-                Vibration.light.vibrate()
-                selectedSheet = .createAlias
-            }
-            // Non-transparent but very pale color to prevent underlying tabs from being tapped
-            .background(Color.white.opacity(0.01))
-        }
         .emptyPlaceholder(isEmpty: !viewModel.canShowDetails, useZStack: true) {
             ZStack {
                 Color(.systemBackground)

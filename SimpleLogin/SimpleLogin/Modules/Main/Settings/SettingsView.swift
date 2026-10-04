@@ -92,16 +92,8 @@ private struct LocalSettingsSection: View {
             Toggle("Haptic feedback", isOn: $hapticEffectEnabled)
                 .toggleStyle(SwitchToggleStyle(tint: .slPurple))
 
-            VStack {
-                Toggle("Force dark mode", isOn: $forceDarkMode)
-                    .toggleStyle(SwitchToggleStyle(tint: .slPurple))
-
-                Text("You need to restart the application for this option to take effect")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
+            Toggle("Force dark mode", isOn: $forceDarkMode)
+                .toggleStyle(SwitchToggleStyle(tint: .slPurple))
         }
     }
 }
@@ -120,7 +112,7 @@ private struct AliasDisplayModeSection: View {
                             .tag(mode)
                     }
                 }
-                .pickerStyle(SegmentedPickerStyle())
+                .adaptivePickerStyle()
 
                 if showingSampleData {
                     AliasCompactView(alias: Alias.sample,
@@ -156,7 +148,7 @@ private struct KeyboardExtensionSection: View {
                         .tag(mode)
                 }
             }
-            .pickerStyle(SegmentedPickerStyle())
+            .adaptivePickerStyle()
             .sheet(isPresented: $showingExplanation) {
                 KeyboardFullAccessExplanationView()
             }
