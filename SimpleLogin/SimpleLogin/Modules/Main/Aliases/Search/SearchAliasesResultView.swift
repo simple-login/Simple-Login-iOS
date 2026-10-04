@@ -37,34 +37,38 @@ struct SearchAliasesResultView: View {
                     .padding()
             } else {
                 ForEach(viewModel.aliases, id: \.id) { alias in
-                    AliasCompactView(alias: alias,
-                                     onCopy: {
-                                         Vibration.soft.vibrate()
-                                         copiedEmail = alias.email
-                                         UIPasteboard.general.string = alias.email
-                                     },
-                                     onSendMail: {
-                                         onSendMail(alias)
-                                     },
-                                     onToggle: {
-                                         viewModel.toggle(alias: alias)
-                                     },
-                                     onPin: {
-                                         viewModel.update(alias: alias, option: .pinned(true))
-                                     },
-                                     onUnpin: {
-                                         viewModel.update(alias: alias, option: .pinned(false))
-                                     },
-                                     onDelete: {
-                                         viewModel.delete(alias: alias)
-                                     })
-                                     .padding(.horizontal, 4)
-                                     .onTapGesture {
-                                         onSelect(alias)
-                                     }
-                                     .onAppear {
-                                         viewModel.getMoreAliasesIfNeed(currentAlias: alias)
-                                     }
+                    Section {
+                        AliasCompactView(alias: alias,
+                                         onCopy: {
+                                             Vibration.soft.vibrate()
+                                             copiedEmail = alias.email
+                                             UIPasteboard.general.string = alias.email
+                                         },
+                                         onSendMail: {
+                                             onSendMail(alias)
+                                         },
+                                         onToggle: {
+                                             viewModel.toggle(alias: alias)
+                                         },
+                                         onPin: {
+                                             viewModel.update(alias: alias, option: .pinned(true))
+                                         },
+                                         onUnpin: {
+                                             viewModel.update(alias: alias, option: .pinned(false))
+                                         },
+                                         onDelete: {
+                                             viewModel.delete(alias: alias)
+                                         })
+                                         .padding(.horizontal, 4)
+                                         .onTapGesture {
+                                             onSelect(alias)
+                                         }
+                                         .onAppear {
+                                             viewModel.getMoreAliasesIfNeed(currentAlias: alias)
+                                         }
+                    }
+                    .listRowSeparator(.hidden)
+                    .listSectionSeparator(.hidden)
                 }
 
                 if viewModel.isLoading {
@@ -74,7 +78,7 @@ struct SearchAliasesResultView: View {
                 }
             }
         }
-        .listStyle(.plain)
+        .listStyle(.insetGrouped)
         .offlineLabelled(reachable: viewModel.reachabilityObserver.reachable)
         .simultaneousGesture(DragGesture().onChanged { _ in
             UIApplication.shared.endEditing()

@@ -121,39 +121,49 @@ struct AliasesView: View {
                             }
                         }
 
-                        Section {
-                            if !viewModel.aliases.isEmpty {
-                                if let createdAlias {
-                                    switch (createdAlias.enabled, viewModel.selectedStatus) {
-                                    case (false, .inactive), (true, .active), (true, .all):
+                        if !viewModel.aliases.isEmpty {
+                            if let createdAlias {
+                                switch (createdAlias.enabled, viewModel.selectedStatus) {
+                                case (false, .inactive), (true, .active), (true, .all):
+                                    Section {
                                         aliasCompactView(for: createdAlias)
-                                    default:
-                                        EmptyView()
                                     }
+                                    .listRowSeparator(.hidden)
+                                    .listSectionSeparator(.hidden)
+                                default:
+                                    EmptyView()
                                 }
+                            }
 
-                                ForEach(viewModel.aliases, id: \.id) { alias in
-                                    if alias.id == createdAlias?.id {
-                                        EmptyView()
-                                    } else {
-                                        // swiftlint:disable:next todo
-                                        // TODO: Workaround a SwiftUI bug
-                                        // that doesn't update AliasCompactView's context menu
-                                        // https://stackoverflow.com/a/70159934
-                                        if alias.pinned {
-                                            aliasCompactView(for: alias)
-                                        } else {
+                            ForEach(viewModel.aliases, id: \.id) { alias in
+                                if alias.id == createdAlias?.id {
+                                    EmptyView()
+                                } else {
+                                    // swiftlint:disable:next todo
+                                    // TODO: Workaround a SwiftUI bug
+                                    // that doesn't update AliasCompactView's context menu
+                                    // https://stackoverflow.com/a/70159934
+                                    if alias.pinned {
+                                        Section {
                                             aliasCompactView(for: alias)
                                         }
+                                        .listRowSeparator(.hidden)
+                                        .listSectionSeparator(.hidden)
+                                    } else {
+                                        Section {
+                                            aliasCompactView(for: alias)
+                                        }
+                                        .listRowSeparator(.hidden)
+                                        .listSectionSeparator(.hidden)
                                     }
                                 }
                             }
+                        }
 
-                            if viewModel.isLoading {
-                                ProgressView()
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                            }
+                        if viewModel.isLoading {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                                .padding()
                         }
                     }
                     .listStyle(.insetGrouped)

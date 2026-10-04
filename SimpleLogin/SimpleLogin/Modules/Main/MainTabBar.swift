@@ -35,14 +35,16 @@ struct LayoutValidationView: View {
                                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         }
                     }
-                    Section {
-                        ForEach([Alias.ccohen, .claypool, .sample], id: \.id) { alias in
+                    ForEach([Alias.ccohen, .claypool, .sample], id: \.id) { alias in
+                        Section {
                             AliasCompactView(alias: alias,
                                              onCopy: { report("Copy") },
                                              onSendMail: { report("Contacts") },
                                              onToggle: { report("Toggle") },
                                              onPin: {}, onUnpin: {}, onDelete: {})
                         }
+                        .listRowSeparator(.hidden)
+                        .listSectionSeparator(.hidden)
                     }
                 }
                 .listStyle(.insetGrouped)
